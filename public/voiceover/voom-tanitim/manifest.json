@@ -2,530 +2,530 @@
   "scenes": [
     {
       "voice": "Salona gidiyorsun ama ne yapacağını bilmiyorsun. Tanıdık geldi mi?",
-      "voiceId": "edge:tr-TR-AhmetNeural",
-      "file": "voiceover/voom-tanitim/1-1a139d8b675.mp3",
-      "durationInSeconds": 6.072,
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/1-mv8ibrrq.mp3",
+      "durationInSeconds": 3.901,
       "words": [
         {
           "word": "Salona",
-          "start": 0.097625,
-          "end": 0.669041
+          "start": 0,
+          "end": 0.406
         },
         {
           "word": "gidiyorsun",
-          "start": 0.669041,
-          "end": 1.288082
+          "start": 0.453,
+          "end": 0.94
         },
         {
           "word": "ama",
-          "start": 1.347625,
-          "end": 1.561916
+          "start": 0.975,
+          "end": 1.126
         },
         {
           "word": "ne",
-          "start": 1.561916,
-          "end": 1.716666
+          "start": 1.173,
+          "end": 1.254
         },
         {
           "word": "yapacağını",
-          "start": 1.716666,
-          "end": 2.2285820000000003
+          "start": 1.289,
+          "end": 1.73
         },
         {
           "word": "bilmiyorsun.",
-          "start": 2.228583,
-          "end": 2.978583
+          "start": 1.776,
+          "end": 2.415
         },
         {
           "word": "Tanıdık",
-          "start": 4.059541,
-          "end": 4.499999000000001
+          "start": 2.589,
+          "end": 3.007
         },
         {
           "word": "geldi",
-          "start": 4.511916,
-          "end": 4.857124000000001
+          "start": 3.065,
+          "end": 3.355
         },
         {
           "word": "mi?",
-          "start": 4.857125,
-          "end": 5.011875
+          "start": 3.402,
+          "end": 3.901
         }
       ]
     },
     {
       "voice": "VOOM, her gün sana o günün antrenmanını hazır veriyor.",
-      "voiceId": "edge:tr-TR-AhmetNeural",
-      "file": "voiceover/voom-tanitim/2-1a139d8b675.mp3",
-      "durationInSeconds": 4.272,
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/2-mv8ibssd.mp3",
+      "durationInSeconds": 3.39,
       "words": [
         {
           "word": "VOOM,",
-          "start": 0.097625,
-          "end": 0.39525
+          "start": 0,
+          "end": 0.488
         },
         {
           "word": "her",
-          "start": 0.621416,
-          "end": 0.859499
+          "start": 0.604,
+          "end": 0.755
         },
         {
           "word": "gün",
-          "start": 0.859541,
-          "end": 1.038082
+          "start": 0.824,
+          "end": 0.975
         },
         {
           "word": "sana",
-          "start": 1.038083,
-          "end": 1.3357080000000001
+          "start": 1.033,
+          "end": 1.242
         },
         {
           "word": "o",
-          "start": 1.347625,
-          "end": 1.490458
+          "start": 1.312,
+          "end": 1.358
         },
         {
           "word": "günün",
-          "start": 1.490458,
-          "end": 1.788083
+          "start": 1.416,
+          "end": 1.637
         },
         {
           "word": "antrenmanını",
-          "start": 1.788083,
-          "end": 2.466666
+          "start": 1.695,
+          "end": 2.299
         },
         {
           "word": "hazır",
-          "start": 2.466666,
-          "end": 2.764291
+          "start": 2.357,
+          "end": 2.612
         },
         {
           "word": "veriyor.",
-          "start": 2.764291,
-          "end": 3.145249
+          "start": 2.659,
+          "end": 3.39
         }
       ]
     },
     {
       "voice": "Hedefine ve haftana göre altı haftalık bir plan kuruyor. Üstelik her kararın nedenini açıklıyor.",
-      "voiceId": "edge:tr-TR-AhmetNeural",
-      "file": "voiceover/voom-tanitim/3-1a139d8b675.mp3",
-      "durationInSeconds": 7.776,
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/3-mv8ibu0d.mp3",
+      "durationInSeconds": 5.851,
       "words": [
         {
           "word": "Hedefine",
-          "start": 0.097625,
-          "end": 0.7166659999999999
+          "start": 0,
+          "end": 0.499
         },
         {
           "word": "ve",
-          "start": 0.716666,
-          "end": 0.835707
+          "start": 0.534,
+          "end": 0.615
         },
         {
           "word": "haftana",
-          "start": 0.835708,
-          "end": 1.276166
+          "start": 0.662,
+          "end": 1.045
         },
         {
           "word": "göre",
-          "start": 1.276208,
-          "end": 1.5499990000000001
+          "start": 1.091,
+          "end": 1.324
         },
         {
           "word": "altı",
-          "start": 1.64525,
-          "end": 1.9309580000000002
+          "start": 1.382,
+          "end": 1.637
         },
         {
           "word": "haftalık",
-          "start": 1.930958,
-          "end": 2.3476239999999997
+          "start": 1.683,
+          "end": 2.078
         },
         {
           "word": "bir",
-          "start": 2.347625,
-          "end": 2.538083
+          "start": 2.125,
+          "end": 2.241
         },
         {
           "word": "plan",
-          "start": 2.55,
-          "end": 2.8595409999999997
+          "start": 2.287,
+          "end": 2.531
         },
         {
           "word": "kuruyor.",
-          "start": 2.859541,
-          "end": 3.2404990000000002
+          "start": 2.589,
+          "end": 3.123
         },
         {
           "word": "Üstelik",
-          "start": 4.357125,
-          "end": 5.011875
+          "start": 3.367,
+          "end": 3.785
         },
         {
           "word": "her",
-          "start": 5.011916,
-          "end": 5.249999
+          "start": 3.855,
+          "end": 3.971
         },
         {
           "word": "kararın",
-          "start": 5.25,
-          "end": 5.690458
+          "start": 4.04,
+          "end": 4.423
         },
         {
           "word": "nedenini",
-          "start": 5.690458,
-          "end": 6.0952079999999995
+          "start": 4.47,
+          "end": 4.876
         },
         {
           "word": "açıklıyor.",
-          "start": 6.09525,
-          "end": 6.642875
+          "start": 4.923,
+          "end": 5.851
         }
       ]
     },
     {
       "voice": "Beslenmen de planın bir parçası. Antrenman gününde ve dinlenme gününde farklı kalori hedefleri.",
-      "voiceId": "edge:tr-TR-AhmetNeural",
-      "file": "voiceover/voom-tanitim/4-1a139d8b675.mp3",
-      "durationInSeconds": 7.824,
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/4-mv8ibv0g.mp3",
+      "durationInSeconds": 6.037,
       "words": [
         {
           "word": "Beslenmen",
-          "start": 0.097625,
-          "end": 1.014291
+          "start": 0,
+          "end": 0.604
         },
         {
           "word": "de",
-          "start": 1.026208,
-          "end": 1.109541
+          "start": 0.662,
+          "end": 0.731
         },
         {
           "word": "planın",
-          "start": 1.133333,
-          "end": 1.478583
+          "start": 0.778,
+          "end": 1.091
         },
         {
           "word": "bir",
-          "start": 1.478583,
-          "end": 1.645249
+          "start": 1.138,
+          "end": 1.265
         },
         {
           "word": "parçası.",
-          "start": 1.64525,
-          "end": 2.2405
+          "start": 1.312,
+          "end": 2.009
         },
         {
           "word": "Antrenman",
-          "start": 3.34525,
-          "end": 4.142875
+          "start": 2.519,
+          "end": 3.077
         },
         {
           "word": "gününde",
-          "start": 4.142875,
-          "end": 4.523791
+          "start": 3.123,
+          "end": 3.448
         },
         {
           "word": "ve",
-          "start": 4.523791,
-          "end": 4.642832
+          "start": 3.495,
+          "end": 3.587
         },
         {
           "word": "dinlenme",
-          "start": 4.642875,
-          "end": 5.142875
+          "start": 3.634,
+          "end": 4.052
         },
         {
           "word": "gününde",
-          "start": 5.142875,
-          "end": 5.5
+          "start": 4.098,
+          "end": 4.435
         },
         {
           "word": "farklı",
-          "start": 5.5,
-          "end": 5.880958
+          "start": 4.493,
+          "end": 4.818
         },
         {
           "word": "kalori",
-          "start": 5.880958,
-          "end": 6.202374
+          "start": 4.853,
+          "end": 5.143
         },
         {
           "word": "hedefleri.",
-          "start": 6.202375,
-          "end": 6.738083
+          "start": 5.166,
+          "end": 6.037
         }
       ]
     },
     {
       "voice": "Masa başında mı çalışıyorsun? Gün içine yayılmış kısa duruş rutinleri de var.",
-      "voiceId": "edge:tr-TR-AhmetNeural",
-      "file": "voiceover/voom-tanitim/5-1a139d8b675.mp3",
-      "durationInSeconds": 6.504,
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/5-mv8ibw4x.mp3",
+      "durationInSeconds": 4.551,
       "words": [
         {
           "word": "Masa",
-          "start": 0.097625,
-          "end": 0.45475000000000004
+          "start": 0,
+          "end": 0.279
         },
         {
           "word": "başında",
-          "start": 0.466666,
-          "end": 0.883332
+          "start": 0.325,
+          "end": 0.673
         },
         {
           "word": "mı",
-          "start": 0.883333,
-          "end": 0.9904580000000001
+          "start": 0.72,
+          "end": 0.789
         },
         {
           "word": "çalışıyorsun?",
-          "start": 0.990458,
-          "end": 1.847583
+          "start": 0.836,
+          "end": 1.567
         },
         {
           "word": "Gün",
-          "start": 2.90475,
-          "end": 3.107125
+          "start": 1.846,
+          "end": 2.02
         },
         {
           "word": "içine",
-          "start": 3.273791,
-          "end": 3.5952070000000003
+          "start": 2.067,
+          "end": 2.31
         },
         {
           "word": "yayılmış",
-          "start": 3.59525,
-          "end": 4.023791
+          "start": 2.357,
+          "end": 2.74
         },
         {
           "word": "kısa",
-          "start": 4.023791,
-          "end": 4.285707
+          "start": 2.798,
+          "end": 3.019
         },
         {
           "word": "duruş",
-          "start": 4.285708,
-          "end": 4.607124
+          "start": 3.077,
+          "end": 3.32
         },
         {
           "word": "rutinleri",
-          "start": 4.607125,
-          "end": 5.011875
+          "start": 3.39,
+          "end": 3.831
         },
         {
           "word": "de",
-          "start": 5.011916,
-          "end": 5.142874
+          "start": 3.866,
+          "end": 3.936
         },
         {
           "word": "var.",
-          "start": 5.142875,
-          "end": 5.404791
+          "start": 3.982,
+          "end": 4.551
         }
       ]
     },
     {
       "voice": "Bugün başka bir şey mi yapmak istiyorsun? Koçuna yazman yeterli. Planını senin için anında yeniden düzenliyor.",
-      "voiceId": "edge:tr-TR-AhmetNeural",
-      "file": "voiceover/voom-tanitim/6-1a139d8b675.mp3",
-      "durationInSeconds": 9.816,
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/6-mv8ibxg9.mp3",
+      "durationInSeconds": 6.827,
       "words": [
         {
           "word": "Bugün",
-          "start": 0.097625,
-          "end": 0.609541
+          "start": 0,
+          "end": 0.313
         },
         {
           "word": "başka",
-          "start": 0.621416,
-          "end": 1.002374
+          "start": 0.36,
+          "end": 0.639
         },
         {
           "word": "bir",
-          "start": 1.002375,
-          "end": 1.169041
+          "start": 0.685,
+          "end": 0.766
         },
         {
           "word": "şey",
-          "start": 1.169041,
-          "end": 1.419041
+          "start": 0.789,
+          "end": 0.94
         },
         {
           "word": "mi",
-          "start": 1.419041,
-          "end": 1.538082
+          "start": 0.975,
+          "end": 1.045
         },
         {
           "word": "yapmak",
-          "start": 1.538083,
-          "end": 1.8833330000000001
+          "start": 1.068,
+          "end": 1.37
         },
         {
           "word": "istiyorsun?",
-          "start": 1.883333,
-          "end": 2.561916
+          "start": 1.405,
+          "end": 2.009
         },
         {
           "word": "Koçuna",
-          "start": 3.630958,
-          "end": 4.071416
+          "start": 2.183,
+          "end": 2.543
         },
         {
           "word": "yazman",
-          "start": 4.071416,
-          "end": 4.499999
+          "start": 2.589,
+          "end": 2.926
         },
         {
           "word": "yeterli.",
-          "start": 4.5,
-          "end": 5.011916
+          "start": 2.995,
+          "end": 3.657
         },
         {
           "word": "Planını",
-          "start": 6.107125,
-          "end": 6.6428329999999995
+          "start": 3.982,
+          "end": 4.435
         },
         {
           "word": "senin",
-          "start": 6.642875,
-          "end": 6.976208
+          "start": 4.481,
+          "end": 4.725
         },
         {
           "word": "için",
-          "start": 6.976208,
-          "end": 7.226208
+          "start": 4.772,
+          "end": 5.004
         },
         {
           "word": "anında",
-          "start": 7.226208,
-          "end": 7.619040999999999
+          "start": 5.097,
+          "end": 5.492
         },
         {
           "word": "yeniden",
-          "start": 7.619041,
-          "end": 8.059499
+          "start": 5.55,
+          "end": 5.886
         },
         {
           "word": "düzenliyor.",
-          "start": 8.059541,
-          "end": 8.678581999999999
+          "start": 5.921,
+          "end": 6.827
         }
       ]
     },
     {
       "voice": "Her seans, her set kayıt altında. İlerlemeni gün gün görüyorsun.",
-      "voiceId": "edge:tr-TR-AhmetNeural",
-      "file": "voiceover/voom-tanitim/7-1a139d8b675.mp3",
-      "durationInSeconds": 6.264,
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/7-mv8ibydt.mp3",
+      "durationInSeconds": 4.505,
       "words": [
         {
           "word": "Her",
-          "start": 0.097625,
-          "end": 0.45475000000000004
+          "start": 0,
+          "end": 0.255
         },
         {
           "word": "seans,",
-          "start": 0.45475,
-          "end": 0.919041
+          "start": 0.325,
+          "end": 0.882
         },
         {
           "word": "her",
-          "start": 1.073791,
-          "end": 1.288082
+          "start": 1.033,
+          "end": 1.184
         },
         {
           "word": "set",
-          "start": 1.288083,
-          "end": 1.5261660000000001
+          "start": 1.265,
+          "end": 1.451
         },
         {
           "word": "kayıt",
-          "start": 1.538083,
-          "end": 1.7761660000000001
+          "start": 1.509,
+          "end": 1.741
         },
         {
           "word": "altında.",
-          "start": 1.788083,
-          "end": 2.252374
+          "start": 1.811,
+          "end": 2.368
         },
         {
           "word": "İlerlemeni",
-          "start": 3.369041,
-          "end": 4.119041
+          "start": 2.577,
+          "end": 3.17
         },
         {
           "word": "gün",
-          "start": 4.119041,
-          "end": 4.285707
+          "start": 3.228,
+          "end": 3.402
         },
         {
           "word": "gün",
-          "start": 4.309541,
-          "end": 4.464291
+          "start": 3.437,
+          "end": 3.599
         },
         {
           "word": "görüyorsun.",
-          "start": 4.476208,
-          "end": 5.166665999999999
+          "start": 3.634,
+          "end": 4.505
         }
       ]
     },
     {
       "voice": "VOOM. Antrenmanın, beslenmen ve koçun, tek bir yerde. Link profilde.",
-      "voiceId": "edge:tr-TR-AhmetNeural",
-      "file": "voiceover/voom-tanitim/8-1a139d8b675.mp3",
-      "durationInSeconds": 7.824,
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/8-mv8ibzc4.mp3",
+      "durationInSeconds": 5.201,
       "words": [
         {
           "word": "VOOM.",
-          "start": 0.097625,
-          "end": 0.538083
+          "start": 0,
+          "end": 0.639
         },
         {
           "word": "Antrenmanın,",
-          "start": 1.488083,
-          "end": 2.428541
+          "start": 0.964,
+          "end": 1.683
         },
         {
           "word": "beslenmen",
-          "start": 2.571416,
-          "end": 3.2380820000000003
+          "start": 1.741,
+          "end": 2.299
         },
         {
           "word": "ve",
-          "start": 3.238083,
-          "end": 3.333333
+          "start": 2.357,
+          "end": 2.426
         },
         {
           "word": "koçun,",
-          "start": 3.333333,
-          "end": 3.797624
+          "start": 2.485,
+          "end": 2.879
         },
         {
           "word": "tek",
-          "start": 3.916666,
-          "end": 4.095249
+          "start": 2.926,
+          "end": 3.111
         },
         {
           "word": "bir",
-          "start": 4.119041,
-          "end": 4.297624
+          "start": 3.17,
+          "end": 3.309
         },
         {
           "word": "yerde.",
-          "start": 4.297625,
-          "end": 4.678583
+          "start": 3.367,
+          "end": 3.843
         },
         {
           "word": "Link",
-          "start": 5.773791,
-          "end": 6.107124
+          "start": 4.017,
+          "end": 4.249
         },
         {
           "word": "profilde.",
-          "start": 6.130958,
-          "end": 6.738083
+          "start": 4.296,
+          "end": 5.201
         }
       ]
     }

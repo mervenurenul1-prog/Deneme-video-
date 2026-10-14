@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "remotion studio",
     "new": "tsx scripts/new-post.ts",
-    "voiceover": "tsx scripts/generate-voiceover.ts",
+    "voiceover": "NODE_USE_ENV_PROXY=1 tsx scripts/generate-voiceover.ts",
     "render": "tsx scripts/render.ts",
     "build": "npm run voiceover && npm run render",
     "typecheck": "tsc --noEmit"

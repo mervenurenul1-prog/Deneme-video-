@@ -76,6 +76,9 @@ sahneler yalnızca yazıdan oluşur, son sahne kapanış kartıdır.
 - **Marka (uygulama adı, hesap, renkler, müzik):** `src/brand.ts`
 - **Ses:** `.env` → `ELEVENLABS_VOICE_ID` ([Voice Library](https://elevenlabs.io/app/voice-library)),
   `ELEVENLABS_MODEL_ID` (`eleven_multilingual_v2` varsayılan; `eleven_flash_v2_5` daha ucuz)
+- **Vekil sunucu (bulut ortamı):** `npm run voiceover`, Node'un `fetch`'inin `HTTPS_PROXY`'yi
+  kullanması için `NODE_USE_ENV_PROXY=1` ile çalışır (Node ≥ 22.21). Bulut ortamında anahtar
+  `xi-api-key` başlığıyla, Network secrets üzerinden eklenir.
 - **ElevenLabs anahtarı yoksa (ücretsiz yedek ses):** `pip install edge-tts` ardından
   `python3 scripts/generate-voiceover-edge.py voom-tanitim` — Microsoft Edge'in Türkçe sesiyle
   (`--voice tr-TR-AhmetNeural` varsayılan, `tr-TR-EmelNeural` kadın sesi) aynı manifest biçimini üretir.
