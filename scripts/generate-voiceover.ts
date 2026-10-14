@@ -1,8 +1,13 @@
 import "dotenv/config";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
-import { scenes, type VoiceoverManifest, type WordTiming } from "../src/scenes";
+import type { PostVoiceover, SceneAudio, WordTiming } from "../src/types";
+import { loadPosts, ROOT } from "./lib";
+
+// Kullanım: npm run voiceover            → tüm gönderiler
+//           npm run voiceover -- <id>... → sadece belirtilenler
+// Metni değişmeyen sahneler yeniden seslendirilmez (kredi harcanmaz).
 
 const apiKey = process.env.ELEVENLABS_API_KEY;
 if (!apiKey) {
@@ -10,8 +15,7 @@ if (!apiKey) {
   process.exit(1);
 }
 const voiceId = process.env.ELEVENLABS_VOICE_ID || "JBFqnCBsd6RMkjVDRZzb";
-const outDir = path.join(process.cwd(), "public", "voiceover");
-
+const modelId = process.env.ELEVENLABS_MODEL_ID || "eleven_multilingual_v2";
 const client = new ElevenLabsClient({ apiKey });
 
 // Karakter bazlı zamanlamaları kelime bazlıya çevirir (altyazılar için).
@@ -32,25 +36,51 @@ function toWords(chars: string[], starts: number[], ends: number[]): WordTiming[
   return words;
 }
 
-await mkdir(outDir, { recursive: true });
-const manifest: VoiceoverManifest = {};
-
-for (const scene of scenes) {
-  console.log(`Seslendiriliyor: ${scene.id}`);
-  const res = await client.textToSpeech.convertWithTimestamps(voiceId, {
-    text: scene.text,
-    modelId: "eleven_multilingual_v2",
-    outputFormat: "mp3_44100_128",
-  });
-
-  const file = `${scene.id}.mp3`;
-  await writeFile(path.join(outDir, file), Buffer.from(res.audioBase64, "base64"));
-
-  const a = res.alignment;
-  const words = a ? toWords(a.characters, a.characterStartTimesSeconds, a.characterEndTimesSeconds) : [];
-  const durationInSeconds = a?.characterEndTimesSeconds.at(-1) ?? 3;
-  manifest[scene.id] = { file: `voiceover/${file}`, durationInSeconds, words };
+async function readManifest(file: string): Promise<PostVoiceover | null> {
+  try {
+    return JSON.parse(await readFile(file, "utf8")) as PostVoiceover;
+  } catch {
+    return null;
+  }
 }
 
-await writeFile(path.join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2));
-console.log(`Tamamlandı → ${outDir}`);
+const posts = await loadPosts(process.argv.slice(2));
+let generated = 0;
+
+for (const post of posts) {
+  const dir = path.join(ROOT, "public", "voiceover", post.id);
+  const manifestPath = path.join(dir, "manifest.json");
+  await mkdir(dir, { recursive: true });
+  const old = await readManifest(manifestPath);
+  const scenes: SceneAudio[] = [];
+
+  for (const [i, scene] of post.scenes.entries()) {
+    const cached = old?.scenes.find((s) => s && s.voice === scene.voice && s.voiceId === voiceId);
+    if (cached) {
+      scenes.push(cached);
+      continue;
+    }
+    console.log(`[${post.id}] sahne ${i + 1}: "${scene.voice}"`);
+    const res = await client.textToSpeech.convertWithTimestamps(voiceId, {
+      text: scene.voice,
+      modelId,
+      outputFormat: "mp3_44100_128",
+    });
+    // Dosya adı benzersiz olsun ki tarayıcı önbelleği eski sesi çalmasın
+    const name = `${i + 1}-${Date.now().toString(36)}.mp3`;
+    await writeFile(path.join(dir, name), Buffer.from(res.audioBase64, "base64"));
+    const a = res.alignment;
+    scenes.push({
+      voice: scene.voice,
+      voiceId,
+      file: `voiceover/${post.id}/${name}`,
+      durationInSeconds: a?.characterEndTimesSeconds.at(-1) ?? 3,
+      words: a ? toWords(a.characters, a.characterStartTimesSeconds, a.characterEndTimesSeconds) : [],
+    });
+    generated++;
+  }
+
+  await writeFile(manifestPath, JSON.stringify({ scenes } satisfies PostVoiceover, null, 2));
+}
+
+console.log(`Tamamlandı: ${generated} yeni ses üretildi, ${posts.length} gönderi güncel.`);

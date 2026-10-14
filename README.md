@@ -1,6 +1,8 @@
-# Deneme Video — Remotion + ElevenLabs
+# Fitness Reels Fabrikası — Remotion + ElevenLabs
 
-Sahne metinlerini ElevenLabs ile seslendirip Remotion ile kelime kelime vurgulanan altyazılı bir videoya dönüştürür.
+Fitness uygulamasının Instagram hesabı için düzenli Reels üretim altyapısı. Her gönderi `content/posts/` altında
+bir JSON dosyasıdır. ElevenLabs seslendirir, Remotion dikey (1080×1920) video, kapak görseli ve
+Instagram açıklamasını üretir.
 
 ## Kurulum
 
@@ -9,22 +11,51 @@ npm install
 cp .env.example .env   # ELEVENLABS_API_KEY değerini girin
 ```
 
-## Kullanım
+## Günlük akış
 
-| Komut | Açıklama |
+```bash
+npm run new -- protein-ne-kadar   # 1. Şablondan yeni gönderi oluştur, metinleri düzenle
+npm run voiceover                 # 2. Seslendir (sadece yeni/değişen sahneler, kredi harcamaz)
+npm run dev                       # 3. Remotion Studio'da önizle
+npm run render -- protein-ne-kadar  # 4. out/protein-ne-kadar/ → video.mp4, kapak.jpg, aciklama.txt
+```
+
+`npm run voiceover` ve `npm run render` id verilmezse tüm gönderileri işler. `npm run build` ikisini birden çalıştırır.
+
+## Gönderi formatı
+
+```jsonc
+{
+  "id": "mekik-mit",                    // dosya adı ile aynı; küçük harf, rakam, '-'
+  "title": "Mekik göbek yağını eritir mi?",
+  "scenes": [
+    { "type": "hook", "voice": "Seslendirilecek metin", "display": "Ekranda büyük yazı" },
+    { "type": "myth", "voice": "..." , "display": "..." },
+    { "type": "fact", "voice": "..." , "display": "..." },
+    { "type": "point", "voice": "..." },   // display yoksa seslendirme kelime kelime ekranda vurgulanır
+    { "type": "cta", "voice": "...", "display": "..." }
+  ],
+  "caption": "Instagram açıklaması",
+  "hashtags": ["fitness", "spor"]
+}
+```
+
+| Sahne tipi | Görünüm |
 | --- | --- |
-| `npm run voiceover` | `src/scenes.ts` içindeki her sahne için ElevenLabs'ten ses + kelime zamanlamaları üretir (`public/voiceover/`) |
-| `npm run dev` | Remotion Studio'yu açar (canlı önizleme) |
-| `npm run render` | Videoyu `out/video.mp4` olarak dışa aktarır |
-| `npm run build` | Seslendirme + render, tek adımda |
+| `hook` | Büyük açılış başlığı — ilk 2 saniye izleyiciyi tutar |
+| `point` | Numaralı madde (1, 2, 3…) |
+| `myth` / `fact` | Kırmızı **MİT** (üstü çizili) / yeşil **GERÇEK** etiketi |
+| `cta` | Uygulama adı, "link profilde" ve hesap adı |
 
-Seslendirme üretilmeden de Studio açılır; sahneler sessiz ve 3'er saniye olarak gösterilir.
+`display` verilen sahnelerde seslendirme ayrıca alt yazı olarak gösterilir (Reels'lerin çoğu sessiz izlenir).
+Tüm metinler Instagram arayüzünün kapatmadığı güvenli alanda kalır, üstte bir ilerleme çubuğu bulunur.
 
 ## Özelleştirme
 
-- **Metinler / renkler:** `src/scenes.ts` — değiştirdikten sonra `npm run voiceover` çalıştırın.
-- **Ses:** `.env` içindeki `ELEVENLABS_VOICE_ID` ([Voice Library](https://elevenlabs.io/app/voice-library)).
-- **Model:** `scripts/generate-voiceover.ts` içinde `eleven_multilingual_v2` (Türkçe destekler).
-- **Görünüm:** `src/Main.tsx`.
-
-Video süresi, ses dosyalarının uzunluğuna göre otomatik hesaplanır (`src/Root.tsx` → `calculateMetadata`).
+- **Marka (uygulama adı, hesap, renkler, müzik):** `src/brand.ts`
+- **Ses:** `.env` → `ELEVENLABS_VOICE_ID` ([Voice Library](https://elevenlabs.io/app/voice-library)),
+  `ELEVENLABS_MODEL_ID` (`eleven_multilingual_v2` varsayılan; `eleven_flash_v2_5` daha ucuz)
+- **Arka plan müziği:** dosyayı `public/music/` altına koyup `brand.music` alanına yolunu yazın
+  (telifsiz müzik kullanın).
+- **Görünüm / animasyonlar:** `src/Reel.tsx`
+- **Font:** Montserrat projeye gömülüdür (`public/fonts`, SIL OFL lisansı).

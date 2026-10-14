@@ -2,17 +2,21 @@
   "name": "deneme-video",
   "version": "1.0.0",
   "private": true,
-  "description": "Remotion + ElevenLabs ile seslendirmeli video",
+  "description": "Fitness uygulaması için Remotion + ElevenLabs ile Instagram Reels üretimi",
   "type": "module",
   "scripts": {
     "dev": "remotion studio",
+    "new": "tsx scripts/new-post.ts",
     "voiceover": "tsx scripts/generate-voiceover.ts",
-    "render": "remotion render Main out/video.mp4",
+    "render": "tsx scripts/render.ts",
     "build": "npm run voiceover && npm run render",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@remotion/bundler": "^4.0.535",
     "@remotion/cli": "^4.0.535",
+    "@remotion/fonts": "^4.0.535",
+    "@remotion/renderer": "^4.0.535",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "remotion": "^4.0.535"
@@ -21,6 +25,7 @@
     "@elevenlabs/elevenlabs-js": "^2.72.0",
     "@types/node": "^22.20.5",
     "@types/react": "^19.3.0",
+    "@types/webpack-env": "^1.18.8",
     "dotenv": "^18.0.7",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3"

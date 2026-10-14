@@ -1,0 +1,15 @@
+{
+  "id": "evde-10-dakika",
+  "title": "Ekipmansız 10 dakikalık evde antrenman",
+  "scenes": [
+    { "type": "hook", "voice": "Vaktin yok mu? Ekipmansız, sadece on dakikalık bir antrenman.", "display": "10 dakika, ekipman yok" },
+    { "type": "point", "voice": "Kırk saniye squat, yirmi saniye dinlen.", "display": "Squat — 40 sn" },
+    { "type": "point", "voice": "Kırk saniye şınav. Zorlanırsan dizlerinin üzerinde yap.", "display": "Şınav — 40 sn" },
+    { "type": "point", "voice": "Kırk saniye lunge, bacak değiştirerek.", "display": "Lunge — 40 sn" },
+    { "type": "point", "voice": "Kırk saniye plank. Karnını sık, kalçanı düşürme.", "display": "Plank — 40 sn" },
+    { "type": "point", "voice": "Bu turu iki kez tekrarla. Hepsi bu kadar!", "display": "2 tur tekrarla" },
+    { "type": "cta", "voice": "Her gün yeni bir antrenman için uygulamamızı indir.", "display": "Hemen dene" }
+  ],
+  "caption": "Bahane yok! 💪 Bu antrenmanı kaydet ve bugün dene.\n\nHer gün yeni antrenmanlar için link profilde.",
+  "hashtags": ["evdeantrenman", "fitness", "evdespor", "hiit", "spor", "antrenman"]
+}

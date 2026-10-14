@@ -1,0 +1,13 @@
+{
+  "id": "salon-hatalari",
+  "title": "Spor salonunda en sık yapılan 3 hata",
+  "scenes": [
+    { "type": "hook", "voice": "Spor salonunda herkesin yaptığı üç hata. Üçüncüsü seni şaşırtacak.", "display": "Salonda herkesin yaptığı 3 hata" },
+    { "type": "point", "voice": "Bir: Isınmadan doğrudan ağır kilolara geçmek. Beş dakikalık ısınma sakatlık riskini ciddi şekilde azaltır.", "display": "Isınmayı atlamak" },
+    { "type": "point", "voice": "İki: Kiloyu artırmak için formu bozmak. Doğru form, fazla kilodan her zaman daha değerlidir.", "display": "Form yerine kiloya odaklanmak" },
+    { "type": "point", "voice": "Üç: Dinlenme günlerini atlamak. Kaslar antrenmanda değil, dinlenirken gelişir.", "display": "Dinlenmeyi atlamak" },
+    { "type": "cta", "voice": "Programını bu hatalardan uzak planlamak için uygulamamızı dene. Kaydetmeyi unutma!", "display": "Kaydet, sonra lazım olacak" }
+  ],
+  "caption": "Bu hatalardan hangisini sen de yapıyordun? 👇 Yorumlarda yaz!\n\nKişisel antrenman programın için link profilde.",
+  "hashtags": ["fitness", "sporsalonu", "antrenman", "fitnessmotivasyon", "spor", "sağlıklıyaşam"]
+}

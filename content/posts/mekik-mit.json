@@ -1,0 +1,13 @@
+{
+  "id": "mekik-mit",
+  "title": "Mekik göbek yağını eritir mi?",
+  "scenes": [
+    { "type": "hook", "voice": "Her gün yüz mekik çekiyorsun ama göbeğin hâlâ gitmiyor mu?", "display": "Mekik göbeği eritir mi?" },
+    { "type": "myth", "voice": "Yaygın inanış: Mekik çekersen karın bölgesindeki yağlar erir.", "display": "Mekik göbek yağını eritir" },
+    { "type": "fact", "voice": "Gerçek şu: Bölgesel yağ yakımı yoktur. Vücut yağı, kalori açığı ve düzenli antrenmanla genel olarak azalır.", "display": "Bölgesel yağ yakımı yoktur" },
+    { "type": "point", "voice": "Yani beslenmeni düzenle, tüm vücut antrenmanı yap ve karın kaslarını da bu programın bir parçası olarak çalış.", "display": "Beslenme + tüm vücut antrenmanı" },
+    { "type": "cta", "voice": "Sana özel beslenme ve antrenman planı için uygulamamızı indir.", "display": "Planını oluştur" }
+  ],
+  "caption": "Bölgesel incelme bir mit! 🔥 Doğru strateji: kalori açığı + tüm vücut antrenmanı.\n\nArkadaşına gönder, o da bilsin 👇",
+  "hashtags": ["fitness", "kilovermek", "karınkası", "beslenme", "mitvegerçek", "spor"]
+}

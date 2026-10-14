@@ -1,36 +1,32 @@
 import { Composition, staticFile } from "remotion";
-import { Main, type MainProps } from "./Main";
-import type { VoiceoverManifest } from "./scenes";
-
-const FPS = 30;
-// Her sahnenin sonunda sesten sonra bırakılan boşluk
-const PADDING_SECONDS = 0.5;
+import { VIDEO } from "./brand";
+import { posts } from "./posts";
+import { Reel, sceneDurations, type ReelProps } from "./Reel";
+import type { PostVoiceover } from "./types";
 
 export const RemotionRoot: React.FC = () => {
   return (
-    <Composition
-      id="Main"
-      component={Main}
-      fps={FPS}
-      width={1920}
-      height={1080}
-      durationInFrames={FPS * 10}
-      defaultProps={{ manifest: null } as MainProps}
-      calculateMetadata={async ({ props }) => {
-        // Seslendirme henüz üretilmediyse sessiz önizleme göster
-        const res = await fetch(staticFile("voiceover/manifest.json")).catch(() => null);
-        if (!res?.ok) return { props };
-
-        const manifest = (await res.json()) as VoiceoverManifest;
-        const totalSeconds = Object.values(manifest).reduce(
-          (sum, s) => sum + s.durationInSeconds + PADDING_SECONDS,
-          0,
-        );
-        return {
-          props: { ...props, manifest },
-          durationInFrames: Math.max(1, Math.ceil(totalSeconds * FPS)),
-        };
-      }}
-    />
+    <>
+      {posts.map((post) => (
+        <Composition
+          key={post.id}
+          id={post.id}
+          component={Reel}
+          fps={VIDEO.fps}
+          width={VIDEO.width}
+          height={VIDEO.height}
+          durationInFrames={1}
+          defaultProps={{ post, voiceover: null } as ReelProps}
+          calculateMetadata={async ({ props }) => {
+            const res = await fetch(staticFile(`voiceover/${props.post.id}/manifest.json`)).catch(
+              () => null,
+            );
+            const voiceover = res?.ok ? ((await res.json()) as PostVoiceover) : null;
+            const total = sceneDurations(props.post, voiceover, VIDEO.fps).reduce((a, b) => a + b, 0);
+            return { props: { ...props, voiceover }, durationInFrames: total };
+          }}
+        />
+      ))}
+    </>
   );
 };
