@@ -1,0 +1,41 @@
+{
+  "id": "voom-koc",
+  "title": "VOOM: Cebindeki kişisel koç",
+  "scenes": [
+    {
+      "voice": "Planın değişti ama programın hâlâ aynı mı?",
+      "display": "Planın değişti, programın *aynı* mı?"
+    },
+    {
+      "voice": "VOOM'da cebinde kişisel bir koç var. Bugün kalça çalışmak mı istiyorsun? Yazman yeterli.",
+      "display": "Koçuna *yaz*",
+      "kicker": "KOÇ",
+      "screen": "app/koc.jpg"
+    },
+    {
+      "voice": "Koçun haftanı yeniden düzenliyor, nedenini de açıklıyor. Onaylarsan planın anında güncelleniyor.",
+      "display": "Planın *anında* güncellenir",
+      "kicker": "KOÇ",
+      "screen": "app/koc.jpg",
+      "focus": {
+        "x": 70,
+        "y": 1125,
+        "w": 785,
+        "h": 420
+      }
+    },
+    {
+      "voice": "VOOM. Cebindeki kişisel koç. Link profilde.",
+      "display": "Cebindeki *kişisel koç*."
+    }
+  ],
+  "caption": "Planın değişince programın da değişmeli 💬\n\nVOOM'da koçuna yazman yeterli: haftanı yeniden düzenliyor, nedenini açıklıyor, onaylarsan anında uyguluyor.\n\nİndirmek için link profilde 🔗",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "kişiselantrenör",
+    "fitnessuygulaması",
+    "voom"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "voom-takviye",
+  "title": "VOOM: Takviyelerin de planında",
+  "scenes": [
+    {
+      "voice": "Hangi takviyeyi, ne zaman alacağını hep unutuyor musun?",
+      "display": "Takviyeni *unutuyor* musun?"
+    },
+    {
+      "voice": "VOOM'da takviyelerin de günlük planının içinde. Sabah mı, akşam mı; hepsi yazıyor.",
+      "display": "Ne zaman alacağın *planında*",
+      "kicker": "TAKVİYE",
+      "screen": "app/bugun.jpg",
+      "focus": {
+        "x": 70,
+        "y": 1545,
+        "w": 785,
+        "h": 160
+      }
+    },
+    {
+      "voice": "Öneriler hedefine ve beslenme planına göre şekilleniyor. Aldıkça işaretle, takipte kal.",
+      "display": "Beslenmenle *uyumlu*",
+      "kicker": "BESLENME",
+      "screen": "app/beslenme.jpg",
+      "focus": {
+        "x": 70,
+        "y": 660,
+        "w": 785,
+        "h": 845
+      }
+    },
+    {
+      "voice": "VOOM. Takviye kullanmadan önce doktoruna danışmayı unutma. Link profilde.",
+      "display": "Planın *eksiksiz*."
+    }
+  ],
+  "caption": "Takviyelerin de planının bir parçası 💊\n\nVOOM'da ne zaman, neyi alacağın günlük planında; öneriler hedefine ve beslenmene göre şekilleniyor.\n\nTakviye kullanmadan önce doktoruna danış.\n\nİndirmek için link profilde 🔗",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "kişiselantrenör",
+    "fitnessuygulaması",
+    "voom",
+    "beslenme",
+    "supplement"
+  ]
+}

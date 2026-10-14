@@ -37,6 +37,7 @@ export type PromoScene = {
   voice: string;
   // Üstte küçük etiket (ör. "BESLENME") ve büyük başlık
   kicker?: string;
+  // Başlık. *yıldız* içindeki kelimeler vurgu rengiyle yazılır: "Günün antrenmanı *hazır*"
   display?: string;
   // public/ altındaki ekran görüntüsü, ör. "app/beslenme.jpg". Yoksa sadece yazı gösterilir.
   screen?: string;

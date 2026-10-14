@@ -1,0 +1,221 @@
+{
+  "scenes": [
+    {
+      "voice": "Planın değişti ama programın hâlâ aynı mı?",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-koc/1-mv8k7fop.mp3",
+      "durationInSeconds": 2.554,
+      "words": [
+        {
+          "word": "Planın",
+          "start": 0,
+          "end": 0.395
+        },
+        {
+          "word": "değişti",
+          "start": 0.453,
+          "end": 0.813
+        },
+        {
+          "word": "ama",
+          "start": 0.848,
+          "end": 0.987
+        },
+        {
+          "word": "programın",
+          "start": 1.033,
+          "end": 1.474
+        },
+        {
+          "word": "hâlâ",
+          "start": 1.533,
+          "end": 1.823
+        },
+        {
+          "word": "aynı",
+          "start": 1.869,
+          "end": 2.09
+        },
+        {
+          "word": "mı?",
+          "start": 2.136,
+          "end": 2.554
+        }
+      ]
+    },
+    {
+      "voice": "VOOM'da cebinde kişisel bir koç var. Bugün kalça çalışmak mı istiyorsun? Yazman yeterli.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-koc/2-mv8k7gxc.mp3",
+      "durationInSeconds": 6.084,
+      "words": [
+        {
+          "word": "VOOM'da",
+          "start": 0,
+          "end": 0.453
+        },
+        {
+          "word": "cebinde",
+          "start": 0.488,
+          "end": 0.848
+        },
+        {
+          "word": "kişisel",
+          "start": 0.906,
+          "end": 1.37
+        },
+        {
+          "word": "bir",
+          "start": 1.44,
+          "end": 1.556
+        },
+        {
+          "word": "koç",
+          "start": 1.614,
+          "end": 1.834
+        },
+        {
+          "word": "var.",
+          "start": 1.892,
+          "end": 2.229
+        },
+        {
+          "word": "Bugün",
+          "start": 2.74,
+          "end": 3.03
+        },
+        {
+          "word": "kalça",
+          "start": 3.088,
+          "end": 3.379
+        },
+        {
+          "word": "çalışmak",
+          "start": 3.437,
+          "end": 3.878
+        },
+        {
+          "word": "mı",
+          "start": 3.936,
+          "end": 3.994
+        },
+        {
+          "word": "istiyorsun?",
+          "start": 4.029,
+          "end": 4.644
+        },
+        {
+          "word": "Yazman",
+          "start": 4.772,
+          "end": 5.178
+        },
+        {
+          "word": "yeterli.",
+          "start": 5.248,
+          "end": 6.084
+        }
+      ]
+    },
+    {
+      "voice": "Koçun haftanı yeniden düzenliyor, nedenini de açıklıyor. Onaylarsan planın anında güncelleniyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-koc/3-mv8k7i6l.mp3",
+      "durationInSeconds": 6.409,
+      "words": [
+        {
+          "word": "Koçun",
+          "start": 0,
+          "end": 0.372
+        },
+        {
+          "word": "haftanı",
+          "start": 0.43,
+          "end": 0.789
+        },
+        {
+          "word": "yeniden",
+          "start": 0.848,
+          "end": 1.219
+        },
+        {
+          "word": "düzenliyor,",
+          "start": 1.254,
+          "end": 1.939
+        },
+        {
+          "word": "nedenini",
+          "start": 2.113,
+          "end": 2.566
+        },
+        {
+          "word": "de",
+          "start": 2.612,
+          "end": 2.682
+        },
+        {
+          "word": "açıklıyor.",
+          "start": 2.728,
+          "end": 3.448
+        },
+        {
+          "word": "Onaylarsan",
+          "start": 3.773,
+          "end": 4.447
+        },
+        {
+          "word": "planın",
+          "start": 4.516,
+          "end": 4.83
+        },
+        {
+          "word": "anında",
+          "start": 4.899,
+          "end": 5.236
+        },
+        {
+          "word": "güncelleniyor.",
+          "start": 5.283,
+          "end": 6.409
+        }
+      ]
+    },
+    {
+      "voice": "VOOM. Cebindeki kişisel koç. Link profilde.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-koc/4-mv8k7j65.mp3",
+      "durationInSeconds": 3.251,
+      "words": [
+        {
+          "word": "VOOM.",
+          "start": 0,
+          "end": 0.43
+        },
+        {
+          "word": "Cebindeki",
+          "start": 0.58,
+          "end": 1.091
+        },
+        {
+          "word": "kişisel",
+          "start": 1.138,
+          "end": 1.533
+        },
+        {
+          "word": "koç.",
+          "start": 1.591,
+          "end": 1.985
+        },
+        {
+          "word": "Link",
+          "start": 2.159,
+          "end": 2.368
+        },
+        {
+          "word": "profilde.",
+          "start": 2.415,
+          "end": 3.251
+        }
+      ]
+    }
+  ]
+}

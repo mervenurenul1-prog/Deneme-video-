@@ -1,0 +1,49 @@
+{
+  "id": "voom-durus",
+  "title": "VOOM: Masa başı duruş rutinleri",
+  "scenes": [
+    {
+      "voice": "Masa başında saatlerce oturmak, duruşunu sessizce bozuyor.",
+      "display": "Masa başı duruşunu *bozuyor*."
+    },
+    {
+      "voice": "VOOM, gününe yayılmış kısa duruş rutinleri veriyor. Sabah, öğle, akşam; birkaç dakika yeterli.",
+      "display": "Gün içinde *kısa* rutinler",
+      "kicker": "DURUŞ",
+      "screen": "app/durus.jpg",
+      "focus": {
+        "x": 70,
+        "y": 465,
+        "w": 785,
+        "h": 930
+      }
+    },
+    {
+      "voice": "Antrenman programın da duruşunu düşünüyor. Çekiş ve itme hareketleri ona göre dengeleniyor.",
+      "display": "Antrenmanın da *duruşunu* düşünür",
+      "kicker": "PROGRAM",
+      "screen": "app/program.jpg",
+      "focus": {
+        "x": 50,
+        "y": 1650,
+        "w": 830,
+        "h": 160
+      }
+    },
+    {
+      "voice": "VOOM. Dik dur, iyi hisset. Link profilde.",
+      "display": "Dik dur, *iyi hisset*."
+    }
+  ],
+  "caption": "Masa başı çalışanlar, bu sana 🪑\n\nVOOM gününe yayılmış kısa duruş rutinleri veriyor; antrenman programın da duruşuna göre dengeleniyor.\n\nİndirmek için link profilde 🔗",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "kişiselantrenör",
+    "fitnessuygulaması",
+    "voom",
+    "duruş",
+    "postür"
+  ]
+}

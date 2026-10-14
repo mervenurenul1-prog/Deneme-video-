@@ -107,6 +107,30 @@ const Wordmark: React.FC<{ size: number }> = ({ size }) => (
   </div>
 );
 
+// Başlıkta *yıldız* içindeki kelimeler vurgu rengiyle yazılır: "Günün antrenmanı *hazır*"
+const markedWords = (text: string) => {
+  let on = false;
+  return text.split(" ").map((raw) => {
+    const opens = raw.startsWith("*");
+    const closes = raw.endsWith("*") && (raw.length > 1 || !opens);
+    const word = raw.replace(/\*/g, "");
+    const mark = on || opens;
+    if (opens) on = true;
+    if (closes) on = false;
+    return { word, mark };
+  });
+};
+
+const Marked: React.FC<{ text: string }> = ({ text }) => (
+  <>
+    {markedWords(text).map(({ word, mark }, i) => (
+      <span key={i} style={{ color: mark ? C.lime : undefined }}>
+        {word}{" "}
+      </span>
+    ))}
+  </>
+);
+
 /* ---------- Telefon çerçevesinde ekran + odak bölgesine yakınlaşma ---------- */
 
 const ScreenScene: React.FC<{ scene: PromoScene }> = ({ scene }) => {
@@ -203,7 +227,7 @@ const ScreenScene: React.FC<{ scene: PromoScene }> = ({ scene }) => {
         {scene.kicker ? <Kicker>{scene.kicker}</Kicker> : null}
         {scene.display ? (
           <div style={{ fontSize: 66, fontWeight: 700, lineHeight: 1.1, letterSpacing: -1.5, padding: "0 90px" }}>
-            {scene.display}
+            <Marked text={scene.display} />
           </div>
         ) : null}
       </div>
@@ -215,7 +239,11 @@ const ScreenScene: React.FC<{ scene: PromoScene }> = ({ scene }) => {
 
 const TextScene: React.FC<{ scene: PromoScene }> = ({ scene }) => {
   const frame = useCurrentFrame();
-  const words = (scene.display ?? scene.voice).split(" ");
+  const text = scene.display ?? scene.voice;
+  // Yıldızla vurgu verilmemişse son kelime vurgulanır
+  const words = text.includes("*")
+    ? markedWords(text)
+    : text.split(" ").map((word, i, all) => ({ word, mark: i === all.length - 1 }));
   const mark = useEnter(0);
   return (
     <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", padding: "220px 90px 520px", gap: 70 }}>
@@ -223,12 +251,11 @@ const TextScene: React.FC<{ scene: PromoScene }> = ({ scene }) => {
         <Wordmark size={40} />
       </div>
       <div style={{ fontSize: 104, fontWeight: 800, lineHeight: 1.05, letterSpacing: -3, textAlign: "center" }}>
-        {words.map((w, i) => {
+        {words.map(({ word, mark }, i) => {
           const o = interpolate(frame, [4 + i * 4, 12 + i * 4], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           });
-          const isLast = i === words.length - 1;
           return (
             <span
               key={i}
@@ -236,10 +263,10 @@ const TextScene: React.FC<{ scene: PromoScene }> = ({ scene }) => {
                 display: "inline-block",
                 opacity: o,
                 transform: `translateY(${(1 - o) * 24}px)`,
-                color: isLast ? C.lime : undefined,
+                color: mark ? C.lime : undefined,
               }}
             >
-              {w}&nbsp;
+              {word}&nbsp;
             </span>
           );
         })}
@@ -270,7 +297,7 @@ const EndCard: React.FC<{ scene: PromoScene }> = ({ scene }) => {
           opacity: line,
         }}
       >
-        {scene.display}
+        {scene.display ? <Marked text={scene.display} /> : null}
       </div>
       <div
         style={{

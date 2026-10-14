@@ -1,0 +1,47 @@
+{
+  "id": "voom-takip",
+  "title": "VOOM: Takip edildiğini hisset",
+  "scenes": [
+    {
+      "voice": "Spora başlıyorsun, iki hafta sonra bırakıyorsun. Çünkü kimse takip etmiyor.",
+      "display": "Neden hep *ikinci haftada* bırakıyorsun?"
+    },
+    {
+      "voice": "VOOM her seansını, her setini kaydediyor. Altı haftalık dönemde nerede olduğunu hep görüyorsun.",
+      "display": "Her seans *sayılıyor*",
+      "kicker": "TAKİP",
+      "screen": "app/profil.jpg",
+      "focus": {
+        "x": 62,
+        "y": 285,
+        "w": 800,
+        "h": 365
+      }
+    },
+    {
+      "voice": "Koçun da takipte. Sıradaki antrenmanını hatırlatıyor, ilerlemeni seninle birlikte izliyor.",
+      "display": "Koçun da *takipte*",
+      "kicker": "KOÇ NOTU",
+      "screen": "app/profil.jpg",
+      "focus": {
+        "x": 62,
+        "y": 680,
+        "w": 800,
+        "h": 720
+      }
+    },
+    {
+      "voice": "VOOM. Bu sefer yalnız değilsin. Link profilde.",
+      "display": "Bu sefer *yalnız değilsin*."
+    }
+  ],
+  "caption": "Bırakmanın sebebi irade değil, takip eksikliği 📈\n\nVOOM her seansını ve setini kaydediyor; koçun sıradaki antrenmanını hatırlatıyor, ilerlemeni seninle izliyor.\n\nİndirmek için link profilde 🔗",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "kişiselantrenör",
+    "fitnessuygulaması",
+    "voom"
+  ]
+}

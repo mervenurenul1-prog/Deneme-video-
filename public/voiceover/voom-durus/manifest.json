@@ -1,0 +1,231 @@
+{
+  "scenes": [
+    {
+      "voice": "Masa başında saatlerce oturmak, duruşunu sessizce bozuyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-durus/1-mv8k76yx.mp3",
+      "durationInSeconds": 3.762,
+      "words": [
+        {
+          "word": "Masa",
+          "start": 0,
+          "end": 0.29
+        },
+        {
+          "word": "başında",
+          "start": 0.337,
+          "end": 0.708
+        },
+        {
+          "word": "saatlerce",
+          "start": 0.766,
+          "end": 1.312
+        },
+        {
+          "word": "oturmak,",
+          "start": 1.37,
+          "end": 1.892
+        },
+        {
+          "word": "duruşunu",
+          "start": 1.95,
+          "end": 2.403
+        },
+        {
+          "word": "sessizce",
+          "start": 2.438,
+          "end": 2.926
+        },
+        {
+          "word": "bozuyor.",
+          "start": 2.984,
+          "end": 3.762
+        }
+      ]
+    },
+    {
+      "voice": "VOOM, gününe yayılmış kısa duruş rutinleri veriyor. Sabah, öğle, akşam; birkaç dakika yeterli.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-durus/2-mv8k78cz.mp3",
+      "durationInSeconds": 6.409,
+      "words": [
+        {
+          "word": "VOOM,",
+          "start": 0,
+          "end": 0.453
+        },
+        {
+          "word": "gününe",
+          "start": 0.511,
+          "end": 0.871
+        },
+        {
+          "word": "yayılmış",
+          "start": 0.894,
+          "end": 1.289
+        },
+        {
+          "word": "kısa",
+          "start": 1.358,
+          "end": 1.579
+        },
+        {
+          "word": "duruş",
+          "start": 1.625,
+          "end": 1.881
+        },
+        {
+          "word": "rutinleri",
+          "start": 1.939,
+          "end": 2.38
+        },
+        {
+          "word": "veriyor.",
+          "start": 2.415,
+          "end": 2.879
+        },
+        {
+          "word": "Sabah,",
+          "start": 2.995,
+          "end": 3.46
+        },
+        {
+          "word": "öğle,",
+          "start": 3.541,
+          "end": 3.947
+        },
+        {
+          "word": "akşam;",
+          "start": 3.994,
+          "end": 4.609
+        },
+        {
+          "word": "birkaç",
+          "start": 4.888,
+          "end": 5.236
+        },
+        {
+          "word": "dakika",
+          "start": 5.294,
+          "end": 5.608
+        },
+        {
+          "word": "yeterli.",
+          "start": 5.654,
+          "end": 6.409
+        }
+      ]
+    },
+    {
+      "voice": "Antrenman programın da duruşunu düşünüyor. Çekiş ve itme hareketleri ona göre dengeleniyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-durus/3-mv8k79co.mp3",
+      "durationInSeconds": 5.294,
+      "words": [
+        {
+          "word": "Antrenman",
+          "start": 0,
+          "end": 0.488
+        },
+        {
+          "word": "programın",
+          "start": 0.534,
+          "end": 0.975
+        },
+        {
+          "word": "da",
+          "start": 1.01,
+          "end": 1.08
+        },
+        {
+          "word": "duruşunu",
+          "start": 1.126,
+          "end": 1.533
+        },
+        {
+          "word": "düşünüyor.",
+          "start": 1.579,
+          "end": 2.171
+        },
+        {
+          "word": "Çekiş",
+          "start": 2.345,
+          "end": 2.717
+        },
+        {
+          "word": "ve",
+          "start": 2.798,
+          "end": 2.856
+        },
+        {
+          "word": "itme",
+          "start": 2.914,
+          "end": 3.17
+        },
+        {
+          "word": "hareketleri",
+          "start": 3.204,
+          "end": 3.796
+        },
+        {
+          "word": "ona",
+          "start": 3.855,
+          "end": 4.017
+        },
+        {
+          "word": "göre",
+          "start": 4.063,
+          "end": 4.238
+        },
+        {
+          "word": "dengeleniyor.",
+          "start": 4.284,
+          "end": 5.294
+        }
+      ]
+    },
+    {
+      "voice": "VOOM. Dik dur, iyi hisset. Link profilde.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-durus/4-mv8k7a9n.mp3",
+      "durationInSeconds": 2.926,
+      "words": [
+        {
+          "word": "VOOM.",
+          "start": 0,
+          "end": 0.476
+        },
+        {
+          "word": "Dik",
+          "start": 0.592,
+          "end": 0.778
+        },
+        {
+          "word": "dur,",
+          "start": 0.836,
+          "end": 1.022
+        },
+        {
+          "word": "iyi",
+          "start": 1.08,
+          "end": 1.254
+        },
+        {
+          "word": "hisset.",
+          "start": 1.3,
+          "end": 1.73
+        },
+        {
+          "word": "Link",
+          "start": 1.788,
+          "end": 2.02
+        },
+        {
+          "word": "profilde.",
+          "start": 2.067,
+          "end": 2.926
+        }
+      ]
+    }
+  ]
+}

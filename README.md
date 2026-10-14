@@ -70,6 +70,10 @@ tanıtım videolarıdır (örnek: `voom-tanitim.json`). Ekran görüntüleri `pu
 Her sahnede `screen` (ekran görüntüsü), `kicker` (küçük etiket), `display` (başlık) ve `focus`
 (kameranın yaklaşacağı bölge, 923 px genişliğe göre koordinatlar) verilebilir; `screen` olmayan
 sahneler yalnızca yazıdan oluşur, son sahne kapanış kartıdır.
+`display` içinde `*yıldız*` arasına alınan kelimeler vurgu rengiyle yazılır (ör. `"Günün antrenmanı *hazır*"`).
+
+Tek konuya odaklanan ~20 saniyelik seri: `voom-koc`, `voom-takip`, `voom-antrenman`, `voom-hobi`,
+`voom-takviye`, `voom-6-hafta`, `voom-durus` (çıktılar `ornek-videolar/seri/`).
 
 ## Özelleştirme
 

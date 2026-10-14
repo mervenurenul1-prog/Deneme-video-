@@ -1,0 +1,48 @@
+{
+  "id": "voom-hobi",
+  "title": "VOOM: Hobilerine saygı duyan plan",
+  "scenes": [
+    {
+      "voice": "Yüzüyor musun, koşuyor musun, dans mı ediyorsun? Programın bunu bilmeli.",
+      "display": "Hobilerin programına *engel* değil."
+    },
+    {
+      "voice": "VOOM, haftandaki diğer aktiviteleri de hesaba katıyor. Salı yüzüyorsan, o gün bacak yükünü azaltıyor.",
+      "display": "Plan hayatına *göre* kurulur",
+      "kicker": "HOBİLERİN",
+      "screen": "app/program.jpg",
+      "focus": {
+        "x": 50,
+        "y": 1340,
+        "w": 830,
+        "h": 110
+      }
+    },
+    {
+      "voice": "Bu hafta maç mı var? Koçuna söyle, planını ona göre kaydırsın.",
+      "display": "Plan *sana* uyar",
+      "kicker": "KOÇ",
+      "screen": "app/koc.jpg",
+      "focus": {
+        "x": 70,
+        "y": 1125,
+        "w": 785,
+        "h": 420
+      }
+    },
+    {
+      "voice": "VOOM. Hayatından vazgeçmeden antrenman. Link profilde.",
+      "display": "Hayatından *vazgeçmeden*."
+    }
+  ],
+  "caption": "Yüzme, koşu, dans, maç… Hobilerinden vazgeçme 🏊\n\nVOOM haftandaki diğer aktiviteleri hesaba katıyor, planını onlara göre kuruyor.\n\nİndirmek için link profilde 🔗",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "kişiselantrenör",
+    "fitnessuygulaması",
+    "voom",
+    "hobi"
+  ]
+}
