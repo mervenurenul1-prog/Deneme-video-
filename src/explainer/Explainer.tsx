@@ -11,8 +11,8 @@ import {
   useVideoConfig,
 } from "remotion";
 import { interFamily, monoFamily } from "../fonts";
-import { audioFor, ProgressBar, sceneDurations, Subtitles, wordsFor } from "../shared";
-import type { Explainer, ExplainerScene, PostVoiceover } from "../types";
+import { audioFor, ProgressBar, sceneDurations, useSeconds, wordsFor } from "../shared";
+import type { Explainer, ExplainerScene, PostVoiceover, WordTiming } from "../types";
 
 // Bilgi videosu: koyu zemin, VOOM yeşili vurgu; uyarılar için sıcak turuncu / kırmızı
 const C = {
@@ -70,12 +70,12 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({ explainer, voiceover 
                 <Visual scene={scene} data={scene.data ?? {}} />
               </div>
             </Fade>
-            <Subtitles words={wordsFor(scene.voice, audio)} accent={C.lime} bottom={330} boxed />
+            <Captions words={wordsFor(scene.voice, audio)} />
             {audio ? <Audio src={staticFile(audio.file)} /> : null}
           </Sequence>
         );
       })}
-      <Watermark />
+      <Watermark tag={explainer.tag} />
       <ProgressBar color={C.lime} />
     </AbsoluteFill>
   );
@@ -127,25 +127,67 @@ const Backdrop: React.FC = () => {
   );
 };
 
-const Watermark: React.FC = () => (
-  <div
-    style={{
-      position: "absolute",
-      top: 120,
-      left: 90,
-      display: "flex",
-      alignItems: "center",
-      gap: 14,
-      fontFamily: monoFamily,
-      fontSize: 26,
-      letterSpacing: 6,
-      color: C.muted,
-    }}
-  >
-    <div style={{ width: 12, height: 12, borderRadius: 3, backgroundColor: C.lime }} />
-    VOOM
-  </div>
-);
+// Sol üstte "VOOM · KONU", sağ üstte akan zaman kodu
+const Watermark: React.FC<{ tag?: string }> = ({ tag }) => {
+  const frame = useCurrentFrame();
+  const sec = Math.floor(frame / 30);
+  const tc = `00:${String(Math.floor(sec / 60)).padStart(2, "0")}:${String(sec % 60).padStart(2, "0")}:${String(frame % 30).padStart(2, "0")}`;
+  const style: React.CSSProperties = { fontFamily: monoFamily, fontSize: 24, letterSpacing: 5, color: C.muted };
+  return (
+    <div style={{ position: "absolute", top: 110, left: 70, right: 70, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ ...style, display: "flex", alignItems: "center", gap: 14 }}>
+        <div style={{ width: 12, height: 12, borderRadius: 3, backgroundColor: C.lime }} />
+        VOOM{tag ? ` · ${tag}` : ""}
+      </div>
+      <div style={style}>{tc}</div>
+    </div>
+  );
+};
+
+// Altyazı: soldaki yeşil çizgiyle, söylenen kelimeler beyaz, sıradakiler gri, o an söylenen yeşil
+const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
+  const t = useSeconds();
+  const chunks: WordTiming[][] = [];
+  let cur: WordTiming[] = [];
+  for (const w of words) {
+    cur.push(w);
+    const len = cur.reduce((a, x) => a + x.word.length + 1, 0);
+    if (len > 26 || /[.?!]$/.test(w.word)) {
+      chunks.push(cur);
+      cur = [];
+    }
+  }
+  if (cur.length) chunks.push(cur);
+  const current = chunks.findLast((c) => t >= c[0].start) ?? chunks[0];
+  if (!current) return null;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        bottom: 340,
+        left: 90,
+        right: 90,
+        display: "flex",
+        gap: 26,
+        alignItems: "stretch",
+      }}
+    >
+      <div style={{ width: 8, borderRadius: 4, backgroundColor: C.lime, flexShrink: 0 }} />
+      <div style={{ fontSize: 50, fontWeight: 700, lineHeight: 1.25, textShadow: "0 4px 18px rgba(0,0,0,0.9)" }}>
+        {current.map((w, i) => {
+          const said = t >= w.start;
+          const now = t >= w.start && t <= w.end;
+          return (
+            <span key={i} style={{ color: now ? C.lime : said ? C.text : "rgba(245,245,245,0.38)" }}>
+              {i > 0 ? " " : ""}
+              {w.word}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const Fade: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const frame = useCurrentFrame();
@@ -177,7 +219,7 @@ const useProgress = (startAt = 0.05, endAt = 0.85) => {
 // *yıldız* içindeki kelimeleri işaretler
 const markedWords = (text: string) => {
   let on = false;
-  return text.split(" ").map((raw) => {
+  return text.toLocaleUpperCase("tr-TR").split(" ").map((raw) => {
     const opens = raw.startsWith("*");
     const closes = raw.endsWith("*") && (raw.length > 1 || !opens);
     const word = raw.replace(/\*/g, "");
@@ -192,7 +234,7 @@ const markedWords = (text: string) => {
 const Title: React.FC<{ text: string; size: number; delay?: number }> = ({ text, size, delay = 0 }) => {
   const frame = useCurrentFrame();
   return (
-    <div style={{ fontSize: size, fontWeight: 800, lineHeight: 1.08, letterSpacing: -size * 0.025, textAlign: "center" }}>
+    <div style={{ fontSize: size, fontWeight: 900, lineHeight: 1.05, letterSpacing: -size * 0.02, textAlign: "center" }}>
       {markedWords(text).map(({ word, mark }, i) => {
         const o = interpolate(frame, [delay + i * 3, delay + 8 + i * 3], [0, 1], {
           extrapolateLeft: "clamp",
@@ -257,7 +299,7 @@ const Header: React.FC<{ scene: ExplainerScene }> = ({ scene }) => (
     }}
   >
     {scene.kicker ? <Kicker>{scene.kicker}</Kicker> : null}
-    {scene.title ? <Title text={scene.title} size={74} delay={4} /> : null}
+    {scene.title ? <Title text={scene.title} size={68} delay={4} /> : null}
   </div>
 );
 
@@ -324,7 +366,7 @@ const Soru: React.FC<VisualProps> = ({ scene }) => {
       >
         ?
       </div>
-      <Title text={scene.title ?? ""} size={100} delay={6} />
+      <Title text={scene.title ?? ""} size={92} delay={6} />
     </div>
   );
 };
@@ -354,7 +396,7 @@ const Kapanis: React.FC<VisualProps> = ({ scene }) => {
       <div style={{ width: 140 * line, height: 5, backgroundColor: C.lime }} />
       {scene.title ? (
         <div style={{ opacity: line }}>
-          <Title text={scene.title} size={64} delay={14} />
+          <Title text={scene.title} size={58} delay={14} />
         </div>
       ) : null}
       <div
@@ -928,7 +970,326 @@ const Figur: React.FC<VisualProps> = ({ data }) => {
   );
 };
 
+/* ---------- Büyük sayı sayacı ---------- */
+// data: { from?, to, decimals?, prefix?, suffix?, label? }
+
+const fmt = (v: number, decimals: number) =>
+  v.toLocaleString("tr-TR", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
+const Sayi: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const from = (data.from as number) ?? 0;
+  const to = (data.to as number) ?? 0;
+  const decimals = (data.decimals as number) ?? 0;
+  const v = interpolate(frame, [6, 45], [from, to], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
+  const e = useEnter(0, 14);
+  const glow = interpolate(frame, [40, 55], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 36, opacity: e, transform: `scale(${0.85 + 0.15 * e})` }}>
+      <div
+        style={{
+          fontSize: 210,
+          fontWeight: 900,
+          letterSpacing: -6,
+          color: C.lime,
+          lineHeight: 1,
+          textShadow: `0 0 ${60 * glow}px rgba(200,232,90,0.45)`,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {(data.prefix as string) ?? ""}
+        {fmt(v, decimals)}
+        <span style={{ fontSize: 110, letterSpacing: -2 }}>{(data.suffix as string) ?? ""}</span>
+      </div>
+      {data.label ? (
+        <div style={{ padding: "16px 30px", borderRadius: 14, border: `2px solid ${C.border}`, backgroundColor: C.card, fontFamily: monoFamily, fontSize: 26, letterSpacing: 4, color: C.muted, textAlign: "center", maxWidth: 820 }}>
+          {data.label as string}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+/* ---------- Halka grafik ---------- */
+// data: { segments: [{ label, value (yüzde), tone? }] }
+
+const Halka: React.FC<VisualProps> = ({ data }) => {
+  const segs = (data.segments as { label: string; value: number; tone?: string }[]) ?? [];
+  const p = useProgress(0.04, 0.5);
+  const R = 250;
+  const L = 2 * Math.PI * R;
+  let acc = 0;
+  const main = segs[0];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 40 }}>
+      <div style={{ position: "relative", width: 620, height: 620 }}>
+        <svg width={620} height={620} viewBox="0 0 620 620" style={{ transform: "rotate(-90deg)" }}>
+          <circle cx={310} cy={310} r={R} fill="none" stroke={C.border} strokeWidth={70} />
+          {segs.map((sg, i) => {
+            const len = (sg.value / 100) * L * p;
+            const off = acc;
+            acc += (sg.value / 100) * L * p;
+            return (
+              <circle key={i} cx={310} cy={310} r={R} fill="none" stroke={toneColor(sg.tone ?? (i === 0 ? "lime" : "teal"))} strokeWidth={70} strokeDasharray={`${Math.max(0, len - 6)} ${L}`} strokeDashoffset={-off} />
+            );
+          })}
+        </svg>
+        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+          <div style={{ fontSize: 150, fontWeight: 900, color: C.lime, lineHeight: 1 }}>%{Math.round((main?.value ?? 0) * p)}</div>
+          <div style={{ fontSize: 34, fontWeight: 700, color: C.muted, marginTop: 10 }}>{main?.label}</div>
+        </div>
+      </div>
+      <div style={{ display: "flex", gap: 30 }}>
+        {segs.map((sg, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 32, fontWeight: 700 }}>
+            <div style={{ width: 22, height: 22, borderRadius: 6, backgroundColor: toneColor(sg.tone ?? (i === 0 ? "lime" : "teal")) }} />
+            {sg.label} %{sg.value}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Parçacık akışı (ör. nefesle çıkan CO₂) ---------- */
+// data: { center, particle }
+
+const PARTICLES = Array.from({ length: 26 }, (_, i) => ({
+  x: (random(`px${i}`) - 0.5) * 520,
+  delay: random(`pd${i}`) * 90,
+  speed: 4 + random(`ps${i}`) * 4,
+  size: 0.7 + random(`pz${i}`) * 0.6,
+}));
+
+const Parcacik: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const e = useEnter(0, 14);
+  const breathe = 1 + Math.sin(frame / 12) * 0.06;
+  return (
+    <div style={{ position: "relative", width: 900, height: 860 }}>
+      {PARTICLES.map((pt, i) => {
+        const t = (frame - pt.delay) * pt.speed;
+        if (t < 0) return null;
+        const y = 560 - (t % 620);
+        const o = interpolate(y, [-60, 120, 480, 560], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: 450 + pt.x + Math.sin((frame + i * 20) / 15) * 20 - 60,
+              top: y,
+              width: 120 * pt.size,
+              height: 120 * pt.size,
+              borderRadius: "50%",
+              border: `3px solid ${C.lime}`,
+              backgroundColor: "rgba(200,232,90,0.10)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: 34 * pt.size,
+              fontWeight: 800,
+              color: C.lime,
+              opacity: o * e,
+            }}
+          >
+            {(data.particle as string) ?? "CO₂"}
+          </div>
+        );
+      })}
+      <div
+        style={{
+          position: "absolute",
+          left: 450 - 170,
+          top: 620,
+          width: 340,
+          height: 200,
+          borderRadius: 100,
+          backgroundColor: C.card,
+          border: `3px solid ${C.lime}`,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontFamily: monoFamily,
+          fontSize: 32,
+          letterSpacing: 6,
+          color: C.text,
+          transform: `scale(${breathe * e})`,
+          boxShadow: "0 0 80px rgba(200,232,90,0.25)",
+        }}
+      >
+        {(data.center as string) ?? ""}
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Karşılaştırma: iki kart ---------- */
+// data: { left: { label, value, tone? }, right: { label, value, tone? }, sign?: "→" | "vs" | "=" }
+
+const Vs: React.FC<VisualProps> = ({ data }) => {
+  const left = data.left as { label: string; value: string; tone?: string };
+  const right = data.right as { label: string; value: string; tone?: string };
+  const a = useEnter(2);
+  const b = useEnter(18);
+  const sign = useEnter(12, 10);
+  const card = (it: { label: string; value: string; tone?: string }, e: number, dir: number) => (
+    <Card style={{ width: 380, height: 420, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 24, borderColor: `${toneColor(it.tone ?? (dir > 0 ? "lime" : "muted"))}88`, opacity: e, transform: `translateX(${(1 - e) * 120 * dir}px)` }}>
+      <div style={{ fontSize: it.value.length > 6 ? 76 : 96, fontWeight: 900, color: toneColor(it.tone ?? (dir > 0 ? "lime" : "muted")), whiteSpace: "nowrap" }}>{it.value}</div>
+      <div style={{ fontSize: 32, fontWeight: 700, color: C.muted, textAlign: "center", padding: "0 20px" }}>{it.label}</div>
+    </Card>
+  );
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
+      {card(left, a, -1)}
+      <div style={{ width: 140, textAlign: "center", fontSize: 56, fontWeight: 900, color: C.lime, transform: `scale(${sign})` }}>{(data.sign as string) ?? "→"}</div>
+      {card(right, b, 1)}
+    </div>
+  );
+};
+
+/* ---------- Termometre ---------- */
+// data: { from, to, unit?, label? }
+
+const Termometre: React.FC<VisualProps> = ({ data }) => {
+  const from = (data.from as number) ?? 0;
+  const to = (data.to as number) ?? 1;
+  const p = useProgress(0.05, 0.6);
+  const v = from + (to - from) * p;
+  const color = p < 0.4 ? C.teal : p < 0.75 ? C.warm : C.danger;
+  const H = 560;
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 70 }}>
+      <svg width={200} height={760} viewBox="0 0 200 760">
+        <rect x={60} y={20} width={80} height={H + 60} rx={40} fill={C.card} stroke={C.border} strokeWidth={4} />
+        <rect x={78} y={40 + H * (1 - (0.15 + 0.85 * p))} width={44} height={H * (0.15 + 0.85 * p) + 40} rx={22} fill={color} />
+        <circle cx={100} cy={660} r={80} fill={C.card} stroke={C.border} strokeWidth={4} />
+        <circle cx={100} cy={660} r={58} fill={color} />
+        {[0, 1, 2, 3, 4].map((k) => (
+          <line key={k} x1={150} x2={175} y1={60 + (H / 4) * k} y2={60 + (H / 4) * k} stroke={C.muted} strokeWidth={4} />
+        ))}
+      </svg>
+      <div>
+        <div style={{ fontSize: 150, fontWeight: 900, color, lineHeight: 1 }}>
+          {fmt(v, 1)}
+          <span style={{ fontSize: 80 }}>{(data.unit as string) ?? "°C"}</span>
+        </div>
+        {data.label ? <div style={{ fontFamily: monoFamily, fontSize: 28, letterSpacing: 5, color: C.muted, marginTop: 20 }}>{data.label as string}</div> : null}
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Vücut silüeti: yağın her yerden azalması ---------- */
+// data: { mode: "tum" | "bolge" } — bolge: karın işaretli ama yağ yine her yerden gidiyor
+
+const FAT = Array.from({ length: 46 }, (_, i) => {
+  // Silüetin içine düşen rastgele noktalar
+  const zones = [
+    { x: 300, y: 120, w: 70, h: 60 },
+    { x: 220, y: 230, w: 230, h: 330 },
+    { x: 140, y: 240, w: 60, h: 260 },
+    { x: 470, y: 240, w: 60, h: 260 },
+    { x: 230, y: 580, w: 90, h: 330 },
+    { x: 350, y: 580, w: 90, h: 330 },
+  ];
+  const z = zones[i % zones.length];
+  return { x: z.x + random(`fx${i}`) * z.w, y: z.y + random(`fy${i}`) * z.h, r: 10 + random(`fr${i}`) * 10, belly: i % zones.length === 1 && random(`fy${i}`) > 0.4 };
+});
+
+const Vucut: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const p = useProgress(0.15, 0.85);
+  const bolge = data.mode === "bolge";
+  const mark = useEnter(6, 12);
+  const body = "#2a2e35";
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      <svg width={670} height={820} viewBox="0 0 670 950">
+        <circle cx={335} cy={110} r={75} fill={body} />
+        <rect x={290} y={175} width={90} height={50} fill={body} />
+        <rect x={210} y={215} width={250} height={370} rx={70} fill={body} />
+        <rect x={130} y={230} width={75} height={300} rx={37} fill={body} />
+        <rect x={465} y={230} width={75} height={300} rx={37} fill={body} />
+        <rect x={220} y={560} width={105} height={370} rx={50} fill={body} />
+        <rect x={345} y={560} width={105} height={370} rx={50} fill={body} />
+        {FAT.map((f, i) => {
+          // Her noktanın sönme zamanı rastgele: yağ her bölgeden aynı anda azalır
+          const k = random(`fk${i}`) * 0.7;
+          // Tamamen yok olmaz: her bölgede eşit şekilde azalır
+          const o = interpolate(p, [k, k + 0.3], [1, 0.3], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+          return <circle key={i} cx={f.x} cy={f.y + Math.sin(frame / 10 + i) * 2} r={f.r * (0.5 + 0.5 * o)} fill={C.warm} opacity={0.75 * o} />;
+        })}
+        {bolge ? (
+          <g opacity={mark}>
+            <ellipse cx={335} cy={430} rx={110} ry={90} fill="none" stroke={C.lime} strokeWidth={6} strokeDasharray="16 12" />
+            <text x={335} y={545} fill={C.lime} fontSize={30} fontWeight={800} textAnchor="middle" fontFamily={interFamily}>
+              MEKİK
+            </text>
+          </g>
+        ) : null}
+      </svg>
+      <div style={{ display: "flex", gap: 24, fontFamily: monoFamily, fontSize: 26, letterSpacing: 4 }}>
+        <span style={{ color: C.warm }}>● YAĞ</span>
+        <span style={{ color: C.muted }}>{Math.round(100 - 70 * p)}%</span>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Kas çekirdekleri: büyürken eklenir, küçülünce kalır ---------- */
+// data: { phase: "buyume" | "kuculme" }
+
+const NUCLEI = Array.from({ length: 5 }, (_, f) =>
+  Array.from({ length: 6 }, (_, k) => ({ x: 110 + k * 120 + random(`nx${f}${k}`) * 50, extra: k % 2 === 1 })),
+);
+
+const Cekirdek: React.FC<VisualProps> = ({ data }) => {
+  const p = useProgress(0.05, 0.7);
+  const shrink = data.phase === "kuculme";
+  const size = shrink ? 1 - 0.4 * p : 0.65 + 0.35 * p;
+  const W = 820;
+  const fiberH = 110 * size;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 30 }}>
+      <svg width={W} height={640} viewBox={`0 0 ${W} 640`}>
+        <defs>
+          <linearGradient id="fib2" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#ff8f8f" />
+            <stop offset="50%" stopColor="#d9534f" />
+            <stop offset="100%" stopColor="#8f2a2a" />
+          </linearGradient>
+        </defs>
+        {NUCLEI.map((row, f) => {
+          const cy = 64 + f * 128;
+          return (
+            <g key={f}>
+              <rect x={40} y={cy - fiberH / 2} width={W - 80} height={fiberH} rx={fiberH / 2} fill="url(#fib2)" />
+              {row.map((n, k) => {
+                // Büyürken yeni çekirdekler belirir; küçülürken hepsi yerinde kalır
+                const show = shrink || !n.extra ? 1 : interpolate(p, [0.2 + k * 0.08, 0.35 + k * 0.08], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+                return <circle key={k} cx={n.x} cy={cy} r={15 * show} fill={C.lime} stroke="#000" strokeWidth={3} opacity={show} />;
+              })}
+            </g>
+          );
+        })}
+      </svg>
+      <div style={{ display: "flex", gap: 40, fontFamily: monoFamily, fontSize: 26, letterSpacing: 4 }}>
+        <span style={{ color: C.lime }}>● ÇEKİRDEK</span>
+        <span style={{ color: C.muted }}>KAS BOYUTU {Math.round(size * 100)}%</span>
+      </div>
+    </div>
+  );
+};
+
 const VISUALS: Record<string, React.FC<VisualProps>> = {
+  sayi: Sayi,
+  halka: Halka,
+  parcacik: Parcacik,
+  vs: Vs,
+  termometre: Termometre,
+  vucut: Vucut,
+  cekirdek: Cekirdek,
   soru: Soru,
   kapanis: Kapanis,
   cizgi: Cizgi,

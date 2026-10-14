@@ -1,0 +1,80 @@
+{
+  "id": "reels-09-su",
+  "title": "Biraz susuzluk ne yapar ki?",
+  "tag": "SU",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Antrenmanda su içmeyi unuttun. Ne olacak ki? Sandığından fazlası.",
+      "title": "Biraz *susuzluk* ne yapar ki?"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Vücut ağırlığının yüzde ikisi kadar su kaybı bile performansı düşürüyo.",
+      "kicker": "1 · EŞİK",
+      "title": "Sadece *%2* yetiyo",
+      "data": {
+        "from": 0,
+        "to": 2,
+        "prefix": "%",
+        "label": "VÜCUT AĞIRLIĞI KADAR SU KAYBI"
+      }
+    },
+    {
+      "visual": "vs",
+      "voice": "Yetmiş kiloluk biri için bu bi buçuk litre bile değil.",
+      "kicker": "2 · ÖRNEK",
+      "title": "70 kg'da = *1,4 litre*",
+      "data": {
+        "left": {
+          "label": "Vücut ağırlığı",
+          "value": "70 kg"
+        },
+        "right": {
+          "label": "%2 su kaybı",
+          "value": "1,4 L",
+          "tone": "teal"
+        }
+      }
+    },
+    {
+      "visual": "zaman",
+      "voice": "Susamayı bekleme. Önce bi bardak, sırasında yudum yudum, sonra yerine koy.",
+      "kicker": "3 · ÇÖZÜM",
+      "title": "Susamayı *bekleme*",
+      "data": {
+        "items": [
+          {
+            "time": "ÖNCE",
+            "text": "Bir bardak su"
+          },
+          {
+            "time": "SIRASINDA",
+            "text": "Yudum yudum"
+          },
+          {
+            "time": "SONRA",
+            "text": "Kaybettiğini yerine koy",
+            "tone": "teal"
+          }
+        ]
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Su şişen, ayakkabın kadar önemli. Artık biliyosun.",
+      "title": "Su da *antrenmanın* parçası."
+    }
+  ],
+  "caption": "Sadece %2 su kaybı bile performansını düşürür 💧\n\n70 kg biri için bu 1,4 litre demek. Susamayı bekleme: antrenman öncesi, sırası ve sonrası düzenli iç.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "sağlıklıyaşam",
+    "sporsalonu",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

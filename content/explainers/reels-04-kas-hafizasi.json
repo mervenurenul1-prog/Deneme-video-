@@ -1,0 +1,90 @@
+{
+  "id": "reels-04-kas-hafizasi",
+  "title": "Ara verince kasların nereye gidiyo?",
+  "tag": "KAS HAFIZASI",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Üç ay ara verdin, kaslar gitti. Peki geri dönmek neden daha kolay?",
+      "title": "Ara verince kaslar *nereye* gidiyo?"
+    },
+    {
+      "visual": "cekirdek",
+      "voice": "Kas büyürken liflerine yeni çekirdekler ekliyo. Komuta merkezi gibi düşün.",
+      "kicker": "1 · BÜYÜME",
+      "title": "Kas büyürken *çekirdek* ekler",
+      "data": {
+        "phase": "buyume"
+      }
+    },
+    {
+      "visual": "cekirdek",
+      "voice": "Ara verince kas küçülüyo. Ama araştırmalara göre çekirdekler uzun süre kalabiliyo.",
+      "kicker": "2 · ARA",
+      "title": "Kas küçülür, *çekirdek kalır*",
+      "data": {
+        "phase": "kuculme"
+      }
+    },
+    {
+      "visual": "cizgi",
+      "voice": "Merkez hazır olduğu için, geri dönünce kaslar çok daha hızlı toparlanıyo.",
+      "kicker": "3 · DÖNÜŞ",
+      "title": "Dönüş *daha hızlı*",
+      "data": {
+        "series": [
+          {
+            "points": [
+              0,
+              8,
+              18,
+              30,
+              42,
+              54,
+              64
+            ],
+            "label": "İlk sefer",
+            "tone": "muted"
+          },
+          {
+            "points": [
+              0,
+              28,
+              48,
+              62,
+              70,
+              75,
+              78
+            ],
+            "label": "Dönüş"
+          }
+        ],
+        "labels": [
+          "0",
+          "1.A",
+          "2.A",
+          "3.A",
+          "4.A",
+          "5.A",
+          "6.A"
+        ]
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Emeğin kaybolmuyo, seni bekliyo. Bugün dön.",
+      "title": "Emeğin *kaybolmaz*."
+    }
+  ],
+  "caption": "Spora ara verdin diye emeğin çöpe gitmedi 💪\n\nKas büyürken liflere yeni çekirdekler eklenir; araştırmalar bunların ara verince de uzun süre kalabildiğini gösteriyor. Bu yüzden geri dönüş ilk seferden hızlı olur.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "sağlıklıyaşam",
+    "sporsalonu",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

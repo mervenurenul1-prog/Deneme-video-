@@ -68,6 +68,8 @@ export type ExplainerScene = {
 export type Explainer = {
   id: string;
   title: string;
+  // Sol üstte "VOOM · <tag>" olarak görünen kısa konu adı, ör. "YAĞ YAKIMI"
+  tag?: string;
   // İsteğe bağlı: bu videoya özel ElevenLabs ses ve model
   voiceId?: string;
   modelId?: string;

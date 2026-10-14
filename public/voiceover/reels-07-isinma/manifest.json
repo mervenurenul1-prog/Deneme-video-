@@ -1,0 +1,269 @@
+{
+  "scenes": [
+    {
+      "voice": "Salona girdin, direkt ağır sete geçtin. Ne olacak ki? Çok şey.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-07-isinma/1-mv8ljijd.mp3",
+      "durationInSeconds": 4.32,
+      "words": [
+        {
+          "word": "Salona",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "girdin,",
+          "start": 0.36,
+          "end": 1.04
+        },
+        {
+          "word": "direkt",
+          "start": 1.097,
+          "end": 1.44
+        },
+        {
+          "word": "ağır",
+          "start": 1.536,
+          "end": 1.92
+        },
+        {
+          "word": "sete",
+          "start": 1.98,
+          "end": 2.28
+        },
+        {
+          "word": "geçtin.",
+          "start": 2.31,
+          "end": 3.04
+        },
+        {
+          "word": "Ne",
+          "start": 3.067,
+          "end": 3.12
+        },
+        {
+          "word": "olacak",
+          "start": 3.177,
+          "end": 3.52
+        },
+        {
+          "word": "ki?",
+          "start": 3.573,
+          "end": 3.84
+        },
+        {
+          "word": "Çok",
+          "start": 3.88,
+          "end": 4
+        },
+        {
+          "word": "şey.",
+          "start": 4.06,
+          "end": 4.32
+        }
+      ]
+    },
+    {
+      "voice": "Soğuk kas, buzdolabından çıkmış lastik gibi. Sert. Isındıkça yumuşuyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-07-isinma/2-mv8ljjp7.mp3",
+      "durationInSeconds": 4.56,
+      "words": [
+        {
+          "word": "Soğuk",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "kas,",
+          "start": 0.24,
+          "end": 0.56
+        },
+        {
+          "word": "buzdolabından",
+          "start": 0.587,
+          "end": 1.12
+        },
+        {
+          "word": "çıkmış",
+          "start": 1.173,
+          "end": 1.52
+        },
+        {
+          "word": "lastik",
+          "start": 1.6,
+          "end": 2
+        },
+        {
+          "word": "gibi.",
+          "start": 2.048,
+          "end": 2.8
+        },
+        {
+          "word": "Sert.",
+          "start": 2.84,
+          "end": 3.4
+        },
+        {
+          "word": "Isındıkça",
+          "start": 3.493,
+          "end": 4.08
+        },
+        {
+          "word": "yumuşuyo.",
+          "start": 4.1,
+          "end": 4.56
+        }
+      ]
+    },
+    {
+      "voice": "Isınınca kas esniyo, sinyaller hızlanıyo, eklemler rahatlıyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-07-isinma/3-mv8ljkpy.mp3",
+      "durationInSeconds": 3.52,
+      "words": [
+        {
+          "word": "Isınınca",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "kas",
+          "start": 0.48,
+          "end": 0.72
+        },
+        {
+          "word": "esniyo,",
+          "start": 0.773,
+          "end": 1.12
+        },
+        {
+          "word": "sinyaller",
+          "start": 1.16,
+          "end": 1.6
+        },
+        {
+          "word": "hızlanıyo,",
+          "start": 1.64,
+          "end": 2.4
+        },
+        {
+          "word": "eklemler",
+          "start": 2.44,
+          "end": 2.88
+        },
+        {
+          "word": "rahatlıyo.",
+          "start": 2.933,
+          "end": 3.52
+        }
+      ]
+    },
+    {
+      "voice": "Beş on dakika yeter. Hafif kardiyo, dinamik esneme, bi de hafif set.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-07-isinma/4-mv8ljlpe.mp3",
+      "durationInSeconds": 4.16,
+      "words": [
+        {
+          "word": "Beş",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "on",
+          "start": 0.187,
+          "end": 0.24
+        },
+        {
+          "word": "dakika",
+          "start": 0.297,
+          "end": 0.64
+        },
+        {
+          "word": "yeter.",
+          "start": 0.693,
+          "end": 1.04
+        },
+        {
+          "word": "Hafif",
+          "start": 1.28,
+          "end": 1.76
+        },
+        {
+          "word": "kardiyo,",
+          "start": 1.84,
+          "end": 2.32
+        },
+        {
+          "word": "dinamik",
+          "start": 2.38,
+          "end": 2.72
+        },
+        {
+          "word": "esneme,",
+          "start": 2.8,
+          "end": 3.2
+        },
+        {
+          "word": "bi",
+          "start": 3.227,
+          "end": 3.28
+        },
+        {
+          "word": "de",
+          "start": 3.333,
+          "end": 3.44
+        },
+        {
+          "word": "hafif",
+          "start": 3.493,
+          "end": 3.76
+        },
+        {
+          "word": "set.",
+          "start": 3.84,
+          "end": 4.16
+        }
+      ]
+    },
+    {
+      "voice": "Isınmak vakit kaybı değil, sigorta. Atlama.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-07-isinma/5-mv8ljmvu.mp3",
+      "durationInSeconds": 3.76,
+      "words": [
+        {
+          "word": "Isınmak",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "vakit",
+          "start": 0.44,
+          "end": 0.64
+        },
+        {
+          "word": "kaybı",
+          "start": 0.688,
+          "end": 0.96
+        },
+        {
+          "word": "değil,",
+          "start": 1,
+          "end": 1.36
+        },
+        {
+          "word": "sigorta.",
+          "start": 1.42,
+          "end": 2
+        },
+        {
+          "word": "Atlama.",
+          "start": 2.3,
+          "end": 3.76
+        }
+      ]
+    }
+  ]
+}

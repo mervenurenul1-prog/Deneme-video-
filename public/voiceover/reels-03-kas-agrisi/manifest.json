@@ -1,0 +1,314 @@
+{
+  "scenes": [
+    {
+      "voice": "Antrenman günü bişey yok. Ertesi sabah merdiven inemiyosun. Neden?",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-03-kas-agrisi/1-mv8liwb9.mp3",
+      "durationInSeconds": 4.96,
+      "words": [
+        {
+          "word": "Antrenman",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "word": "günü",
+          "start": 0.512,
+          "end": 0.64
+        },
+        {
+          "word": "bişey",
+          "start": 0.693,
+          "end": 0.96
+        },
+        {
+          "word": "yok.",
+          "start": 1.04,
+          "end": 1.36
+        },
+        {
+          "word": "Ertesi",
+          "start": 1.547,
+          "end": 2.16
+        },
+        {
+          "word": "sabah",
+          "start": 2.213,
+          "end": 2.48
+        },
+        {
+          "word": "merdiven",
+          "start": 2.54,
+          "end": 2.88
+        },
+        {
+          "word": "inemiyosun.",
+          "start": 2.933,
+          "end": 3.84
+        },
+        {
+          "word": "Neden?",
+          "start": 3.96,
+          "end": 4.96
+        }
+      ]
+    },
+    {
+      "voice": "Çoğu kişi laktik asit sanıyo. Ama o kısa sürede kandan temizleniyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-03-kas-agrisi/2-mv8lixb7.mp3",
+      "durationInSeconds": 4.16,
+      "words": [
+        {
+          "word": "Çoğu",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "kişi",
+          "start": 0.288,
+          "end": 0.48
+        },
+        {
+          "word": "laktik",
+          "start": 0.56,
+          "end": 0.88
+        },
+        {
+          "word": "asit",
+          "start": 0.933,
+          "end": 1.12
+        },
+        {
+          "word": "sanıyo.",
+          "start": 1.18,
+          "end": 1.88
+        },
+        {
+          "word": "Ama",
+          "start": 1.97,
+          "end": 2.24
+        },
+        {
+          "word": "o",
+          "start": 2.28,
+          "end": 2.32
+        },
+        {
+          "word": "kısa",
+          "start": 2.384,
+          "end": 2.64
+        },
+        {
+          "word": "sürede",
+          "start": 2.686,
+          "end": 2.96
+        },
+        {
+          "word": "kandan",
+          "start": 3,
+          "end": 3.36
+        },
+        {
+          "word": "temizleniyo.",
+          "start": 3.413,
+          "end": 4.16
+        }
+      ]
+    },
+    {
+      "voice": "Asıl sebep, ağırlığı indirirken liflerde oluşan minik hasarlar.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-03-kas-agrisi/3-mv8liybu.mp3",
+      "durationInSeconds": 4.64,
+      "words": [
+        {
+          "word": "Asıl",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "sebep,",
+          "start": 0.387,
+          "end": 0.8
+        },
+        {
+          "word": "ağırlığı",
+          "start": 1,
+          "end": 1.52
+        },
+        {
+          "word": "indirirken",
+          "start": 1.573,
+          "end": 2.32
+        },
+        {
+          "word": "liflerde",
+          "start": 2.44,
+          "end": 3.04
+        },
+        {
+          "word": "oluşan",
+          "start": 3.109,
+          "end": 3.52
+        },
+        {
+          "word": "minik",
+          "start": 3.58,
+          "end": 3.84
+        },
+        {
+          "word": "hasarlar.",
+          "start": 3.9,
+          "end": 4.64
+        }
+      ]
+    },
+    {
+      "voice": "Vücut onarıma başlıyo, bu da zaman alıyo. O yüzden ağrı bi iki gün sonra zirve yapıyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-03-kas-agrisi/4-mv8lizvm.mp3",
+      "durationInSeconds": 6.56,
+      "words": [
+        {
+          "word": "Vücut",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "onarıma",
+          "start": 0.347,
+          "end": 0.64
+        },
+        {
+          "word": "başlıyo,",
+          "start": 0.72,
+          "end": 1.48
+        },
+        {
+          "word": "bu",
+          "start": 1.573,
+          "end": 1.76
+        },
+        {
+          "word": "da",
+          "start": 1.813,
+          "end": 1.92
+        },
+        {
+          "word": "zaman",
+          "start": 1.973,
+          "end": 2.24
+        },
+        {
+          "word": "alıyo.",
+          "start": 2.267,
+          "end": 2.92
+        },
+        {
+          "word": "O",
+          "start": 3.1,
+          "end": 3.28
+        },
+        {
+          "word": "yüzden",
+          "start": 3.36,
+          "end": 3.84
+        },
+        {
+          "word": "ağrı",
+          "start": 3.92,
+          "end": 4.16
+        },
+        {
+          "word": "bi",
+          "start": 4.213,
+          "end": 4.32
+        },
+        {
+          "word": "iki",
+          "start": 4.38,
+          "end": 4.56
+        },
+        {
+          "word": "gün",
+          "start": 4.62,
+          "end": 4.8
+        },
+        {
+          "word": "sonra",
+          "start": 4.867,
+          "end": 5.2
+        },
+        {
+          "word": "zirve",
+          "start": 5.24,
+          "end": 5.52
+        },
+        {
+          "word": "yapıyo.",
+          "start": 5.568,
+          "end": 6.56
+        }
+      ]
+    },
+    {
+      "voice": "Ağrı onarımın parçası. Ama ağrı yoksa gelişmiyosun diye bişey yok.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-03-kas-agrisi/5-mv8lj171.mp3",
+      "durationInSeconds": 4.56,
+      "words": [
+        {
+          "word": "Ağrı",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "onarımın",
+          "start": 0.293,
+          "end": 0.72
+        },
+        {
+          "word": "parçası.",
+          "start": 0.79,
+          "end": 1.36
+        },
+        {
+          "word": "Ama",
+          "start": 1.52,
+          "end": 2
+        },
+        {
+          "word": "ağrı",
+          "start": 2.053,
+          "end": 2.24
+        },
+        {
+          "word": "yoksa",
+          "start": 2.307,
+          "end": 2.64
+        },
+        {
+          "word": "gelişmiyosun",
+          "start": 2.72,
+          "end": 3.36
+        },
+        {
+          "word": "diye",
+          "start": 3.392,
+          "end": 3.52
+        },
+        {
+          "word": "bişey",
+          "start": 3.573,
+          "end": 3.84
+        },
+        {
+          "word": "yok.",
+          "start": 3.92,
+          "end": 4.56
+        }
+      ]
+    }
+  ]
+}

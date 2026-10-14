@@ -1,0 +1,75 @@
+{
+  "id": "reels-01-yag-nereye",
+  "title": "Verdiğin yağ nereye gidiyo?",
+  "tag": "YAĞ YAKIMI",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Beş kilo verdin. O yağ nereye gitti? Eridi mi? Tere mi döndü? Hiçbiri.",
+      "title": "Verdiğin yağ *nereye* gidiyo?"
+    },
+    {
+      "visual": "halka",
+      "voice": "Yağ yanınca karbondioksit ve suya dönüşüyo. Yaklaşık yüzde seksen dördü karbondioksit.",
+      "kicker": "1 · DÖNÜŞÜM",
+      "title": "Yağın *%84*'ü karbondioksit",
+      "data": {
+        "segments": [
+          {
+            "label": "CO₂",
+            "value": 84
+          },
+          {
+            "label": "Su",
+            "value": 16,
+            "tone": "teal"
+          }
+        ]
+      }
+    },
+    {
+      "visual": "parcacik",
+      "voice": "Yani verdiğin yağın çoğunu, resmen nefes vererek atıyosun.",
+      "kicker": "2 · NEFES",
+      "title": "Yağı *nefesinle* veriyosun",
+      "data": {
+        "center": "NEFES",
+        "particle": "CO₂"
+      }
+    },
+    {
+      "visual": "liste",
+      "voice": "Peki hızlı nefes alsan? Olmaz. Yağın önce yakıta dönüşmesi lazım, o da hareketle.",
+      "kicker": "3 · AMA",
+      "title": "Peki *hızlı nefes* alsam?",
+      "data": {
+        "items": [
+          {
+            "text": "Hızlı nefes almak",
+            "ok": false
+          },
+          {
+            "text": "Hareket etmek",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Yağ erimiyo, nefes oluyo. Bi dahaki sefere, artık biliyosun.",
+      "title": "Yağ erimez, *nefes olur*."
+    }
+  ],
+  "caption": "Verdiğin yağın çoğu nefesinle çıkıyor 🫁\n\nYağ yakıldığında karbondioksit ve suya dönüşür; yaklaşık %84'ü karbondioksit olarak solunumla atılır (Meerman & Brown, BMJ 2014).\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "sağlıklıyaşam",
+    "sporsalonu",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

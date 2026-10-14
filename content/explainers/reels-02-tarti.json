@@ -1,0 +1,128 @@
+{
+  "id": "reels-02-tarti",
+  "title": "Bi gecede 1 kilo mu aldın?",
+  "tag": "TARTI",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Sabah tartıldın, bi kilo fazla. Panik yok kanka, o yağ değil.",
+      "title": "Bi gecede *1 kilo* mu aldın?"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Bi kilo yağ için yaklaşık yedi bin yedi yüz kalori fazla yemen lazım. Bi gecede? Zor.",
+      "kicker": "1 · HESAP",
+      "title": "1 kg yağ = *7.700* kalori",
+      "data": {
+        "from": 0,
+        "to": 7700,
+        "suffix": " kcal",
+        "label": "1 KG YAĞ İÇİN GEREKEN FAZLA KALORİ (YAKLAŞIK)"
+      }
+    },
+    {
+      "visual": "vs",
+      "voice": "Asıl sebep su. Kasların karbonhidratla birlikte üç katı su depoluyo.",
+      "kicker": "2 · SU",
+      "title": "Karbonhidrat *su* çeker",
+      "data": {
+        "left": {
+          "label": "Depolanan karbonhidrat",
+          "value": "1 g"
+        },
+        "right": {
+          "label": "Yanında tutulan su",
+          "value": "~3 g"
+        }
+      }
+    },
+    {
+      "visual": "liste",
+      "voice": "Tuzlu yemek, regl dönemi, midendeki yemek... Hepsi tartıyı oynatıyo.",
+      "kicker": "3 · DİĞERLERİ",
+      "title": "Tartıyı *oynatanlar*",
+      "data": {
+        "items": [
+          {
+            "text": "Tuzlu yemek",
+            "ok": true
+          },
+          {
+            "text": "Regl dönemi",
+            "ok": true
+          },
+          {
+            "text": "Midendeki yemek",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "visual": "cizgi",
+      "voice": "Tek güne değil, haftalık ortalamaya bak.",
+      "kicker": "4 · ÇÖZÜM",
+      "title": "Tek güne değil, *ortalamaya* bak",
+      "data": {
+        "series": [
+          {
+            "points": [
+              70,
+              82,
+              64,
+              78,
+              60,
+              72,
+              55,
+              66,
+              50
+            ],
+            "label": "Günlük",
+            "tone": "warm"
+          },
+          {
+            "points": [
+              72,
+              71,
+              69,
+              67,
+              65,
+              62,
+              60,
+              57,
+              55
+            ],
+            "label": "Ortalama"
+          }
+        ],
+        "labels": [
+          "P",
+          "S",
+          "Ç",
+          "P",
+          "C",
+          "C",
+          "P",
+          "P",
+          "S"
+        ]
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Tartı yalan söylemez ama abartır. Artık biliyosun.",
+      "title": "Tartı yalan söylemez, *abartır*."
+    }
+  ],
+  "caption": "Bir gecede aldığın o 1 kilo yağ değil ⚖️\n\nGlikojen kendi ağırlığının yaklaşık 3 katı su tutar; tuz, regl dönemi ve sindirim de tartıyı günlük 1-2 kg oynatabilir. Haftalık ortalamaya bak.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "sağlıklıyaşam",
+    "sporsalonu",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

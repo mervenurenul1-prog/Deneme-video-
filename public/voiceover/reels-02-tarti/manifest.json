@@ -1,0 +1,347 @@
+{
+  "scenes": [
+    {
+      "voice": "Sabah tartıldın, bi kilo fazla. Panik yok kanka, o yağ değil.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-02-tarti/1-mv8lipuv.mp3",
+      "durationInSeconds": 4.72,
+      "words": [
+        {
+          "word": "Sabah",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "tartıldın,",
+          "start": 0.304,
+          "end": 0.88
+        },
+        {
+          "word": "bi",
+          "start": 0.987,
+          "end": 1.2
+        },
+        {
+          "word": "kilo",
+          "start": 1.26,
+          "end": 1.52
+        },
+        {
+          "word": "fazla.",
+          "start": 1.6,
+          "end": 2.08
+        },
+        {
+          "word": "Panik",
+          "start": 2.28,
+          "end": 2.96
+        },
+        {
+          "word": "yok",
+          "start": 3,
+          "end": 3.12
+        },
+        {
+          "word": "kanka,",
+          "start": 3.2,
+          "end": 3.68
+        },
+        {
+          "word": "o",
+          "start": 3.84,
+          "end": 4
+        },
+        {
+          "word": "yağ",
+          "start": 4.06,
+          "end": 4.24
+        },
+        {
+          "word": "değil.",
+          "start": 4.307,
+          "end": 4.72
+        }
+      ]
+    },
+    {
+      "voice": "Bi kilo yağ için yaklaşık yedi bin yedi yüz kalori fazla yemen lazım. Bi gecede? Zor.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-02-tarti/2-mv8lir8i.mp3",
+      "durationInSeconds": 6.96,
+      "words": [
+        {
+          "word": "Bi",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "word": "kilo",
+          "start": 0.14,
+          "end": 0.4
+        },
+        {
+          "word": "yağ",
+          "start": 0.46,
+          "end": 0.64
+        },
+        {
+          "word": "için",
+          "start": 0.704,
+          "end": 0.96
+        },
+        {
+          "word": "yaklaşık",
+          "start": 1.022,
+          "end": 1.52
+        },
+        {
+          "word": "yedi",
+          "start": 1.6,
+          "end": 1.76
+        },
+        {
+          "word": "bin",
+          "start": 1.82,
+          "end": 2
+        },
+        {
+          "word": "yedi",
+          "start": 2.08,
+          "end": 2.24
+        },
+        {
+          "word": "yüz",
+          "start": 2.3,
+          "end": 2.48
+        },
+        {
+          "word": "kalori",
+          "start": 2.54,
+          "end": 2.8
+        },
+        {
+          "word": "fazla",
+          "start": 2.867,
+          "end": 3.2
+        },
+        {
+          "word": "yemen",
+          "start": 3.24,
+          "end": 3.44
+        },
+        {
+          "word": "lazım.",
+          "start": 3.52,
+          "end": 4
+        },
+        {
+          "word": "Bi",
+          "start": 4.293,
+          "end": 4.88
+        },
+        {
+          "word": "gecede?",
+          "start": 4.96,
+          "end": 5.88
+        },
+        {
+          "word": "Zor.",
+          "start": 6.06,
+          "end": 6.96
+        }
+      ]
+    },
+    {
+      "voice": "Asıl sebep su. Kasların karbonhidratla birlikte üç katı su depoluyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-02-tarti/3-mv8lisam.mp3",
+      "durationInSeconds": 5.2,
+      "words": [
+        {
+          "word": "Asıl",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "sebep",
+          "start": 0.32,
+          "end": 0.72
+        },
+        {
+          "word": "su.",
+          "start": 0.933,
+          "end": 1.8
+        },
+        {
+          "word": "Kasların",
+          "start": 1.91,
+          "end": 2.48
+        },
+        {
+          "word": "karbonhidratla",
+          "start": 2.54,
+          "end": 3.36
+        },
+        {
+          "word": "birlikte",
+          "start": 3.404,
+          "end": 3.76
+        },
+        {
+          "word": "üç",
+          "start": 3.867,
+          "end": 4.08
+        },
+        {
+          "word": "katı",
+          "start": 4.128,
+          "end": 4.32
+        },
+        {
+          "word": "su",
+          "start": 4.373,
+          "end": 4.48
+        },
+        {
+          "word": "depoluyo.",
+          "start": 4.56,
+          "end": 5.2
+        }
+      ]
+    },
+    {
+      "voice": "Tuzlu yemek, regl dönemi, midendeki yemek... Hepsi tartıyı oynatıyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-02-tarti/4-mv8litc1.mp3",
+      "durationInSeconds": 4.88,
+      "words": [
+        {
+          "word": "Tuzlu",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "yemek,",
+          "start": 0.387,
+          "end": 0.8
+        },
+        {
+          "word": "regl",
+          "start": 0.92,
+          "end": 1.4
+        },
+        {
+          "word": "dönemi,",
+          "start": 1.43,
+          "end": 1.92
+        },
+        {
+          "word": "midendeki",
+          "start": 1.98,
+          "end": 2.48
+        },
+        {
+          "word": "yemek...",
+          "start": 2.547,
+          "end": 2.96
+        },
+        {
+          "word": "Hepsi",
+          "start": 3.12,
+          "end": 3.68
+        },
+        {
+          "word": "tartıyı",
+          "start": 3.76,
+          "end": 4.16
+        },
+        {
+          "word": "oynatıyo.",
+          "start": 4.24,
+          "end": 4.88
+        }
+      ]
+    },
+    {
+      "voice": "Tek güne değil, haftalık ortalamaya bak.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-02-tarti/5-mv8liu86.mp3",
+      "durationInSeconds": 2.56,
+      "words": [
+        {
+          "word": "Tek",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "güne",
+          "start": 0.213,
+          "end": 0.48
+        },
+        {
+          "word": "değil,",
+          "start": 0.547,
+          "end": 0.96
+        },
+        {
+          "word": "haftalık",
+          "start": 1.056,
+          "end": 1.6
+        },
+        {
+          "word": "ortalamaya",
+          "start": 1.66,
+          "end": 2.16
+        },
+        {
+          "word": "bak.",
+          "start": 2.24,
+          "end": 2.56
+        }
+      ]
+    },
+    {
+      "voice": "Tartı yalan söylemez ama abartır. Artık biliyosun.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-02-tarti/6-mv8liv5z.mp3",
+      "durationInSeconds": 3.44,
+      "words": [
+        {
+          "word": "Tartı",
+          "start": 0,
+          "end": 0.28
+        },
+        {
+          "word": "yalan",
+          "start": 0.3,
+          "end": 0.56
+        },
+        {
+          "word": "söylemez",
+          "start": 0.613,
+          "end": 1.2
+        },
+        {
+          "word": "ama",
+          "start": 1.26,
+          "end": 1.44
+        },
+        {
+          "word": "abartır.",
+          "start": 1.493,
+          "end": 2.36
+        },
+        {
+          "word": "Artık",
+          "start": 2.45,
+          "end": 2.8
+        },
+        {
+          "word": "biliyosun.",
+          "start": 2.84,
+          "end": 3.44
+        }
+      ]
+    }
+  ]
+}

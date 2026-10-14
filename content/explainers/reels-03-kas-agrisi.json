@@ -1,0 +1,82 @@
+{
+  "id": "reels-03-kas-agrisi",
+  "title": "Kas ağrısı neden ertesi gün gelir?",
+  "tag": "KAS AĞRISI",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Antrenman günü bişey yok. Ertesi sabah merdiven inemiyosun. Neden?",
+      "title": "Ağrı neden *ertesi gün* gelir?"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Çoğu kişi laktik asit sanıyo. Ama o kısa sürede kandan temizleniyo.",
+      "kicker": "1 · EFSANE",
+      "title": "Suçlu *laktik asit* değil",
+      "data": {
+        "from": 0,
+        "to": 1,
+        "prefix": "~",
+        "suffix": " saat",
+        "label": "LAKTAT KANDAN BU SÜREDE TEMİZLENİR"
+      }
+    },
+    {
+      "visual": "kas",
+      "voice": "Asıl sebep, ağırlığı indirirken liflerde oluşan minik hasarlar.",
+      "kicker": "2 · ASIL SEBEP",
+      "title": "Lifler *mikro hasar* alır",
+      "data": {
+        "phase": "yirtik"
+      }
+    },
+    {
+      "visual": "cizgi",
+      "voice": "Vücut onarıma başlıyo, bu da zaman alıyo. O yüzden ağrı bi iki gün sonra zirve yapıyo.",
+      "kicker": "3 · ZAMANLAMA",
+      "title": "Ağrı *1-3 gün* sonra zirvede",
+      "data": {
+        "series": [
+          {
+            "points": [
+              5,
+              22,
+              70,
+              90,
+              72,
+              40,
+              15
+            ],
+            "label": "Ağrı",
+            "tone": "warm"
+          }
+        ],
+        "labels": [
+          "0",
+          "12s",
+          "24s",
+          "36s",
+          "48s",
+          "60s",
+          "72s"
+        ]
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Ağrı onarımın parçası. Ama ağrı yoksa gelişmiyosun diye bişey yok.",
+      "title": "Ağrı *şart değil*."
+    }
+  ],
+  "caption": "O ağrının sebebi laktik asit değil 🦵\n\nGecikmiş kas ağrısı (DOMS) özellikle eksantrik hareketlerdeki mikro hasar ve onarım sürecinden kaynaklanır, genelde 24-72 saatte zirve yapar. Ağrı gelişimin şartı değil.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "sağlıklıyaşam",
+    "sporsalonu",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

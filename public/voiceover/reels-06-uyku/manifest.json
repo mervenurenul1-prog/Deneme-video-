@@ -1,0 +1,274 @@
+{
+  "scenes": [
+    {
+      "voice": "Kası salonda yaptığını sanıyosun ama asıl iş uyurken oluyo. Nasıl mı?",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-06-uyku/1-mv8ljd94.mp3",
+      "durationInSeconds": 5.12,
+      "words": [
+        {
+          "word": "Kası",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "salonda",
+          "start": 0.3,
+          "end": 0.64
+        },
+        {
+          "word": "yaptığını",
+          "start": 0.68,
+          "end": 1.12
+        },
+        {
+          "word": "sanıyosun",
+          "start": 1.16,
+          "end": 1.6
+        },
+        {
+          "word": "ama",
+          "start": 1.66,
+          "end": 1.84
+        },
+        {
+          "word": "asıl",
+          "start": 1.984,
+          "end": 2.56
+        },
+        {
+          "word": "iş",
+          "start": 2.64,
+          "end": 2.8
+        },
+        {
+          "word": "uyurken",
+          "start": 2.88,
+          "end": 3.28
+        },
+        {
+          "word": "oluyo.",
+          "start": 3.333,
+          "end": 4.12
+        },
+        {
+          "word": "Nasıl",
+          "start": 4.193,
+          "end": 4.56
+        },
+        {
+          "word": "mı?",
+          "start": 4.64,
+          "end": 5.12
+        }
+      ]
+    },
+    {
+      "voice": "Büyüme hormonunun en büyük salınımı, gecenin ilk yarısındaki derin uykuda.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-06-uyku/2-mv8ljegm.mp3",
+      "durationInSeconds": 4.72,
+      "words": [
+        {
+          "word": "Büyüme",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "hormonunun",
+          "start": 0.384,
+          "end": 1.04
+        },
+        {
+          "word": "en",
+          "start": 1.12,
+          "end": 1.28
+        },
+        {
+          "word": "büyük",
+          "start": 1.333,
+          "end": 1.6
+        },
+        {
+          "word": "salınımı,",
+          "start": 1.66,
+          "end": 2.16
+        },
+        {
+          "word": "gecenin",
+          "start": 2.28,
+          "end": 2.88
+        },
+        {
+          "word": "ilk",
+          "start": 2.96,
+          "end": 3.2
+        },
+        {
+          "word": "yarısındaki",
+          "start": 3.24,
+          "end": 3.84
+        },
+        {
+          "word": "derin",
+          "start": 3.893,
+          "end": 4.16
+        },
+        {
+          "word": "uykuda.",
+          "start": 4.2,
+          "end": 4.72
+        }
+      ]
+    },
+    {
+      "voice": "Gün içinde zorladığın lifler gece onarılıyo, güçleniyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-06-uyku/3-mv8ljfdz.mp3",
+      "durationInSeconds": 3.52,
+      "words": [
+        {
+          "word": "Gün",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "içinde",
+          "start": 0.206,
+          "end": 0.48
+        },
+        {
+          "word": "zorladığın",
+          "start": 0.54,
+          "end": 1.12
+        },
+        {
+          "word": "lifler",
+          "start": 1.18,
+          "end": 1.52
+        },
+        {
+          "word": "gece",
+          "start": 1.584,
+          "end": 1.84
+        },
+        {
+          "word": "onarılıyo,",
+          "start": 1.92,
+          "end": 2.401
+        },
+        {
+          "word": "güçleniyo.",
+          "start": 2.56,
+          "end": 3.52
+        }
+      ]
+    },
+    {
+      "voice": "Önerilen uyku yedi ila dokuz saat. Beş saatle büyük kas bekleme.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-06-uyku/4-mv8ljgg7.mp3",
+      "durationInSeconds": 5.44,
+      "words": [
+        {
+          "word": "Önerilen",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "word": "uyku",
+          "start": 0.56,
+          "end": 0.96
+        },
+        {
+          "word": "yedi",
+          "start": 1.16,
+          "end": 1.52
+        },
+        {
+          "word": "ila",
+          "start": 1.573,
+          "end": 1.84
+        },
+        {
+          "word": "dokuz",
+          "start": 1.88,
+          "end": 2.08
+        },
+        {
+          "word": "saat.",
+          "start": 2.16,
+          "end": 2.64
+        },
+        {
+          "word": "Beş",
+          "start": 2.92,
+          "end": 3.76
+        },
+        {
+          "word": "saatle",
+          "start": 3.824,
+          "end": 4.24
+        },
+        {
+          "word": "büyük",
+          "start": 4.293,
+          "end": 4.56
+        },
+        {
+          "word": "kas",
+          "start": 4.64,
+          "end": 4.88
+        },
+        {
+          "word": "bekleme.",
+          "start": 4.907,
+          "end": 5.44
+        }
+      ]
+    },
+    {
+      "voice": "Bu gece erken yat. Antrenmanın yarısı yastıkta.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-06-uyku/5-mv8ljhaf.mp3",
+      "durationInSeconds": 3.2,
+      "words": [
+        {
+          "word": "Bu",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "word": "gece",
+          "start": 0.144,
+          "end": 0.4
+        },
+        {
+          "word": "erken",
+          "start": 0.467,
+          "end": 0.8
+        },
+        {
+          "word": "yat.",
+          "start": 0.88,
+          "end": 1.2
+        },
+        {
+          "word": "Antrenmanın",
+          "start": 1.36,
+          "end": 2.16
+        },
+        {
+          "word": "yarısı",
+          "start": 2.22,
+          "end": 2.56
+        },
+        {
+          "word": "yastıkta.",
+          "start": 2.6,
+          "end": 3.2
+        }
+      ]
+    }
+  ]
+}
