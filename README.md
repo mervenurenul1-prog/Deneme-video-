@@ -63,6 +63,14 @@ npm run render -- penisilin
 
 Ses henüz üretilmemişse video sessiz oluşturulur; alt yazılar okuma hızına göre tahmini zamanlanır.
 
+## Uygulama tanıtım videoları
+
+`content/promos/` altındaki dosyalar, uygulamanın ekran görüntülerini telefon çerçevesinde gösteren
+tanıtım videolarıdır (örnek: `voom-tanitim.json`). Ekran görüntüleri `public/app/` altındadır.
+Her sahnede `screen` (ekran görüntüsü), `kicker` (küçük etiket), `display` (başlık) ve `focus`
+(kameranın yaklaşacağı bölge, 923 px genişliğe göre koordinatlar) verilebilir; `screen` olmayan
+sahneler yalnızca yazıdan oluşur, son sahne kapanış kartıdır.
+
 ## Özelleştirme
 
 - **Marka (uygulama adı, hesap, renkler, müzik):** `src/brand.ts`

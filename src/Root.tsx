@@ -1,6 +1,7 @@
 import { Composition, staticFile } from "remotion";
 import { VIDEO } from "./brand";
-import { posts, stories } from "./posts";
+import { posts, promos, stories } from "./posts";
+import { PromoVideo, type PromoProps } from "./promo/Promo";
 import { Reel, type ReelProps } from "./Reel";
 import { sceneDurations } from "./shared";
 import { StoryVideo, type StoryProps } from "./stories/Story";
@@ -46,6 +47,22 @@ export const RemotionRoot: React.FC = () => {
           calculateMetadata={async ({ props }) => {
             const voiceover = await loadVoiceover(props.story.id);
             return { props: { ...props, voiceover }, durationInFrames: total(props.story, voiceover) };
+          }}
+        />
+      ))}
+      {promos.map((promo) => (
+        <Composition
+          key={promo.id}
+          id={promo.id}
+          component={PromoVideo}
+          fps={VIDEO.fps}
+          width={VIDEO.width}
+          height={VIDEO.height}
+          durationInFrames={1}
+          defaultProps={{ promo, voiceover: null } as PromoProps}
+          calculateMetadata={async ({ props }) => {
+            const voiceover = await loadVoiceover(props.promo.id);
+            return { props: { ...props, voiceover }, durationInFrames: total(props.promo, voiceover) };
           }}
         />
       ))}

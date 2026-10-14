@@ -45,10 +45,12 @@ export const useSeconds = () => {
 
 // Seslendirme alt yazı olarak 3'erli kelime gruplarıyla gösterilir
 // (Instagram'da videoların çoğu sessiz izlenir)
-export const Subtitles: React.FC<{ words: WordTiming[]; accent: string; bottom?: number }> = ({
+export const Subtitles: React.FC<{ words: WordTiming[]; accent: string; bottom?: number; boxed?: boolean }> = ({
   words,
   accent,
   bottom = SAFE.bottom,
+  // Arkasında görsel olan yerlerde okunabilirlik için koyu kutu
+  boxed = false,
 }) => {
   const t = useSeconds();
   const chunks: WordTiming[][] = [];
@@ -68,11 +70,20 @@ export const Subtitles: React.FC<{ words: WordTiming[]; accent: string; bottom?:
         textShadow: "0 4px 16px rgba(0,0,0,0.7)",
       }}
     >
-      {current.map((w, i) => (
-        <span key={i} style={{ color: t >= w.start && t <= w.end ? accent : undefined }}>
-          {w.word}{" "}
-        </span>
-      ))}
+      <span
+        style={
+          boxed
+            ? { backgroundColor: "rgba(0,0,0,0.82)", padding: "10px 26px", borderRadius: 18, boxDecorationBreak: "clone" }
+            : undefined
+        }
+      >
+        {current.map((w, i) => (
+          <span key={i} style={{ color: t >= w.start && t <= w.end ? accent : undefined }}>
+            {i > 0 ? " " : ""}
+            {w.word}
+          </span>
+        ))}
+      </span>
     </div>
   );
 };

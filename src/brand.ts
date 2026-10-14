@@ -1,12 +1,12 @@
 // Marka ayarları — uygulamanın adı, renkleri ve Instagram hesabıyla değiştirin.
 export const brand = {
-  appName: "FitApp",
-  handle: "@fitapp",
+  appName: "VOOM",
+  handle: "@voom", // TODO: gerçek Instagram kullanıcı adı
   ctaLine: "Uygulamayı indirmek için link profilde",
   colors: {
-    bgFrom: "#0f172a",
-    bgTo: "#1e293b",
-    accent: "#a3e635",
+    bgFrom: "#000000",
+    bgTo: "#0a0a0a",
+    accent: "#c8e85a",
     text: "#ffffff",
     myth: "#f87171",
     fact: "#4ade80",

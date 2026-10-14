@@ -1,13 +1,14 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import type { Post, Story } from "../src/types";
+import type { Post, Promo, Story } from "../src/types";
 
 export const ROOT = process.cwd();
 export const POSTS_DIR = path.join(ROOT, "content", "posts");
 export const STORIES_DIR = path.join(ROOT, "content", "stories");
+export const PROMOS_DIR = path.join(ROOT, "content", "promos");
 
-// Seslendirilip render edilebilen her şey: kısa Reels gönderileri ve hikâye videoları
-export type Video = Post | Story;
+// Seslendirilip render edilebilen her şey: kısa Reels gönderileri, hikâye ve tanıtım videoları
+export type Video = Post | Story | Promo;
 
 const TYPES = new Set(["hook", "point", "myth", "fact", "cta"]);
 
@@ -30,6 +31,13 @@ export async function loadVideos(onlyIds: string[] = []): Promise<Video[]> {
   for (const { item, file } of await readDir<Story>(STORIES_DIR)) {
     validate(item, file, (s, fail) => {
       if (!(s as Story["scenes"][number]).visual) fail("visual boş");
+    });
+    videos.push(item);
+  }
+  for (const { item, file } of await readDir<Promo>(PROMOS_DIR)) {
+    validate(item, file, (s, fail) => {
+      const f = (s as Promo["scenes"][number]).focus;
+      if (f && !(s as Promo["scenes"][number]).screen) fail("focus için screen gerekli");
     });
     videos.push(item);
   }

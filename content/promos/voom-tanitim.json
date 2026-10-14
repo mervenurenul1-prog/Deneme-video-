@@ -1,0 +1,58 @@
+{
+  "id": "voom-tanitim",
+  "title": "VOOM tanıtım",
+  "scenes": [
+    {
+      "voice": "Salona gidiyorsun ama ne yapacağını bilmiyorsun. Tanıdık geldi mi?",
+      "display": "Salona gidip ne yapacağını bilmiyor musun?"
+    },
+    {
+      "voice": "VOOM, her gün sana o günün antrenmanını hazır veriyor.",
+      "kicker": "BUGÜN",
+      "display": "Antrenmanın hazır",
+      "screen": "app/bugun.jpg",
+      "focus": { "x": 50, "y": 80, "w": 820, "h": 330 }
+    },
+    {
+      "voice": "Hedefine ve haftana göre altı haftalık bir plan kuruyor. Üstelik her kararın nedenini açıklıyor.",
+      "kicker": "PROGRAM",
+      "display": "Sana özel 6 haftalık plan",
+      "screen": "app/program.jpg",
+      "focus": { "x": 50, "y": 840, "w": 830, "h": 470 }
+    },
+    {
+      "voice": "Beslenmen de planın bir parçası. Antrenman gününde ve dinlenme gününde farklı kalori hedefleri.",
+      "kicker": "BESLENME",
+      "display": "Her güne ayrı hedef",
+      "screen": "app/beslenme.jpg",
+      "focus": { "x": 70, "y": 660, "w": 785, "h": 845 }
+    },
+    {
+      "voice": "Masa başında mı çalışıyorsun? Gün içine yayılmış kısa duruş rutinleri de var.",
+      "kicker": "GÜN İÇİNDE",
+      "display": "Duruş rutinleri",
+      "screen": "app/durus.jpg",
+      "focus": { "x": 70, "y": 465, "w": 785, "h": 930 }
+    },
+    {
+      "voice": "Bugün başka bir şey mi yapmak istiyorsun? Koçuna yazman yeterli. Planını senin için anında yeniden düzenliyor.",
+      "kicker": "KOÇ",
+      "display": "Planın değişirse koçuna yaz",
+      "screen": "app/koc.jpg",
+      "focus": { "x": 70, "y": 1125, "w": 785, "h": 420 }
+    },
+    {
+      "voice": "Her seans, her set kayıt altında. İlerlemeni gün gün görüyorsun.",
+      "kicker": "İLERLEME",
+      "display": "Her seans kayıt altında",
+      "screen": "app/profil.jpg",
+      "focus": { "x": 70, "y": 285, "w": 785, "h": 1110 }
+    },
+    {
+      "voice": "VOOM. Antrenmanın, beslenmen ve koçun, tek bir yerde. Link profilde.",
+      "display": "Antrenman. Beslenme. Koç. Tek bir yerde."
+    }
+  ],
+  "caption": "Salonda ne yapacağını düşünmeye son 💪\n\nVOOM; antrenman programın, beslenme hedeflerin ve kişisel koçun tek bir uygulamada. Planın değişirse koçuna yaz, programın anında yeniden düzenlensin.\n\nİndirmek için link profilde 🔗",
+  "hashtags": ["fitness", "antrenman", "sporsalonu", "beslenme", "kişiselantrenör", "fitnessuygulaması", "voom"]
+}

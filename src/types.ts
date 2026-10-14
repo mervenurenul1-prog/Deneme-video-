@@ -32,6 +32,26 @@ export type Story = {
   hashtags: string[];
 };
 
+// Uygulama tanıtım videosu: sahneler ekran görüntülerini telefon çerçevesinde gösterir
+export type PromoScene = {
+  voice: string;
+  // Üstte küçük etiket (ör. "BESLENME") ve büyük başlık
+  kicker?: string;
+  display?: string;
+  // public/ altındaki ekran görüntüsü, ör. "app/beslenme.jpg". Yoksa sadece yazı gösterilir.
+  screen?: string;
+  // Kameranın yaklaşacağı bölge (ekran görüntüsü 923 px genişliğe ölçeklenmiş koordinatlarla)
+  focus?: { x: number; y: number; w: number; h: number };
+};
+
+export type Promo = {
+  id: string;
+  title: string;
+  scenes: PromoScene[];
+  caption: string;
+  hashtags: string[];
+};
+
 export type WordTiming = { word: string; start: number; end: number };
 
 export type SceneAudio = {
