@@ -1,0 +1,125 @@
+{
+  "id": "bilgi-hobi",
+  "title": "Yüzdüğün gün bacak çalışılır mı?",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Salı yüzüyosun, çarşamba da bacak günün. Sence bu iyi bi fikir mi?",
+      "title": "Yüzdüğün gün *bacak* çalışılır mı?"
+    },
+    {
+      "visual": "takvim",
+      "voice": "Yüzme de, koşu da, dans da vücudunu yoruyo. Programın bunu bilmiyosa, yorgunluk üst üste biniyo.",
+      "kicker": "1 · YORGUNLUK",
+      "title": "Yorgunluk *birikir*",
+      "data": {
+        "columns": 4,
+        "cells": [
+          {
+            "top": "PZT",
+            "main": "Üst vücut"
+          },
+          {
+            "top": "SALI",
+            "main": "Yüzme",
+            "tone": "warm"
+          },
+          {
+            "top": "ÇAR",
+            "main": "Bacak",
+            "tone": "danger",
+            "cross": true
+          },
+          {
+            "top": "PER",
+            "main": "Dinlenme",
+            "tone": "muted"
+          }
+        ]
+      }
+    },
+    {
+      "visual": "bar",
+      "voice": "Bu da hem performansını düşürüyo, hem sakatlanma riskini artırıyo.",
+      "kicker": "2 · RİSK",
+      "title": "Fazlası *sakatlık* getirir",
+      "data": {
+        "bars": [
+          {
+            "label": "PZT",
+            "value": 35,
+            "text": "Az",
+            "tone": "lime"
+          },
+          {
+            "label": "SALI",
+            "value": 68,
+            "text": "Orta",
+            "tone": "warm"
+          },
+          {
+            "label": "ÇAR",
+            "value": 100,
+            "text": "Fazla",
+            "tone": "danger"
+          }
+        ],
+        "limit": 80,
+        "limitLabel": "SINIR"
+      }
+    },
+    {
+      "visual": "takvim",
+      "voice": "Çözüm basit. Hobini bırakma, programını ona göre kur. Yüzdüğün günün ertesi bacağı hafif tut.",
+      "kicker": "3 · ÇÖZÜM",
+      "title": "Plan *hobine göre* kurulur",
+      "data": {
+        "columns": 4,
+        "cells": [
+          {
+            "top": "PZT",
+            "main": "Bacak",
+            "tone": "lime",
+            "check": true
+          },
+          {
+            "top": "SALI",
+            "main": "Yüzme",
+            "tone": "warm",
+            "check": true
+          },
+          {
+            "top": "ÇAR",
+            "main": "Üst vücut",
+            "tone": "lime",
+            "check": true
+          },
+          {
+            "top": "PER",
+            "main": "Dinlenme",
+            "tone": "muted"
+          }
+        ]
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM hobilerini sorup planını ona göre kuruyo. Hayatından vazgeçme.",
+      "title": "Hayatından *vazgeçme*."
+    }
+  ],
+  "caption": "Yüzme, koşu, dans… Hobilerin de antrenman sayılır 🏊\n\nProgramın bunları bilmiyorsa yorgunluk birikir. Hobini bırakma, planını ona göre kur.\n\nHobin ne? Yorumlara yaz 👇",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "bilgi",
+    "sağlıklıyaşam",
+    "voom",
+    "yüzme",
+    "koşu",
+    "hobi"
+  ]
+}

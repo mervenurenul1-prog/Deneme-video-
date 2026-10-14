@@ -1,0 +1,339 @@
+{
+  "scenes": [
+    {
+      "voice": "Salı yüzüyosun, çarşamba da bacak günün. Sence bu iyi bi fikir mi?",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-hobi/1-mv8l0mnn.mp3",
+      "durationInSeconds": 4.32,
+      "words": [
+        {
+          "word": "Salı",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "yüzüyosun,",
+          "start": 0.28,
+          "end": 1.12
+        },
+        {
+          "word": "çarşamba",
+          "start": 1.24,
+          "end": 1.76
+        },
+        {
+          "word": "da",
+          "start": 1.787,
+          "end": 1.84
+        },
+        {
+          "word": "bacak",
+          "start": 1.88,
+          "end": 2.24
+        },
+        {
+          "word": "günün.",
+          "start": 2.28,
+          "end": 2.84
+        },
+        {
+          "word": "Sence",
+          "start": 2.98,
+          "end": 3.36
+        },
+        {
+          "word": "bu",
+          "start": 3.387,
+          "end": 3.44
+        },
+        {
+          "word": "iyi",
+          "start": 3.5,
+          "end": 3.68
+        },
+        {
+          "word": "bi",
+          "start": 3.707,
+          "end": 3.76
+        },
+        {
+          "word": "fikir",
+          "start": 3.813,
+          "end": 4.08
+        },
+        {
+          "word": "mi?",
+          "start": 4.133,
+          "end": 4.32
+        }
+      ]
+    },
+    {
+      "voice": "Yüzme de, koşu da, dans da vücudunu yoruyo. Programın bunu bilmiyosa, yorgunluk üst üste biniyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-hobi/2-mv8l0nyd.mp3",
+      "durationInSeconds": 6.8,
+      "words": [
+        {
+          "word": "Yüzme",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "de,",
+          "start": 0.48,
+          "end": 0.84
+        },
+        {
+          "word": "koşu",
+          "start": 0.89,
+          "end": 1.12
+        },
+        {
+          "word": "da,",
+          "start": 1.173,
+          "end": 1.36
+        },
+        {
+          "word": "dans",
+          "start": 1.424,
+          "end": 1.68
+        },
+        {
+          "word": "da",
+          "start": 1.733,
+          "end": 1.84
+        },
+        {
+          "word": "vücudunu",
+          "start": 1.88,
+          "end": 2.32
+        },
+        {
+          "word": "yoruyo.",
+          "start": 2.36,
+          "end": 2.88
+        },
+        {
+          "word": "Programın",
+          "start": 2.98,
+          "end": 3.76
+        },
+        {
+          "word": "bunu",
+          "start": 3.808,
+          "end": 4
+        },
+        {
+          "word": "bilmiyosa,",
+          "start": 4.04,
+          "end": 4.72
+        },
+        {
+          "word": "yorgunluk",
+          "start": 4.96,
+          "end": 5.68
+        },
+        {
+          "word": "üst",
+          "start": 5.74,
+          "end": 5.92
+        },
+        {
+          "word": "üste",
+          "start": 6,
+          "end": 6.24
+        },
+        {
+          "word": "biniyo.",
+          "start": 6.28,
+          "end": 6.8
+        }
+      ]
+    },
+    {
+      "voice": "Bu da hem performansını düşürüyo, hem sakatlanma riskini artırıyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-hobi/3-mv8l0p1l.mp3",
+      "durationInSeconds": 4.32,
+      "words": [
+        {
+          "word": "Bu",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "word": "da",
+          "start": 0.107,
+          "end": 0.16
+        },
+        {
+          "word": "hem",
+          "start": 0.2,
+          "end": 0.32
+        },
+        {
+          "word": "performansını",
+          "start": 0.378,
+          "end": 1.12
+        },
+        {
+          "word": "düşürüyo,",
+          "start": 1.173,
+          "end": 1.88
+        },
+        {
+          "word": "hem",
+          "start": 1.95,
+          "end": 2.16
+        },
+        {
+          "word": "sakatlanma",
+          "start": 2.2,
+          "end": 2.72
+        },
+        {
+          "word": "riskini",
+          "start": 2.768,
+          "end": 3.12
+        },
+        {
+          "word": "artırıyo.",
+          "start": 3.18,
+          "end": 4.32
+        }
+      ]
+    },
+    {
+      "voice": "Çözüm basit. Hobini bırakma, programını ona göre kur. Yüzdüğün günün ertesi bacağı hafif tut.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-hobi/4-mv8l0qjx.mp3",
+      "durationInSeconds": 6.32,
+      "words": [
+        {
+          "word": "Çözüm",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "basit.",
+          "start": 0.307,
+          "end": 0.72
+        },
+        {
+          "word": "Hobini",
+          "start": 0.86,
+          "end": 1.36
+        },
+        {
+          "word": "bırakma,",
+          "start": 1.413,
+          "end": 2.16
+        },
+        {
+          "word": "programını",
+          "start": 2.21,
+          "end": 2.72
+        },
+        {
+          "word": "ona",
+          "start": 2.78,
+          "end": 2.96
+        },
+        {
+          "word": "göre",
+          "start": 3.008,
+          "end": 3.2
+        },
+        {
+          "word": "kur.",
+          "start": 3.26,
+          "end": 3.52
+        },
+        {
+          "word": "Yüzdüğün",
+          "start": 3.76,
+          "end": 4.4
+        },
+        {
+          "word": "günün",
+          "start": 4.44,
+          "end": 4.64
+        },
+        {
+          "word": "ertesi",
+          "start": 4.8,
+          "end": 5.12
+        },
+        {
+          "word": "bacağı",
+          "start": 5.16,
+          "end": 5.52
+        },
+        {
+          "word": "hafif",
+          "start": 5.573,
+          "end": 5.84
+        },
+        {
+          "word": "tut.",
+          "start": 5.94,
+          "end": 6.32
+        }
+      ]
+    },
+    {
+      "voice": "VOOM hobilerini sorup planını ona göre kuruyo. Hayatından vazgeçme.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-hobi/5-mv8l0ri4.mp3",
+      "durationInSeconds": 4.64,
+      "words": [
+        {
+          "word": "VOOM",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "hobilerini",
+          "start": 0.28,
+          "end": 0.8
+        },
+        {
+          "word": "sorup",
+          "start": 0.86,
+          "end": 1.2
+        },
+        {
+          "word": "planını",
+          "start": 1.264,
+          "end": 1.76
+        },
+        {
+          "word": "ona",
+          "start": 1.8,
+          "end": 1.92
+        },
+        {
+          "word": "göre",
+          "start": 1.968,
+          "end": 2.16
+        },
+        {
+          "word": "kuruyo.",
+          "start": 2.22,
+          "end": 3.04
+        },
+        {
+          "word": "Hayatından",
+          "start": 3.14,
+          "end": 3.84
+        },
+        {
+          "word": "vazgeçme.",
+          "start": 3.92,
+          "end": 4.64
+        }
+      ]
+    }
+  ]
+}

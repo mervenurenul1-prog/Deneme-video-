@@ -1,0 +1,91 @@
+{
+  "id": "bilgi-takviye",
+  "title": "Takviye almadan önce bunu bil",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Protein tozu, kreatin, vitamin... Rafta bi sürü şey var. Ama almadan önce şunu bil.",
+      "title": "Takviye almadan önce *bunu bil*"
+    },
+    {
+      "visual": "piramit",
+      "voice": "Takviye, adı üstünde, tamamlayıcı. Temelde beslenmen, uykun, antrenmanın oturmamışsa, hiçbi toz bunu kurtarmaz.",
+      "kicker": "1 · TEMEL",
+      "title": "Önce *temel*, sonra takviye",
+      "data": {
+        "levels": [
+          {
+            "text": "Beslenme"
+          },
+          {
+            "text": "Uyku"
+          },
+          {
+            "text": "Antrenman"
+          },
+          {
+            "text": "Takviye"
+          }
+        ]
+      }
+    },
+    {
+      "visual": "seri",
+      "voice": "Bi de çoğu takviyede asıl fark, düzenli kullanmakta. Bi gün alıp üç gün unutunca pek bi işe yaramıyo.",
+      "kicker": "2 · DÜZEN",
+      "title": "Asıl fark *düzende*",
+      "data": {
+        "count": 14,
+        "miss": [
+          2,
+          3,
+          4,
+          9,
+          10
+        ],
+        "label": "gün düzenli"
+      }
+    },
+    {
+      "visual": "liste",
+      "voice": "Ve en önemlisi: Bi şeye başlamadan önce doktoruna danış. Herkesin vücudu farklı.",
+      "kicker": "3 · DİKKAT",
+      "title": "Önce *doktoruna* danış",
+      "data": {
+        "items": [
+          {
+            "text": "Kullandığın ilaçlar",
+            "ok": true
+          },
+          {
+            "text": "Sağlık geçmişin",
+            "ok": true
+          },
+          {
+            "text": "Sana uygun miktar",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM'da takviyelerin günlük planının içinde, unutturmuyo.",
+      "title": "Planında, *unutturmuyo*."
+    }
+  ],
+  "caption": "Takviye sihirli değil, tamamlayıcı 💊\n\nÖnce beslenme, uyku ve antrenman; sonra düzenli kullanım. Ve her zaman: başlamadan önce doktoruna danış.\n\nKaydet, markete gitmeden önce bak 🛒",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "bilgi",
+    "sağlıklıyaşam",
+    "voom",
+    "takviye",
+    "supplement",
+    "beslenme"
+  ]
+}

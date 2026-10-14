@@ -75,6 +75,17 @@ sahneler yalnızca yazıdan oluşur, son sahne kapanış kartıdır.
 Tek konuya odaklanan ~20 saniyelik seri: `voom-koc`, `voom-takip`, `voom-antrenman`, `voom-hobi`,
 `voom-takviye`, `voom-6-hafta`, `voom-durus` (çıktılar `ornek-videolar/seri/`).
 
+## Bilgi videoları
+
+`content/explainers/` altındaki dosyalar, bir konuyu soru → 3 adım → kapanış akışıyla anlatan animasyonlu
+bilgi videolarıdır (ör. `bilgi-durus.json`). Her sahnede `visual` (animasyon), `kicker` ("1 · BOYUN"),
+`title` (`*yıldız*` ile vurgu), `voice` ve animasyona özel `data` bulunur. Animasyonlar
+`src/explainer/Explainer.tsx` içindedir: `soru`, `cizgi`, `takvim`, `bar`, `seri`, `mesaj`, `liste`,
+`zaman`, `piramit`, `kas`, `figur`, `kapanis`.
+
+Dosyada `voiceId` ve `modelId` verilirse o video bu ses/modelle seslendirilir (ör. `eleven_v3`).
+Metinler konuşma diliyle yazılır ("yapıyo", "bi") ki seslendirme okuma gibi değil sohbet gibi dursun.
+
 ## Özelleştirme
 
 - **Marka (uygulama adı, hesap, renkler, müzik):** `src/brand.ts`

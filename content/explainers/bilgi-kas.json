@@ -1,0 +1,87 @@
+{
+  "id": "bilgi-kas",
+  "title": "Kas aslında nasıl büyür?",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Ağırlık kaldırınca kas büyüyo, tamam. Ama tam olarak nasıl? Hiç düşündün mü?",
+      "title": "Kas aslında *nasıl* büyür?"
+    },
+    {
+      "visual": "kas",
+      "voice": "Antrenmanda kas liflerin zorlanıyo. Lifler minik minik hasar alıyo. Ertesi gün hissettiğin ağrının bi kısmı bundan.",
+      "kicker": "1 · ANTRENMAN",
+      "title": "Antrenmanda lifler *zorlanır*",
+      "data": {
+        "phase": "yirtik"
+      }
+    },
+    {
+      "visual": "kas",
+      "voice": "Asıl olay dinlenirken oluyo. Vücut o lifleri onarıyo, bi öncekinden biraz daha güçlü yapıyo.",
+      "kicker": "2 · DİNLENME",
+      "title": "Dinlenirken *onarılır*",
+      "data": {
+        "phase": "onarim"
+      }
+    },
+    {
+      "visual": "bar",
+      "voice": "Ama hep aynı ağırlığı kaldırırsan vücut alışıyo. Yükü azar azar artırman lazım.",
+      "kicker": "3 · YÜKLEME",
+      "title": "Yük *azar azar* artmalı",
+      "data": {
+        "bars": [
+          {
+            "label": "1.H",
+            "value": 55,
+            "text": "40"
+          },
+          {
+            "label": "2.H",
+            "value": 60,
+            "text": "42,5"
+          },
+          {
+            "label": "3.H",
+            "value": 66,
+            "text": "45"
+          },
+          {
+            "label": "4.H",
+            "value": 72,
+            "text": "47,5"
+          },
+          {
+            "label": "5.H",
+            "value": 79,
+            "text": "50"
+          },
+          {
+            "label": "6.H",
+            "value": 86,
+            "text": "52,5"
+          }
+        ]
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM, yükünü her hafta senin için ayarlıyo. Sen sadece kaldır.",
+      "title": "Sen sadece *kaldır*."
+    }
+  ],
+  "caption": "Kas antrenmanda değil, dinlenirken büyür 💪\n\nAntrenman lifleri zorlar, dinlenme onarır, yükü azar azar artırmak da gelişimi sürdürür.\n\nBunu bilmeyen arkadaşını etiketle 👇",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "bilgi",
+    "sağlıklıyaşam",
+    "voom",
+    "kas",
+    "hipertrofi"
+  ]
+}

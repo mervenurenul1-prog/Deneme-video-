@@ -1,0 +1,97 @@
+{
+  "id": "bilgi-takip",
+  "title": "Neden hep 2. haftada bırakıyoruz?",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Spora başlıyosun, ilk hafta süpersin. İkinci hafta? Bi bakmışsın bırakmışsın. Neden ya?",
+      "title": "Neden hep *2. haftada* bırakıyoruz?"
+    },
+    {
+      "visual": "cizgi",
+      "voice": "Çünkü ilk heves motivasyonla gidiyo. Motivasyon da birkaç gün içinde düşüyo. Bu gayet normal, sorun sende değil.",
+      "kicker": "1 · MOTİVASYON",
+      "title": "Motivasyon *bitiyo*",
+      "data": {
+        "series": [
+          {
+            "points": [
+              95,
+              88,
+              70,
+              50,
+              38,
+              30,
+              26
+            ],
+            "label": "Motivasyon",
+            "tone": "warm"
+          }
+        ],
+        "labels": [
+          "1.G",
+          "3.G",
+          "5.G",
+          "7.G",
+          "9.G",
+          "11.G",
+          "14.G"
+        ]
+      }
+    },
+    {
+      "visual": "seri",
+      "voice": "Seni salona götüren şey motivasyon değil, alışkanlık. O da ancak tekrar ede ede oturuyo.",
+      "kicker": "2 · ALIŞKANLIK",
+      "title": "Alışkanlık *tekrarla* oturur",
+      "data": {
+        "count": 14,
+        "label": "tekrar"
+      }
+    },
+    {
+      "visual": "mesaj",
+      "voice": "Asıl sır şu: Biri seni takip edince bırakmak zorlaşıyo. Hesap verdiğin biri olunca, devam ediyosun.",
+      "kicker": "3 · TAKİP",
+      "title": "Takip edilince *bırakmıyosun*",
+      "data": {
+        "messages": [
+          {
+            "from": "coach",
+            "text": "Bugün bacak günü. Hazır mısın?"
+          },
+          {
+            "from": "me",
+            "text": "Bugün hiç içimden gelmiyo ya…"
+          },
+          {
+            "from": "coach",
+            "text": "Kısa tutalım o zaman, 30 dakika. Gel, pişman olmazsın."
+          },
+          {
+            "from": "me",
+            "text": "Tamam, geliyorum!"
+          }
+        ]
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM'da koçun seni takip ediyo. Bu sefer bırakmak yok.",
+      "title": "Bu sefer *bırakmak yok*."
+    }
+  ],
+  "caption": "İkinci haftada bırakan tek kişi sen değilsin 👀\n\nMotivasyon birkaç günde düşer, devam ettiren şey alışkanlık ve takip. VOOM'da koçun seni takip ediyor.\n\nKaydet, bırakmak üzereyken tekrar izle 🔁",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "bilgi",
+    "sağlıklıyaşam",
+    "voom",
+    "motivasyon",
+    "alışkanlık"
+  ]
+}

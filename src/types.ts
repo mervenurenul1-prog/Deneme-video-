@@ -53,6 +53,29 @@ export type Promo = {
   hashtags: string[];
 };
 
+// Bilgi videosu: üstte numaralı etiket + vurgulu başlık, ortada animasyon (visual), altta altyazı
+export type ExplainerScene = {
+  visual: string;
+  voice: string;
+  // Ör. "1 · MOTİVASYON"
+  kicker?: string;
+  // *yıldız* içindeki kelimeler vurgu rengiyle yazılır
+  title?: string;
+  // Animasyona özel veriler (grafik noktaları, takvim günleri, mesajlar...)
+  data?: Record<string, unknown>;
+};
+
+export type Explainer = {
+  id: string;
+  title: string;
+  // İsteğe bağlı: bu videoya özel ElevenLabs ses ve model
+  voiceId?: string;
+  modelId?: string;
+  scenes: ExplainerScene[];
+  caption: string;
+  hashtags: string[];
+};
+
 export type WordTiming = { word: string; start: number; end: number };
 
 export type SceneAudio = {

@@ -1,0 +1,329 @@
+{
+  "scenes": [
+    {
+      "voice": "Günde kaç saat oturuyosun? Sekiz? On? Peki bu omurgana ne yapıyo, hiç düşündün mü?",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-durus/1-mv8l0gzi.mp3",
+      "durationInSeconds": 5.12,
+      "words": [
+        {
+          "word": "Günde",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "kaç",
+          "start": 0.22,
+          "end": 0.4
+        },
+        {
+          "word": "saat",
+          "start": 0.432,
+          "end": 0.56
+        },
+        {
+          "word": "oturuyosun?",
+          "start": 0.608,
+          "end": 1.12
+        },
+        {
+          "word": "Sekiz?",
+          "start": 1.18,
+          "end": 2.08
+        },
+        {
+          "word": "On?",
+          "start": 2.16,
+          "end": 2.48
+        },
+        {
+          "word": "Peki",
+          "start": 2.8,
+          "end": 3.28
+        },
+        {
+          "word": "bu",
+          "start": 3.333,
+          "end": 3.44
+        },
+        {
+          "word": "omurgana",
+          "start": 3.493,
+          "end": 3.92
+        },
+        {
+          "word": "ne",
+          "start": 3.947,
+          "end": 4
+        },
+        {
+          "word": "yapıyo,",
+          "start": 4.048,
+          "end": 4.32
+        },
+        {
+          "word": "hiç",
+          "start": 4.36,
+          "end": 4.48
+        },
+        {
+          "word": "düşündün",
+          "start": 4.52,
+          "end": 4.88
+        },
+        {
+          "word": "mü?",
+          "start": 4.933,
+          "end": 5.12
+        }
+      ]
+    },
+    {
+      "voice": "Başın öne doğru eğildikçe boynuna binen yük artıyo. Hem de katlarca.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-durus/2-mv8l0hya.mp3",
+      "durationInSeconds": 3.92,
+      "words": [
+        {
+          "word": "Başın",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "öne",
+          "start": 0.3,
+          "end": 0.48
+        },
+        {
+          "word": "doğru",
+          "start": 0.52,
+          "end": 0.72
+        },
+        {
+          "word": "eğildikçe",
+          "start": 0.747,
+          "end": 1.2
+        },
+        {
+          "word": "boynuna",
+          "start": 1.307,
+          "end": 1.76
+        },
+        {
+          "word": "binen",
+          "start": 1.8,
+          "end": 2
+        },
+        {
+          "word": "yük",
+          "start": 2.06,
+          "end": 2.24
+        },
+        {
+          "word": "artıyo.",
+          "start": 2.3,
+          "end": 2.88
+        },
+        {
+          "word": "Hem",
+          "start": 2.94,
+          "end": 3.12
+        },
+        {
+          "word": "de",
+          "start": 3.173,
+          "end": 3.28
+        },
+        {
+          "word": "katlarca.",
+          "start": 3.34,
+          "end": 3.92
+        }
+      ]
+    },
+    {
+      "voice": "Saatlerce böyle kalınca omuzların öne kapanıyo, sırtın yuvarlaşıyo. Fark etmeden oluyo bu.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-durus/3-mv8l0jf0.mp3",
+      "durationInSeconds": 5.76,
+      "words": [
+        {
+          "word": "Saatlerce",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "word": "böyle",
+          "start": 0.587,
+          "end": 0.72
+        },
+        {
+          "word": "kalınca",
+          "start": 0.76,
+          "end": 1.12
+        },
+        {
+          "word": "omuzların",
+          "start": 1.307,
+          "end": 2
+        },
+        {
+          "word": "öne",
+          "start": 2.06,
+          "end": 2.24
+        },
+        {
+          "word": "kapanıyo,",
+          "start": 2.32,
+          "end": 3.12
+        },
+        {
+          "word": "sırtın",
+          "start": 3.173,
+          "end": 3.52
+        },
+        {
+          "word": "yuvarlaşıyo.",
+          "start": 3.573,
+          "end": 4.64
+        },
+        {
+          "word": "Fark",
+          "start": 4.68,
+          "end": 4.88
+        },
+        {
+          "word": "etmeden",
+          "start": 4.933,
+          "end": 5.2
+        },
+        {
+          "word": "oluyo",
+          "start": 5.253,
+          "end": 5.44
+        },
+        {
+          "word": "bu.",
+          "start": 5.52,
+          "end": 5.76
+        }
+      ]
+    },
+    {
+      "voice": "İyi haber şu: Gün içine yayılmış birkaç dakikalık hareket bile fark yaratıyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-durus/4-mv8l0kj0.mp3",
+      "durationInSeconds": 4.48,
+      "words": [
+        {
+          "word": "İyi",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "haber",
+          "start": 0.267,
+          "end": 0.4
+        },
+        {
+          "word": "şu:",
+          "start": 0.48,
+          "end": 0.96
+        },
+        {
+          "word": "Gün",
+          "start": 1.04,
+          "end": 1.28
+        },
+        {
+          "word": "içine",
+          "start": 1.32,
+          "end": 1.52
+        },
+        {
+          "word": "yayılmış",
+          "start": 1.56,
+          "end": 1.92
+        },
+        {
+          "word": "birkaç",
+          "start": 1.989,
+          "end": 2.4
+        },
+        {
+          "word": "dakikalık",
+          "start": 2.46,
+          "end": 2.96
+        },
+        {
+          "word": "hareket",
+          "start": 3,
+          "end": 3.28
+        },
+        {
+          "word": "bile",
+          "start": 3.344,
+          "end": 3.6
+        },
+        {
+          "word": "fark",
+          "start": 3.68,
+          "end": 4
+        },
+        {
+          "word": "yaratıyo.",
+          "start": 4.04,
+          "end": 4.48
+        }
+      ]
+    },
+    {
+      "voice": "VOOM'da duruş rutinlerin hazır. Kalk, bi esne, devam.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-durus/5-mv8l0lly.mp3",
+      "durationInSeconds": 3.44,
+      "words": [
+        {
+          "word": "VOOM'da",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "duruş",
+          "start": 0.38,
+          "end": 0.72
+        },
+        {
+          "word": "rutinlerin",
+          "start": 0.76,
+          "end": 1.2
+        },
+        {
+          "word": "hazır.",
+          "start": 1.253,
+          "end": 1.8
+        },
+        {
+          "word": "Kalk,",
+          "start": 1.94,
+          "end": 2.48
+        },
+        {
+          "word": "bi",
+          "start": 2.533,
+          "end": 2.64
+        },
+        {
+          "word": "esne,",
+          "start": 2.693,
+          "end": 3.16
+        },
+        {
+          "word": "devam.",
+          "start": 3.193,
+          "end": 3.44
+        }
+      ]
+    }
+  ]
+}

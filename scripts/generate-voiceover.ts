@@ -55,15 +55,19 @@ for (const post of videos) {
   const scenes: SceneAudio[] = [];
 
   for (const [i, scene] of post.scenes.entries()) {
-    const cached = old?.scenes.find((s) => s && s.voice === scene.voice && s.voiceId === voiceId);
+    const vId = ("voiceId" in post && post.voiceId) || voiceId;
+    const mId = ("modelId" in post && post.modelId) || modelId;
+    const cached = old?.scenes.find((s) => s && s.voice === scene.voice && s.voiceId === vId);
     if (cached) {
       scenes.push(cached);
       continue;
     }
     console.log(`[${post.id}] sahne ${i + 1}: "${scene.voice}"`);
-    const res = await client.textToSpeech.convertWithTimestamps(voiceId, {
+    const res = await client.textToSpeech.convertWithTimestamps(vId, {
       text: scene.voice,
-      modelId,
+      modelId: mId,
+      // v3 modeli dili metinden tahmin etmeye çalışır; Türkçe olduğunu açıkça söyle
+      ...(mId === "eleven_v3" ? { languageCode: "tr" } : {}),
       outputFormat: "mp3_44100_128",
     });
     // Dosya adı benzersiz olsun ki tarayıcı önbelleği eski sesi çalmasın
@@ -72,7 +76,7 @@ for (const post of videos) {
     const a = res.alignment;
     scenes.push({
       voice: scene.voice,
-      voiceId,
+      voiceId: vId,
       file: `voiceover/${post.id}/${name}`,
       durationInSeconds: a?.characterEndTimesSeconds.at(-1) ?? 3,
       words: a ? toWords(a.characters, a.characterStartTimesSeconds, a.characterEndTimesSeconds) : [],
