@@ -1,8 +1,18 @@
 import { Composition, staticFile } from "remotion";
 import { VIDEO } from "./brand";
-import { posts } from "./posts";
-import { Reel, sceneDurations, type ReelProps } from "./Reel";
+import { posts, stories } from "./posts";
+import { Reel, type ReelProps } from "./Reel";
+import { sceneDurations } from "./shared";
+import { StoryVideo, type StoryProps } from "./stories/Story";
 import type { PostVoiceover } from "./types";
+
+const loadVoiceover = async (id: string): Promise<PostVoiceover | null> => {
+  const res = await fetch(staticFile(`voiceover/${id}/manifest.json`)).catch(() => null);
+  return res?.ok ? ((await res.json()) as PostVoiceover) : null;
+};
+
+const total = (item: { scenes: { voice: string }[] }, vo: PostVoiceover | null) =>
+  sceneDurations(item, vo, VIDEO.fps).reduce((a, b) => a + b, 0);
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -18,12 +28,24 @@ export const RemotionRoot: React.FC = () => {
           durationInFrames={1}
           defaultProps={{ post, voiceover: null } as ReelProps}
           calculateMetadata={async ({ props }) => {
-            const res = await fetch(staticFile(`voiceover/${props.post.id}/manifest.json`)).catch(
-              () => null,
-            );
-            const voiceover = res?.ok ? ((await res.json()) as PostVoiceover) : null;
-            const total = sceneDurations(props.post, voiceover, VIDEO.fps).reduce((a, b) => a + b, 0);
-            return { props: { ...props, voiceover }, durationInFrames: total };
+            const voiceover = await loadVoiceover(props.post.id);
+            return { props: { ...props, voiceover }, durationInFrames: total(props.post, voiceover) };
+          }}
+        />
+      ))}
+      {stories.map((story) => (
+        <Composition
+          key={story.id}
+          id={story.id}
+          component={StoryVideo}
+          fps={VIDEO.fps}
+          width={VIDEO.width}
+          height={VIDEO.height}
+          durationInFrames={1}
+          defaultProps={{ story, voiceover: null } as StoryProps}
+          calculateMetadata={async ({ props }) => {
+            const voiceover = await loadVoiceover(props.story.id);
+            return { props: { ...props, voiceover }, durationInFrames: total(props.story, voiceover) };
           }}
         />
       ))}

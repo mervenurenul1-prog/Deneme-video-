@@ -1,0 +1,16 @@
+{
+  "id": "penisilin",
+  "title": "Milyonlarca hayat kurtaran dağınıklık",
+  "scenes": [
+    { "visual": "yil", "voice": "Bin dokuz yüz yirmi sekiz. Bir bilim insanı tatile çıkarken laboratuvarını dağınık bıraktı. Bu dağınıklık, milyonlarca hayat kurtaracaktı." },
+    { "visual": "fleming", "voice": "Adı Alexander Fleming'di. Londra'da, hastalık yapan bakterileri inceliyordu." },
+    { "visual": "kuf", "voice": "Tatilden döndüğünde, masada unuttuğu bir kabın içinde küf ürediğini gördü. Normalde bunu çöpe atardı." },
+    { "visual": "temizlik", "voice": "Ama bir şey dikkatini çekti. Küfün çevresindeki bakteriler... yok olmuştu." },
+    { "visual": "penisilin", "voice": "Fleming, bakterileri öldüren bu maddeye bir isim verdi: Penisilin." },
+    { "visual": "zaman", "voice": "Yıllarca kimse onu ilaca dönüştüremedi. Ta ki İkinci Dünya Savaşı sırasında, Oxford'daki bir ekip onu saflaştırıp seri üretimin yolunu açana kadar." },
+    { "visual": "hayatlar", "voice": "Böylece ilk antibiyotik doğdu. Bugün milyonlarca insan, hayatını bu küçük kazaya borçlu." },
+    { "visual": "alinti", "voice": "Fleming'in dediği gibi: İnsan bazen, aramadığı şeyi bulur." }
+  ],
+  "caption": "Bir bilim insanının dağınıklığı tıp tarihini değiştirdi 🧫\n\n1928'de Alexander Fleming, tatilden döndüğünde unuttuğu bir kapta küf buldu. Küfün etrafındaki bakteriler ölmüştü. Bu tesadüf, ilk antibiyotik olan penisilinin keşfiydi.\n\nBu hikâyeyi biliyor muydun? 👇",
+  "hashtags": ["bilim", "tarih", "penisilin", "keşif", "bilgi", "ilginçbilgiler"]
+}

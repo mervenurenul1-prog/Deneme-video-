@@ -50,6 +50,19 @@ npm run render -- protein-ne-kadar  # 4. out/protein-ne-kadar/ → video.mp4, ka
 `display` verilen sahnelerde seslendirme ayrıca alt yazı olarak gösterilir (Reels'lerin çoğu sessiz izlenir).
 Tüm metinler Instagram arayüzünün kapatmadığı güvenli alanda kalır, üstte bir ilerleme çubuğu bulunur.
 
+## Hikâye videoları
+
+`content/stories/` altındaki dosyalar, her sahnesi özel çizilmiş animasyonlu hikâye videolarıdır
+(örnek: `penisilin.json` — penisilinin kazara keşfi). Her sahnenin `visual` alanı, `src/stories/Story.tsx`
+içindeki bir animasyonu seçer; `voice` alanı seslendirilecek metindir. Seslendirme ve render komutları aynıdır:
+
+```bash
+npm run voiceover -- penisilin
+npm run render -- penisilin
+```
+
+Ses henüz üretilmemişse video sessiz oluşturulur; alt yazılar okuma hızına göre tahmini zamanlanır.
+
 ## Özelleştirme
 
 - **Marka (uygulama adı, hesap, renkler, müzik):** `src/brand.ts`

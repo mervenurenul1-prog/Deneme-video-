@@ -1,12 +1,14 @@
-import type { Post } from "./types";
+import type { Post, Story } from "./types";
 
-// content/posts/ klasöründeki tüm JSON dosyaları otomatik olarak video olur.
-const ctx = require.context("../content/posts", false, /\.json$/);
+// content/posts/ ve content/stories/ klasörlerindeki tüm JSON dosyaları otomatik olarak video olur.
+const load = <T extends { id: string }>(ctx: __WebpackModuleApi.RequireContext): T[] => {
+  const byId = new Map<string, T>();
+  for (const key of ctx.keys()) {
+    const item = ctx(key) as T;
+    byId.set(item.id, item);
+  }
+  return [...byId.values()];
+};
 
-const byId = new Map<string, Post>();
-for (const key of ctx.keys()) {
-  const post = ctx(key) as Post;
-  byId.set(post.id, post);
-}
-
-export const posts = [...byId.values()];
+export const posts = load<Post>(require.context("../content/posts", false, /\.json$/));
+export const stories = load<Story>(require.context("../content/stories", false, /\.json$/));

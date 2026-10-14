@@ -21,6 +21,17 @@ export type Post = {
   hashtags: string[];
 };
 
+// Hikâye videosu: her sahnenin kendine özel bir animasyonu (visual) var
+export type StoryScene = { visual: string; voice: string };
+
+export type Story = {
+  id: string;
+  title: string;
+  scenes: StoryScene[];
+  caption: string;
+  hashtags: string[];
+};
+
 export type WordTiming = { word: string; start: number; end: number };
 
 export type SceneAudio = {

@@ -8,26 +8,12 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { brand, VIDEO } from "./brand";
+import { brand } from "./brand";
 import { fontFamily } from "./fonts";
-import type { Post, PostVoiceover, Scene, SceneAudio, WordTiming } from "./types";
-
-// Instagram arayüzünün (alt açıklama, sağ butonlar) kapattığı alanlar
-const SAFE = { top: 220, bottom: 420, side: 90 };
+import { audioFor, ProgressBar, SAFE, sceneDurations, Subtitles, useSeconds, wordsFor } from "./shared";
+import type { Post, PostVoiceover, Scene, WordTiming } from "./types";
 
 export type ReelProps = { post: Post; voiceover: PostVoiceover | null };
-
-// Manifestteki ses, sahnenin güncel metniyle eşleşmiyorsa kullanılmaz (eski ses).
-export const audioFor = (post: Post, vo: PostVoiceover | null, i: number): SceneAudio | null => {
-  const a = vo?.scenes[i];
-  return a && a.voice === post.scenes[i].voice ? a : null;
-};
-
-export const sceneDurations = (post: Post, vo: PostVoiceover | null, fps: number) =>
-  post.scenes.map((_, i) => {
-    const a = audioFor(post, vo, i);
-    return Math.ceil(((a?.durationInSeconds ?? VIDEO.fallbackSeconds) + VIDEO.paddingSeconds) * fps);
-  });
 
 export const Reel: React.FC<ReelProps> = ({ post, voiceover }) => {
   const { fps } = useVideoConfig();
@@ -45,13 +31,13 @@ export const Reel: React.FC<ReelProps> = ({ post, voiceover }) => {
         const audio = audioFor(post, voiceover, i);
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.type}`}>
-            <SceneView scene={scene} number={pointNo} words={audio?.words ?? null} />
+            <SceneView scene={scene} number={pointNo} words={wordsFor(scene.voice, audio)} />
             {audio ? <Audio src={staticFile(audio.file)} /> : null}
           </Sequence>
         );
       })}
       {brand.music ? <Audio src={staticFile(brand.music)} volume={brand.musicVolume} loop /> : null}
-      <ProgressBar />
+      <ProgressBar color={brand.colors.accent} />
     </AbsoluteFill>
   );
 };
@@ -66,25 +52,7 @@ const Background: React.FC = () => {
   );
 };
 
-// İzleyicinin videonun ne kadarının kaldığını görmesi izlenme süresini artırır
-const ProgressBar: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        height: 14,
-        width: `${(frame / Math.max(1, durationInFrames - 1)) * 100}%`,
-        backgroundColor: brand.colors.accent,
-      }}
-    />
-  );
-};
-
-const SceneView: React.FC<{ scene: Scene; number: number; words: WordTiming[] | null }> = ({
+const SceneView: React.FC<{ scene: Scene; number: number; words: WordTiming[] }> = ({
   scene,
   number,
   words,
@@ -127,10 +95,10 @@ const SceneView: React.FC<{ scene: Scene; number: number; words: WordTiming[] | 
           textDecorationThickness: 6,
         }}
       >
-        {headline ?? (words ? <Karaoke words={words} /> : scene.voice)}
+        {headline ?? <Karaoke words={words} />}
       </div>
       {scene.type === "cta" ? <CtaFooter /> : null}
-      {headline && words ? <Subtitles words={words} /> : null}
+      {headline && words ? <Subtitles words={words} accent={brand.colors.accent} /> : null}
     </AbsoluteFill>
   );
 };
@@ -158,12 +126,6 @@ const CtaFooter: React.FC = () => (
   </div>
 );
 
-const useSeconds = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  return frame / fps;
-};
-
 // Ekran metni yoksa: seslendirme metni, söylenen kelime vurgulanarak gösterilir
 const Karaoke: React.FC<{ words: WordTiming[] }> = ({ words }) => {
   const t = useSeconds();
@@ -181,34 +143,5 @@ const Karaoke: React.FC<{ words: WordTiming[] }> = ({ words }) => {
         </span>
       ))}
     </>
-  );
-};
-
-// Ekran metni varsa: seslendirme alt yazı olarak 3'erli kelime gruplarıyla gösterilir
-// (Instagram'da videoların çoğu sessiz izlenir)
-const Subtitles: React.FC<{ words: WordTiming[] }> = ({ words }) => {
-  const t = useSeconds();
-  const chunks: WordTiming[][] = [];
-  for (let i = 0; i < words.length; i += 3) chunks.push(words.slice(i, i + 3));
-  const current = chunks.findLast((c) => t >= c[0].start) ?? chunks[0];
-  if (!current) return null;
-  return (
-    <div
-      style={{
-        position: "absolute",
-        bottom: SAFE.bottom,
-        left: SAFE.side,
-        right: SAFE.side,
-        fontSize: 56,
-        fontWeight: 800,
-        textShadow: "0 4px 16px rgba(0,0,0,0.6)",
-      }}
-    >
-      {current.map((w, i) => (
-        <span key={i} style={{ color: t >= w.start && t <= w.end ? brand.colors.accent : undefined }}>
-          {w.word}{" "}
-        </span>
-      ))}
-    </div>
   );
 };

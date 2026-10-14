@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 import type { PostVoiceover, SceneAudio, WordTiming } from "../src/types";
-import { loadPosts, ROOT } from "./lib";
+import { loadVideos, ROOT } from "./lib";
 
 // Kullanım: npm run voiceover            → tüm gönderiler
 //           npm run voiceover -- <id>... → sadece belirtilenler
@@ -44,10 +44,10 @@ async function readManifest(file: string): Promise<PostVoiceover | null> {
   }
 }
 
-const posts = await loadPosts(process.argv.slice(2));
+const videos = await loadVideos(process.argv.slice(2));
 let generated = 0;
 
-for (const post of posts) {
+for (const post of videos) {
   const dir = path.join(ROOT, "public", "voiceover", post.id);
   const manifestPath = path.join(dir, "manifest.json");
   await mkdir(dir, { recursive: true });
@@ -83,4 +83,4 @@ for (const post of posts) {
   await writeFile(manifestPath, JSON.stringify({ scenes } satisfies PostVoiceover, null, 2));
 }
 
-console.log(`Tamamlandı: ${generated} yeni ses üretildi, ${posts.length} gönderi güncel.`);
+console.log(`Tamamlandı: ${generated} yeni ses üretildi, ${videos.length} video güncel.`);
