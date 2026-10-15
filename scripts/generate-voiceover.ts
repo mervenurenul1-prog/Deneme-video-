@@ -82,6 +82,8 @@ for (const post of videos) {
       words: a ? toWords(a.characters, a.characterStartTimesSeconds, a.characterEndTimesSeconds) : [],
     });
     generated++;
+    // Her sahneden sonra kaydet: kota yarıda biterse üretilen sesler kaybolmaz, tekrar çalıştırınca kaldığı yerden devam eder
+    await writeFile(manifestPath, JSON.stringify({ scenes } satisfies PostVoiceover, null, 2));
   }
 
   await writeFile(manifestPath, JSON.stringify({ scenes } satisfies PostVoiceover, null, 2));

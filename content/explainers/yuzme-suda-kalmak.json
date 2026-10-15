@@ -1,0 +1,99 @@
+{
+  "id": "yuzme-suda-kalmak",
+  "title": "Derin suda kafanı nasıl dışarda tutarsın?",
+  "tag": "YÜZME",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "title": "Derin suda *kafanı* nasıl dışarda tutarsın?",
+      "voice": "Derin suda kafan dışarda kalsın diye çırpınıyosun, iki dakikada bitiyosun. Sonra da boğulacakmışsın gibi hissediyosun. Tanıdık mı?"
+    },
+    {
+      "visual": "yuzucu",
+      "kicker": "1 · SORUN",
+      "title": "Çırpındıkça *yoruluyosun*",
+      "data": {
+        "mode": "panik"
+      },
+      "voice": "Sorun şu: Panikle çırpınınca nefesin sıklaşıyo, ciğerin boşalıyo. Hava azalınca daha çok batıyosun, daha çok çırpınıyosun."
+    },
+    {
+      "visual": "yuzucu",
+      "kicker": "2 · NEFES",
+      "title": "Ciğerin *can simidin*",
+      "data": {
+        "mode": "nefes"
+      },
+      "voice": "Halbuki ciğerindeki hava seni yukarı itiyo. Derin nefes al, yavaş ver. Çoğu insan dolu ciğerle yüzeye yakın kalıyo."
+    },
+    {
+      "visual": "yuzucu",
+      "kicker": "3 · ELLER",
+      "title": "Ellerle yatay *sekiz* çiz",
+      "data": {
+        "mode": "el"
+      },
+      "voice": "Ellerini göğüs hizasında, su altında yatay sekiz çizer gibi yavaşça salla. Avuçların suyu hafifçe aşağı bassın."
+    },
+    {
+      "visual": "yuzucu",
+      "kicker": "4 · BACAKLAR",
+      "title": "Bacaklar *sırayla* daire çizsin",
+      "data": {
+        "mode": "bacak"
+      },
+      "voice": "Bacaklar da sırayla içe doğru daire çizsin, bisiklet çevirir gibi. Hızlı değil; geniş ve sakin."
+    },
+    {
+      "visual": "yuzucu",
+      "kicker": "5 · MOLA",
+      "title": "Yorulunca *sırtüstü* dinlen",
+      "data": {
+        "mode": "sirt"
+      },
+      "voice": "Yorulursan sırtüstü dön, başını geri bırak, kollarını aç. Bırak su seni taşısın, nefesin düzelsin."
+    },
+    {
+      "visual": "liste",
+      "kicker": "6 · GÜVENLİK",
+      "title": "Önce *sığda* çalış",
+      "data": {
+        "items": [
+          {
+            "text": "Ayağın bassın",
+            "ok": true
+          },
+          {
+            "text": "Kenara yakın kal",
+            "ok": true
+          },
+          {
+            "text": "Asla yalnız girme",
+            "ok": true
+          }
+        ]
+      },
+      "voice": "Bunları önce ayağının bastığı yerde, kenara yakın çalış. Derin suya asla yalnız girme."
+    },
+    {
+      "visual": "kapanis",
+      "title": "Yavaş ol, *su seni taşır*.",
+      "data": {
+        "cta": "gonder"
+      },
+      "voice": "Sakin kalan yüzer, çırpınan yorulur. Suda zorlanan arkadaşına gönder."
+    }
+  ],
+  "caption": "Derin suda kafanı dışarıda tutmanın sırrı güç değil, sakinlik 🌊\n\nPanikle çırpınmak nefesini sığlaştırır ve seni daha çok yorar. Derin nefes, ellerle yatay sekiz (sculling), bacaklarla sırayla daire (yumurta çırpıcı) ve yorulunca sırtüstü dinlenme.\n\n⚠️ Önce ayağının bastığı yerde, kenara yakın çalış; derin suya asla yalnız girme. Mümkünse bir yüzme eğitmeninden destek al.\n\nSuda zorlanan arkadaşına gönder 📲",
+  "hashtags": [
+    "yüzme",
+    "yüzmeöğren",
+    "havuz",
+    "sudakalmak",
+    "bilgi",
+    "fitness",
+    "voom"
+  ]
+}

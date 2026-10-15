@@ -373,11 +373,13 @@ const Soru: React.FC<VisualProps> = ({ scene }) => {
 
 /* ---------- Kapanış: VOOM + takip et ---------- */
 
-const Kapanis: React.FC<VisualProps> = ({ scene }) => {
+// data.cta: "gonder" → "ARKADAŞINA GÖNDER", "kaydet" → "KAYDET", yoksa düğme gösterilmez
+const Kapanis: React.FC<VisualProps> = ({ scene, data }) => {
   const mark = useEnter(0, 14);
   const line = useEnter(12, 200);
   const pill = useEnter(26, 12);
-  const tick = useEnter(40, 200);
+  const tap = useEnter(44, 200);
+  const cta = data.cta as "gonder" | "kaydet" | undefined;
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 54, marginTop: -260 }}>
       <div
@@ -399,27 +401,32 @@ const Kapanis: React.FC<VisualProps> = ({ scene }) => {
           <Title text={scene.title} size={58} delay={14} />
         </div>
       ) : null}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 18,
-          padding: "22px 48px",
-          borderRadius: 999,
-          backgroundColor: tick > 0.5 ? C.lime : "transparent",
-          border: `3px solid ${C.lime}`,
-          color: tick > 0.5 ? "#000" : C.lime,
-          fontFamily: monoFamily,
-          fontSize: 34,
-          fontWeight: 700,
-          letterSpacing: 6,
-          opacity: pill,
-          transform: `scale(${pill})`,
-        }}
-      >
-        {tick > 0.5 ? <Check size={40} color="#000" progress={tick} /> : <span style={{ fontSize: 44 }}>+</span>}
-        {tick > 0.5 ? "TAKİPTESİN" : "TAKİP ET"}
-      </div>
+      {cta ? (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 18,
+            padding: "22px 44px",
+            borderRadius: 999,
+            backgroundColor: tap > 0.5 ? C.lime : "transparent",
+            border: `3px solid ${C.lime}`,
+            color: tap > 0.5 ? "#000" : C.lime,
+            fontFamily: monoFamily,
+            fontSize: 32,
+            fontWeight: 700,
+            letterSpacing: 5,
+            opacity: pill,
+            // "Basılma" anı: kısa bir küçülüp büyüme
+            transform: `scale(${pill * (1 - 0.08 * Math.sin(Math.PI * Math.min(1, tap)))})`,
+          }}
+        >
+          <svg width={40} height={40} viewBox="0 0 24 24" fill="none" stroke={tap > 0.5 ? "#000" : C.lime} strokeWidth={2.4} strokeLinejoin="round" strokeLinecap="round">
+            {cta === "gonder" ? <path d="M3 11l18-8-8 18-2-8-8-2z" /> : <path d="M6 3h12v18l-6-4-6 4z" />}
+          </svg>
+          {cta === "gonder" ? (tap > 0.5 ? "GÖNDERİLDİ" : "ARKADAŞINA GÖNDER") : tap > 0.5 ? "KAYDEDİLDİ" : "KAYDET"}
+        </div>
+      ) : null}
     </div>
   );
 };
@@ -1282,7 +1289,200 @@ const Cekirdek: React.FC<VisualProps> = ({ data }) => {
   );
 };
 
+/* ---------- Yüzücü: derin suda başı dışarıda tutmak ---------- */
+// data: { mode: "panik" | "nefes" | "el" | "bacak" | "sirt" }
+
+type Pt = { x: number; y: number };
+// Açı 0 = aşağı, pozitif = saat yönünün tersi (sağa)
+const limbEnd = (o: Pt, deg: number, len: number): Pt => ({
+  x: o.x + Math.sin((deg * Math.PI) / 180) * len,
+  y: o.y + Math.cos((deg * Math.PI) / 180) * len,
+});
+
+const SURFACE = 300;
+const SKIN = "#c9a58a";
+const SUIT = "#2b3440";
+
+const Yuzucu: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const mode = (data.mode as string) ?? "panik";
+  const p = useProgress(0.05, 0.6);
+  const panic = mode === "panik";
+  const back = mode === "sirt";
+
+  // Dikey konumda vücut: panikte inip çıkar, nefeste yavaşça yükselir
+  const bob = panic
+    ? Math.sin(frame / 4) * 18 + 22
+    : mode === "nefes"
+      ? 30 - 45 * p + Math.sin(frame / 20) * 4
+      : Math.sin(frame / 20) * 5;
+  const head: Pt = { x: 450, y: 245 + bob };
+  const sh = 335 + bob;
+  const hip = 520 + bob;
+  const shL: Pt = { x: 400, y: sh };
+  const shR: Pt = { x: 500, y: sh };
+  const hipL: Pt = { x: 425, y: hip };
+  const hipR: Pt = { x: 475, y: hip };
+
+  // Kollar
+  let armL: Pt[];
+  let armR: Pt[];
+  let handTrail: { cx: number; cy: number }[] = [];
+  if (panic) {
+    const a = 150 + Math.sin(frame / 2.5) * 55;
+    const b = 150 + Math.sin(frame / 2.5 + 1.8) * 55;
+    const eL = limbEnd(shL, -a, 90);
+    const eR = limbEnd(shR, b, 90);
+    armL = [shL, eL, limbEnd(eL, -a + 30, 85)];
+    armR = [shR, eR, limbEnd(eR, b - 30, 85)];
+  } else if (back) {
+    // Sırtüstü: kollar gövdenin yanında hafifçe açık (döndürülünce yatay uzanır)
+    const eL = limbEnd(shL, -14, 95);
+    const eR = limbEnd(shR, 6, 95);
+    armL = [shL, eL, limbEnd(eL, -18, 85)];
+    armR = [shR, eR, limbEnd(eR, 4, 85)];
+  } else {
+    // Sakin sculling: el göğüs hizasında yatay sekiz çizer
+    const t = frame / 9;
+    const amp = mode === "el" ? 1 : 0.45;
+    const cL = { cx: shL.x - 150, cy: sh + 80 };
+    const cR = { cx: shR.x + 150, cy: sh + 80 };
+    const hand = (c: { cx: number; cy: number }, dir: number) => ({
+      x: c.cx + dir * 45 * amp * Math.sin(t),
+      y: c.cy + 18 * amp * Math.sin(2 * t),
+    });
+    armL = [shL, { x: shL.x - 70, y: sh + 70 }, hand(cL, 1)];
+    armR = [shR, { x: shR.x + 70, y: sh + 70 }, hand(cR, -1)];
+    handTrail = mode === "el" ? [cL, cR] : [];
+  }
+
+  // Bacaklar
+  let legL: Pt[];
+  let legR: Pt[];
+  let legTrail: Pt[] = [];
+  if (panic) {
+    const k = Math.sin(frame / 2) * 30;
+    legL = [hipL, limbEnd(hipL, -10 + k, 110), limbEnd(limbEnd(hipL, -10 + k, 110), 10 - k, 105)];
+    legR = [hipR, limbEnd(hipR, 10 - k, 110), limbEnd(limbEnd(hipR, 10 - k, 110), -10 + k, 105)];
+  } else if (back) {
+    const sway = Math.sin(frame / 18) * 4;
+    const kL = limbEnd(hipL, -4 + sway, 110);
+    const kR = limbEnd(hipR, 4 - sway, 110);
+    legL = [hipL, kL, limbEnd(kL, -2, 105)];
+    legR = [hipR, kR, limbEnd(kR, 2, 105)];
+  } else {
+    // Yumurta çırpıcı: dizler açık, ayaklar sırayla daire çizer
+    const t = frame / 10;
+    const amp = mode === "bacak" ? 1 : 0.4;
+    const kL = { x: hipL.x - 70, y: hip + 80 };
+    const kR = { x: hipR.x + 70, y: hip + 80 };
+    legL = [hipL, kL, { x: kL.x + 10 + 50 * amp * Math.cos(t), y: kL.y + 95 + 28 * amp * Math.sin(t) }];
+    legR = [hipR, kR, { x: kR.x - 10 + 50 * amp * Math.cos(t + Math.PI), y: kR.y + 95 + 28 * amp * Math.sin(t + Math.PI) }];
+    legTrail = mode === "bacak" ? [{ x: kL.x + 10, y: kL.y + 95 }, { x: kR.x - 10, y: kR.y + 95 }] : [];
+  }
+
+  const poly = (pts: Pt[]) => pts.map((q, i) => `${i ? "L" : "M"}${q.x},${q.y}`).join(" ");
+  const wave = (off: number, amp: number) =>
+    `M0 ${SURFACE} ` +
+    Array.from({ length: 19 }, (_, i) => `L${i * 50} ${SURFACE + Math.sin(i * 0.9 + frame / (panic ? 4 : 12) + off) * amp}`).join(" ") +
+    ` L900 860 L0 860 Z`;
+  const breath = 1 + (mode === "nefes" ? 0.25 * p : 0) + Math.sin(frame / (panic ? 3 : 14)) * (panic ? 0.05 : 0.06);
+  const effort = { panik: 95, nefes: 45, el: 40, bacak: 45, sirt: 10 }[mode] ?? 50;
+  const effortColor = effort > 70 ? C.danger : effort > 30 ? C.warm : C.lime;
+  const status = { panik: "NEFES: HIZLI · SIĞ", nefes: "NEFES: DERİN · YAVAŞ", el: "TEMPO: SAKİN", bacak: "TEMPO: SAKİN", sirt: "DİNLENME" }[mode] ?? "";
+  const meter = useEnter(10, 200);
+
+  const body = (
+    <g>
+      {[armL, armR].map((a, i) => (
+        <path key={`a${i}`} d={poly(a)} stroke={SKIN} strokeWidth={30} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      ))}
+      {[legL, legR].map((l, i) => (
+        <path key={`l${i}`} d={poly(l)} stroke={SKIN} strokeWidth={40} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      ))}
+      <rect x={390} y={sh - 20} width={120} height={hip - sh + 50} rx={50} fill={SUIT} />
+      {/* Ciğerler: nefesle dolup boşalır */}
+      <ellipse cx={428} cy={sh + 60} rx={24 * breath} ry={44 * breath} fill={C.lime} opacity={mode === "nefes" ? 0.75 : 0.3} />
+      <ellipse cx={472} cy={sh + 60} rx={24 * breath} ry={44 * breath} fill={C.lime} opacity={mode === "nefes" ? 0.75 : 0.3} />
+      <rect x={438} y={head.y + 40} width={24} height={sh - head.y - 40} fill={SKIN} />
+      <circle cx={head.x} cy={head.y} r={52} fill={SKIN} />
+      <path d={`M${head.x - 52} ${head.y - 8} A52 52 0 0 1 ${head.x + 52} ${head.y - 8} Z`} fill="#1e2a35" />
+    </g>
+  );
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
+      <svg width={900} height={720} viewBox="0 60 900 800">
+        <defs>
+          {/* Kenarları yumuşakça kaybolsun, kutu gibi durmasın */}
+          <linearGradient id="edgeFade" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#fff" stopOpacity={0} />
+            <stop offset="18%" stopColor="#fff" stopOpacity={1} />
+            <stop offset="82%" stopColor="#fff" stopOpacity={1} />
+            <stop offset="100%" stopColor="#fff" stopOpacity={0} />
+          </linearGradient>
+          <mask id="edges">
+            <rect x={0} y={0} width={900} height={900} fill="url(#edgeFade)" />
+          </mask>
+          <linearGradient id="water" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#1d6fa3" stopOpacity={0.55} />
+            <stop offset="100%" stopColor="#0b2a44" stopOpacity={0.85} />
+          </linearGradient>
+        </defs>
+        {back ? (
+          // Sırtüstü: vücut yatay, yüz yukarıda, su taşıyor
+          <g transform={`translate(0 ${-118 + Math.sin(frame / 22) * 4}) rotate(-90 450 420)`}>{body}</g>
+        ) : (
+          body
+        )}
+        {/* Su: önce yarı saydam katman, sonra yüzey çizgisi */}
+        <g mask="url(#edges)">
+          <path d={wave(0, panic ? 14 : 5)} fill="url(#water)" />
+          <path d={wave(1.3, panic ? 10 : 3)} fill="none" stroke="#7cc7f0" strokeWidth={4} opacity={0.8} />
+        </g>
+        {panic
+          ? Array.from({ length: 10 }, (_, i) => {
+              const t = (frame * 3 + i * 37) % 60;
+              return <circle key={i} cx={330 + ((i * 73) % 240)} cy={SURFACE - t * 1.6} r={8 - t / 10} fill="#bfe6ff" opacity={1 - t / 60} />;
+            })
+          : null}
+        {handTrail.map((c, i) => (
+          <path
+            key={i}
+            d={`M${c.cx} ${c.cy} C ${c.cx + 45} ${c.cy - 30}, ${c.cx + 45} ${c.cy + 30}, ${c.cx} ${c.cy} C ${c.cx - 45} ${c.cy - 30}, ${c.cx - 45} ${c.cy + 30}, ${c.cx} ${c.cy}`}
+            fill="none"
+            stroke={C.lime}
+            strokeWidth={4}
+            strokeDasharray="10 10"
+            strokeDashoffset={-frame * 2}
+          />
+        ))}
+        {legTrail.map((c, i) => (
+          <ellipse key={i} cx={c.x} cy={c.y} rx={50} ry={28} fill="none" stroke={C.lime} strokeWidth={4} strokeDasharray="10 10" strokeDashoffset={-frame * 2 * (i ? -1 : 1)} />
+        ))}
+        {mode === "nefes" ? (
+          <g opacity={p}>
+            {[330, 570].map((x) => (
+              <path key={x} d={`M${x} 520 l0 -110 m-22 22 l22 -22 l22 22`} stroke={C.lime} strokeWidth={6} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            ))}
+          </g>
+        ) : null}
+      </svg>
+      <Card style={{ width: 760, padding: "22px 30px", opacity: meter }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: monoFamily, fontSize: 24, letterSpacing: 4, color: C.muted }}>
+          <span>EFOR</span>
+          <span style={{ color: effortColor }}>{status}</span>
+        </div>
+        <div style={{ marginTop: 14, height: 18, borderRadius: 9, backgroundColor: C.border }}>
+          <div style={{ width: `${effort * meter}%`, height: "100%", borderRadius: 9, backgroundColor: effortColor }} />
+        </div>
+      </Card>
+    </div>
+  );
+};
+
 const VISUALS: Record<string, React.FC<VisualProps>> = {
+  yuzucu: Yuzucu,
   sayi: Sayi,
   halka: Halka,
   parcacik: Parcacik,
