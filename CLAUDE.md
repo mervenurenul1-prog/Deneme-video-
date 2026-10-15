@@ -47,7 +47,7 @@ VOOM tanıtım videoları (content/promos/voom-*) kalıyor.
 
 ## Sıradaki adım
 Pilot (yağ nereye gidiyor) çizimli olarak hazırlandı, **sessiz önizleme gönderildi, onay bekleniyor**:
-`ornek-videolar/cizim-pilot/01-yag-nereye-sessiz.mp4` (id `cizim-01-yag-nereye`, 8 sahne, ~38 sn).
+`ornek-videolar/cizim-pilot/01-yag-nereye-sessiz.mp4` (id `cizim-01-yag-nereye`, 8 sahne, ~45 sn). 2. sürüm: gerçekçi oranlı gölgeli karakter, kamera hareketleri, yeni metin (kullanıcı ilk sürüm için "karakter basit, hareket az, metin zayıf" dedi).
 Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
 Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
