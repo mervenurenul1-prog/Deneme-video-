@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Sabah boyunu ölç, akşam bi daha ölç. Kısalmışsın. Şaka değil.",
-      "title": "Sabahları *daha uzun* musun?"
+      "title": "Sabahları *daha uzun* musun?",
+      "sticker": "📏😲"
     },
     {
       "visual": "omurga",
@@ -17,7 +18,8 @@
       "title": "Omurlar arasında *yastıklar*",
       "data": {
         "mode": "gun"
-      }
+      },
+      "sticker": "🦴"
     },
     {
       "visual": "sayi",
@@ -30,7 +32,9 @@
         "decimals": 1,
         "suffix": " cm",
         "label": "SABAH İLE AKŞAM ARASI FARK (YAKLAŞIK)"
-      }
+      },
+      "sticker": "🤯",
+      "stamp": "GERÇEK!"
     },
     {
       "visual": "omurga",
@@ -39,7 +43,8 @@
       "title": "Uyurken *yeniden* dolar",
       "data": {
         "mode": "gece"
-      }
+      },
+      "sticker": "🌙💧"
     },
     {
       "visual": "liste",
@@ -61,12 +66,14 @@
             "ok": true
           }
         ]
-      }
+      },
+      "sticker": "🚶"
     },
     {
       "visual": "kapanis",
       "voice": "Bi dahaki sefere boyunu sabah ölç. Artık biliyosun.",
-      "title": "Sabah *biraz daha* uzunsun."
+      "title": "Sabah *biraz daha* uzunsun.",
+      "sticker": "☀️"
     }
   ],
   "caption": "Sabah ölçtüğün boy akşamkinden uzun 📏\n\nOmurlar arasındaki diskler gün boyu yük altında hafifçe ezilir, gece yeniden dolar. Fark yaklaşık 1-2 cm olabilir.\n\nKaydet, sonra lazım olur 🔖",

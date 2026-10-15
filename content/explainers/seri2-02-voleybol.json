@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Voleybolcular fileye nasıl bu kadar yükseğe çıkıyo? Sadece bacak gücü değil.",
-      "title": "Voleybolcular nasıl bu kadar *yükseğe* zıplar?"
+      "title": "Voleybolcular nasıl bu kadar *yükseğe* zıplar?",
+      "sticker": "🏐😮"
     },
     {
       "visual": "ziplama",
@@ -17,7 +18,9 @@
       "title": "Kollar seni *yukarı* çeker",
       "data": {
         "mode": "kol"
-      }
+      },
+      "sticker": "💪",
+      "stamp": "KOLLAR!"
     },
     {
       "visual": "ziplama",
@@ -26,7 +29,8 @@
       "title": "Önce çök, sonra *fırla*",
       "data": {
         "mode": "yay"
-      }
+      },
+      "sticker": "🦘"
     },
     {
       "visual": "ziplama",
@@ -35,12 +39,14 @@
       "title": "Koşu hızı *yukarı* döner",
       "data": {
         "mode": "kosu"
-      }
+      },
+      "sticker": "🏃💨"
     },
     {
       "visual": "kapanis",
       "voice": "İyi zıplamak sadece bacak işi değil, tüm vücut işi. Bi dahakine kollarını da kullan.",
-      "title": "Zıplamak *tüm vücut* işi."
+      "title": "Zıplamak *tüm vücut* işi.",
+      "sticker": "🏐"
     }
   ],
   "caption": "Voleybolcuların sıçrama sırrı sadece bacak değil 🏐\n\nKol savuruşu, hızlı çöküşle yaylanma ve yaklaşma koşusu sıçrama yüksekliğini artırır.\n\nKaydet, sonra lazım olur 🔖",

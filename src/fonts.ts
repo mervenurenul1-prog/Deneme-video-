@@ -17,3 +17,7 @@ const load = (family: string, file: string) => {
 export const fontFamily = load("Montserrat", "montserrat");
 export const interFamily = load("Inter", "inter");
 export const monoFamily = load("JetBrains Mono", "jetbrains-mono");
+
+// Renkli emoji (Noto Color Emoji, SIL OFL): sahnelerdeki çıkartmalar için
+loadFont({ family: "Noto Color Emoji", url: staticFile("fonts/NotoColorEmoji.ttf") });
+export const emojiFamily = "Noto Color Emoji";

@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Çatlaklar kilo verince mi çıkıyo, alınca mı? Çoğu kişi yanlış biliyo.",
-      "title": "Çatlak *kilo verince* mi çıkar?"
+      "title": "Çatlak *kilo verince* mi çıkar?",
+      "sticker": "🤔"
     },
     {
       "visual": "deri",
@@ -17,7 +18,9 @@
       "title": "Deri *hızlı* gerilince yırtılır",
       "data": {
         "phase": "gerilme"
-      }
+      },
+      "sticker": "🧬",
+      "stamp": "KOPTU!"
     },
     {
       "visual": "liste",
@@ -43,7 +46,8 @@
             "ok": true
           }
         ]
-      }
+      },
+      "sticker": "📈"
     },
     {
       "visual": "deri",
@@ -52,7 +56,8 @@
       "title": "Önce *kırmızı*, sonra beyaz",
       "data": {
         "phase": "iz"
-      }
+      },
+      "sticker": "🎨"
     },
     {
       "visual": "kapanis",
@@ -60,7 +65,8 @@
       "title": "Çatlak *hızdan* çıkar.",
       "data": {
         "cta": "kaydet"
-      }
+      },
+      "sticker": "✨"
     }
   ],
   "caption": "Çatlaklar kilo verince değil, deri hızlı gerilince oluşur 🤍\n\nHızlı kilo alımı, ergenlik, hamilelik ve hızlı kas kazanımı en sık dönemler. Yeniyken kırmızı-mor, zamanla beyazlaşır. Genetik ve hormonlar da rol oynar.\n\nKaydet, sonra lazım olur 🔖",

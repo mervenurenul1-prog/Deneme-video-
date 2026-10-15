@@ -10,7 +10,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { interFamily, monoFamily } from "../fonts";
+import { emojiFamily, interFamily, monoFamily } from "../fonts";
 import { audioFor, ProgressBar, sceneDurations, useSeconds, wordsFor } from "../shared";
 import type { Explainer, ExplainerScene, PostVoiceover, WordTiming } from "../types";
 
@@ -53,25 +53,23 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({ explainer, voiceover 
         const fullscreen = scene.visual === "soru" || scene.visual === "kapanis";
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.visual}`}>
-            <Fade>
-              {fullscreen ? null : <Header scene={scene} />}
-              <div
-                style={{
-                  position: "absolute",
-                  left: (1080 - STAGE.width) / 2,
-                  top: fullscreen ? 0 : STAGE.top,
-                  width: STAGE.width,
-                  height: fullscreen ? 1920 : STAGE.height,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Visual scene={scene} data={scene.data ?? {}} />
-              </div>
-            </Fade>
+            <SceneFX scene={scene}>
+              <Fade>
+                {fullscreen ? null : <Header scene={scene} />}
+                <Stage fullscreen={fullscreen}>
+                  <Visual scene={scene} data={scene.data ?? {}} />
+                </Stage>
+                {scene.sticker ? <Stickers text={scene.sticker} fullscreen={fullscreen} /> : null}
+              </Fade>
+            </SceneFX>
             <Captions words={wordsFor(scene.voice, audio)} />
             {audio ? <Audio src={staticFile(audio.file)} /> : null}
+            <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.3} />
+            {scene.visual === "soru" ? (
+              <Sequence from={6}>
+                <Audio src={staticFile("sfx/pop.mp3")} volume={0.4} />
+              </Sequence>
+            ) : null}
           </Sequence>
         );
       })}
@@ -178,14 +176,197 @@ const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
           const said = t >= w.start;
           const now = t >= w.start && t <= w.end;
           return (
-            <span key={i} style={{ color: now ? C.lime : said ? C.text : "rgba(245,245,245,0.38)" }}>
-              {i > 0 ? " " : ""}
+            <span
+              key={i}
+              style={{
+                display: "inline-block",
+                marginLeft: i > 0 ? "0.34em" : 0,
+                color: now ? C.lime : said ? C.text : "rgba(245,245,245,0.38)",
+                transform: `scale(${now ? 1.07 : 1})`,
+              }}
+            >
               {w.word}
             </span>
           );
         })}
       </div>
     </div>
+  );
+};
+
+/* ---------- Efekt katmanı: giriş zoomu, sarsıntı, flaş, kıvılcım, damga ---------- */
+
+const STAMP_AT = 0.42;
+
+const SceneFX: React.FC<{ scene: ExplainerScene; children: React.ReactNode }> = ({ scene, children }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const stampAt = Math.floor(durationInFrames * STAMP_AT);
+  // Giriş: 1.18 → 1 zoom, bulanıktan netleşme, hafif dönüş
+  const inP = interpolate(frame, [0, 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
+  const scale = 1.18 - 0.18 * inP;
+  const blur = 14 * (1 - inP);
+  const rot = (1 - inP) * (random(`r${scene.voice}`) > 0.5 ? 2 : -2);
+  // Sarsıntı: girişte ve damga anında, hızla sönen
+  const shakeAmt = (t: number, power: number) => (t >= 0 && t < 12 ? power * (1 - t / 12) : 0);
+  const amp = shakeAmt(frame, 14) + (scene.stamp ? shakeAmt(frame - stampAt, 22) : 0);
+  const sx = Math.sin(frame * 2.7) * amp;
+  const sy = Math.cos(frame * 3.3) * amp;
+  return (
+    <AbsoluteFill>
+      <AbsoluteFill style={{ transform: `translate(${sx}px, ${sy}px) scale(${scale}) rotate(${rot}deg)`, filter: `blur(${blur}px)` }}>{children}</AbsoluteFill>
+      <Burst x={540} y={scene.visual === "soru" || scene.visual === "kapanis" ? 780 : 330} seed={scene.voice} />
+      <Flash at={0} />
+      {scene.stamp ? (
+        <Sequence from={stampAt}>
+          <Stamp text={scene.stamp} />
+          <Burst x={540} y={980} seed={`${scene.voice}s`} big />
+          <Flash at={0} strength={0.25} />
+          <Audio src={staticFile("sfx/boom.mp3")} volume={0.45} />
+        </Sequence>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
+
+// Görsel alanı: sürekli hafif yakınlaşma ve süzülme (ekran hiç donmasın)
+const Stage: React.FC<{ fullscreen: boolean; children: React.ReactNode }> = ({ fullscreen, children }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const z = interpolate(frame, [0, durationInFrames], [1, 1.06]);
+  const fy = Math.sin(frame / 25) * 6;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: (1080 - STAGE.width) / 2,
+        top: fullscreen ? 0 : STAGE.top,
+        width: STAGE.width,
+        height: fullscreen ? 1920 : STAGE.height,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        transform: `translateY(${fy}px) scale(${z})`,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+const Flash: React.FC<{ at: number; strength?: number }> = ({ at, strength = 0.3 }) => {
+  const frame = useCurrentFrame();
+  const o = interpolate(frame - at, [0, 1, 4], [0, strength, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return <AbsoluteFill style={{ backgroundColor: "#fff", opacity: o, pointerEvents: "none" }} />;
+};
+
+// Kıvılcım patlaması + şok dalgası halkası
+const Burst: React.FC<{ x: number; y: number; seed: string; big?: boolean }> = ({ x, y, seed, big }) => {
+  const frame = useCurrentFrame();
+  const n = big ? 26 : 16;
+  const life = big ? 26 : 20;
+  if (frame > life) return null;
+  const t = frame / life;
+  const ring = Easing.out(Easing.cubic)(t);
+  return (
+    <svg width={1080} height={1920} style={{ position: "absolute", left: 0, top: 0, pointerEvents: "none" }}>
+      <circle cx={x} cy={y} r={(big ? 520 : 380) * ring} fill="none" stroke={C.lime} strokeWidth={14 * (1 - t)} opacity={1 - t} />
+      <circle cx={x} cy={y} r={(big ? 320 : 220) * ring} fill="none" stroke="#fff" strokeWidth={6 * (1 - t)} opacity={0.8 * (1 - t)} />
+      {Array.from({ length: n }, (_, i) => {
+        const a = (i / n) * Math.PI * 2 + random(`${seed}a${i}`) * 0.4;
+        const sp = (big ? 620 : 440) * (0.6 + random(`${seed}s${i}`) * 0.6);
+        const d0 = sp * Easing.out(Easing.quad)(Math.max(0, t - 0.08));
+        const d1 = sp * Easing.out(Easing.quad)(t);
+        const col = [C.lime, C.warm, "#fff", C.teal][i % 4];
+        return (
+          <line
+            key={i}
+            x1={x + Math.cos(a) * d0}
+            y1={y + Math.sin(a) * d0}
+            x2={x + Math.cos(a) * d1}
+            y2={y + Math.sin(a) * d1}
+            stroke={col}
+            strokeWidth={(big ? 12 : 9) * (1 - t)}
+            strokeLinecap="round"
+          />
+        );
+      })}
+    </svg>
+  );
+};
+
+// Damga: büyük, eğik, çerçeveli yazı ekrana çarpar
+const Stamp: React.FC<{ text: string }> = ({ text }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const e = spring({ frame, fps, config: { damping: 9, stiffness: 220 } });
+  const out = interpolate(frame, [38, 48], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  if (out <= 0) return null;
+  return (
+    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", pointerEvents: "none" }}>
+      <div
+        style={{
+          marginTop: 120,
+          padding: "26px 54px",
+          border: `10px solid ${C.danger}`,
+          borderRadius: 26,
+          color: C.danger,
+          backgroundColor: "rgba(6,7,10,0.88)",
+          fontSize: 120,
+          fontWeight: 900,
+          letterSpacing: 2,
+          textShadow: "0 0 40px rgba(255,93,93,0.6)",
+          boxShadow: "0 0 80px rgba(255,93,93,0.35)",
+          transform: `rotate(-8deg) scale(${(2.6 - 1.6 * e) * (0.9 + 0.1 * out)})`,
+          opacity: Math.min(1, e * 1.5) * out,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {text.toLocaleUpperCase("tr-TR")}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// Kenarlarda zıplayıp dönen emoji çıkartmalar
+const STICKER_POS = [
+  { x: 60, y: 600 },
+  { x: 880, y: 680 },
+  { x: 70, y: 1260 },
+  { x: 870, y: 1210 },
+];
+const Stickers: React.FC<{ text: string; fullscreen: boolean }> = ({ text, fullscreen }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const items = Array.from(new Intl.Segmenter("tr", { granularity: "grapheme" }).segment(text))
+    .map((g) => g.segment)
+    .filter((g) => g.trim());
+  return (
+    <>
+      {items.map((em, i) => {
+        const pos = fullscreen ? [{ x: 110, y: 270 }, { x: 810, y: 300 }, { x: 120, y: 1330 }, { x: 800, y: 1300 }][i % 4] : STICKER_POS[i % 4];
+        const e = spring({ frame: frame - 8 - i * 6, fps, config: { damping: 8, stiffness: 160 } });
+        const bob = Math.sin(frame / 9 + i * 2) * 14;
+        const rot = Math.sin(frame / 13 + i) * 12;
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: pos.x,
+              top: pos.y + bob,
+              fontFamily: emojiFamily,
+              fontSize: fullscreen ? 150 : 120,
+              lineHeight: 1,
+              transform: `scale(${e}) rotate(${rot}deg)`,
+              filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.6))",
+            }}
+          >
+            {em}
+          </div>
+        );
+      })}
+    </>
   );
 };
 
@@ -233,21 +414,21 @@ const markedWords = (text: string) => {
 // Kelime kelime beliren başlık
 const Title: React.FC<{ text: string; size: number; delay?: number }> = ({ text, size, delay = 0 }) => {
   const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
   return (
     <div style={{ fontSize: size, fontWeight: 900, lineHeight: 1.05, letterSpacing: -size * 0.02, textAlign: "center" }}>
       {markedWords(text).map(({ word, mark }, i) => {
-        const o = interpolate(frame, [delay + i * 3, delay + 8 + i * 3], [0, 1], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-        });
+        const e = spring({ frame: frame - delay - i * 3, fps, config: { damping: 11, stiffness: 200 } });
+        const wob = mark ? Math.sin(frame / 7 + i) * 2 : 0;
         return (
           <span
             key={i}
             style={{
               display: "inline-block",
-              opacity: o,
-              transform: `translateY(${(1 - o) * 20}px)`,
+              opacity: Math.min(1, e * 2),
+              transform: `scale(${2.2 - 1.2 * e}) rotate(${wob}deg)`,
               color: mark ? C.lime : undefined,
+              textShadow: mark ? "0 0 30px rgba(200,232,90,0.55)" : "0 6px 20px rgba(0,0,0,0.6)",
             }}
           >
             {word}&nbsp;
@@ -343,8 +524,8 @@ const Cross: React.FC<{ size: number; color?: string; progress?: number }> = ({ 
 
 const Soru: React.FC<VisualProps> = ({ scene }) => {
   const frame = useCurrentFrame();
-  const ring = useEnter(0, 12);
-  const pulse = 1 + Math.sin(frame / 10) * 0.04;
+  const ring = useEnter(0, 9);
+  const pulse = 1 + Math.sin(frame / 8) * 0.06;
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 70, marginTop: -260 }}>
       <div
@@ -362,9 +543,17 @@ const Soru: React.FC<VisualProps> = ({ scene }) => {
           opacity: ring,
           transform: `scale(${ring * pulse})`,
           boxShadow: `0 0 80px rgba(200,232,90,${0.25 * ring})`,
+          position: "relative",
         }}
       >
         ?
+        {[0, 1, 2].map((k) => {
+          const t = ((frame + k * 20) % 60) / 60;
+          return <div key={k} style={{ position: "absolute", inset: -10 - 120 * t, borderRadius: "50%", border: `4px solid ${C.lime}`, opacity: 0.6 * (1 - t) }} />;
+        })}
+        <svg width={300} height={300} style={{ position: "absolute", left: -50, top: -50, transform: `rotate(${frame * 3}deg)` }}>
+          <circle cx={150} cy={150} r={140} fill="none" stroke={C.lime} strokeWidth={4} strokeDasharray="20 18" opacity={0.7} />
+        </svg>
       </div>
       <Title text={scene.title ?? ""} size={92} delay={6} />
     </div>
@@ -380,7 +569,16 @@ const Kapanis: React.FC<VisualProps> = ({ scene, data }) => {
   const pill = useEnter(26, 12);
   const tap = useEnter(44, 200);
   const cta = data.cta as "gonder" | "kaydet" | undefined;
+  const frame = useCurrentFrame();
   return (
+    <>
+    <Confetti />
+    {cta ? (
+      <Sequence from={44}>
+        <Audio src={staticFile("sfx/ding.mp3")} volume={0.35} />
+      </Sequence>
+    ) : null}
+    {frame < 0 ? null : (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 54, marginTop: -260 }}>
       <div
         style={{
@@ -427,6 +625,31 @@ const Kapanis: React.FC<VisualProps> = ({ scene, data }) => {
           {cta === "gonder" ? (tap > 0.5 ? "GÖNDERİLDİ" : "ARKADAŞINA GÖNDER") : tap > 0.5 ? "KAYDEDİLDİ" : "KAYDET"}
         </div>
       ) : null}
+    </div>
+    )}
+    </>
+  );
+};
+
+const CONFETTI = Array.from({ length: 60 }, (_, i) => ({
+  x: random(`cx${i}`) * 1080 - 540,
+  vy: 6 + random(`cv${i}`) * 10,
+  vx: (random(`cw${i}`) - 0.5) * 16,
+  r: random(`cr${i}`) * 360,
+  c: [C.lime, C.warm, C.teal, "#fff", C.danger][i % 5],
+}));
+const Confetti: React.FC = () => {
+  const frame = useCurrentFrame();
+  return (
+    <div style={{ position: "absolute", left: 0, top: 0, width: 900, height: 1920, pointerEvents: "none" }}>
+      {CONFETTI.map((c, i) => {
+        // Ortadan yukarı fırlayıp yerçekimiyle düşer
+        const t = frame;
+        const x = 450 + c.x * 0.2 + c.vx * t;
+        const y = 760 - c.vy * 3 * t + 0.45 * t * t;
+        if (y > 1950) return null;
+        return <div key={i} style={{ position: "absolute", left: x, top: y, width: 18, height: 30, backgroundColor: c.c, borderRadius: 4, transform: `rotate(${c.r + t * 12}deg)` }} />;
+      })}
     </div>
   );
 };

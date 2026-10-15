@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Koşuya başladın, üç dakikada nefesin kesildi. Ciğerin mi yetmiyo? Genelde hayır.",
-      "title": "3 dakikada *nefesin* mi kesildi?"
+      "title": "3 dakikada *nefesin* mi kesildi?",
+      "sticker": "🏃💨"
     },
     {
       "visual": "kalp",
@@ -17,7 +18,8 @@
       "title": "Mesele ciğer değil, *kalp*",
       "data": {
         "mode": "tek"
-      }
+      },
+      "sticker": "🫀"
     },
     {
       "visual": "kalp",
@@ -26,7 +28,9 @@
       "title": "Antrenmanlı kalp *daha çok* pompalar",
       "data": {
         "mode": "karsilastir"
-      }
+      },
+      "sticker": "🫀",
+      "stamp": "FARK BURDA!"
     },
     {
       "visual": "liste",
@@ -44,7 +48,8 @@
             "ok": false
           }
         ]
-      }
+      },
+      "sticker": "🗣️"
     },
     {
       "visual": "zaman",
@@ -67,7 +72,8 @@
             "tone": "teal"
           }
         ]
-      }
+      },
+      "sticker": "⏱️"
     },
     {
       "visual": "kapanis",
@@ -75,7 +81,8 @@
       "title": "Yavaş koşan *uzun* koşar.",
       "data": {
         "cta": "gonder"
-      }
+      },
+      "sticker": "🏃"
     }
   ],
   "caption": "Koşuda 3 dakikada nefesin kesiliyorsa suç ciğerinde değil 🏃\n\nAntrenmanlı kalp her atışta daha çok kan pompalar. En büyük hata çok hızlı başlamak: konuşabileceğin tempoda koş, koş-yürü aralıklarıyla başla.\n\nArkadaşına gönder 📲",

@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Spora başladın, iki hafta sonra dizin ağrımaya başladı. Kemiğin mi zayıf? Genelde hayır.",
-      "title": "Yeni başlayanın *dizi* neden ağrır?"
+      "title": "Yeni başlayanın *dizi* neden ağrır?",
+      "sticker": "🦵😣"
     },
     {
       "visual": "diz",
@@ -17,7 +18,8 @@
       "title": "Kas *hızlı* uyum sağlar",
       "data": {
         "highlight": "kas"
-      }
+      },
+      "sticker": "💪"
     },
     {
       "visual": "diz",
@@ -26,7 +28,9 @@
       "title": "Tendon *yavaş* yetişir",
       "data": {
         "highlight": "tendon"
-      }
+      },
+      "sticker": "🐢",
+      "stamp": "YAVAŞ!"
     },
     {
       "visual": "cizgi",
@@ -70,7 +74,8 @@
           "10.H",
           "12.H"
         ]
-      }
+      },
+      "sticker": "⚠️"
     },
     {
       "visual": "liste",
@@ -92,7 +97,8 @@
             "ok": true
           }
         ]
-      }
+      },
+      "sticker": "✅"
     },
     {
       "visual": "kapanis",
@@ -100,7 +106,8 @@
       "title": "Kas hazır, *tendon bekler*.",
       "data": {
         "cta": "gonder"
-      }
+      },
+      "sticker": "🦵"
     }
   ],
   "caption": "Spora yeni başlayanın dizi neden ağrır? 🦵\n\nKaslar yeni yüke haftalar içinde uyum sağlar, tendonlar daha yavaş. Yükü azar azar artır, kalça ve ön bacak kaslarını güçlendir. Geçmeyen ağrıda mutlaka doktora görün.\n\nArkadaşına gönder 📲",

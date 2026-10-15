@@ -63,6 +63,10 @@ export type ExplainerScene = {
   title?: string;
   // Animasyona özel veriler (grafik noktaları, takvim günleri, mesajlar...)
   data?: Record<string, unknown>;
+  // Sahnenin ortasında patlamayla inen damga yazısı, ör. "KOPTU!"
+  stamp?: string;
+  // Kenarlarda zıplayan emoji çıkartmalar, ör. "🦴💧"
+  sticker?: string;
 };
 
 export type Explainer = {

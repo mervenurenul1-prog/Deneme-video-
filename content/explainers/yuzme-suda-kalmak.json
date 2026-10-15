@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "title": "Derin suda *kafanı* nasıl dışarda tutarsın?",
-      "voice": "Derin suda kafan dışarda kalsın diye çırpınıyosun, iki dakikada bitiyosun. Sonra da boğulacakmışsın gibi hissediyosun. Tanıdık mı?"
+      "voice": "Derin suda kafan dışarda kalsın diye çırpınıyosun, iki dakikada bitiyosun. Sonra da boğulacakmışsın gibi hissediyosun. Tanıdık mı?",
+      "sticker": "🌊😰"
     },
     {
       "visual": "yuzucu",
@@ -17,7 +18,9 @@
       "data": {
         "mode": "panik"
       },
-      "voice": "Sorun şu: Panikle çırpınınca nefesin sıklaşıyo, ciğerin boşalıyo. Hava azalınca daha çok batıyosun, daha çok çırpınıyosun."
+      "voice": "Sorun şu: Panikle çırpınınca nefesin sıklaşıyo, ciğerin boşalıyo. Hava azalınca daha çok batıyosun, daha çok çırpınıyosun.",
+      "sticker": "💦",
+      "stamp": "PANİK!"
     },
     {
       "visual": "yuzucu",
@@ -26,7 +29,8 @@
       "data": {
         "mode": "nefes"
       },
-      "voice": "Halbuki ciğerindeki hava seni yukarı itiyo. Derin nefes al, yavaş ver. Çoğu insan dolu ciğerle yüzeye yakın kalıyo."
+      "voice": "Halbuki ciğerindeki hava seni yukarı itiyo. Derin nefes al, yavaş ver. Çoğu insan dolu ciğerle yüzeye yakın kalıyo.",
+      "sticker": "🫁"
     },
     {
       "visual": "yuzucu",
@@ -35,7 +39,8 @@
       "data": {
         "mode": "el"
       },
-      "voice": "Ellerini göğüs hizasında, su altında yatay sekiz çizer gibi yavaşça salla. Avuçların suyu hafifçe aşağı bassın."
+      "voice": "Ellerini göğüs hizasında, su altında yatay sekiz çizer gibi yavaşça salla. Avuçların suyu hafifçe aşağı bassın.",
+      "sticker": "✋"
     },
     {
       "visual": "yuzucu",
@@ -44,7 +49,8 @@
       "data": {
         "mode": "bacak"
       },
-      "voice": "Bacaklar da sırayla içe doğru daire çizsin, bisiklet çevirir gibi. Hızlı değil; geniş ve sakin."
+      "voice": "Bacaklar da sırayla içe doğru daire çizsin, bisiklet çevirir gibi. Hızlı değil; geniş ve sakin.",
+      "sticker": "🦵"
     },
     {
       "visual": "yuzucu",
@@ -53,7 +59,8 @@
       "data": {
         "mode": "sirt"
       },
-      "voice": "Yorulursan sırtüstü dön, başını geri bırak, kollarını aç. Bırak su seni taşısın, nefesin düzelsin."
+      "voice": "Yorulursan sırtüstü dön, başını geri bırak, kollarını aç. Bırak su seni taşısın, nefesin düzelsin.",
+      "sticker": "😌"
     },
     {
       "visual": "liste",
@@ -75,7 +82,8 @@
           }
         ]
       },
-      "voice": "Bunları önce ayağının bastığı yerde, kenara yakın çalış. Derin suya asla yalnız girme."
+      "voice": "Bunları önce ayağının bastığı yerde, kenara yakın çalış. Derin suya asla yalnız girme.",
+      "sticker": "⚠️"
     },
     {
       "visual": "kapanis",
@@ -83,7 +91,8 @@
       "data": {
         "cta": "gonder"
       },
-      "voice": "Sakin kalan yüzer, çırpınan yorulur. Suda zorlanan arkadaşına gönder."
+      "voice": "Sakin kalan yüzer, çırpınan yorulur. Suda zorlanan arkadaşına gönder.",
+      "sticker": "🏊"
     }
   ],
   "caption": "Derin suda kafanı dışarıda tutmanın sırrı güç değil, sakinlik 🌊\n\nPanikle çırpınmak nefesini sığlaştırır ve seni daha çok yorar. Derin nefes, ellerle yatay sekiz (sculling), bacaklarla sırayla daire (yumurta çırpıcı) ve yorulunca sırtüstü dinlenme.\n\n⚠️ Önce ayağının bastığı yerde, kenara yakın çalış; derin suya asla yalnız girme. Mümkünse bir yüzme eğitmeninden destek al.\n\nSuda zorlanan arkadaşına gönder 📲",
