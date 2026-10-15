@@ -21,3 +21,6 @@ export const monoFamily = load("JetBrains Mono", "jetbrains-mono");
 // Renkli emoji (Noto Color Emoji, SIL OFL): sahnelerdeki çıkartmalar için
 loadFont({ family: "Noto Color Emoji", url: staticFile("fonts/NotoColorEmoji.ttf") });
 export const emojiFamily = "Noto Color Emoji";
+
+// El yazısı (Caveat, SIL OFL): çizimli videolardaki etiketler için
+export const handFamily = load("Caveat", "caveat");

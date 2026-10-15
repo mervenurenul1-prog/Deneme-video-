@@ -88,6 +88,19 @@ export type Explainer = {
   hashtags: string[];
 };
 
+// Çizimli video: her sahne, söylenen şeyi birebir gösteren kodla çizilmiş bir animasyon (visual)
+export type CizimScene = { visual: string; voice: string; data?: Record<string, unknown> };
+
+export type Cizim = {
+  id: string;
+  title: string;
+  voiceId?: string;
+  modelId?: string;
+  scenes: CizimScene[];
+  caption: string;
+  hashtags: string[];
+};
+
 export type WordTiming = { word: string; start: number; end: number };
 
 export type SceneAudio = {

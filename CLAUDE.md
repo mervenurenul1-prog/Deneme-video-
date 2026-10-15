@@ -46,9 +46,18 @@ seri2-01-sabah-uzun, bilgi-hobi, seri3-05-kahve.
 VOOM tanıtım videoları (content/promos/voom-*) kalıyor.
 
 ## Sıradaki adım
-1 pilot (reels-01-yag-nereye) → yeni metin (dar, düzgün dil) + söyleneni birebir gösteren
-görseller → sessiz önizleme → onay → seslendirme → kalan videolar sırayla. Öncelik ekibe giden 11 video
-(`ornek-videolar/ekip-11/OKU.md`), sonra diğerleri.
+Pilot (yağ nereye gidiyor) çizimli olarak hazırlandı, **sessiz önizleme gönderildi, onay bekleniyor**:
+`ornek-videolar/cizim-pilot/01-yag-nereye-sessiz.mp4` (id `cizim-01-yag-nereye`, 8 sahne, ~38 sn).
+Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
+Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
+
+## Çizimli şablon (yeni yöntem)
+- İçerik: `content/cizim/*.json` (sahne başına `visual` + `voice`). Şablon: `src/cizim/Cizim.tsx`.
+- Kodla çizilmiş, poz verilebilen karakter `Person` (göbek `belly`, kol/bacak açıları, ağız/göz ifadesi,
+  akciğer, kas parlaması), eşyalar (tartı, düşünce balonu, damla, nefes bulutu, büyüteç, yıldız, el yazısı).
+- Kâğıt dokusu + ışık huzmeleri + toz; "el çizimi" titreşim filtresi; sahne başına yavaş kamera yakınlaşması.
+- Animasyonlar kelime zamanlamasına bağlı (`w(i)` = i. kelimenin karesi): seslendirmeden sonra otomatik oturur.
+- Yeni video = yeni sahne bileşenleri (`SCENES`) + JSON. El yazısı fontu Caveat (`public/fonts`).
 
 ## Teknik özet
 - İçerik: `content/explainers/*.json` (bilgi videoları), `content/promos/*.json` (VOOM tanıtım, uygulama
@@ -67,5 +76,6 @@ görseller → sessiz önizleme → onay → seslendirme → kalan videolar sır
 - Dosya gönderme sınırı 30 MB: büyük paketleri parçalara böl.
 
 ## Teslim edilenler
+- `ornek-videolar/cizim-pilot/`: çizimli pilot, sessiz önizleme (onay bekliyor).
 - `ornek-videolar/ekip-11/`: ekibe gönderilen 11 video (8 bilgi + 3 VOOM), açıklama `OKU.md`.
 - `ornek-videolar/secilen-8/`, `voom-secilen-3/`: aynı videoların ilk hâlleri.

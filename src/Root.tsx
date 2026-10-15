@@ -1,7 +1,8 @@
 import { Composition, staticFile } from "remotion";
 import { VIDEO } from "./brand";
 import { ExplainerVideo, type ExplainerProps } from "./explainer/Explainer";
-import { explainers, posts, promos, stories } from "./posts";
+import { CizimVideo, type CizimProps } from "./cizim/Cizim";
+import { cizimler, explainers, posts, promos, stories } from "./posts";
 import { PromoVideo, type PromoProps } from "./promo/Promo";
 import { Reel, type ReelProps } from "./Reel";
 import { sceneDurations } from "./shared";
@@ -80,6 +81,22 @@ export const RemotionRoot: React.FC = () => {
           calculateMetadata={async ({ props }) => {
             const voiceover = await loadVoiceover(props.explainer.id);
             return { props: { ...props, voiceover }, durationInFrames: total(props.explainer, voiceover) };
+          }}
+        />
+      ))}
+      {cizimler.map((cizim) => (
+        <Composition
+          key={cizim.id}
+          id={cizim.id}
+          component={CizimVideo}
+          fps={VIDEO.fps}
+          width={VIDEO.width}
+          height={VIDEO.height}
+          durationInFrames={1}
+          defaultProps={{ cizim, voiceover: null } as CizimProps}
+          calculateMetadata={async ({ props }) => {
+            const voiceover = await loadVoiceover(props.cizim.id);
+            return { props: { ...props, voiceover }, durationInFrames: total(props.cizim, voiceover) };
           }}
         />
       ))}
