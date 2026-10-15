@@ -197,14 +197,12 @@ const Dust: React.FC = () => {
 
 /* ---------- geçiş ve kamera ---------- */
 
-// Sahne girişi: hafif büyükten oturarak ve bulanıklıktan netleşerek; çıkışta kâğıda solar
-const Shot: React.FC<{ d: number; children: React.ReactNode }> = ({ d, children }) => {
+// Sahne girişi: sert kesme + kısa kamera savurması (yatay hareket bulanıklığı)
+const Shot: React.FC<{ d: number; children: React.ReactNode }> = ({ children }) => {
   const f = useCurrentFrame();
-  const opacity = interpolate(f, [0, 7, d - 6, d], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const scale = interpolate(f, [0, 12], [1.12, 1], { extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
-  const blur = interpolate(f, [0, 10], [10, 0], { extrapolateRight: "clamp" });
+  const k = interpolate(f, [0, 6], [1, 0], { extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
   return (
-    <AbsoluteFill style={{ opacity, transform: `scale(${scale})`, filter: blur > 0.1 ? `blur(${blur}px)` : undefined }}>
+    <AbsoluteFill style={{ transform: `translateX(${-110 * k}px)`, filter: k > 0.02 ? `blur(${12 * k}px)` : undefined }}>
       <svg width="100%" height="100%" viewBox="0 0 1080 1920">
         <Defs />
         <g filter="url(#rough)">{children}</g>
@@ -232,21 +230,118 @@ const Defs: React.FC = () => {
   );
 };
 
-type Key = [number, number, number, number]; // [kare, odak x, odak y, yakınlık]
-// Kamera: anahtar karelere göre odak noktası ve yakınlık değişir (kaydırma, yaklaşma, uzaklaşma)
-const Cam: React.FC<{ keys: Key[]; shake?: number; children: React.ReactNode }> = ({ keys, shake = 0, children }) => {
+// Kamera planı: t karesinde sert kesmeyle başlar, bir sonraki plana kadar a → b görünümüne yavaşça kayar.
+// Görünüm: [odak x, odak y, yakınlık]. Oda arka planı daha az yakınlaşır (derinlik / paralaks).
+type View = [number, number, number];
+type Plan = { t: number; a: View; b?: View };
+
+const Cam: React.FC<{ plans: Plan[]; end: number; shake?: number; room?: boolean; children: React.ReactNode }> = ({
+  plans,
+  end,
+  shake = 0,
+  room = true,
+  children,
+}) => {
   const f = useCurrentFrame();
-  const ks: Key[] = [];
-  for (const k of keys) ks.push([ks.length ? Math.max(k[0], ks[ks.length - 1][0] + 1) : k[0], k[1], k[2], k[3]]);
-  const t = ks.map((k) => k[0]);
-  const at = (j: number) =>
-    ks.length === 1 ? ks[0][j] : interpolate(f, t, ks.map((k) => k[j]), { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  const list = [...plans].sort((x, y) => x.t - y.t);
+  let i = 0;
+  list.forEach((pl, j) => {
+    if (f >= pl.t) i = j;
+  });
+  const pl = list[i];
+  const next = list[i + 1]?.t ?? end;
+  const p = Easing.inOut(Easing.quad)(Math.min(1, Math.max(0, (f - pl.t) / Math.max(1, next - pl.t))));
+  const b = pl.b ?? pl.a;
+  const [x, y, z] = [0, 1, 2].map((j) => pl.a[j] + (b[j] - pl.a[j]) * p);
   const sx = shake ? Math.sin(f * 2.1) * shake : 0;
   const sy = shake ? Math.cos(f * 2.7) * shake : 0;
-  // Yavaş "nefes alan" kamera: hiç tam durmaz
-  const drift = 1 + 0.012 * Math.sin(f / 45);
+  const drift = 1 + 0.01 * Math.sin(f / 45);
+  const view = (zz: number) => `translate(${540 + sx} ${960 + sy}) scale(${zz * drift}) translate(${-x} ${-y})`;
   return (
-    <g transform={`translate(${540 + sx} ${960 + sy}) scale(${at(3) * drift}) translate(${-at(1)} ${-at(2)})`}>{children}</g>
+    <>
+      {room ? (
+        <g transform={view(1 + (z - 1) * 0.8)}>
+          <Room />
+        </g>
+      ) : null}
+      <g transform={view(z)}>{children}</g>
+    </>
+  );
+};
+
+/* ---------- mekân: güneşli oda ---------- */
+
+const Room: React.FC = () => {
+  const frame = useCurrentFrame();
+  const floorY = 1180;
+  const planks = [1205, 1240, 1290, 1355, 1440, 1550, 1690, 1870, 2100];
+  return (
+    <g>
+      <rect x={-200} y={-300} width={1480} height={floorY + 300} fill="#e2cda4" />
+      <rect x={-200} y={-300} width={1480} height={floorY + 300} fill="url(#hatch)" opacity={0.05} />
+      {/* lambri ve süpürgelik */}
+      <path d={`M-200 960 L1280 960`} stroke={C.ink} strokeWidth={5} opacity={0.5} />
+      <rect x={-200} y={960} width={1480} height={floorY - 960} fill="#d6bd8f" />
+      {[-60, 140, 340, 540, 740, 940, 1140].map((x) => (
+        <rect key={x} x={x + 20} y={985} width={160} height={floorY - 1015} rx={6} fill="none" stroke={C.ink} strokeWidth={3} opacity={0.3} />
+      ))}
+      <rect x={-200} y={floorY - 26} width={1480} height={26} fill="#b48f62" stroke={C.ink} strokeWidth={5} />
+      {/* parke zemin */}
+      <rect x={-200} y={floorY} width={1480} height={1100} fill="#c9a777" />
+      {planks.map((y) => (
+        <path key={y} d={`M-200 ${y} L1280 ${y}`} stroke={C.ink} strokeWidth={3} opacity={0.3} />
+      ))}
+      {planks.slice(0, -1).map((y, i) =>
+        [0, 1, 2, 3, 4].map((k) => {
+          const x = 540 + (k - 2 + (i % 2) * 0.5) * 260 * (1 + (y - floorY) / 300);
+          return <path key={`${y}-${k}`} d={`M${x} ${y} L${x} ${planks[i + 1]}`} stroke={C.ink} strokeWidth={3} opacity={0.25} />;
+        }),
+      )}
+      {/* pencere ve içeri düşen güneş */}
+      <g>
+        <rect x={80} y={330} width={320} height={470} fill="#f7ecd2" stroke={C.ink} strokeWidth={9} />
+        <path d="M80 330 L400 330 L400 800 L80 800 Z" fill="#fff6dc" opacity={0.5 + 0.1 * Math.sin(frame / 30)} />
+        <path d="M240 330 L240 800 M80 565 L400 565" stroke={C.ink} strokeWidth={8} />
+        <path d="M120 760 Q170 690 220 760 M270 740 Q320 640 370 740" stroke="#9fae86" strokeWidth={6} fill="none" opacity={0.7} />
+        <rect x={60} y={800} width={360} height={24} fill="#d9c49b" stroke={C.ink} strokeWidth={6} />
+        <path d="M60 310 Q240 290 420 310 L420 330 L60 330 Z" fill="#a8574a" stroke={C.ink} strokeWidth={6} />
+        <path d="M70 330 Q40 600 60 900 L100 900 Q90 600 110 330 Z M410 330 Q440 600 420 900 L380 900 Q390 600 370 330 Z" fill="#b86a5a" stroke={C.ink} strokeWidth={5} />
+      </g>
+      <path
+        d={`M110 820 L390 820 L860 ${floorY + 420} L330 ${floorY + 420} Z`}
+        fill="#fff4d6"
+        opacity={0.22 + 0.04 * Math.sin(frame / 40)}
+      />
+      {/* tablo */}
+      <g transform="rotate(2 860 520)">
+        <rect x={770} y={420} width={190} height={210} fill="#efe2c4" stroke={C.ink} strokeWidth={8} />
+        <rect x={792} y={442} width={146} height={166} fill="#e6d4ae" stroke={C.ink} strokeWidth={3} />
+        <path d="M800 590 L840 520 L870 560 L895 530 L930 590 Z" fill="#9fae86" stroke={C.ink} strokeWidth={3} />
+        <circle cx={905} cy={480} r={13} fill="#e8b25a" stroke={C.ink} strokeWidth={3} />
+      </g>
+      {/* saksı bitkisi */}
+      <g>
+        {[-50, -20, 10, 40, -70, 60].map((a, i) => (
+          <path
+            key={i}
+            d={`M960 1150 Q${960 + a * 1.4} ${1060 - i * 8} ${960 + a * 2.2} ${980 - (i % 3) * 30}`}
+            stroke="#5f7a4f"
+            strokeWidth={14}
+            fill="none"
+            strokeLinecap="round"
+            transform={`rotate(${Math.sin(frame / 40 + i) * 1.5} 960 1150)`}
+          />
+        ))}
+        <path d="M905 1140 L1015 1140 L1000 1240 L920 1240 Z" fill="#b8664a" stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+      </g>
+      {/* yerde dambıl */}
+      <g transform="translate(170 1300)">
+        <rect x={-55} y={-6} width={110} height={12} fill="#77706a" stroke={C.ink} strokeWidth={4} />
+        <rect x={-75} y={-28} width={26} height={56} rx={6} fill="#3d3a3a" stroke={C.ink} strokeWidth={5} />
+        <rect x={49} y={-28} width={26} height={56} rx={6} fill="#3d3a3a" stroke={C.ink} strokeWidth={5} />
+        <ellipse cx={0} cy={34} rx={95} ry={10} fill={C.ink} opacity={0.15} />
+      </g>
+    </g>
   );
 };
 
@@ -266,10 +361,11 @@ const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
         left: SAFE.side,
         right: SAFE.side,
         textAlign: "center",
-        fontSize: 54,
+        fontSize: 52,
         fontWeight: 800,
         color: "#fffaf0",
-        WebkitTextStroke: `12px ${C.ink}`,
+        WebkitTextStroke: `10px ${C.ink}`,
+        textShadow: "0 6px 18px rgba(40,25,10,0.45)",
         paintOrder: "stroke fill",
         lineHeight: 1.25,
       }}
@@ -314,6 +410,7 @@ type PersonProps = {
   blush?: number;
   sweat?: number;
   idle?: boolean; // nefes, göz kırpma, hafif salınım
+  back?: boolean; // arkadan görünüm (yüz yok, ense ve saç)
   children?: React.ReactNode; // karakterin koordinatlarında ek çizimler
 };
 
@@ -404,6 +501,7 @@ const Person: React.FC<PersonProps> = ({
   blush = 0.35,
   sweat = 0,
   idle = true,
+  back = false,
   children,
 }) => {
   const frame = useCurrentFrame();
@@ -556,10 +654,11 @@ const Person: React.FC<PersonProps> = ({
             opacity={Math.min(1, (b - 0.15) * 3) * 0.55}
           />
         ) : null}
-        {fat > 0 ? <FatLayer o={fat} waist={waist} /> : null}
+        {fat > 0 && !back ? <FatLayer o={fat} waist={waist} /> : null}
       </g>
-      <path d="M-30 -684 Q0 -652 30 -684" stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
-      {lungs > 0 ? <Lungs o={lungs} breath={breath + breathe * 0.1} /> : null}
+      <path d={back ? "M-30 -684 Q0 -674 30 -684" : "M-30 -684 Q0 -652 30 -684"} stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
+      {back ? <path d="M0 -676 L0 -450" stroke={C.ink} strokeWidth={3} opacity={0.3} /> : null}
+      {lungs > 0 && !back ? <Lungs o={lungs} breath={breath + breathe * 0.1} /> : null}
       {/* önkollar ve eller gövdenin önünde */}
       <Silhouette
         d={[...fore.flatMap((a) => a.body), ...hand(AL, -1), ...hand(AR, 1)]}
@@ -571,12 +670,31 @@ const Person: React.FC<PersonProps> = ({
       <g transform={`rotate(${tilt} 0 -684) translate(0 ${breathe * 1.5})`}>
         <path d="M-21 -712 L-23 -676 Q0 -664 23 -676 L21 -712 Z" fill={C.skin} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
         <path d="M-21 -700 Q0 -684 21 -700 L21 -712 L-21 -712 Z" fill={C.skinShade} opacity={0.6} />
-        <Head eyes={blink ? "closed" : eyes} mouth={mouth} look={look} blush={blush} sweat={sweat} />
+        {back ? <HeadBack /> : <Head eyes={blink ? "closed" : eyes} mouth={mouth} look={look} blush={blush} sweat={sweat} />}
       </g>
       {children}
     </g>
   );
 };
+
+// Baş, arkadan: kulaklar, ense ve saç
+const HeadBack: React.FC = () => (
+  <g>
+    {[-1, 1].map((side) => (
+      <ellipse key={side} cx={side * 51} cy={-744} rx={9} ry={15} fill={C.skin} stroke={C.ink} strokeWidth={5} />
+    ))}
+    <path d="M-50 -760 C-52 -722 -40 -694 -18 -684 Q0 -678 18 -684 C40 -694 52 -722 50 -760 C50 -808 -50 -808 -50 -760 Z" fill={C.skin} stroke={C.ink} strokeWidth={6} />
+    <path
+      d="M-55 -752 C-62 -808 -30 -830 2 -828 C36 -830 62 -808 55 -754 C57 -728 50 -706 34 -699 Q0 -692 -34 -699 C-50 -706 -57 -728 -55 -752 Z"
+      fill={C.hair}
+      stroke={C.ink}
+      strokeWidth={5}
+      strokeLinejoin="round"
+    />
+    <path d="M-30 -800 Q-34 -760 -26 -716 M0 -812 Q2 -760 0 -708 M30 -800 Q34 -760 26 -716" stroke="#7a5236" strokeWidth={3} fill="none" />
+    <path d="M18 -820 C44 -806 52 -770 46 -730" stroke="#2e1c10" strokeWidth={8} fill="none" opacity={0.4} />
+  </g>
+);
 
 // Baş: yerel merkez yaklaşık (0,-746); yüz genişliği ~100
 const Head: React.FC<{ eyes: Eyes; mouth: Mouth; look: P; blush: number; sweat: number }> = ({ eyes, mouth, look, blush, sweat }) => {
@@ -828,68 +946,85 @@ const Star: React.FC<{ x: number; y: number; r: number; rot: number }> = ({ x, y
   return <polygon points={pts.join(" ")} fill={C.yellow} stroke={C.ink} strokeWidth={4} strokeLinejoin="round" />;
 };
 
-// Zemin: karakterin bastığı yer (hafif kalem çizgisi)
-const Ground: React.FC<{ y: number }> = ({ y }) => (
-  <path d={`M140 ${y} Q540 ${y - 8} 940 ${y}`} stroke={C.ink} strokeWidth={4} fill="none" opacity={0.35} strokeLinecap="round" />
-);
-
 /* ---------- sahneler ---------- */
+
+// Her sahne birkaç kamera planına bölünür (geniş, yakın, arkadan, nesne yakın çekimi) ve
+// planlar kelimelerle kesilir. Ekrandaki yazı en aza indirildi: anlatımı çizim taşır.
 
 const PX = 540;
 const PY = 1330;
 const S = 0.95;
 // Karakterin yerel noktasını ekran koordinatına çevirir
 const at = (lx: number, ly: number, x = PX, y = PY, s = S): P => [x + lx * s, y + ly * s];
+const WIDE: View = [540, 940, 1.0];
+const FACE = at(0, -740);
+const CHEST = at(0, -590);
+const BELLY = at(0, -480);
+const LEGS = at(0, -230);
+const FEET = at(0, -20);
+const MOUTH = at(14, -703);
+
+// Yerinde koşu: bacaklar sırayla kalkar, kollar sallanır, gövde zıplar
+const jog = (f: number, go: number) => {
+  const run = f / 4.2;
+  const l = Math.max(0, Math.sin(run)) * go;
+  const r = Math.max(0, -Math.sin(run)) * go;
+  return {
+    bob: Math.abs(Math.sin(run)) * 16 * go,
+    legL: { lift: l },
+    legR: { lift: r },
+    // dirsekler bükük, önkollar öne doğru (önden bakınca kısalmış görünür)
+    armL: [8 + (10 + 25 * r) * go, (-105 + 25 * l) * go, 1 - 0.45 * go] as Arm,
+    armR: [8 + (10 + 25 * l) * go, (-105 + 25 * r) * go, 1 - 0.45 * go] as Arm,
+  };
+};
+
+const FatBlob: React.FC<{ p: P; s?: number }> = ({ p, s = 1 }) => (
+  <g transform={`translate(${p[0]} ${p[1]}) scale(${s})`}>
+    <circle r={34} fill={C.fat} stroke={C.fatDark} strokeWidth={5} />
+    <ellipse cx={-10} cy={-12} rx={10} ry={6} fill="#fff4c8" opacity={0.8} />
+  </g>
+);
 
 // "Verdiğin yağın büyük kısmını, nefes vererek dışarı atıyorsun."
 const Acilis: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const belly = at(0, -480);
-  const face = at(0, -730);
-  const mouth = at(14, -703);
-  // yağ topağı göbekten ayrılır, göğüsten yukarı çıkar, ağızdan bulut olarak çıkar
-  const rise = tw(f, w(2), w(4) + 4);
-  const blob = lerp(belly, mouth, rise);
+  const rise = tw(f, w(2), w(4) + 2);
+  const blob = lerp(BELLY, MOUTH, rise);
   const exhale = f >= w(4) + 2;
-  const fatO = tw(f, w(0) - 6, w(1)) * (1 - 0.6 * tw(f, w(4), w(7)));
   return (
     <Cam
-      keys={[
-        [0, belly[0], belly[1], 1.9],
-        [w(2), belly[0], belly[1], 1.75],
-        [w(4) + 2, face[0], face[1], 1.75],
-        [w(6), PX, 900, 1.0],
-        [d, PX, 920, 1.04],
+      end={d}
+      plans={[
+        { t: 0, a: [540, 960, 1.0], b: [540, 900, 1.12] },
+        { t: w(1), a: [...BELLY, 3.0], b: [...BELLY, 3.3] },
+        { t: w(3), a: [CHEST[0], CHEST[1] + 20, 2.0], b: [FACE[0], FACE[1] + 50, 2.3] },
+        { t: w(4) + 2, a: [FACE[0] + 30, FACE[1], 2.6], b: [FACE[0] + 120, FACE[1] - 60, 2.3] },
+        { t: w(6), a: [540, 880, 1.15], b: WIDE },
       ]}
     >
-      <Ground y={PY + 12} />
       <Person
         x={PX}
         y={PY}
         s={S}
-        belly={tw(f, w(4), w(7) + 10, 0.55, 0.45)}
-        fat={fatO}
+        belly={tw(f, w(4), d, 0.55, 0.45)}
+        fat={tw(f, w(1) - 4, w(1) + 4) * (1 - 0.5 * tw(f, w(4), w(7)))}
         mouth={exhale ? "o" : "flat"}
         eyes={exhale ? "closed" : "open"}
         look={[0, 3]}
       />
-      {rise > 0 && rise < 1 ? (
-        <g transform={`translate(${blob[0]} ${blob[1]}) scale(${1 - 0.5 * rise})`}>
-          <circle r={34} fill={C.fat} stroke={C.fatDark} strokeWidth={5} />
-          <ellipse cx={-10} cy={-12} rx={10} ry={6} fill="#fff4c8" opacity={0.8} />
-        </g>
-      ) : null}
+      {rise > 0 && rise < 1 ? <FatBlob p={blob} s={1 - 0.5 * rise} /> : null}
       {exhale
-        ? cycles(f, w(4) + 2, 26, 60)
+        ? cycles(f, w(4) + 2, 26, 64)
             .filter(({ k }) => k < 3)
-            .map(({ k, p }) => <Puff key={k} x={mouth[0] + 8} y={mouth[1]} p={p} dx={230} dy={-210 + k * 30} s={1.2} label="CO₂" />)
+            .map(({ k, p }) => <Puff key={k} x={MOUTH[0] + 8} y={MOUTH[1]} p={p} dx={260} dy={-230 + k * 40} s={1.2} label="CO₂" />)
         : null}
     </Cam>
   );
 };
 
 // "Çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. Ama ikisi de doğru değil."
-const YanlisFikir: React.FC<SceneProps> = ({ w }) => {
+const YanlisFikir: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const left = pop(f, w(2) - 4, 14);
   const right = pop(f, w(6) - 4, 14);
@@ -897,34 +1032,28 @@ const YanlisFikir: React.FC<SceneProps> = ({ w }) => {
   const x1 = tw(f, w(12) - 2, w(12) + 10);
   const x2 = tw(f, w(12) + 6, w(12) + 18);
   const shock = f > w(13) - 2;
-  const face = at(0, -730, PX, PY + 20, 0.82);
+  const py = PY + 20;
+  const face = at(0, -740, PX, py, 0.82);
   return (
     <Cam
-      keys={[
-        [0, face[0], face[1], 1.7],
-        [w(1), face[0], face[1] + 40, 1.5],
-        [w(2) + 6, PX, 860, 1.0],
-        [w(12), PX, 840, 1.0],
-        [w(12) + 10, PX, 820, 1.08],
+      end={d}
+      shake={f > w(12) && f < w(12) + 10 ? 7 : 0}
+      plans={[
+        { t: 0, a: [face[0], face[1] + 30, 2.2], b: [face[0], face[1] + 10, 2.4] },
+        { t: w(2), a: [300, 520, 1.7], b: [290, 500, 1.85] },
+        { t: w(6), a: [780, 460, 1.7], b: [790, 440, 1.85] },
+        { t: w(9), a: [540, 840, 1.0], b: [540, 820, 1.05] },
+        { t: w(13), a: [face[0], face[1] + 30, 2.0] },
       ]}
-      shake={f > w(12) && f < w(12) + 10 ? 6 : 0}
     >
-      <Ground y={PY + 32} />
-      <Person x={PX} y={PY + 20} s={0.82} belly={0.5} armL={[8, 0]} armR={[10, -163, 1.55]} mouth={shock ? "o" : "flat"} eyes={shock ? "wide" : "open"} look={[0, -3]} tilt={4} />
+      <Person x={PX} y={py} s={0.82} belly={0.5} armL={[8, 0]} armR={[10, -163, 1.55]} mouth={shock ? "o" : "flat"} eyes={shock ? "wide" : "open"} look={[0, -3]} tilt={4} />
       <Bubble x={290} y={500} rx={200} ry={170} p={left} tail={[470, 760]}>
         {/* göbeğindeki yağ eriyip damlayan küçük insan */}
         <Person x={290} y={640} s={0.33} belly={0.9 - 0.4 * melt} mouth="worry" idle={false} fat={0.9} />
         {[0, 1, 2].map((i) => {
           const p = (melt * 2 + i * 0.33) % 1;
           return melt > 0 ? (
-            <path
-              key={i}
-              d={`M${272 + i * 18} ${495 + p * 140} q6 14 0 22 q-6 -8 0 -22 Z`}
-              fill={C.fat}
-              stroke={C.fatDark}
-              strokeWidth={2.5}
-              opacity={1 - p}
-            />
+            <path key={i} d={`M${272 + i * 18} ${495 + p * 140} q6 14 0 22 q-6 -8 0 -22 Z`} fill={C.fat} stroke={C.fatDark} strokeWidth={2.5} opacity={1 - p} />
           ) : null;
         })}
         <ellipse cx={290} cy={648} rx={20 + 50 * melt} ry={6 + 4 * melt} fill={C.fat} stroke={C.fatDark} strokeWidth={3} opacity={melt} />
@@ -936,8 +1065,6 @@ const YanlisFikir: React.FC<SceneProps> = ({ w }) => {
           <Drop key={k} x={745 + (k % 4) * 30} y={420 + 150 * p} s={0.55} color={k % 2 ? C.fat : C.water} o={1 - p} />
         ))}
       </Bubble>
-      <HandText x={270} y={290} text="Eriyor mu?" size={70} p={tw(f, w(3), w(3) + 14)} />
-      <HandText x={800} y={230} text="Tere mi dönüyor?" size={64} p={tw(f, w(7), w(7) + 14)} />
       {left > 0 ? <Cross x={290} y={500} size={140} p={x1} /> : null}
       {right > 0 ? <Cross x={790} y={440} size={140} p={x2} /> : null}
     </Cam>
@@ -971,15 +1098,14 @@ const YagHucresi: React.FC<SceneProps> = ({ w, d }) => {
   const step = Math.max(3, (w(6) - w(2)) / CELLS.length);
   return (
     <Cam
-      keys={[
-        [0, B.x, B.y, 1.6],
-        [16, (B.x + L.x) / 2, (B.y + L.y) / 2, 1.15],
-        [w(2), L.x - 40, L.y + 40, 1.3],
-        [w(5), L.x - 60, L.y + 120, 1.15],
-        [d, PX, 860, 1.0],
+      end={d}
+      plans={[
+        { t: 0, a: [B.x + 40, B.y - 20, 2.3], b: [B.x + 80, B.y - 40, 2.0] },
+        { t: w(2), a: [L.x, L.y, 1.9], b: [L.x, L.y, 2.15] },
+        { t: w(3), a: [L.x - 30, L.y + 110, 1.45], b: [L.x - 40, L.y + 130, 1.35] },
+        { t: w(6), a: [540, 900, 1.0] },
       ]}
     >
-      <Ground y={PY + 12} />
       <Person x={person.x} y={person.y} s={person.s} belly={0.45} fat={0.8} armL={[8, 0]} armR={[10, 0]} tilt={6} look={[3, -2]} mouth="o" />
       <g opacity={open}>
         <circle cx={B.x} cy={B.y} r={46} fill="none" stroke={C.ink} strokeWidth={6} strokeDasharray="12 9" />
@@ -1054,8 +1180,6 @@ const YagHucresi: React.FC<SceneProps> = ({ w, d }) => {
 // "Bunun yüzde seksen dördü karbondioksittir ve akciğerlerinden, nefesinle çıkar."
 const Nefes: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const mouth = at(14, -703);
-  const chest = at(0, -600);
   const period = 42;
   const start = w(6) - 8;
   const phase = f < start ? 0 : ((f - start) % period) / period;
@@ -1063,32 +1187,29 @@ const Nefes: React.FC<SceneProps> = ({ w, d }) => {
   const breath = f < start ? 0.5 + 0.5 * Math.sin(f / 10) : exhaling ? 1 - phase * 2 : (phase - 0.5) * 2;
   return (
     <Cam
-      keys={[
-        [0, PX, 860, 1.0],
-        [w(4), PX, 860, 1.0],
-        [w(6), chest[0], chest[1], 1.7],
-        [w(7) + 6, chest[0] + 80, chest[1] - 60, 1.45],
-        [d - 10, PX, 860, 1.0],
+      end={d}
+      plans={[
+        { t: 0, a: [540, 900, 1.0], b: [520, 880, 1.06] },
+        { t: w(5), a: [CHEST[0], CHEST[1], 2.2], b: [CHEST[0], CHEST[1] - 10, 2.4] },
+        { t: w(7), a: [MOUTH[0] + 60, MOUTH[1] - 20, 2.3], b: [MOUTH[0] + 200, MOUTH[1] - 160, 2.0] },
+        { t: w(8) + 6, a: [600, 860, 1.1], b: [540, 900, 1.0] },
       ]}
     >
-      <Ground y={PY + 12} />
       <Person
         x={PX}
         y={PY}
         s={S}
         belly={tw(f, w(6), d, 0.45, 0.38)}
-        lungs={tw(f, w(5), w(6) + 4)}
+        lungs={tw(f, w(5) - 4, w(5) + 4)}
         breath={breath}
         mouth={exhaling ? "o" : "smile"}
         eyes={exhaling ? "closed" : "open"}
       />
       {cycles(f, start, period, 54).map(({ k, p }) => (
-        <Puff key={k} x={mouth[0] + 10} y={mouth[1]} p={p} dx={220} dy={-200} label="CO₂" s={1.3} />
+        <Puff key={k} x={MOUTH[0] + 10} y={MOUTH[1]} p={p} dx={240} dy={-220} label="CO₂" s={1.3} />
       ))}
-      <HandText x={330} y={470} text="%84" size={170} p={tw(f, w(1), w(3) + 6)} color={C.red} />
-      <HandText x={330} y={570} text="karbondioksit" size={64} p={tw(f, w(4), w(4) + 14)} color={C.red} />
-      <Arrow d="M430 500 Q600 400 760 480" p={tw(f, w(5), w(5) + 14)} color={C.red} w={9} />
-      <Arrow d="M736 446 L762 482 L722 494" p={tw(f, w(5) + 12, w(5) + 18)} color={C.red} w={9} />
+      <HandText x={300} y={470} text="%84" size={170} p={tw(f, w(1), w(3) + 6)} color={C.red} />
+      <HandText x={300} y={570} text="karbondioksit" size={64} p={tw(f, w(4), w(4) + 14)} color={C.red} />
     </Cam>
   );
 };
@@ -1096,64 +1217,73 @@ const Nefes: React.FC<SceneProps> = ({ w, d }) => {
 // "Kalan yüzde on altı ise su olur; terle ve idrarla atılır."
 const Su: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const wipe = tw(f, w(7) - 4, w(7) + 8) - tw(f, w(9) + 4, w(9) + 14);
-  const face = at(0, -740);
+  const wipe = tw(f, w(7) - 4, w(7) + 8) - tw(f, w(9) - 2, w(9) + 8);
+  const puddle = tw(f, w(8), w(10) + 20);
   return (
     <Cam
-      keys={[
-        [0, PX, 860, 1.0],
-        [w(6), PX, 860, 1.0],
-        [w(7) + 4, face[0], face[1] + 40, 1.6],
-        [w(9) + 6, PX, 900, 1.05],
-        [d, PX, 900, 1.08],
+      end={d}
+      plans={[
+        { t: 0, a: [540, 900, 1.0], b: [540, 880, 1.06] },
+        { t: w(7), a: [FACE[0], FACE[1] + 20, 2.5], b: [FACE[0], FACE[1] + 10, 2.7] },
+        { t: w(9), a: [FEET[0], FEET[1] - 60, 2.0], b: [FEET[0], FEET[1] - 80, 2.2] },
+        { t: w(10) + 6, a: [540, 800, 1.4], b: [540, 860, 1.15] },
       ]}
     >
-      <Ground y={PY + 12} />
-      <Person x={PX} y={PY} s={S} belly={0.38} armL={[8, 0]} armR={[150 * wipe + 10 * (1 - wipe), -238 * wipe]} mouth="flat" eyes={wipe > 0.5 ? "closed" : "open"} blush={0.7} sweat={tw(f, w(7) - 6, w(7))}>
-        {cycles(f, w(7), 8, 34).map(({ k, p }) => {
+      <Person
+        x={PX}
+        y={PY}
+        s={S}
+        belly={0.38}
+        armL={[8, 0]}
+        armR={[150 * wipe + 10 * (1 - wipe), -238 * wipe]}
+        mouth="flat"
+        eyes={wipe > 0.5 ? "closed" : "open"}
+        blush={0.7}
+        sweat={tw(f, w(7) - 6, w(7))}
+      >
+        {cycles(f, w(7) - 4, 8, 34).map(({ k, p }) => {
           const x = [-46, 40, -12, 52, -60][k % 5];
           const y0 = -780 + (k % 3) * 14;
           return <Drop key={k} x={x + (x > 0 ? 40 : -40) * p} y={y0 + 300 * p * p} s={0.9} o={interpolate(p, [0, 0.1, 0.8, 1], [0, 1, 1, 0])} />;
         })}
-        {cycles(f, w(7) + 5, 12, 30).map(({ k, p }) => (
-          <Drop key={`a${k}`} x={(k % 2 ? 1 : -1) * 160} y={-500 + 220 * p * p} s={0.8} o={1 - p} />
+        {/* kollardan ve bacaklardan yere damlayan su */}
+        {cycles(f, w(8), 9, 26).map(({ k, p }) => (
+          <Drop key={`b${k}`} x={(k % 2 ? 1 : -1) * (60 + (k % 3) * 20)} y={-200 + 200 * p * p} s={0.8} o={interpolate(p, [0, 0.1, 0.85, 1], [0, 1, 1, 0])} />
         ))}
       </Person>
-      <ellipse cx={PX} cy={PY + 16} rx={60 + 120 * tw(f, w(7), w(10) + 20)} ry={12 + 10 * tw(f, w(7), w(10) + 20)} fill={C.water} opacity={0.45} />
-      <Drop x={290} y={470} s={2.4 * pop(f, w(1) - 3)} />
-      <HandText x={480} y={500} text="%16 su" size={120} p={tw(f, w(1), w(5) + 6)} color={C.water} />
+      <ellipse cx={PX} cy={PY + 16} rx={60 + 140 * puddle} ry={12 + 12 * puddle} fill={C.water} stroke={C.ink} strokeWidth={4} opacity={0.5 * Math.min(1, puddle * 4)} />
+      <Drop x={300} y={470} s={2.4 * pop(f, w(1) - 3)} />
+      <HandText x={490} y={500} text="%16 su" size={120} p={tw(f, w(1), w(5) + 6)} color={C.water} />
     </Cam>
   );
 };
 
 // "O zaman hızlı hızlı nefes alsan daha mı çok yağ yakarsın? Hayır, sadece başın döner."
-const HizliNefes: React.FC<SceneProps> = ({ w }) => {
+const HizliNefes: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const pant = f >= w(2);
+  const pant = f >= w(2) - 3;
   const dizzy = f >= w(12) - 2;
   const fast = Math.sin(f * 0.9);
   const wobble = dizzy ? Math.sin(f / 5) * 7 : 0;
-  const mouth = at(14, -703);
-  const face = at(0, -740);
-  const belly = at(0, -480);
   return (
     <Cam
-      keys={[
-        [0, PX, 860, 1.0],
-        [w(2), PX, 860, 1.05],
-        [w(5), face[0], face[1] + 20, 1.75],
-        [w(9), face[0], face[1] + 20, 1.85],
-        [w(11), PX, 860, 1.0],
-        [w(12) + 4, PX, 820, 1.1],
+      end={d}
+      shake={pant && !dizzy && f < w(11) ? 2.5 : f >= w(11) && f < w(11) + 8 ? 8 : 0}
+      plans={[
+        { t: 0, a: [540, 780, 1.5], b: [540, 760, 1.6] },
+        { t: w(2), a: [FACE[0], FACE[1] + 30, 2.6], b: [FACE[0] + 20, FACE[1] + 20, 2.8] },
+        { t: w(6), a: [CHEST[0], CHEST[1], 2.4] },
+        { t: w(9), a: [BELLY[0], BELLY[1], 2.3], b: [BELLY[0], BELLY[1], 2.5] },
+        { t: w(11), a: [540, 860, 1.0] },
+        { t: w(12) + 2, a: [FACE[0], FACE[1] - 40, 2.0], b: [FACE[0], FACE[1] - 40, 2.2] },
       ]}
-      shake={pant && !dizzy ? 2.5 : f >= w(11) && f < w(11) + 8 ? 8 : 0}
     >
-      <Ground y={PY + 12} />
       <Person
         x={PX + wobble * 3}
         y={PY + (pant ? Math.abs(fast) * 6 : 0)}
         s={S}
         belly={0.45}
+        fat={tw(f, w(9) - 3, w(9) + 3) * (1 - tw(f, w(11), w(11) + 4))}
         armL={[10 + (pant ? 4 * fast : 0), 0]}
         armR={[10 - (pant ? 4 * fast : 0), 0]}
         mouth={pant ? (fast > 0 ? "open" : "o") : "smile"}
@@ -1171,11 +1301,9 @@ const HizliNefes: React.FC<SceneProps> = ({ w }) => {
           : null}
       </Person>
       {pant && !dizzy
-        ? cycles(f, w(2), 8, 16).map(({ k, p }) => <Puff key={k} x={mouth[0] + 8} y={mouth[1]} p={p} dx={110} dy={-50 + (k % 3) * 35} s={0.55} />)
+        ? cycles(f, w(2) - 3, 8, 16).map(({ k, p }) => <Puff key={k} x={MOUTH[0] + 8} y={MOUTH[1]} p={p} dx={110} dy={-50 + (k % 3) * 35} s={0.55} />)
         : null}
-      <HandText x={780} y={540} text="Hayır!" size={150} p={tw(f, w(11), w(11) + 8)} color={C.red} rotate={-8} />
-      <HandText x={230} y={900} text="yağ aynı" size={74} p={tw(f, w(11) + 6, w(11) + 20)} />
-      <Arrow d={`M270 925 Q330 ${belly[1] + 40} ${belly[0] - 100} ${belly[1] + 10}`} p={tw(f, w(11) + 16, w(11) + 26)} w={7} />
+      {f < w(12) + 2 ? <HandText x={780} y={540} text="Hayır!" size={150} p={tw(f, w(11), w(11) + 8)} color={C.red} rotate={-8} /> : null}
     </Cam>
   );
 };
@@ -1183,70 +1311,63 @@ const HizliNefes: React.FC<SceneProps> = ({ w }) => {
 // "Yağın yanması için önce kasların onu yakıt olarak kullanmalı. Bunu da sadece hareket sağlar."
 const Hareket: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const go = tw(f, 0, 10);
-  const run = f / 4.2;
-  const l = Math.max(0, Math.sin(run)) * go;
-  const r = Math.max(0, -Math.sin(run)) * go;
-  const bob = Math.abs(Math.sin(run)) * 16 * go;
+  const j = jog(f, tw(f, 0, 10));
   const flowStart = w(5);
   const burn = tw(f, w(6) - 3, w(6) + 10);
-  const mouth = at(14, -703, PX, PY - bob);
-  const legs = at(0, -260);
+  const back = f >= w(9) && f < w(12);
+  const mouth = at(14, -703, PX, PY - j.bob);
   return (
     <Cam
-      keys={[
-        [0, PX, 860, 1.0],
-        [w(3), PX, 860, 1.0],
-        [w(4) + 6, legs[0], legs[1] - 80, 1.45],
-        [w(8), legs[0], legs[1] - 120, 1.4],
-        [w(10), PX, 860, 1.0],
-        [d, PX, 880, 1.06],
+      end={d}
+      plans={[
+        { t: 0, a: [540, 960, 1.0], b: [540, 930, 1.08] },
+        { t: w(3), a: [LEGS[0], LEGS[1], 1.9], b: [LEGS[0], LEGS[1] - 20, 2.05] },
+        { t: w(5), a: [540, at(0, -380)[1], 1.6], b: [540, at(0, -360)[1], 1.7] },
+        { t: w(9), a: [540, 1020, 1.25], b: [540, 980, 1.1] },
+        { t: w(12), a: [540, 760, 1.6], b: [540, 800, 1.4] },
       ]}
     >
-      <Ground y={PY + 12} />
-      {[0, 1, 2].map((i) => (
-        <path key={i} d={`M${200 - i * 20} ${1080 + i * 90} l-90 0`} stroke={C.ink} strokeWidth={7} strokeLinecap="round" opacity={(0.45 + 0.3 * Math.sin(f / 3 + i)) * go} />
-      ))}
       <Person
         x={PX}
-        y={PY - bob}
+        y={PY - j.bob}
         s={S}
+        back={back}
         belly={tw(f, flowStart, d, 0.45, 0.25)}
-        fat={tw(f, w(4), w(5)) * (1 - tw(f, w(10), d))}
-        legL={{ lift: l }}
-        legR={{ lift: r }}
-        armL={[18 + 22 * r * go, -130 * go + 30 * l]}
-        armR={[18 + 22 * l * go, -130 * go + 30 * r]}
+        fat={tw(f, w(4), w(5)) * (1 - tw(f, w(9), w(9) + 1))}
+        legL={j.legL}
+        legR={j.legR}
+        armL={j.armL}
+        armR={j.armR}
         mouth="o"
         legGlow={tw(f, w(4) - 2, w(4) + 10) * (0.5 + 0.5 * burn)}
         blush={0.7}
-        sweat={tw(f, w(9), w(10))}
+        sweat={tw(f, w(9), w(12))}
       >
         {/* yağ parçacıkları göbekten bacak kaslarına akar, orada yanar */}
-        {cycles(f, flowStart, 4, 26).map(({ k, p }) => {
-          const side = k % 2 ? 1 : -1;
-          const x = side * (25 + 25 * p) + Math.sin(k) * 15;
-          const y = -480 + 260 * p;
-          const lit = p > 0.65 ? burn : 0;
-          return (
-            <circle
-              key={k}
-              cx={x}
-              cy={y}
-              r={13 * (1 - 0.4 * p)}
-              fill={lit ? C.glow : C.fat}
-              stroke={C.fatDark}
-              strokeWidth={3}
-              opacity={interpolate(p, [0, 0.1, 0.85, 1], [0, 1, 1, 0])}
-            />
-          );
-        })}
+        {!back
+          ? cycles(f, flowStart, 4, 26).map(({ k, p }) => {
+              const side = k % 2 ? 1 : -1;
+              const x = side * (25 + 25 * p) + Math.sin(k) * 15;
+              const y = -480 + 260 * p;
+              const lit = p > 0.65 ? burn : 0;
+              return (
+                <circle
+                  key={k}
+                  cx={x}
+                  cy={y}
+                  r={13 * (1 - 0.4 * p)}
+                  fill={lit ? C.glow : C.fat}
+                  stroke={C.fatDark}
+                  strokeWidth={3}
+                  opacity={interpolate(p, [0, 0.1, 0.85, 1], [0, 1, 1, 0])}
+                />
+              );
+            })
+          : null}
       </Person>
-      {cycles(f, w(9), 20, 46).map(({ k, p }) => (
-        <Puff key={k} x={mouth[0] + 8} y={mouth[1]} p={p} dx={200} dy={-170} label="CO₂" />
-      ))}
-      <HandText x={340} y={1000} text="yakıt" size={100} p={tw(f, w(6), w(6) + 12)} color={C.glow} />
-      <Arrow d="M400 1020 Q430 1080 470 1100" p={tw(f, w(6) + 8, w(6) + 18)} color={C.glow} w={8} />
+      {!back
+        ? cycles(f, w(9), 20, 46).map(({ k, p }) => <Puff key={k} x={mouth[0] + 8} y={mouth[1]} p={p} dx={200} dy={-170} label="CO₂" />)
+        : null}
     </Cam>
   );
 };
@@ -1254,33 +1375,38 @@ const Hareket: React.FC<SceneProps> = ({ w, d }) => {
 // "Kısacası yağı hareketle yakar, nefesinle dışarı verirsin. Kaydet, sonra lazım olur."
 const Kapanis: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
+  const running = f < w(4);
+  const j = jog(f, running ? 1 : 0);
   const cheer = tw(f, w(7) - 3, w(7) + 8);
-  const px = PX + 150;
-  const mouth = at(14, -703, px);
   const save = pop(f, w(7), 14);
-  const exhale = f > w(4) && f < w(6) + 10;
+  const exhale = f >= w(4) && f < w(7);
   return (
-    <Cam keys={[[0, PX, 900, 1.12], [w(3), PX, 880, 1.0], [d, PX, 880, 1.04]]}>
-      <Ground y={PY + 12} />
+    <Cam
+      end={d}
+      plans={[
+        { t: 0, a: [LEGS[0], LEGS[1] - 40, 1.7], b: [LEGS[0], LEGS[1] - 60, 1.85] },
+        { t: w(4), a: [FACE[0] + 40, FACE[1], 2.4], b: [FACE[0] + 140, FACE[1] - 60, 2.1] },
+        { t: w(7), a: [500, 900, 1.08], b: [500, 900, 1.0] },
+      ]}
+    >
       <Person
-        x={px}
-        y={PY}
+        x={PX}
+        y={PY - j.bob}
         s={S}
         belly={0.2}
-        armL={[45, -110]}
-        armR={[45 + 120 * cheer, -110 + 95 * cheer]}
-        mouth={exhale ? "o" : "grin"}
+        legL={j.legL}
+        legR={j.legR}
+        legGlow={running ? 0.8 : 0}
+        armL={running ? j.armL : [45, -110]}
+        armR={running ? j.armR : [45 + 120 * cheer, -110 + 95 * cheer]}
+        mouth={exhale || running ? "o" : "grin"}
         eyes={exhale ? "closed" : "open"}
       />
-      {cycles(f, w(4), 40, 50)
-        .filter(({ k }) => k < 2)
-        .map(({ k, p }) => (
-          <Puff key={k} x={mouth[0] + 8} y={mouth[1]} p={p} dx={150} dy={-170} label="CO₂" />
-        ))}
-      <HandText x={100} y={420} text="hareket → yakar" size={92} anchor="start" p={tw(f, w(1), w(3) + 6)} />
-      <HandText x={100} y={550} text="nefes → dışarı" size={92} anchor="start" p={tw(f, w(4), w(6) + 4)} />
+      {exhale
+        ? cycles(f, w(4), 30, 56).map(({ k, p }) => <Puff key={k} x={MOUTH[0] + 8} y={MOUTH[1]} p={p} dx={220} dy={-190} label="CO₂" s={1.2} />)
+        : null}
       {save > 0 ? (
-        <g transform={`translate(250 900) scale(${save}) rotate(-6)`}>
+        <g transform={`translate(230 880) scale(${save}) rotate(-6)`}>
           <path d="M-70 -95 L70 -95 L70 100 L0 50 L-70 100 Z" fill={C.yellow} stroke={C.ink} strokeWidth={10} strokeLinejoin="round" />
           <text x={0} y={175} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink}>
             kaydet

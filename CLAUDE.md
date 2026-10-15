@@ -48,6 +48,10 @@ VOOM tanıtım videoları (content/promos/voom-*) kalıyor.
 ## Sıradaki adım
 Pilot (yağ nereye gidiyor) çizimli olarak hazırlandı, **sessiz önizleme gönderildi, onay bekleniyor**:
 `ornek-videolar/cizim-pilot/01-yag-nereye-sessiz.mp4` (id `cizim-01-yag-nereye`, 8 sahne, ~45 sn). 2. sürüm: gerçekçi oranlı gölgeli karakter, kamera hareketleri, yeni metin (kullanıcı ilk sürüm için "karakter basit, hareket az, metin zayıf" dedi).
+3. sürüm: kullanıcı ikinci örnek olarak Zack D. Films videosu gönderdi ("harmanla"): sepya çizim stili
+korundu, kurgu Zack gibi yapıldı — her cümle 2-4 kamera planına bölünür (geniş, yakın, arkadan, nesne yakın
+çekimi), sert kesmeler, karakter çizilmiş bir odada (pencere, güneş, parke, bitki, dambıl), ekran yazısı en aza
+indirildi. Referans: "örneğe yakın olsun, aynısı/kopyası değil".
 Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
 Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
@@ -56,6 +60,8 @@ Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/
 - Kodla çizilmiş, poz verilebilen karakter `Person` (göbek `belly`, kol/bacak açıları, ağız/göz ifadesi,
   akciğer, kas parlaması), eşyalar (tartı, düşünce balonu, damla, nefes bulutu, büyüteç, yıldız, el yazısı).
 - Kâğıt dokusu + ışık huzmeleri + toz; "el çizimi" titreşim filtresi; sahne başına yavaş kamera yakınlaşması.
+- Kamera: `Cam` + `plans` (her plan bir kelimede sert kesmeyle başlar, a → b yavaş kayar); arka plan `Room`
+  paralaksla. Karakter `back` ile arkadan çizilir.
 - Animasyonlar kelime zamanlamasına bağlı (`w(i)` = i. kelimenin karesi): seslendirmeden sonra otomatik oturur.
 - Yeni video = yeni sahne bileşenleri (`SCENES`) + JSON. El yazısı fontu Caveat (`public/fonts`).
 
