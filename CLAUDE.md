@@ -22,13 +22,19 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Çalışma dal�
 4. **Dil:** argo yok ("kanka", "bi" gibi kelimeler çok "keko"). Düzgün, akıcı, merak uyandıran Türkçe.
    Kitap gibi ağır da değil. Örnek videodaki tempo: ~3 kelime/sn.
 
-## Bekleyen kararlar (kullanıcıya soruldu, cevap gelmedi)
-1. **Eleme listesinin onayı** (aşağıda).
-2. **Görsel yöntemi:** A) ücretli yapay zekâ görsel servisi (ör. OpenAI görsel API; anahtar ortamın
-   Network secrets bölümüne eklenecek) — önerilen; B) kodla çizilmiş sade illüstrasyonlar (ücretsiz).
-   Ücretsiz Pollinations denendi: kalite çok kötü + filigran, kullanılmaz.
+## Kararlar (kullanıcı onayladı)
+1. **Eleme listesi onaylandı** (aşağıda, kalp ve şeker dahil).
+2. **Görsel yöntemi: B — ücretsiz, kodla çizilmiş illüstrasyonlar.** Kullanıcı: "Ücretsiz yapabildiğin her şey;
+   daha az maliyet, daha fazla kâr, başlangıç bu." Ücretli API önerme. (Ücretsiz Pollinations denendi: kalite
+   çok kötü + filigran, kullanılmaz.)
+   Hedef: söylenen şeyi birebir gösteren sahneler. Ör. "karın yağların erir" → karnındaki yağ eriyen bir
+   karakter. Örnek videonun havası: sıcak sepya kâğıt dokusu, ışık huzmeleri, elle çizilmiş görünüm,
+   yumuşak geçişler, yavaş kamera hareketi, ortada küçük altyazı (o anki kelime sarı).
+   Önerilen yapı: yeniden kullanılabilir bir karakter (poz verilebilen, ifadeli), sahne/eşya kütüphanesi
+   (tartı, dambıl, yatak, su şişesi, masa, sandalye…), SVG "el çizimi" filtresi (feTurbulence +
+   feDisplacementMap), kâğıt dokusu, ışık huzmeleri.
 
-## Eleme sonucu (onay bekliyor)
+## Eleme sonucu (onaylandı)
 Kalan 22 bilgi videosu:
 - Antrenman: bilgi-kas, reels-03-kas-agrisi, reels-04-kas-hafizasi, reels-07-isinma, reels-10-mekik,
   bilgi-takip, bilgi-6-hafta, bilgi-koc, seri2-03-diz-agrisi, seri2-06-kosu-nefes,
@@ -40,7 +46,7 @@ seri2-01-sabah-uzun, bilgi-hobi, seri3-05-kahve.
 VOOM tanıtım videoları (content/promos/voom-*) kalıyor.
 
 ## Sıradaki adım
-Kararlar gelince: 1 pilot (reels-01-yag-nereye) → yeni metin (dar, düzgün dil) + söyleneni birebir gösteren
+1 pilot (reels-01-yag-nereye) → yeni metin (dar, düzgün dil) + söyleneni birebir gösteren
 görseller → sessiz önizleme → onay → seslendirme → kalan videolar sırayla. Öncelik ekibe giden 11 video
 (`ornek-videolar/ekip-11/OKU.md`), sonra diğerleri.
 
