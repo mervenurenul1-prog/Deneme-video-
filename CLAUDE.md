@@ -46,7 +46,9 @@ seri2-01-sabah-uzun, bilgi-hobi, seri3-05-kahve.
 VOOM tanıtım videoları (content/promos/voom-*) kalıyor.
 
 ## Sıradaki adım
-Pilot (yağ nereye gidiyor) çizimli olarak hazırlandı, **sessiz önizleme gönderildi, onay bekleniyor**:
+Pilot (yağ nereye gidiyor) çizimli 3. sürüm **onaylandı ve seslendirildi** (erkek ses, 36 sn ses / 39 sn video):
+`ornek-videolar/cizim-pilot/01-yag-nereye.mp4`. Yöntem denemesi (çizim mi 3D mi) kullanıcıya gönderildi, cevap bekleniyor:
+`ornek-videolar/yontem-denemesi/karsilastirma.mp4`. Önceki notlar:
 `ornek-videolar/cizim-pilot/01-yag-nereye-sessiz.mp4` (id `cizim-01-yag-nereye`, 8 sahne, ~45 sn). 2. sürüm: gerçekçi oranlı gölgeli karakter, kamera hareketleri, yeni metin (kullanıcı ilk sürüm için "karakter basit, hareket az, metin zayıf" dedi).
 3. sürüm: kullanıcı ikinci örnek olarak Zack D. Films videosu gönderdi ("harmanla"): sepya çizim stili
 korundu, kurgu Zack gibi yapıldı — her cümle 2-4 kamera planına bölünür (geniş, yakın, arkadan, nesne yakın
@@ -92,6 +94,6 @@ Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/
 - Dosya gönderme sınırı 30 MB: büyük paketleri parçalara böl.
 
 ## Teslim edilenler
-- `ornek-videolar/cizim-pilot/`: çizimli pilot, sessiz önizleme (onay bekliyor).
+- `ornek-videolar/cizim-pilot/`: çizimli pilot, seslendirilmiş son hâli + sessiz önizleme.
 - `ornek-videolar/ekip-11/`: ekibe gönderilen 11 video (8 bilgi + 3 VOOM), açıklama `OKU.md`.
 - `ornek-videolar/secilen-8/`, `voom-secilen-3/`: aynı videoların ilk hâlleri.
