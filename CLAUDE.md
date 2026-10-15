@@ -57,6 +57,14 @@ indirildi. Referans: "örneğe yakın olsun, aynısı/kopyası değil".
 Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
 Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
+## Kullanıcının kendi sesi (izinli)
+Kullanıcı kendi videosunu gönderip "benim sesimi kullanabilirsin, tiz olmasın, daha cool" dedi. Instant klon:
+`MalkCL6Ms3mHRGDVY6vZ` ("VOOM Kullanıcı"). Örnekler `ses-ornekleri/kullanici-sesi/` (1 doğal = v3; 2 cool = v3 +
+1.5 yarım ton kalın + sıcak EQ; 3 cool-sakin = multilingual_v2 + aynı işlem). Ham kayıt (.wav) repoya konmaz.
+"Cool" işlemi (ffmpeg): `rubberband=pitch=0.917:formant=preserved,bass=g=2.5:f=170,treble=g=-2.5:f=6000,
+deesser=i=0.4,acompressor=threshold=-20dB:ratio=2.5,loudnorm=I=-16:TP=-1.5`. Seçilirse seslendirmeye eklenecek.
+Kullanıcı: "Böyle devam edebilirsin ama her zaman daha iyisi olabileceğini unutma."
+
 ## DURUM (en güncel)
 - Ekip 3D pilotu (yağ nereye) **çok beğendi**; sadece ses konusunda kararsızlar, cevap bekleniyor.
   Kullanıcı: "diğerlerine tek tek başla". Ses kararı netleşene kadar yeni videolar **sessiz önizleme** olarak
