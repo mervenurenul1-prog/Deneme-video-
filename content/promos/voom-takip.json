@@ -3,12 +3,13 @@
   "title": "VOOM: Takip edildiğini hisset",
   "scenes": [
     {
-      "voice": "Spora başlıyorsun, iki hafta sonra bırakıyorsun. Çünkü kimse takip etmiyor.",
-      "display": "Neden hep *ikinci haftada* bırakıyorsun?"
+      "voice": "Spora başlıyosun, iki hafta sonra bırakıyosun. Çünkü kimse takip etmiyo.",
+      "display": "Neden hep *ikinci haftada* bırakıyosun?",
+      "sticker": "📉😓"
     },
     {
-      "voice": "VOOM her seansını, her setini kaydediyor. Altı haftalık dönemde nerede olduğunu hep görüyorsun.",
-      "display": "Her seans *sayılıyor*",
+      "voice": "VOOM her seansını, her setini kaydediyo. Altı haftanın neresindesin, hep görüyosun.",
+      "display": "Her seans *sayılıyo*",
       "kicker": "TAKİP",
       "screen": "app/profil.jpg",
       "focus": {
@@ -16,10 +17,12 @@
         "y": 285,
         "w": 800,
         "h": 365
-      }
+      },
+      "sticker": "📊",
+      "stamp": "KAYITTA!"
     },
     {
-      "voice": "Koçun da takipte. Sıradaki antrenmanını hatırlatıyor, ilerlemeni seninle birlikte izliyor.",
+      "voice": "Koçun da takipte. Sıradaki antrenmanı hatırlatıyo, ilerlemeni seninle izliyo.",
       "display": "Koçun da *takipte*",
       "kicker": "KOÇ NOTU",
       "screen": "app/profil.jpg",
@@ -28,11 +31,13 @@
         "y": 680,
         "w": 800,
         "h": 720
-      }
+      },
+      "sticker": "👀🔔"
     },
     {
       "voice": "VOOM. Bu sefer yalnız değilsin. Link profilde.",
-      "display": "Bu sefer *yalnız değilsin*."
+      "display": "Bu sefer *yalnız değilsin*.",
+      "sticker": "🤝"
     }
   ],
   "caption": "Bırakmanın sebebi irade değil, takip eksikliği 📈\n\nVOOM her seansını ve setini kaydediyor; koçun sıradaki antrenmanını hatırlatıyor, ilerlemeni seninle izliyor.\n\nİndirmek için link profilde 🔗",
@@ -43,5 +48,7 @@
     "kişiselantrenör",
     "fitnessuygulaması",
     "voom"
-  ]
+  ],
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3"
 }

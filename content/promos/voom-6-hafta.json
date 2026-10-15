@@ -3,11 +3,12 @@
   "title": "VOOM: Hayaline giden 6 haftalık plan",
   "scenes": [
     {
-      "voice": "Hayalindeki vücut için bir planın var mı?",
-      "display": "Hayalinin bir *planı* var mı?"
+      "voice": "Hayalindeki vücut için bi planın var mı? Yoksa her gün kafana göre mi?",
+      "display": "Hayalinin bi *planı* var mı?",
+      "sticker": "🎯🤔"
     },
     {
-      "voice": "VOOM, hedefini ve haftanı sorup sana özel altı haftalık bir plan kuruyor. Altı hafta sonunda nerede olacağın baştan belli.",
+      "voice": "VOOM hedefini ve haftanı sorup sana özel altı haftalık plan kuruyo. Altı hafta sonra nerdesin, baştan belli.",
       "display": "Hedefe *6 haftalık* yol",
       "kicker": "6 HAFTA",
       "screen": "app/program.jpg",
@@ -16,10 +17,12 @@
         "y": 590,
         "w": 830,
         "h": 180
-      }
+      },
+      "sticker": "🗺️",
+      "stamp": "6 HAFTA!"
     },
     {
-      "voice": "Devam ettikçe plan seninle birlikte ilerliyor. İsteğine ve temposuna göre yeniden şekilleniyor.",
+      "voice": "Devam ettikçe plan da seninle ilerliyo. İsteğine, temposuna göre yeniden şekilleniyo.",
       "display": "Sen ilerledikçe *plan da* ilerler",
       "kicker": "DEVAMLILIK",
       "screen": "app/profil.jpg",
@@ -28,11 +31,13 @@
         "y": 285,
         "w": 800,
         "h": 365
-      }
+      },
+      "sticker": "📈"
     },
     {
       "voice": "VOOM. Hayalin, senin planın. Link profilde.",
-      "display": "Hayalin. *Senin planın*."
+      "display": "Hayalin. *Senin planın*.",
+      "sticker": "✨"
     }
   ],
   "caption": "Hayalindeki vücudun bir planı olmalı 🎯\n\nVOOM hedefine ve haftana göre 6 haftalık plan kuruyor; sen devam ettikçe isteğine göre yeniden şekilleniyor.\n\nİndirmek için link profilde 🔗",
@@ -43,5 +48,7 @@
     "kişiselantrenör",
     "fitnessuygulaması",
     "voom"
-  ]
+  ],
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3"
 }

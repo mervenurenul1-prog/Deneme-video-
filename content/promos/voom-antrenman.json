@@ -3,11 +3,12 @@
   "title": "VOOM: Günün antrenmanı hazır",
   "scenes": [
     {
-      "voice": "Salona girip ne yapacağını düşünmek, antrenmanın yarısını yiyor.",
-      "display": "Salonda *ne yapacağını* düşünme."
+      "voice": "Salona girip ne yapacağını düşünmek, antrenmanın yarısını yiyo.",
+      "display": "Salonda *ne yapacağını* düşünme.",
+      "sticker": "🤔🏋️"
     },
     {
-      "voice": "VOOM her gün o günün antrenmanını hazır veriyor. Hareketler, setler, süreler; hepsi belli.",
+      "voice": "VOOM her gün o günün antrenmanını hazır veriyo. Hareket, set, süre; hepsi belli.",
       "display": "Günün antrenmanı *hazır*",
       "kicker": "BUGÜN",
       "screen": "app/bugun.jpg",
@@ -16,11 +17,13 @@
         "y": 80,
         "w": 820,
         "h": 330
-      }
+      },
+      "sticker": "📋",
+      "stamp": "HAZIR!"
     },
     {
-      "voice": "Üstelik her kararın nedenini açıklıyor. Ezber değil, bilerek çalışıyorsun.",
-      "display": "Her kararın bir *nedeni* var",
+      "voice": "Üstüne her kararın nedenini anlatıyo. Ezber yok, bilerek çalışıyosun.",
+      "display": "Her kararın bi *nedeni* var",
       "kicker": "PROGRAM",
       "screen": "app/program.jpg",
       "focus": {
@@ -28,11 +31,13 @@
         "y": 840,
         "w": 830,
         "h": 470
-      }
+      },
+      "sticker": "🧠💡"
     },
     {
-      "voice": "VOOM. Düşünme, sadece başla. Link profilde.",
-      "display": "Düşünme, *sadece başla*."
+      "voice": "VOOM. Düşünme, başla. Link profilde.",
+      "display": "Düşünme, *sadece başla*.",
+      "sticker": "🚀"
     }
   ],
   "caption": "Salonda telefona bakıp ne yapacağını düşünmeye son 🏋️\n\nVOOM her gün antrenmanını hazır veriyor ve her kararın nedenini açıklıyor.\n\nİndirmek için link profilde 🔗",
@@ -43,5 +48,7 @@
     "kişiselantrenör",
     "fitnessuygulaması",
     "voom"
-  ]
+  ],
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3"
 }

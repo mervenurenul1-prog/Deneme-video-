@@ -53,7 +53,7 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({ explainer, voiceover 
         const fullscreen = scene.visual === "soru" || scene.visual === "kapanis";
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.visual}`}>
-            <SceneFX scene={scene}>
+            <SceneFX seed={scene.voice} stamp={scene.stamp} burstY={fullscreen ? 780 : 330}>
               <Fade>
                 {fullscreen ? null : <Header scene={scene} />}
                 <Stage fullscreen={fullscreen}>
@@ -143,7 +143,7 @@ const Watermark: React.FC<{ tag?: string }> = ({ tag }) => {
 };
 
 // Altyazı: soldaki yeşil çizgiyle, söylenen kelimeler beyaz, sıradakiler gri, o an söylenen yeşil
-const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
+export const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
   const t = useSeconds();
   const chunks: WordTiming[][] = [];
   let cur: WordTiming[] = [];
@@ -198,7 +198,7 @@ const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
 
 const STAMP_AT = 0.42;
 
-const SceneFX: React.FC<{ scene: ExplainerScene; children: React.ReactNode }> = ({ scene, children }) => {
+export const SceneFX: React.FC<{ seed: string; stamp?: string; burstY: number; children: React.ReactNode }> = ({ seed, stamp, burstY, children }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const stampAt = Math.floor(durationInFrames * STAMP_AT);
@@ -206,21 +206,21 @@ const SceneFX: React.FC<{ scene: ExplainerScene; children: React.ReactNode }> = 
   const inP = interpolate(frame, [0, 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
   const scale = 1.18 - 0.18 * inP;
   const blur = 14 * (1 - inP);
-  const rot = (1 - inP) * (random(`r${scene.voice}`) > 0.5 ? 2 : -2);
+  const rot = (1 - inP) * (random(`r${seed}`) > 0.5 ? 2 : -2);
   // Sarsıntı: girişte ve damga anında, hızla sönen
   const shakeAmt = (t: number, power: number) => (t >= 0 && t < 12 ? power * (1 - t / 12) : 0);
-  const amp = shakeAmt(frame, 14) + (scene.stamp ? shakeAmt(frame - stampAt, 22) : 0);
+  const amp = shakeAmt(frame, 14) + (stamp ? shakeAmt(frame - stampAt, 22) : 0);
   const sx = Math.sin(frame * 2.7) * amp;
   const sy = Math.cos(frame * 3.3) * amp;
   return (
     <AbsoluteFill>
       <AbsoluteFill style={{ transform: `translate(${sx}px, ${sy}px) scale(${scale}) rotate(${rot}deg)`, filter: `blur(${blur}px)` }}>{children}</AbsoluteFill>
-      <Burst x={540} y={scene.visual === "soru" || scene.visual === "kapanis" ? 780 : 330} seed={scene.voice} />
+      <Burst x={540} y={burstY} seed={seed} />
       <Flash at={0} />
-      {scene.stamp ? (
+      {stamp ? (
         <Sequence from={stampAt}>
-          <Stamp text={scene.stamp} />
-          <Burst x={540} y={980} seed={`${scene.voice}s`} big />
+          <Stamp text={stamp} />
+          <Burst x={540} y={980} seed={`${seed}s`} big />
           <Flash at={0} strength={0.25} />
           <Audio src={staticFile("sfx/boom.mp3")} volume={0.45} />
         </Sequence>
@@ -335,7 +335,7 @@ const STICKER_POS = [
   { x: 70, y: 1260 },
   { x: 870, y: 1210 },
 ];
-const Stickers: React.FC<{ text: string; fullscreen: boolean }> = ({ text, fullscreen }) => {
+export const Stickers: React.FC<{ text: string; fullscreen: boolean }> = ({ text, fullscreen }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const items = Array.from(new Intl.Segmenter("tr", { granularity: "grapheme" }).segment(text))
@@ -412,7 +412,7 @@ const markedWords = (text: string) => {
 };
 
 // Kelime kelime beliren başlık
-const Title: React.FC<{ text: string; size: number; delay?: number }> = ({ text, size, delay = 0 }) => {
+export const Title: React.FC<{ text: string; size: number; delay?: number }> = ({ text, size, delay = 0 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   return (
@@ -638,7 +638,7 @@ const CONFETTI = Array.from({ length: 60 }, (_, i) => ({
   r: random(`cr${i}`) * 360,
   c: [C.lime, C.warm, C.teal, "#fff", C.danger][i % 5],
 }));
-const Confetti: React.FC = () => {
+export const Confetti: React.FC = () => {
   const frame = useCurrentFrame();
   return (
     <div style={{ position: "absolute", left: 0, top: 0, width: 900, height: 1920, pointerEvents: "none" }}>

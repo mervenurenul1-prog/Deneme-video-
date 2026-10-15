@@ -43,11 +43,17 @@ export type PromoScene = {
   screen?: string;
   // Kameranın yaklaşacağı bölge (ekran görüntüsü 923 px genişliğe ölçeklenmiş koordinatlarla)
   focus?: { x: number; y: number; w: number; h: number };
+  // Efektler (bilgi videolarıyla aynı): damga yazısı, emoji çıkartmalar, kapanış düğmesi
+  stamp?: string;
+  sticker?: string;
+  cta?: "gonder" | "kaydet";
 };
 
 export type Promo = {
   id: string;
   title: string;
+  voiceId?: string;
+  modelId?: string;
   scenes: PromoScene[];
   caption: string;
   hashtags: string[];

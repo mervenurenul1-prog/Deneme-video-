@@ -3,11 +3,12 @@
   "title": "VOOM: Masa başı duruş rutinleri",
   "scenes": [
     {
-      "voice": "Masa başında saatlerce oturmak, duruşunu sessizce bozuyor.",
-      "display": "Masa başı duruşunu *bozuyor*."
+      "voice": "Masa başında saatlerce oturmak, duruşunu sessiz sessiz bozuyo.",
+      "display": "Masa başı duruşunu *bozuyo*.",
+      "sticker": "🪑😩"
     },
     {
-      "voice": "VOOM, gününe yayılmış kısa duruş rutinleri veriyor. Sabah, öğle, akşam; birkaç dakika yeterli.",
+      "voice": "VOOM gününe yayılmış kısa duruş rutinleri veriyo. Sabah, öğle, akşam; birkaç dakika yeter.",
       "display": "Gün içinde *kısa* rutinler",
       "kicker": "DURUŞ",
       "screen": "app/durus.jpg",
@@ -16,10 +17,12 @@
         "y": 465,
         "w": 785,
         "h": 930
-      }
+      },
+      "sticker": "⏱️🙆",
+      "stamp": "3 DAKİKA!"
     },
     {
-      "voice": "Antrenman programın da duruşunu düşünüyor. Çekiş ve itme hareketleri ona göre dengeleniyor.",
+      "voice": "Antrenman programın da duruşunu düşünüyo. Çekiş ve itme hareketleri ona göre dengeleniyo.",
       "display": "Antrenmanın da *duruşunu* düşünür",
       "kicker": "PROGRAM",
       "screen": "app/program.jpg",
@@ -28,11 +31,13 @@
         "y": 1650,
         "w": 830,
         "h": 160
-      }
+      },
+      "sticker": "⚖️"
     },
     {
       "voice": "VOOM. Dik dur, iyi hisset. Link profilde.",
-      "display": "Dik dur, *iyi hisset*."
+      "display": "Dik dur, *iyi hisset*.",
+      "sticker": "🧍"
     }
   ],
   "caption": "Masa başı çalışanlar, bu sana 🪑\n\nVOOM gününe yayılmış kısa duruş rutinleri veriyor; antrenman programın da duruşuna göre dengeleniyor.\n\nİndirmek için link profilde 🔗",
@@ -45,5 +50,7 @@
     "voom",
     "duruş",
     "postür"
-  ]
+  ],
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3"
 }

@@ -3,11 +3,12 @@
   "title": "VOOM: Takviyelerin de planında",
   "scenes": [
     {
-      "voice": "Hangi takviyeyi, ne zaman alacağını hep unutuyor musun?",
-      "display": "Takviyeni *unutuyor* musun?"
+      "voice": "Hangi takviyeyi ne zaman alacağını hep unutuyo musun?",
+      "display": "Takviyeni *unutuyo* musun?",
+      "sticker": "💊🤦"
     },
     {
-      "voice": "VOOM'da takviyelerin de günlük planının içinde. Sabah mı, akşam mı; hepsi yazıyor.",
+      "voice": "VOOM'da takviyelerin de günlük planında. Sabah mı, akşam mı; hepsi yazıyo.",
       "display": "Ne zaman alacağın *planında*",
       "kicker": "TAKVİYE",
       "screen": "app/bugun.jpg",
@@ -16,10 +17,12 @@
         "y": 1545,
         "w": 785,
         "h": 160
-      }
+      },
+      "sticker": "⏰",
+      "stamp": "UNUTMA!"
     },
     {
-      "voice": "Öneriler hedefine ve beslenme planına göre şekilleniyor. Aldıkça işaretle, takipte kal.",
+      "voice": "Öneriler hedefine ve beslenmene göre şekilleniyo. Aldıkça işaretle, takipte kal.",
       "display": "Beslenmenle *uyumlu*",
       "kicker": "BESLENME",
       "screen": "app/beslenme.jpg",
@@ -28,11 +31,13 @@
         "y": 660,
         "w": 785,
         "h": 845
-      }
+      },
+      "sticker": "🥗✅"
     },
     {
-      "voice": "VOOM. Takviye kullanmadan önce doktoruna danışmayı unutma. Link profilde.",
-      "display": "Planın *eksiksiz*."
+      "voice": "VOOM. Başlamadan önce doktoruna danışmayı unutma. Link profilde.",
+      "display": "Planın *eksiksiz*.",
+      "sticker": "👩‍⚕️"
     }
   ],
   "caption": "Takviyelerin de planının bir parçası 💊\n\nVOOM'da ne zaman, neyi alacağın günlük planında; öneriler hedefine ve beslenmene göre şekilleniyor.\n\nTakviye kullanmadan önce doktoruna danış.\n\nİndirmek için link profilde 🔗",
@@ -45,5 +50,7 @@
     "voom",
     "beslenme",
     "supplement"
-  ]
+  ],
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3"
 }
