@@ -1,0 +1,48 @@
+{
+  "id": "uc-01-yag-nereye",
+  "title": "Verdiğin yağ nereye gidiyor?",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "acilis",
+      "voice": "Verdiğin yağın büyük kısmını, nefes vererek dışarı atıyorsun."
+    },
+    {
+      "visual": "yanlis-fikir",
+      "voice": "Çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. Ama ikisi de doğru değil."
+    },
+    {
+      "visual": "yag-hucresi",
+      "voice": "Yağ hücresi yakıldığında, karbondioksit ve suya ayrılır."
+    },
+    {
+      "visual": "nefes",
+      "voice": "Bunun yüzde seksen dördü karbondioksittir ve akciğerlerinden, nefesinle çıkar."
+    },
+    {
+      "visual": "su",
+      "voice": "Kalan yüzde on altı ise su olur; terle ve idrarla atılır."
+    },
+    {
+      "visual": "hizli-nefes",
+      "voice": "O zaman hızlı hızlı nefes alsan daha mı çok yağ yakarsın? Hayır, sadece başın döner."
+    },
+    {
+      "visual": "hareket",
+      "voice": "Yağın yanması için önce kasların onu yakıt olarak kullanmalı. Bunu da sadece hareket sağlar."
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Kısacası yağı hareketle yakar, nefesinle dışarı verirsin. Kaydet, sonra lazım olur."
+    }
+  ],
+  "caption": "Verdiğin yağın çoğu nefesinle çıkıyor 🫁\n\nYağ yakıldığında karbondioksit ve suya dönüşür; yaklaşık %84'ü karbondioksit olarak solunumla atılır, kalanı su olarak ter ve idrarla (Meerman & Brown, BMJ 2014). Ama önce kasların o yağı yakıt olarak kullanması gerekir: bu da hareketle olur.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "sağlıklıyaşam",
+    "yağyakımı",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

@@ -3,7 +3,8 @@ import { VIDEO } from "./brand";
 import { ExplainerVideo, type ExplainerProps } from "./explainer/Explainer";
 import { Deneme3D } from "./deneme3d/Deneme3D";
 import { CizimVideo, type CizimProps } from "./cizim/Cizim";
-import { cizimler, explainers, posts, promos, stories } from "./posts";
+import { cizimler, explainers, posts, promos, stories, ucler } from "./posts";
+import { UcVideo, type UcProps } from "./uc/Uc";
 import { PromoVideo, type PromoProps } from "./promo/Promo";
 import { Reel, type ReelProps } from "./Reel";
 import { sceneDurations } from "./shared";
@@ -98,6 +99,22 @@ export const RemotionRoot: React.FC = () => {
           calculateMetadata={async ({ props }) => {
             const voiceover = await loadVoiceover(props.cizim.id);
             return { props: { ...props, voiceover }, durationInFrames: total(props.cizim, voiceover) };
+          }}
+        />
+      ))}
+      {ucler.map((uc) => (
+        <Composition
+          key={uc.id}
+          id={uc.id}
+          component={UcVideo}
+          fps={VIDEO.fps}
+          width={VIDEO.width}
+          height={VIDEO.height}
+          durationInFrames={1}
+          defaultProps={{ uc, voiceover: null } as UcProps}
+          calculateMetadata={async ({ props }) => {
+            const voiceover = await loadVoiceover(props.uc.id);
+            return { props: { ...props, voiceover }, durationInFrames: total(props.uc, voiceover) };
           }}
         />
       ))}

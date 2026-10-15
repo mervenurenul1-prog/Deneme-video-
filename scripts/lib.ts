@@ -8,6 +8,7 @@ export const STORIES_DIR = path.join(ROOT, "content", "stories");
 export const PROMOS_DIR = path.join(ROOT, "content", "promos");
 export const EXPLAINERS_DIR = path.join(ROOT, "content", "explainers");
 export const CIZIM_DIR = path.join(ROOT, "content", "cizim");
+export const UC_DIR = path.join(ROOT, "content", "uc");
 
 // Seslendirilip render edilebilen her şey: kısa Reels gönderileri, hikâye ve tanıtım videoları
 export type Video = Post | Story | Promo | Explainer | Cizim;
@@ -49,7 +50,7 @@ export async function loadVideos(onlyIds: string[] = []): Promise<Video[]> {
     });
     videos.push(item);
   }
-  for (const { item, file } of await readDir<Cizim>(CIZIM_DIR)) {
+  for (const { item, file } of [...(await readDir<Cizim>(CIZIM_DIR)), ...(await readDir<Cizim>(UC_DIR))]) {
     validate(item, file, (s, fail) => {
       if (!(s as Cizim["scenes"][number]).visual) fail("visual boş");
     });

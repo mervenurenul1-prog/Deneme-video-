@@ -1,12 +1,12 @@
 import { useThree } from "@react-three/fiber";
 import { ThreeCanvas } from "@remotion/three";
-import { useEffect, useMemo, useState } from "react";
-import { AbsoluteFill, cancelRender, continueRender, delayRender, Easing, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { useMemo } from "react";
+import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 import { Captions } from "../cizim/Cizim";
 import { fontFamily } from "../fonts";
+import { useModel } from "../uc/model";
 import { wordsFor } from "../shared";
 
 // Deneme: çizimli pilotun açılış sahnesi, 3D olarak (ücretsiz Mixamo kadın modeli, Three.js).
@@ -16,24 +16,6 @@ export const DENEME_3D_VOICE = "Verdiğin yağın büyük kısmını, nefes vere
 const ease = Easing.inOut(Easing.cubic);
 const tw = (f: number, a: number, b: number, from = 0, to = 1) =>
   interpolate(f, [a, b], [from, to], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
-
-const useModel = (file: string) => {
-  const [scene, setScene] = useState<THREE.Group | null>(null);
-  const [handle] = useState(() => delayRender(`3D model: ${file}`));
-  useEffect(() => {
-    new GLTFLoader().load(
-      staticFile(file),
-      (gltf) => setScene(gltf.scene),
-      undefined,
-      (err) => cancelRender(err),
-    );
-  }, [file]);
-  // Model sahneye yerleştikten sonra karenin çekilmesine izin ver
-  useEffect(() => {
-    if (scene) continueRender(handle);
-  }, [scene, handle]);
-  return scene;
-};
 
 export const Deneme3D: React.FC = () => {
   const { width, height, fps } = useVideoConfig();

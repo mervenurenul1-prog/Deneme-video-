@@ -812,7 +812,7 @@ const Lungs: React.FC<{ o: number; breath: number }> = ({ o, breath }) => {
 
 /* ---------- eşyalar ve işaretler ---------- */
 
-const HandText: React.FC<{
+export const HandText: React.FC<{
   x: number;
   y: number;
   text: string;
@@ -921,7 +921,7 @@ const Bubble: React.FC<{ x: number; y: number; rx: number; ry: number; p: number
   );
 };
 
-const Cross: React.FC<{ x: number; y: number; size: number; p: number }> = ({ x, y, size, p }) => {
+export const Cross: React.FC<{ x: number; y: number; size: number; p: number }> = ({ x, y, size, p }) => {
   const a = tw(p, 0, 0.5);
   const b = tw(p, 0.5, 1);
   return (

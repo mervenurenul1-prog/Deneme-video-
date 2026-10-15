@@ -20,12 +20,15 @@ for (const post of videos) {
   const outDir = path.join(ROOT, "out", post.id);
   await mkdir(outDir, { recursive: true });
 
-  const composition = await selectComposition({ serveUrl, id: post.id, browserExecutable });
+  // 3D videolar (uc-*) WebGL ister; sunucuda ekran kartı olmadığı için yazılımla çizilir
+  const chromiumOptions = post.id.startsWith("uc-") ? { gl: "swangle" as const } : {};
+  const composition = await selectComposition({ serveUrl, id: post.id, browserExecutable, chromiumOptions });
   console.log(`[${post.id}] ${(composition.durationInFrames / composition.fps).toFixed(1)} sn render ediliyor...`);
 
   const raw = path.join(outDir, "video-ham.mp4");
   const final = path.join(outDir, "video.mp4");
   await renderMedia({
+    chromiumOptions,
     serveUrl,
     composition,
     codec: "h264",
@@ -37,6 +40,7 @@ for (const post of videos) {
 
   // Kapak: hook sahnesinin animasyonu oturduktan sonraki kare
   await renderStill({
+    chromiumOptions,
     serveUrl,
     composition,
     frame: Math.min(composition.durationInFrames - 1, Math.round(composition.fps * 1)),
