@@ -1,6 +1,7 @@
 import { Composition, staticFile } from "remotion";
 import { VIDEO } from "./brand";
 import { ExplainerVideo, type ExplainerProps } from "./explainer/Explainer";
+import { Deneme3D } from "./deneme3d/Deneme3D";
 import { CizimVideo, type CizimProps } from "./cizim/Cizim";
 import { cizimler, explainers, posts, promos, stories } from "./posts";
 import { PromoVideo, type PromoProps } from "./promo/Promo";
@@ -100,6 +101,8 @@ export const RemotionRoot: React.FC = () => {
           }}
         />
       ))}
+      {/* Yöntem karşılaştırması: açılış sahnesinin 3D denemesi (ses yok, süre çizimli sürümle aynı) */}
+      <Composition id="deneme-3d" component={Deneme3D} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} durationInFrames={142} />
     </>
   );
 };

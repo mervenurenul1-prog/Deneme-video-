@@ -347,7 +347,7 @@ const Room: React.FC = () => {
 
 /* ---------- altyazı: ortada, küçük, o anki kelime sarı ---------- */
 
-const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
+export const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
   const t = useSeconds();
   const chunks: WordTiming[][] = [];
   for (let i = 0; i < words.length; i += 3) chunks.push(words.slice(i, i + 3));

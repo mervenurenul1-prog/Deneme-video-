@@ -55,6 +55,16 @@ indirildi. Referans: "örneğe yakın olsun, aynısı/kopyası değil".
 Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
 Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
+## Kullanıcı cevapları (3. sürümden sonra)
+- Referans: "benzesin, kopya olmasın".
+- Karakter: **bir kadın bir erkek** (iki sabit karakter).
+- Ekran yazısı: **sadece önemli sayılar** (%84, CO₂ gibi); gerisini çizim anlatır.
+- Yöntem: **ikisini de 1 sahne dene** → açılış sahnesi hem çizim hem 3D olarak denendi, kullanıcı seçecek.
+  3D deneme: `src/deneme3d/Deneme3D.tsx` (composition `deneme-3d`), model `public/3d/kadin.glb`
+  (Mixamo "Michelle", three.js örnek deposundan; tek animasyonu dans, kemikler kodla pozlanıyor).
+  Render: `npx remotion render src/index.ts deneme-3d out/deneme/3d.mp4 --gl=swangle` (sunucuda GPU yok;
+  `angle` çalışmıyor). Model yüklenmeden `ThreeCanvas` kurulmamalı (yoksa kare boş çekilir).
+
 ## Çizimli şablon (yeni yöntem)
 - İçerik: `content/cizim/*.json` (sahne başına `visual` + `voice`). Şablon: `src/cizim/Cizim.tsx`.
 - Kodla çizilmiş, poz verilebilen karakter `Person` (göbek `belly`, kol/bacak açıları, ağız/göz ifadesi,
