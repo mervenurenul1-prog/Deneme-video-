@@ -57,6 +57,20 @@ indirildi. Referans: "örneğe yakın olsun, aynısı/kopyası değil".
 Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
 Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
+## KARAR: 3D kadın karakter (en güncel)
+Kullanıcı yan yana denemede **3D kadın versiyonunu** seçti ("kız versiyonunu beğendim"). Kullanıcıyla
+**Türkçe** konuş. Pilot 3D olarak yeniden kuruldu: `content/uc/uc-01-yag-nereye.json` (ses: kadın, Bella),
+şablon `src/uc/Uc.tsx`. Sessiz önizleme render edilip gönderilecek → onay → `npm run voiceover --
+uc-01-yag-nereye` → `npm run render -- uc-01-yag-nereye` (render.ts `uc-*` için `gl: swangle` kullanır;
+yaklaşık 30-40 dk sürer). Çizimli şablon (`src/cizim`) yedek olarak duruyor.
+3D şablon notları:
+- Model `public/3d/kadin.glb` (Mixamo Michelle). Kemik dönüşleri modelin kendi duruşuna EKLENİR (`applyPose`);
+  sıfırlamak duruşu bozar. Eksenler: Kol x+ = aşağı, z+ = öne (sağ kolda z işareti ters); Önkol z = dirsek
+  bükme; UpLeg x+ = bacağı öne kaldır; Leg x+ = diz bük; Head x+ = başı eğ, y = çevir; Spine x+ = öne eğil.
+- Sahne = `DEFS[visual]`: `pose`, `cam` (planlar), `fx` (3D efektler), isteğe bağlı `shake`; 2D katman
+  `OVERLAYS[visual]` (sadece önemli sayılar). Vücut içi yakın çekim için odadan uzakta `MICRO` seti var.
+- Erkek karakter için aynı kalitede ücretsiz model henüz bulunamadı (Xbot/Soldier insan gibi değil).
+
 ## Kullanıcı cevapları (3. sürümden sonra)
 - Referans: "benzesin, kopya olmasın".
 - Karakter: **bir kadın bir erkek** (iki sabit karakter).
