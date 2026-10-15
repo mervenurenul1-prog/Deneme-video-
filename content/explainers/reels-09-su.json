@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Antrenmanda su içmeyi unuttun. Ne olacak ki? Sandığından fazlası.",
-      "title": "Biraz *susuzluk* ne yapar ki?"
+      "title": "Biraz *susuzluk* ne yapar ki?",
+      "sticker": "💧🤔"
     },
     {
       "visual": "sayi",
@@ -20,7 +21,9 @@
         "to": 2,
         "prefix": "%",
         "label": "VÜCUT AĞIRLIĞI KADAR SU KAYBI"
-      }
+      },
+      "sticker": "📉",
+      "stamp": "%2!"
     },
     {
       "visual": "vs",
@@ -37,7 +40,8 @@
           "value": "1,4 L",
           "tone": "teal"
         }
-      }
+      },
+      "sticker": "🥤"
     },
     {
       "visual": "zaman",
@@ -60,12 +64,17 @@
             "tone": "teal"
           }
         ]
-      }
+      },
+      "sticker": "⏰"
     },
     {
       "visual": "kapanis",
       "voice": "Su şişen, ayakkabın kadar önemli. Artık biliyosun.",
-      "title": "Su da *antrenmanın* parçası."
+      "title": "Su da *antrenmanın* parçası.",
+      "sticker": "💧",
+      "data": {
+        "cta": "gonder"
+      }
     }
   ],
   "caption": "Sadece %2 su kaybı bile performansını düşürür 💧\n\n70 kg biri için bu 1,4 litre demek. Susamayı bekleme: antrenman öncesi, sırası ve sonrası düzenli iç.\n\nKaydet, arkadaşına gönder 📲",

@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Göbek için mekik. Mantıklı geliyo, di mi? Ama vücut öyle çalışmıyo.",
-      "title": "Mekik göbeği *eritir* mi?"
+      "title": "Mekik göbeği *eritir* mi?",
+      "sticker": "🍩🤔"
     },
     {
       "visual": "vucut",
@@ -17,7 +18,8 @@
       "title": "Yağ *her yerden* gider",
       "data": {
         "mode": "tum"
-      }
+      },
+      "sticker": "🔥"
     },
     {
       "visual": "vucut",
@@ -26,7 +28,9 @@
       "title": "Bölgesel incelme *efsane*",
       "data": {
         "mode": "bolge"
-      }
+      },
+      "sticker": "🚫",
+      "stamp": "EFSANE!"
     },
     {
       "visual": "liste",
@@ -48,12 +52,14 @@
             "ok": false
           }
         ]
-      }
+      },
+      "sticker": "💪"
     },
     {
       "visual": "kapanis",
       "voice": "Çözüm; kalori dengesi, tüm vücut antrenmanı ve sabır.",
-      "title": "Mekik kas yapar, *yağı değil*."
+      "title": "Mekik kas yapar, *yağı değil*.",
+      "sticker": "🎯"
     }
   ],
   "caption": "Bin mekik çekmeden önce bunu bil 🔥\n\nVücut yağı bölgesel değil, tüm vücuttan kullanır. Mekik karın kasını güçlendirir ama göbek yağını tek başına eritmez. Çözüm: kalori dengesi + tüm vücut antrenmanı + sabır.\n\nKaydet, arkadaşına gönder 📲",

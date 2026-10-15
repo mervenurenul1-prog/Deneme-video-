@@ -7,7 +7,8 @@
     {
       "visual": "soru",
       "voice": "Ağırlık kaldırınca kas büyüyo, tamam. Ama tam olarak nasıl? Hiç düşündün mü?",
-      "title": "Kas aslında *nasıl* büyür?"
+      "title": "Kas aslında *nasıl* büyür?",
+      "sticker": "💪🤔"
     },
     {
       "visual": "kas",
@@ -16,7 +17,9 @@
       "title": "Antrenmanda lifler *zorlanır*",
       "data": {
         "phase": "yirtik"
-      }
+      },
+      "sticker": "🏋️",
+      "stamp": "ÇAT ÇAT!"
     },
     {
       "visual": "kas",
@@ -25,7 +28,8 @@
       "title": "Dinlenirken *onarılır*",
       "data": {
         "phase": "onarim"
-      }
+      },
+      "sticker": "😴🔧"
     },
     {
       "visual": "bar",
@@ -65,12 +69,14 @@
             "text": "52,5"
           }
         ]
-      }
+      },
+      "sticker": "📈"
     },
     {
       "visual": "kapanis",
       "voice": "VOOM, yükünü her hafta senin için ayarlıyo. Sen sadece kaldır.",
-      "title": "Sen sadece *kaldır*."
+      "title": "Sen sadece *kaldır*.",
+      "sticker": "🏋️"
     }
   ],
   "caption": "Kas antrenmanda değil, dinlenirken büyür 💪\n\nAntrenman lifleri zorlar, dinlenme onarır, yükü azar azar artırmak da gelişimi sürdürür.\n\nBunu bilmeyen arkadaşını etiketle 👇",

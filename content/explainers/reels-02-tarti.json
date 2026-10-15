@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Sabah tartıldın, bi kilo fazla. Panik yok kanka, o yağ değil.",
-      "title": "Bi gecede *1 kilo* mu aldın?"
+      "title": "Bi gecede *1 kilo* mu aldın?",
+      "sticker": "⚖️😱"
     },
     {
       "visual": "sayi",
@@ -20,7 +21,8 @@
         "to": 7700,
         "suffix": " kcal",
         "label": "1 KG YAĞ İÇİN GEREKEN FAZLA KALORİ (YAKLAŞIK)"
-      }
+      },
+      "sticker": "🍰"
     },
     {
       "visual": "vs",
@@ -36,7 +38,9 @@
           "label": "Yanında tutulan su",
           "value": "~3 g"
         }
-      }
+      },
+      "sticker": "💧",
+      "stamp": "SU!"
     },
     {
       "visual": "liste",
@@ -58,7 +62,8 @@
             "ok": true
           }
         ]
-      }
+      },
+      "sticker": "🧂"
     },
     {
       "visual": "cizgi",
@@ -108,12 +113,14 @@
           "P",
           "S"
         ]
-      }
+      },
+      "sticker": "📊"
     },
     {
       "visual": "kapanis",
       "voice": "Tartı yalan söylemez ama abartır. Artık biliyosun.",
-      "title": "Tartı yalan söylemez, *abartır*."
+      "title": "Tartı yalan söylemez, *abartır*.",
+      "sticker": "😌"
     }
   ],
   "caption": "Bir gecede aldığın o 1 kilo yağ değil ⚖️\n\nGlikojen kendi ağırlığının yaklaşık 3 katı su tutar; tuz, regl dönemi ve sindirim de tartıyı günlük 1-2 kg oynatabilir. Haftalık ortalamaya bak.\n\nKaydet, arkadaşına gönder 📲",

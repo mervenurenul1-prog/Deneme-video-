@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Kası salonda yaptığını sanıyosun ama asıl iş uyurken oluyo. Nasıl mı?",
-      "title": "Kas *uyurken* mi büyür?"
+      "title": "Kas *uyurken* mi büyür?",
+      "sticker": "😴💪"
     },
     {
       "visual": "bar",
@@ -43,7 +44,9 @@
             "tone": "muted"
           }
         ]
-      }
+      },
+      "sticker": "🌙",
+      "stamp": "ZİRVE!"
     },
     {
       "visual": "kas",
@@ -52,7 +55,8 @@
       "title": "Lifler *gece* onarılır",
       "data": {
         "phase": "onarim"
-      }
+      },
+      "sticker": "🔧"
     },
     {
       "visual": "sayi",
@@ -64,12 +68,17 @@
         "to": 8,
         "suffix": " saat",
         "label": "YETİŞKİNLER İÇİN ÖNERİLEN: 7-9 SAAT"
-      }
+      },
+      "sticker": "⏰"
     },
     {
       "visual": "kapanis",
       "voice": "Bu gece erken yat. Antrenmanın yarısı yastıkta.",
-      "title": "İyi uyu, *iyi büyü*."
+      "title": "İyi uyu, *iyi büyü*.",
+      "sticker": "🛌",
+      "data": {
+        "cta": "gonder"
+      }
     }
   ],
   "caption": "Antrenmanın yarısı yastıkta 😴\n\nBüyüme hormonunun en büyük salınımı gecenin ilk yarısındaki derin uykuda olur; kasların onarımı için kaliteli uyku şart. Yetişkinler için önerilen: 7-9 saat.\n\nKaydet, arkadaşına gönder 📲",

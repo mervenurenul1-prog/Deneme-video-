@@ -7,7 +7,8 @@
     {
       "visual": "soru",
       "voice": "Protein tozu, kreatin, vitamin... Rafta bi sürü şey var. Ama almadan önce şunu bil.",
-      "title": "Takviye almadan önce *bunu bil*"
+      "title": "Takviye almadan önce *bunu bil*",
+      "sticker": "💊🤔"
     },
     {
       "visual": "piramit",
@@ -29,7 +30,8 @@
             "text": "Takviye"
           }
         ]
-      }
+      },
+      "sticker": "🥗"
     },
     {
       "visual": "seri",
@@ -46,7 +48,9 @@
           10
         ],
         "label": "gün düzenli"
-      }
+      },
+      "sticker": "📆",
+      "stamp": "DÜZEN!"
     },
     {
       "visual": "liste",
@@ -68,12 +72,17 @@
             "ok": true
           }
         ]
-      }
+      },
+      "sticker": "👩‍⚕️"
     },
     {
       "visual": "kapanis",
       "voice": "VOOM'da takviyelerin günlük planının içinde, unutturmuyo.",
-      "title": "Planında, *unutturmuyo*."
+      "title": "Planında, *unutturmuyo*.",
+      "sticker": "✅",
+      "data": {
+        "cta": "kaydet"
+      }
     }
   ],
   "caption": "Takviye sihirli değil, tamamlayıcı 💊\n\nÖnce beslenme, uyku ve antrenman; sonra düzenli kullanım. Ve her zaman: başlamadan önce doktoruna danış.\n\nKaydet, markete gitmeden önce bak 🛒",

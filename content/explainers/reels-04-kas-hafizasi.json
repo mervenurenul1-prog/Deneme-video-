@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Üç ay ara verdin, kaslar gitti. Peki geri dönmek neden daha kolay?",
-      "title": "Ara verince kaslar *nereye* gidiyo?"
+      "title": "Ara verince kaslar *nereye* gidiyo?",
+      "sticker": "💪😢"
     },
     {
       "visual": "cekirdek",
@@ -17,7 +18,8 @@
       "title": "Kas büyürken *çekirdek* ekler",
       "data": {
         "phase": "buyume"
-      }
+      },
+      "sticker": "🧬"
     },
     {
       "visual": "cekirdek",
@@ -26,7 +28,9 @@
       "title": "Kas küçülür, *çekirdek kalır*",
       "data": {
         "phase": "kuculme"
-      }
+      },
+      "sticker": "🧠",
+      "stamp": "KALIYO!"
     },
     {
       "visual": "cizgi",
@@ -70,12 +74,14 @@
           "5.A",
           "6.A"
         ]
-      }
+      },
+      "sticker": "🚀"
     },
     {
       "visual": "kapanis",
       "voice": "Emeğin kaybolmuyo, seni bekliyo. Bugün dön.",
-      "title": "Emeğin *kaybolmaz*."
+      "title": "Emeğin *kaybolmaz*.",
+      "sticker": "💪"
     }
   ],
   "caption": "Spora ara verdin diye emeğin çöpe gitmedi 💪\n\nKas büyürken liflere yeni çekirdekler eklenir; araştırmalar bunların ara verince de uzun süre kalabildiğini gösteriyor. Bu yüzden geri dönüş ilk seferden hızlı olur.\n\nKaydet, arkadaşına gönder 📲",

@@ -7,7 +7,8 @@
     {
       "visual": "soru",
       "voice": "Günde kaç saat oturuyosun? Sekiz? On? Peki bu omurgana ne yapıyo, hiç düşündün mü?",
-      "title": "Masa başı *omurgana* ne yapıyo?"
+      "title": "Masa başı *omurgana* ne yapıyo?",
+      "sticker": "🪑😩"
     },
     {
       "visual": "figur",
@@ -16,7 +17,9 @@
       "title": "Baş öne gittikçe *ağırlaşır*",
       "data": {
         "mode": "boyun"
-      }
+      },
+      "sticker": "🧑‍💻",
+      "stamp": "5 → 27 KG!"
     },
     {
       "visual": "figur",
@@ -25,7 +28,8 @@
       "title": "Omuzlar *öne* kapanır",
       "data": {
         "mode": "omuz"
-      }
+      },
+      "sticker": "🐢"
     },
     {
       "visual": "zaman",
@@ -47,12 +51,17 @@
             "text": "Kalça esnetme · 2 dk"
           }
         ]
-      }
+      },
+      "sticker": "⏰"
     },
     {
       "visual": "kapanis",
       "voice": "VOOM'da duruş rutinlerin hazır. Kalk, bi esne, devam.",
-      "title": "Kalk, *bi esne*, devam."
+      "title": "Kalk, *bi esne*, devam.",
+      "sticker": "🙆",
+      "data": {
+        "cta": "kaydet"
+      }
     }
   ],
   "caption": "Masa başında çalışan herkesin bilmesi gereken şey 🪑\n\nBaş öne eğildikçe boyna binen yük katlanıyor. Gün içine yayılmış birkaç dakikalık hareket bile fark yaratır.\n\nOfisteki arkadaşına gönder 📲",

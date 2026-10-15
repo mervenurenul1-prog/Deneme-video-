@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Beş kilo verdin. O yağ nereye gitti? Eridi mi? Tere mi döndü? Hiçbiri.",
-      "title": "Verdiğin yağ *nereye* gidiyo?"
+      "title": "Verdiğin yağ *nereye* gidiyo?",
+      "sticker": "🧈🤔"
     },
     {
       "visual": "halka",
@@ -27,7 +28,9 @@
             "tone": "teal"
           }
         ]
-      }
+      },
+      "sticker": "💨",
+      "stamp": "%84!"
     },
     {
       "visual": "parcacik",
@@ -37,7 +40,8 @@
       "data": {
         "center": "NEFES",
         "particle": "CO₂"
-      }
+      },
+      "sticker": "🫁"
     },
     {
       "visual": "liste",
@@ -55,12 +59,17 @@
             "ok": true
           }
         ]
-      }
+      },
+      "sticker": "🏃"
     },
     {
       "visual": "kapanis",
       "voice": "Yağ erimiyo, nefes oluyo. Bi dahaki sefere, artık biliyosun.",
-      "title": "Yağ erimez, *nefes olur*."
+      "title": "Yağ erimez, *nefes olur*.",
+      "sticker": "😮‍💨",
+      "data": {
+        "cta": "kaydet"
+      }
     }
   ],
   "caption": "Verdiğin yağın çoğu nefesinle çıkıyor 🫁\n\nYağ yakıldığında karbondioksit ve suya dönüşür; yaklaşık %84'ü karbondioksit olarak solunumla atılır (Meerman & Brown, BMJ 2014).\n\nKaydet, arkadaşına gönder 📲",

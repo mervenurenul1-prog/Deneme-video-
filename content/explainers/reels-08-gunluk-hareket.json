@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Haftada üç gün salon, gerisi koltuk. Sence hangisi daha çok yaktırıyo?",
-      "title": "Salon mu yaktırıyo, *gün* mü?"
+      "title": "Salon mu yaktırıyo, *gün* mü?",
+      "sticker": "🛋️🤔"
     },
     {
       "visual": "vs",
@@ -25,7 +26,9 @@
           "value": "23 sa"
         },
         "sign": "vs"
-      }
+      },
+      "sticker": "🕐",
+      "stamp": "23 SAAT!"
     },
     {
       "visual": "liste",
@@ -51,7 +54,8 @@
             "ok": true
           }
         ]
-      }
+      },
+      "sticker": "🚶"
     },
     {
       "visual": "bar",
@@ -72,12 +76,14 @@
             "text": "Çok"
           }
         ]
-      }
+      },
+      "sticker": "📈"
     },
     {
       "visual": "kapanis",
       "voice": "Küçük başla: biraz daha fazla adım, asansör yerine merdiven.",
-      "title": "Salon 1 saat, *hayat 23*."
+      "title": "Salon 1 saat, *hayat 23*.",
+      "sticker": "👟"
     }
   ],
   "caption": "Salon önemli ama günün kalan 23 saati de sayılıyor 🚶‍♀️\n\nYürümek, merdiven, ayakta durmak gibi spor dışı hareketler (NEAT) kişiler arasında günde yüzlerce kalorilik fark yaratabilir. Küçük başla: biraz daha fazla adım.\n\nKaydet, arkadaşına gönder 📲",

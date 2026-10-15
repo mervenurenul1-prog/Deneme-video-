@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Antrenman günü bişey yok. Ertesi sabah merdiven inemiyosun. Neden?",
-      "title": "Ağrı neden *ertesi gün* gelir?"
+      "title": "Ağrı neden *ertesi gün* gelir?",
+      "sticker": "🦵😖"
     },
     {
       "visual": "sayi",
@@ -21,7 +22,9 @@
         "prefix": "~",
         "suffix": " saat",
         "label": "LAKTAT KANDAN BU SÜREDE TEMİZLENİR"
-      }
+      },
+      "sticker": "🧪",
+      "stamp": "EFSANE!"
     },
     {
       "visual": "kas",
@@ -30,7 +33,8 @@
       "title": "Lifler *mikro hasar* alır",
       "data": {
         "phase": "yirtik"
-      }
+      },
+      "sticker": "💥"
     },
     {
       "visual": "cizgi",
@@ -62,12 +66,17 @@
           "60s",
           "72s"
         ]
-      }
+      },
+      "sticker": "📈"
     },
     {
       "visual": "kapanis",
       "voice": "Ağrı onarımın parçası. Ama ağrı yoksa gelişmiyosun diye bişey yok.",
-      "title": "Ağrı *şart değil*."
+      "title": "Ağrı *şart değil*.",
+      "sticker": "🙌",
+      "data": {
+        "cta": "gonder"
+      }
     }
   ],
   "caption": "O ağrının sebebi laktik asit değil 🦵\n\nGecikmiş kas ağrısı (DOMS) özellikle eksantrik hareketlerdeki mikro hasar ve onarım sürecinden kaynaklanır, genelde 24-72 saatte zirve yapar. Ağrı gelişimin şartı değil.\n\nKaydet, arkadaşına gönder 📲",

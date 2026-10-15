@@ -8,7 +8,8 @@
     {
       "visual": "soru",
       "voice": "Sırılsıklam çıktın, demek çok yağ yaktın. Öyle mi? Hiç alakası yok.",
-      "title": "Çok terlemek çok yağ mı *yakar*?"
+      "title": "Çok terlemek çok yağ mı *yakar*?",
+      "sticker": "💦🤔"
     },
     {
       "visual": "termometre",
@@ -19,7 +20,8 @@
         "from": 36.6,
         "to": 38.4,
         "label": "VÜCUT ISISI"
-      }
+      },
+      "sticker": "🌡️"
     },
     {
       "visual": "vs",
@@ -36,7 +38,9 @@
           "value": "69,2",
           "tone": "teal"
         }
-      }
+      },
+      "sticker": "💧",
+      "stamp": "SU!"
     },
     {
       "visual": "liste",
@@ -62,12 +66,14 @@
             "ok": false
           }
         ]
-      }
+      },
+      "sticker": "🧬"
     },
     {
       "visual": "kapanis",
       "voice": "Terlemek ısındığını gösterir, yağ yaktığını değil. Artık biliyosun.",
-      "title": "Ter = *soğutma*, yağ değil."
+      "title": "Ter = *soğutma*, yağ değil.",
+      "sticker": "❄️"
     }
   ],
   "caption": "Sırılsıklam olmak daha çok yağ yaktığın anlamına gelmiyor 💦\n\nTer vücudun soğutma sistemidir. Antrenman sonrası tartıdaki düşüş sudur, içtiğinde geri gelir. Ne kadar terlediğin hava, nem, genetik ve kıyafete bağlıdır.\n\nKaydet, arkadaşına gönder 📲",

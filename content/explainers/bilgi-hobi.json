@@ -7,7 +7,8 @@
     {
       "visual": "soru",
       "voice": "Salı yüzüyosun, çarşamba da bacak günün. Sence bu iyi bi fikir mi?",
-      "title": "Yüzdüğün gün *bacak* çalışılır mı?"
+      "title": "Yüzdüğün gün *bacak* çalışılır mı?",
+      "sticker": "🏊🤔"
     },
     {
       "visual": "takvim",
@@ -38,7 +39,8 @@
             "tone": "muted"
           }
         ]
-      }
+      },
+      "sticker": "😵‍💫"
     },
     {
       "visual": "bar",
@@ -68,7 +70,9 @@
         ],
         "limit": 80,
         "limitLabel": "SINIR"
-      }
+      },
+      "sticker": "⚠️",
+      "stamp": "DİKKAT!"
     },
     {
       "visual": "takvim",
@@ -102,12 +106,17 @@
             "tone": "muted"
           }
         ]
-      }
+      },
+      "sticker": "📅✅"
     },
     {
       "visual": "kapanis",
       "voice": "VOOM hobilerini sorup planını ona göre kuruyo. Hayatından vazgeçme.",
-      "title": "Hayatından *vazgeçme*."
+      "title": "Hayatından *vazgeçme*.",
+      "sticker": "🏊",
+      "data": {
+        "cta": "gonder"
+      }
     }
   ],
   "caption": "Yüzme, koşu, dans… Hobilerin de antrenman sayılır 🏊\n\nProgramın bunları bilmiyorsa yorgunluk birikir. Hobini bırakma, planını ona göre kur.\n\nHobin ne? Yorumlara yaz 👇",

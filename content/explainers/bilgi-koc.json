@@ -7,7 +7,8 @@
     {
       "visual": "soru",
       "voice": "İnternetten bi program buluyosun, iki hafta uyuyosun, sonra bi bakıyosun olmuyo. Neden?",
-      "title": "Hazır program *neden* tutmuyo?"
+      "title": "Hazır program *neden* tutmuyo?",
+      "sticker": "📱🤷"
     },
     {
       "visual": "liste",
@@ -29,7 +30,9 @@
             "text": "Senin sakatlıkların"
           }
         ]
-      }
+      },
+      "sticker": "📋",
+      "stamp": "HERKESE AYNI!"
     },
     {
       "visual": "mesaj",
@@ -47,7 +50,8 @@
             "text": "Dizim de biraz ağrıyo zaten…"
           }
         ]
-      }
+      },
+      "sticker": "😩"
     },
     {
       "visual": "mesaj",
@@ -75,12 +79,14 @@
         ],
         "startAt": 2,
         "badge": "PLAN GÜNCELLENDİ"
-      }
+      },
+      "sticker": "💬✅"
     },
     {
       "visual": "kapanis",
       "voice": "VOOM'da koçun cebinde. Yaz, planın anında değişsin.",
-      "title": "Koçun *cebinde*."
+      "title": "Koçun *cebinde*.",
+      "sticker": "📲"
     }
   ],
   "caption": "Hazır program herkes için yazılır, senin için değil 📋\n\nMesain uzar, dizin ağrır, haftan değişir. Koçun varsa planın da seninle değişir.\n\nSen de denedin mi hazır program? 👇",
