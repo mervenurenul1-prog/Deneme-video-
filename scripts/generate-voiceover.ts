@@ -19,10 +19,17 @@ const modelId = process.env.ELEVENLABS_MODEL_ID || "eleven_multilingual_v2";
 const client = new ElevenLabsClient({ apiKey });
 
 // Karakter bazlı zamanlamaları kelime bazlıya çevirir (altyazılar için).
+// [whispers] gibi ton etiketleri (eleven_v3) altyazıya girmez.
 function toWords(chars: string[], starts: number[], ends: number[]): WordTiming[] {
   const words: WordTiming[] = [];
   let current: WordTiming | null = null;
+  let inTag = false;
   chars.forEach((ch, i) => {
+    if (ch === "[") inTag = true;
+    if (inTag) {
+      if (ch === "]") inTag = false;
+      return;
+    }
     if (/\s/.test(ch)) {
       if (current) words.push(current);
       current = null;
@@ -57,14 +64,16 @@ for (const post of videos) {
   for (const [i, scene] of post.scenes.entries()) {
     const vId = ("voiceId" in post && post.voiceId) || voiceId;
     const mId = ("modelId" in post && post.modelId) || modelId;
-    const cached = old?.scenes.find((s) => s && s.voice === scene.voice && s.voiceId === vId);
+    // Seslendirilen metin: varsa ton etiketli `say`, yoksa altyazı metni `voice`
+    const say: string = ("say" in scene && typeof scene.say === "string" && scene.say) || scene.voice;
+    const cached = old?.scenes.find((s) => s && s.voice === scene.voice && s.voiceId === vId && (s.say ?? s.voice) === say);
     if (cached) {
       scenes.push(cached);
       continue;
     }
     console.log(`[${post.id}] sahne ${i + 1}: "${scene.voice}"`);
     const res = await client.textToSpeech.convertWithTimestamps(vId, {
-      text: scene.voice,
+      text: say,
       modelId: mId,
       // v3 modeli dili metinden tahmin etmeye çalışır; Türkçe olduğunu açıkça söyle
       ...(mId === "eleven_v3" ? { languageCode: "tr" } : {}),
@@ -78,6 +87,7 @@ for (const post of videos) {
     const a = res.alignment;
     scenes.push({
       voice: scene.voice,
+      ...(say !== scene.voice ? { say } : {}),
       voiceId: vId,
       file: `voiceover/${post.id}/${name}`,
       durationInSeconds: a?.characterEndTimesSeconds.at(-1) ?? 3,

@@ -89,7 +89,8 @@ export type Explainer = {
 };
 
 // Çizimli video: her sahne, söylenen şeyi birebir gösteren kodla çizilmiş bir animasyon (visual)
-export type CizimScene = { visual: string; voice: string; data?: Record<string, unknown> };
+// voice: altyazı metni; say: (isteğe bağlı) seslendirilen metin, ton etiketleriyle, ör. "[whispers] ..."
+export type CizimScene = { visual: string; voice: string; say?: string; data?: Record<string, unknown> };
 
 export type Cizim = {
   id: string;
@@ -107,6 +108,7 @@ export type WordTiming = { word: string; start: number; end: number };
 
 export type SceneAudio = {
   voice: string;
+  say?: string;
   voiceId: string;
   file: string;
   durationInSeconds: number;

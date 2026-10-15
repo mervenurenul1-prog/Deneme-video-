@@ -57,7 +57,17 @@ indirildi. Referans: "örneğe yakın olsun, aynısı/kopyası değil".
 Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
 Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
-## KARAR: kadın sesi = Derya (en güncel)
+## KARAR: ses = Hürrem, hikâye anlatır gibi (en güncel)
+Ekip: "Instagram'da ekranda tutacak, ritmik, gerçek insan sesi; hikâye anlatır gibi (örnek videolardaki gibi)".
+Model **eleven_v3** + sahne başına `say` alanı: ton etiketli seslendirme metni ([curious], [whispers],
+[short pause], [laughs], [excited], "..."). `voice` altyazı metni olarak kalır; `say` ile kelimeleri aynı
+olmalı (yalnız etiket/noktalama farkı) yoksa animasyon kelime indeksleri kayar. Etiketler altyazıya girmez.
+Pilot sesi: **Hürrem** (`TASY7VCrU29rEMoYFTGG`). Kullanıcı: 6 anlatıcı sesin hepsi farklı videolarda
+kullanılabilir — Derya `NNn9dv8zq2kUo7d3JSGG`, Sultan `gyxPK6bLXQAkBSCeAKvk`, Gamze `Hvrobr8BhLPfiaSv2cHi`,
+Mimoza `J2f0yzAg5MILTXuHmQvk`, Hürrem `TASY7VCrU29rEMoYFTGG`, Dilek `vWs6DV3PkGKMP80V1Hv6`
+(örnekler `ses-ornekleri/anlatici-adaylar/`). Kütüphane slotu sınırı 10.
+
+## Önceki: kadın sesi = Derya
 Kullanıcı "gerçekçi, yapay zeka olduğu belli olmasın" dedi; 10 Türkçe kütüphane sesinden **6 - Derya**
 (`NNn9dv8zq2kUo7d3JSGG`, profesyonel klon) seçildi. Model `eleven_multilingual_v2`, ayarlar JSON'da
 `voiceSettings` (stability 0.45, similarityBoost 0.8, style 0.25). Adaylar: `ses-ornekleri/kadin-adaylar/`.
