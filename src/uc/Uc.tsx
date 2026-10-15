@@ -7,7 +7,8 @@ import { audioFor, sceneDurations, wordsFor } from "../shared";
 import type { Cizim, PostVoiceover } from "../types";
 import { PAPER, useRig, applyPose, anchors, useCam, Room } from "./kit";
 import type { W, Ctx, SceneRef, Def } from "./kit";
-import { useModel } from "./model";
+import { useModel, useTextures } from "./model";
+import * as takip from "./sahneler/takip";
 import * as tarti from "./sahneler/tarti";
 import * as yagNereye from "./sahneler/yag-nereye";
 
@@ -16,8 +17,8 @@ import * as yagNereye from "./sahneler/yag-nereye";
 // (altyazı + yalnızca önemli sayılar). Animasyonlar kelime zamanlamasına bağlıdır.
 
 // Her videonun sahneleri ayrı dosyada; görsel adları (visual) videolar arasında benzersiz olmalı
-const DEFS = { ...yagNereye.DEFS, ...tarti.DEFS };
-const OVERLAYS = { ...yagNereye.OVERLAYS, ...tarti.OVERLAYS };
+const DEFS = { ...yagNereye.DEFS, ...tarti.DEFS, ...takip.DEFS };
+const OVERLAYS = { ...yagNereye.OVERLAYS, ...tarti.OVERLAYS, ...takip.OVERLAYS };
 
 export type UcProps = { uc: Cizim; voiceover: PostVoiceover | null };
 
@@ -25,6 +26,8 @@ export const UcVideo: React.FC<UcProps> = ({ uc, voiceover }) => {
   const { width, height, fps } = useVideoConfig();
   const durations = sceneDurations(uc, voiceover, fps);
   const model = useModel("3d/kadin.glb");
+  // Sahnelerde kullanılan uygulama ekran görüntüleri (telefon ekranı)
+  const texReady = useTextures(["app/koc.jpg", "app/bugun.jpg"]);
   const scenes = uc.scenes.map((scene, i) => {
     const audio = audioFor(uc, voiceover, i);
     const words = wordsFor(scene.voice, audio);
@@ -33,7 +36,7 @@ export const UcVideo: React.FC<UcProps> = ({ uc, voiceover }) => {
   });
   return (
     <AbsoluteFill style={{ backgroundColor: PAPER, fontFamily }}>
-      {model ? (
+      {model && texReady ? (
         <ThreeCanvas width={width} height={height} shadows gl={{ preserveDrawingBuffer: true }}>
           <World model={model} scenes={scenes.map(({ scene, w, d, start }) => ({ visual: scene.visual, w, d, start }))} />
         </ThreeCanvas>

@@ -1,40 +1,13 @@
 // Video: "Bir gecede 1 kilo mu aldın?" (uc-02-tarti)
-import { useMemo } from "react";
 import { interpolate, random, useCurrentFrame } from "remotion";
 import * as THREE from "three";
 import { HandText } from "../../cizim/Cizim";
-import { handFamily, monoFamily } from "../../fonts";
-import { A0, add3, Ball, cycles, Drop3, faceCam, FAT, FatLayer, Glow, MICRO, mix3, plan, pop, REST_ARM, RED, tw, WATER, WIDE, WIDE_LOOK } from "../kit";
+import { handFamily } from "../../fonts";
+import { A0, add3, useScreen, Ball, cycles, Drop3, faceCam, FAT, Glow, MICRO, mix3, plan, pop, REST_ARM, RED, tw, WATER } from "../kit";
 import type { Def, OverlayProps, V3 } from "../kit";
 
 const ON_SCALE = 0.05; // tartının üstündeyken karakterin yüksekliği
 const DISPLAY: V3 = [0, 0.052, 0.17]; // tartı ekranı (üst yüzeyin ön kısmı)
-
-// Dijital tartı ekranı / gün paneli için yazı dokusu
-const useScreen = (lines: string[], w = 256, h = 112, bg = "#1d2a22", fg = "#a8f08a") =>
-  useMemo(() => {
-    const c = document.createElement("canvas");
-    c.width = w;
-    c.height = h;
-    const x = c.getContext("2d")!;
-    x.fillStyle = bg;
-    x.fillRect(0, 0, w, h);
-    x.fillStyle = fg;
-    x.textAlign = "center";
-    x.textBaseline = "middle";
-    if (lines.length === 1) {
-      x.font = `700 ${Math.round(h * 0.7)}px ${monoFamily}`;
-      x.fillText(lines[0], w / 2, h / 2 + 4);
-    } else {
-      x.font = `600 ${Math.round(h * 0.3)}px ${handFamily}`;
-      x.fillText(lines[0], w / 2, h * 0.28);
-      x.font = `700 ${Math.round(h * 0.42)}px ${monoFamily}`;
-      x.fillText(lines[1], w / 2, h * 0.68);
-    }
-    const t = new THREE.CanvasTexture(c);
-    t.colorSpace = THREE.SRGBColorSpace;
-    return t;
-  }, [lines.join("|"), w, h, bg, fg]);
 
 const BathScale: React.FC<{ value: string }> = ({ value }) => {
   const tex = useScreen([value]);

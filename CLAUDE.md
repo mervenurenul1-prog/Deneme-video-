@@ -63,7 +63,10 @@ Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/
   gönderiliyor (JSON'da `say` + `voiceId` hazır).
 - 3D şablon: ortak parçalar `src/uc/kit.tsx`, videoya özel sahneler `src/uc/sahneler/<video>.tsx`
   (`DEFS` + `OVERLAYS`), `src/uc/Uc.tsx` bunları birleştirir. `visual` adları benzersiz olmalı (ör. `tarti-*`).
-- Sıra (ekip-11 sırası): 01 yağ nereye ✅ → **02 tartı (uc-02-tarti, ses Sultan, sessiz önizleme)** →
+  Uygulama ekran görüntüsü gibi dokular `Uc.tsx` içinde `useTextures([...])` ile tuvalden ÖNCE yüklenir
+  (tuval içinde yüklenen doku karede görünmez), sahnede `TEXTURES.get(file)`.
+  Oturma/çömelme: UpLeg x+ (uyluğu öne) + Leg x− (dizi bük). Oturma bob ≈ −0.47.
+- Sıra (ekip-11 sırası): 01 yağ nereye ✅ → 02 tartı (uc-02-tarti, Sultan) → 03 takip (uc-03-takip, Gamze) →
   03 takip/2. hafta → 04 mekik → 05 kas ağrısı → 06 duruş → 07 ter → 08 kas hafızası → sonra diğerleri.
   Sesleri 6 anlatıcı arasında dönüşümlü dağıt.
 

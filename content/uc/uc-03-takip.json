@@ -1,0 +1,45 @@
+{
+  "id": "uc-03-takip",
+  "title": "Neden hep 2. haftada bırakıyoruz?",
+  "voiceId": "Hvrobr8BhLPfiaSv2cHi",
+  "modelId": "eleven_v3",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "scenes": [
+    {
+      "visual": "takip-acilis",
+      "voice": "Spora başlıyorsun. İlk hafta harikasın. İkinci hafta bir bakmışsın, bırakmışsın.",
+      "say": "Spora başlıyorsun. [excited] İlk hafta harikasın. [short pause] İkinci hafta... bir bakmışsın, [sighs] bırakmışsın."
+    },
+    {
+      "visual": "takip-motivasyon",
+      "voice": "Çünkü ilk heves motivasyonla gider. Motivasyon da birkaç günde düşer. Bu çok normal, sorun sende değil.",
+      "say": "Çünkü ilk heves... motivasyonla gider. Motivasyon da birkaç günde düşer. [calm] Bu çok normal, sorun sende değil."
+    },
+    {
+      "visual": "takip-aliskanlik",
+      "voice": "Seni salona götüren şey motivasyon değil, alışkanlık. O da ancak tekrar ede ede oturur.",
+      "say": "Seni salona götüren şey motivasyon değil... [short pause] alışkanlık. O da ancak tekrar ede ede oturur."
+    },
+    {
+      "visual": "takip-takip",
+      "voice": "Asıl sır şu: biri seni takip edince bırakmak zorlaşır. Hesap verdiğin biri olunca devam edersin.",
+      "say": "[whispers] Asıl sır şu... biri seni takip edince, bırakmak zorlaşır. Hesap verdiğin biri olunca... devam edersin."
+    },
+    {
+      "visual": "takip-voom",
+      "voice": "VOOM'da koçun seni takip eder. Bu sefer bırakmak yok. Kaydet, bırakmak üzereyken tekrar izle.",
+      "say": "VOOM'da koçun seni takip eder. [excited] Bu sefer bırakmak yok. Kaydet, bırakmak üzereyken tekrar izle."
+    }
+  ],
+  "caption": "İkinci haftada bırakan tek kişi sen değilsin 👀\n\nMotivasyon birkaç günde düşer; devam ettiren şey alışkanlık ve takip. Hesap verdiğin biri olunca bırakmak zorlaşır. VOOM'da koçun seni takip ediyor.\n\nKaydet, bırakmak üzereyken tekrar izle 🔁",
+  "hashtags": [
+    "fitness",
+    "motivasyon",
+    "sporsalonu",
+    "alışkanlık",
+    "voom"
+  ]
+}

@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { Easing, interpolate } from "remotion";
 import * as THREE from "three";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
-import { handFamily } from "../fonts";
+import { handFamily, monoFamily } from "../fonts";
 
 // 3D videoların ortak parçaları: karakter iskeleti ve pozlar, kamera planları, efektler, oda.
 // Videoya özel sahneler src/uc/sahneler/ altında.
@@ -197,6 +197,32 @@ export const useLabel = (text: string, color: string) =>
     t.colorSpace = THREE.SRGBColorSpace;
     return t;
   }, [text, color]);
+
+// Dijital tartı ekranı / gün paneli için yazı dokusu
+export const useScreen = (lines: string[], w = 256, h = 112, bg = "#1d2a22", fg = "#a8f08a") =>
+  useMemo(() => {
+    const c = document.createElement("canvas");
+    c.width = w;
+    c.height = h;
+    const x = c.getContext("2d")!;
+    x.fillStyle = bg;
+    x.fillRect(0, 0, w, h);
+    x.fillStyle = fg;
+    x.textAlign = "center";
+    x.textBaseline = "middle";
+    if (lines.length === 1) {
+      x.font = `700 ${Math.round(h * 0.7)}px ${monoFamily}`;
+      x.fillText(lines[0], w / 2, h / 2 + 4);
+    } else {
+      x.font = `600 ${Math.round(h * 0.3)}px ${handFamily}`;
+      x.fillText(lines[0], w / 2, h * 0.28);
+      x.font = `700 ${Math.round(h * 0.42)}px ${monoFamily}`;
+      x.fillText(lines[1], w / 2, h * 0.68);
+    }
+    const t = new THREE.CanvasTexture(c);
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  }, [lines.join("|"), w, h, bg, fg]);
 
 // Nefesle çıkan bulut: ağızdan çıkar, büyür, yana-yukarı süzülür, kaybolur
 export const PUFF: [number, number, number, number][] = [
