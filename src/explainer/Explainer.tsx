@@ -1481,7 +1481,407 @@ const Yuzucu: React.FC<VisualProps> = ({ data }) => {
   );
 };
 
+/* ---------- Kalp: atım ve kaslara taşınan oksijen ---------- */
+// data: { mode: "tek" | "karsilastir" }
+
+const HEART = "M0,-28 C -48,-78 -112,-18 0,62 C 112,-18 48,-78 0,-28 Z";
+
+const Heart: React.FC<{ x: number; y: number; size: number; period: number; drops: number; label?: string; sub?: string; color?: string }> = ({ x, y, size, period, drops, label, sub, color = C.danger }) => {
+  const frame = useCurrentFrame();
+  const ph = (frame % period) / period;
+  const beat = 1 + 0.12 * Math.max(0, Math.sin(ph * Math.PI * 2)) ** 3;
+  return (
+    <g>
+      <g transform={`translate(${x} ${y}) scale(${(size / 100) * beat})`}>
+        <path d={HEART} fill={color} />
+        <path d="M-40,-40 C -60,-30 -62,-5 -45,10" stroke="rgba(255,255,255,0.35)" strokeWidth={8} fill="none" strokeLinecap="round" />
+      </g>
+      {/* Atardamar ve akan kan damlaları */}
+      <path d={`M${x} ${y + size * 0.62} L${x} ${y + size * 1.25} L${x + 330} ${y + size * 1.25}`} stroke="#5a2a2a" strokeWidth={22} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      {Array.from({ length: 4 }, (_, i) => {
+        const t = ((frame + i * (period / 2)) % (period * 2)) / (period * 2);
+        return <circle key={i} cx={x + 330 * t} cy={y + size * 1.25} r={drops} fill={color} />;
+      })}
+      {label ? (
+        <text x={x} y={y + size * 1.25 + 80} fill={C.text} fontSize={30} fontWeight={800} fontFamily={interFamily} textAnchor="middle">
+          {label}
+        </text>
+      ) : null}
+      {sub ? (
+        <text x={x} y={y + size * 1.25 + 120} fill={C.muted} fontSize={24} fontFamily={monoFamily} textAnchor="middle" letterSpacing={3}>
+          {sub}
+        </text>
+      ) : null}
+    </g>
+  );
+};
+
+const Kalp: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const e = useEnter(0, 14);
+  if (data.mode === "karsilastir") {
+    return (
+      <svg width={900} height={760} viewBox="0 0 900 760" style={{ opacity: e }}>
+        <Heart x={230} y={190} size={120} period={13} drops={9} label="YENİ BAŞLAYAN" sub="HIZLI ATIM · AZ KAN" />
+        <g transform="translate(420 0)">
+          <Heart x={230} y={190} size={155} period={24} drops={16} label="ANTRENMANLI" sub="YAVAŞ ATIM · ÇOK KAN" color="#ff4d6d" />
+        </g>
+      </svg>
+    );
+  }
+  // Tek kalp: kandaki oksijen kasa taşınıyor
+  return (
+    <svg width={900} height={760} viewBox="0 0 900 760" style={{ opacity: e }}>
+      <Heart x={220} y={230} size={150} period={18} drops={13} label="KALP" sub="POMPA" />
+      <rect x={600} y={330} width={230} height={150} rx={60} fill="#d9534f" />
+      {[0.3, 0.55, 0.8].map((k) => (
+        <line key={k} x1={625} x2={805} y1={330 + 150 * k} y2={330 + 150 * k} stroke="rgba(255,255,255,0.2)" strokeWidth={3} />
+      ))}
+      <text x={715} y={540} fill={C.text} fontSize={30} fontWeight={800} fontFamily={interFamily} textAnchor="middle">KASLAR</text>
+      {Array.from({ length: 6 }, (_, i) => {
+        const t = ((frame * 1.5 + i * 25) % 150) / 150;
+        return (
+          <text key={i} x={560 + 200 * t} y={420 + Math.sin(i * 2 + frame / 10) * 40} fill={C.lime} fontSize={28} fontWeight={800} fontFamily={interFamily} opacity={Math.sin(t * Math.PI)}>
+            O₂
+          </text>
+        );
+      })}
+    </svg>
+  );
+};
+
+/* ---------- Diz: kas, diz kapağı tendonu ve yük ---------- */
+// data: { highlight: "kas" | "tendon" }
+
+const Diz: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const hl = (data.highlight as string) ?? "kas";
+  // Çömelip kalkma döngüsü: diz öne (sağa) bakar
+  const bend = 25 + 30 * (0.5 - 0.5 * Math.cos(frame / 14));
+  const L = 280;
+  const hip = { x: 170, y: 110 };
+  const knee = limbEnd(hip, bend, L);
+  const ankle = limbEnd(knee, -bend * 0.7, L);
+  const unit = (dx: number, dy: number) => {
+    const l = Math.hypot(dx, dy);
+    return { x: dx / l, y: dy / l };
+  };
+  // Uyluğun ve kaval kemiğinin ön yüzü (sağa bakan normal)
+  const t = unit(knee.x - hip.x, knee.y - hip.y);
+  const nT = { x: t.y, y: -t.x };
+  const sv = unit(ankle.x - knee.x, ankle.y - knee.y);
+  const nS = { x: sv.y, y: -sv.x };
+  const fS = nS.x < 0 ? { x: -nS.x, y: -nS.y } : nS;
+  const pulse = 0.5 + 0.5 * Math.sin(frame / 4);
+  const muscleColor = hl === "kas" ? C.lime : "#b5534f";
+  const tendonColor = hl === "tendon" ? (pulse > 0.5 ? C.danger : C.warm) : "#d8c3a5";
+  const mid = { x: (hip.x + knee.x) / 2, y: (hip.y + knee.y) / 2 };
+  const patella = { x: knee.x + nT.x * 34 + t.x * 6, y: knee.y + nT.y * 34 + t.y * 6 };
+  const tib = { x: knee.x + (ankle.x - knee.x) * 0.28 + fS.x * 24, y: knee.y + (ankle.y - knee.y) * 0.28 + fS.y * 24 };
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+      <svg width={560} height={760} viewBox="0 0 560 760">
+        <line x1={hip.x} y1={hip.y} x2={knee.x} y2={knee.y} stroke="#e8e2d6" strokeWidth={54} strokeLinecap="round" />
+        <line x1={knee.x} y1={knee.y} x2={ankle.x} y2={ankle.y} stroke="#e8e2d6" strokeWidth={46} strokeLinecap="round" />
+        {/* Ön uyluk kası */}
+        <path
+          d={`M${hip.x + nT.x * 30} ${hip.y + nT.y * 30} Q ${mid.x + nT.x * 75} ${mid.y + nT.y * 75} ${patella.x - t.x * 40} ${patella.y - t.y * 40}`}
+          stroke={muscleColor}
+          strokeWidth={hl === "kas" ? 62 + 10 * pulse : 56}
+          strokeLinecap="round"
+          fill="none"
+        />
+        {/* Diz kapağı tendonu */}
+        <line x1={patella.x} y1={patella.y} x2={tib.x} y2={tib.y} stroke={tendonColor} strokeWidth={hl === "tendon" ? 20 : 14} strokeLinecap="round" />
+        {hl === "tendon" ? <circle cx={(patella.x + tib.x) / 2} cy={(patella.y + tib.y) / 2} r={46 + 10 * pulse} fill={C.danger} opacity={0.18} /> : null}
+        <ellipse cx={patella.x} cy={patella.y} rx={26} ry={32} fill="#f6f1e7" stroke="#8a8a8a" strokeWidth={3} />
+        {[0, 1, 2].map((i) => (
+          <path key={i} d={`M${hip.x - 60 + i * 50} ${20 + ((frame * 2 + i * 20) % 40)} l0 36 m-13 -13 l13 13 l13 -13`} stroke={C.muted} strokeWidth={5} fill="none" opacity={0.6} />
+        ))}
+      </svg>
+      <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <Card style={{ padding: "20px 28px", borderColor: hl === "kas" ? C.lime : C.border }}>
+          <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>KAS</div>
+          <div style={{ fontSize: 38, fontWeight: 900, color: C.lime }}>HAFTALAR</div>
+        </Card>
+        <Card style={{ padding: "20px 28px", borderColor: hl === "tendon" ? C.danger : C.border }}>
+          <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>TENDON</div>
+          <div style={{ fontSize: 38, fontWeight: 900, color: C.warm }}>AYLAR</div>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Deri: hızlı gerilmede lifler kopar, iz kalır ---------- */
+// data: { phase: "gerilme" | "iz" }
+
+const FIB = Array.from({ length: 16 }, (_, i) => ({ y: 250 + (i % 8) * 34, x: 60 + Math.floor(i / 8) * 380, brk: 0.2 + random(`dk${i}`) * 0.6 }));
+
+const Deri: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const p = useProgress(0.05, 0.7);
+  if (data.phase === "iz") {
+    // Üstten görünüm: yeni çatlak kırmızı/mor, zamanla beyazlaşır
+    const col = (k: number) => {
+      const t = Math.min(1, Math.max(0, p * 1.4 - k * 0.1));
+      const r = Math.round(176 + (232 - 176) * t);
+      const g = Math.round(70 + (220 - 70) * t);
+      const b = Math.round(130 + (210 - 130) * t);
+      return `rgb(${r},${g},${b})`;
+    };
+    return (
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 26 }}>
+        <svg width={760} height={560} viewBox="0 0 760 560">
+          <rect x={0} y={0} width={760} height={560} rx={40} fill="#d9a88b" />
+          {[0, 1, 2, 3].map((k) => (
+            <path key={k} d={`M${150 + k * 130} 90 C ${200 + k * 130} 220, ${110 + k * 130} 330, ${170 + k * 130} 470`} stroke={col(k)} strokeWidth={22 - k * 2} strokeLinecap="round" fill="none" opacity={0.9} />
+          ))}
+        </svg>
+        <div style={{ display: "flex", gap: 30, fontFamily: monoFamily, fontSize: 26, letterSpacing: 4 }}>
+          <span style={{ color: "#c04d8a" }}>● YENİ</span>
+          <span style={{ color: C.muted }}>→</span>
+          <span style={{ color: "#eee" }}>● ESKİ</span>
+        </div>
+      </div>
+    );
+  }
+  // Kesit: deri yanlara gerilir, alttaki lifler kopar
+  const stretch = 1 + 0.35 * p;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <svg width={860} height={600} viewBox="0 0 860 600">
+        <g transform={`translate(430 0) scale(${stretch} 1) translate(-430 0)`}>
+          <rect x={40} y={140} width={780} height={60} rx={14} fill="#e6b8a2" />
+          <rect x={40} y={200} width={780} height={300} fill="#c98e7c" />
+          <rect x={40} y={500} width={780} height={70} rx={14} fill="#f1d27a" opacity={0.7} />
+          {FIB.map((f, i) => {
+            const broken = p > f.brk;
+            const gap = broken ? 30 * Math.min(1, (p - f.brk) * 4) : 0;
+            const w = 340;
+            const mid = f.x + w / 2;
+            const wav = (x0: number, x1: number) => `M${x0} ${f.y} Q ${(x0 + x1) / 2} ${f.y - 14 * (1 - p)} ${x1} ${f.y}`;
+            return (
+              <g key={i} stroke={broken ? C.warm : "#fbe3d6"} strokeWidth={6} fill="none" strokeLinecap="round">
+                <path d={wav(f.x, mid - gap)} />
+                <path d={wav(mid + gap, f.x + w)} />
+              </g>
+            );
+          })}
+        </g>
+        {[-1, 1].map((d) => (
+          <path key={d} d={`M${430 + d * 330} 360 l${d * 70} 0 m${-d * 20} -20 l${d * 20} 20 l${-d * 20} 20`} stroke={C.lime} strokeWidth={8} fill="none" strokeLinecap="round" opacity={0.5 + 0.5 * Math.sin(frame / 6)} />
+        ))}
+      </svg>
+      <div style={{ display: "flex", gap: 30, fontFamily: monoFamily, fontSize: 24, letterSpacing: 4 }}>
+        <span style={{ color: "#e6b8a2" }}>ÜST DERİ</span>
+        <span style={{ color: "#fbe3d6" }}>ESNEK LİFLER</span>
+        <span style={{ color: C.warm }}>KOPAN</span>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Zıplama figürü ---------- */
+// data: { mode: "kol" | "yay" | "kosu" }
+
+const Jumper: React.FC<{ x: number; ground: number; lift: number; crouch: number; arm: number; color?: string }> = ({ x, ground, lift, crouch, arm, color = SKIN }) => {
+  // crouch 0..1 (dizler bükülü), arm: kol açısı (0 = aşağı, 180 = yukarı)
+  const leg = 120;
+  const kneeAng = 50 * crouch;
+  const hipY = ground - lift - 2 * leg * Math.cos((kneeAng * Math.PI) / 180);
+  const hip = { x, y: hipY };
+  const knee = limbEnd(hip, kneeAng, leg);
+  const foot = limbEnd(knee, -kneeAng, leg);
+  const sh = { x: x - 10 * crouch, y: hipY - 150 };
+  const elbow = limbEnd(sh, -arm, 75);
+  const hand = limbEnd(elbow, -arm, 70);
+  return (
+    <g>
+      <path d={`M${hip.x} ${hip.y} L${knee.x} ${knee.y} L${foot.x} ${foot.y}`} stroke={color} strokeWidth={30} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <line x1={hip.x} y1={hip.y} x2={sh.x} y2={sh.y} stroke={SUIT} strokeWidth={56} strokeLinecap="round" />
+      <path d={`M${sh.x} ${sh.y} L${elbow.x} ${elbow.y} L${hand.x} ${hand.y}`} stroke={color} strokeWidth={24} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <circle cx={sh.x + 4} cy={sh.y - 62} r={36} fill={color} />
+    </g>
+  );
+};
+
+const jumpCycle = (frame: number, period: number, height: number) => {
+  const ph = (frame % period) / period;
+  // 0-0.35 çökme, 0.35-0.75 havada, 0.75-1 iniş
+  const crouch = ph < 0.35 ? ph / 0.35 : ph > 0.75 ? 1 - (ph - 0.75) / 0.25 : 0;
+  const air = ph >= 0.35 && ph <= 0.75 ? Math.sin(((ph - 0.35) / 0.4) * Math.PI) : 0;
+  return { crouch: Math.min(1, crouch), lift: air * height, ph };
+};
+
+const Ziplama: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const mode = (data.mode as string) ?? "kol";
+  const ground = 700;
+  if (mode === "kol") {
+    const a = jumpCycle(frame, 54, 150);
+    const b = jumpCycle(frame, 54, 195);
+    // Kollu zıplama: çökerken kollar geride, kalkarken yukarı savrulur
+    const swing = b.ph < 0.35 ? -40 * b.crouch : b.ph <= 0.75 ? 170 : 170 * (1 - (b.ph - 0.75) / 0.25);
+    return (
+      <svg width={900} height={780} viewBox="0 -40 900 780">
+        <line x1={40} x2={860} y1={ground} y2={ground} stroke={C.border} strokeWidth={6} />
+        {[{ x: 260, h: 150, t: "KOLSUZ", c: C.muted }, { x: 640, h: 195, t: "KOLLU", c: C.lime }].map((m) => (
+          <g key={m.x}>
+            <line x1={m.x - 110} x2={m.x + 110} y1={ground - 488 - m.h} y2={ground - 488 - m.h} stroke={m.c} strokeWidth={4} strokeDasharray="12 10" />
+            <text x={m.x} y={ground - 505 - m.h} fill={m.c} fontSize={30} fontWeight={800} fontFamily={interFamily} textAnchor="middle">{m.t}</text>
+          </g>
+        ))}
+        <Jumper x={260} ground={ground} lift={a.lift} crouch={a.crouch} arm={10} />
+        <Jumper x={640} ground={ground} lift={b.lift} crouch={b.crouch} arm={swing} />
+      </svg>
+    );
+  }
+  if (mode === "yay") {
+    const j = jumpCycle(frame, 60, 170);
+    const coils = 8;
+    const top = ground - 240 + 140 * j.crouch - j.lift;
+    const springPath = Array.from({ length: coils * 2 + 1 }, (_, i) => `${i ? "L" : "M"}${640 + (i % 2 ? 40 : -40) * (i === 0 || i === coils * 2 ? 0 : 1)} ${top + ((ground - top) * i) / (coils * 2)}`).join(" ");
+    return (
+      <svg width={900} height={760} viewBox="0 0 900 760">
+        <line x1={40} x2={860} y1={ground} y2={ground} stroke={C.border} strokeWidth={6} />
+        <Jumper x={330} ground={ground} lift={j.lift} crouch={j.crouch} arm={j.ph <= 0.75 && j.ph >= 0.35 ? 160 : -30 * j.crouch} />
+        <path d={springPath} stroke={j.crouch > 0.3 ? C.warm : C.lime} strokeWidth={8} fill="none" strokeLinejoin="round" />
+        <text x={640} y={ground + 50} fill={C.muted} fontSize={26} fontFamily={monoFamily} textAnchor="middle" letterSpacing={4}>
+          {j.crouch > 0.3 ? "GERİLİYO" : j.lift > 0 ? "FIRLATIYO" : ""}
+        </text>
+      </svg>
+    );
+  }
+  // Yaklaşma koşusu: yatay hız son adımda yukarı döner
+  const period = 75;
+  const ph = (frame % period) / period;
+  const run = Math.min(1, ph / 0.55);
+  const x = 120 + 420 * run;
+  const air = ph > 0.6 ? Math.sin(Math.min(1, (ph - 0.6) / 0.35) * Math.PI) : 0;
+  const crouch = ph > 0.5 && ph <= 0.6 ? (ph - 0.5) / 0.1 : 0;
+  const stride = ph < 0.55 ? Math.sin(frame / 2.5) * 0.3 : 0;
+  return (
+    <svg width={900} height={760} viewBox="0 0 900 760">
+      <line x1={40} x2={860} y1={ground} y2={ground} stroke={C.border} strokeWidth={6} />
+      <path d={`M120 ${ground - 60} L520 ${ground - 60} Q 600 ${ground - 60} 620 ${ground - 330}`} stroke={C.lime} strokeWidth={6} strokeDasharray="14 12" fill="none" />
+      <path d={`M606 ${ground - 300} l14 -30 l14 30`} stroke={C.lime} strokeWidth={6} fill="none" />
+      <Jumper x={ph > 0.6 ? 560 : x} ground={ground} lift={air * 200} crouch={Math.max(crouch, Math.abs(stride))} arm={ph > 0.6 ? 165 : 40 + 40 * Math.sin(frame / 2.5)} />
+    </svg>
+  );
+};
+
+/* ---------- Ayak bileği: düz iniş ve burkulma ---------- */
+// data: { mode: "normal" | "burkulma" }
+
+const Bilek: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const sprain = data.mode === "burkulma";
+  const p = useProgress(0.1, 0.55);
+  const drop = sprain ? 0 : 40 * Math.abs(Math.sin(frame / 12));
+  const roll = sprain ? 32 * p : 0;
+  const ankle = { x: 450, y: 380 + (sprain ? 0 : drop) };
+  const ligStretch = sprain ? p : 0;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <svg width={860} height={640} viewBox="0 0 860 640">
+        {/* Rakibin ayağı */}
+        {sprain ? (
+          <g>
+            <rect x={170} y={500} width={300} height={90} rx={40} fill="#4a5059" />
+            <text x={320} y={630} fill={C.muted} fontSize={24} fontFamily={monoFamily} textAnchor="middle" letterSpacing={4}>RAKİBİN AYAĞI</text>
+          </g>
+        ) : null}
+        <line x1={60} x2={800} y1={590} y2={590} stroke={C.border} strokeWidth={6} />
+        {/* Bacak (önden) */}
+        <rect x={ankle.x - 55} y={ankle.y - 330} width={110} height={330} rx={50} fill={SKIN} />
+        {/* Ayak: bilekten dönerek içe yatar */}
+        <g transform={`rotate(${roll} ${ankle.x} ${ankle.y})`}>
+          <rect x={ankle.x - 80} y={ankle.y + 10} width={160} height={110} rx={45} fill={SUIT} />
+          <rect x={ankle.x - 80} y={ankle.y + 90} width={160} height={30} rx={12} fill="#e6e6e6" />
+        </g>
+        {/* Dış yan bağ: burkulmada gerilip kırmızılaşır */}
+        <line
+          x1={ankle.x + 55}
+          y1={ankle.y - 30}
+          x2={ankle.x + 80 * Math.cos((roll * Math.PI) / 180) - 20 * Math.sin((roll * Math.PI) / 180)}
+          y2={ankle.y + 40 + 80 * Math.sin((roll * Math.PI) / 180)}
+          stroke={ligStretch > 0.4 ? C.danger : C.lime}
+          strokeWidth={14}
+          strokeLinecap="round"
+        />
+        {sprain && ligStretch > 0.4 ? (
+          <circle cx={ankle.x + 85} cy={ankle.y + 10} r={40 + 10 * Math.sin(frame / 4)} fill={C.danger} opacity={0.2} />
+        ) : null}
+      </svg>
+      <div style={{ display: "flex", gap: 30, fontFamily: monoFamily, fontSize: 24, letterSpacing: 4 }}>
+        <span style={{ color: ligStretch > 0.4 ? C.danger : C.lime }}>● DIŞ BAĞLAR</span>
+        <span style={{ color: C.muted }}>{sprain ? `DÖNÜŞ ${Math.round(roll)}°` : "DÜZ İNİŞ"}</span>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Omurga: diskler gün içinde ezilir, gece dolar ---------- */
+// data: { mode: "gun" | "gece" }
+
+const Omurga: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const p = useProgress(0.05, 0.75);
+  const night = data.mode === "gece";
+  const squash = night ? 1 - p : p; // 0 = dolu disk, 1 = ezik
+  const n = 7;
+  const vert = 62;
+  const disc0 = 34;
+  const disc = disc0 * (1 - 0.45 * squash);
+  const total = n * vert + (n - 1) * disc;
+  const top = 640 - total;
+  const hour = night ? 23 + Math.round(8 * p) : 8 + Math.round(14 * p);
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 50 }}>
+      <svg width={420} height={700} viewBox="0 0 420 700">
+        {Array.from({ length: n }, (_, i) => {
+          const y = top + i * (vert + disc);
+          return (
+            <g key={i}>
+              <rect x={110} y={y} width={200} height={vert} rx={18} fill="#e8e2d6" />
+              {i < n - 1 ? <ellipse cx={210} cy={y + vert + disc / 2} rx={95 + 12 * squash} ry={disc / 2} fill={night ? C.teal : squash > 0.5 ? C.warm : C.lime} opacity={0.9} /> : null}
+            </g>
+          );
+        })}
+        {!night ? (
+          [0, 1, 2].map((i) => (
+            <path key={i} d={`M${150 + i * 60} ${top - 80 + ((frame * 2 + i * 15) % 40)} l0 40 m-14 -14 l14 14 l14 -14`} stroke={C.muted} strokeWidth={5} fill="none" />
+          ))
+        ) : (
+          [0, 1, 2, 3].map((i) => (
+            <circle key={i} cx={60 + ((frame * 3 + i * 40) % 90)} cy={top + 120 + i * 110} r={9} fill={C.teal} opacity={0.8} />
+          ))
+        )}
+        <line x1={360} x2={400} y1={640 - (n * vert + (n - 1) * disc0)} y2={640 - (n * vert + (n - 1) * disc0)} stroke={C.muted} strokeWidth={4} strokeDasharray="8 6" />
+        <line x1={360} x2={400} y1={top} y2={top} stroke={C.lime} strokeWidth={4} />
+      </svg>
+      <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+        <Card style={{ padding: "20px 30px" }}>
+          <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>SAAT</div>
+          <div style={{ fontSize: 64, fontWeight: 900 }}>{String(hour % 24).padStart(2, "0")}:00</div>
+        </Card>
+        <Card style={{ padding: "20px 30px" }}>
+          <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>DİSKLER</div>
+          <div style={{ fontSize: 44, fontWeight: 900, color: night ? C.teal : squash > 0.5 ? C.warm : C.lime }}>{squash > 0.5 ? "EZİLDİ" : "DOLU"}</div>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
 const VISUALS: Record<string, React.FC<VisualProps>> = {
+  kalp: Kalp,
+  diz: Diz,
+  deri: Deri,
+  ziplama: Ziplama,
+  bilek: Bilek,
+  omurga: Omurga,
   yuzucu: Yuzucu,
   sayi: Sayi,
   halka: Halka,

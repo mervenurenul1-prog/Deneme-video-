@@ -1,0 +1,54 @@
+{
+  "id": "seri2-02-voleybol",
+  "title": "Voleybolcular nasıl bu kadar yükseğe zıplar?",
+  "tag": "VOLEYBOL",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Voleybolcular fileye nasıl bu kadar yükseğe çıkıyo? Sadece bacak gücü değil.",
+      "title": "Voleybolcular nasıl bu kadar *yükseğe* zıplar?"
+    },
+    {
+      "visual": "ziplama",
+      "voice": "İlk sır kollarda. Zıplarken kolları geriden yukarı savurmak, sıçramayı fark edilir şekilde yükseltiyo.",
+      "kicker": "1 · KOLLAR",
+      "title": "Kollar seni *yukarı* çeker",
+      "data": {
+        "mode": "kol"
+      }
+    },
+    {
+      "visual": "ziplama",
+      "voice": "İkincisi hızlı bi çöküş. Kaslar ve tendonlar yay gibi gerilip, o enerjiyi sıçramaya geri veriyo.",
+      "kicker": "2 · YAY",
+      "title": "Önce çök, sonra *fırla*",
+      "data": {
+        "mode": "yay"
+      }
+    },
+    {
+      "visual": "ziplama",
+      "voice": "Bi de yaklaşma adımları var. Koşarak gelen hız, son adımda yukarıya çevriliyo.",
+      "kicker": "3 · YAKLAŞMA",
+      "title": "Koşu hızı *yukarı* döner",
+      "data": {
+        "mode": "kosu"
+      }
+    },
+    {
+      "visual": "kapanis",
+      "voice": "İyi zıplamak sadece bacak işi değil, tüm vücut işi. Bi dahakine kollarını da kullan.",
+      "title": "Zıplamak *tüm vücut* işi."
+    }
+  ],
+  "caption": "Voleybolcuların sıçrama sırrı sadece bacak değil 🏐\n\nKol savuruşu, hızlı çöküşle yaylanma ve yaklaşma koşusu sıçrama yüksekliğini artırır.\n\nKaydet, sonra lazım olur 🔖",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}
