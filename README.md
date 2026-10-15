@@ -86,6 +86,12 @@ bilgi videolarıdır (ör. `bilgi-durus.json`). Her sahnede `visual` (animasyon)
 Dosyada `voiceId` ve `modelId` verilirse o video bu ses/modelle seslendirilir (ör. `eleven_v3`).
 Metinler konuşma diliyle yazılır ("yapıyo", "bi") ki seslendirme okuma gibi değil sohbet gibi dursun.
 
+## Instagram ayarları
+
+`npm run render` her videoyu Instagram'a uygun çıkarır: 1080×1920, 30 fps, H.264; ses −14 LUFS
+(Instagram/TikTok'un standart ses yüksekliği), AAC 44.1 kHz 192k ve hızlı başlama (faststart).
+Ses ayarı Remotion'ın kendi ffmpeg'iyle yapılır, ayrıca kurulum gerekmez.
+
 ## Özelleştirme
 
 - **Marka (uygulama adı, hesap, renkler, müzik):** `src/brand.ts`
