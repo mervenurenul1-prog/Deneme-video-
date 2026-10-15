@@ -1,0 +1,65 @@
+{
+  "id": "seri3-06-kemik",
+  "title": "Kemiklerin canlı mı?",
+  "tag": "KEMİK",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Kemiklerini taş gibi sabit bi şey mi sanıyosun? Aslında sürekli yenileniyo.",
+      "title": "Kemiklerin *canlı* mı?",
+      "sticker": "🦴😮"
+    },
+    {
+      "visual": "kemik",
+      "voice": "Kemiklerinde bazı hücreler eski dokuyu yıkıyo, bazıları yenisini yapıyo. Hiç durmadan.",
+      "kicker": "1 · YENİLENME",
+      "title": "Eski yıkılır, *yenisi* yapılır",
+      "data": {
+        "mode": "yenilenme"
+      },
+      "sticker": "🔨"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Yetişkinlerde iskeletin neredeyse tamamı, yaklaşık on yılda bi yenileniyo.",
+      "kicker": "2 · SÜRE",
+      "title": "Yaklaşık *10 yılda* bi yenilenir",
+      "data": {
+        "from": 0,
+        "to": 10,
+        "prefix": "~",
+        "suffix": " yıl",
+        "label": "YETİŞKİN İSKELETİ (YAKLAŞIK)"
+      },
+      "sticker": "🤯",
+      "stamp": "YENİ İSKELET!"
+    },
+    {
+      "visual": "kemik",
+      "voice": "Ve kemik yüke göre şekilleniyo. Ağırlık kaldırdıkça, zıpladıkça daha yoğun ve güçlü oluyo.",
+      "kicker": "3 · YÜK",
+      "title": "Yük *gördükçe* güçlenir",
+      "data": {
+        "mode": "yuk"
+      },
+      "sticker": "🏋️"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM'daki kuvvet antrenmanları kemiklerin için de çalışıyo. Artık biliyosun.",
+      "title": "Kemik de *antrenman* ister.",
+      "sticker": "🦴"
+    }
+  ],
+  "caption": "Kemiklerin sandığın kadar sabit değil 🦴\n\nKemik dokusu sürekli yıkılıp yeniden yapılır; yetişkin iskeleti yaklaşık 10 yılda bir yenilenir. Kemik yüke göre şekillenir: kuvvet antrenmanı ve zıplama kemik yoğunluğunu destekler.\n\nKaydet, sonra lazım olur 🔖",
+  "hashtags": [
+    "sağlık",
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

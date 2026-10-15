@@ -1212,8 +1212,8 @@ const Figur: React.FC<VisualProps> = ({ data }) => {
 /* ---------- Büyük sayı sayacı ---------- */
 // data: { from?, to, decimals?, prefix?, suffix?, label? }
 
-const fmt = (v: number, decimals: number) =>
-  v.toLocaleString("tr-TR", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+const fmt = (v: number, decimals: number, plain = false) =>
+  v.toLocaleString("tr-TR", { minimumFractionDigits: decimals, maximumFractionDigits: decimals, useGrouping: !plain });
 
 const Sayi: React.FC<VisualProps> = ({ data }) => {
   const frame = useCurrentFrame();
@@ -1237,7 +1237,7 @@ const Sayi: React.FC<VisualProps> = ({ data }) => {
         }}
       >
         {(data.prefix as string) ?? ""}
-        {fmt(v, decimals)}
+        {fmt(v, decimals, data.plain as boolean)}
         <span style={{ fontSize: 110, letterSpacing: -2 }}>{(data.suffix as string) ?? ""}</span>
       </div>
       {data.label ? (
@@ -2107,7 +2107,126 @@ const Omurga: React.FC<VisualProps> = ({ data }) => {
   );
 };
 
+/* ---------- Kilit: adenozin yorgunluk sinyali ve kafeinin tıkaması ---------- */
+// data: { mode: "adenozin" | "kafein" }
+
+const SOCKETS = [130, 280, 430, 580, 730];
+
+const Kilit: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const caffeine = data.mode === "kafein";
+  const p = useProgress(0.05, 0.75);
+  const base = 520;
+  // Her yuvaya sırayla bir molekül iner
+  const docked = SOCKETS.map((_, i) => interpolate(p, [i * 0.15, i * 0.15 + 0.25], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  const tired = caffeine ? 0.15 : docked.reduce((a, b) => a + b, 0) / SOCKETS.length;
+  const color = tired > 0.6 ? C.danger : tired > 0.3 ? C.warm : C.lime;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <svg width={860} height={640} viewBox="0 0 860 640">
+        {/* Sinir hücresi zarı ve reseptör yuvaları */}
+        <rect x={40} y={base} width={780} height={90} rx={30} fill="#2b2f45" />
+        {SOCKETS.map((x) => (
+          <path key={x} d={`M${x - 50} ${base} L${x - 50} ${base - 40} L${x - 30} ${base - 40} L${x - 30} ${base - 10} L${x + 30} ${base - 10} L${x + 30} ${base - 40} L${x + 50} ${base - 40} L${x + 50} ${base} Z`} fill="#6c7bd9" />
+        ))}
+        {SOCKETS.map((x, i) => {
+          const d = docked[i];
+          const y = 60 + (base - 70 - 60) * d + Math.sin(frame / 8 + i) * 8 * (1 - d);
+          return (
+            <g key={x}>
+              {caffeine ? (
+                <>
+                  <polygon points={[0, 1, 2, 3, 4, 5].map((k) => `${x + 32 * Math.cos((k * Math.PI) / 3)},${y + 32 * Math.sin((k * Math.PI) / 3)}`).join(" ")} fill="#8b5a2b" stroke="#d9a066" strokeWidth={4} />
+                  <text x={x} y={y + 11} fill="#fff" fontSize={30} fontWeight={900} textAnchor="middle" fontFamily={interFamily}>K</text>
+                  {/* Yeri kapılan adenozin sekip uzaklaşır */}
+                  <circle cx={x + 60 + 40 * d} cy={140 - 80 * d + Math.sin(frame / 6 + i) * 10} r={26} fill={C.teal} opacity={0.9 * (0.4 + 0.6 * d)} />
+                  <text x={x + 60 + 40 * d} y={150 - 80 * d + Math.sin(frame / 6 + i) * 10} fill="#000" fontSize={26} fontWeight={900} textAnchor="middle" fontFamily={interFamily} opacity={0.4 + 0.6 * d}>A</text>
+                </>
+              ) : (
+                <>
+                  <circle cx={x} cy={y} r={30} fill={C.teal} />
+                  <text x={x} y={y + 10} fill="#000" fontSize={30} fontWeight={900} textAnchor="middle" fontFamily={interFamily}>A</text>
+                </>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+      <div style={{ display: "flex", gap: 26, fontFamily: monoFamily, fontSize: 24, letterSpacing: 4 }}>
+        <span style={{ color: C.teal }}>● ADENOZİN</span>
+        {caffeine ? <span style={{ color: "#d9a066" }}>⬢ KAFEİN</span> : null}
+      </div>
+      <Card style={{ width: 720, padding: "18px 28px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>
+          <span>YORGUNLUK</span>
+          <span style={{ color }}>{caffeine ? "UYANIK" : tired > 0.6 ? "UYKUN GELDİ" : "ARTIYO"}</span>
+        </div>
+        <div style={{ marginTop: 12, height: 16, borderRadius: 8, backgroundColor: C.border }}>
+          <div style={{ width: `${tired * 100}%`, height: "100%", borderRadius: 8, backgroundColor: color }} />
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+/* ---------- Kemik: sürekli yenilenme ve yükle güçlenme ---------- */
+// data: { mode: "yenilenme" | "yuk" }
+
+const BONE_DOTS = Array.from({ length: 70 }, (_, i) => ({
+  x: 150 + random(`bx${i}`) * 560,
+  y: 250 + random(`by${i}`) * 140,
+  k: random(`bk${i}`),
+}));
+
+const Kemik: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const load = data.mode === "yuk";
+  const p = useProgress(0.05, 0.8);
+  const press = load ? Math.max(0, Math.sin(frame / 7)) : 0;
+  const bone = "M120 250 C 60 190, 40 300, 90 320 C 40 340, 60 450, 120 390 L 740 390 C 800 450, 820 340, 770 320 C 820 300, 800 190, 740 250 Z";
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <svg width={880} height={560} viewBox="20 80 820 460">
+        <g transform={`translate(0 ${press * 10}) scale(1 ${1 - press * 0.03})`}>
+          <path d={bone} fill="#efe6d2" stroke="#b9ab8c" strokeWidth={6} />
+          {BONE_DOTS.map((d, i) => {
+            if (load) {
+              // Yük arttıkça içerisi yoğunlaşır
+              const on = d.k < 0.35 + 0.65 * p;
+              return on ? <circle key={i} cx={d.x} cy={d.y} r={9} fill="#c9b892" /> : null;
+            }
+            // Yenilenme: her nokta kendi döngüsünde yıkılıp (turuncu) yeniden yapılır (yeşil)
+            const ph = ((frame / 40 + d.k * 3) % 1 + 1) % 1;
+            const col = ph < 0.3 ? C.warm : ph < 0.55 ? "transparent" : ph < 0.8 ? C.lime : "#c9b892";
+            return <circle key={i} cx={d.x} cy={d.y} r={9} fill={col} />;
+          })}
+        </g>
+        {load
+          ? [250, 430, 610].map((x) => (
+              <path key={x} d={`M${x} ${95 + press * 25} l0 70 m-24 -24 l24 24 l24 -24`} stroke={C.lime} strokeWidth={8} fill="none" strokeLinecap="round" />
+            ))
+          : null}
+      </svg>
+      <div style={{ display: "flex", gap: 30, fontFamily: monoFamily, fontSize: 24, letterSpacing: 4 }}>
+        {load ? (
+          <>
+            <span style={{ color: C.lime }}>↓ YÜK</span>
+            <span style={{ color: C.muted }}>YOĞUNLUK {Math.round(60 + 40 * p)}%</span>
+          </>
+        ) : (
+          <>
+            <span style={{ color: C.warm }}>● YIKAN HÜCRE</span>
+            <span style={{ color: C.lime }}>● YAPAN HÜCRE</span>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const VISUALS: Record<string, React.FC<VisualProps>> = {
+  kilit: Kilit,
+  kemik: Kemik,
   kalp: Kalp,
   diz: Diz,
   deri: Deri,

@@ -1,0 +1,68 @@
+{
+  "id": "seri3-05-kahve",
+  "title": "Kahve seni nasıl uyandırır?",
+  "tag": "KAFEİN",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Öğleden sonra içtiğin kahve, gece uykunu çalıyo olabilir. Nasıl mı?",
+      "title": "Kahve seni *nasıl* uyandırır?",
+      "sticker": "☕😳"
+    },
+    {
+      "visual": "kilit",
+      "voice": "Gün boyunca beyninde adenozin diye bi madde birikiyo. Bu madde yerine oturdukça yorgun hissediyosun.",
+      "kicker": "1 · YORGUNLUK",
+      "title": "Gün boyu *yorgunluk* birikir",
+      "data": {
+        "mode": "adenozin"
+      },
+      "sticker": "🥱"
+    },
+    {
+      "visual": "kilit",
+      "voice": "Kafein, adenozinin yerine oturuyo ve yolu tıkıyo. Yorgunluk sinyali gelmiyo.",
+      "kicker": "2 · KAFEİN",
+      "title": "Kafein *kilidi* tıkar",
+      "data": {
+        "mode": "kafein"
+      },
+      "sticker": "🔒",
+      "stamp": "TIKANDI!"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Kafeinin yarısı vücudundan ortalama beş-altı saatte atılıyo. Akşamüstü kahvesi gece hâlâ etkili olabiliyo.",
+      "kicker": "3 · SÜRE",
+      "title": "Yarısı *5-6 saat* sonra hâlâ içinde",
+      "data": {
+        "from": 0,
+        "to": 5,
+        "prefix": "~",
+        "suffix": " saat",
+        "label": "KAFEİNİN YARI ÖMRÜ (KİŞİYE GÖRE DEĞİŞİR)"
+      },
+      "sticker": "🌙"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "İyi uyumak istiyosan, son kahveni öğlen iç. Artık biliyosun.",
+      "title": "Son kahve *öğlen*.",
+      "data": {
+        "cta": "kaydet"
+      },
+      "sticker": "☕"
+    }
+  ],
+  "caption": "Kahve seni yormuyor, yorgunluğu gizliyor ☕\n\nGün boyu biriken adenozin yorgunluk hissi verir; kafein onun bağlandığı reseptörleri tıkar. Kafeinin yarısı ortalama 5-6 saatte atılır, bu yüzden akşamüstü kahvesi uykunu etkileyebilir.\n\nKaydet, akşam kahvesinden önce hatırla 🔖",
+  "hashtags": [
+    "sağlık",
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

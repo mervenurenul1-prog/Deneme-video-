@@ -1,0 +1,70 @@
+{
+  "id": "seri3-03-kalp",
+  "title": "Kalbin bi ömürde kaç kez atar?",
+  "tag": "KALP",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Kalbin şu an, bu videoyu izlerken de atıyo. Peki bi ömür boyu kaç kez atıyo, tahmin et.",
+      "title": "Kalbin bi ömürde *kaç kez* atar?",
+      "sticker": "🫀🤔"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Dakikada yetmiş kez atsa, günde yaklaşık yüz bin kez atıyo.",
+      "kicker": "1 · GÜNDE",
+      "title": "Günde *100 bin* atış",
+      "data": {
+        "from": 0,
+        "to": 100000,
+        "label": "DAKİKADA ~70 ATIŞ × 1.440 DAKİKA"
+      },
+      "sticker": "⏱️"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Seksen yıllık bi ömürde bu, yaklaşık üç milyar atış ediyo. Hiç durmadan.",
+      "kicker": "2 · ÖMÜR",
+      "title": "Bi ömürde *3 milyar*",
+      "data": {
+        "from": 0,
+        "to": 2.9,
+        "decimals": 1,
+        "suffix": " milyar",
+        "label": "80 YILDA (YAKLAŞIK)"
+      },
+      "sticker": "🤯",
+      "stamp": "3 MİLYAR!"
+    },
+    {
+      "visual": "kalp",
+      "voice": "Düzenli spor yapanın kalbi her atışta daha çok kan pompalıyo. O yüzden dinlenirken daha yavaş atabiliyo.",
+      "kicker": "3 · ANTRENMAN",
+      "title": "Antrenmanlı kalp *rahat* atar",
+      "data": {
+        "mode": "karsilastir"
+      },
+      "sticker": "🏃"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Kalbin de bi kas, onu da çalıştır. Bilmeyen arkadaşına gönder.",
+      "title": "Kalbin hiç *durmuyo*.",
+      "data": {
+        "cta": "gonder"
+      },
+      "sticker": "🫀"
+    }
+  ],
+  "caption": "Kalbin bir ömürde yaklaşık 3 milyar kez atar 🫀\n\nDakikada ~70 atışla günde ~100 bin kez. Düzenli spor yapanların kalbi her atışta daha çok kan pompalar, bu yüzden dinlenirken daha yavaş atabilir.\n\nBilmeyen arkadaşına gönder 📲",
+  "hashtags": [
+    "sağlık",
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

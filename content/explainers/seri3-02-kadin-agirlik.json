@@ -1,0 +1,94 @@
+{
+  "id": "seri3-02-kadin-agirlik",
+  "title": "Ağırlık kaldıran kadın irileşir mi?",
+  "tag": "KUVVET",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Ağırlık kaldırırsan iri görünürsün diye mi korkuyosun? Gel bi bakalım.",
+      "title": "Ağırlık kaldıran kadın *irileşir* mi?",
+      "sticker": "🏋️‍♀️😨"
+    },
+    {
+      "visual": "bar",
+      "voice": "Kas büyümesinde büyük rol oynayan testosteron, kadınlarda erkeklere göre kat kat daha düşük.",
+      "kicker": "1 · HORMON",
+      "title": "Testosteron *kat kat* az",
+      "data": {
+        "bars": [
+          {
+            "label": "ERKEK",
+            "value": 100,
+            "text": "Yüksek",
+            "tone": "teal"
+          },
+          {
+            "label": "KADIN",
+            "value": 8,
+            "text": "Çok düşük",
+            "tone": "warm"
+          }
+        ]
+      },
+      "sticker": "🧬",
+      "stamp": "KAT KAT!"
+    },
+    {
+      "visual": "liste",
+      "voice": "Kadınlarda ağırlık, genelde daha sıkı bi görünüm, güçlü kemikler ve daha iyi bi duruş demek.",
+      "kicker": "2 · ASLINDA",
+      "title": "Gelen şey *sıkılık*",
+      "data": {
+        "items": [
+          {
+            "text": "Daha sıkı görünüm",
+            "ok": true
+          },
+          {
+            "text": "Güçlü kemikler",
+            "ok": true
+          },
+          {
+            "text": "Daha iyi duruş",
+            "ok": true
+          }
+        ]
+      },
+      "sticker": "💪"
+    },
+    {
+      "visual": "sayi",
+      "voice": "O kaslı görünüm yıllarca, çok özel beslenip antrenman yaparak geliyo. Kazara olmuyo.",
+      "kicker": "3 · GERÇEK",
+      "title": "Kas yapmak *yıllar* sürer",
+      "data": {
+        "from": 0,
+        "to": 5,
+        "suffix": "+ yıl",
+        "label": "YARIŞMA SEVİYESİ KAS İÇİN (YAKLAŞIK)"
+      },
+      "sticker": "⏳",
+      "stamp": "KAZARA OLMAZ!"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Korkma, kaldır. Ağırlıktan korkan arkadaşını etiketle.",
+      "title": "Korkma, *kaldır*.",
+      "data": {
+        "cta": "gonder"
+      },
+      "sticker": "🏋️‍♀️"
+    }
+  ],
+  "caption": "Ağırlık kaldırmak kadınları iri yapmaz 🏋️‍♀️\n\nKas büyümesinde rol oynayan testosteron kadınlarda kat kat daha düşüktür. Ağırlık çalışmak; sıkı görünüm, güçlü kemikler ve daha iyi duruş demek.\n\nAğırlıktan korkan arkadaşını etiketle 👇",
+  "hashtags": [
+    "sağlık",
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "id": "seri3-01-10bin-adim",
+  "title": "10.000 adım nerden çıktı?",
+  "tag": "ADIM",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Günde on bin adım atmazsan boşa mı yürüdün? Peki bu sayı nerden çıktı, hiç düşündün mü?",
+      "title": "*10.000 adım* nerden çıktı?",
+      "sticker": "👟🤔"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Altmışlı yıllarda Japonya'da bi adımsayar satılıyo. Adı: on bin adım ölçer. Sayı akılda kalsın diye seçilmiş.",
+      "kicker": "1 · TARİH",
+      "title": "Bi *reklamdan* çıktı",
+      "data": {
+        "from": 1900,
+        "to": 1965,
+        "plain": true,
+        "label": "JAPONYA · ADIMSAYAR REKLAMI"
+      },
+      "sticker": "📺",
+      "stamp": "REKLAM!"
+    },
+    {
+      "visual": "cizgi",
+      "voice": "Araştırmalar, faydanın büyük kısmının altı-sekiz bin adım civarında geldiğini gösteriyo. Sonrası yavaş yavaş artıyo.",
+      "kicker": "2 · BİLİM",
+      "title": "Fayda *6-8 bin* civarı dengelenir",
+      "data": {
+        "series": [
+          {
+            "points": [
+              0,
+              35,
+              60,
+              76,
+              84,
+              87,
+              88
+            ],
+            "label": "Fayda"
+          }
+        ],
+        "labels": [
+          "0",
+          "2B",
+          "4B",
+          "6B",
+          "8B",
+          "10B",
+          "12B"
+        ]
+      },
+      "sticker": "📊"
+    },
+    {
+      "visual": "liste",
+      "voice": "Yani on bin şart değil. Önemli olan her gün hareket etmek, arada biraz da tempolu yürümek.",
+      "kicker": "3 · ASIL ÖNEMLİ",
+      "title": "Sayıdan çok *düzen*",
+      "data": {
+        "items": [
+          {
+            "text": "Her gün hareket",
+            "ok": true
+          },
+          {
+            "text": "Biraz tempolu yürü",
+            "ok": true
+          },
+          {
+            "text": "Hiç yürümemek",
+            "ok": false
+          }
+        ]
+      },
+      "sticker": "🚶‍♀️"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Bugün kaç adım attın? Yorumlara yaz.",
+      "title": "Sayı değil, *süreklilik*.",
+      "sticker": "👟"
+    }
+  ],
+  "caption": "10.000 adım bilimden değil, bir reklamdan çıktı 👟\n\n60'larda Japonya'da satılan bir adımsayarın adıydı. Araştırmalar faydanın büyük kısmının günde 6-8 bin adım civarında geldiğini gösteriyor (yaşa göre değişir). Önemli olan her gün hareket etmek.\n\nBugün kaç adım attın? 👇",
+  "hashtags": [
+    "sağlık",
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

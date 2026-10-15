@@ -1,0 +1,149 @@
+{
+  "id": "seri3-04-seker",
+  "title": "Tatlı yiyince neden daha çok acıkırsın?",
+  "tag": "ŞEKER",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Tatlı yedin, bi saat sonra yine acıktın. Neden ya?",
+      "title": "Tatlı yiyince neden *daha çok* acıkırsın?",
+      "sticker": "🍩😋"
+    },
+    {
+      "visual": "cizgi",
+      "voice": "Şekerli bişey yiyince kan şekerin hızla yükseliyo. Vücut bunu dengelemek için insülin salgılıyo.",
+      "kicker": "1 · YÜKSELİŞ",
+      "title": "Kan şekeri *hızla* yükselir",
+      "data": {
+        "series": [
+          {
+            "points": [
+              20,
+              85,
+              95,
+              60,
+              25,
+              15,
+              30
+            ],
+            "label": "Tatlı",
+            "tone": "warm"
+          }
+        ],
+        "labels": [
+          "0",
+          "15dk",
+          "30dk",
+          "1sa",
+          "1,5sa",
+          "2sa",
+          "2,5sa"
+        ],
+        "from": 0,
+        "to": 0.4
+      },
+      "sticker": "📈"
+    },
+    {
+      "visual": "cizgi",
+      "voice": "Sonra kan şekeri hızla düşüyo. Beyin de bunu, yine yemek lazım diye algılayabiliyo.",
+      "kicker": "2 · DÜŞÜŞ",
+      "title": "Sonra *hızla* düşer",
+      "data": {
+        "series": [
+          {
+            "points": [
+              20,
+              85,
+              95,
+              60,
+              25,
+              15,
+              30
+            ],
+            "label": "Tatlı",
+            "tone": "warm"
+          }
+        ],
+        "labels": [
+          "0",
+          "15dk",
+          "30dk",
+          "1sa",
+          "1,5sa",
+          "2sa",
+          "2,5sa"
+        ],
+        "from": 0.4,
+        "to": 1
+      },
+      "sticker": "📉",
+      "stamp": "AÇLIK!"
+    },
+    {
+      "visual": "cizgi",
+      "voice": "Yanına protein ve lif eklersen, yükseliş daha yavaş olur, daha uzun tok kalırsın.",
+      "kicker": "3 · ÇÖZÜM",
+      "title": "Protein ve lif *dengeler*",
+      "data": {
+        "series": [
+          {
+            "points": [
+              20,
+              85,
+              95,
+              60,
+              25,
+              15,
+              30
+            ],
+            "label": "Sadece tatlı",
+            "tone": "warm"
+          },
+          {
+            "points": [
+              20,
+              45,
+              55,
+              55,
+              50,
+              45,
+              40
+            ],
+            "label": "+ Protein, lif"
+          }
+        ],
+        "labels": [
+          "0",
+          "15dk",
+          "30dk",
+          "1sa",
+          "1,5sa",
+          "2sa",
+          "2,5sa"
+        ]
+      },
+      "sticker": "🥚🥦"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM'da beslenme hedeflerin de protein dengesiyle kuruluyo. Kaydet, tatlı krizinde hatırla.",
+      "title": "Şekeri *yalnız* bırakma.",
+      "data": {
+        "cta": "kaydet"
+      },
+      "sticker": "🍩"
+    }
+  ],
+  "caption": "Tatlıdan sonra gelen o açlık tesadüf değil 🍩\n\nŞekerli yiyecekler kan şekerini hızla yükseltir, ardından hızlı bir düşüş gelebilir. Yanına protein ve lif eklemek yükselişi yavaşlatır, daha uzun tok tutar.\n\nKaydet, tatlı krizinde hatırla 🔖",
+  "hashtags": [
+    "sağlık",
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}
