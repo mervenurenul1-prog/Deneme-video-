@@ -57,7 +57,17 @@ indirildi. Referans: "örneğe yakın olsun, aynısı/kopyası değil".
 Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
 Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
-## KARAR: ses = Hürrem, hikâye anlatır gibi (en güncel)
+## DURUM (en güncel)
+- Ekip 3D pilotu (yağ nereye) **çok beğendi**; sadece ses konusunda kararsızlar, cevap bekleniyor.
+  Kullanıcı: "diğerlerine tek tek başla". Ses kararı netleşene kadar yeni videolar **sessiz önizleme** olarak
+  gönderiliyor (JSON'da `say` + `voiceId` hazır).
+- 3D şablon: ortak parçalar `src/uc/kit.tsx`, videoya özel sahneler `src/uc/sahneler/<video>.tsx`
+  (`DEFS` + `OVERLAYS`), `src/uc/Uc.tsx` bunları birleştirir. `visual` adları benzersiz olmalı (ör. `tarti-*`).
+- Sıra (ekip-11 sırası): 01 yağ nereye ✅ → **02 tartı (uc-02-tarti, ses Sultan, sessiz önizleme)** →
+  03 takip/2. hafta → 04 mekik → 05 kas ağrısı → 06 duruş → 07 ter → 08 kas hafızası → sonra diğerleri.
+  Sesleri 6 anlatıcı arasında dönüşümlü dağıt.
+
+## KARAR: ses = Hürrem, hikâye anlatır gibi
 Ekip: "Instagram'da ekranda tutacak, ritmik, gerçek insan sesi; hikâye anlatır gibi (örnek videolardaki gibi)".
 Model **eleven_v3** + sahne başına `say` alanı: ton etiketli seslendirme metni ([curious], [whispers],
 [short pause], [laughs], [excited], "..."). `voice` altyazı metni olarak kalır; `say` ile kelimeleri aynı

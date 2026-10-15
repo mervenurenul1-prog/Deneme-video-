@@ -1,0 +1,60 @@
+{
+  "id": "uc-02-tarti",
+  "title": "Bir gecede 1 kilo mu aldın?",
+  "voiceId": "gyxPK6bLXQAkBSCeAKvk",
+  "modelId": "eleven_v3",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "scenes": [
+    {
+      "visual": "tarti-acilis",
+      "voice": "Dün akşam her şey normaldi. Bu sabah tartıya çıktın ve bir kilo fazla.",
+      "say": "Dün akşam her şey normaldi. Bu sabah tartıya çıktın... ve [surprised] bir kilo fazla."
+    },
+    {
+      "visual": "tarti-panik",
+      "voice": "Panik yapma. O bir kilo yağ değil.",
+      "say": "[calm] Panik yapma. [short pause] O bir kilo... yağ değil."
+    },
+    {
+      "visual": "tarti-kalori",
+      "voice": "Bir kilo yağ için yaklaşık yedi bin yedi yüz kalori fazla yemen gerekir. Tek gecede mi? Neredeyse imkânsız.",
+      "say": "Bir kilo yağ için yaklaşık yedi bin yedi yüz kalori fazla yemen gerekir. [curious] Tek gecede mi? [laughs] Neredeyse imkânsız."
+    },
+    {
+      "visual": "tarti-su",
+      "voice": "Asıl sebep su. Kasların karbonhidrat depolarken yanında üç katı su tutar.",
+      "say": "[whispers] Asıl sebep... su. Kasların karbonhidrat depolarken yanında üç katı su tutar."
+    },
+    {
+      "visual": "tarti-tuz",
+      "voice": "Tuzlu bir akşam yemeği yedin mi, vücudun o suyu bırakmaz.",
+      "say": "Tuzlu bir akşam yemeği yedin mi... vücudun o suyu bırakmaz."
+    },
+    {
+      "visual": "tarti-diger",
+      "voice": "Regl dönemi, midendeki yemek, hatta dünkü antrenman bile tartıyı oynatır.",
+      "say": "Regl dönemi, midendeki yemek... hatta dünkü antrenman bile tartıyı oynatır."
+    },
+    {
+      "visual": "tarti-ortalama",
+      "voice": "O yüzden tek bir güne değil, haftalık ortalamaya bak.",
+      "say": "O yüzden tek bir güne değil... haftalık ortalamaya bak."
+    },
+    {
+      "visual": "tarti-kapanis",
+      "voice": "Tartı yalan söylemez ama abartır. Kaydet, sonra lazım olur.",
+      "say": "Tartı yalan söylemez... [short pause] ama abartır. [excited] Kaydet, sonra lazım olur."
+    }
+  ],
+  "caption": "Bir gecede aldığın o 1 kilo yağ değil ⚖️\n\n1 kg yağ için yaklaşık 7.700 kalori fazlası gerekir. Kaslar karbonhidratı (glikojen) kendi ağırlığının yaklaşık 3 katı suyla birlikte depolar; tuz, regl dönemi, sindirimdeki yemek ve yoğun antrenman da tartıyı günlük 1-2 kg oynatabilir. Tek güne değil, haftalık ortalamaya bak.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "sağlıklıyaşam",
+    "kiloverme",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}
