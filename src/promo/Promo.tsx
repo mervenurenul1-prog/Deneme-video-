@@ -64,7 +64,7 @@ export const PromoVideo: React.FC<PromoProps> = ({ promo, voiceover }) => {
                 {scene.sticker ? <Stickers text={scene.sticker} fullscreen={!scene.screen} /> : null}
               </Fade>
             </SceneFX>
-            <Captions words={wordsFor(scene.voice, audio)} />
+            <Captions words={wordsFor(scene.voice, audio)} boxed={!!scene.screen} />
             {audio ? <Audio src={staticFile(audio.file)} /> : null}
             <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.3} />
           </Sequence>

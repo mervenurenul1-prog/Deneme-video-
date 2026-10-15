@@ -1,214 +1,209 @@
 {
   "scenes": [
     {
-      "voice": "Salona girip ne yapacağını düşünmek, antrenmanın yarısını yiyor.",
-      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
-      "file": "voiceover/voom-antrenman/1-mv8k72jp.mp3",
-      "durationInSeconds": 3.715,
+      "voice": "Salona girip ne yapacağını düşünmek, antrenmanın yarısını yiyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/voom-antrenman/1-mv9ja2bf.mp3",
+      "durationInSeconds": 3.04,
       "words": [
         {
           "word": "Salona",
           "start": 0,
-          "end": 0.43
+          "end": 0.4
         },
         {
           "word": "girip",
-          "start": 0.476,
-          "end": 0.697
+          "start": 0.44,
+          "end": 0.64
         },
         {
           "word": "ne",
-          "start": 0.766,
-          "end": 0.836
+          "start": 0.667,
+          "end": 0.72
         },
         {
           "word": "yapacağını",
-          "start": 0.859,
-          "end": 1.347
+          "start": 0.76,
+          "end": 1.12
         },
         {
           "word": "düşünmek,",
-          "start": 1.382,
-          "end": 1.95
+          "start": 1.173,
+          "end": 1.68
         },
         {
           "word": "antrenmanın",
-          "start": 2.009,
-          "end": 2.601
+          "start": 1.74,
+          "end": 2.32
         },
         {
           "word": "yarısını",
-          "start": 2.659,
-          "end": 3.053
+          "start": 2.36,
+          "end": 2.8
         },
         {
-          "word": "yiyor.",
-          "start": 3.111,
-          "end": 3.715
+          "word": "yiyo.",
+          "start": 2.827,
+          "end": 3.04
         }
       ]
     },
     {
-      "voice": "VOOM her gün o günün antrenmanını hazır veriyor. Hareketler, setler, süreler; hepsi belli.",
-      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
-      "file": "voiceover/voom-antrenman/2-mv8k73vc.mp3",
-      "durationInSeconds": 6.177,
+      "voice": "VOOM her gün o günün antrenmanını hazır veriyo. Hareket, set, süre; hepsi belli.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/voom-antrenman/2-mv9ja3ua.mp3",
+      "durationInSeconds": 5.44,
       "words": [
         {
           "word": "VOOM",
           "start": 0,
-          "end": 0.348
+          "end": 0.24
         },
         {
           "word": "her",
-          "start": 0.441,
-          "end": 0.569
+          "start": 0.28,
+          "end": 0.4
         },
         {
           "word": "gün",
-          "start": 0.639,
-          "end": 0.836
+          "start": 0.46,
+          "end": 0.64
         },
         {
           "word": "o",
-          "start": 0.929,
-          "end": 1.01
+          "start": 0.76,
+          "end": 0.88
         },
         {
           "word": "günün",
-          "start": 1.068,
-          "end": 1.312
+          "start": 0.92,
+          "end": 1.12
         },
         {
           "word": "antrenmanını",
-          "start": 1.37,
-          "end": 2.02
+          "start": 1.18,
+          "end": 1.68
         },
         {
           "word": "hazır",
-          "start": 2.078,
-          "end": 2.357
+          "start": 1.733,
+          "end": 2
         },
         {
-          "word": "veriyor.",
-          "start": 2.415,
-          "end": 2.949
+          "word": "veriyo.",
+          "start": 2.032,
+          "end": 2.32
         },
         {
-          "word": "Hareketler,",
-          "start": 3.193,
-          "end": 3.913
+          "word": "Hareket,",
+          "start": 2.56,
+          "end": 3.4
         },
         {
-          "word": "setler,",
-          "start": 3.971,
-          "end": 4.481
+          "word": "set,",
+          "start": 3.45,
+          "end": 3.76
         },
         {
-          "word": "süreler;",
-          "start": 4.516,
-          "end": 5.05
+          "word": "süre;",
+          "start": 3.824,
+          "end": 4.16
         },
         {
           "word": "hepsi",
-          "start": 5.178,
-          "end": 5.457
+          "start": 4.253,
+          "end": 4.72
         },
         {
           "word": "belli.",
-          "start": 5.515,
-          "end": 6.177
+          "start": 4.787,
+          "end": 5.44
         }
       ]
     },
     {
-      "voice": "Üstelik her kararın nedenini açıklıyor. Ezber değil, bilerek çalışıyorsun.",
-      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
-      "file": "voiceover/voom-antrenman/3-mv8k74uh.mp3",
-      "durationInSeconds": 5.201,
+      "voice": "Üstüne her kararın nedenini anlatıyo. Ezber yok, bilerek çalışıyosun.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/voom-antrenman/3-mv9ja523.mp3",
+      "durationInSeconds": 4.32,
       "words": [
         {
-          "word": "Üstelik",
+          "word": "Üstüne",
           "start": 0,
-          "end": 0.441
+          "end": 0.4
         },
         {
           "word": "her",
-          "start": 0.511,
-          "end": 0.639
+          "start": 0.44,
+          "end": 0.56
         },
         {
           "word": "kararın",
-          "start": 0.708,
-          "end": 1.115
+          "start": 0.627,
+          "end": 1.12
         },
         {
           "word": "nedenini",
-          "start": 1.173,
-          "end": 1.579
+          "start": 1.16,
+          "end": 1.44
         },
         {
-          "word": "açıklıyor.",
-          "start": 1.602,
-          "end": 2.345
+          "word": "anlatıyo.",
+          "start": 1.493,
+          "end": 1.92
         },
         {
           "word": "Ezber",
-          "start": 2.786,
-          "end": 3.204
+          "start": 2.16,
+          "end": 2.8
         },
         {
-          "word": "değil,",
-          "start": 3.286,
-          "end": 3.68
+          "word": "yok,",
+          "start": 2.86,
+          "end": 3.36
         },
         {
           "word": "bilerek",
-          "start": 3.75,
-          "end": 4.11
+          "start": 3.38,
+          "end": 3.68
         },
         {
-          "word": "çalışıyorsun.",
-          "start": 4.168,
-          "end": 5.201
+          "word": "çalışıyosun.",
+          "start": 3.72,
+          "end": 4.32
         }
       ]
     },
     {
-      "voice": "VOOM. Düşünme, sadece başla. Link profilde.",
-      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
-      "file": "voiceover/voom-antrenman/4-mv8k75w6.mp3",
-      "durationInSeconds": 3.715,
+      "voice": "VOOM. Düşünme, başla. Link profilde.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/voom-antrenman/4-mv9ja5wj.mp3",
+      "durationInSeconds": 3.04,
       "words": [
         {
           "word": "VOOM.",
           "start": 0,
-          "end": 0.43
+          "end": 0.4
         },
         {
           "word": "Düşünme,",
-          "start": 0.813,
-          "end": 1.416
-        },
-        {
-          "word": "sadece",
-          "start": 1.474,
-          "end": 1.904
+          "start": 0.56,
+          "end": 1.36
         },
         {
           "word": "başla.",
-          "start": 1.95,
-          "end": 2.45
+          "start": 1.46,
+          "end": 2.24
         },
         {
           "word": "Link",
-          "start": 2.566,
-          "end": 2.81
+          "start": 2.288,
+          "end": 2.48
         },
         {
           "word": "profilde.",
-          "start": 2.856,
-          "end": 3.715
+          "start": 2.528,
+          "end": 3.04
         }
       ]
     }

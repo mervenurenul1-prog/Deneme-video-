@@ -143,7 +143,7 @@ const Watermark: React.FC<{ tag?: string }> = ({ tag }) => {
 };
 
 // Altyazı: soldaki yeşil çizgiyle, söylenen kelimeler beyaz, sıradakiler gri, o an söylenen yeşil
-export const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
+export const Captions: React.FC<{ words: WordTiming[]; boxed?: boolean }> = ({ words, boxed = false }) => {
   const t = useSeconds();
   const chunks: WordTiming[][] = [];
   let cur: WordTiming[] = [];
@@ -171,7 +171,16 @@ export const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
       }}
     >
       <div style={{ width: 8, borderRadius: 4, backgroundColor: C.lime, flexShrink: 0 }} />
-      <div style={{ fontSize: 50, fontWeight: 700, lineHeight: 1.25, textShadow: "0 4px 18px rgba(0,0,0,0.9)" }}>
+      <div
+        style={{
+          fontSize: 50,
+          fontWeight: 700,
+          lineHeight: 1.25,
+          textShadow: "0 4px 18px rgba(0,0,0,0.9)",
+          // Arkasında uygulama ekranı varken okunabilsin diye koyu kutu
+          ...(boxed ? { backgroundColor: "rgba(0,0,0,0.88)", padding: "14px 26px", borderRadius: 18 } : {}),
+        }}
+      >
         {current.map((w, i) => {
           const said = t >= w.start;
           const now = t >= w.start && t <= w.end;
