@@ -57,9 +57,15 @@ indirildi. Referans: "örneğe yakın olsun, aynısı/kopyası değil".
 Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
 Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
-## KARAR: 3D kadın karakter (en güncel)
+## KARAR: kadın sesi = Derya (en güncel)
+Kullanıcı "gerçekçi, yapay zeka olduğu belli olmasın" dedi; 10 Türkçe kütüphane sesinden **6 - Derya**
+(`NNn9dv8zq2kUo7d3JSGG`, profesyonel klon) seçildi. Model `eleven_multilingual_v2`, ayarlar JSON'da
+`voiceSettings` (stability 0.45, similarityBoost 0.8, style 0.25). Adaylar: `ses-ornekleri/kadin-adaylar/`.
+3D pilot sessiz önizlemesi onaylandı, Derya ile seslendirildi (38 sn).
+
+## KARAR: 3D kadın karakter
 Kullanıcı yan yana denemede **3D kadın versiyonunu** seçti ("kız versiyonunu beğendim"). Kullanıcıyla
-**Türkçe** konuş. Pilot 3D olarak yeniden kuruldu: `content/uc/uc-01-yag-nereye.json` (ses: kadın, Bella),
+**Türkçe** konuş. Pilot 3D olarak yeniden kuruldu: `content/uc/uc-01-yag-nereye.json`,
 şablon `src/uc/Uc.tsx`. Sessiz önizleme render edilip gönderilecek → onay → `npm run voiceover --
 uc-01-yag-nereye` → `npm run render -- uc-01-yag-nereye` (render.ts `uc-*` için `gl: swangle` kullanır;
 yaklaşık 30-40 dk sürer). Çizimli şablon (`src/cizim`) yedek olarak duruyor.

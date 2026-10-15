@@ -68,6 +68,8 @@ for (const post of videos) {
       modelId: mId,
       // v3 modeli dili metinden tahmin etmeye çalışır; Türkçe olduğunu açıkça söyle
       ...(mId === "eleven_v3" ? { languageCode: "tr" } : {}),
+      // İsteğe bağlı videoya özel ses ayarları (doğallık için: düşük stability, biraz style)
+      ...("voiceSettings" in post && post.voiceSettings ? { voiceSettings: post.voiceSettings } : {}),
       outputFormat: "mp3_44100_128",
     });
     // Dosya adı benzersiz olsun ki tarayıcı önbelleği eski sesi çalmasın

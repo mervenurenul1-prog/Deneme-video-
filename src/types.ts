@@ -96,6 +96,8 @@ export type Cizim = {
   title: string;
   voiceId?: string;
   modelId?: string;
+  // ElevenLabs ses ayarları, ör. { stability: 0.45, similarityBoost: 0.8, style: 0.25, useSpeakerBoost: true }
+  voiceSettings?: { stability?: number; similarityBoost?: number; style?: number; useSpeakerBoost?: boolean };
   scenes: CizimScene[];
   caption: string;
   hashtags: string[];
