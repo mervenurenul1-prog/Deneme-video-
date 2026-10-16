@@ -81,6 +81,18 @@ pilot bununla yeniden render edildi. **Tartı ve sonraki tüm videolar `"music":
 kadar önemli." → Konu seçimi ve açılış cümlesi (hook) güçlendirilecek; animasyonlar daha canlı olacak. Claude yeni
 konu açıları + animasyon iyileştirme önerisi sundu, kullanıcının seçimi bekleniyor. Seçim gelmeden 03'e geçme.
 
+**!!! KURAL (kullanıcı tekrar uyardı): ÖNCE SESSİZ ÖNİZLEME, ONAYDAN SONRA SESLENDİRME. Asla bozma. !!!**
+Kullanıcı "seslendirme önce" gibi bir şey derse bile bu kuralı kastediyor olabilir; emin değilsen SOR, seslendirme yapma.
+(16 Ekim: 03 on bin adım yanlış anlaşılıp onaysız seslendirildi, ~600 karakter. Kullanıcıya yalnız sesi
+çıkarılmış önizleme gönderildi; onay gelirse bu ses kullanılır.)
+
+**DÖNGÜ (loop):** Kullanıcı döngülü video istedi. JSON'da `"loop": true` → son 14 karede ilk sahnenin ilk karesi
+belirir (son kare = ilk kare), müzik ve toz kesintisiz. Kapanış cümlesi açılışa akmalı (ör. "...çünkü biri sana
+soracak:" → "Beş kilo verdin..."). 01, 02, 03 döngülü.
+
+**SEÇİLEN YENİ KONULAR (kullanıcı, 16 Ekim):** 1) 10 bin adım bir reklam sloganıydı (`cizim1-03-on-bin-adim`),
+5) ağırlık kaldıran kadın iri olmaz, 7) ertesi gün ağrımıyorsa antrenman boşa mı gitti? Sırayla, tek tek.
+
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
 değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
