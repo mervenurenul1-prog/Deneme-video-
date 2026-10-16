@@ -10,8 +10,10 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
 ## >>> YENİ OTURUM: BURADAN BAŞLA <<<
 **Geçerli yöntem:** çizim v1 stili (`src/cizim1/Cizim1.tsx`, içerik `content/cizim1/*.json`): sade erkek
-karakter, düz sepya kâğıt, YAVAŞ animasyonlar (Zack kurgusu, oda, 3D YOK). Ses: **Yunus**, eleven_v3,
-sohbet tarzı `say` (+ dolgular), `maxPause: 0.3`. Pilot: `cizim1-01-yag-nereye` → video
+karakter, düz sepya kâğıt, YAVAŞ animasyonlar (Zack kurgusu, oda, 3D YOK). Ses: **Yunus**, **eleven_v4**
+(kullanıcı V4'ü seçti; v3'ten daha akıcı, aynı kredi),
+sohbet tarzı `say` (+ dolgular), `maxPause: 0.3`, arka plan müziği `music` (Kevin MacLeod, CC BY 4.0 —
+künye açıklamada; `public/music/KAYNAK.txt`) ve olaylara bağlı efekt sesleri (`SFX` haritası, `public/sfx/`). Pilot: `cizim1-01-yag-nereye` → video
 `ornek-videolar/cizim1-pilot/01-yag-nereye.mp4` (kullanıcı onayı bekleniyor).
 Sonraki işler (onaydan sonra): 2 tartı, 3 takip (bırakma), 4 mekik, 5 kas ağrısı, 6 duruş, 7 ter, 8 kas hafızası
 → sonra eleme listesindeki diğerleri. Her biri: `content/cizim1/cizim1-NN-<konu>.json` (voice + say + visual)

@@ -4,48 +4,49 @@
       "voice": "Beş kilo verdin. Peki o yağ nereye gitti?",
       "say": "Beş kilo verdin. [curious] Peki, ıı... o yağ nereye gitti?",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "file": "voiceover/cizim1-01-yag-nereye/1-mva8anle.mp3",
-      "durationInSeconds": 4.04898,
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-01-yag-nereye/1-mvaaqdwo.mp3",
+      "durationInSeconds": 4.179592,
       "words": [
         {
           "word": "Beş",
           "start": 0,
-          "end": 0.16
+          "end": 0.28
         },
         {
           "word": "kilo",
-          "start": 0.22,
-          "end": 0.56
+          "start": 0.32,
+          "end": 0.48
         },
         {
           "word": "verdin.",
-          "start": 0.592,
-          "end": 1.071927
+          "start": 0.56,
+          "end": 1.12
         },
         {
           "word": "Peki",
-          "start": 1.4809269999999999,
-          "end": 1.632927
+          "start": 1.7194799999999997,
+          "end": 2.11948
         },
         {
           "word": "o",
-          "start": 2.749097,
-          "end": 2.9473069999999995
+          "start": 2.7994799999999995,
+          "end": 2.8394799999999996
         },
         {
           "word": "yağ",
-          "start": 2.9873069999999995,
-          "end": 3.1073069999999996
+          "start": 2.9194799999999996,
+          "end": 3.0794799999999998
         },
         {
           "word": "nereye",
-          "start": 3.1873069999999997,
-          "end": 3.627306999999999
+          "start": 3.15948,
+          "end": 3.4794799999999997
         },
         {
           "word": "gitti?",
-          "start": 3.6603069999999995,
-          "end": 3.9873069999999995
+          "start": 3.6124799999999997,
+          "end": 4.199479999999999
         }
       ]
     },
@@ -53,73 +54,74 @@
       "voice": "Çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. İkisi de doğru değil.",
       "say": "Hmm, çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. [chuckles] İkisi de doğru değil.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "file": "voiceover/cizim1-01-yag-nereye/2-mva8apb3.mp3",
-      "durationInSeconds": 5.511837,
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-01-yag-nereye/2-mvaaqfh0.mp3",
+      "durationInSeconds": 6.687347,
       "words": [
         {
           "word": "Çoğu",
-          "start": 0.4,
-          "end": 0.72
+          "start": 0.8,
+          "end": 1.04
         },
         {
           "word": "insan",
-          "start": 0.787,
-          "end": 1.12
-        },
-        {
-          "word": "yağın",
-          "start": 1.2,
+          "start": 1.16,
           "end": 1.52
         },
         {
-          "word": "eridiğini",
-          "start": 1.573,
+          "word": "yağın",
+          "start": 1.68,
           "end": 1.92
         },
         {
+          "word": "eridiğini",
+          "start": 2,
+          "end": 2.64
+        },
+        {
           "word": "ya",
-          "start": 1.973,
-          "end": 2.08
-        },
-        {
-          "word": "da",
-          "start": 2.107,
-          "end": 2.16
-        },
-        {
-          "word": "tere",
-          "start": 2.2,
-          "end": 2.4
-        },
-        {
-          "word": "dönüştüğünü",
-          "start": 2.44,
+          "start": 2.72,
           "end": 2.88
         },
         {
+          "word": "da",
+          "start": 2.96,
+          "end": 3.04
+        },
+        {
+          "word": "tere",
+          "start": 3.2,
+          "end": 3.44
+        },
+        {
+          "word": "dönüştüğünü",
+          "start": 3.48,
+          "end": 4
+        },
+        {
           "word": "sanır.",
-          "start": 2.92,
-          "end": 3.28
+          "start": 4.08,
+          "end": 4.56
         },
         {
           "word": "İkisi",
-          "start": 3.97934,
-          "end": 4.1493400000000005
+          "start": 5.36,
+          "end": 5.68
         },
         {
           "word": "de",
-          "start": 4.2023399999999995,
-          "end": 4.309340000000001
+          "start": 5.72,
+          "end": 5.76
         },
         {
           "word": "doğru",
-          "start": 4.34934,
-          "end": 4.549339999999999
+          "start": 5.84,
+          "end": 6.08
         },
         {
           "word": "değil.",
-          "start": 4.616339999999999,
-          "end": 5.4909300000000005
+          "start": 6.16,
+          "end": 6.72
         }
       ]
     },
@@ -127,8 +129,9 @@
       "voice": "Yağ yakıldığında karbondioksit ve suya dönüşür.",
       "say": "Yağ yakıldığında, hani, karbondioksit ve suya dönüşür.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "file": "voiceover/cizim1-01-yag-nereye/3-mva8aqhx.mp3",
-      "durationInSeconds": 3.526531,
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-01-yag-nereye/3-mvaaqgh1.mp3",
+      "durationInSeconds": 4.04898,
       "words": [
         {
           "word": "Yağ",
@@ -137,35 +140,36 @@
         },
         {
           "word": "yakıldığında",
-          "start": 0.31,
-          "end": 1.08
+          "start": 0.32,
+          "end": 1.36
         },
         {
           "word": "karbondioksit",
-          "start": 1.78266,
-          "end": 2.44266
+          "start": 1.92,
+          "end": 2.72
         },
         {
           "word": "ve",
-          "start": 2.49566,
-          "end": 2.60266
+          "start": 2.8,
+          "end": 2.88
         },
         {
           "word": "suya",
-          "start": 2.65566,
-          "end": 2.8426599999999995
+          "start": 3.04,
+          "end": 3.28
         },
         {
           "word": "dönüşür.",
-          "start": 2.8956599999999995,
-          "end": 3.48266
+          "start": 3.32,
+          "end": 4.08
         }
       ]
     },
     {
       "voice": "Bunun yüzde seksen dördü, nefes verirken akciğerlerinden dışarı çıkar.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "file": "voiceover/cizim1-01-yag-nereye/4-mva8arr7.mp3",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-01-yag-nereye/4-mvaaqhku.mp3",
       "durationInSeconds": 4.519184,
       "words": [
         {
@@ -175,43 +179,43 @@
         },
         {
           "word": "yüzde",
-          "start": 0.36,
-          "end": 0.56
+          "start": 0.4,
+          "end": 0.64
         },
         {
           "word": "seksen",
-          "start": 0.624,
-          "end": 0.96
+          "start": 0.72,
+          "end": 1.04
         },
         {
           "word": "dördü,",
-          "start": 1.013,
-          "end": 1.44
+          "start": 1.12,
+          "end": 1.64
         },
         {
           "word": "nefes",
-          "start": 1.58,
-          "end": 2.16
+          "start": 1.76,
+          "end": 2.08
         },
         {
           "word": "verirken",
-          "start": 2.213,
-          "end": 2.72
+          "start": 2.16,
+          "end": 2.64
         },
         {
           "word": "akciğerlerinden",
-          "start": 2.816,
-          "end": 3.68
+          "start": 2.72,
+          "end": 3.52
         },
         {
           "word": "dışarı",
-          "start": 3.726,
-          "end": 4
+          "start": 3.6,
+          "end": 3.84
         },
         {
           "word": "çıkar.",
-          "start": 4.053,
-          "end": 4.48
+          "start": 3.92,
+          "end": 4.56
         }
       ]
     },
@@ -219,48 +223,49 @@
       "voice": "Geri kalanı su olarak ter ve idrarla atılır.",
       "say": "Geri kalanı, ıı, su olarak ter ve idrarla atılır.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "file": "voiceover/cizim1-01-yag-nereye/5-mva8asrd.mp3",
-      "durationInSeconds": 3.970612,
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-01-yag-nereye/5-mvaaqihs.mp3",
+      "durationInSeconds": 3.63102,
       "words": [
         {
           "word": "Geri",
           "start": 0,
-          "end": 0.16
+          "end": 0.24
         },
         {
           "word": "kalanı",
-          "start": 0.213,
-          "end": 0.64
+          "start": 0.28,
+          "end": 0.88
         },
         {
           "word": "su",
-          "start": 1.52,
-          "end": 1.68
+          "start": 1.2,
+          "end": 1.28
         },
         {
           "word": "olarak",
-          "start": 1.749,
-          "end": 2.16
+          "start": 1.36,
+          "end": 1.76
         },
         {
           "word": "ter",
-          "start": 2.26,
-          "end": 2.56
+          "start": 2,
+          "end": 2.24
         },
         {
           "word": "ve",
-          "start": 2.667,
-          "end": 2.88
+          "start": 2.32,
+          "end": 2.4
         },
         {
           "word": "idrarla",
-          "start": 2.933,
-          "end": 3.36
+          "start": 2.48,
+          "end": 2.88
         },
         {
           "word": "atılır.",
-          "start": 3.387,
-          "end": 3.92
+          "start": 2.96,
+          "end": 3.68
         }
       ]
     },
@@ -268,63 +273,64 @@
       "voice": "Peki hızlı hızlı nefes alsan, daha çok yağ yakar mısın? Hayır.",
       "say": "[curious] Peki hızlı hızlı nefes alsan, daha çok yağ yakar mısın? [chuckles] Hayır.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "file": "voiceover/cizim1-01-yag-nereye/6-mva8auer.mp3",
-      "durationInSeconds": 5.093878,
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-01-yag-nereye/6-mvaaqjrg.mp3",
+      "durationInSeconds": 5.407347,
       "words": [
         {
           "word": "Peki",
-          "start": 0.2,
-          "end": 0.32
+          "start": 0.08,
+          "end": 0.4
         },
         {
           "word": "hızlı",
-          "start": 0.453,
-          "end": 1.0346710000000001
+          "start": 0.72,
+          "end": 1.04
         },
         {
           "word": "hızlı",
-          "start": 1.087671,
-          "end": 1.354671
+          "start": 1.08,
+          "end": 1.28
         },
         {
           "word": "nefes",
-          "start": 1.414671,
-          "end": 1.674671
+          "start": 1.36,
+          "end": 1.6
         },
         {
           "word": "alsan,",
-          "start": 1.734671,
-          "end": 2.1546710000000004
+          "start": 1.68,
+          "end": 2.2
         },
         {
           "word": "daha",
-          "start": 2.2186709999999996,
-          "end": 2.474671
+          "start": 2.32,
+          "end": 2.48
         },
         {
           "word": "çok",
-          "start": 2.5346710000000003,
-          "end": 2.714671
+          "start": 2.56,
+          "end": 2.72
         },
         {
           "word": "yağ",
-          "start": 2.754671,
-          "end": 2.874671
+          "start": 2.8,
+          "end": 2.907
         },
         {
           "word": "yakar",
-          "start": 2.9146710000000002,
-          "end": 3.1946709999999996
+          "start": 2.933,
+          "end": 3.2
         },
         {
           "word": "mısın?",
-          "start": 3.2346709999999996,
-          "end": 3.594671
+          "start": 3.24,
+          "end": 3.76
         },
         {
           "word": "Hayır.",
-          "start": 4.143831,
-          "end": 5.053831
+          "start": 4.72,
+          "end": 5.44
         }
       ]
     },
@@ -332,8 +338,9 @@
       "voice": "Önce kasların bu yağı yakıt olarak kullanmalı. Bu da ancak hareketle olur.",
       "say": "Önce kasların bu yağı yakıt olarak kullanmalı. Bu da, yani, ancak hareketle olur.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "file": "voiceover/cizim1-01-yag-nereye/7-mva8aw57.mp3",
-      "durationInSeconds": 5.799184,
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-01-yag-nereye/7-mvaaql0o.mp3",
+      "durationInSeconds": 5.668571,
       "words": [
         {
           "word": "Önce",
@@ -342,58 +349,58 @@
         },
         {
           "word": "kasların",
-          "start": 0.42,
-          "end": 0.96
+          "start": 0.44,
+          "end": 0.88
         },
         {
           "word": "bu",
-          "start": 0.987,
+          "start": 0.96,
           "end": 1.04
         },
         {
           "word": "yağı",
-          "start": 1.093,
+          "start": 1.12,
           "end": 1.28
         },
         {
           "word": "yakıt",
-          "start": 1.34,
+          "start": 1.36,
           "end": 1.6
         },
         {
           "word": "olarak",
-          "start": 1.646,
+          "start": 1.72,
           "end": 1.92
         },
         {
           "word": "kullanmalı.",
-          "start": 1.966,
-          "end": 2.7602
+          "start": 2,
+          "end": 2.88796
         },
         {
           "word": "Bu",
-          "start": 2.7872000000000003,
-          "end": 2.8402000000000003
+          "start": 2.92796,
+          "end": 2.96796
         },
         {
           "word": "da",
-          "start": 2.8932,
-          "end": 3.0802
+          "start": 3.0879600000000003,
+          "end": 3.44796
         },
         {
           "word": "ancak",
-          "start": 4.1202000000000005,
-          "end": 4.65746
+          "start": 4.167960000000001,
+          "end": 4.567959999999999
         },
         {
           "word": "hareketle",
-          "start": 4.7374600000000004,
-          "end": 5.37746
+          "start": 4.647959999999999,
+          "end": 5.12796
         },
         {
           "word": "olur.",
-          "start": 5.44146,
-          "end": 5.7774600000000005
+          "start": 5.20796,
+          "end": 5.68796
         }
       ]
     },
@@ -401,58 +408,59 @@
       "voice": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. Bunu kaydet, unutma.",
       "say": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. [excited] Bunu kaydet, unutma.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "file": "voiceover/cizim1-01-yag-nereye/8-mva8axif.mp3",
-      "durationInSeconds": 5.093878,
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-01-yag-nereye/8-mvaaqmco.mp3",
+      "durationInSeconds": 5.407347,
       "words": [
         {
           "word": "Yani",
           "start": 0,
-          "end": 0.32
+          "end": 0.4
         },
         {
           "word": "yağı",
-          "start": 0.48,
+          "start": 0.64,
           "end": 0.88
         },
         {
           "word": "hareketle",
-          "start": 0.93,
-          "end": 1.36
+          "start": 1,
+          "end": 1.44
         },
         {
           "word": "yakar,",
-          "start": 1.42,
-          "end": 1.84
+          "start": 1.48,
+          "end": 2.08
         },
         {
           "word": "nefesinle",
-          "start": 1.9,
-          "end": 2.32
-        },
-        {
-          "word": "dışarı",
-          "start": 2.366,
+          "start": 2.16,
           "end": 2.64
         },
         {
+          "word": "dışarı",
+          "start": 2.72,
+          "end": 2.96
+        },
+        {
           "word": "verirsin.",
-          "start": 2.68,
-          "end": 3.52
+          "start": 3.04,
+          "end": 3.64
         },
         {
           "word": "Bunu",
-          "start": 3.8033799999999998,
-          "end": 3.83538
+          "start": 3.84,
+          "end": 4
         },
         {
           "word": "kaydet,",
-          "start": 3.8923799999999993,
-          "end": 4.315379999999999
+          "start": 4.08,
+          "end": 4.64
         },
         {
           "word": "unutma.",
-          "start": 4.379379999999999,
-          "end": 5.03538
+          "start": 4.68,
+          "end": 5.44
         }
       ]
     }

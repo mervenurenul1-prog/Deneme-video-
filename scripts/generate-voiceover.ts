@@ -44,6 +44,9 @@ function toWords(chars: string[], starts: number[], ends: number[]): WordTiming[
   return words;
 }
 
+// Model değiştiyse (ör. v3 → v4) sahne yeniden seslendirilir. Eski kayıtlarda model yazmıyor: v4 öncesi sayılır.
+const sameModel = (saved: string | undefined, m: string) => (saved ?? (m.startsWith("eleven_v4") ? "eski" : m)) === m;
+
 async function readManifest(file: string): Promise<PostVoiceover | null> {
   try {
     return JSON.parse(await readFile(file, "utf8")) as PostVoiceover;
@@ -67,7 +70,7 @@ for (const post of videos) {
     const mId = ("modelId" in post && post.modelId) || modelId;
     // Seslendirilen metin: varsa ton etiketli `say`, yoksa altyazı metni `voice`
     const say: string = ("say" in scene && typeof scene.say === "string" && scene.say) || scene.voice;
-    const cached = old?.scenes.find((s) => s && s.voice === scene.voice && s.voiceId === vId && (s.say ?? s.voice) === say);
+    const cached = old?.scenes.find((s) => s && s.voice === scene.voice && s.voiceId === vId && (s.say ?? s.voice) === say && sameModel(s.modelId, mId));
     if (cached) {
       scenes.push(cached);
       continue;
@@ -77,7 +80,7 @@ for (const post of videos) {
       text: say,
       modelId: mId,
       // v3 modeli dili metinden tahmin etmeye çalışır; Türkçe olduğunu açıkça söyle
-      ...(mId === "eleven_v3" ? { languageCode: "tr" } : {}),
+      ...(mId === "eleven_v3" || mId.startsWith("eleven_v4") ? { languageCode: "tr" } : {}),
       // İsteğe bağlı videoya özel ses ayarları (doğallık için: düşük stability, biraz style)
       ...("voiceSettings" in post && post.voiceSettings ? { voiceSettings: post.voiceSettings } : {}),
       outputFormat: "mp3_44100_128",
@@ -107,6 +110,7 @@ for (const post of videos) {
       voice: scene.voice,
       ...(say !== scene.voice ? { say } : {}),
       voiceId: vId,
+      modelId: mId,
       file: `voiceover/${post.id}/${name}`,
       durationInSeconds: duration,
       words: finalWords,

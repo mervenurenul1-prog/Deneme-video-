@@ -113,6 +113,7 @@ export type WordTiming = { word: string; start: number; end: number };
 export type SceneAudio = {
   voice: string;
   say?: string;
+  modelId?: string;
   voiceId: string;
   file: string;
   durationInSeconds: number;
