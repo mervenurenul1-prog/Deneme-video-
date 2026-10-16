@@ -140,6 +140,12 @@ const every = (from: number, to: number, step: number, file: string, vol: number
   for (let t = from; t < to; t += step) out.push([t, file, vol]);
   return out;
 };
+// Ayak sesleri: walk() döngüsünde ayağın yere bastığı kareler (sin sıfırdan geçer: f = k·π·speed)
+const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
+  const out: Sfx[] = [];
+  for (let k = Math.ceil(from / (Math.PI * speed)); k * Math.PI * speed < to; k++) out.push([Math.round(k * Math.PI * speed), "adim", vol]);
+  return out;
+};
 // Saat tiklemesi (tik-tak): cevap gelmeden önceki bekleyiş ve dönen sayaçlar için
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
@@ -222,15 +228,93 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   ],
   "tarti-kapanis": (w) => [[w(3) - 2, "pirilti", 0.25], [w(4) + 14, "pop", 0.4], [w(5), "pop", 0.5], [w(6), "ding", 0.3]],
 
-  // 03 on bin adım
-  "adim-acilis": (w) => [...ticks(w(0), w(3) + 4, 3, 0.2), [w(3) + 6, "ding", 0.3], [w(6), "pop", 0.45], [w(8) - 2, "pop", 0.4], [w(10) - 2, "cizik", 0.5], [w(10) + 6, "cizik", 0.5]],
-  "adim-reklam": (w) => [[2, "pop", 0.35], [w(0), "kalem", 0.35], [w(2) - 2, "pop", 0.4], [w(5) - 2, "pop", 0.4], ...ticks(w(5), w(7), 6, 0.22), [w(6), "ding", 0.25], [w(7) + 2, "whoosh", 0.35], [w(8), "pirilti", 0.4], [w(8) + 2, "kalem", 0.35]],
-  "adim-yayildi": (w, d) => [[w(0) - 2, "pop", 0.4], [w(1), "pirilti", 0.3], [w(3), "pop", 0.3], [w(3) + 5, "pop", 0.3], [w(3) + 10, "pop", 0.3], [w(6) - 4, "whoosh", 0.35], ...every(w(7), d - 12, Math.max(3, (d - 12 - w(7)) / 9), "pop", 0.16)],
-  "adim-bilim": (w) => [[2, "pop", 0.35], ...ticks(6, w(4) - 3, 9, 0.35), [w(4) - 3, "boom", 0.16], [w(4) - 2, "pirilti", 0.4], ...ticks(w(4), w(7) + 4, 3, 0.16), [w(7) + 6, "ding", 0.28], [w(8), "whoosh", 0.25]],
-  "adim-egri": (w) => [[2, "kalem", 0.3], [w(1), "kalem", 0.3], [w(4), "pop", 0.3], [w(9) - 2, "ding", 0.3], [w(10), "kalem", 0.3], [w(12), "pop", 0.3]],
-  "adim-sihirli": (w) => [[w(1) - 2, "pirilti", 0.45], [w(3), "pirilti", 0.3], [w(6) - 2, "cizik", 0.5], [w(6) + 6, "boom", 0.18], [w(7), "pop", 0.4], [w(11) - 2, "cizik", 0.4], [w(12) - 2, "ding", 0.35]],
-  "adim-her-adim": (w) => [[w(3), "pop", 0.3], [w(5), "pop", 0.3], [w(6), "pirilti", 0.35], [w(7) + 8, "ding", 0.3]],
-  "adim-kapanis": (w) => [[w(1) - 2, "pop", 0.5], [w(3) - 2, "pop", 0.35], [w(5), "pop", 0.4]],
+  // 03 on bin adım — ekranda beliren her olayın kendi sesi var; ayak sesleri yürüyüşte ayağın yere bastığı kareye denk gelir
+  "adim-acilis": (w) => [
+    ...steps(6, w(6) - 2, 5.5, 0.35),
+    [w(0) - 2, "pop", 0.4],
+    ...ticks(w(0), w(3) + 4, 3, 0.2),
+    [w(3) + 4, "ding", 0.3],
+    [w(6), "pop", 0.45],
+    ...steps(w(6) - 6, w(8) + 2, 4.5, 0.3),
+    [w(10) - 2, "sonme", 0.35],
+    [w(10), "whoosh", 0.18],
+    [w(10) + 5, "whoosh", 0.15],
+  ],
+  "adim-reklam": (w) => [
+    [0, "kagit", 0.45],
+    [w(0), "kalem", 0.35],
+    [w(2) - 2, "pop", 0.4],
+    [w(5) - 2, "pop", 0.4],
+    ...every(w(5), w(7) + 20, 5, "tik", 0.18),
+    ...[0, 1, 2, 3].map((i): Sfx => [w(6) - 2 + i * 4, "pop", 0.14]),
+    [w(6) + 14, "kacing", 0.45],
+    [w(7) + 2, "kagit", 0.45],
+    [w(7) + 3, "whoosh", 0.25],
+    [w(8), "kalem", 0.35],
+    [w(8) + 6, "pirilti", 0.3],
+  ],
+  "adim-yayildi": (w, d) => {
+    const step = Math.max(3, (d - 12 - w(7)) / 9);
+    return [
+      [w(0) - 2, "pop", 0.4],
+      [w(1), "sihir", 0.3],
+      [w(3), "kagit", 0.3],
+      [w(3) + 5, "kagit", 0.3],
+      [w(3) + 10, "kagit", 0.3],
+      [w(5), "whoosh", 0.3],
+      [w(6) - 4, "boom", 0.15],
+      [w(6) - 2, "whoosh", 0.3],
+      ...Array.from({ length: 9 }, (_, i): Sfx => [w(7) + i * step, "adim", 0.3]),
+    ];
+  },
+  "adim-bilim": (w) => [
+    [2, "pop", 0.35],
+    ...ticks(6, w(4) - 3, 9, 0.35),
+    [w(4) - 3, "boom", 0.16],
+    [w(4) - 2, "pirilti", 0.4],
+    [w(4), "yuksel", 0.3],
+    ...ticks(w(4), w(7) + 4, 3, 0.16),
+    ...every(w(4), w(7) + 6, 6, "pop", 0.08),
+    [w(7) + 4, "ding", 0.28],
+    [w(8) - 2, "whoosh", 0.3],
+  ],
+  "adim-egri": (w) => [
+    [0, "kagit", 0.35],
+    ...every(w(0), w(8) + 4, 12, "kalem", 0.2),
+    ...steps(w(0), w(10), 3.2, 0.12),
+    [w(1), "kalem", 0.3],
+    [w(4), "pop", 0.3],
+    [w(9) - 2, "ding", 0.35],
+    ...every(w(10), w(15) + 4, 12, "kalem", 0.2),
+    [w(11), "kalem", 0.3],
+    [w(12), "pop", 0.3],
+  ],
+  "adim-sihirli": (w) => [
+    [w(1) - 2, "sihir", 0.5],
+    [w(3), "pirilti", 0.2],
+    [w(6) - 2, "sonme", 0.5],
+    [w(6) - 2, "cizik", 0.4],
+    [w(6) + 4, "whoosh", 0.3],
+    [w(7) + 4, "boom", 0.18],
+    [w(7), "kagit", 0.35],
+    [w(11) - 2, "cizik", 0.45],
+    [w(12) - 2, "ding", 0.4],
+    [w(12), "pirilti", 0.3],
+  ],
+  "adim-her-adim": (w, d) => [
+    ...steps(4, d, 5.5, 0.3),
+    [w(3), "yuksel", 0.3],
+    [w(5), "yuksel", 0.35],
+    [w(6), "pop", 0.35],
+    [w(6) + 2, "pirilti", 0.35],
+    [w(7) + 10, "ding", 0.3],
+  ],
+  "adim-kapanis": (w) => [
+    [w(1) - 2, "pop", 0.5],
+    [w(3) - 2, "adim", 0.3],
+    [w(3) + 6, "adim", 0.3],
+    [w(5), "pop", 0.45],
+  ],
 };
 
 /* ---------- yardımcılar ---------- */
@@ -464,6 +548,7 @@ type PersonProps = {
   breath?: number; // akciğerlerin şişmesi 0..1
   legGlow?: number; // kasların "yanması"
   blush?: number;
+  shirt?: string; // gömlek rengi (ör. doktor önlüğü için beyaz)
   children?: React.ReactNode; // karakterin koordinatlarında ek çizimler
 };
 
@@ -522,6 +607,7 @@ const Person: React.FC<PersonProps> = ({
   breath = 0,
   legGlow = 0,
   blush = 0.4,
+  shirt = C.shirt,
   children,
 }) => {
   const frame = useCurrentFrame();
@@ -586,7 +672,7 @@ const Person: React.FC<PersonProps> = ({
         strokeLinejoin="round"
       />
       {/* gövde */}
-      <path d={torso} fill={C.shirt} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      <path d={torso} fill={shirt} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
       <ellipse cx={0} cy={-445} rx={waist * 0.62} ry={52 + 40 * belly} fill={C.shirtLight} opacity={0.25 + 0.4 * belly} />
       {belly > 0.15 ? (
         <path
@@ -601,8 +687,8 @@ const Person: React.FC<PersonProps> = ({
       <path d="M-34 -603 Q0 -566 34 -603" stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
       {lungs > 0 ? <Lungs o={lungs} breath={breath} /> : null}
       {/* kollar */}
-      <Limb p={aL} w={44} color={C.skin} sleeve={C.shirt} />
-      <Limb p={aR} w={44} color={C.skin} sleeve={C.shirt} />
+      <Limb p={aL} w={44} color={C.skin} sleeve={shirt} />
+      <Limb p={aR} w={44} color={C.skin} sleeve={shirt} />
       {[aL, aR].map((p, i) => (
         <circle key={i} cx={p[2][0]} cy={p[2][1]} r={27} fill={C.skin} stroke={C.ink} strokeWidth={6} />
       ))}
@@ -2064,7 +2150,11 @@ const AdimAcilis: React.FC<SceneProps> = ({ w }) => {
   const g = walk(f, tw(f, 2, 10) * (1 - stop));
   const think = tw(f, w(6), w(7) + 4);
   const screen = pop(f, w(0), 14);
-  const doc = pop(f, w(8) - 2, 14);
+  // "kim söyledi?" sorulurken doktor sağdan yürüyerek gelir (cevap o mu?); "değil" denince başını sallar, omuz silker
+  const docIn = tw(f, w(6) - 6, w(8) + 2);
+  const docWalk = walk(f, docIn > 0 && docIn < 1 ? 1 : 0, 4.5);
+  const no = tw(f, w(10) - 2, w(10) + 6);
+  const shake = no > 0 ? Math.sin((f - w(10)) / 2.2) * 12 * (1 - tw(f, w(10) + 14, w(10) + 26)) : 0;
   return (
     <>
       {cycles(f, 6, 11, 70).map(({ k, p }) => (
@@ -2089,19 +2179,30 @@ const AdimAcilis: React.FC<SceneProps> = ({ w }) => {
         </StepScreen>
       ) : null}
       <HandText x={300} y={720} text="?" size={190} p={pop(f, w(6), 12)} rotate={-10} />
-      {doc > 0 ? (
-        <g transform={`translate(830 760) scale(${doc})`}>
-          <circle r={95} fill={C.cream} stroke={C.ink} strokeWidth={8} />
-          <path d="M-45 -40 Q-50 30 0 40 Q50 30 45 -40" stroke={C.ink} strokeWidth={10} fill="none" strokeLinecap="round" />
-          <circle cx={0} cy={40} r={8} fill={C.ink} />
-          <path d="M0 48 Q0 70 26 70" stroke={C.ink} strokeWidth={8} fill="none" />
-          <circle cx={36} cy={70} r={16} fill="#9a9a9a" stroke={C.ink} strokeWidth={6} />
-          <text x={0} y={-110} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
-            doktor
+      {docIn > 0 ? (
+        <Person
+          x={interpolate(docIn, [0, 1], [1250, 860])}
+          y={PY - docWalk.bob}
+          s={0.74}
+          belly={0.3}
+          shirt="#f4f1ea"
+          legL={docWalk.legL}
+          legR={docWalk.legR}
+          armL={no > 0 ? [10 + 70 * no, -60 * no] : docWalk.armL}
+          armR={no > 0 ? [10 + 70 * no, -60 * no] : docWalk.armR}
+          mouth={no > 0.5 ? "flat" : "smile"}
+          tilt={shake}
+          lookY={2}
+        >
+          {/* steteskop ve yaka kartı */}
+          <path d="M-40 -596 Q-62 -500 -6 -470 Q50 -500 40 -596" stroke={C.ink} strokeWidth={9} fill="none" strokeLinecap="round" />
+          <circle cx={-6} cy={-462} r={15} fill="#9a9a9a" stroke={C.ink} strokeWidth={6} />
+          <rect x={30} y={-540} width={56} height={38} rx={6} fill={C.water} stroke={C.ink} strokeWidth={5} />
+          <text x={58} y={-512} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={30} fill={C.cream}>
+            Dr.
           </text>
-        </g>
+        </Person>
       ) : null}
-      {doc > 0 ? <Cross x={830} y={760} size={110} p={tw(f, w(10) - 2, w(10) + 12)} /> : null}
     </>
   );
 };
@@ -2139,10 +2240,18 @@ const AdimReklam: React.FC<SceneProps> = ({ w }) => {
         ) : null}
       </g>
       <Person x={900} y={PY + 30} s={0.6} belly={0.4} armL={[150, -40]} armR={[12, 0]} mouth={curtain > 0.5 ? "o" : "smile"} eyes={curtain > 0.5 ? "wide" : "open"} lookY={-4} />
-      {/* satış: para ve etiket */}
-      <g opacity={tw(f, w(6) - 2, w(6) + 8)}>
-        <HandText x={830} y={500} text="satış!" size={80} p={tw(f, w(6) - 2, w(6) + 10)} color={C.glow} rotate={8} />
-      </g>
+      {/* "sattı": adımsayardan karaktere doğru paralar uçar */}
+      {[0, 1, 2, 3].map((i) => {
+        const p = tw(f, w(6) - 2 + i * 4, w(6) + 14 + i * 4);
+        if (p <= 0 || p >= 1) return null;
+        const x = interpolate(p, [0, 1], [P.x + 60, 880 + i * 18]);
+        const y = interpolate(p, [0, 1], [P.y + 20, 930]) - Math.sin(p * Math.PI) * 220;
+        return (
+          <g key={i} transform={`translate(${x} ${y}) rotate(${p * 540})`}>
+            <ellipse rx={30} ry={30 * Math.max(0.15, Math.abs(Math.cos(p * 9)))} fill={C.yellow} stroke={C.ink} strokeWidth={5} />
+          </g>
+        );
+      })}
     </>
   );
 };
@@ -2258,15 +2367,18 @@ const AdimEgri: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <g opacity={tw(f, 0, 12)} transform="rotate(-1.2 540 640)">
-        <rect x={100} y={300} width={880} height={700} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+        <rect x={100} y={300} width={880} height={780} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={8} />
         <rect x={X(6000)} y={B.y1 - 20} width={(X(8000) - X(6000)) * band1} height={B.y0 - B.y1 + 20} fill="#3f7d4f" opacity={0.18} />
         <rect x={X(8000)} y={B.y1 - 20} width={(X(10000) - X(8000)) * band2} height={B.y0 - B.y1 + 20} fill={C.water} opacity={0.18} />
         <path d={`M${B.x0} ${B.y1 - 30} L${B.x0} ${B.y0} L${B.x1} ${B.y0}`} stroke={C.ink} strokeWidth={6} fill="none" />
         {[0, 2, 4, 6, 8, 10, 12].map((k) => (
           <text key={k} x={X(k * 1000)} y={B.y0 + 56} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={44} fill={C.ink}>
-            {k ? `${k}b` : "0"}
+            {k}
           </text>
         ))}
+        <text x={(B.x0 + B.x1) / 2} y={B.y0 + 130} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.ink}>
+          bin adım
+        </text>
         <text x={B.x0 + 14} y={B.y1 - 40} fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.ink}>
           fayda
         </text>
@@ -2280,9 +2392,30 @@ const AdimEgri: React.FC<SceneProps> = ({ w }) => {
             ?
           </text>
         ) : null}
+        {old > 0.03 ? (() => {
+          const st = 12000 * Math.min(old, 0.97);
+          const k = 0.82;
+          const v = k * (1 - Math.exp(-st / 2700));
+          const g2 = walk(f, old < 1 || f < w(10) ? 1 : 0, 3.2);
+          return (
+            <Person
+              x={X(st)}
+              y={Y(v) - 8 - g2.bob * 0.3}
+              s={0.17}
+              belly={0.3}
+              legL={g2.legL}
+              legR={g2.legR}
+              armL={g2.armL}
+              armR={g2.armR}
+              tilt={0}
+              mouth={sat ? "grin" : "o"}
+              blush={0.8}
+            />
+          );
+        })() : null}
         <HandText x={X(7000)} y={Y(0.82) - 30} text="doyuyor" size={58} p={tw(f, w(9) - 2, w(9) + 12)} color="#3f7d4f" rotate={-4} />
       </g>
-      <Person x={880} y={PY + 70} s={0.62} belly={0.4} armL={[150, -20]} armR={[12, 0]} mouth={sat ? "grin" : "o"} lookY={-6} tilt={-6} />
+      <Person x={910} y={PY + 190} s={0.55} belly={0.4} armL={[150, -20]} armR={[12, 0]} mouth={sat ? "grin" : "o"} lookY={-6} tilt={-6} />
     </>
   );
 };
