@@ -367,15 +367,15 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-sonuc": (w) => [[w(3) - 2, "pop", 0.35], [w(4) - 2, "cizik", 0.45], [w(5) - 2, "whoosh", 0.3], [w(6), "boom", 0.18], [w(6) + 2, "sihir", 0.45]],
   "kadin-kapanis": (w) => [[0, "pop", 0.3], [w(0) - 4, "pop", 0.25], [w(4), "whoosh", 0.35], [w(5) + 6, "ding", 0.3], [w(6) - 2, "pop", 0.55], [w(6) + 2, "tak", 0.35]],
 
-  // 05 boyun — her olayın kendi sesi
-  "boyun-acilis": (w) => [...every(4, w(2), 4, "tak", 0.15), [w(2), "whoosh", 0.4], [w(3) + 2, "boom", 0.35], [w(3) + 2, "tak", 0.5], [w(4) - 2, "pop", 0.45], [w(9) - 2, "damla", 0.25], [w(9) + 8, "damla", 0.2]],
-  "boyun-gun": (w) => [...every(2, w(2) - 4, 7, "bip", 0.3), [w(2) - 2, "whoosh", 0.3], [w(2), "boom", 0.12], [w(3) - 2, "whoosh", 0.25], ...every(w(3), w(4) - 4, 4, "tik", 0.18), [w(4) - 2, "whoosh", 0.25], [w(4), "sonme", 0.15], [w(6), "pop", 0.3]],
-  "boyun-kaldirac": (w) => [[0, "whoosh", 0.25], ...ticks(w(1), w(3) + 4, 4, 0.2), [w(3) + 4, "bip", 0.35], ...every(w(6), w(13) + 6, 6, "tik", 0.15), [w(11) - 2, "pop", 0.35], [w(11) + 4, "tak", 0.35]],
-  "boyun-altmis": (w) => [...ticks(w(3), w(5) + 4, 4, 0.2), [w(5) + 4, "ding", 0.25], ...every(w(6), w(11) + 4, 6, "tik", 0.18), [w(8), "pop", 0.3], [w(12) - 2, "whoosh", 0.3], [w(12) + 8, "boom", 0.35], [w(12) + 8, "tak", 0.4], ...ticks(w(12), w(14) + 2, 3, 0.2), [w(14) + 2, "bip", 0.4]],
-  "boyun-surpriz": (w) => [[2, "pop", 0.35], ...ticks(6, w(5) - 3, 9, 0.35), [w(5) - 3, "boom", 0.16], [w(5) - 2, "kagit", 0.4], [w(7) - 2, "pop", 0.4], [w(10) - 2, "pop", 0.4], ...every(w(11), w(12) + 6, 4, "tik", 0.2), [w(15) - 2, "cizik", 0.5], [w(15), "boom", 0.18], [w(15) + 4, "sonme", 0.3]],
+  // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "boyun-acilis": (w) => [...every(4, w(2), 4, "tak", 0.18), [w(2) - 2, "havalanma", 0.7], [w(3) + 2, "agir-dusme", 0.9], [w(4) - 2, "pop", 0.45], [w(9) - 2, "damla", 0.3], [w(9) + 8, "damla", 0.25]],
+  "boyun-gun": (w) => [[2, "alarm", 0.55], [w(2) - 2, "whoosh", 0.3], [w(2) - 2, "otobus", 0.55], [w(3) - 2, "whoosh", 0.25], [w(3), "klavye", 0.5], [w(4) - 2, "whoosh", 0.25], [w(4), "sonme", 0.2], [w(6), "agir-dusme", 0.35]],
+  "boyun-kaldirac": (w) => [[0, "whoosh", 0.3], ...ticks(w(1), w(3) + 4, 4, 0.22), [w(3) + 4, "bip", 0.4], ...every(w(6), w(13) + 6, 6, "tik", 0.16), [w(11) - 2, "pop", 0.4], [w(11) + 4, "tak", 0.4]],
+  "boyun-altmis": (w) => [...ticks(w(3), w(5) + 4, 4, 0.22), [w(5) + 4, "ding", 0.3], ...every(w(6), w(11) + 4, 6, "tik", 0.18), [w(8), "pop", 0.35], [w(12) - 2, "havalanma", 0.5], [w(12) + 8, "agir-dusme", 0.9], ...ticks(w(12) + 8, w(14) + 2, 3, 0.2), [w(14) + 2, "bip", 0.45]],
+  "boyun-surpriz": (w) => [[2, "pop", 0.35], ...ticks(6, w(5) - 3, 9, 0.35), [w(5) - 3, "boom", 0.16], [w(5) - 2, "kagit", 0.4], [w(7) - 2, "pop", 0.4], [w(10) - 2, "pop", 0.4], ...every(w(11), w(12) + 6, 4, "tik", 0.2), [w(15) - 2, "zincir", 0.85], [w(15) + 4, "sonme", 0.3]],
   "boyun-asil": (w, d) => [...every(w(5) - 2, w(7) + 8, 3, "tik", 0.18), [w(5), "whoosh", 0.25], [w(6), "nefes", 0.3], [w(7) + 8, "ding", 0.2], ...every(w(8), d - 6, 10, "bip", 0.15)],
-  "boyun-cozum": (w) => [[w(0), "yuksel", 0.35], [w(4) - 2, "whoosh", 0.2], [w(4) + 14, "whoosh", 0.2], [w(8) - 2, "whoosh", 0.35], [w(9) + 6, "boom", 0.3], [w(9) + 6, "tak", 0.4], [w(10), "nefes", 0.4], [w(10) + 4, "pirilti", 0.35], [w(11), "ding", 0.25]],
-  "boyun-kapanis": (w) => [[w(1), "whoosh", 0.2], [w(6), "pop", 0.35], ...every(w(6), w(9) - 2, 3, "tak", 0.18), [w(9), "tik", 0.3]],
+  "boyun-cozum": (w) => [[w(0), "yuksel", 0.35], [w(4) - 2, "whoosh", 0.2], [w(4) + 14, "whoosh", 0.2], [w(8) - 2, "whoosh", 0.4], [w(9) + 6, "agir-dusme", 0.85], [w(10), "nefes", 0.4], [w(10) + 4, "pirilti", 0.35], [w(11), "ding", 0.25]],
+  "boyun-kapanis": (w) => [[w(1), "whoosh", 0.25], [w(6), "pop", 0.4], ...every(w(6), w(9) - 2, 3, "tak", 0.22), [w(9) - 4, "havalanma", 0.25]],
 };
 
 /* ---------- yardımcılar ---------- */

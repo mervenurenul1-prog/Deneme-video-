@@ -121,6 +121,10 @@ telefonu kaldırınca zıplayıp iner; kapanış "o çocuk geri gelmeyi çok sev
 **Kullanıcı: "çocuk değil dambıl daha mantıklı"** → çocuk yerine ensede 27 kg'lık dambıl (`NeckDumbbell`,
 `AvatarWithDumbbell`): yerden havalanıp enseye oturur, tartıya düşer, telefonu kaldırınca yere iner; kapanış
 "Ama telefona tekrar baktığın an, o dambıl geri gelir. Çünkü..." (dambıl yerde titrer = açılış karesi).
+**05 ONAYLANDI ve seslendirildi** (Yunus V4, ~700 karakter, 51,9 sn): `ornek-videolar/cizim1-pilot/05-boyun.mp4`.
+Kullanıcı "çarpıcı ses efektleri" istedi → ElevenLabs Sound Effects (`POST /v1/sound-generation` {text, duration_seconds,
+prompt_influence}) ile gerçekçi efektler üretildi, −16 LUFS: `agir-dusme`, `havalanma`, `alarm`, `otobus`, `klavye`,
+`zincir` (public/sfx). Anahtar anlarda bunları kullan. Not: müzik/efekt üretimi kredi düşürebiliyor, kontrol et.
 **04 revize (kullanıcı: "beğendim ama daha iyi giriş, loop etkisi, daha kuvvetli betimleme"):** yeni açılış "Ağırlık
 kaldıran bir kadının iri olması, sandığından çok daha zor" + kadının kolları balon gibi şişip "izin vermez"de söner;
 kapanış "...arkadaşına gönder. Çünkü..." (avatar kâğıt uçakla gönderir, arkadaş dambılı alır = açılış karesi).
