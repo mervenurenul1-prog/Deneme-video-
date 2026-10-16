@@ -1,0 +1,7 @@
+Müzikler: Kevin MacLeod (incompetech.com)
+Lisans: Creative Commons: By Attribution 4.0 — http://creativecommons.org/licenses/by/4.0/
+Kullanırken açıklamaya ekle: "Müzik: <Parça adı> – Kevin MacLeod (incompetech.com), CC BY 4.0"
+Dosyalar -20 LUFS'a normalize edildi.
+- investigations.mp3: "Investigations"
+- easy-lemon.mp3: "Easy Lemon"
+- life-of-riley.mp3: "Life of Riley"
