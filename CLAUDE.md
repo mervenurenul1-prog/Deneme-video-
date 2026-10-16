@@ -26,6 +26,8 @@ değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski
 `src/uc` (3D). Eski notlar aşağıda.
 
 ## Kullanıcıyla anlaşılan çalışma kuralları
+- **Toplu video YOK: tek tek ilerle.** Bir video bitip onaylanmadan sonrakine geçme (kredi tasarrufu).
+  Her seslendirmeden önce kalan krediyi kontrol et ve kullanıcıya söyle (`/v1/user/subscription`).
 - **Önce sessiz önizleme, onaydan sonra seslendirme.** Kredi boşa gitmesin.
 - **Adım adım, yavaş:** önce 1 pilot, onay gelince kalanlar. Yarım iş bırakma.
 - Her işin sonunda commit + push.
