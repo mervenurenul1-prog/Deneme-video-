@@ -4,8 +4,9 @@ Bu dosya yeni oturumların kaldığı yerden devam etmesi içindir. Her oturum b
 
 ## Proje
 VOOM (antrenman + beslenme + kişisel koç uygulaması) için Instagram Reels üretimi.
-Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Çalışma dalı:
-`claude/elevenlabs-voom-turkish-voiceover-4jqxsc`.
+Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **main** dalında (16 Ekim'de
+birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
+dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
 ## >>> YENİ OTURUM: BURADAN BAŞLA <<<
 **Geçerli yöntem:** çizim v1 stili (`src/cizim1/Cizim1.tsx`, içerik `content/cizim1/*.json`): sade erkek
