@@ -113,6 +113,11 @@ kullanıcı dinleyip seçecek.
 Hansraj 2014 model tahmini + dürüst sürpriz: araştırmalar duruşun tek başına ağrı yaptığını net göstermedi). Yandan
 boyun röntgeni (`NeckLens`), telefon (`Phone`, `PHONE_ARM`), kettlebell. Sessiz önizleme gönderildi, onay bekleniyor.
 Sıradaki: 3) "30 dakikalık protein penceresi bir efsane".
+**04 revize (kullanıcı: "beğendim ama daha iyi giriş, loop etkisi, daha kuvvetli betimleme"):** yeni açılış "Ağırlık
+kaldıran bir kadının iri olması, sandığından çok daha zor" + kadının kolları balon gibi şişip "izin vermez"de söner;
+kapanış "...arkadaşına gönder. Çünkü..." (avatar kâğıt uçakla gönderir, arkadaş dambılı alır = açılış karesi).
+Testosteron parçacıkları + tüp doldukça kol büyür; kas hatları. **Müzik: 10 bin adımdaki merak-gerilim kalıyor (seri).**
+Sessiz önizleme gönderildi → onay → seslendirme. Sonra 05 boyun, sonra yeni konu.
 **Kullanıcı: "Kendi kafana göre iş yapma, sor."** Yapılacak işi söyle, onay al.
 **Referans analiz (kullanıcının gönderdiği tutan 2 Instagram videosu):** ters köşe açılış (ilk 3 sn) → neden-sonuç
 zinciri → sonda sürpriz bilgi → başa bağlanan döngü; tek tutarlı dünya (kart/grafik az); mekanizmada vücudun içine

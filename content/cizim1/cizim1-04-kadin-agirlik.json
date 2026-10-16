@@ -13,8 +13,8 @@
   "scenes": [
     {
       "visual": "kadin-acilis",
-      "voice": "\"Ağırlık kaldırırsam iri olurum.\" Bunu diyen çok kadın var. Ama vücudun buna pek izin vermez.",
-      "say": "\"Ağırlık kaldırırsam iri olurum.\" Bunu diyen çok kadın var. [curious] Ama vücudun buna pek izin vermez."
+      "voice": "Ağırlık kaldıran bir kadının iri olması, sandığından çok daha zor. Vücudu buna kolay kolay izin vermez.",
+      "say": "Ağırlık kaldıran bir kadının iri olması, sandığından [curious] çok daha zor. Vücudu buna, hani, kolay kolay izin vermez."
     },
     {
       "visual": "kadin-hormon",
@@ -48,8 +48,8 @@
     },
     {
       "visual": "kadin-kapanis",
-      "voice": "Bunu kaydet, çünkü biri yine diyecek ki:",
-      "say": "Bunu kaydet, çünkü biri yine [curious] diyecek ki:"
+      "voice": "Bunu, \"iri olurum\" diyen arkadaşına gönder. Çünkü...",
+      "say": "Bunu, \"iri olurum\" diyen arkadaşına gönder. Çünkü..."
     }
   ],
   "caption": "Ağırlık kaldıran kadın iri olmaz, güçlü olur 💪\n\nKadınlarda testosteron erkeklerin yaklaşık onda biri kadar. Kasların yine güçlenir ve büyür, ama sonuç iri değil; sıkı ve şekilli bir vücut. Sahnedeki vücut geliştiricilerin arkasında yıllar süren özel program ve diyet var.\n\nÜstelik ağırlık kemiği korur: LIFTMOR çalışmasında (Watson ve ark., JBMR 2018) menopoz sonrası düşük kemik yoğunluğu olan kadınlarda 8 aylık ağır direnç antrenmanı omurga ve kalça kemik yoğunluğunu artırdı.\n\nKaydet, \"iri olurum\" diyen arkadaşına gönder 📲",

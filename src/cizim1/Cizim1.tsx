@@ -317,20 +317,18 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   ],
 
   // 04 kadın ve ağırlık — her olayın kendi sesi
-  "kadin-acilis": (w) => [
-    [w(0) - 2, "pop", 0.45],
-    [w(0) + 4, "whoosh", 0.2],
-    [w(5), "pop", 0.25],
-    [w(5) + 4, "pop", 0.25],
-    ...ticks(w(9), w(13) - 2, 6, 0.25),
-    [w(13) - 2, "pop", 0.6],
-    [w(13), "whoosh", 0.3],
-    [w(13) + 4, "pirilti", 0.3],
-  ],
+  "kadin-acilis": (w) => {
+    // her tekrarın tepesinde "tak" + şişme sesi; "izin vermez" denince sönme
+    const reps: Sfx[] = [];
+    for (let k = 0; 4 + Math.PI * 6 * (2 * k + 1) < w(14) - 4; k++) reps.push([Math.round(4 + Math.PI * 6 * (2 * k + 1)), "tak", 0.28]);
+    return [[2, "whoosh", 0.15], ...reps, [8, "yuksel", 0.25], [w(2), "yuksel", 0.3], [w(4), "pop", 0.4], ...every(w(6), w(14) - 2, 8, "tik", 0.18), [w(14) - 2, "sonme", 0.55], [w(14), "whoosh", 0.3], [w(14) + 6, "pop", 0.35]];
+  },
   "kadin-hormon": (w) => [
     [w(5) - 2, "pop", 0.4],
     [w(7) - 2, "kalem", 0.3],
     [w(7) - 2, "yuksel", 0.35],
+    ...every(w(7) - 2, w(8) + 4, 3, "damla", 0.1),
+    ...every(w(8), w(13), 12, "damla", 0.14),
     ...ticks(w(8), w(13) - 2, 6, 0.2),
     [w(13) - 2, "boom", 0.16],
     [w(13), "ding", 0.35],
@@ -367,7 +365,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
     return [...lifts, [w(4) - 4, "whoosh", 0.3], [w(4), "yuksel", 0.3], [w(9), "pirilti", 0.35], [w(10) - 2, "kalem", 0.35], [w(12) - 2, "ding", 0.4]];
   },
   "kadin-sonuc": (w) => [[w(3) - 2, "pop", 0.35], [w(4) - 2, "cizik", 0.45], [w(5) - 2, "whoosh", 0.3], [w(6), "boom", 0.18], [w(6) + 2, "sihir", 0.45]],
-  "kadin-kapanis": (w) => [[w(1) - 2, "pop", 0.5], ...steps(w(2) - 4, w(4) + 4, 4.5, 0.3), [w(5) - 2, "pop", 0.45]],
+  "kadin-kapanis": (w) => [[0, "pop", 0.3], [w(0) - 4, "pop", 0.25], [w(4), "whoosh", 0.35], [w(5) + 6, "ding", 0.3], [w(6) - 2, "pop", 0.55], [w(6) + 2, "tak", 0.35]],
 
   // 05 boyun — her olayın kendi sesi
   "boyun-acilis": (w) => [[w(2), "pop", 0.35], [w(6) - 8, "whoosh", 0.35], [w(6) + 4, "boom", 0.3], [w(6) + 4, "tak", 0.5], [w(8), "damla", 0.25], [w(8) + 10, "damla", 0.2]],
@@ -2757,64 +2755,49 @@ const curlArm = (c: number): Arm => [12 + 22 * c, -150 * c];
 
 /* ---------- 04 kadın ve ağırlık: sahneler ---------- */
 
-// "\"Ağırlık kaldırırsam iri olurum.\" Bunu diyen çok kadın var. Ama vücudun buna pek izin vermez."
+// "Ağırlık kaldıran bir kadının iri olması, sandığından çok daha zor. Vücudu buna kolay kolay izin vermez."
+// Kadın dambıl kaldırdıkça kol ve bacakları balon gibi şişer (iri mi oluyor?); "izin vermez" denince fısss diye söner.
 const KadinAcilis: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  // balon ilk karede görünmesin (döngüde son kare = ilk kare temiz kalsın)
-  const bubble = pop(f, Math.max(5, w(0) + 2), 16);
-  const burst = tw(f, w(13) - 2, w(13) + 6);
-  const worry = f >= w(1) && burst < 0.5;
-  const shake = f >= w(9) && burst === 0 ? Math.sin(f / 1.8) * 5 : 0;
-  const others = tw(f, w(5), w(7) + 6);
+  const c = f > 4 ? (1 - Math.cos((f - 4) / 6)) / 2 : 0;
+  const pump = tw(f, 6, w(4) + 4); // her tekrarda biraz daha şişer
+  const strain = f >= w(6) && f < w(14) - 2;
+  const deflate = tw(f, w(14) - 2, w(14) + 8);
+  const limb = 1 + (0.95 * pump + (strain ? 0.08 * Math.sin(f / 1.6) : 0)) * (1 - deflate);
+  const arm = curlArm(c * (1 - deflate * 0.6));
+  const hand = armPoints(1, arm)[2];
+  const avatarArm = tw(f, 0, 10);
+  const puzzled = deflate > 0.5;
   return (
     <>
       <Gym />
-      <Barbell x={650} y={PY - 60} s={0.5} />
-      {/* "bunu diyen çok kadın": arka planda başka kadınlar da aynı düşünceyle belirir */}
-      {[0, 1].map((i) => (
-        <g key={i} opacity={others * (1 - burst) * 0.75}>
-          <Person x={i ? 1010 : 70} y={1220} s={0.42} female belly={0.2} shirt={i ? "#6e8fb3" : "#9a7bb0"} mouth="worry" lookY={-4} />
-        </g>
-      ))}
-      {/* serinin avatarı: kadının korkusunu dinler, "izin vermez" deyince gülümser */}
+      <Barbell x={480} y={PY - 60} s={0.45} />
+      {/* serinin avatarı: elindeki telefonu indirir, şişen kollara şaşırır, sönünce güler */}
       <Person
-        x={PX - 160}
-        y={PY}
-        s={0.92}
+        x={250}
+        y={PY + 20}
+        s={0.82}
         belly={0.4}
         armL={[12, 0]}
-        armR={burst > 0.5 ? [140, -60] : [12, 0]}
-        mouth={burst > 0.5 ? "grin" : f >= w(9) ? "smile" : "flat"}
-        lookY={2}
-        tilt={f < w(9) ? 6 : 0}
-      />
-      <Person
-        x={830}
-        y={PY + 20}
-        s={0.72}
-        female
-        belly={0.2}
-        armL={[12, 0]}
-        armR={worry ? [150, -140] : [12, 0]}
-        mouth={burst > 0.5 ? "grin" : worry ? "worry" : "flat"}
-        eyes={worry ? "wide" : "open"}
-        lookY={4}
-        tilt={worry ? 6 : 0}
-      />
-      {bubble > 0 && burst < 1 ? (
-        <g transform={`rotate(${shake} 690 520) translate(690 520) scale(${1 + 0.4 * burst}) translate(-690 -520)`} opacity={1 - burst}>
-          <Bubble x={690} y={520} rx={220} ry={180} p={bubble} tail={[810, 780]}>
-            {/* korkulan görüntü: iri kollu, iri bacaklı kadın */}
-            <Person x={690} y={655} s={0.3} female belly={0.15} limbW={2.3} armL={[60, -120]} armR={[60, -120]} mouth="flat" />
-          </Bubble>
+        armR={[interpolate(avatarArm, [0, 1], [40, 12]), interpolate(avatarArm, [0, 1], [-150, 0])]}
+        mouth={puzzled ? "grin" : pump > 0.6 ? "o" : "smile"}
+        eyes={pump > 0.6 && !puzzled ? "wide" : "open"}
+      >
+        {avatarArm < 1 ? <g opacity={1 - avatarArm}><PhoneInHand arm={[interpolate(avatarArm, [0, 1], [40, 12]), interpolate(avatarArm, [0, 1], [-150, 0])]} /></g> : null}
+      </Person>
+      <Person x={720} y={PY} s={0.9} female belly={0.2} limbW={limb} armL={[12, 0]} armR={arm} mouth={puzzled ? "o" : strain ? "flat" : "smile"} eyes={c > 0.85 && !puzzled ? "closed" : "open"} tilt={puzzled ? 8 : 0}>
+        <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${-20 + 60 * c})`}>
+          <Dumbbell x={0} y={0} s={0.55} rot={90} />
         </g>
-      ) : null}
-      {burst > 0 && burst < 1
-        ? Array.from({ length: 10 }, (_, i) => {
-            const a = (i / 10) * Math.PI * 2;
-            return <circle key={i} cx={690 + Math.cos(a) * (190 + 160 * burst)} cy={520 + Math.sin(a) * (150 + 140 * burst)} r={14 * (1 - burst)} fill={C.cream} stroke={C.ink} strokeWidth={4} />;
-          })
-        : null}
+        {/* sönerken kollardan kaçan hava */}
+        {deflate > 0 && deflate < 1
+          ? [0, 1, 2, 3].map((i) => (
+              <path key={i} d={`M${(i % 2 ? 1 : -1) * (150 + 120 * deflate)} ${-520 + i * 40} l${(i % 2 ? 1 : -1) * 50} ${-10 + i * 6}`} stroke={C.ink} strokeWidth={7} strokeLinecap="round" opacity={1 - deflate} />
+            ))
+          : null}
+      </Person>
+      {pump > 0.3 && !puzzled ? <HandText x={720} y={420} text="?" size={150} p={pop(f, w(4), 12)} rotate={8} /> : null}
+      {puzzled ? <HandText x={860} y={460} text="?" size={130} p={pop(f, w(14) + 6, 12)} rotate={-8} /> : null}
     </>
   );
 };
@@ -2830,8 +2813,23 @@ const KadinHormon: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <Gym o={0.6} />
-      <Person x={290} y={PY} s={0.78} belly={0.35} armL={[12, 0]} armR={[12, 0]} mouth="smile" lookY={-6} />
-      <Person x={790} y={PY} s={0.78} female belly={0.2} armL={[12, 0]} armR={frac > 0.5 ? [140, -60] : [12, 0]} mouth={frac > 0.5 ? "grin" : "o"} lookY={-6} />
+      {/* tüp doldukça kas büyür: erkekte belirgin, kadında çok az */}
+      <Person x={290} y={PY} s={0.78} belly={0.35} limbW={1 + 0.45 * (man / 0.9)} armL={[12 + 60 * (man / 0.9), -100 * (man / 0.9)]} armR={[12 + 60 * (man / 0.9), -100 * (man / 0.9)]} mouth={man > 0.5 ? "grin" : "smile"} lookY={-6} />
+      <Person x={790} y={PY} s={0.78} female belly={0.2} limbW={1 + 0.1 * (woman / 0.09)} armL={[12, 0]} armR={frac > 0.5 ? [140, -60] : [12, 0]} mouth={frac > 0.5 ? "grin" : "o"} lookY={-6} />
+      {/* testosteron parçacıkları yukarıdan tüplere akar; kadının tüpüne çok daha seyrek */}
+      {flasks > 0
+        ? [
+            ...cycles(f, w(7) - 2, 3, 18).filter(({ k }) => f < w(8) + 4 || k < 0).map(({ k, p }) => ({ k, p, x: 290, c: C.water })),
+            ...cycles(f, w(8), 12, 18).filter(() => f < w(13)).map(({ k, p }) => ({ k: k + 1000, p, x: 790, c: C.lung })),
+          ].map(({ k, p, x, c }) => (
+            <g key={k} opacity={interpolate(p, [0, 0.15, 0.85, 1], [0, 1, 1, 0])}>
+              <circle cx={x + ((k * 37) % 50) - 25} cy={110 + 140 * p} r={16} fill={c} stroke={C.ink} strokeWidth={4} />
+              <text x={x + ((k * 37) % 50) - 25} y={110 + 140 * p + 9} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={24} fill={C.cream}>
+                T
+              </text>
+            </g>
+          ))
+        : null}
       {flasks > 0 ? (
         <g opacity={flasks}>
           <g transform={`translate(290 420) scale(${flasks}) translate(-290 -420)`}>
@@ -2875,6 +2873,26 @@ const KadinKas: React.FC<SceneProps> = ({ w }) => {
         <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${-20 + 60 * c})`}>
           <Dumbbell x={0} y={0} s={0.55} rot={90} />
         </g>
+        {/* "sıkı ve şekilli": kol ve bacaklarda kas hatları belirir */}
+        {tone > 0
+          ? [armPoints(1, arm), armPoints(-1, [12, 0]), legPoints(-1, {}), legPoints(1, {})].map((pts, i) => {
+              const m = [(pts[0][0] + pts[1][0]) / 2, (pts[0][1] + pts[1][1]) / 2];
+              return (
+                <path
+                  key={i}
+                  d={`M${m[0] - 14} ${m[1] - 28} Q${m[0] + 10} ${m[1]} ${m[0] - 14} ${m[1] + 28}`}
+                  stroke={C.ink}
+                  strokeWidth={5}
+                  fill="none"
+                  strokeLinecap="round"
+                  pathLength={1}
+                  strokeDasharray="1"
+                  strokeDashoffset={1 - tone}
+                  opacity={0.7}
+                />
+              );
+            })
+          : null}
         {/* kas çalışırken kolda sıcak bir parıltı */}
         <ellipse cx={100 + 20 * c} cy={-500} rx={40} ry={60} fill={C.glow} opacity={0.18 * c * grow} filter="url(#glow)" />
         {tone > 0
@@ -3043,27 +3061,50 @@ const KadinSonuc: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// "Bunu kaydet, çünkü biri yine diyecek ki:"
-const KadinKapanis: React.FC<SceneProps> = ({ w }) => {
+// "Bunu, \"iri olurum\" diyen arkadaşına gönder. Çünkü..."
+// Arkadaş "iri olurum" diye düşünür; avatar videoyu telefondan gönderir (kâğıt uçak); "Çünkü..." denince
+// balon patlar ve arkadaş dambılı eline alır — açılış karesiyle aynı an (döngü).
+const KadinKapanis: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const save = pop(f, w(1) - 2, 14);
-  const friend = tw(f, w(2) - 4, w(4) + 4);
-  const fw = walk(f, friend > 0 && friend < 1 ? 1 : 0, 4.5);
-  const ask = pop(f, w(5) - 2, 14);
+  const phone = tw(f, w(0) - 4, w(0) + 6);
+  const plane = tw(f, w(4), w(5) + 6);
+  const burst = tw(f, w(6) - 2, w(6) + 6);
+  const grab = tw(f, w(6), d - 4);
+  const bubble = pop(f, 0, 14) * (1 - burst);
+  const avArm: Arm = [interpolate(phone, [0, 1], [12, 40]) , interpolate(phone, [0, 1], [0, -150])];
+  const ph = armPoints(1, avArm)[2];
   return (
     <>
       <Gym />
-      <Barbell x={650} y={PY - 60} s={0.5} />
-      <Person x={PX - 160} y={PY} s={0.92} belly={0.4} armL={[12, 0]} armR={[14 + 120 * tw(f, w(1), w(1) + 8), -60 * tw(f, w(1), w(1) + 8)]} mouth="grin" />
-      <SaveMark x={230} y={560} p={save} />
-      {friend > 0 ? (
-        <Person x={interpolate(friend, [0, 1], [1250, 860])} y={PY + 20 - fw.bob} s={0.72} female belly={0.2} legL={fw.legL} legR={fw.legR} armL={fw.armL} armR={fw.armR} mouth={ask > 0.5 ? "o" : "smile"} lookY={-4} />
+      <Barbell x={480} y={PY - 60} s={0.45} />
+      <Person x={250} y={PY + 20} s={0.82} belly={0.4} armL={[12, 0]} armR={avArm} mouth="grin">
+        {phone > 0 ? <PhoneInHand arm={avArm} /> : null}
+      </Person>
+      <Person x={720} y={PY} s={0.9} female belly={0.2} armL={[12, 0]} armR={curlArm(0)} mouth={burst > 0.5 ? "smile" : "worry"} eyes={plane >= 1 && burst < 0.5 ? "wide" : "open"}>
+        {grab > 0 ? (
+          <g transform={`translate(${armPoints(1, curlArm(0))[2][0]} ${armPoints(1, curlArm(0))[2][1] + 60 * (1 - grab)}) rotate(-20)`} opacity={Math.min(1, grab * 3)}>
+            <Dumbbell x={0} y={0} s={0.55} rot={90} />
+          </g>
+        ) : null}
+      </Person>
+      {bubble > 0 ? (
+        <Bubble x={760} y={520} rx={200} ry={160} p={bubble} tail={[730, 760]}>
+          <Person x={760} y={640} s={0.27} female belly={0.15} limbW={2.3} armL={[60, -120]} armR={[60, -120]} mouth="flat" />
+        </Bubble>
       ) : null}
-      <Bubble x={760} y={540} rx={170} ry={120} p={ask} tail={[840, 780]}>
-        <text x={760} y={585} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={C.ink}>
-          ?
-        </text>
-      </Bubble>
+      {burst > 0 && burst < 1
+        ? Array.from({ length: 10 }, (_, i) => {
+            const a = (i / 10) * Math.PI * 2;
+            return <circle key={i} cx={760 + Math.cos(a) * (180 + 150 * burst)} cy={520 + Math.sin(a) * (140 + 130 * burst)} r={14 * (1 - burst)} fill={C.cream} stroke={C.ink} strokeWidth={4} />;
+          })
+        : null}
+      {/* kâğıt uçak: avatarın telefonundan arkadaşa */}
+      {plane > 0 && plane < 1 ? (
+        <g transform={`translate(${interpolate(plane, [0, 1], [250 + ph[0] * 0.82, 690])} ${interpolate(plane, [0, 1], [PY + 20 + ph[1] * 0.82, 760]) - Math.sin(plane * Math.PI) * 260}) rotate(${-20 + 40 * plane})`}>
+          <path d="M-40 0 L40 -18 L-10 22 Z" fill="#fff" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+          <path d="M-10 22 L0 4 L40 -18" fill="#dcd6c8" stroke={C.ink} strokeWidth={4} strokeLinejoin="round" />
+        </g>
+      ) : null}
     </>
   );
 };
