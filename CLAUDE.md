@@ -38,6 +38,13 @@ o dal eski; her zaman bu dosyadaki çalışma dalına geç.
 sesleri (`SFX`'e `tarti-*` girdileri) + arka plan müziği (`music`). **AMA ŞİMDİ DEĞİL: önce pilotun sonucunu
 bekle**, kullanıcı "başla" demeden seslendirme/render yapma.
 
+**16 Ekim (SON DURUM, bunu oku):** Pilot 01 son hâli kullanıcıya gönderildi: Yunus + **eleven_v4** + arka plan
+müziği + olaylara bağlı efekt sesleri → `ornek-videolar/cizim1-pilot/01-yag-nereye.mp4` (onay bekleniyor).
+02 tartı'ya geçerken: `content/cizim1/cizim1-02-tarti.json` içinde `"modelId": "eleven_v4"` yap, `"music":
+"music/investigations.mp3"` (veya `easy-lemon` / `life-of-riley`) ekle + açıklamaya müzik künyesi ekle, Cizim1.tsx
+`SFX` haritasına `tarti-*` sahneleri için efektler ekle (pop/kalem/bip/damla/nefes/cizik/pirilti/ding/boom/whoosh).
+Sessiz önizleme zaten gönderildiyse onay sonrası: kredi kontrol → voiceover → render → gönder.
+
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
 değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
