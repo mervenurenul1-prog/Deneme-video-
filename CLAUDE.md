@@ -34,6 +34,9 @@ birleştir. Pilot (01) için ekip geri bildirimi bekleniyor; revize gelirse önc
 sonra kredi kontrol → `npm run voiceover -- cizim1-02-tarti` → render. Pilot (01) geri bildirimini kullanıcı
 kendisi hallediyor. Not: oturum eski `claude/remotion-eleven-labs-integration-za21fe` dalında açılabiliyor —
 o dal eski; her zaman bu dosyadaki çalışma dalına geç.
+**Tartı için karar (kullanıcı):** tartı da pilotun aynısı olacak — Yunus **eleven_v4**, olaylara bağlı efekt
+sesleri (`SFX`'e `tarti-*` girdileri) + arka plan müziği (`music`). **AMA ŞİMDİ DEĞİL: önce pilotun sonucunu
+bekle**, kullanıcı "başla" demeden seslendirme/render yapma.
 
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
