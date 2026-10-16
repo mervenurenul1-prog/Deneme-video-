@@ -379,6 +379,9 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-kapanis": (w) => [[0, "pop", 0.3], [w(0) - 4, "pop", 0.25], [w(4), "havalanma", 0.4], [w(5) + 6, "ding", 0.3], [w(6) - 2, "pop", 0.55], [w(6) + 2, "tak", 0.35]],
 
   // 04 yeni hikâye — az ve anlamlı efektler
+  "kadin-hook": (w) => [[3, "pop", 0.35], [w(5) - 3, "whoosh", 0.4], [w(5) - 2, "boom", 0.25], [w(8), "agir-dusme", 0.35], [w(8) + 2, "pirilti", 0.45], [w(15) + 2, "ding", 0.3]],
+  "kadin-104": (w) => [[w(6) - 2, "yuksel", 0.35], [w(9) + 4, "ding", 0.25], [w(11) - 2, "kalem", 0.35], [w(17), "agir-dusme", 0.3]],
+  "kadin-dongu2": (w) => [[w(6), "pop", 0.35]],
   "kadin-1896": (w) => [[2, "kalem", 0.4], [w(10), "agir-dusme", 0.45], [w(13), "yuksel", 0.35], [w(17) + 4, "ding", 0.3]],
   "kadin-2000": (w) => [[2, "kalem", 0.4], [w(6), "agir-dusme", 0.35], [w(6) + 2, "pirilti", 0.45], [w(10) + 4, "ding", 0.3]],
   "kadin-korku": (w) => [[w(4) - 2, "cizik", 0.4], [w(5), "sonme", 0.4], [w(10) - 2, "pop", 0.4]],
@@ -541,6 +544,9 @@ const ZOOM: Record<string, Zoom> = {
   "kadin-arastirma": { to: 1.05, x: 600, y: 900 },
   "kadin-sonuc": { to: 1.06, x: 480, y: 800 },
   "kadin-kapanis": { to: 1.04, x: 540, y: 800 },
+  "kadin-hook": { to: 1.06, x: 540, y: 900 },
+  "kadin-104": { to: 1.05, x: 600, y: 900 },
+  "kadin-dongu2": { to: 1.03, x: 540, y: 900 },
   "kadin-1896": { to: 1.05, x: 540, y: 900 },
   "kadin-2000": { to: 1.06, x: 540, y: 900 },
   "kadin-korku": { to: 1.05, x: 560, y: 800 },
@@ -3516,6 +3522,120 @@ const KadinDongu: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- 04 (güçlü giriş) ---------- */
+
+// "Ağırlık kaldırırsan iri olur musun? Olimpiyatta halter altını alan ilk kadına bak: kırk sekiz kilo sınıfı."
+// Önce korku (iri vücut balonu), sonra sert geçiş: spot ışığında madalyalı şampiyon, tartı 48 kg.
+const KadinHook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bubble = pop(f, 3, 14);
+  const cut = tw(f, w(5) - 3, w(5) + 5); // sahneye geçiş
+  const lift = tw(f, w(6), w(8) + 4);
+  const arms: Arm = [interpolate(lift, [0, 1], [20, 168]), interpolate(lift, [0, 1], [-20, -8])];
+  const hand = armPoints(1, arms)[2];
+  const medal = pop(f, w(8), 14);
+  const kg = tw(f, w(12), w(15) + 2);
+  const point = tw(f, w(10) - 2, w(11) + 4);
+  return (
+    <>
+      {/* 1. korku: salonda dambıllı kadın, balonda iri vücut */}
+      <g opacity={1 - cut}>
+        <Gym />
+        <Person x={250} y={PY + 20} s={0.82} belly={0.4} armL={[12, 0]} armR={[12, 0]} mouth="smile" />
+        <Person x={720} y={PY} s={0.9} female belly={0.2} armL={[12, 0]} armR={curlArm(0)} mouth={bubble > 0.5 ? "worry" : "flat"} eyes={bubble > 0.5 ? "wide" : "open"}>
+          <g transform={`translate(${armPoints(1, curlArm(0))[2][0]} ${armPoints(1, curlArm(0))[2][1]}) rotate(-20)`}>
+            <Dumbbell x={0} y={0} s={0.55} rot={90} />
+          </g>
+        </Person>
+        {bubble > 0 ? (
+          <Bubble x={700} y={500} rx={200} ry={160} p={bubble} tail={[720, 760]}>
+            <Person x={700} y={620} s={0.27} female belly={0.15} limbW={2.3} armL={[60, -120]} armR={[60, -120]} mouth="flat" />
+            <text x={820} y={470} fontFamily={handFamily} fontWeight={700} fontSize={90} fill={C.red}>
+              ?
+            </text>
+          </Bubble>
+        ) : null}
+      </g>
+      {/* 2. cevap: spot ışığında ilk kadın halter şampiyonu */}
+      {cut > 0 ? (
+        <g opacity={cut}>
+          <rect x={0} y={0} width={1080} height={1920} fill="#2a2018" opacity={0.55} />
+          <path d="M540 80 L220 1290 L860 1290 Z" fill="#fff3c8" opacity={0.32} />
+          <ellipse cx={540} cy={1300} rx={330} ry={50} fill="#fff3c8" opacity={0.35} />
+          <rect x={250} y={1290} width={580} height={70} rx={10} fill="#6b4a2e" stroke={C.ink} strokeWidth={8} />
+          <Bathroom x={540} y={1286} value={`${Math.round(48 * kg)}.0 kg`} />
+          <Person x={540} y={1230} s={0.8} female belly={0.1} shirt="#4f97c2" armL={arms} armR={arms} mouth={lift > 0.6 ? "grin" : "flat"} eyes={lift > 0.3 && lift < 0.9 ? "closed" : "open"}>
+            <Barbell x={0} y={hand[1]} s={0.6} />
+            {medal > 0 ? <GoldMedal x={0} y={-500} s={medal * 1.1} /> : null}
+          </Person>
+          <Person x={150} y={1600} s={0.6} belly={0.4} armL={[12, 0]} armR={[interpolate(point, [0, 1], [12, 80]), interpolate(point, [0, 1], [0, -40])]} mouth={kg > 0.5 ? "o" : "smile"} eyes={kg > 0.5 ? "wide" : "open"} lookY={-8} />
+          <Counter x={850} y={1150} to={48} suffix=" kg" p={kg} size={120} color={C.yellow} rotate={-4} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Ve kadınlar o sahneye çıkmak için yüz dört yıl bekledi. Erkekler bin sekiz yüz doksan altıdan beri kaldırıyordu."
+const Kadin104: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const years = tw(f, w(6) - 2, w(9) + 4);
+  const lift = tw(f, w(15), w(17) + 4);
+  const arms: Arm = [interpolate(lift, [0, 1], [20, 168]), interpolate(lift, [0, 1], [-20, -8])];
+  const hand = armPoints(1, arms)[2];
+  return (
+    <>
+      <Temple x={540} y={1080} s={1.05} />
+      <path d="M-20 1080 L1100 1080" stroke={C.ink} strokeWidth={6} />
+      <rect x={-20} y={1080} width={1120} height={900} fill="#d6c39b" opacity={0.6} />
+      <Person x={360} y={1300} s={0.82} belly={0.35} armL={arms} armR={arms} mouth={lift > 0.5 ? "grin" : "flat"}>
+        <GlobeBarbell x={0} y={lift > 0 ? hand[1] : -40} s={0.7} />
+      </Person>
+      {[0, 1, 2].map((i) => (
+        <Person key={i} x={760 + i * 120} y={1250} s={0.52} female belly={0.2} shirt={["#9a7bb0", "#d9705f", "#6e8fb3"][i]} armL={[12, 0]} armR={[12, 0]} mouth={years > 0.3 ? "flat" : "smile"} lookY={-4} tilt={i === 1 ? -4 : 4} />
+      ))}
+      <Rope x1={700} x2={1040} y={1290} />
+      {/* yıllar akıp geçer: saat + 104 yıl */}
+      <g transform="translate(880 600)">
+        <circle r={90} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+        <path d={`M0 0 L${Math.sin(years * 60) * 65} ${-Math.cos(years * 60) * 65}`} stroke={C.ink} strokeWidth={8} strokeLinecap="round" />
+        <path d={`M0 0 L${Math.sin(years * 5) * 45} ${-Math.cos(years * 5) * 45}`} stroke={C.red} strokeWidth={10} strokeLinecap="round" />
+      </g>
+      <Counter x={880} y={810} to={104} suffix=" yıl" p={years} size={110} color={C.red} rotate={-3} />
+      <HandText x={330} y={360} text="1896" size={150} p={tw(f, w(11) - 2, w(16))} rotate={-4} />
+      <OldPhoto o={1} />
+    </>
+  );
+};
+
+// "Ve bir dahaki sefere biri sana şunu sorarsa:" — arkadaş dambılla gelir, soracak; son kare = kanca sahnesinin ilk karesi
+const KadinDongu2: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const come = tw(f, 0, w(4));
+  const fw = walk(f, come > 0 && come < 1 ? 1 : 0, 4.5);
+  const ask = pop(f, w(6), 12) * (1 - tw(f, d - 12, d - 4));
+  return (
+    <>
+      <Gym />
+      <Person x={250} y={PY + 20} s={0.82} belly={0.4} armL={[12, 0]} armR={[12, 0]} mouth="smile" lookY={0} />
+      <Person x={interpolate(come, [0, 1], [1250, 720])} y={PY - fw.bob} s={0.9} female belly={0.2} legL={fw.legL} legR={fw.legR} armL={come < 1 ? fw.armL : [12, 0]} armR={curlArm(0)} mouth="flat">
+        <g transform={`translate(${armPoints(1, curlArm(0))[2][0]} ${armPoints(1, curlArm(0))[2][1]}) rotate(-20)`}>
+          <Dumbbell x={0} y={0} s={0.55} rot={90} />
+        </g>
+      </Person>
+      {ask > 0 ? (
+        <g transform={`translate(560 640) scale(${ask})`}>
+          <ellipse rx={90} ry={70} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+          <path d="M40 55 L70 110 L10 62 Z" fill={C.cream} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90} fill={C.ink}>
+            ?
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 /* ---------- 05 boyun: eşyalar ---------- */
 
 const Phone: React.FC<{ x: number; y: number; s?: number; rot?: number; glow?: number }> = ({ x, y, s = 1, rot = 0, glow = 1 }) => (
@@ -3969,6 +4089,9 @@ const BoyunKapanis: React.FC<SceneProps> = ({ w }) => {
 };
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kadin-hook": KadinHook,
+  "kadin-104": Kadin104,
+  "kadin-dongu2": KadinDongu2,
   "kadin-1896": Kadin1896,
   "kadin-2000": Kadin2000,
   "kadin-korku": KadinKorku,

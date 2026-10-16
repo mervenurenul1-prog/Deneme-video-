@@ -21,6 +21,10 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 - Kullanıcının söylediklerini dikkate al; her isteğini not et.
 - **BEĞENİLEN FORMÜL (10 bin adım, kullanıcı tarif etti): başta TARİHÇE (gerçek bir köken/olay), ortada GÖRSEL
   ögeler, sonda LOOP, baştan sona DİKKAT ÇEKİCİ / algısı yüksek cümleler.** Her yeni videoyu bu formülle hikâyeleştir.
+  **AMA ilk cümle tarihle BAŞLAMAZ** (kullanıcı: "çok tarihçe olur, dikkat çekici olmaz"): önce soru + şaşırtıcı cevap
+  (kanca), tarihçe hemen ardından kısa. Ör. 04: "Ağırlık kaldırırsan iri olur musun? Olimpiyatta halter altını alan ilk
+  kadına bak: kırk sekiz kilo sınıfı." → "Ve kadınlar o sahneye çıkmak için 104 yıl bekledi…" → … → döngü "Ve bir dahaki
+  sefere biri sana şunu sorarsa:" → kanca sorusu.
 - **EFEKTLER AZ VE KISIK (kullanıcı: "efektler Yunus'un ve müziğin önüne geçmiş, çok tik-tak var"):** kodda
   `SFX_GAIN = 0.45` ve `tidySfx` (küçük tekrar eden sesler 20 kareden yakınsa yalnız ilki). Yeni videolarda efekt
   yalnız önemli anlarda; sayaç/tik-tak dizileri koyma. Öncelik: Yunus > müzik > efekt.
