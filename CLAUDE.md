@@ -12,6 +12,15 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.585 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
+- **05 boyun v3 (EN GÜNCEL, v2'nin yerine):** Kullanıcı v2 için: "kareler stabil, dikkat çekici yap, genelden kaçın;
+  60 derece gibi şeyler kafa karıştırır, izleyiciye SAMİMİ yaklaş"; "karpuz olmaz"; "aşırı hareketli olmasın ama hareket
+  ekle". v3: izleyiciye hitap ("Şu an bu videoyu nasıl izliyorsun? Başın öne eğik, değil mi?") → text neck adı (2008,
+  omurga terapisti) → bowling topu benzetmesi (göğüste kolay, kol uzanınca ağır) → havalimanı: 27 kg "FAZLA BAGAJ"
+  (sınır 23) → "bu yüzden mi ağrıyor?" + zincir kopar → heykel gibi donup kalmak (taş filtre, kaide, güvercin, çatlar)
+  → "Hadi başını kaldır. Ama videoyu tekrar izlerken yine eğileceksin, değil mi?" (döngü). Ölçülü kamera `CamK`
+  (anahtar karelerde yakınlaşma + `hit()` kısa sarsıntı). Bileşenler `boyun3-*`, 50,6 sn sessiz önizleme gönderildi →
+  onay → seslendirme. **KURALLAR:** teknik terim/derece yok, gündelik benzetme; izleyiciye doğrudan hitap; kamera
+  hareketi ölçülü ama her sahnede var.
 - **05 boyun v2 (16 Ekim gece, EN GÜNCEL):** kullanıcı metni onayladı ("olur"). Kanca "Telefona baktığında başın kaç
   kilo? Beş mi? Bir hesaba göre yirmi yedi." → 2008 kayropraktör (Dean Fishman) "text neck" adını verdi (röntgen +
   damga) → 2014 cerrah (Hansraj, model) 60° = 27 kg (NeckLens açı 0→60, kilo ekranı 5→27) → "bu yüzden mi ağrıyor?
