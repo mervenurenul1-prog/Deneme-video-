@@ -70,12 +70,40 @@ tanıtım videolarıdır (örnek: `voom-tanitim.json`). Ekran görüntüleri `pu
 Her sahnede `screen` (ekran görüntüsü), `kicker` (küçük etiket), `display` (başlık) ve `focus`
 (kameranın yaklaşacağı bölge, 923 px genişliğe göre koordinatlar) verilebilir; `screen` olmayan
 sahneler yalnızca yazıdan oluşur, son sahne kapanış kartıdır.
+`display` içinde `*yıldız*` arasına alınan kelimeler vurgu rengiyle yazılır (ör. `"Günün antrenmanı *hazır*"`).
+
+Tek konuya odaklanan ~20 saniyelik seri: `voom-koc`, `voom-takip`, `voom-antrenman`, `voom-hobi`,
+`voom-takviye`, `voom-6-hafta`, `voom-durus` (çıktılar `ornek-videolar/seri/`).
+
+## Bilgi videoları
+
+`content/explainers/` altındaki dosyalar, bir konuyu soru → 3 adım → kapanış akışıyla anlatan animasyonlu
+bilgi videolarıdır (ör. `bilgi-durus.json`). Her sahnede `visual` (animasyon), `kicker` ("1 · BOYUN"),
+`title` (`*yıldız*` ile vurgu), `voice` ve animasyona özel `data` bulunur. Animasyonlar
+`src/explainer/Explainer.tsx` içindedir: `soru`, `cizgi`, `takvim`, `bar`, `seri`, `mesaj`, `liste`,
+`zaman`, `piramit`, `kas`, `figur`, `kapanis`.
+
+Dosyada `voiceId` ve `modelId` verilirse o video bu ses/modelle seslendirilir (ör. `eleven_v3`).
+Metinler konuşma diliyle yazılır ("yapıyo", "bi") ki seslendirme okuma gibi değil sohbet gibi dursun.
+
+## Instagram ayarları
+
+`npm run render` her videoyu Instagram'a uygun çıkarır: 1080×1920, 30 fps, H.264; ses −14 LUFS
+(Instagram/TikTok'un standart ses yüksekliği), AAC 44.1 kHz 192k ve hızlı başlama (faststart).
+Ses ayarı Remotion'ın kendi ffmpeg'iyle yapılır, ayrıca kurulum gerekmez.
 
 ## Özelleştirme
 
 - **Marka (uygulama adı, hesap, renkler, müzik):** `src/brand.ts`
 - **Ses:** `.env` → `ELEVENLABS_VOICE_ID` ([Voice Library](https://elevenlabs.io/app/voice-library)),
   `ELEVENLABS_MODEL_ID` (`eleven_multilingual_v2` varsayılan; `eleven_flash_v2_5` daha ucuz)
+- **Vekil sunucu (bulut ortamı):** `npm run voiceover`, Node'un `fetch`'inin `HTTPS_PROXY`'yi
+  kullanması için `NODE_USE_ENV_PROXY=1` ile çalışır (Node ≥ 22.21). Bulut ortamında anahtar
+  `xi-api-key` başlığıyla, Network secrets üzerinden eklenir.
+- **ElevenLabs anahtarı yoksa (ücretsiz yedek ses):** `pip install edge-tts` ardından
+  `python3 scripts/generate-voiceover-edge.py voom-tanitim` — Microsoft Edge'in Türkçe sesiyle
+  (`--voice tr-TR-AhmetNeural` varsayılan, `tr-TR-EmelNeural` kadın sesi) aynı manifest biçimini üretir.
+  Anahtar gelince `npm run voiceover -- voom-tanitim` bu sesleri ElevenLabs ile değiştirir.
 - **Arka plan müziği:** dosyayı `public/music/` altına koyup `brand.music` alanına yolunu yazın
   (telifsiz müzik kullanın).
 - **Görünüm / animasyonlar:** `src/Reel.tsx`

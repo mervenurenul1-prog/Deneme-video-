@@ -1,0 +1,279 @@
+{
+  "scenes": [
+    {
+      "voice": "Antrenmanda su içmeyi unuttun. Ne olacak ki? Sandığından fazlası.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-09-su/1-mv8ljtzi.mp3",
+      "durationInSeconds": 4.8,
+      "words": [
+        {
+          "word": "Antrenmanda",
+          "start": 0,
+          "end": 0.72
+        },
+        {
+          "word": "su",
+          "start": 0.773,
+          "end": 0.88
+        },
+        {
+          "word": "içmeyi",
+          "start": 0.933,
+          "end": 1.28
+        },
+        {
+          "word": "unuttun.",
+          "start": 1.307,
+          "end": 2.08
+        },
+        {
+          "word": "Ne",
+          "start": 2.187,
+          "end": 2.4
+        },
+        {
+          "word": "olacak",
+          "start": 2.469,
+          "end": 2.88
+        },
+        {
+          "word": "ki?",
+          "start": 2.933,
+          "end": 3.12
+        },
+        {
+          "word": "Sandığından",
+          "start": 3.248,
+          "end": 4.16
+        },
+        {
+          "word": "fazlası.",
+          "start": 4.22,
+          "end": 4.8
+        }
+      ]
+    },
+    {
+      "voice": "Vücut ağırlığının yüzde ikisi kadar su kaybı bile performansı düşürüyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-09-su/2-mv8ljuxo.mp3",
+      "durationInSeconds": 4.16,
+      "words": [
+        {
+          "word": "Vücut",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "ağırlığının",
+          "start": 0.36,
+          "end": 0.88
+        },
+        {
+          "word": "yüzde",
+          "start": 0.947,
+          "end": 1.28
+        },
+        {
+          "word": "ikisi",
+          "start": 1.333,
+          "end": 1.6
+        },
+        {
+          "word": "kadar",
+          "start": 1.667,
+          "end": 2
+        },
+        {
+          "word": "su",
+          "start": 2.053,
+          "end": 2.16
+        },
+        {
+          "word": "kaybı",
+          "start": 2.224,
+          "end": 2.56
+        },
+        {
+          "word": "bile",
+          "start": 2.608,
+          "end": 2.8
+        },
+        {
+          "word": "performansı",
+          "start": 2.86,
+          "end": 3.52
+        },
+        {
+          "word": "düşürüyo.",
+          "start": 3.573,
+          "end": 4.16
+        }
+      ]
+    },
+    {
+      "voice": "Yetmiş kiloluk biri için bu bi buçuk litre bile değil.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-09-su/3-mv8ljvuu.mp3",
+      "durationInSeconds": 3.44,
+      "words": [
+        {
+          "word": "Yetmiş",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "kiloluk",
+          "start": 0.38,
+          "end": 0.8
+        },
+        {
+          "word": "biri",
+          "start": 0.848,
+          "end": 1.04
+        },
+        {
+          "word": "için",
+          "start": 1.104,
+          "end": 1.36
+        },
+        {
+          "word": "bu",
+          "start": 1.52,
+          "end": 1.84
+        },
+        {
+          "word": "bi",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "word": "buçuk",
+          "start": 2.133,
+          "end": 2.48
+        },
+        {
+          "word": "litre",
+          "start": 2.533,
+          "end": 2.8
+        },
+        {
+          "word": "bile",
+          "start": 2.848,
+          "end": 3.04
+        },
+        {
+          "word": "değil.",
+          "start": 3.093,
+          "end": 3.44
+        }
+      ]
+    },
+    {
+      "voice": "Susamayı bekleme. Önce bi bardak, sırasında yudum yudum, sonra yerine koy.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-09-su/4-mv8ljwzi.mp3",
+      "durationInSeconds": 5.44,
+      "words": [
+        {
+          "word": "Susamayı",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "bekleme.",
+          "start": 0.453,
+          "end": 0.96
+        },
+        {
+          "word": "Önce",
+          "start": 1.28,
+          "end": 1.76
+        },
+        {
+          "word": "bi",
+          "start": 1.787,
+          "end": 1.84
+        },
+        {
+          "word": "bardak,",
+          "start": 1.92,
+          "end": 2.401
+        },
+        {
+          "word": "sırasında",
+          "start": 2.488,
+          "end": 3.28
+        },
+        {
+          "word": "yudum",
+          "start": 3.32,
+          "end": 3.6
+        },
+        {
+          "word": "yudum,",
+          "start": 3.68,
+          "end": 4.36
+        },
+        {
+          "word": "sonra",
+          "start": 4.42,
+          "end": 4.72
+        },
+        {
+          "word": "yerine",
+          "start": 4.766,
+          "end": 5.04
+        },
+        {
+          "word": "koy.",
+          "start": 5.12,
+          "end": 5.44
+        }
+      ]
+    },
+    {
+      "voice": "Su şişen, ayakkabın kadar önemli. Artık biliyosun.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-09-su/5-mv8ljxub.mp3",
+      "durationInSeconds": 3.84,
+      "words": [
+        {
+          "word": "Su",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "şişen,",
+          "start": 0.24,
+          "end": 0.72
+        },
+        {
+          "word": "ayakkabın",
+          "start": 0.88,
+          "end": 1.6
+        },
+        {
+          "word": "kadar",
+          "start": 1.64,
+          "end": 1.84
+        },
+        {
+          "word": "önemli.",
+          "start": 1.897,
+          "end": 2.32
+        },
+        {
+          "word": "Artık",
+          "start": 2.52,
+          "end": 3.2
+        },
+        {
+          "word": "biliyosun.",
+          "start": 3.24,
+          "end": 3.84
+        }
+      ]
+    }
+  ]
+}

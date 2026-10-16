@@ -1,0 +1,279 @@
+{
+  "scenes": [
+    {
+      "voice": "Sırılsıklam çıktın, demek çok yağ yaktın. Öyle mi? Hiç alakası yok.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-05-ter/1-mv8lj81h.mp3",
+      "durationInSeconds": 3.92,
+      "words": [
+        {
+          "word": "Sırılsıklam",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "word": "çıktın,",
+          "start": 0.613,
+          "end": 1.2
+        },
+        {
+          "word": "demek",
+          "start": 1.24,
+          "end": 1.44
+        },
+        {
+          "word": "çok",
+          "start": 1.52,
+          "end": 1.76
+        },
+        {
+          "word": "yağ",
+          "start": 1.8,
+          "end": 1.92
+        },
+        {
+          "word": "yaktın.",
+          "start": 1.96,
+          "end": 2.28
+        },
+        {
+          "word": "Öyle",
+          "start": 2.3,
+          "end": 2.48
+        },
+        {
+          "word": "mi?",
+          "start": 2.507,
+          "end": 2.64
+        },
+        {
+          "word": "Hiç",
+          "start": 2.78,
+          "end": 3.2
+        },
+        {
+          "word": "alakası",
+          "start": 3.227,
+          "end": 3.6
+        },
+        {
+          "word": "yok.",
+          "start": 3.64,
+          "end": 3.92
+        }
+      ]
+    },
+    {
+      "voice": "Ter vücudunun kliması. Isınınca terliyosun, ter buharlaşırken seni soğutuyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-05-ter/2-mv8lj95n.mp3",
+      "durationInSeconds": 4.88,
+      "words": [
+        {
+          "word": "Ter",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "vücudunun",
+          "start": 0.2,
+          "end": 0.64
+        },
+        {
+          "word": "kliması.",
+          "start": 0.704,
+          "end": 1.2
+        },
+        {
+          "word": "Isınınca",
+          "start": 1.387,
+          "end": 2.08
+        },
+        {
+          "word": "terliyosun,",
+          "start": 2.14,
+          "end": 3.12
+        },
+        {
+          "word": "ter",
+          "start": 3.16,
+          "end": 3.28
+        },
+        {
+          "word": "buharlaşırken",
+          "start": 3.333,
+          "end": 4.08
+        },
+        {
+          "word": "seni",
+          "start": 4.144,
+          "end": 4.4
+        },
+        {
+          "word": "soğutuyo.",
+          "start": 4.44,
+          "end": 4.88
+        }
+      ]
+    },
+    {
+      "voice": "Tartıdaki düşüş su. Bi iki bardak içince geri geliyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-05-ter/3-mv8lja0q.mp3",
+      "durationInSeconds": 2.96,
+      "words": [
+        {
+          "word": "Tartıdaki",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "düşüş",
+          "start": 0.44,
+          "end": 0.72
+        },
+        {
+          "word": "su.",
+          "start": 0.8,
+          "end": 1.04
+        },
+        {
+          "word": "Bi",
+          "start": 1.227,
+          "end": 1.6
+        },
+        {
+          "word": "iki",
+          "start": 1.64,
+          "end": 1.76
+        },
+        {
+          "word": "bardak",
+          "start": 1.808,
+          "end": 2.08
+        },
+        {
+          "word": "içince",
+          "start": 2.133,
+          "end": 2.4
+        },
+        {
+          "word": "geri",
+          "start": 2.448,
+          "end": 2.64
+        },
+        {
+          "word": "geliyo.",
+          "start": 2.68,
+          "end": 2.96
+        }
+      ]
+    },
+    {
+      "voice": "Ne kadar terlediğin havaya, genetiğine, kıyafetine bağlı. Yağla alakası yok.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-05-ter/4-mv8ljb92.mp3",
+      "durationInSeconds": 4.48,
+      "words": [
+        {
+          "word": "Ne",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "word": "kadar",
+          "start": 0.12,
+          "end": 0.32
+        },
+        {
+          "word": "terlediğin",
+          "start": 0.38,
+          "end": 0.8
+        },
+        {
+          "word": "havaya,",
+          "start": 0.86,
+          "end": 1.36
+        },
+        {
+          "word": "genetiğine,",
+          "start": 1.4,
+          "end": 2.32
+        },
+        {
+          "word": "kıyafetine",
+          "start": 2.38,
+          "end": 2.88
+        },
+        {
+          "word": "bağlı.",
+          "start": 2.933,
+          "end": 3.4
+        },
+        {
+          "word": "Yağla",
+          "start": 3.467,
+          "end": 3.76
+        },
+        {
+          "word": "alakası",
+          "start": 3.787,
+          "end": 4.16
+        },
+        {
+          "word": "yok.",
+          "start": 4.22,
+          "end": 4.48
+        }
+      ]
+    },
+    {
+      "voice": "Terlemek ısındığını gösterir, yağ yaktığını değil. Artık biliyosun.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-05-ter/5-mv8ljc2b.mp3",
+      "durationInSeconds": 3.52,
+      "words": [
+        {
+          "word": "Terlemek",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "ısındığını",
+          "start": 0.453,
+          "end": 0.88
+        },
+        {
+          "word": "gösterir,",
+          "start": 0.933,
+          "end": 1.44
+        },
+        {
+          "word": "yağ",
+          "start": 1.48,
+          "end": 1.6
+        },
+        {
+          "word": "yaktığını",
+          "start": 1.64,
+          "end": 2
+        },
+        {
+          "word": "değil.",
+          "start": 2.053,
+          "end": 2.72
+        },
+        {
+          "word": "Artık",
+          "start": 2.76,
+          "end": 2.96
+        },
+        {
+          "word": "biliyosun.",
+          "start": 3,
+          "end": 3.52
+        }
+      ]
+    }
+  ]
+}

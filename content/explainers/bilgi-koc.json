@@ -1,0 +1,103 @@
+{
+  "id": "bilgi-koc",
+  "title": "İnternetten bulduğun program neden tutmuyo?",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "İnternetten bi program buluyosun, iki hafta uyuyosun, sonra bi bakıyosun olmuyo. Neden?",
+      "title": "Hazır program *neden* tutmuyo?",
+      "sticker": "📱🤷"
+    },
+    {
+      "visual": "liste",
+      "voice": "Çünkü o program herkes için yazılmış. Senin işin, uykun, haftan... hiçbiri hesapta yok.",
+      "kicker": "1 · HERKES FARKLI",
+      "title": "*Herkes* için yazılmış",
+      "data": {
+        "items": [
+          {
+            "text": "Senin işin"
+          },
+          {
+            "text": "Senin uykun"
+          },
+          {
+            "text": "Senin haftan"
+          },
+          {
+            "text": "Senin sakatlıkların"
+          }
+        ]
+      },
+      "sticker": "📋",
+      "stamp": "HERKESE AYNI!"
+    },
+    {
+      "visual": "mesaj",
+      "voice": "Bi gün mesai uzuyo, bi gün dizin ağrıyo. Hazır program bunlara cevap vermiyo.",
+      "kicker": "2 · HAYAT",
+      "title": "Hayat *plana* uymuyo",
+      "data": {
+        "messages": [
+          {
+            "from": "me",
+            "text": "Mesai uzadı, bugün salona yetişemem."
+          },
+          {
+            "from": "me",
+            "text": "Dizim de biraz ağrıyo zaten…"
+          }
+        ]
+      },
+      "sticker": "😩"
+    },
+    {
+      "visual": "mesaj",
+      "voice": "Koç farkı burda. Durumunu söylüyosun, planın ona göre değişiyo.",
+      "kicker": "3 · KOÇ",
+      "title": "Koç planı *sana* uydurur",
+      "data": {
+        "messages": [
+          {
+            "from": "me",
+            "text": "Mesai uzadı, bugün salona yetişemem."
+          },
+          {
+            "from": "me",
+            "text": "Dizim de biraz ağrıyo zaten…"
+          },
+          {
+            "from": "coach",
+            "text": "Sorun yok. Bacak gününü cumaya aldım, dizini dinlendirelim."
+          },
+          {
+            "from": "coach",
+            "text": "Bugün evde 20 dakikalık üst vücut yapalım mı?"
+          }
+        ],
+        "startAt": 2,
+        "badge": "PLAN GÜNCELLENDİ"
+      },
+      "sticker": "💬✅"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM'da koçun cebinde. Yaz, planın anında değişsin.",
+      "title": "Koçun *cebinde*.",
+      "sticker": "📲"
+    }
+  ],
+  "caption": "Hazır program herkes için yazılır, senin için değil 📋\n\nMesain uzar, dizin ağrır, haftan değişir. Koçun varsa planın da seninle değişir.\n\nSen de denedin mi hazır program? 👇",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "bilgi",
+    "sağlıklıyaşam",
+    "voom",
+    "koç",
+    "kişiselantrenör"
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "scenes": [
+    {
+      "voice": "İnternetten bi program buluyosun, iki hafta uyuyosun, sonra bi bakıyosun olmuyo. Neden?",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-koc/1-mv8l0zbw.mp3",
+      "durationInSeconds": 5.68,
+      "words": [
+        {
+          "word": "İnternetten",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "word": "bi",
+          "start": 0.587,
+          "end": 0.64
+        },
+        {
+          "word": "program",
+          "start": 0.69,
+          "end": 1.04
+        },
+        {
+          "word": "buluyosun,",
+          "start": 1.08,
+          "end": 2
+        },
+        {
+          "word": "iki",
+          "start": 2.04,
+          "end": 2.16
+        },
+        {
+          "word": "hafta",
+          "start": 2.213,
+          "end": 2.48
+        },
+        {
+          "word": "uyuyosun,",
+          "start": 2.533,
+          "end": 3.28
+        },
+        {
+          "word": "sonra",
+          "start": 3.32,
+          "end": 3.52
+        },
+        {
+          "word": "bi",
+          "start": 3.547,
+          "end": 3.6
+        },
+        {
+          "word": "bakıyosun",
+          "start": 3.66,
+          "end": 4.08
+        },
+        {
+          "word": "olmuyo.",
+          "start": 4.14,
+          "end": 4.72
+        },
+        {
+          "word": "Neden?",
+          "start": 4.84,
+          "end": 5.68
+        }
+      ]
+    },
+    {
+      "voice": "Çünkü o program herkes için yazılmış. Senin işin, uykun, haftan... hiçbiri hesapta yok.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-koc/2-mv8l10my.mp3",
+      "durationInSeconds": 5.44,
+      "words": [
+        {
+          "word": "Çünkü",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "o",
+          "start": 0.28,
+          "end": 0.32
+        },
+        {
+          "word": "program",
+          "start": 0.37,
+          "end": 0.72
+        },
+        {
+          "word": "herkes",
+          "start": 0.777,
+          "end": 1.12
+        },
+        {
+          "word": "için",
+          "start": 1.168,
+          "end": 1.36
+        },
+        {
+          "word": "yazılmış.",
+          "start": 1.392,
+          "end": 1.92
+        },
+        {
+          "word": "Senin",
+          "start": 2.08,
+          "end": 2.64
+        },
+        {
+          "word": "işin,",
+          "start": 2.693,
+          "end": 3.12
+        },
+        {
+          "word": "uykun,",
+          "start": 3.16,
+          "end": 3.68
+        },
+        {
+          "word": "haftan...",
+          "start": 3.744,
+          "end": 4.48
+        },
+        {
+          "word": "hiçbiri",
+          "start": 4.52,
+          "end": 4.8
+        },
+        {
+          "word": "hesapta",
+          "start": 4.853,
+          "end": 5.2
+        },
+        {
+          "word": "yok.",
+          "start": 5.24,
+          "end": 5.44
+        }
+      ]
+    },
+    {
+      "voice": "Bi gün mesai uzuyo, bi gün dizin ağrıyo. Hazır program bunlara cevap vermiyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-koc/3-mv8l11s0.mp3",
+      "durationInSeconds": 4.16,
+      "words": [
+        {
+          "word": "Bi",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "word": "gün",
+          "start": 0.12,
+          "end": 0.24
+        },
+        {
+          "word": "mesai",
+          "start": 0.3,
+          "end": 0.64
+        },
+        {
+          "word": "uzuyo,",
+          "start": 0.693,
+          "end": 1.04
+        },
+        {
+          "word": "bi",
+          "start": 1.067,
+          "end": 1.12
+        },
+        {
+          "word": "gün",
+          "start": 1.18,
+          "end": 1.36
+        },
+        {
+          "word": "dizin",
+          "start": 1.42,
+          "end": 1.68
+        },
+        {
+          "word": "ağrıyo.",
+          "start": 1.733,
+          "end": 2.08
+        },
+        {
+          "word": "Hazır",
+          "start": 2.22,
+          "end": 2.72
+        },
+        {
+          "word": "program",
+          "start": 2.77,
+          "end": 3.12
+        },
+        {
+          "word": "bunlara",
+          "start": 3.16,
+          "end": 3.44
+        },
+        {
+          "word": "cevap",
+          "start": 3.48,
+          "end": 3.68
+        },
+        {
+          "word": "vermiyo.",
+          "start": 3.72,
+          "end": 4.16
+        }
+      ]
+    },
+    {
+      "voice": "Koç farkı burda. Durumunu söylüyosun, planın ona göre değişiyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-koc/4-mv8l12x6.mp3",
+      "durationInSeconds": 4,
+      "words": [
+        {
+          "word": "Koç",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "farkı",
+          "start": 0.224,
+          "end": 0.56
+        },
+        {
+          "word": "burda.",
+          "start": 0.58,
+          "end": 0.88
+        },
+        {
+          "word": "Durumunu",
+          "start": 1.02,
+          "end": 1.6
+        },
+        {
+          "word": "söylüyosun,",
+          "start": 1.648,
+          "end": 2.64
+        },
+        {
+          "word": "planın",
+          "start": 2.688,
+          "end": 2.96
+        },
+        {
+          "word": "ona",
+          "start": 3.04,
+          "end": 3.28
+        },
+        {
+          "word": "göre",
+          "start": 3.312,
+          "end": 3.44
+        },
+        {
+          "word": "değişiyo.",
+          "start": 3.493,
+          "end": 4
+        }
+      ]
+    },
+    {
+      "voice": "VOOM'da koçun cebinde. Yaz, planın anında değişsin.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-koc/5-mv8l13wt.mp3",
+      "durationInSeconds": 3.68,
+      "words": [
+        {
+          "word": "VOOM'da",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "koçun",
+          "start": 0.453,
+          "end": 0.72
+        },
+        {
+          "word": "cebinde.",
+          "start": 0.8,
+          "end": 1.28
+        },
+        {
+          "word": "Yaz,",
+          "start": 1.48,
+          "end": 2.28
+        },
+        {
+          "word": "planın",
+          "start": 2.32,
+          "end": 2.56
+        },
+        {
+          "word": "anında",
+          "start": 2.693,
+          "end": 3.12
+        },
+        {
+          "word": "değişsin.",
+          "start": 3.173,
+          "end": 3.68
+        }
+      ]
+    }
+  ]
+}

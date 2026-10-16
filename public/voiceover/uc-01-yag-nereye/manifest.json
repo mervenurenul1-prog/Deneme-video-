@@ -1,0 +1,520 @@
+{
+  "scenes": [
+    {
+      "voice": "Verdiğin yağın büyük kısmını, nefes vererek dışarı atıyorsun.",
+      "say": "Verdiğin yağın büyük kısmını... [whispers] nefes vererek dışarı atıyorsun.",
+      "voiceId": "TASY7VCrU29rEMoYFTGG",
+      "file": "voiceover/uc-01-yag-nereye/1-mva2th6d.mp3",
+      "durationInSeconds": 5.768,
+      "words": [
+        {
+          "word": "Verdiğin",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "word": "yağın",
+          "start": 0.54,
+          "end": 0.8
+        },
+        {
+          "word": "büyük",
+          "start": 0.84,
+          "end": 1.04
+        },
+        {
+          "word": "kısmını...",
+          "start": 1.104,
+          "end": 2.319
+        },
+        {
+          "word": "nefes",
+          "start": 2.428,
+          "end": 2.648
+        },
+        {
+          "word": "vererek",
+          "start": 2.708,
+          "end": 3.368
+        },
+        {
+          "word": "dışarı",
+          "start": 3.448,
+          "end": 3.928
+        },
+        {
+          "word": "atıyorsun.",
+          "start": 3.981,
+          "end": 5.768
+        }
+      ]
+    },
+    {
+      "voice": "Çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. Ama ikisi de doğru değil.",
+      "say": "[curious] Çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. [short pause] Ama ikisi de doğru değil.",
+      "voiceId": "TASY7VCrU29rEMoYFTGG",
+      "file": "voiceover/uc-01-yag-nereye/2-mva2tiq3.mp3",
+      "durationInSeconds": 5.6,
+      "words": [
+        {
+          "word": "Çoğu",
+          "start": 0.147,
+          "end": 0.24
+        },
+        {
+          "word": "insan",
+          "start": 0.32,
+          "end": 0.72
+        },
+        {
+          "word": "yağın",
+          "start": 0.76,
+          "end": 0.96
+        },
+        {
+          "word": "eridiğini",
+          "start": 1.04,
+          "end": 1.84
+        },
+        {
+          "word": "ya",
+          "start": 1.893,
+          "end": 2
+        },
+        {
+          "word": "da",
+          "start": 2.053,
+          "end": 2.16
+        },
+        {
+          "word": "tere",
+          "start": 2.2,
+          "end": 2.4
+        },
+        {
+          "word": "dönüştüğünü",
+          "start": 2.44,
+          "end": 2.88
+        },
+        {
+          "word": "sanır.",
+          "start": 2.94,
+          "end": 3.72
+        },
+        {
+          "word": "Ama",
+          "start": 4.21,
+          "end": 4.24
+        },
+        {
+          "word": "ikisi",
+          "start": 4.267,
+          "end": 4.48
+        },
+        {
+          "word": "de",
+          "start": 4.507,
+          "end": 4.56
+        },
+        {
+          "word": "doğru",
+          "start": 4.613,
+          "end": 4.88
+        },
+        {
+          "word": "değil.",
+          "start": 4.933,
+          "end": 5.6
+        }
+      ]
+    },
+    {
+      "voice": "Yağ hücresi yakıldığında, karbondioksit ve suya ayrılır.",
+      "say": "Yağ hücresi yakıldığında... karbondioksit ve suya ayrılır.",
+      "voiceId": "TASY7VCrU29rEMoYFTGG",
+      "file": "voiceover/uc-01-yag-nereye/3-mva2tk2b.mp3",
+      "durationInSeconds": 3.52,
+      "words": [
+        {
+          "word": "Yağ",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "hücresi",
+          "start": 0.3,
+          "end": 0.64
+        },
+        {
+          "word": "yakıldığında...",
+          "start": 0.7,
+          "end": 1.84
+        },
+        {
+          "word": "karbondioksit",
+          "start": 1.86,
+          "end": 2.48
+        },
+        {
+          "word": "ve",
+          "start": 2.533,
+          "end": 2.64
+        },
+        {
+          "word": "suya",
+          "start": 2.693,
+          "end": 2.88
+        },
+        {
+          "word": "ayrılır.",
+          "start": 2.94,
+          "end": 3.52
+        }
+      ]
+    },
+    {
+      "voice": "Bunun yüzde seksen dördü karbondioksittir ve akciğerlerinden, nefesinle çıkar.",
+      "say": "Bunun yüzde seksen dördü karbondioksittir... ve akciğerlerinden, nefesinle çıkar.",
+      "voiceId": "TASY7VCrU29rEMoYFTGG",
+      "file": "voiceover/uc-01-yag-nereye/4-mva2tl6a.mp3",
+      "durationInSeconds": 5.52,
+      "words": [
+        {
+          "word": "Bunun",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "yüzde",
+          "start": 0.293,
+          "end": 0.56
+        },
+        {
+          "word": "seksen",
+          "start": 0.624,
+          "end": 0.96
+        },
+        {
+          "word": "dördü",
+          "start": 1.013,
+          "end": 1.28
+        },
+        {
+          "word": "karbondioksittir...",
+          "start": 1.34,
+          "end": 2.4
+        },
+        {
+          "word": "ve",
+          "start": 2.64,
+          "end": 3.12
+        },
+        {
+          "word": "akciğerlerinden,",
+          "start": 3.184,
+          "end": 4.24
+        },
+        {
+          "word": "nefesinle",
+          "start": 4.34,
+          "end": 4.96
+        },
+        {
+          "word": "çıkar.",
+          "start": 5.04,
+          "end": 5.52
+        }
+      ]
+    },
+    {
+      "voice": "Kalan yüzde on altı ise su olur; terle ve idrarla atılır.",
+      "voiceId": "TASY7VCrU29rEMoYFTGG",
+      "file": "voiceover/uc-01-yag-nereye/5-mva2tmgw.mp3",
+      "durationInSeconds": 4.48,
+      "words": [
+        {
+          "word": "Kalan",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "yüzde",
+          "start": 0.373,
+          "end": 0.64
+        },
+        {
+          "word": "on",
+          "start": 0.667,
+          "end": 0.72
+        },
+        {
+          "word": "altı",
+          "start": 0.784,
+          "end": 1.04
+        },
+        {
+          "word": "ise",
+          "start": 1.12,
+          "end": 1.36
+        },
+        {
+          "word": "su",
+          "start": 1.52,
+          "end": 1.84
+        },
+        {
+          "word": "olur;",
+          "start": 1.92,
+          "end": 2.6
+        },
+        {
+          "word": "terle",
+          "start": 2.69,
+          "end": 3.12
+        },
+        {
+          "word": "ve",
+          "start": 3.227,
+          "end": 3.44
+        },
+        {
+          "word": "idrarla",
+          "start": 3.52,
+          "end": 3.92
+        },
+        {
+          "word": "atılır.",
+          "start": 3.973,
+          "end": 4.48
+        }
+      ]
+    },
+    {
+      "voice": "O zaman hızlı hızlı nefes alsan daha mı çok yağ yakarsın? Hayır, sadece başın döner.",
+      "say": "[curious] O zaman hızlı hızlı nefes alsan daha mı çok yağ yakarsın? [short pause] Hayır... [laughs] sadece başın döner.",
+      "voiceId": "TASY7VCrU29rEMoYFTGG",
+      "file": "voiceover/uc-01-yag-nereye/6-mva2toav.mp3",
+      "durationInSeconds": 7.76,
+      "words": [
+        {
+          "word": "O",
+          "start": 0.07,
+          "end": 0.08
+        },
+        {
+          "word": "zaman",
+          "start": 0.187,
+          "end": 0.72
+        },
+        {
+          "word": "hızlı",
+          "start": 0.773,
+          "end": 1.04
+        },
+        {
+          "word": "hızlı",
+          "start": 1.093,
+          "end": 1.36
+        },
+        {
+          "word": "nefes",
+          "start": 1.4,
+          "end": 1.6
+        },
+        {
+          "word": "alsan",
+          "start": 1.66,
+          "end": 2
+        },
+        {
+          "word": "daha",
+          "start": 2.032,
+          "end": 2.16
+        },
+        {
+          "word": "mı",
+          "start": 2.213,
+          "end": 2.32
+        },
+        {
+          "word": "çok",
+          "start": 2.36,
+          "end": 2.48
+        },
+        {
+          "word": "yağ",
+          "start": 2.52,
+          "end": 2.64
+        },
+        {
+          "word": "yakarsın?",
+          "start": 2.72,
+          "end": 3.8
+        },
+        {
+          "word": "Hayır...",
+          "start": 4.45,
+          "end": 5.08
+        },
+        {
+          "word": "sadece",
+          "start": 6.354,
+          "end": 6.56
+        },
+        {
+          "word": "başın",
+          "start": 6.6,
+          "end": 6.88
+        },
+        {
+          "word": "döner.",
+          "start": 6.933,
+          "end": 7.76
+        }
+      ]
+    },
+    {
+      "voice": "Yağın yanması için önce kasların onu yakıt olarak kullanmalı. Bunu da sadece hareket sağlar.",
+      "say": "Yağın yanması için önce kasların onu yakıt olarak kullanmalı. [short pause] Bunu da sadece... hareket sağlar.",
+      "voiceId": "TASY7VCrU29rEMoYFTGG",
+      "file": "voiceover/uc-01-yag-nereye/7-mva2tpx8.mp3",
+      "durationInSeconds": 7.049,
+      "words": [
+        {
+          "word": "Yağın",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "yanması",
+          "start": 0.3,
+          "end": 0.72
+        },
+        {
+          "word": "için",
+          "start": 0.8,
+          "end": 1.12
+        },
+        {
+          "word": "önce",
+          "start": 1.232,
+          "end": 1.68
+        },
+        {
+          "word": "kasların",
+          "start": 1.74,
+          "end": 2.24
+        },
+        {
+          "word": "onu",
+          "start": 2.28,
+          "end": 2.4
+        },
+        {
+          "word": "yakıt",
+          "start": 2.44,
+          "end": 2.64
+        },
+        {
+          "word": "olarak",
+          "start": 2.686,
+          "end": 2.96
+        },
+        {
+          "word": "kullanmalı.",
+          "start": 3.017,
+          "end": 4.16
+        },
+        {
+          "word": "Bunu",
+          "start": 4.825,
+          "end": 4.889
+        },
+        {
+          "word": "da",
+          "start": 4.942,
+          "end": 5.049
+        },
+        {
+          "word": "sadece...",
+          "start": 5.152,
+          "end": 5.849
+        },
+        {
+          "word": "hareket",
+          "start": 5.929,
+          "end": 6.489
+        },
+        {
+          "word": "sağlar.",
+          "start": 6.569,
+          "end": 7.049
+        }
+      ]
+    },
+    {
+      "voice": "Kısacası yağı hareketle yakar, nefesinle dışarı verirsin. Kaydet, sonra lazım olur.",
+      "say": "Kısacası yağı hareketle yakar, nefesinle dışarı verirsin. [excited] Kaydet, sonra lazım olur.",
+      "voiceId": "TASY7VCrU29rEMoYFTGG",
+      "file": "voiceover/uc-01-yag-nereye/8-mva2traz.mp3",
+      "durationInSeconds": 7.44,
+      "words": [
+        {
+          "word": "Kısacası",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "word": "yağı",
+          "start": 0.827,
+          "end": 1.28
+        },
+        {
+          "word": "hareketle",
+          "start": 1.35,
+          "end": 2
+        },
+        {
+          "word": "yakar,",
+          "start": 2.04,
+          "end": 2.72
+        },
+        {
+          "word": "nefesinle",
+          "start": 2.76,
+          "end": 3.4
+        },
+        {
+          "word": "dışarı",
+          "start": 3.429,
+          "end": 3.6
+        },
+        {
+          "word": "verirsin.",
+          "start": 3.653,
+          "end": 4.24
+        },
+        {
+          "word": "Kaydet,",
+          "start": 5.41,
+          "end": 5.76
+        },
+        {
+          "word": "sonra",
+          "start": 5.84,
+          "end": 6.24
+        },
+        {
+          "word": "lazım",
+          "start": 6.307,
+          "end": 6.64
+        },
+        {
+          "word": "olur.",
+          "start": 6.688,
+          "end": 7.44
+        }
+      ]
+    }
+  ]
+}

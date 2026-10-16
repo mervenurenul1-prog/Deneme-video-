@@ -1,0 +1,389 @@
+{
+  "scenes": [
+    {
+      "voice": "Her programda duyuyosun: altı hafta. Neden altı? Neden bi hafta değil?",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-6-hafta/1-mv8l0a9l.mp3",
+      "durationInSeconds": 5.84,
+      "words": [
+        {
+          "word": "Her",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "programda",
+          "start": 0.21,
+          "end": 0.72
+        },
+        {
+          "word": "duyuyosun:",
+          "start": 0.76,
+          "end": 1.36
+        },
+        {
+          "word": "altı",
+          "start": 1.52,
+          "end": 2.16
+        },
+        {
+          "word": "hafta.",
+          "start": 2.227,
+          "end": 2.64
+        },
+        {
+          "word": "Neden",
+          "start": 2.88,
+          "end": 3.36
+        },
+        {
+          "word": "altı?",
+          "start": 3.424,
+          "end": 3.84
+        },
+        {
+          "word": "Neden",
+          "start": 4.08,
+          "end": 4.56
+        },
+        {
+          "word": "bi",
+          "start": 4.587,
+          "end": 4.64
+        },
+        {
+          "word": "hafta",
+          "start": 4.707,
+          "end": 5.04
+        },
+        {
+          "word": "değil?",
+          "start": 5.093,
+          "end": 5.84
+        }
+      ]
+    },
+    {
+      "voice": "İlk haftalarda kaslarından önce sinir sistemin öğreniyo. Hareketi daha iyi yapıyosun, o yüzden hızlı güçleniyosun.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-6-hafta/2-mv8l0br4.mp3",
+      "durationInSeconds": 7.6,
+      "words": [
+        {
+          "word": "İlk",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "haftalarda",
+          "start": 0.208,
+          "end": 0.8
+        },
+        {
+          "word": "kaslarından",
+          "start": 0.94,
+          "end": 1.76
+        },
+        {
+          "word": "önce",
+          "start": 1.808,
+          "end": 2
+        },
+        {
+          "word": "sinir",
+          "start": 2.06,
+          "end": 2.32
+        },
+        {
+          "word": "sistemin",
+          "start": 2.368,
+          "end": 2.8
+        },
+        {
+          "word": "öğreniyo.",
+          "start": 2.853,
+          "end": 3.36
+        },
+        {
+          "word": "Hareketi",
+          "start": 3.64,
+          "end": 4.4
+        },
+        {
+          "word": "daha",
+          "start": 4.432,
+          "end": 4.56
+        },
+        {
+          "word": "iyi",
+          "start": 4.6,
+          "end": 4.72
+        },
+        {
+          "word": "yapıyosun,",
+          "start": 4.768,
+          "end": 5.56
+        },
+        {
+          "word": "o",
+          "start": 5.66,
+          "end": 5.76
+        },
+        {
+          "word": "yüzden",
+          "start": 5.829,
+          "end": 6.24
+        },
+        {
+          "word": "hızlı",
+          "start": 6.307,
+          "end": 6.64
+        },
+        {
+          "word": "güçleniyosun.",
+          "start": 6.7,
+          "end": 7.6
+        }
+      ]
+    },
+    {
+      "voice": "Kasta gözle görülür değişim ise biraz daha zaman istiyo. Düzenli devam ettikçe o da geliyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-6-hafta/3-mv8l0d1k.mp3",
+      "durationInSeconds": 6.08,
+      "words": [
+        {
+          "word": "Kasta",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "gözle",
+          "start": 0.48,
+          "end": 0.8
+        },
+        {
+          "word": "görülür",
+          "start": 0.853,
+          "end": 1.2
+        },
+        {
+          "word": "değişim",
+          "start": 1.253,
+          "end": 1.68
+        },
+        {
+          "word": "ise",
+          "start": 1.74,
+          "end": 1.92
+        },
+        {
+          "word": "biraz",
+          "start": 2.027,
+          "end": 2.56
+        },
+        {
+          "word": "daha",
+          "start": 2.608,
+          "end": 2.8
+        },
+        {
+          "word": "zaman",
+          "start": 2.853,
+          "end": 3.12
+        },
+        {
+          "word": "istiyo.",
+          "start": 3.18,
+          "end": 3.6
+        },
+        {
+          "word": "Düzenli",
+          "start": 3.88,
+          "end": 4.48
+        },
+        {
+          "word": "devam",
+          "start": 4.547,
+          "end": 4.88
+        },
+        {
+          "word": "ettikçe",
+          "start": 4.933,
+          "end": 5.36
+        },
+        {
+          "word": "o",
+          "start": 5.4,
+          "end": 5.44
+        },
+        {
+          "word": "da",
+          "start": 5.467,
+          "end": 5.52
+        },
+        {
+          "word": "geliyo.",
+          "start": 5.6,
+          "end": 6.08
+        }
+      ]
+    },
+    {
+      "voice": "Altı hafta, hem değişimi görecek kadar uzun, hem de pes etmeyeceğin kadar kısa. Sonra hedefine göre yeni blok.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-6-hafta/4-mv8l0eb5.mp3",
+      "durationInSeconds": 7.28,
+      "words": [
+        {
+          "word": "Altı",
+          "start": 0,
+          "end": 0.36
+        },
+        {
+          "word": "hafta,",
+          "start": 0.393,
+          "end": 0.64
+        },
+        {
+          "word": "hem",
+          "start": 0.76,
+          "end": 1.12
+        },
+        {
+          "word": "değişimi",
+          "start": 1.173,
+          "end": 1.6
+        },
+        {
+          "word": "görecek",
+          "start": 1.648,
+          "end": 2
+        },
+        {
+          "word": "kadar",
+          "start": 2.04,
+          "end": 2.24
+        },
+        {
+          "word": "uzun,",
+          "start": 2.304,
+          "end": 2.64
+        },
+        {
+          "word": "hem",
+          "start": 2.74,
+          "end": 3.04
+        },
+        {
+          "word": "de",
+          "start": 3.093,
+          "end": 3.2
+        },
+        {
+          "word": "pes",
+          "start": 3.26,
+          "end": 3.44
+        },
+        {
+          "word": "etmeyeceğin",
+          "start": 3.497,
+          "end": 4
+        },
+        {
+          "word": "kadar",
+          "start": 4.053,
+          "end": 4.32
+        },
+        {
+          "word": "kısa.",
+          "start": 4.4,
+          "end": 5.28
+        },
+        {
+          "word": "Sonra",
+          "start": 5.373,
+          "end": 5.84
+        },
+        {
+          "word": "hedefine",
+          "start": 5.893,
+          "end": 6.32
+        },
+        {
+          "word": "göre",
+          "start": 6.368,
+          "end": 6.56
+        },
+        {
+          "word": "yeni",
+          "start": 6.624,
+          "end": 6.88
+        },
+        {
+          "word": "blok.",
+          "start": 6.944,
+          "end": 7.28
+        }
+      ]
+    },
+    {
+      "voice": "VOOM, hayaline göre altı haftalık planını kuruyo. Sen sadece başla.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-6-hafta/5-mv8l0fmj.mp3",
+      "durationInSeconds": 5.04,
+      "words": [
+        {
+          "word": "VOOM,",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "hayaline",
+          "start": 0.52,
+          "end": 1.2
+        },
+        {
+          "word": "göre",
+          "start": 1.264,
+          "end": 1.52
+        },
+        {
+          "word": "altı",
+          "start": 1.584,
+          "end": 1.84
+        },
+        {
+          "word": "haftalık",
+          "start": 1.888,
+          "end": 2.24
+        },
+        {
+          "word": "planını",
+          "start": 2.304,
+          "end": 2.72
+        },
+        {
+          "word": "kuruyo.",
+          "start": 2.76,
+          "end": 3.2
+        },
+        {
+          "word": "Sen",
+          "start": 3.44,
+          "end": 4.16
+        },
+        {
+          "word": "sadece",
+          "start": 4.217,
+          "end": 4.56
+        },
+        {
+          "word": "başla.",
+          "start": 4.62,
+          "end": 5.04
+        }
+      ]
+    }
+  ]
+}

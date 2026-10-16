@@ -1,3 +1,4 @@
 node_modules
 out
 .env
+ses-ornekleri/kullanici-sesi/*.wav

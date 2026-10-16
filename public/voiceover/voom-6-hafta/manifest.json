@@ -1,0 +1,271 @@
+{
+  "scenes": [
+    {
+      "voice": "Hayalindeki vücut için bi planın var mı? Yoksa her gün kafana göre mi?",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/voom-6-hafta/1-mv9j9wz9.mp3",
+      "durationInSeconds": 4.32,
+      "words": [
+        {
+          "word": "Hayalindeki",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "word": "vücut",
+          "start": 0.6,
+          "end": 0.8
+        },
+        {
+          "word": "için",
+          "start": 0.864,
+          "end": 1.12
+        },
+        {
+          "word": "bi",
+          "start": 1.147,
+          "end": 1.2
+        },
+        {
+          "word": "planın",
+          "start": 1.264,
+          "end": 1.6
+        },
+        {
+          "word": "var",
+          "start": 1.66,
+          "end": 1.84
+        },
+        {
+          "word": "mı?",
+          "start": 1.92,
+          "end": 2.64
+        },
+        {
+          "word": "Yoksa",
+          "start": 2.7,
+          "end": 2.96
+        },
+        {
+          "word": "her",
+          "start": 3.02,
+          "end": 3.2
+        },
+        {
+          "word": "gün",
+          "start": 3.26,
+          "end": 3.44
+        },
+        {
+          "word": "kafana",
+          "start": 3.5,
+          "end": 3.84
+        },
+        {
+          "word": "göre",
+          "start": 3.888,
+          "end": 4.08
+        },
+        {
+          "word": "mi?",
+          "start": 4.133,
+          "end": 4.32
+        }
+      ]
+    },
+    {
+      "voice": "VOOM hedefini ve haftanı sorup sana özel altı haftalık plan kuruyo. Altı hafta sonra nerdesin, baştan belli.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/voom-6-hafta/2-mv9j9ykh.mp3",
+      "durationInSeconds": 7.6,
+      "words": [
+        {
+          "word": "VOOM",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "hedefini",
+          "start": 0.427,
+          "end": 1.04
+        },
+        {
+          "word": "ve",
+          "start": 1.093,
+          "end": 1.2
+        },
+        {
+          "word": "haftanı",
+          "start": 1.248,
+          "end": 1.6
+        },
+        {
+          "word": "sorup",
+          "start": 1.66,
+          "end": 2
+        },
+        {
+          "word": "sana",
+          "start": 2.112,
+          "end": 2.56
+        },
+        {
+          "word": "özel",
+          "start": 2.64,
+          "end": 2.96
+        },
+        {
+          "word": "altı",
+          "start": 3.024,
+          "end": 3.28
+        },
+        {
+          "word": "haftalık",
+          "start": 3.328,
+          "end": 3.68
+        },
+        {
+          "word": "plan",
+          "start": 3.76,
+          "end": 4.08
+        },
+        {
+          "word": "kuruyo.",
+          "start": 4.12,
+          "end": 4.56
+        },
+        {
+          "word": "Altı",
+          "start": 4.74,
+          "end": 5.36
+        },
+        {
+          "word": "hafta",
+          "start": 5.4,
+          "end": 5.6
+        },
+        {
+          "word": "sonra",
+          "start": 5.653,
+          "end": 5.92
+        },
+        {
+          "word": "nerdesin,",
+          "start": 5.98,
+          "end": 6.76
+        },
+        {
+          "word": "baştan",
+          "start": 6.83,
+          "end": 7.2
+        },
+        {
+          "word": "belli.",
+          "start": 7.267,
+          "end": 7.6
+        }
+      ]
+    },
+    {
+      "voice": "Devam ettikçe plan da seninle ilerliyo. İsteğine, temposuna göre yeniden şekilleniyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/voom-6-hafta/3-mv9ja03m.mp3",
+      "durationInSeconds": 6.4,
+      "words": [
+        {
+          "word": "Devam",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "ettikçe",
+          "start": 0.373,
+          "end": 0.8
+        },
+        {
+          "word": "plan",
+          "start": 0.944,
+          "end": 1.52
+        },
+        {
+          "word": "da",
+          "start": 1.547,
+          "end": 1.6
+        },
+        {
+          "word": "seninle",
+          "start": 1.667,
+          "end": 2.08
+        },
+        {
+          "word": "ilerliyo.",
+          "start": 2.133,
+          "end": 2.64
+        },
+        {
+          "word": "İsteğine,",
+          "start": 3.04,
+          "end": 4
+        },
+        {
+          "word": "temposuna",
+          "start": 4.12,
+          "end": 4.88
+        },
+        {
+          "word": "göre",
+          "start": 4.928,
+          "end": 5.12
+        },
+        {
+          "word": "yeniden",
+          "start": 5.18,
+          "end": 5.6
+        },
+        {
+          "word": "şekilleniyo.",
+          "start": 5.66,
+          "end": 6.4
+        }
+      ]
+    },
+    {
+      "voice": "VOOM. Hayalin, senin planın. Link profilde.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/voom-6-hafta/4-mv9ja11i.mp3",
+      "durationInSeconds": 3.36,
+      "words": [
+        {
+          "word": "VOOM.",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "word": "Hayalin,",
+          "start": 0.7,
+          "end": 1.36
+        },
+        {
+          "word": "senin",
+          "start": 1.4,
+          "end": 1.6
+        },
+        {
+          "word": "planın.",
+          "start": 1.664,
+          "end": 2.36
+        },
+        {
+          "word": "Link",
+          "start": 2.416,
+          "end": 2.64
+        },
+        {
+          "word": "profilde.",
+          "start": 2.688,
+          "end": 3.36
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "scenes": [
+    {
+      "voice": "Haftada üç gün salon, gerisi koltuk. Sence hangisi daha çok yaktırıyo?",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-08-gunluk-hareket/1-mv8ljo0p.mp3",
+      "durationInSeconds": 5.04,
+      "words": [
+        {
+          "word": "Haftada",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "üç",
+          "start": 0.453,
+          "end": 0.56
+        },
+        {
+          "word": "gün",
+          "start": 0.62,
+          "end": 0.8
+        },
+        {
+          "word": "salon,",
+          "start": 0.867,
+          "end": 1.28
+        },
+        {
+          "word": "gerisi",
+          "start": 1.38,
+          "end": 1.84
+        },
+        {
+          "word": "koltuk.",
+          "start": 1.92,
+          "end": 2.4
+        },
+        {
+          "word": "Sence",
+          "start": 2.8,
+          "end": 3.44
+        },
+        {
+          "word": "hangisi",
+          "start": 3.488,
+          "end": 3.84
+        },
+        {
+          "word": "daha",
+          "start": 3.888,
+          "end": 4.08
+        },
+        {
+          "word": "çok",
+          "start": 4.14,
+          "end": 4.32
+        },
+        {
+          "word": "yaktırıyo?",
+          "start": 4.36,
+          "end": 5.04
+        }
+      ]
+    },
+    {
+      "voice": "Salonda bi saat geçiriyosun. Ama kalan yirmi üç saat de kalori yaktırıyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-08-gunluk-hareket/2-mv8ljp4s.mp3",
+      "durationInSeconds": 4.72,
+      "words": [
+        {
+          "word": "Salonda",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "bi",
+          "start": 0.427,
+          "end": 0.48
+        },
+        {
+          "word": "saat",
+          "start": 0.544,
+          "end": 0.8
+        },
+        {
+          "word": "geçiriyosun.",
+          "start": 0.853,
+          "end": 1.84
+        },
+        {
+          "word": "Ama",
+          "start": 1.92,
+          "end": 2.16
+        },
+        {
+          "word": "kalan",
+          "start": 2.227,
+          "end": 2.56
+        },
+        {
+          "word": "yirmi",
+          "start": 2.64,
+          "end": 2.96
+        },
+        {
+          "word": "üç",
+          "start": 3.013,
+          "end": 3.12
+        },
+        {
+          "word": "saat",
+          "start": 3.2,
+          "end": 3.52
+        },
+        {
+          "word": "de",
+          "start": 3.547,
+          "end": 3.6
+        },
+        {
+          "word": "kalori",
+          "start": 3.68,
+          "end": 4
+        },
+        {
+          "word": "yaktırıyo.",
+          "start": 4.04,
+          "end": 4.72
+        }
+      ]
+    },
+    {
+      "voice": "Yürümek, merdiven, ayakta durmak, ev işleri... Hepsi sayılıyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-08-gunluk-hareket/3-mv8ljqj2.mp3",
+      "durationInSeconds": 5.12,
+      "words": [
+        {
+          "word": "Yürümek,",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "word": "merdiven,",
+          "start": 0.62,
+          "end": 1.68
+        },
+        {
+          "word": "ayakta",
+          "start": 1.744,
+          "end": 2.08
+        },
+        {
+          "word": "durmak,",
+          "start": 2.14,
+          "end": 2.56
+        },
+        {
+          "word": "ev",
+          "start": 2.72,
+          "end": 3.04
+        },
+        {
+          "word": "işleri...",
+          "start": 3.12,
+          "end": 3.6
+        },
+        {
+          "word": "Hepsi",
+          "start": 3.8,
+          "end": 4.48
+        },
+        {
+          "word": "sayılıyo.",
+          "start": 4.537,
+          "end": 5.12
+        }
+      ]
+    },
+    {
+      "voice": "Araştırmalara göre bu fark, günde yüzlerce kaloriyi bulabiliyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-08-gunluk-hareket/4-mv8ljrgp.mp3",
+      "durationInSeconds": 3.76,
+      "words": [
+        {
+          "word": "Araştırmalara",
+          "start": 0,
+          "end": 0.72
+        },
+        {
+          "word": "göre",
+          "start": 0.768,
+          "end": 0.96
+        },
+        {
+          "word": "bu",
+          "start": 1.013,
+          "end": 1.12
+        },
+        {
+          "word": "fark,",
+          "start": 1.184,
+          "end": 1.76
+        },
+        {
+          "word": "günde",
+          "start": 1.8,
+          "end": 2.08
+        },
+        {
+          "word": "yüzlerce",
+          "start": 2.14,
+          "end": 2.64
+        },
+        {
+          "word": "kaloriyi",
+          "start": 2.7,
+          "end": 3.12
+        },
+        {
+          "word": "bulabiliyo.",
+          "start": 3.16,
+          "end": 3.76
+        }
+      ]
+    },
+    {
+      "voice": "Küçük başla: biraz daha fazla adım, asansör yerine merdiven.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/reels-08-gunluk-hareket/5-mv8ljsq2.mp3",
+      "durationInSeconds": 4.4,
+      "words": [
+        {
+          "word": "Küçük",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "başla:",
+          "start": 0.4,
+          "end": 0.88
+        },
+        {
+          "word": "biraz",
+          "start": 1.013,
+          "end": 1.68
+        },
+        {
+          "word": "daha",
+          "start": 1.712,
+          "end": 1.84
+        },
+        {
+          "word": "fazla",
+          "start": 1.907,
+          "end": 2.24
+        },
+        {
+          "word": "adım,",
+          "start": 2.288,
+          "end": 2.56
+        },
+        {
+          "word": "asansör",
+          "start": 2.747,
+          "end": 3.44
+        },
+        {
+          "word": "yerine",
+          "start": 3.486,
+          "end": 3.76
+        },
+        {
+          "word": "merdiven.",
+          "start": 3.82,
+          "end": 4.4
+        }
+      ]
+    }
+  ]
+}

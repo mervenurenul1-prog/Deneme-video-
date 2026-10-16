@@ -1,0 +1,289 @@
+{
+  "scenes": [
+    {
+      "voice": "Göbek için mekik. Mantıklı geliyo, di mi? Ama vücut öyle çalışmıyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-10-mekik/1-mv8ljyy1.mp3",
+      "durationInSeconds": 4.48,
+      "words": [
+        {
+          "word": "Göbek",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "için",
+          "start": 0.368,
+          "end": 0.56
+        },
+        {
+          "word": "mekik.",
+          "start": 0.62,
+          "end": 1.44
+        },
+        {
+          "word": "Mantıklı",
+          "start": 1.536,
+          "end": 2.08
+        },
+        {
+          "word": "geliyo,",
+          "start": 2.12,
+          "end": 2.36
+        },
+        {
+          "word": "di",
+          "start": 2.373,
+          "end": 2.4
+        },
+        {
+          "word": "mi?",
+          "start": 2.453,
+          "end": 2.96
+        },
+        {
+          "word": "Ama",
+          "start": 3.02,
+          "end": 3.2
+        },
+        {
+          "word": "vücut",
+          "start": 3.32,
+          "end": 3.68
+        },
+        {
+          "word": "öyle",
+          "start": 3.712,
+          "end": 3.84
+        },
+        {
+          "word": "çalışmıyo.",
+          "start": 3.907,
+          "end": 4.48
+        }
+      ]
+    },
+    {
+      "voice": "Vücut yağı sadece çalışan bölgeden değil, her yerden çekiyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-10-mekik/2-mv8ljzrx.mp3",
+      "durationInSeconds": 3.12,
+      "words": [
+        {
+          "word": "Vücut",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "yağı",
+          "start": 0.347,
+          "end": 0.48
+        },
+        {
+          "word": "sadece",
+          "start": 0.526,
+          "end": 0.8
+        },
+        {
+          "word": "çalışan",
+          "start": 0.85,
+          "end": 1.2
+        },
+        {
+          "word": "bölgeden",
+          "start": 1.24,
+          "end": 1.6
+        },
+        {
+          "word": "değil,",
+          "start": 1.653,
+          "end": 2.08
+        },
+        {
+          "word": "her",
+          "start": 2.12,
+          "end": 2.24
+        },
+        {
+          "word": "yerden",
+          "start": 2.28,
+          "end": 2.64
+        },
+        {
+          "word": "çekiyo.",
+          "start": 2.68,
+          "end": 3.12
+        }
+      ]
+    },
+    {
+      "voice": "Bin mekik çeksen de yağ sadece göbekten gitmiyo. Bölgesel incelme efsane.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-10-mekik/3-mv8lk0vd.mp3",
+      "durationInSeconds": 4.88,
+      "words": [
+        {
+          "word": "Bin",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "word": "mekik",
+          "start": 0.14,
+          "end": 0.4
+        },
+        {
+          "word": "çeksen",
+          "start": 0.46,
+          "end": 0.8
+        },
+        {
+          "word": "de",
+          "start": 0.853,
+          "end": 0.96
+        },
+        {
+          "word": "yağ",
+          "start": 1.1,
+          "end": 1.52
+        },
+        {
+          "word": "sadece",
+          "start": 1.589,
+          "end": 2
+        },
+        {
+          "word": "göbekten",
+          "start": 2.027,
+          "end": 2.48
+        },
+        {
+          "word": "gitmiyo.",
+          "start": 2.52,
+          "end": 2.88
+        },
+        {
+          "word": "Bölgesel",
+          "start": 3.02,
+          "end": 3.68
+        },
+        {
+          "word": "incelme",
+          "start": 3.747,
+          "end": 4.16
+        },
+        {
+          "word": "efsane.",
+          "start": 4.28,
+          "end": 4.88
+        }
+      ]
+    },
+    {
+      "voice": "Mekik karın kasını güçlendirir, duruşa destek olur. Ama yağı eritmez.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-10-mekik/4-mv8lk20a.mp3",
+      "durationInSeconds": 4.48,
+      "words": [
+        {
+          "word": "Mekik",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "karın",
+          "start": 0.46,
+          "end": 0.72
+        },
+        {
+          "word": "kasını",
+          "start": 0.76,
+          "end": 1.04
+        },
+        {
+          "word": "güçlendirir,",
+          "start": 1.1,
+          "end": 1.76
+        },
+        {
+          "word": "duruşa",
+          "start": 1.8,
+          "end": 2.08
+        },
+        {
+          "word": "destek",
+          "start": 2.126,
+          "end": 2.4
+        },
+        {
+          "word": "olur.",
+          "start": 2.448,
+          "end": 3.04
+        },
+        {
+          "word": "Ama",
+          "start": 3.14,
+          "end": 3.44
+        },
+        {
+          "word": "yağı",
+          "start": 3.547,
+          "end": 3.84
+        },
+        {
+          "word": "eritmez.",
+          "start": 3.893,
+          "end": 4.48
+        }
+      ]
+    },
+    {
+      "voice": "Çözüm; kalori dengesi, tüm vücut antrenmanı ve sabır.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-10-mekik/5-mv8lk2z0.mp3",
+      "durationInSeconds": 4,
+      "words": [
+        {
+          "word": "Çözüm;",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "kalori",
+          "start": 0.56,
+          "end": 1.2
+        },
+        {
+          "word": "dengesi,",
+          "start": 1.24,
+          "end": 1.76
+        },
+        {
+          "word": "tüm",
+          "start": 1.88,
+          "end": 2.24
+        },
+        {
+          "word": "vücut",
+          "start": 2.28,
+          "end": 2.56
+        },
+        {
+          "word": "antrenmanı",
+          "start": 2.6,
+          "end": 3.12
+        },
+        {
+          "word": "ve",
+          "start": 3.227,
+          "end": 3.44
+        },
+        {
+          "word": "sabır.",
+          "start": 3.52,
+          "end": 4
+        }
+      ]
+    }
+  ]
+}

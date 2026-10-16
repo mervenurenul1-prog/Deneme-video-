@@ -1,0 +1,533 @@
+{
+  "scenes": [
+    {
+      "voice": "Salona gidiyorsun ama ne yapacağını bilmiyorsun. Tanıdık geldi mi?",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/1-mv8ibrrq.mp3",
+      "durationInSeconds": 3.901,
+      "words": [
+        {
+          "word": "Salona",
+          "start": 0,
+          "end": 0.406
+        },
+        {
+          "word": "gidiyorsun",
+          "start": 0.453,
+          "end": 0.94
+        },
+        {
+          "word": "ama",
+          "start": 0.975,
+          "end": 1.126
+        },
+        {
+          "word": "ne",
+          "start": 1.173,
+          "end": 1.254
+        },
+        {
+          "word": "yapacağını",
+          "start": 1.289,
+          "end": 1.73
+        },
+        {
+          "word": "bilmiyorsun.",
+          "start": 1.776,
+          "end": 2.415
+        },
+        {
+          "word": "Tanıdık",
+          "start": 2.589,
+          "end": 3.007
+        },
+        {
+          "word": "geldi",
+          "start": 3.065,
+          "end": 3.355
+        },
+        {
+          "word": "mi?",
+          "start": 3.402,
+          "end": 3.901
+        }
+      ]
+    },
+    {
+      "voice": "VOOM, her gün sana o günün antrenmanını hazır veriyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/2-mv8ibssd.mp3",
+      "durationInSeconds": 3.39,
+      "words": [
+        {
+          "word": "VOOM,",
+          "start": 0,
+          "end": 0.488
+        },
+        {
+          "word": "her",
+          "start": 0.604,
+          "end": 0.755
+        },
+        {
+          "word": "gün",
+          "start": 0.824,
+          "end": 0.975
+        },
+        {
+          "word": "sana",
+          "start": 1.033,
+          "end": 1.242
+        },
+        {
+          "word": "o",
+          "start": 1.312,
+          "end": 1.358
+        },
+        {
+          "word": "günün",
+          "start": 1.416,
+          "end": 1.637
+        },
+        {
+          "word": "antrenmanını",
+          "start": 1.695,
+          "end": 2.299
+        },
+        {
+          "word": "hazır",
+          "start": 2.357,
+          "end": 2.612
+        },
+        {
+          "word": "veriyor.",
+          "start": 2.659,
+          "end": 3.39
+        }
+      ]
+    },
+    {
+      "voice": "Hedefine ve haftana göre altı haftalık bir plan kuruyor. Üstelik her kararın nedenini açıklıyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/3-mv8ibu0d.mp3",
+      "durationInSeconds": 5.851,
+      "words": [
+        {
+          "word": "Hedefine",
+          "start": 0,
+          "end": 0.499
+        },
+        {
+          "word": "ve",
+          "start": 0.534,
+          "end": 0.615
+        },
+        {
+          "word": "haftana",
+          "start": 0.662,
+          "end": 1.045
+        },
+        {
+          "word": "göre",
+          "start": 1.091,
+          "end": 1.324
+        },
+        {
+          "word": "altı",
+          "start": 1.382,
+          "end": 1.637
+        },
+        {
+          "word": "haftalık",
+          "start": 1.683,
+          "end": 2.078
+        },
+        {
+          "word": "bir",
+          "start": 2.125,
+          "end": 2.241
+        },
+        {
+          "word": "plan",
+          "start": 2.287,
+          "end": 2.531
+        },
+        {
+          "word": "kuruyor.",
+          "start": 2.589,
+          "end": 3.123
+        },
+        {
+          "word": "Üstelik",
+          "start": 3.367,
+          "end": 3.785
+        },
+        {
+          "word": "her",
+          "start": 3.855,
+          "end": 3.971
+        },
+        {
+          "word": "kararın",
+          "start": 4.04,
+          "end": 4.423
+        },
+        {
+          "word": "nedenini",
+          "start": 4.47,
+          "end": 4.876
+        },
+        {
+          "word": "açıklıyor.",
+          "start": 4.923,
+          "end": 5.851
+        }
+      ]
+    },
+    {
+      "voice": "Beslenmen de planın bir parçası. Antrenman gününde ve dinlenme gününde farklı kalori hedefleri.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/4-mv8ibv0g.mp3",
+      "durationInSeconds": 6.037,
+      "words": [
+        {
+          "word": "Beslenmen",
+          "start": 0,
+          "end": 0.604
+        },
+        {
+          "word": "de",
+          "start": 0.662,
+          "end": 0.731
+        },
+        {
+          "word": "planın",
+          "start": 0.778,
+          "end": 1.091
+        },
+        {
+          "word": "bir",
+          "start": 1.138,
+          "end": 1.265
+        },
+        {
+          "word": "parçası.",
+          "start": 1.312,
+          "end": 2.009
+        },
+        {
+          "word": "Antrenman",
+          "start": 2.519,
+          "end": 3.077
+        },
+        {
+          "word": "gününde",
+          "start": 3.123,
+          "end": 3.448
+        },
+        {
+          "word": "ve",
+          "start": 3.495,
+          "end": 3.587
+        },
+        {
+          "word": "dinlenme",
+          "start": 3.634,
+          "end": 4.052
+        },
+        {
+          "word": "gününde",
+          "start": 4.098,
+          "end": 4.435
+        },
+        {
+          "word": "farklı",
+          "start": 4.493,
+          "end": 4.818
+        },
+        {
+          "word": "kalori",
+          "start": 4.853,
+          "end": 5.143
+        },
+        {
+          "word": "hedefleri.",
+          "start": 5.166,
+          "end": 6.037
+        }
+      ]
+    },
+    {
+      "voice": "Masa başında mı çalışıyorsun? Gün içine yayılmış kısa duruş rutinleri de var.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/5-mv8ibw4x.mp3",
+      "durationInSeconds": 4.551,
+      "words": [
+        {
+          "word": "Masa",
+          "start": 0,
+          "end": 0.279
+        },
+        {
+          "word": "başında",
+          "start": 0.325,
+          "end": 0.673
+        },
+        {
+          "word": "mı",
+          "start": 0.72,
+          "end": 0.789
+        },
+        {
+          "word": "çalışıyorsun?",
+          "start": 0.836,
+          "end": 1.567
+        },
+        {
+          "word": "Gün",
+          "start": 1.846,
+          "end": 2.02
+        },
+        {
+          "word": "içine",
+          "start": 2.067,
+          "end": 2.31
+        },
+        {
+          "word": "yayılmış",
+          "start": 2.357,
+          "end": 2.74
+        },
+        {
+          "word": "kısa",
+          "start": 2.798,
+          "end": 3.019
+        },
+        {
+          "word": "duruş",
+          "start": 3.077,
+          "end": 3.32
+        },
+        {
+          "word": "rutinleri",
+          "start": 3.39,
+          "end": 3.831
+        },
+        {
+          "word": "de",
+          "start": 3.866,
+          "end": 3.936
+        },
+        {
+          "word": "var.",
+          "start": 3.982,
+          "end": 4.551
+        }
+      ]
+    },
+    {
+      "voice": "Bugün başka bir şey mi yapmak istiyorsun? Koçuna yazman yeterli. Planını senin için anında yeniden düzenliyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/6-mv8ibxg9.mp3",
+      "durationInSeconds": 6.827,
+      "words": [
+        {
+          "word": "Bugün",
+          "start": 0,
+          "end": 0.313
+        },
+        {
+          "word": "başka",
+          "start": 0.36,
+          "end": 0.639
+        },
+        {
+          "word": "bir",
+          "start": 0.685,
+          "end": 0.766
+        },
+        {
+          "word": "şey",
+          "start": 0.789,
+          "end": 0.94
+        },
+        {
+          "word": "mi",
+          "start": 0.975,
+          "end": 1.045
+        },
+        {
+          "word": "yapmak",
+          "start": 1.068,
+          "end": 1.37
+        },
+        {
+          "word": "istiyorsun?",
+          "start": 1.405,
+          "end": 2.009
+        },
+        {
+          "word": "Koçuna",
+          "start": 2.183,
+          "end": 2.543
+        },
+        {
+          "word": "yazman",
+          "start": 2.589,
+          "end": 2.926
+        },
+        {
+          "word": "yeterli.",
+          "start": 2.995,
+          "end": 3.657
+        },
+        {
+          "word": "Planını",
+          "start": 3.982,
+          "end": 4.435
+        },
+        {
+          "word": "senin",
+          "start": 4.481,
+          "end": 4.725
+        },
+        {
+          "word": "için",
+          "start": 4.772,
+          "end": 5.004
+        },
+        {
+          "word": "anında",
+          "start": 5.097,
+          "end": 5.492
+        },
+        {
+          "word": "yeniden",
+          "start": 5.55,
+          "end": 5.886
+        },
+        {
+          "word": "düzenliyor.",
+          "start": 5.921,
+          "end": 6.827
+        }
+      ]
+    },
+    {
+      "voice": "Her seans, her set kayıt altında. İlerlemeni gün gün görüyorsun.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/7-mv8ibydt.mp3",
+      "durationInSeconds": 4.505,
+      "words": [
+        {
+          "word": "Her",
+          "start": 0,
+          "end": 0.255
+        },
+        {
+          "word": "seans,",
+          "start": 0.325,
+          "end": 0.882
+        },
+        {
+          "word": "her",
+          "start": 1.033,
+          "end": 1.184
+        },
+        {
+          "word": "set",
+          "start": 1.265,
+          "end": 1.451
+        },
+        {
+          "word": "kayıt",
+          "start": 1.509,
+          "end": 1.741
+        },
+        {
+          "word": "altında.",
+          "start": 1.811,
+          "end": 2.368
+        },
+        {
+          "word": "İlerlemeni",
+          "start": 2.577,
+          "end": 3.17
+        },
+        {
+          "word": "gün",
+          "start": 3.228,
+          "end": 3.402
+        },
+        {
+          "word": "gün",
+          "start": 3.437,
+          "end": 3.599
+        },
+        {
+          "word": "görüyorsun.",
+          "start": 3.634,
+          "end": 4.505
+        }
+      ]
+    },
+    {
+      "voice": "VOOM. Antrenmanın, beslenmen ve koçun, tek bir yerde. Link profilde.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-tanitim/8-mv8ibzc4.mp3",
+      "durationInSeconds": 5.201,
+      "words": [
+        {
+          "word": "VOOM.",
+          "start": 0,
+          "end": 0.639
+        },
+        {
+          "word": "Antrenmanın,",
+          "start": 0.964,
+          "end": 1.683
+        },
+        {
+          "word": "beslenmen",
+          "start": 1.741,
+          "end": 2.299
+        },
+        {
+          "word": "ve",
+          "start": 2.357,
+          "end": 2.426
+        },
+        {
+          "word": "koçun,",
+          "start": 2.485,
+          "end": 2.879
+        },
+        {
+          "word": "tek",
+          "start": 2.926,
+          "end": 3.111
+        },
+        {
+          "word": "bir",
+          "start": 3.17,
+          "end": 3.309
+        },
+        {
+          "word": "yerde.",
+          "start": 3.367,
+          "end": 3.843
+        },
+        {
+          "word": "Link",
+          "start": 4.017,
+          "end": 4.249
+        },
+        {
+          "word": "profilde.",
+          "start": 4.296,
+          "end": 5.201
+        }
+      ]
+    }
+  ]
+}

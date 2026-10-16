@@ -1,0 +1,92 @@
+{
+  "id": "reels-07-isinma",
+  "title": "Isınmadan başlamak neden kötü?",
+  "tag": "ISINMA",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Salona girdin, direkt ağır sete geçtin. Ne olacak ki? Çok şey.",
+      "title": "Isınmadan başlamak neden *kötü*?",
+      "sticker": "🏋️😬"
+    },
+    {
+      "visual": "termometre",
+      "voice": "Soğuk kas, buzdolabından çıkmış lastik gibi. Sert. Isındıkça yumuşuyo.",
+      "kicker": "1 · ISI",
+      "title": "Soğuk kas *sert lastik* gibi",
+      "data": {
+        "from": 35.5,
+        "to": 38.5,
+        "label": "KAS ISISI (YAKLAŞIK)"
+      },
+      "sticker": "🧊",
+      "stamp": "SERT!"
+    },
+    {
+      "visual": "liste",
+      "voice": "Isınınca kas esniyo, sinyaller hızlanıyo, eklemler rahatlıyo.",
+      "kicker": "2 · ISININCA",
+      "title": "Isınan kas *daha iyi* çalışır",
+      "data": {
+        "items": [
+          {
+            "text": "Daha esnek",
+            "ok": true
+          },
+          {
+            "text": "Sinyaller hızlanır",
+            "ok": true
+          },
+          {
+            "text": "Eklemler rahatlar",
+            "ok": true
+          }
+        ]
+      },
+      "sticker": "🔥"
+    },
+    {
+      "visual": "zaman",
+      "voice": "Beş on dakika yeter. Hafif kardiyo, dinamik esneme, bi de hafif set.",
+      "kicker": "3 · NASIL",
+      "title": "*5-10 dakika* yeter",
+      "data": {
+        "items": [
+          {
+            "time": "3-5 DK",
+            "text": "Hafif kardiyo"
+          },
+          {
+            "time": "2-3 DK",
+            "text": "Dinamik esneme"
+          },
+          {
+            "time": "1-2 SET",
+            "text": "Hafif ısınma seti"
+          }
+        ]
+      },
+      "sticker": "⏱️"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Isınmak vakit kaybı değil, sigorta. Atlama.",
+      "title": "Önce ısın, *sonra kaldır*.",
+      "sticker": "🔥",
+      "data": {
+        "cta": "kaydet"
+      }
+    }
+  ],
+  "caption": "Isınma vakit kaybı değil, sigorta 🔥\n\nIsınan kas daha esnek olur, sinir iletimi hızlanır, eklemler rahatlar. 5-10 dakika hafif kardiyo + dinamik esneme + hafif bir ısınma seti yeter.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "sağlıklıyaşam",
+    "sporsalonu",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

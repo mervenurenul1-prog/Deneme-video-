@@ -1,0 +1,93 @@
+{
+  "id": "reels-06-uyku",
+  "title": "Kas uyurken mi büyür?",
+  "tag": "UYKU",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Kası salonda yaptığını sanıyosun ama asıl iş uyurken oluyo. Nasıl mı?",
+      "title": "Kas *uyurken* mi büyür?",
+      "sticker": "😴💪"
+    },
+    {
+      "visual": "bar",
+      "voice": "Büyüme hormonunun en büyük salınımı, gecenin ilk yarısındaki derin uykuda.",
+      "kicker": "1 · HORMON",
+      "title": "Büyüme hormonu *derin uykuda*",
+      "data": {
+        "bars": [
+          {
+            "label": "23:00",
+            "value": 35,
+            "tone": "muted"
+          },
+          {
+            "label": "00:30",
+            "value": 100,
+            "text": "Zirve"
+          },
+          {
+            "label": "02:00",
+            "value": 55,
+            "tone": "teal"
+          },
+          {
+            "label": "04:00",
+            "value": 30,
+            "tone": "muted"
+          },
+          {
+            "label": "06:00",
+            "value": 20,
+            "tone": "muted"
+          }
+        ]
+      },
+      "sticker": "🌙",
+      "stamp": "ZİRVE!"
+    },
+    {
+      "visual": "kas",
+      "voice": "Gün içinde zorladığın lifler gece onarılıyo, güçleniyo.",
+      "kicker": "2 · ONARIM",
+      "title": "Lifler *gece* onarılır",
+      "data": {
+        "phase": "onarim"
+      },
+      "sticker": "🔧"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Önerilen uyku yedi ila dokuz saat. Beş saatle büyük kas bekleme.",
+      "kicker": "3 · SÜRE",
+      "title": "Hedef: *7-9 saat*",
+      "data": {
+        "from": 0,
+        "to": 8,
+        "suffix": " saat",
+        "label": "YETİŞKİNLER İÇİN ÖNERİLEN: 7-9 SAAT"
+      },
+      "sticker": "⏰"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Bu gece erken yat. Antrenmanın yarısı yastıkta.",
+      "title": "İyi uyu, *iyi büyü*.",
+      "sticker": "🛌",
+      "data": {
+        "cta": "gonder"
+      }
+    }
+  ],
+  "caption": "Antrenmanın yarısı yastıkta 😴\n\nBüyüme hormonunun en büyük salınımı gecenin ilk yarısındaki derin uykuda olur; kasların onarımı için kaliteli uyku şart. Yetişkinler için önerilen: 7-9 saat.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "sağlıklıyaşam",
+    "sporsalonu",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

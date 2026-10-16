@@ -1,0 +1,314 @@
+{
+  "scenes": [
+    {
+      "voice": "Beş kilo verdin. O yağ nereye gitti? Eridi mi? Tere mi döndü? Hiçbiri.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-01-yag-nereye/1-mv8lik8z.mp3",
+      "durationInSeconds": 4.56,
+      "words": [
+        {
+          "word": "Beş",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "kilo",
+          "start": 0.2,
+          "end": 0.4
+        },
+        {
+          "word": "verdin.",
+          "start": 0.448,
+          "end": 0.8
+        },
+        {
+          "word": "O",
+          "start": 1.04,
+          "end": 1.28
+        },
+        {
+          "word": "yağ",
+          "start": 1.34,
+          "end": 1.52
+        },
+        {
+          "word": "nereye",
+          "start": 1.56,
+          "end": 1.76
+        },
+        {
+          "word": "gitti?",
+          "start": 1.827,
+          "end": 2.32
+        },
+        {
+          "word": "Eridi",
+          "start": 2.4,
+          "end": 2.72
+        },
+        {
+          "word": "mi?",
+          "start": 2.747,
+          "end": 2.88
+        },
+        {
+          "word": "Tere",
+          "start": 2.96,
+          "end": 3.2
+        },
+        {
+          "word": "mi",
+          "start": 3.227,
+          "end": 3.28
+        },
+        {
+          "word": "döndü?",
+          "start": 3.347,
+          "end": 3.76
+        },
+        {
+          "word": "Hiçbiri.",
+          "start": 3.9,
+          "end": 4.56
+        }
+      ]
+    },
+    {
+      "voice": "Yağ yanınca karbondioksit ve suya dönüşüyo. Yaklaşık yüzde seksen dördü karbondioksit.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-01-yag-nereye/2-mv8lilgf.mp3",
+      "durationInSeconds": 5.04,
+      "words": [
+        {
+          "word": "Yağ",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "yanınca",
+          "start": 0.26,
+          "end": 0.64
+        },
+        {
+          "word": "karbondioksit",
+          "start": 0.7,
+          "end": 1.36
+        },
+        {
+          "word": "ve",
+          "start": 1.413,
+          "end": 1.52
+        },
+        {
+          "word": "suya",
+          "start": 1.573,
+          "end": 1.76
+        },
+        {
+          "word": "dönüşüyo.",
+          "start": 1.813,
+          "end": 2.32
+        },
+        {
+          "word": "Yaklaşık",
+          "start": 2.48,
+          "end": 3.2
+        },
+        {
+          "word": "yüzde",
+          "start": 3.253,
+          "end": 3.52
+        },
+        {
+          "word": "seksen",
+          "start": 3.568,
+          "end": 3.84
+        },
+        {
+          "word": "dördü",
+          "start": 3.893,
+          "end": 4.16
+        },
+        {
+          "word": "karbondioksit.",
+          "start": 4.2,
+          "end": 5.04
+        }
+      ]
+    },
+    {
+      "voice": "Yani verdiğin yağın çoğunu, resmen nefes vererek atıyosun.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-01-yag-nereye/3-mv8lime1.mp3",
+      "durationInSeconds": 3.28,
+      "words": [
+        {
+          "word": "Yani",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "verdiğin",
+          "start": 0.293,
+          "end": 0.64
+        },
+        {
+          "word": "yağın",
+          "start": 0.7,
+          "end": 0.96
+        },
+        {
+          "word": "çoğunu,",
+          "start": 1.02,
+          "end": 1.64
+        },
+        {
+          "word": "resmen",
+          "start": 1.71,
+          "end": 2.08
+        },
+        {
+          "word": "nefes",
+          "start": 2.14,
+          "end": 2.4
+        },
+        {
+          "word": "vererek",
+          "start": 2.44,
+          "end": 2.8
+        },
+        {
+          "word": "atıyosun.",
+          "start": 2.827,
+          "end": 3.28
+        }
+      ]
+    },
+    {
+      "voice": "Peki hızlı nefes alsan? Olmaz. Yağın önce yakıta dönüşmesi lazım, o da hareketle.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-01-yag-nereye/4-mv8linte.mp3",
+      "durationInSeconds": 5.6,
+      "words": [
+        {
+          "word": "Peki",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "hızlı",
+          "start": 0.373,
+          "end": 0.64
+        },
+        {
+          "word": "nefes",
+          "start": 0.68,
+          "end": 0.96
+        },
+        {
+          "word": "alsan?",
+          "start": 1.02,
+          "end": 1.36
+        },
+        {
+          "word": "Olmaz.",
+          "start": 1.6,
+          "end": 2.56
+        },
+        {
+          "word": "Yağın",
+          "start": 2.747,
+          "end": 3.2
+        },
+        {
+          "word": "önce",
+          "start": 3.248,
+          "end": 3.44
+        },
+        {
+          "word": "yakıta",
+          "start": 3.48,
+          "end": 3.68
+        },
+        {
+          "word": "dönüşmesi",
+          "start": 3.733,
+          "end": 4.16
+        },
+        {
+          "word": "lazım,",
+          "start": 4.227,
+          "end": 4.72
+        },
+        {
+          "word": "o",
+          "start": 4.8,
+          "end": 4.88
+        },
+        {
+          "word": "da",
+          "start": 4.907,
+          "end": 4.96
+        },
+        {
+          "word": "hareketle.",
+          "start": 5.01,
+          "end": 5.6
+        }
+      ]
+    },
+    {
+      "voice": "Yağ erimiyo, nefes oluyo. Bi dahaki sefere, artık biliyosun.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-01-yag-nereye/5-mv8lioqt.mp3",
+      "durationInSeconds": 3.76,
+      "words": [
+        {
+          "word": "Yağ",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "erimiyo,",
+          "start": 0.293,
+          "end": 0.72
+        },
+        {
+          "word": "nefes",
+          "start": 0.76,
+          "end": 1.04
+        },
+        {
+          "word": "oluyo.",
+          "start": 1.093,
+          "end": 1.44
+        },
+        {
+          "word": "Bi",
+          "start": 1.627,
+          "end": 2
+        },
+        {
+          "word": "dahaki",
+          "start": 2.04,
+          "end": 2.32
+        },
+        {
+          "word": "sefere,",
+          "start": 2.347,
+          "end": 2.96
+        },
+        {
+          "word": "artık",
+          "start": 3,
+          "end": 3.2
+        },
+        {
+          "word": "biliyosun.",
+          "start": 3.24,
+          "end": 3.76
+        }
+      ]
+    }
+  ]
+}

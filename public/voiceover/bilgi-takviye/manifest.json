@@ -1,0 +1,359 @@
+{
+  "scenes": [
+    {
+      "voice": "Protein tozu, kreatin, vitamin... Rafta bi sürü şey var. Ama almadan önce şunu bil.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-takviye/1-mv8l1cr8.mp3",
+      "durationInSeconds": 6.72,
+      "words": [
+        {
+          "word": "Protein",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "tozu,",
+          "start": 0.507,
+          "end": 0.96
+        },
+        {
+          "word": "kreatin,",
+          "start": 1.16,
+          "end": 2.28
+        },
+        {
+          "word": "vitamin...",
+          "start": 2.335,
+          "end": 2.8
+        },
+        {
+          "word": "Rafta",
+          "start": 3.067,
+          "end": 3.76
+        },
+        {
+          "word": "bi",
+          "start": 3.813,
+          "end": 3.92
+        },
+        {
+          "word": "sürü",
+          "start": 3.98,
+          "end": 4.24
+        },
+        {
+          "word": "şey",
+          "start": 4.3,
+          "end": 4.48
+        },
+        {
+          "word": "var.",
+          "start": 4.54,
+          "end": 4.8
+        },
+        {
+          "word": "Ama",
+          "start": 4.98,
+          "end": 5.52
+        },
+        {
+          "word": "almadan",
+          "start": 5.573,
+          "end": 5.92
+        },
+        {
+          "word": "önce",
+          "start": 5.968,
+          "end": 6.16
+        },
+        {
+          "word": "şunu",
+          "start": 6.2,
+          "end": 6.4
+        },
+        {
+          "word": "bil.",
+          "start": 6.46,
+          "end": 6.72
+        }
+      ]
+    },
+    {
+      "voice": "Takviye, adı üstünde, tamamlayıcı. Temelde beslenmen, uykun, antrenmanın oturmamışsa, hiçbi toz bunu kurtarmaz.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-takviye/2-mv8l1eh1.mp3",
+      "durationInSeconds": 8.56,
+      "words": [
+        {
+          "word": "Takviye,",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "word": "adı",
+          "start": 0.7,
+          "end": 1.12
+        },
+        {
+          "word": "üstünde,",
+          "start": 1.18,
+          "end": 1.68
+        },
+        {
+          "word": "tamamlayıcı.",
+          "start": 1.787,
+          "end": 2.8
+        },
+        {
+          "word": "Temelde",
+          "start": 3.02,
+          "end": 3.92
+        },
+        {
+          "word": "beslenmen,",
+          "start": 3.98,
+          "end": 4.72
+        },
+        {
+          "word": "uykun,",
+          "start": 4.8,
+          "end": 5.28
+        },
+        {
+          "word": "antrenmanın",
+          "start": 5.34,
+          "end": 5.92
+        },
+        {
+          "word": "oturmamışsa,",
+          "start": 5.973,
+          "end": 6.96
+        },
+        {
+          "word": "hiçbi",
+          "start": 7.04,
+          "end": 7.36
+        },
+        {
+          "word": "toz",
+          "start": 7.413,
+          "end": 7.6
+        },
+        {
+          "word": "bunu",
+          "start": 7.648,
+          "end": 7.84
+        },
+        {
+          "word": "kurtarmaz.",
+          "start": 7.9,
+          "end": 8.56
+        }
+      ]
+    },
+    {
+      "voice": "Bi de çoğu takviyede asıl fark, düzenli kullanmakta. Bi gün alıp üç gün unutunca pek bi işe yaramıyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-takviye/3-mv8l1fok.mp3",
+      "durationInSeconds": 6.8,
+      "words": [
+        {
+          "word": "Bi",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "word": "de",
+          "start": 0.133,
+          "end": 0.24
+        },
+        {
+          "word": "çoğu",
+          "start": 0.304,
+          "end": 0.56
+        },
+        {
+          "word": "takviyede",
+          "start": 0.62,
+          "end": 1.04
+        },
+        {
+          "word": "asıl",
+          "start": 1.104,
+          "end": 1.36
+        },
+        {
+          "word": "fark,",
+          "start": 1.424,
+          "end": 1.76
+        },
+        {
+          "word": "düzenli",
+          "start": 1.85,
+          "end": 2.48
+        },
+        {
+          "word": "kullanmakta.",
+          "start": 2.537,
+          "end": 3.28
+        },
+        {
+          "word": "Bi",
+          "start": 3.493,
+          "end": 3.92
+        },
+        {
+          "word": "gün",
+          "start": 3.98,
+          "end": 4.16
+        },
+        {
+          "word": "alıp",
+          "start": 4.208,
+          "end": 4.4
+        },
+        {
+          "word": "üç",
+          "start": 4.48,
+          "end": 4.64
+        },
+        {
+          "word": "gün",
+          "start": 4.7,
+          "end": 4.88
+        },
+        {
+          "word": "unutunca",
+          "start": 4.928,
+          "end": 5.44
+        },
+        {
+          "word": "pek",
+          "start": 5.52,
+          "end": 5.76
+        },
+        {
+          "word": "bi",
+          "start": 5.787,
+          "end": 5.84
+        },
+        {
+          "word": "işe",
+          "start": 5.92,
+          "end": 6.16
+        },
+        {
+          "word": "yaramıyo.",
+          "start": 6.2,
+          "end": 6.8
+        }
+      ]
+    },
+    {
+      "voice": "Ve en önemlisi: Bi şeye başlamadan önce doktoruna danış. Herkesin vücudu farklı.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-takviye/4-mv8l1h60.mp3",
+      "durationInSeconds": 5.28,
+      "words": [
+        {
+          "word": "Ve",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "word": "en",
+          "start": 0.133,
+          "end": 0.24
+        },
+        {
+          "word": "önemlisi:",
+          "start": 0.288,
+          "end": 0.88
+        },
+        {
+          "word": "Bi",
+          "start": 0.987,
+          "end": 1.2
+        },
+        {
+          "word": "şeye",
+          "start": 1.24,
+          "end": 1.44
+        },
+        {
+          "word": "başlamadan",
+          "start": 1.497,
+          "end": 2.08
+        },
+        {
+          "word": "önce",
+          "start": 2.112,
+          "end": 2.24
+        },
+        {
+          "word": "doktoruna",
+          "start": 2.297,
+          "end": 2.8
+        },
+        {
+          "word": "danış.",
+          "start": 2.86,
+          "end": 3.64
+        },
+        {
+          "word": "Herkesin",
+          "start": 3.73,
+          "end": 4.24
+        },
+        {
+          "word": "vücudu",
+          "start": 4.3,
+          "end": 4.64
+        },
+        {
+          "word": "farklı.",
+          "start": 4.72,
+          "end": 5.28
+        }
+      ]
+    },
+    {
+      "voice": "VOOM'da takviyelerin günlük planının içinde, unutturmuyo.",
+      "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+      "file": "voiceover/bilgi-takviye/5-mv8l1i0t.mp3",
+      "durationInSeconds": 3.6,
+      "words": [
+        {
+          "word": "VOOM'da",
+          "start": 0,
+          "end": 0.44
+        },
+        {
+          "word": "takviyelerin",
+          "start": 0.47,
+          "end": 1.04
+        },
+        {
+          "word": "günlük",
+          "start": 1.086,
+          "end": 1.36
+        },
+        {
+          "word": "planının",
+          "start": 1.424,
+          "end": 1.84
+        },
+        {
+          "word": "içinde,",
+          "start": 1.909,
+          "end": 2.48
+        },
+        {
+          "word": "unutturmuyo.",
+          "start": 2.613,
+          "end": 3.6
+        }
+      ]
+    }
+  ]
+}

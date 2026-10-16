@@ -1,0 +1,79 @@
+{
+  "id": "bilgi-durus",
+  "title": "Masa başı omurgana ne yapıyo?",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Günde kaç saat oturuyosun? Sekiz? On? Peki bu omurgana ne yapıyo, hiç düşündün mü?",
+      "title": "Masa başı *omurgana* ne yapıyo?",
+      "sticker": "🪑😩"
+    },
+    {
+      "visual": "figur",
+      "voice": "Başın öne doğru eğildikçe boynuna binen yük artıyo. Hem de katlarca.",
+      "kicker": "1 · BOYUN",
+      "title": "Baş öne gittikçe *ağırlaşır*",
+      "data": {
+        "mode": "boyun"
+      },
+      "sticker": "🧑‍💻",
+      "stamp": "5 → 27 KG!"
+    },
+    {
+      "visual": "figur",
+      "voice": "Saatlerce böyle kalınca omuzların öne kapanıyo, sırtın yuvarlaşıyo. Fark etmeden oluyo bu.",
+      "kicker": "2 · SIRT",
+      "title": "Omuzlar *öne* kapanır",
+      "data": {
+        "mode": "omuz"
+      },
+      "sticker": "🐢"
+    },
+    {
+      "visual": "zaman",
+      "voice": "İyi haber şu: Gün içine yayılmış birkaç dakikalık hareket bile fark yaratıyo.",
+      "kicker": "3 · ÇÖZÜM",
+      "title": "Gün içinde *kısa* molalar",
+      "data": {
+        "items": [
+          {
+            "time": "SABAH",
+            "text": "Boyun esnetme · 2 dk"
+          },
+          {
+            "time": "ÖĞLE",
+            "text": "Göğüs açma · 3 dk"
+          },
+          {
+            "time": "AKŞAM",
+            "text": "Kalça esnetme · 2 dk"
+          }
+        ]
+      },
+      "sticker": "⏰"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM'da duruş rutinlerin hazır. Kalk, bi esne, devam.",
+      "title": "Kalk, *bi esne*, devam.",
+      "sticker": "🙆",
+      "data": {
+        "cta": "kaydet"
+      }
+    }
+  ],
+  "caption": "Masa başında çalışan herkesin bilmesi gereken şey 🪑\n\nBaş öne eğildikçe boyna binen yük katlanıyor. Gün içine yayılmış birkaç dakikalık hareket bile fark yaratır.\n\nOfisteki arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "bilgi",
+    "sağlıklıyaşam",
+    "voom",
+    "duruş",
+    "postür",
+    "masabaşı"
+  ]
+}

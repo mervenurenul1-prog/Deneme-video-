@@ -1,0 +1,54 @@
+{
+  "id": "voom-6-hafta",
+  "title": "VOOM: Hayaline giden 6 haftalık plan",
+  "scenes": [
+    {
+      "voice": "Hayalindeki vücut için bi planın var mı? Yoksa her gün kafana göre mi?",
+      "display": "Hayalinin bi *planı* var mı?",
+      "sticker": "🎯🤔"
+    },
+    {
+      "voice": "VOOM hedefini ve haftanı sorup sana özel altı haftalık plan kuruyo. Altı hafta sonra nerdesin, baştan belli.",
+      "display": "Hedefe *6 haftalık* yol",
+      "kicker": "6 HAFTA",
+      "screen": "app/program.jpg",
+      "focus": {
+        "x": 50,
+        "y": 590,
+        "w": 830,
+        "h": 180
+      },
+      "sticker": "🗺️",
+      "stamp": "6 HAFTA!"
+    },
+    {
+      "voice": "Devam ettikçe plan da seninle ilerliyo. İsteğine, temposuna göre yeniden şekilleniyo.",
+      "display": "Sen ilerledikçe *plan da* ilerler",
+      "kicker": "DEVAMLILIK",
+      "screen": "app/profil.jpg",
+      "focus": {
+        "x": 62,
+        "y": 285,
+        "w": 800,
+        "h": 365
+      },
+      "sticker": "📈"
+    },
+    {
+      "voice": "VOOM. Hayalin, senin planın. Link profilde.",
+      "display": "Hayalin. *Senin planın*.",
+      "sticker": "✨"
+    }
+  ],
+  "caption": "Hayalindeki vücudun bir planı olmalı 🎯\n\nVOOM hedefine ve haftana göre 6 haftalık plan kuruyor; sen devam ettikçe isteğine göre yeniden şekilleniyor.\n\nİndirmek için link profilde 🔗",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "kişiselantrenör",
+    "fitnessuygulaması",
+    "voom"
+  ],
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3"
+}

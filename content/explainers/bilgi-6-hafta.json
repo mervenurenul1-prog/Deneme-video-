@@ -1,0 +1,176 @@
+{
+  "id": "bilgi-6-hafta",
+  "title": "Değişim için neden 6 hafta?",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Her programda duyuyosun: altı hafta. Neden altı? Neden bi hafta değil?",
+      "title": "Değişim için neden *6 hafta*?",
+      "sticker": "🎯🤔"
+    },
+    {
+      "visual": "cizgi",
+      "voice": "İlk haftalarda kaslarından önce sinir sistemin öğreniyo. Hareketi daha iyi yapıyosun, o yüzden hızlı güçleniyosun.",
+      "kicker": "1 · İLK HAFTALAR",
+      "title": "Önce *sinir sistemi* öğrenir",
+      "data": {
+        "series": [
+          {
+            "points": [
+              5,
+              40,
+              62,
+              74,
+              80,
+              84,
+              86
+            ],
+            "label": "Sinir sistemi",
+            "tone": "teal"
+          },
+          {
+            "points": [
+              2,
+              6,
+              14,
+              26,
+              40,
+              55,
+              68
+            ],
+            "label": "Kas",
+            "tone": "lime"
+          }
+        ],
+        "labels": [
+          "0",
+          "1.H",
+          "2.H",
+          "3.H",
+          "4.H",
+          "5.H",
+          "6.H"
+        ],
+        "from": 0,
+        "to": 0.45
+      },
+      "sticker": "🧠⚡"
+    },
+    {
+      "visual": "cizgi",
+      "voice": "Kasta gözle görülür değişim ise biraz daha zaman istiyo. Düzenli devam ettikçe o da geliyo.",
+      "kicker": "2 · SONRASI",
+      "title": "Sonra *kas* gelir",
+      "data": {
+        "series": [
+          {
+            "points": [
+              5,
+              40,
+              62,
+              74,
+              80,
+              84,
+              86
+            ],
+            "label": "Sinir sistemi",
+            "tone": "teal"
+          },
+          {
+            "points": [
+              2,
+              6,
+              14,
+              26,
+              40,
+              55,
+              68
+            ],
+            "label": "Kas",
+            "tone": "lime"
+          }
+        ],
+        "labels": [
+          "0",
+          "1.H",
+          "2.H",
+          "3.H",
+          "4.H",
+          "5.H",
+          "6.H"
+        ],
+        "from": 0.45,
+        "to": 1
+      },
+      "sticker": "💪"
+    },
+    {
+      "visual": "takvim",
+      "voice": "Altı hafta, hem değişimi görecek kadar uzun, hem de pes etmeyeceğin kadar kısa. Sonra hedefine göre yeni blok.",
+      "kicker": "3 · BLOK",
+      "title": "6 hafta: *görülür* bir blok",
+      "data": {
+        "columns": 3,
+        "cells": [
+          {
+            "top": "1. HAFTA",
+            "main": "Uyum",
+            "tone": "lime",
+            "check": true
+          },
+          {
+            "top": "2. HAFTA",
+            "main": "Teknik",
+            "tone": "lime",
+            "check": true
+          },
+          {
+            "top": "3. HAFTA",
+            "main": "Yükleme",
+            "tone": "lime",
+            "check": true
+          },
+          {
+            "top": "4. HAFTA",
+            "main": "Yükleme",
+            "tone": "lime",
+            "check": true
+          },
+          {
+            "top": "5. HAFTA",
+            "main": "Zirve",
+            "tone": "lime",
+            "check": true
+          },
+          {
+            "top": "6. HAFTA",
+            "main": "Ölçüm",
+            "tone": "warm",
+            "check": true
+          }
+        ]
+      },
+      "sticker": "📅",
+      "stamp": "6 HAFTA!"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM, hayaline göre altı haftalık planını kuruyo. Sen sadece başla.",
+      "title": "Hayalin, *senin planın*.",
+      "sticker": "🚀"
+    }
+  ],
+  "caption": "Neden hep 6 hafta? 🎯\n\nİlk haftalarda sinir sistemin öğrenir, kas değişimi biraz daha zaman ister. 6 hafta, değişimi görecek kadar uzun, pes etmeyecek kadar kısa.\n\nBugün 1. haftana başla 💥",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "bilgi",
+    "sağlıklıyaşam",
+    "voom",
+    "6hafta",
+    "program"
+  ]
+}

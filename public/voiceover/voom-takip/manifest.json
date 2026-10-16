@@ -1,0 +1,236 @@
+{
+  "scenes": [
+    {
+      "voice": "Spora başlıyorsun, iki hafta sonra bırakıyorsun. Çünkü kimse takip etmiyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-takip/1-mv8k7k5h.mp3",
+      "durationInSeconds": 4.783,
+      "words": [
+        {
+          "word": "Spora",
+          "start": 0,
+          "end": 0.395
+        },
+        {
+          "word": "başlıyorsun,",
+          "start": 0.441,
+          "end": 1.161
+        },
+        {
+          "word": "iki",
+          "start": 1.335,
+          "end": 1.533
+        },
+        {
+          "word": "hafta",
+          "start": 1.579,
+          "end": 1.823
+        },
+        {
+          "word": "sonra",
+          "start": 1.869,
+          "end": 2.09
+        },
+        {
+          "word": "bırakıyorsun.",
+          "start": 2.136,
+          "end": 2.856
+        },
+        {
+          "word": "Çünkü",
+          "start": 3.065,
+          "end": 3.344
+        },
+        {
+          "word": "kimse",
+          "start": 3.39,
+          "end": 3.646
+        },
+        {
+          "word": "takip",
+          "start": 3.704,
+          "end": 4.017
+        },
+        {
+          "word": "etmiyor.",
+          "start": 4.075,
+          "end": 4.783
+        }
+      ]
+    },
+    {
+      "voice": "VOOM her seansını, her setini kaydediyor. Altı haftalık dönemde nerede olduğunu hep görüyorsun.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-takip/2-mv8k7le5.mp3",
+      "durationInSeconds": 5.666,
+      "words": [
+        {
+          "word": "VOOM",
+          "start": 0,
+          "end": 0.337
+        },
+        {
+          "word": "her",
+          "start": 0.406,
+          "end": 0.522
+        },
+        {
+          "word": "seansını,",
+          "start": 0.592,
+          "end": 1.173
+        },
+        {
+          "word": "her",
+          "start": 1.242,
+          "end": 1.382
+        },
+        {
+          "word": "setini",
+          "start": 1.451,
+          "end": 1.776
+        },
+        {
+          "word": "kaydediyor.",
+          "start": 1.811,
+          "end": 2.485
+        },
+        {
+          "word": "Altı",
+          "start": 2.763,
+          "end": 3.065
+        },
+        {
+          "word": "haftalık",
+          "start": 3.088,
+          "end": 3.471
+        },
+        {
+          "word": "dönemde",
+          "start": 3.518,
+          "end": 3.878
+        },
+        {
+          "word": "nerede",
+          "start": 3.936,
+          "end": 4.238
+        },
+        {
+          "word": "olduğunu",
+          "start": 4.272,
+          "end": 4.598
+        },
+        {
+          "word": "hep",
+          "start": 4.632,
+          "end": 4.772
+        },
+        {
+          "word": "görüyorsun.",
+          "start": 4.841,
+          "end": 5.666
+        }
+      ]
+    },
+    {
+      "voice": "Koçun da takipte. Sıradaki antrenmanını hatırlatıyor, ilerlemeni seninle birlikte izliyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-takip/3-mv8k7mlx.mp3",
+      "durationInSeconds": 5.619,
+      "words": [
+        {
+          "word": "Koçun",
+          "start": 0,
+          "end": 0.36
+        },
+        {
+          "word": "da",
+          "start": 0.406,
+          "end": 0.476
+        },
+        {
+          "word": "takipte.",
+          "start": 0.522,
+          "end": 1.173
+        },
+        {
+          "word": "Sıradaki",
+          "start": 1.347,
+          "end": 1.776
+        },
+        {
+          "word": "antrenmanını",
+          "start": 1.823,
+          "end": 2.415
+        },
+        {
+          "word": "hatırlatıyor,",
+          "start": 2.45,
+          "end": 3.239
+        },
+        {
+          "word": "ilerlemeni",
+          "start": 3.355,
+          "end": 3.947
+        },
+        {
+          "word": "seninle",
+          "start": 3.994,
+          "end": 4.331
+        },
+        {
+          "word": "birlikte",
+          "start": 4.389,
+          "end": 4.772
+        },
+        {
+          "word": "izliyor.",
+          "start": 4.83,
+          "end": 5.619
+        }
+      ]
+    },
+    {
+      "voice": "VOOM. Bu sefer yalnız değilsin. Link profilde.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-takip/4-mv8k7nll.mp3",
+      "durationInSeconds": 3.529,
+      "words": [
+        {
+          "word": "VOOM.",
+          "start": 0,
+          "end": 0.546
+        },
+        {
+          "word": "Bu",
+          "start": 0.871,
+          "end": 0.998
+        },
+        {
+          "word": "sefer",
+          "start": 1.033,
+          "end": 1.289
+        },
+        {
+          "word": "yalnız",
+          "start": 1.358,
+          "end": 1.66
+        },
+        {
+          "word": "değilsin.",
+          "start": 1.707,
+          "end": 2.241
+        },
+        {
+          "word": "Link",
+          "start": 2.357,
+          "end": 2.577
+        },
+        {
+          "word": "profilde.",
+          "start": 2.624,
+          "end": 3.529
+        }
+      ]
+    }
+  ]
+}

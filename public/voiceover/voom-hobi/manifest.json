@@ -1,0 +1,241 @@
+{
+  "scenes": [
+    {
+      "voice": "Yüzüyor musun, koşuyor musun, dans mı ediyorsun? Programın bunu bilmeli.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-hobi/1-mv8k7be9.mp3",
+      "durationInSeconds": 4.923,
+      "words": [
+        {
+          "word": "Yüzüyor",
+          "start": 0,
+          "end": 0.43
+        },
+        {
+          "word": "musun,",
+          "start": 0.476,
+          "end": 0.859
+        },
+        {
+          "word": "koşuyor",
+          "start": 0.929,
+          "end": 1.37
+        },
+        {
+          "word": "musun,",
+          "start": 1.416,
+          "end": 1.881
+        },
+        {
+          "word": "dans",
+          "start": 1.997,
+          "end": 2.264
+        },
+        {
+          "word": "mı",
+          "start": 2.334,
+          "end": 2.38
+        },
+        {
+          "word": "ediyorsun?",
+          "start": 2.415,
+          "end": 2.984
+        },
+        {
+          "word": "Programın",
+          "start": 3.425,
+          "end": 3.913
+        },
+        {
+          "word": "bunu",
+          "start": 3.971,
+          "end": 4.145
+        },
+        {
+          "word": "bilmeli.",
+          "start": 4.18,
+          "end": 4.923
+        }
+      ]
+    },
+    {
+      "voice": "VOOM, haftandaki diğer aktiviteleri de hesaba katıyor. Salı yüzüyorsan, o gün bacak yükünü azaltıyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-hobi/2-mv8k7coy.mp3",
+      "durationInSeconds": 6.827,
+      "words": [
+        {
+          "word": "VOOM,",
+          "start": 0,
+          "end": 0.464
+        },
+        {
+          "word": "haftandaki",
+          "start": 0.522,
+          "end": 1.115
+        },
+        {
+          "word": "diğer",
+          "start": 1.161,
+          "end": 1.37
+        },
+        {
+          "word": "aktiviteleri",
+          "start": 1.428,
+          "end": 2.02
+        },
+        {
+          "word": "de",
+          "start": 2.055,
+          "end": 2.113
+        },
+        {
+          "word": "hesaba",
+          "start": 2.159,
+          "end": 2.543
+        },
+        {
+          "word": "katıyor.",
+          "start": 2.577,
+          "end": 3.204
+        },
+        {
+          "word": "Salı",
+          "start": 3.715,
+          "end": 3.994
+        },
+        {
+          "word": "yüzüyorsan,",
+          "start": 4.029,
+          "end": 4.725
+        },
+        {
+          "word": "o",
+          "start": 4.876,
+          "end": 4.957
+        },
+        {
+          "word": "gün",
+          "start": 5.016,
+          "end": 5.166
+        },
+        {
+          "word": "bacak",
+          "start": 5.224,
+          "end": 5.503
+        },
+        {
+          "word": "yükünü",
+          "start": 5.573,
+          "end": 5.84
+        },
+        {
+          "word": "azaltıyor.",
+          "start": 5.875,
+          "end": 6.827
+        }
+      ]
+    },
+    {
+      "voice": "Bu hafta maç mı var? Koçuna söyle, planını ona göre kaydırsın.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-hobi/3-mv8k7dpi.mp3",
+      "durationInSeconds": 3.808,
+      "words": [
+        {
+          "word": "Bu",
+          "start": 0,
+          "end": 0.174
+        },
+        {
+          "word": "hafta",
+          "start": 0.197,
+          "end": 0.43
+        },
+        {
+          "word": "maç",
+          "start": 0.488,
+          "end": 0.639
+        },
+        {
+          "word": "mı",
+          "start": 0.708,
+          "end": 0.778
+        },
+        {
+          "word": "var?",
+          "start": 0.813,
+          "end": 1.068
+        },
+        {
+          "word": "Koçuna",
+          "start": 1.242,
+          "end": 1.591
+        },
+        {
+          "word": "söyle,",
+          "start": 1.637,
+          "end": 2.02
+        },
+        {
+          "word": "planını",
+          "start": 2.055,
+          "end": 2.438
+        },
+        {
+          "word": "ona",
+          "start": 2.508,
+          "end": 2.67
+        },
+        {
+          "word": "göre",
+          "start": 2.728,
+          "end": 2.891
+        },
+        {
+          "word": "kaydırsın.",
+          "start": 2.937,
+          "end": 3.808
+        }
+      ]
+    },
+    {
+      "voice": "VOOM. Hayatından vazgeçmeden antrenman. Link profilde.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-hobi/4-mv8k7eqt.mp3",
+      "durationInSeconds": 3.808,
+      "words": [
+        {
+          "word": "VOOM.",
+          "start": 0,
+          "end": 0.476
+        },
+        {
+          "word": "Hayatından",
+          "start": 0.72,
+          "end": 1.277
+        },
+        {
+          "word": "vazgeçmeden",
+          "start": 1.335,
+          "end": 1.939
+        },
+        {
+          "word": "antrenman.",
+          "start": 1.997,
+          "end": 2.577
+        },
+        {
+          "word": "Link",
+          "start": 2.694,
+          "end": 2.914
+        },
+        {
+          "word": "profilde.",
+          "start": 2.961,
+          "end": 3.808
+        }
+      ]
+    }
+  ]
+}

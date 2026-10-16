@@ -1,0 +1,87 @@
+{
+  "id": "seri2-01-sabah-uzun",
+  "title": "Sabahları daha uzun musun?",
+  "tag": "OMURGA",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Sabah boyunu ölç, akşam bi daha ölç. Kısalmışsın. Şaka değil.",
+      "title": "Sabahları *daha uzun* musun?",
+      "sticker": "📏😲"
+    },
+    {
+      "visual": "omurga",
+      "voice": "Omurlarının arasında su dolu yastıklar var: diskler. Gün boyu ayakta durunca bu yastıklar hafifçe eziliyo.",
+      "kicker": "1 · DİSKLER",
+      "title": "Omurlar arasında *yastıklar*",
+      "data": {
+        "mode": "gun"
+      },
+      "sticker": "🦴"
+    },
+    {
+      "visual": "sayi",
+      "voice": "Sonuç: Akşam, sabaha göre bi iki santim daha kısa olabiliyosun.",
+      "kicker": "2 · FARK",
+      "title": "Gün içinde *1-2 cm*",
+      "data": {
+        "from": 0,
+        "to": 1.5,
+        "decimals": 1,
+        "suffix": " cm",
+        "label": "SABAH İLE AKŞAM ARASI FARK (YAKLAŞIK)"
+      },
+      "sticker": "🤯",
+      "stamp": "GERÇEK!"
+    },
+    {
+      "visual": "omurga",
+      "voice": "Gece yatınca yük kalkıyo, diskler yeniden su çekip doluyo. Sabah yine uzunsun.",
+      "kicker": "3 · GECE",
+      "title": "Uyurken *yeniden* dolar",
+      "data": {
+        "mode": "gece"
+      },
+      "sticker": "🌙💧"
+    },
+    {
+      "visual": "liste",
+      "voice": "Diskler hareketi sever. Uzun süre aynı pozisyonda kalma, sırtını güçlendir.",
+      "kicker": "4 · İPUCU",
+      "title": "Disklerine *iyi* bak",
+      "data": {
+        "items": [
+          {
+            "text": "Gün içinde hareket et",
+            "ok": true
+          },
+          {
+            "text": "Saatlerce aynı pozisyon",
+            "ok": false
+          },
+          {
+            "text": "Sırtını güçlendir",
+            "ok": true
+          }
+        ]
+      },
+      "sticker": "🚶"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Bi dahaki sefere boyunu sabah ölç. Artık biliyosun.",
+      "title": "Sabah *biraz daha* uzunsun.",
+      "sticker": "☀️"
+    }
+  ],
+  "caption": "Sabah ölçtüğün boy akşamkinden uzun 📏\n\nOmurlar arasındaki diskler gün boyu yük altında hafifçe ezilir, gece yeniden dolar. Fark yaklaşık 1-2 cm olabilir.\n\nKaydet, sonra lazım olur 🔖",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

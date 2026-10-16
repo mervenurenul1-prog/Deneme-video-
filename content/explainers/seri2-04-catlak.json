@@ -1,0 +1,80 @@
+{
+  "id": "seri2-04-catlak",
+  "title": "Çatlak kilo verince mi çıkar?",
+  "tag": "CİLT",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Çatlaklar kilo verince mi çıkıyo, alınca mı? Çoğu kişi yanlış biliyo.",
+      "title": "Çatlak *kilo verince* mi çıkar?",
+      "sticker": "🤔"
+    },
+    {
+      "visual": "deri",
+      "voice": "Derinin alt katmanında onu esnek tutan lifler var. Deri çok hızlı gerilince bu lifler kopuyo.",
+      "kicker": "1 · DERİ",
+      "title": "Deri *hızlı* gerilince yırtılır",
+      "data": {
+        "phase": "gerilme"
+      },
+      "sticker": "🧬",
+      "stamp": "KOPTU!"
+    },
+    {
+      "visual": "liste",
+      "voice": "Bu yüzden çatlak en çok hızlı kilo alımında, ergenlikte, hamilelikte, hatta hızlı kas kazanırken çıkıyo.",
+      "kicker": "2 · NE ZAMAN",
+      "title": "Hızlı *büyüme* dönemleri",
+      "data": {
+        "items": [
+          {
+            "text": "Hızlı kilo alımı",
+            "ok": true
+          },
+          {
+            "text": "Ergenlik",
+            "ok": true
+          },
+          {
+            "text": "Hamilelik",
+            "ok": true
+          },
+          {
+            "text": "Hızlı kas kazanımı",
+            "ok": true
+          }
+        ]
+      },
+      "sticker": "📈"
+    },
+    {
+      "visual": "deri",
+      "voice": "Yeniyken kırmızı ya da mor oluyo, zamanla beyazlaşıyo. Kilo verince yenisi çıkmaz ama eskisi daha belirgin görünebiliyo.",
+      "kicker": "3 · RENK",
+      "title": "Önce *kırmızı*, sonra beyaz",
+      "data": {
+        "phase": "iz"
+      },
+      "sticker": "🎨"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Genetik ve hormonlar da etkili. Ama asıl mesele kilo değil, hız. Artık biliyosun.",
+      "title": "Çatlak *hızdan* çıkar.",
+      "data": {
+        "cta": "kaydet"
+      },
+      "sticker": "✨"
+    }
+  ],
+  "caption": "Çatlaklar kilo verince değil, deri hızlı gerilince oluşur 🤍\n\nHızlı kilo alımı, ergenlik, hamilelik ve hızlı kas kazanımı en sık dönemler. Yeniyken kırmızı-mor, zamanla beyazlaşır. Genetik ve hormonlar da rol oynar.\n\nKaydet, sonra lazım olur 🔖",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

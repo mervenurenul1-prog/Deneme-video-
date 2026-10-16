@@ -1,0 +1,294 @@
+{
+  "scenes": [
+    {
+      "voice": "Üç ay ara verdin, kaslar gitti. Peki geri dönmek neden daha kolay?",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-04-kas-hafizasi/1-mv8lj2fe.mp3",
+      "durationInSeconds": 4,
+      "words": [
+        {
+          "word": "Üç",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "ay",
+          "start": 0.187,
+          "end": 0.24
+        },
+        {
+          "word": "ara",
+          "start": 0.3,
+          "end": 0.48
+        },
+        {
+          "word": "verdin,",
+          "start": 0.528,
+          "end": 0.88
+        },
+        {
+          "word": "kaslar",
+          "start": 0.94,
+          "end": 1.36
+        },
+        {
+          "word": "gitti.",
+          "start": 1.413,
+          "end": 1.76
+        },
+        {
+          "word": "Peki",
+          "start": 2,
+          "end": 2.4
+        },
+        {
+          "word": "geri",
+          "start": 2.448,
+          "end": 2.64
+        },
+        {
+          "word": "dönmek",
+          "start": 2.667,
+          "end": 2.96
+        },
+        {
+          "word": "neden",
+          "start": 3.027,
+          "end": 3.36
+        },
+        {
+          "word": "daha",
+          "start": 3.408,
+          "end": 3.6
+        },
+        {
+          "word": "kolay?",
+          "start": 3.653,
+          "end": 4
+        }
+      ]
+    },
+    {
+      "voice": "Kas büyürken liflerine yeni çekirdekler ekliyo. Komuta merkezi gibi düşün.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-04-kas-hafizasi/2-mv8lj3h4.mp3",
+      "durationInSeconds": 4.32,
+      "words": [
+        {
+          "word": "Kas",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "büyürken",
+          "start": 0.2,
+          "end": 0.72
+        },
+        {
+          "word": "liflerine",
+          "start": 0.78,
+          "end": 1.36
+        },
+        {
+          "word": "yeni",
+          "start": 1.408,
+          "end": 1.6
+        },
+        {
+          "word": "çekirdekler",
+          "start": 1.64,
+          "end": 2.16
+        },
+        {
+          "word": "ekliyo.",
+          "start": 2.213,
+          "end": 2.56
+        },
+        {
+          "word": "Komuta",
+          "start": 2.74,
+          "end": 3.36
+        },
+        {
+          "word": "merkezi",
+          "start": 3.41,
+          "end": 3.76
+        },
+        {
+          "word": "gibi",
+          "start": 3.808,
+          "end": 4
+        },
+        {
+          "word": "düşün.",
+          "start": 4.04,
+          "end": 4.32
+        }
+      ]
+    },
+    {
+      "voice": "Ara verince kas küçülüyo. Ama araştırmalara göre çekirdekler uzun süre kalabiliyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-04-kas-hafizasi/3-mv8lj511.mp3",
+      "durationInSeconds": 5.84,
+      "words": [
+        {
+          "word": "Ara",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "verince",
+          "start": 0.2,
+          "end": 0.56
+        },
+        {
+          "word": "kas",
+          "start": 0.66,
+          "end": 0.96
+        },
+        {
+          "word": "küçülüyo.",
+          "start": 1.013,
+          "end": 1.52
+        },
+        {
+          "word": "Ama",
+          "start": 1.7,
+          "end": 2.24
+        },
+        {
+          "word": "araştırmalara",
+          "start": 2.3,
+          "end": 2.96
+        },
+        {
+          "word": "göre",
+          "start": 3.024,
+          "end": 3.28
+        },
+        {
+          "word": "çekirdekler",
+          "start": 3.38,
+          "end": 4.16
+        },
+        {
+          "word": "uzun",
+          "start": 4.24,
+          "end": 4.56
+        },
+        {
+          "word": "süre",
+          "start": 4.608,
+          "end": 4.8
+        },
+        {
+          "word": "kalabiliyo.",
+          "start": 4.84,
+          "end": 5.84
+        }
+      ]
+    },
+    {
+      "voice": "Merkez hazır olduğu için, geri dönünce kaslar çok daha hızlı toparlanıyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-04-kas-hafizasi/4-mv8lj65z.mp3",
+      "durationInSeconds": 4.72,
+      "words": [
+        {
+          "word": "Merkez",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "hazır",
+          "start": 0.36,
+          "end": 0.56
+        },
+        {
+          "word": "olduğu",
+          "start": 0.594,
+          "end": 0.8
+        },
+        {
+          "word": "için,",
+          "start": 0.848,
+          "end": 1.12
+        },
+        {
+          "word": "geri",
+          "start": 1.232,
+          "end": 1.68
+        },
+        {
+          "word": "dönünce",
+          "start": 1.72,
+          "end": 2.24
+        },
+        {
+          "word": "kaslar",
+          "start": 2.34,
+          "end": 2.88
+        },
+        {
+          "word": "çok",
+          "start": 2.94,
+          "end": 3.12
+        },
+        {
+          "word": "daha",
+          "start": 3.168,
+          "end": 3.36
+        },
+        {
+          "word": "hızlı",
+          "start": 3.413,
+          "end": 3.68
+        },
+        {
+          "word": "toparlanıyo.",
+          "start": 3.733,
+          "end": 4.72
+        }
+      ]
+    },
+    {
+      "voice": "Emeğin kaybolmuyo, seni bekliyo. Bugün dön.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/reels-04-kas-hafizasi/5-mv8lj6wn.mp3",
+      "durationInSeconds": 2.4,
+      "words": [
+        {
+          "word": "Emeğin",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "kaybolmuyo,",
+          "start": 0.3,
+          "end": 0.88
+        },
+        {
+          "word": "seni",
+          "start": 0.96,
+          "end": 1.28
+        },
+        {
+          "word": "bekliyo.",
+          "start": 1.32,
+          "end": 1.68
+        },
+        {
+          "word": "Bugün",
+          "start": 1.76,
+          "end": 2.16
+        },
+        {
+          "word": "dön.",
+          "start": 2.22,
+          "end": 2.4
+        }
+      ]
+    }
+  ]
+}

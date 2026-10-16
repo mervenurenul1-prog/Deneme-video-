@@ -1,0 +1,121 @@
+{
+  "id": "seri2-03-diz-agrisi",
+  "title": "Yeni başlayanın dizi neden ağrır?",
+  "tag": "DİZ",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Spora başladın, iki hafta sonra dizin ağrımaya başladı. Kemiğin mi zayıf? Genelde hayır.",
+      "title": "Yeni başlayanın *dizi* neden ağrır?",
+      "sticker": "🦵😣"
+    },
+    {
+      "visual": "diz",
+      "voice": "Kasların yeni yüke birkaç hafta içinde uyum sağlıyo. Güçlendiğini hissediyosun, yükü artırıyosun.",
+      "kicker": "1 · KAS",
+      "title": "Kas *hızlı* uyum sağlar",
+      "data": {
+        "highlight": "kas"
+      },
+      "sticker": "💪"
+    },
+    {
+      "visual": "diz",
+      "voice": "Ama diz kapağını kemiğe bağlayan tendon çok daha yavaş uyum sağlıyo. Kas hazır, tendon değil.",
+      "kicker": "2 · TENDON",
+      "title": "Tendon *yavaş* yetişir",
+      "data": {
+        "highlight": "tendon"
+      },
+      "sticker": "🐢",
+      "stamp": "YAVAŞ!"
+    },
+    {
+      "visual": "cizgi",
+      "voice": "İşte bu aradaki fark, özellikle koşu ve zıplama gibi darbeli hareketlerde dizini zorluyo.",
+      "kicker": "3 · ARALIK",
+      "title": "Aradaki *fark* ağrıtır",
+      "data": {
+        "series": [
+          {
+            "points": [
+              0,
+              35,
+              60,
+              75,
+              82,
+              86,
+              88
+            ],
+            "label": "Kas"
+          },
+          {
+            "points": [
+              0,
+              8,
+              16,
+              25,
+              35,
+              46,
+              58
+            ],
+            "label": "Tendon",
+            "tone": "warm"
+          }
+        ],
+        "labels": [
+          "0",
+          "2.H",
+          "4.H",
+          "6.H",
+          "8.H",
+          "10.H",
+          "12.H"
+        ]
+      },
+      "sticker": "⚠️"
+    },
+    {
+      "visual": "liste",
+      "voice": "Çözüm: Yükü yavaş artır, kalça ve ön bacak kaslarını güçlendir. Ağrı geçmiyosa doktora görün.",
+      "kicker": "4 · ÇÖZÜM",
+      "title": "Yükü *yavaş* artır",
+      "data": {
+        "items": [
+          {
+            "text": "Yükü azar azar artır",
+            "ok": true
+          },
+          {
+            "text": "Kalça ve ön bacak",
+            "ok": true
+          },
+          {
+            "text": "Geçmeyen ağrıda doktor",
+            "ok": true
+          }
+        ]
+      },
+      "sticker": "✅"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM'da da yükün haftadan haftaya azar azar artıyo, tam da bu yüzden. Dizi ağrıyan arkadaşına gönder.",
+      "title": "Kas hazır, *tendon bekler*.",
+      "data": {
+        "cta": "gonder"
+      },
+      "sticker": "🦵"
+    }
+  ],
+  "caption": "Spora yeni başlayanın dizi neden ağrır? 🦵\n\nKaslar yeni yüke haftalar içinde uyum sağlar, tendonlar daha yavaş. Yükü azar azar artır, kalça ve ön bacak kaslarını güçlendir. Geçmeyen ağrıda mutlaka doktora görün.\n\nArkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

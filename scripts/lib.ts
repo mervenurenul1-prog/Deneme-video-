@@ -1,14 +1,18 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import type { Post, Promo, Story } from "../src/types";
+import type { Cizim, Explainer, Post, Promo, Story } from "../src/types";
 
 export const ROOT = process.cwd();
 export const POSTS_DIR = path.join(ROOT, "content", "posts");
 export const STORIES_DIR = path.join(ROOT, "content", "stories");
 export const PROMOS_DIR = path.join(ROOT, "content", "promos");
+export const EXPLAINERS_DIR = path.join(ROOT, "content", "explainers");
+export const CIZIM_DIR = path.join(ROOT, "content", "cizim");
+export const UC_DIR = path.join(ROOT, "content", "uc");
+export const CIZIM1_DIR = path.join(ROOT, "content", "cizim1");
 
 // Seslendirilip render edilebilen her şey: kısa Reels gönderileri, hikâye ve tanıtım videoları
-export type Video = Post | Story | Promo;
+export type Video = Post | Story | Promo | Explainer | Cizim;
 
 const TYPES = new Set(["hook", "point", "myth", "fact", "cta"]);
 
@@ -38,6 +42,22 @@ export async function loadVideos(onlyIds: string[] = []): Promise<Video[]> {
     validate(item, file, (s, fail) => {
       const f = (s as Promo["scenes"][number]).focus;
       if (f && !(s as Promo["scenes"][number]).screen) fail("focus için screen gerekli");
+    });
+    videos.push(item);
+  }
+  for (const { item, file } of await readDir<Explainer>(EXPLAINERS_DIR)) {
+    validate(item, file, (s, fail) => {
+      if (!(s as Explainer["scenes"][number]).visual) fail("visual boş");
+    });
+    videos.push(item);
+  }
+  for (const { item, file } of [
+    ...(await readDir<Cizim>(CIZIM_DIR)),
+    ...(await readDir<Cizim>(CIZIM1_DIR)),
+    ...(await readDir<Cizim>(UC_DIR)),
+  ]) {
+    validate(item, file, (s, fail) => {
+      if (!(s as Cizim["scenes"][number]).visual) fail("visual boş");
     });
     videos.push(item);
   }

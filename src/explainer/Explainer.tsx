@@ -1,0 +1,2256 @@
+import {
+  AbsoluteFill,
+  Audio,
+  Easing,
+  interpolate,
+  random,
+  Sequence,
+  spring,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
+import { emojiFamily, interFamily, monoFamily } from "../fonts";
+import { audioFor, ProgressBar, sceneDurations, useSeconds, wordsFor } from "../shared";
+import type { Explainer, ExplainerScene, PostVoiceover, WordTiming } from "../types";
+
+// Bilgi videosu: koyu zemin, VOOM yeşili vurgu; uyarılar için sıcak turuncu / kırmızı
+const C = {
+  bg: "#06070a",
+  card: "#111318",
+  cardHi: "#181b21",
+  border: "#262a31",
+  text: "#f5f5f5",
+  muted: "#8b8f97",
+  lime: "#c8e85a",
+  warm: "#ff9a3d",
+  danger: "#ff5d5d",
+  teal: "#6ad0c7",
+};
+
+type Tone = "lime" | "warm" | "danger" | "muted" | "teal";
+const toneColor = (t?: string) =>
+  ({ lime: C.lime, warm: C.warm, danger: C.danger, muted: C.muted, teal: C.teal })[(t as Tone) ?? "lime"] ?? C.lime;
+
+// Görselin yerleştiği alan (başlığın altı, altyazının üstü)
+const STAGE = { top: 560, height: 860, width: 900 };
+
+export type ExplainerProps = { explainer: Explainer; voiceover: PostVoiceover | null };
+
+export const ExplainerVideo: React.FC<ExplainerProps> = ({ explainer, voiceover }) => {
+  const { fps } = useVideoConfig();
+  const durations = sceneDurations(explainer, voiceover, fps);
+  let from = 0;
+
+  return (
+    <AbsoluteFill style={{ fontFamily: interFamily, color: C.text, backgroundColor: C.bg }}>
+      <Backdrop />
+      {explainer.scenes.map((scene, i) => {
+        const start = from;
+        from += durations[i];
+        const audio = audioFor(explainer, voiceover, i);
+        const Visual = VISUALS[scene.visual] ?? Missing;
+        const fullscreen = scene.visual === "soru" || scene.visual === "kapanis";
+        return (
+          <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.visual}`}>
+            <SceneFX seed={scene.voice} stamp={scene.stamp} burstY={fullscreen ? 780 : 330}>
+              <Fade>
+                {fullscreen ? null : <Header scene={scene} />}
+                <Stage fullscreen={fullscreen}>
+                  <Visual scene={scene} data={scene.data ?? {}} />
+                </Stage>
+                {scene.sticker ? <Stickers text={scene.sticker} fullscreen={fullscreen} /> : null}
+              </Fade>
+            </SceneFX>
+            <Captions words={wordsFor(scene.voice, audio)} />
+            {audio ? <Audio src={staticFile(audio.file)} /> : null}
+            <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.3} />
+            {scene.visual === "soru" ? (
+              <Sequence from={6}>
+                <Audio src={staticFile("sfx/pop.mp3")} volume={0.4} />
+              </Sequence>
+            ) : null}
+          </Sequence>
+        );
+      })}
+      <Watermark tag={explainer.tag} />
+      <ProgressBar color={C.lime} />
+    </AbsoluteFill>
+  );
+};
+
+type VisualProps = { scene: ExplainerScene; data: Record<string, unknown> };
+const Missing: React.FC<VisualProps> = () => null;
+
+/* ---------- Ortak parçalar ---------- */
+
+// Yavaşça süzülen bulanık ışık noktaları + ince ızgara
+const BOKEH = Array.from({ length: 14 }, (_, i) => ({
+  x: random(`bx${i}`) * 1080,
+  y: random(`by${i}`) * 1920,
+  r: 30 + random(`br${i}`) * 90,
+  s: 0.3 + random(`bs${i}`) * 0.7,
+}));
+
+const Backdrop: React.FC = () => {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill>
+      <AbsoluteFill
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+      <AbsoluteFill
+        style={{ background: "radial-gradient(circle at 50% 52%, rgba(200,232,90,0.09) 0%, rgba(0,0,0,0) 55%)" }}
+      />
+      {BOKEH.map((b, i) => (
+        <div
+          key={i}
+          style={{
+            position: "absolute",
+            left: b.x + Math.sin(frame / 70 + i) * 20,
+            top: (b.y - frame * b.s + 1920 * 2) % 1920,
+            width: b.r,
+            height: b.r,
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.05)",
+            filter: "blur(6px)",
+          }}
+        />
+      ))}
+    </AbsoluteFill>
+  );
+};
+
+// Sol üstte "VOOM · KONU", sağ üstte akan zaman kodu
+const Watermark: React.FC<{ tag?: string }> = ({ tag }) => {
+  const frame = useCurrentFrame();
+  const sec = Math.floor(frame / 30);
+  const tc = `00:${String(Math.floor(sec / 60)).padStart(2, "0")}:${String(sec % 60).padStart(2, "0")}:${String(frame % 30).padStart(2, "0")}`;
+  const style: React.CSSProperties = { fontFamily: monoFamily, fontSize: 24, letterSpacing: 5, color: C.muted };
+  return (
+    <div style={{ position: "absolute", top: 110, left: 70, right: 70, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ ...style, display: "flex", alignItems: "center", gap: 14 }}>
+        <div style={{ width: 12, height: 12, borderRadius: 3, backgroundColor: C.lime }} />
+        VOOM{tag ? ` · ${tag}` : ""}
+      </div>
+      <div style={style}>{tc}</div>
+    </div>
+  );
+};
+
+// Altyazı: soldaki yeşil çizgiyle, söylenen kelimeler beyaz, sıradakiler gri, o an söylenen yeşil
+export const Captions: React.FC<{ words: WordTiming[]; boxed?: boolean }> = ({ words, boxed = false }) => {
+  const t = useSeconds();
+  const chunks: WordTiming[][] = [];
+  let cur: WordTiming[] = [];
+  for (const w of words) {
+    cur.push(w);
+    const len = cur.reduce((a, x) => a + x.word.length + 1, 0);
+    if (len > 26 || /[.?!]$/.test(w.word)) {
+      chunks.push(cur);
+      cur = [];
+    }
+  }
+  if (cur.length) chunks.push(cur);
+  const current = chunks.findLast((c) => t >= c[0].start) ?? chunks[0];
+  if (!current) return null;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        bottom: 340,
+        left: 90,
+        right: 90,
+        display: "flex",
+        gap: 26,
+        alignItems: "stretch",
+      }}
+    >
+      <div style={{ width: 8, borderRadius: 4, backgroundColor: C.lime, flexShrink: 0 }} />
+      <div
+        style={{
+          fontSize: 50,
+          fontWeight: 700,
+          lineHeight: 1.25,
+          textShadow: "0 4px 18px rgba(0,0,0,0.9)",
+          // Arkasında uygulama ekranı varken okunabilsin diye koyu kutu
+          ...(boxed ? { backgroundColor: "rgba(0,0,0,0.88)", padding: "14px 26px", borderRadius: 18 } : {}),
+        }}
+      >
+        {current.map((w, i) => {
+          const said = t >= w.start;
+          const now = t >= w.start && t <= w.end;
+          return (
+            <span
+              key={i}
+              style={{
+                display: "inline-block",
+                marginLeft: i > 0 ? "0.34em" : 0,
+                color: now ? C.lime : said ? C.text : "rgba(245,245,245,0.38)",
+                transform: `scale(${now ? 1.07 : 1})`,
+              }}
+            >
+              {w.word}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Efekt katmanı: giriş zoomu, sarsıntı, flaş, kıvılcım, damga ---------- */
+
+const STAMP_AT = 0.42;
+
+export const SceneFX: React.FC<{ seed: string; stamp?: string; burstY: number; children: React.ReactNode }> = ({ seed, stamp, burstY, children }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const stampAt = Math.floor(durationInFrames * STAMP_AT);
+  // Giriş: 1.18 → 1 zoom, bulanıktan netleşme, hafif dönüş
+  const inP = interpolate(frame, [0, 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
+  const scale = 1.18 - 0.18 * inP;
+  const blur = 14 * (1 - inP);
+  const rot = (1 - inP) * (random(`r${seed}`) > 0.5 ? 2 : -2);
+  // Sarsıntı: girişte ve damga anında, hızla sönen
+  const shakeAmt = (t: number, power: number) => (t >= 0 && t < 12 ? power * (1 - t / 12) : 0);
+  const amp = shakeAmt(frame, 14) + (stamp ? shakeAmt(frame - stampAt, 22) : 0);
+  const sx = Math.sin(frame * 2.7) * amp;
+  const sy = Math.cos(frame * 3.3) * amp;
+  return (
+    <AbsoluteFill>
+      <AbsoluteFill style={{ transform: `translate(${sx}px, ${sy}px) scale(${scale}) rotate(${rot}deg)`, filter: `blur(${blur}px)` }}>{children}</AbsoluteFill>
+      <Burst x={540} y={burstY} seed={seed} />
+      <Flash at={0} />
+      {stamp ? (
+        <Sequence from={stampAt}>
+          <Stamp text={stamp} />
+          <Burst x={540} y={980} seed={`${seed}s`} big />
+          <Flash at={0} strength={0.25} />
+          <Audio src={staticFile("sfx/boom.mp3")} volume={0.45} />
+        </Sequence>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
+
+// Görsel alanı: sürekli hafif yakınlaşma ve süzülme (ekran hiç donmasın)
+const Stage: React.FC<{ fullscreen: boolean; children: React.ReactNode }> = ({ fullscreen, children }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const z = interpolate(frame, [0, durationInFrames], [1, 1.06]);
+  const fy = Math.sin(frame / 25) * 6;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: (1080 - STAGE.width) / 2,
+        top: fullscreen ? 0 : STAGE.top,
+        width: STAGE.width,
+        height: fullscreen ? 1920 : STAGE.height,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        transform: `translateY(${fy}px) scale(${z})`,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+const Flash: React.FC<{ at: number; strength?: number }> = ({ at, strength = 0.3 }) => {
+  const frame = useCurrentFrame();
+  const o = interpolate(frame - at, [0, 1, 4], [0, strength, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return <AbsoluteFill style={{ backgroundColor: "#fff", opacity: o, pointerEvents: "none" }} />;
+};
+
+// Kıvılcım patlaması + şok dalgası halkası
+const Burst: React.FC<{ x: number; y: number; seed: string; big?: boolean }> = ({ x, y, seed, big }) => {
+  const frame = useCurrentFrame();
+  const n = big ? 26 : 16;
+  const life = big ? 26 : 20;
+  if (frame > life) return null;
+  const t = frame / life;
+  const ring = Easing.out(Easing.cubic)(t);
+  return (
+    <svg width={1080} height={1920} style={{ position: "absolute", left: 0, top: 0, pointerEvents: "none" }}>
+      <circle cx={x} cy={y} r={(big ? 520 : 380) * ring} fill="none" stroke={C.lime} strokeWidth={14 * (1 - t)} opacity={1 - t} />
+      <circle cx={x} cy={y} r={(big ? 320 : 220) * ring} fill="none" stroke="#fff" strokeWidth={6 * (1 - t)} opacity={0.8 * (1 - t)} />
+      {Array.from({ length: n }, (_, i) => {
+        const a = (i / n) * Math.PI * 2 + random(`${seed}a${i}`) * 0.4;
+        const sp = (big ? 620 : 440) * (0.6 + random(`${seed}s${i}`) * 0.6);
+        const d0 = sp * Easing.out(Easing.quad)(Math.max(0, t - 0.08));
+        const d1 = sp * Easing.out(Easing.quad)(t);
+        const col = [C.lime, C.warm, "#fff", C.teal][i % 4];
+        return (
+          <line
+            key={i}
+            x1={x + Math.cos(a) * d0}
+            y1={y + Math.sin(a) * d0}
+            x2={x + Math.cos(a) * d1}
+            y2={y + Math.sin(a) * d1}
+            stroke={col}
+            strokeWidth={(big ? 12 : 9) * (1 - t)}
+            strokeLinecap="round"
+          />
+        );
+      })}
+    </svg>
+  );
+};
+
+// Damga: büyük, eğik, çerçeveli yazı ekrana çarpar
+const Stamp: React.FC<{ text: string }> = ({ text }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const e = spring({ frame, fps, config: { damping: 9, stiffness: 220 } });
+  const out = interpolate(frame, [38, 48], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  if (out <= 0) return null;
+  return (
+    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", pointerEvents: "none" }}>
+      <div
+        style={{
+          marginTop: 120,
+          padding: "26px 54px",
+          border: `10px solid ${C.danger}`,
+          borderRadius: 26,
+          color: C.danger,
+          backgroundColor: "rgba(6,7,10,0.88)",
+          fontSize: 120,
+          fontWeight: 900,
+          letterSpacing: 2,
+          textShadow: "0 0 40px rgba(255,93,93,0.6)",
+          boxShadow: "0 0 80px rgba(255,93,93,0.35)",
+          transform: `rotate(-8deg) scale(${(2.6 - 1.6 * e) * (0.9 + 0.1 * out)})`,
+          opacity: Math.min(1, e * 1.5) * out,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {text.toLocaleUpperCase("tr-TR")}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// Kenarlarda zıplayıp dönen emoji çıkartmalar
+const STICKER_POS = [
+  { x: 60, y: 600 },
+  { x: 880, y: 680 },
+  { x: 70, y: 1260 },
+  { x: 870, y: 1210 },
+];
+export const Stickers: React.FC<{ text: string; fullscreen: boolean }> = ({ text, fullscreen }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const items = Array.from(new Intl.Segmenter("tr", { granularity: "grapheme" }).segment(text))
+    .map((g) => g.segment)
+    .filter((g) => g.trim());
+  return (
+    <>
+      {items.map((em, i) => {
+        const pos = fullscreen ? [{ x: 110, y: 270 }, { x: 810, y: 300 }, { x: 120, y: 1330 }, { x: 800, y: 1300 }][i % 4] : STICKER_POS[i % 4];
+        const e = spring({ frame: frame - 8 - i * 6, fps, config: { damping: 8, stiffness: 160 } });
+        const bob = Math.sin(frame / 9 + i * 2) * 14;
+        const rot = Math.sin(frame / 13 + i) * 12;
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: pos.x,
+              top: pos.y + bob,
+              fontFamily: emojiFamily,
+              fontSize: fullscreen ? 150 : 120,
+              lineHeight: 1,
+              transform: `scale(${e}) rotate(${rot}deg)`,
+              filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.6))",
+            }}
+          >
+            {em}
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+const Fade: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const opacity = interpolate(frame, [0, 8, durationInFrames - 6, durationInFrames], [0, 1, 1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  return <AbsoluteFill style={{ opacity }}>{children}</AbsoluteFill>;
+};
+
+const useEnter = (delay = 0, damping = 16) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  return spring({ frame: frame - delay, fps, config: { damping, stiffness: 130 } });
+};
+
+// Sahnenin ilerleme oranı (0 → 1), görsellerin sesle birlikte ilerlemesi için
+const useProgress = (startAt = 0.05, endAt = 0.85) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  return interpolate(frame, [durationInFrames * startAt, durationInFrames * endAt], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.inOut(Easing.cubic),
+  });
+};
+
+// *yıldız* içindeki kelimeleri işaretler
+const markedWords = (text: string) => {
+  let on = false;
+  return text.toLocaleUpperCase("tr-TR").split(" ").map((raw) => {
+    const opens = raw.startsWith("*");
+    const closes = raw.endsWith("*") && (raw.length > 1 || !opens);
+    const word = raw.replace(/\*/g, "");
+    const mark = on || opens;
+    if (opens) on = true;
+    if (closes) on = false;
+    return { word, mark };
+  });
+};
+
+// Kelime kelime beliren başlık
+export const Title: React.FC<{ text: string; size: number; delay?: number }> = ({ text, size, delay = 0 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  return (
+    <div style={{ fontSize: size, fontWeight: 900, lineHeight: 1.05, letterSpacing: -size * 0.02, textAlign: "center" }}>
+      {markedWords(text).map(({ word, mark }, i) => {
+        const e = spring({ frame: frame - delay - i * 3, fps, config: { damping: 11, stiffness: 200 } });
+        const wob = mark ? Math.sin(frame / 7 + i) * 2 : 0;
+        return (
+          <span
+            key={i}
+            style={{
+              display: "inline-block",
+              opacity: Math.min(1, e * 2),
+              transform: `scale(${2.2 - 1.2 * e}) rotate(${wob}deg)`,
+              color: mark ? C.lime : undefined,
+              textShadow: mark ? "0 0 30px rgba(200,232,90,0.55)" : "0 6px 20px rgba(0,0,0,0.6)",
+            }}
+          >
+            {word}&nbsp;
+          </span>
+        );
+      })}
+    </div>
+  );
+};
+
+const Kicker: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const e = useEnter(0, 200);
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 14,
+        padding: "12px 26px",
+        borderRadius: 999,
+        border: `2px solid ${C.border}`,
+        backgroundColor: "rgba(17,19,24,0.8)",
+        fontFamily: monoFamily,
+        fontSize: 28,
+        fontWeight: 600,
+        letterSpacing: 6,
+        color: C.lime,
+        opacity: e,
+        transform: `translateY(${(1 - e) * -16}px)`,
+      }}
+    >
+      <div style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: C.lime }} />
+      {children}
+    </div>
+  );
+};
+
+const Header: React.FC<{ scene: ExplainerScene }> = ({ scene }) => (
+  <div
+    style={{
+      position: "absolute",
+      top: 210,
+      left: 70,
+      right: 70,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 28,
+    }}
+  >
+    {scene.kicker ? <Kicker>{scene.kicker}</Kicker> : null}
+    {scene.title ? <Title text={scene.title} size={68} delay={4} /> : null}
+  </div>
+);
+
+const Card: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }> = ({ children, style }) => (
+  <div
+    style={{
+      backgroundColor: C.card,
+      border: `2px solid ${C.border}`,
+      borderRadius: 28,
+      boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
+      ...style,
+    }}
+  >
+    {children}
+  </div>
+);
+
+const Check: React.FC<{ size: number; color?: string; progress?: number }> = ({ size, color = C.lime, progress = 1 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24">
+    <path
+      d="M5 12.5l4.5 4.5L19 7.5"
+      fill="none"
+      stroke={color}
+      strokeWidth={3}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeDasharray={24}
+      strokeDashoffset={24 * (1 - progress)}
+    />
+  </svg>
+);
+
+const Cross: React.FC<{ size: number; color?: string; progress?: number }> = ({ size, color = C.danger, progress = 1 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24">
+    <path d="M6 6l12 12" stroke={color} strokeWidth={3} strokeLinecap="round" strokeDasharray={17} strokeDashoffset={17 * (1 - Math.min(1, progress * 2))} />
+    <path d="M18 6L6 18" stroke={color} strokeWidth={3} strokeLinecap="round" strokeDasharray={17} strokeDashoffset={17 * (1 - Math.max(0, progress * 2 - 1))} />
+  </svg>
+);
+
+/* ---------- Açılış sorusu ---------- */
+
+const Soru: React.FC<VisualProps> = ({ scene }) => {
+  const frame = useCurrentFrame();
+  const ring = useEnter(0, 9);
+  const pulse = 1 + Math.sin(frame / 8) * 0.06;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 70, marginTop: -260 }}>
+      <div
+        style={{
+          width: 200,
+          height: 200,
+          borderRadius: 100,
+          border: `5px solid ${C.lime}`,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: 120,
+          fontWeight: 800,
+          color: C.lime,
+          opacity: ring,
+          transform: `scale(${ring * pulse})`,
+          boxShadow: `0 0 80px rgba(200,232,90,${0.25 * ring})`,
+          position: "relative",
+        }}
+      >
+        ?
+        {[0, 1, 2].map((k) => {
+          const t = ((frame + k * 20) % 60) / 60;
+          return <div key={k} style={{ position: "absolute", inset: -10 - 120 * t, borderRadius: "50%", border: `4px solid ${C.lime}`, opacity: 0.6 * (1 - t) }} />;
+        })}
+        <svg width={300} height={300} style={{ position: "absolute", left: -50, top: -50, transform: `rotate(${frame * 3}deg)` }}>
+          <circle cx={150} cy={150} r={140} fill="none" stroke={C.lime} strokeWidth={4} strokeDasharray="20 18" opacity={0.7} />
+        </svg>
+      </div>
+      <Title text={scene.title ?? ""} size={92} delay={6} />
+    </div>
+  );
+};
+
+/* ---------- Kapanış: VOOM + takip et ---------- */
+
+// data.cta: "gonder" → "ARKADAŞINA GÖNDER", "kaydet" → "KAYDET", yoksa düğme gösterilmez
+const Kapanis: React.FC<VisualProps> = ({ scene, data }) => {
+  const mark = useEnter(0, 14);
+  const line = useEnter(12, 200);
+  const pill = useEnter(26, 12);
+  const tap = useEnter(44, 200);
+  const cta = data.cta as "gonder" | "kaydet" | undefined;
+  const frame = useCurrentFrame();
+  return (
+    <>
+    <Confetti />
+    {cta ? (
+      <Sequence from={44}>
+        <Audio src={staticFile("sfx/ding.mp3")} volume={0.35} />
+      </Sequence>
+    ) : null}
+    {frame < 0 ? null : (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 54, marginTop: -260 }}>
+      <div
+        style={{
+          fontFamily: monoFamily,
+          fontSize: 150,
+          fontWeight: 500,
+          letterSpacing: 68,
+          marginRight: -68,
+          opacity: mark,
+          transform: `scale(${0.85 + 0.15 * mark})`,
+        }}
+      >
+        VOOM
+      </div>
+      <div style={{ width: 140 * line, height: 5, backgroundColor: C.lime }} />
+      {scene.title ? (
+        <div style={{ opacity: line }}>
+          <Title text={scene.title} size={58} delay={14} />
+        </div>
+      ) : null}
+      {cta ? (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 18,
+            padding: "22px 44px",
+            borderRadius: 999,
+            backgroundColor: tap > 0.5 ? C.lime : "transparent",
+            border: `3px solid ${C.lime}`,
+            color: tap > 0.5 ? "#000" : C.lime,
+            fontFamily: monoFamily,
+            fontSize: 32,
+            fontWeight: 700,
+            letterSpacing: 5,
+            opacity: pill,
+            // "Basılma" anı: kısa bir küçülüp büyüme
+            transform: `scale(${pill * (1 - 0.08 * Math.sin(Math.PI * Math.min(1, tap)))})`,
+          }}
+        >
+          <svg width={40} height={40} viewBox="0 0 24 24" fill="none" stroke={tap > 0.5 ? "#000" : C.lime} strokeWidth={2.4} strokeLinejoin="round" strokeLinecap="round">
+            {cta === "gonder" ? <path d="M3 11l18-8-8 18-2-8-8-2z" /> : <path d="M6 3h12v18l-6-4-6 4z" />}
+          </svg>
+          {cta === "gonder" ? (tap > 0.5 ? "GÖNDERİLDİ" : "ARKADAŞINA GÖNDER") : tap > 0.5 ? "KAYDEDİLDİ" : "KAYDET"}
+        </div>
+      ) : null}
+    </div>
+    )}
+    </>
+  );
+};
+
+const CONFETTI = Array.from({ length: 60 }, (_, i) => ({
+  x: random(`cx${i}`) * 1080 - 540,
+  vy: 6 + random(`cv${i}`) * 10,
+  vx: (random(`cw${i}`) - 0.5) * 16,
+  r: random(`cr${i}`) * 360,
+  c: [C.lime, C.warm, C.teal, "#fff", C.danger][i % 5],
+}));
+export const Confetti: React.FC = () => {
+  const frame = useCurrentFrame();
+  return (
+    <div style={{ position: "absolute", left: 0, top: 0, width: 900, height: 1920, pointerEvents: "none" }}>
+      {CONFETTI.map((c, i) => {
+        // Ortadan yukarı fırlayıp yerçekimiyle düşer
+        const t = frame;
+        const x = 450 + c.x * 0.2 + c.vx * t;
+        const y = 760 - c.vy * 3 * t + 0.45 * t * t;
+        if (y > 1950) return null;
+        return <div key={i} style={{ position: "absolute", left: x, top: y, width: 18, height: 30, backgroundColor: c.c, borderRadius: 4, transform: `rotate(${c.r + t * 12}deg)` }} />;
+      })}
+    </div>
+  );
+};
+
+/* ---------- Çizgi grafik (bir veya iki seri) ---------- */
+// data: { series: [{ points: number[], label?, tone? }], labels: string[], from?: 0..1, to?: 0..1, note?: string }
+
+const Cizgi: React.FC<VisualProps> = ({ data }) => {
+  const series = (data.series as { points: number[]; label?: string; tone?: string }[]) ?? [];
+  const labels = (data.labels as string[]) ?? [];
+  const from = (data.from as number) ?? 0;
+  const to = (data.to as number) ?? 1;
+  const p = useProgress(0.05, 0.75);
+  const reveal = from + (to - from) * p;
+  const card = useEnter(0);
+  const W = 820;
+  const H = 520;
+  const pad = { l: 40, r: 40, t: 50, b: 70 };
+  const n = Math.max(...series.map((s) => s.points.length), 2);
+  const x = (i: number) => pad.l + (i / (n - 1)) * (W - pad.l - pad.r);
+  const y = (v: number) => pad.t + (1 - v / 100) * (H - pad.t - pad.b);
+
+  return (
+    <Card style={{ padding: 30, opacity: card, transform: `translateY(${(1 - card) * 60}px)` }}>
+      <svg width={W} height={H}>
+        {[0, 25, 50, 75, 100].map((g) => (
+          <line key={g} x1={pad.l} x2={W - pad.r} y1={y(g)} y2={y(g)} stroke="rgba(255,255,255,0.06)" strokeWidth={2} />
+        ))}
+        {labels.map((l, i) => (
+          <text key={i} x={x(i)} y={H - 22} fill={C.muted} fontSize={24} fontFamily={monoFamily} textAnchor="middle">
+            {l}
+          </text>
+        ))}
+        <defs>
+          <clipPath id="reveal">
+            <rect x={0} y={0} width={pad.l + reveal * (W - pad.l - pad.r) + 2} height={H} />
+          </clipPath>
+        </defs>
+        {series.map((s, si) => {
+          const color = toneColor(s.tone ?? (si === 0 ? "lime" : "teal"));
+          const d = s.points.map((v, i) => `${i ? "L" : "M"}${x(i)},${y(v)}`).join(" ");
+          const area = `${d} L${x(s.points.length - 1)},${y(0)} L${x(0)},${y(0)} Z`;
+          // Uç noktası: açılan kısmın sonundaki değer
+          const fi = reveal * (s.points.length - 1);
+          const i0 = Math.floor(fi);
+          const i1 = Math.min(s.points.length - 1, i0 + 1);
+          const v = s.points[i0] + (s.points[i1] - s.points[i0]) * (fi - i0);
+          return (
+            <g key={si}>
+              <g clipPath="url(#reveal)">
+                <path d={area} fill={color} opacity={0.08} />
+                <path d={d} fill="none" stroke={color} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+              <circle cx={x(fi)} cy={y(v)} r={14} fill={color} />
+              <circle cx={x(fi)} cy={y(v)} r={26} fill={color} opacity={0.2} />
+              {s.label ? (
+                <text x={x(fi) + (fi > (n - 1) * 0.7 ? -34 : 34)} y={y(v) - 26} fill={color} fontSize={28} fontWeight={700} fontFamily={interFamily} textAnchor={fi > (n - 1) * 0.7 ? "end" : "start"}>
+                  {s.label}
+                </text>
+              ) : null}
+            </g>
+          );
+        })}
+      </svg>
+      {data.note ? (
+        <div style={{ fontFamily: monoFamily, fontSize: 24, letterSpacing: 4, color: C.muted, textAlign: "center", marginTop: 6 }}>
+          {data.note as string}
+        </div>
+      ) : null}
+    </Card>
+  );
+};
+
+/* ---------- Takvim / blok ızgarası ---------- */
+// data: { columns?: number, cells: [{ top, main, tone?, check?, cross? }] }
+
+const Takvim: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const cells = (data.cells as { top: string; main: string; tone?: string; check?: boolean; cross?: boolean }[]) ?? [];
+  const columns = (data.columns as number) ?? 4;
+  const gap = 18;
+  const w = (STAGE.width - gap * (columns - 1)) / columns;
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap, width: STAGE.width, justifyContent: "center" }}>
+      {cells.map((c, i) => {
+        const e = spring({ frame: frame - 4 - i * 5, fps: 30, config: { damping: 14, stiffness: 130 } });
+        const mark = interpolate(frame, [20 + i * 5, 34 + i * 5], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+        const color = c.tone ? toneColor(c.tone) : C.text;
+        return (
+          <div
+            key={i}
+            style={{
+              width: w,
+              height: w * 1.05,
+              borderRadius: 24,
+              backgroundColor: c.tone ? `${color}14` : C.card,
+              border: `2px solid ${c.tone ? color : C.border}`,
+              padding: "22px 18px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              opacity: e,
+              transform: `scale(${0.8 + 0.2 * e})`,
+            }}
+          >
+            <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 3, color: C.muted }}>{c.top}</div>
+            <div style={{ fontSize: c.main.length > 9 ? 30 : 36, fontWeight: 800, lineHeight: 1.1, color }}>{c.main}</div>
+            <div style={{ height: 44 }}>
+              {c.check ? <Check size={44} color={color === C.text ? C.lime : color} progress={mark} /> : null}
+              {c.cross ? <Cross size={44} progress={mark} /> : null}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+/* ---------- Sütun grafik ---------- */
+// data: { bars: [{ label, value (0-100), text?, tone? }], limit?: number, limitLabel?: string }
+
+const Bar: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const bars = (data.bars as { label: string; value: number; text?: string; tone?: string }[]) ?? [];
+  const limit = data.limit as number | undefined;
+  const H = 600;
+  const gap = 22;
+  const w = (STAGE.width - 80 - gap * (bars.length - 1)) / bars.length;
+  const lim = useEnter(10 + bars.length * 7, 200);
+  return (
+    <Card style={{ padding: "50px 40px 30px", position: "relative" }}>
+      <div style={{ display: "flex", alignItems: "flex-end", gap, height: H }}>
+        {bars.map((b, i) => {
+          const g = interpolate(frame, [6 + i * 7, 30 + i * 7], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.out(Easing.cubic),
+          });
+          const color = toneColor(b.tone);
+          return (
+            <div key={i} style={{ width: w, display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
+              <div style={{ fontSize: w > 120 ? 34 : 28, fontWeight: 800, color, opacity: g }}>{b.text ?? ""}</div>
+              <div
+                style={{
+                  width: "100%",
+                  height: ((H - 110) * b.value * g) / 100,
+                  borderRadius: 16,
+                  background: `linear-gradient(${color}, ${color}55)`,
+                  boxShadow: `0 0 40px ${color}33`,
+                }}
+              />
+              <div style={{ fontFamily: monoFamily, fontSize: 22, color: C.muted, letterSpacing: 2 }}>{b.label}</div>
+            </div>
+          );
+        })}
+      </div>
+      {limit !== undefined ? (
+        <div
+          style={{
+            position: "absolute",
+            left: 30,
+            right: 30,
+            top: 50 + (H - 60) - ((H - 110) * limit) / 100 - 40,
+            borderTop: `4px dashed ${C.danger}`,
+            opacity: lim,
+          }}
+        >
+          <div style={{ position: "absolute", right: 0, top: -50, fontFamily: monoFamily, fontSize: 24, color: C.danger, letterSpacing: 3 }}>
+            {(data.limitLabel as string) ?? "SINIR"}
+          </div>
+        </div>
+      ) : null}
+    </Card>
+  );
+};
+
+/* ---------- Seri: gün gün tekrar (kaçırılan günler kırmızı) ---------- */
+// data: { count, miss?: number[], label? }
+
+const Seri: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const count = (data.count as number) ?? 14;
+  const miss = new Set((data.miss as number[]) ?? []);
+  const per = 7;
+  const size = 96;
+  const done = Array.from({ length: count }, (_, i) => i).filter((i) => !miss.has(i));
+  const filled = Math.floor(interpolate(frame, [10, 10 + count * 4], [0, count], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  const shown = done.filter((i) => i < filled).length;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 50 }}>
+      <div style={{ display: "grid", gridTemplateColumns: `repeat(${per}, ${size}px)`, gap: 22 }}>
+        {Array.from({ length: count }, (_, i) => {
+          const on = i < filled;
+          const m = miss.has(i);
+          const color = m ? C.danger : C.lime;
+          return (
+            <div
+              key={i}
+              style={{
+                width: size,
+                height: size,
+                borderRadius: size / 2,
+                border: `4px solid ${on ? color : C.border}`,
+                backgroundColor: on ? (m ? "rgba(255,93,93,0.12)" : C.lime) : "transparent",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transform: `scale(${on ? 1 : 0.85})`,
+              }}
+            >
+              {on ? m ? <Cross size={48} /> : <Check size={52} color="#000" /> : null}
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 18 }}>
+        <div style={{ fontSize: 120, fontWeight: 900, color: C.lime, lineHeight: 1 }}>{shown}</div>
+        <div style={{ fontSize: 40, fontWeight: 700, color: C.muted }}>{(data.label as string) ?? "gün"}</div>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Mesajlaşma (koç ile) ---------- */
+// data: { messages: [{ from: "me" | "coach", text }], startAt?: number, badge?: string }
+
+const Mesaj: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const messages = (data.messages as { from: "me" | "coach"; text: string }[]) ?? [];
+  const startAt = (data.startAt as number) ?? 0;
+  const animated = messages.length - startAt;
+  const step = Math.max(18, (durationInFrames * 0.7) / Math.max(1, animated));
+  const badgeAt = 10 + animated * step;
+  const badge = spring({ frame: frame - badgeAt, fps: 30, config: { damping: 12, stiffness: 140 } });
+  return (
+    <Card style={{ width: 820, padding: "34px 34px 40px", display: "flex", flexDirection: "column", gap: 22 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 18, paddingBottom: 18, borderBottom: `2px solid ${C.border}` }}>
+        <div style={{ width: 64, height: 64, borderRadius: 32, backgroundColor: C.lime, color: "#000", display: "flex", justifyContent: "center", alignItems: "center", fontWeight: 900, fontSize: 30 }}>
+          K
+        </div>
+        <div>
+          <div style={{ fontSize: 30, fontWeight: 700 }}>Koçun</div>
+          <div style={{ fontFamily: monoFamily, fontSize: 20, color: C.lime, letterSpacing: 3 }}>ÇEVRİMİÇİ</div>
+        </div>
+      </div>
+      {messages.map((m, i) => {
+        const at = i < startAt ? -100 : 10 + (i - startAt) * step;
+        const e = spring({ frame: frame - at, fps: 30, config: { damping: 15, stiffness: 140 } });
+        if (e <= 0.01) return null;
+        const me = m.from === "me";
+        return (
+          <div
+            key={i}
+            style={{
+              alignSelf: me ? "flex-end" : "flex-start",
+              maxWidth: "82%",
+              padding: "20px 28px",
+              borderRadius: 28,
+              borderBottomRightRadius: me ? 8 : 28,
+              borderBottomLeftRadius: me ? 28 : 8,
+              backgroundColor: me ? C.cardHi : "rgba(200,232,90,0.12)",
+              border: `2px solid ${me ? C.border : "rgba(200,232,90,0.45)"}`,
+              fontSize: 32,
+              lineHeight: 1.3,
+              opacity: e,
+              transform: `translateY(${(1 - e) * 30}px) scale(${0.9 + 0.1 * e})`,
+            }}
+          >
+            {m.text}
+          </div>
+        );
+      })}
+      {data.badge ? (
+        <div
+          style={{
+            alignSelf: "center",
+            marginTop: 10,
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            padding: "14px 30px",
+            borderRadius: 999,
+            backgroundColor: C.lime,
+            color: "#000",
+            fontFamily: monoFamily,
+            fontWeight: 700,
+            fontSize: 26,
+            letterSpacing: 4,
+            opacity: badge,
+            transform: `scale(${badge})`,
+          }}
+        >
+          <Check size={30} color="#000" />
+          {data.badge as string}
+        </div>
+      ) : null}
+    </Card>
+  );
+};
+
+/* ---------- Liste (✓ / ✗) ---------- */
+// data: { items: [{ text, ok?: boolean }] }
+
+const Liste: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const items = (data.items as { text: string; ok?: boolean }[]) ?? [];
+  const step = Math.max(14, (durationInFrames * 0.55) / Math.max(1, items.length));
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 24, width: 820 }}>
+      {items.map((it, i) => {
+        const at = 8 + i * step;
+        const e = spring({ frame: frame - at, fps: 30, config: { damping: 16, stiffness: 140 } });
+        const mark = interpolate(frame, [at + 8, at + 20], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+        const color = it.ok ? C.lime : C.danger;
+        return (
+          <Card
+            key={i}
+            style={{
+              padding: "30px 36px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              borderColor: mark > 0.5 ? `${color}88` : C.border,
+              opacity: e,
+              transform: `translateX(${(1 - e) * -80}px)`,
+            }}
+          >
+            <div style={{ fontSize: 44, fontWeight: 700 }}>{it.text}</div>
+            {it.ok ? <Check size={64} progress={mark} /> : <Cross size={58} progress={mark} />}
+          </Card>
+        );
+      })}
+    </div>
+  );
+};
+
+/* ---------- Zaman çizelgesi (gün içi) ---------- */
+// data: { items: [{ time, text, tone? }] }
+
+const Zaman: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const items = (data.items as { time: string; text: string; tone?: string }[]) ?? [];
+  const step = Math.max(14, (durationInFrames * 0.6) / Math.max(1, items.length));
+  const line = interpolate(frame, [0, 8 + items.length * step], [0, 1], { extrapolateRight: "clamp" });
+  const rowH = 190;
+  return (
+    <div style={{ position: "relative", width: 820, height: items.length * rowH }}>
+      <div style={{ position: "absolute", left: 38, top: 30, width: 4, height: (items.length * rowH - 100) * line, backgroundColor: C.lime, opacity: 0.6 }} />
+      {items.map((it, i) => {
+        const e = spring({ frame: frame - (8 + i * step), fps: 30, config: { damping: 15, stiffness: 140 } });
+        const color = toneColor(it.tone);
+        return (
+          <div key={i} style={{ position: "absolute", top: i * rowH, left: 0, right: 0, display: "flex", alignItems: "center", gap: 40, opacity: e, transform: `translateX(${(1 - e) * 60}px)` }}>
+            <div style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: C.bg, border: `5px solid ${color}`, display: "flex", justifyContent: "center", alignItems: "center", flexShrink: 0 }}>
+              <div style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: color }} />
+            </div>
+            <Card style={{ flex: 1, padding: "26px 32px" }}>
+              <div style={{ fontFamily: monoFamily, fontSize: 24, letterSpacing: 5, color }}>{it.time}</div>
+              <div style={{ fontSize: 40, fontWeight: 700, marginTop: 6 }}>{it.text}</div>
+            </Card>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+/* ---------- Piramit (temelden tepeye) ---------- */
+// data: { levels: [{ text, tone? }] } — ilk eleman en alttaki temel
+
+const Piramit: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const levels = (data.levels as { text: string; tone?: string }[]) ?? [];
+  const h = 150;
+  const gap = 14;
+  return (
+    <div style={{ display: "flex", flexDirection: "column-reverse", alignItems: "center", gap }}>
+      {levels.map((l, i) => {
+        const e = spring({ frame: frame - (6 + i * 9), fps: 30, config: { damping: 14, stiffness: 120 } });
+        const w = 860 - i * (560 / Math.max(1, levels.length - 1));
+        const color = toneColor(l.tone ?? (i === levels.length - 1 ? "warm" : "lime"));
+        const top = i === levels.length - 1;
+        return (
+          <div
+            key={i}
+            style={{
+              width: w,
+              height: h,
+              clipPath: top ? "polygon(50% 0, 100% 100%, 0 100%)" : "polygon(6% 0, 94% 0, 100% 100%, 0 100%)",
+              background: top ? `linear-gradient(${color}, ${color}aa)` : `linear-gradient(${color}33, ${color}18)`,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: top ? "flex-end" : "center",
+              paddingBottom: top ? 22 : 0,
+              fontSize: top ? 34 : 42,
+              fontWeight: 800,
+              color: top ? "#000" : color,
+              opacity: e,
+              transform: `translateY(${(1 - e) * -60}px)`,
+            }}
+          >
+            {l.text}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+/* ---------- Kas lifleri: zorlanma (mikro yırtık) ve onarım ---------- */
+// data: { phase: "yirtik" | "onarim" }
+
+const FIBERS = Array.from({ length: 7 }, (_, i) => i);
+const TEARS = Array.from({ length: 14 }, (_, i) => ({
+  f: Math.floor(random(`tf${i}`) * 7),
+  x: 120 + random(`tx${i}`) * 560,
+}));
+
+const Kas: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const repair = data.phase === "onarim";
+  const p = useProgress(0.05, 0.7);
+  const tear = repair ? 1 - p : p;
+  const grow = repair ? p : 0;
+  const W = 820;
+  const fiberH = 58 + 10 * grow;
+  const gap = 14;
+  const total = FIBERS.length * fiberH + (FIBERS.length - 1) * gap;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 30 }}>
+      <svg width={W} height={total + 40} viewBox={`0 0 ${W} ${total + 40}`}>
+        <defs>
+          <linearGradient id="fiber" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#ff8f8f" />
+            <stop offset="50%" stopColor="#d9534f" />
+            <stop offset="100%" stopColor="#8f2a2a" />
+          </linearGradient>
+        </defs>
+        {FIBERS.map((f) => {
+          const y = 20 + f * (fiberH + gap);
+          const wob = Math.sin(frame / 6 + f) * (repair ? 0 : 2 * p);
+          return (
+            <g key={f} transform={`translate(0 ${wob})`}>
+              <rect x={40} y={y} width={W - 80} height={fiberH} rx={fiberH / 2} fill="url(#fiber)" />
+              {/* Lif çizgileri */}
+              {[0.3, 0.55, 0.8].map((k) => (
+                <line key={k} x1={70} x2={W - 70} y1={y + fiberH * k} y2={y + fiberH * k} stroke="rgba(255,255,255,0.18)" strokeWidth={2} />
+              ))}
+              {repair ? (
+                <rect x={40} y={y} width={W - 80} height={fiberH} rx={fiberH / 2} fill="none" stroke={C.lime} strokeWidth={4} opacity={grow * 0.9} />
+              ) : null}
+            </g>
+          );
+        })}
+        {TEARS.map((t, i) => {
+          const y = 20 + t.f * (fiberH + gap) + fiberH / 2;
+          const show = interpolate(tear, [i / TEARS.length, i / TEARS.length + 0.1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+          return (
+            <g key={i} opacity={show}>
+              <path d={`M${t.x} ${y - 22} l10 14 l-12 10 l12 12`} stroke="#fff" strokeWidth={5} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx={t.x} cy={y} r={30} fill={repair ? C.lime : C.warm} opacity={0.18} />
+            </g>
+          );
+        })}
+      </svg>
+      <div style={{ display: "flex", gap: 40, fontFamily: monoFamily, fontSize: 26, letterSpacing: 4 }}>
+        <span style={{ color: repair ? C.lime : C.warm }}>{repair ? "ONARIM" : "MİKRO HASAR"}</span>
+        <span style={{ color: C.muted }}>{Math.round((repair ? grow : tear) * 100)}%</span>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Duruş figürü (yandan) ---------- */
+// data: { mode: "boyun" | "omuz" }
+
+const Figur: React.FC<VisualProps> = ({ data }) => {
+  const p = useProgress(0.08, 0.7);
+  const neck = data.mode === "boyun";
+  // Baş öne eğildikçe boyna binen yük (yaklaşık, Hansraj 2014): 0° ≈ 5 kg, 60° ≈ 27 kg
+  const angle = 60 * p;
+  const kg = Math.round(5 + 22 * p);
+  const hunch = neck ? 0.35 * p : 0.35 + 0.65 * p;
+  const color = p > 0.5 ? C.danger : p > 0.2 ? C.warm : C.lime;
+
+  // Omurga: kalçadan boyna eğri; kambur arttıkça kontrol noktası geriye kayar
+  const hip = { x: 330, y: 560 };
+  const neckBase = { x: 360 + 70 * hunch, y: 250 + 25 * hunch };
+  const ctrl = { x: 300 - 60 * hunch, y: 400 };
+  const headAngle = (neck ? angle : 20 + 25 * hunch) * (Math.PI / 180);
+  const head = { x: neckBase.x + Math.sin(headAngle) * 95, y: neckBase.y - Math.cos(headAngle) * 95 };
+  const shoulder = { x: neckBase.x + (neck ? 0 : 40 * hunch), y: neckBase.y + 40 };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <svg width={820} height={700} viewBox="0 0 820 700">
+        {/* Masa, ekran ve sandalye */}
+        <rect x={470} y={430} width={300} height={14} rx={7} fill="#3a3f47" />
+        <rect x={720} y={444} width={12} height={220} fill="#2a2e35" />
+        <rect x={620} y={250} width={130} height={170} rx={12} fill="#1b1f25" stroke="#3a3f47" strokeWidth={4} />
+        <rect x={672} y={420} width={26} height={12} fill="#3a3f47" />
+        <rect x={240} y={575} width={200} height={16} rx={8} fill="#3a3f47" />
+        <rect x={236} y={420} width={14} height={170} rx={7} fill="#3a3f47" />
+        <rect x={330} y={591} width={12} height={80} fill="#2a2e35" />
+        {/* Bacaklar */}
+        <path d={`M${hip.x} ${hip.y} L 520 565 L 520 670`} stroke="#5b616b" strokeWidth={30} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        {/* Gövde ve omurga */}
+        <path d={`M${hip.x} ${hip.y} Q ${ctrl.x} ${ctrl.y} ${neckBase.x} ${neckBase.y}`} stroke="#5b616b" strokeWidth={70} strokeLinecap="round" fill="none" />
+        <path d={`M${hip.x} ${hip.y} Q ${ctrl.x} ${ctrl.y} ${neckBase.x} ${neckBase.y}`} stroke={color} strokeWidth={8} strokeDasharray="2 16" strokeLinecap="round" fill="none" />
+        {/* Kol: omuzdan klavyeye */}
+        <path d={`M${shoulder.x} ${shoulder.y} L ${shoulder.x + 70} ${shoulder.y + 120} L 560 425`} stroke="#5b616b" strokeWidth={24} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        {/* Boyun ve baş */}
+        <line x1={neckBase.x} y1={neckBase.y} x2={head.x} y2={head.y} stroke="#5b616b" strokeWidth={30} strokeLinecap="round" />
+        <circle cx={head.x + Math.sin(headAngle) * 20} cy={head.y - Math.cos(headAngle) * 20} r={62} fill="#6b717b" />
+        {/* Ağırlık oku */}
+        {neck ? (
+          <g opacity={0.4 + 0.6 * p}>
+            <line x1={head.x + 20} y1={head.y + 70} x2={head.x + 20} y2={head.y + 70 + 40 + 80 * p} stroke={color} strokeWidth={8} />
+            <path d={`M${head.x} ${head.y + 100 + 80 * p} l20 30 l20 -30 z`} fill={color} />
+          </g>
+        ) : (
+          <circle cx={ctrl.x + 40} cy={ctrl.y - 10} r={60 + 30 * p} fill={color} opacity={0.12 + 0.12 * p} />
+        )}
+      </svg>
+      <div style={{ display: "flex", gap: 24 }}>
+        {neck ? (
+          <>
+            <Card style={{ padding: "18px 34px", borderColor: color }}>
+              <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>EĞİM</div>
+              <div style={{ fontSize: 56, fontWeight: 900, color }}>{Math.round(angle)}°</div>
+            </Card>
+            <Card style={{ padding: "18px 34px", borderColor: color }}>
+              <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>BOYNA YÜK</div>
+              <div style={{ fontSize: 56, fontWeight: 900, color }}>~{kg} kg</div>
+            </Card>
+          </>
+        ) : (
+          <Card style={{ padding: "18px 34px", borderColor: color }}>
+            <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>OTURMA SÜRESİ</div>
+            <div style={{ fontSize: 56, fontWeight: 900, color }}>{Math.round(1 + 9 * p)} saat</div>
+          </Card>
+        )}
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Büyük sayı sayacı ---------- */
+// data: { from?, to, decimals?, prefix?, suffix?, label? }
+
+const fmt = (v: number, decimals: number, plain = false) =>
+  v.toLocaleString("tr-TR", { minimumFractionDigits: decimals, maximumFractionDigits: decimals, useGrouping: !plain });
+
+const Sayi: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const from = (data.from as number) ?? 0;
+  const to = (data.to as number) ?? 0;
+  const decimals = (data.decimals as number) ?? 0;
+  const v = interpolate(frame, [6, 45], [from, to], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
+  const e = useEnter(0, 14);
+  const glow = interpolate(frame, [40, 55], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 36, opacity: e, transform: `scale(${0.85 + 0.15 * e})` }}>
+      <div
+        style={{
+          fontSize: 210,
+          fontWeight: 900,
+          letterSpacing: -6,
+          color: C.lime,
+          lineHeight: 1,
+          textShadow: `0 0 ${60 * glow}px rgba(200,232,90,0.45)`,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {(data.prefix as string) ?? ""}
+        {fmt(v, decimals, data.plain as boolean)}
+        <span style={{ fontSize: 110, letterSpacing: -2 }}>{(data.suffix as string) ?? ""}</span>
+      </div>
+      {data.label ? (
+        <div style={{ padding: "16px 30px", borderRadius: 14, border: `2px solid ${C.border}`, backgroundColor: C.card, fontFamily: monoFamily, fontSize: 26, letterSpacing: 4, color: C.muted, textAlign: "center", maxWidth: 820 }}>
+          {data.label as string}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+/* ---------- Halka grafik ---------- */
+// data: { segments: [{ label, value (yüzde), tone? }] }
+
+const Halka: React.FC<VisualProps> = ({ data }) => {
+  const segs = (data.segments as { label: string; value: number; tone?: string }[]) ?? [];
+  const p = useProgress(0.04, 0.5);
+  const R = 250;
+  const L = 2 * Math.PI * R;
+  let acc = 0;
+  const main = segs[0];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 40 }}>
+      <div style={{ position: "relative", width: 620, height: 620 }}>
+        <svg width={620} height={620} viewBox="0 0 620 620" style={{ transform: "rotate(-90deg)" }}>
+          <circle cx={310} cy={310} r={R} fill="none" stroke={C.border} strokeWidth={70} />
+          {segs.map((sg, i) => {
+            const len = (sg.value / 100) * L * p;
+            const off = acc;
+            acc += (sg.value / 100) * L * p;
+            return (
+              <circle key={i} cx={310} cy={310} r={R} fill="none" stroke={toneColor(sg.tone ?? (i === 0 ? "lime" : "teal"))} strokeWidth={70} strokeDasharray={`${Math.max(0, len - 6)} ${L}`} strokeDashoffset={-off} />
+            );
+          })}
+        </svg>
+        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+          <div style={{ fontSize: 150, fontWeight: 900, color: C.lime, lineHeight: 1 }}>%{Math.round((main?.value ?? 0) * p)}</div>
+          <div style={{ fontSize: 34, fontWeight: 700, color: C.muted, marginTop: 10 }}>{main?.label}</div>
+        </div>
+      </div>
+      <div style={{ display: "flex", gap: 30 }}>
+        {segs.map((sg, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 32, fontWeight: 700 }}>
+            <div style={{ width: 22, height: 22, borderRadius: 6, backgroundColor: toneColor(sg.tone ?? (i === 0 ? "lime" : "teal")) }} />
+            {sg.label} %{sg.value}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Parçacık akışı (ör. nefesle çıkan CO₂) ---------- */
+// data: { center, particle }
+
+const PARTICLES = Array.from({ length: 26 }, (_, i) => ({
+  x: (random(`px${i}`) - 0.5) * 520,
+  delay: random(`pd${i}`) * 90,
+  speed: 4 + random(`ps${i}`) * 4,
+  size: 0.7 + random(`pz${i}`) * 0.6,
+}));
+
+const Parcacik: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const e = useEnter(0, 14);
+  const breathe = 1 + Math.sin(frame / 12) * 0.06;
+  return (
+    <div style={{ position: "relative", width: 900, height: 860 }}>
+      {PARTICLES.map((pt, i) => {
+        const t = (frame - pt.delay) * pt.speed;
+        if (t < 0) return null;
+        const y = 560 - (t % 620);
+        const o = interpolate(y, [-60, 120, 480, 560], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: 450 + pt.x + Math.sin((frame + i * 20) / 15) * 20 - 60,
+              top: y,
+              width: 120 * pt.size,
+              height: 120 * pt.size,
+              borderRadius: "50%",
+              border: `3px solid ${C.lime}`,
+              backgroundColor: "rgba(200,232,90,0.10)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: 34 * pt.size,
+              fontWeight: 800,
+              color: C.lime,
+              opacity: o * e,
+            }}
+          >
+            {(data.particle as string) ?? "CO₂"}
+          </div>
+        );
+      })}
+      <div
+        style={{
+          position: "absolute",
+          left: 450 - 170,
+          top: 620,
+          width: 340,
+          height: 200,
+          borderRadius: 100,
+          backgroundColor: C.card,
+          border: `3px solid ${C.lime}`,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontFamily: monoFamily,
+          fontSize: 32,
+          letterSpacing: 6,
+          color: C.text,
+          transform: `scale(${breathe * e})`,
+          boxShadow: "0 0 80px rgba(200,232,90,0.25)",
+        }}
+      >
+        {(data.center as string) ?? ""}
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Karşılaştırma: iki kart ---------- */
+// data: { left: { label, value, tone? }, right: { label, value, tone? }, sign?: "→" | "vs" | "=" }
+
+const Vs: React.FC<VisualProps> = ({ data }) => {
+  const left = data.left as { label: string; value: string; tone?: string };
+  const right = data.right as { label: string; value: string; tone?: string };
+  const a = useEnter(2);
+  const b = useEnter(18);
+  const sign = useEnter(12, 10);
+  const card = (it: { label: string; value: string; tone?: string }, e: number, dir: number) => (
+    <Card style={{ width: 380, height: 420, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 24, borderColor: `${toneColor(it.tone ?? (dir > 0 ? "lime" : "muted"))}88`, opacity: e, transform: `translateX(${(1 - e) * 120 * dir}px)` }}>
+      <div style={{ fontSize: it.value.length > 6 ? 76 : 96, fontWeight: 900, color: toneColor(it.tone ?? (dir > 0 ? "lime" : "muted")), whiteSpace: "nowrap" }}>{it.value}</div>
+      <div style={{ fontSize: 32, fontWeight: 700, color: C.muted, textAlign: "center", padding: "0 20px" }}>{it.label}</div>
+    </Card>
+  );
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
+      {card(left, a, -1)}
+      <div style={{ width: 140, textAlign: "center", fontSize: 56, fontWeight: 900, color: C.lime, transform: `scale(${sign})` }}>{(data.sign as string) ?? "→"}</div>
+      {card(right, b, 1)}
+    </div>
+  );
+};
+
+/* ---------- Termometre ---------- */
+// data: { from, to, unit?, label? }
+
+const Termometre: React.FC<VisualProps> = ({ data }) => {
+  const from = (data.from as number) ?? 0;
+  const to = (data.to as number) ?? 1;
+  const p = useProgress(0.05, 0.6);
+  const v = from + (to - from) * p;
+  const color = p < 0.4 ? C.teal : p < 0.75 ? C.warm : C.danger;
+  const H = 560;
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 70 }}>
+      <svg width={200} height={760} viewBox="0 0 200 760">
+        <rect x={60} y={20} width={80} height={H + 60} rx={40} fill={C.card} stroke={C.border} strokeWidth={4} />
+        <rect x={78} y={40 + H * (1 - (0.15 + 0.85 * p))} width={44} height={H * (0.15 + 0.85 * p) + 40} rx={22} fill={color} />
+        <circle cx={100} cy={660} r={80} fill={C.card} stroke={C.border} strokeWidth={4} />
+        <circle cx={100} cy={660} r={58} fill={color} />
+        {[0, 1, 2, 3, 4].map((k) => (
+          <line key={k} x1={150} x2={175} y1={60 + (H / 4) * k} y2={60 + (H / 4) * k} stroke={C.muted} strokeWidth={4} />
+        ))}
+      </svg>
+      <div>
+        <div style={{ fontSize: 150, fontWeight: 900, color, lineHeight: 1 }}>
+          {fmt(v, 1)}
+          <span style={{ fontSize: 80 }}>{(data.unit as string) ?? "°C"}</span>
+        </div>
+        {data.label ? <div style={{ fontFamily: monoFamily, fontSize: 28, letterSpacing: 5, color: C.muted, marginTop: 20 }}>{data.label as string}</div> : null}
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Vücut silüeti: yağın her yerden azalması ---------- */
+// data: { mode: "tum" | "bolge" } — bolge: karın işaretli ama yağ yine her yerden gidiyor
+
+const FAT = Array.from({ length: 46 }, (_, i) => {
+  // Silüetin içine düşen rastgele noktalar
+  const zones = [
+    { x: 300, y: 120, w: 70, h: 60 },
+    { x: 220, y: 230, w: 230, h: 330 },
+    { x: 140, y: 240, w: 60, h: 260 },
+    { x: 470, y: 240, w: 60, h: 260 },
+    { x: 230, y: 580, w: 90, h: 330 },
+    { x: 350, y: 580, w: 90, h: 330 },
+  ];
+  const z = zones[i % zones.length];
+  return { x: z.x + random(`fx${i}`) * z.w, y: z.y + random(`fy${i}`) * z.h, r: 10 + random(`fr${i}`) * 10, belly: i % zones.length === 1 && random(`fy${i}`) > 0.4 };
+});
+
+const Vucut: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const p = useProgress(0.15, 0.85);
+  const bolge = data.mode === "bolge";
+  const mark = useEnter(6, 12);
+  const body = "#2a2e35";
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      <svg width={670} height={820} viewBox="0 0 670 950">
+        <circle cx={335} cy={110} r={75} fill={body} />
+        <rect x={290} y={175} width={90} height={50} fill={body} />
+        <rect x={210} y={215} width={250} height={370} rx={70} fill={body} />
+        <rect x={130} y={230} width={75} height={300} rx={37} fill={body} />
+        <rect x={465} y={230} width={75} height={300} rx={37} fill={body} />
+        <rect x={220} y={560} width={105} height={370} rx={50} fill={body} />
+        <rect x={345} y={560} width={105} height={370} rx={50} fill={body} />
+        {FAT.map((f, i) => {
+          // Her noktanın sönme zamanı rastgele: yağ her bölgeden aynı anda azalır
+          const k = random(`fk${i}`) * 0.7;
+          // Tamamen yok olmaz: her bölgede eşit şekilde azalır
+          const o = interpolate(p, [k, k + 0.3], [1, 0.3], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+          return <circle key={i} cx={f.x} cy={f.y + Math.sin(frame / 10 + i) * 2} r={f.r * (0.5 + 0.5 * o)} fill={C.warm} opacity={0.75 * o} />;
+        })}
+        {bolge ? (
+          <g opacity={mark}>
+            <ellipse cx={335} cy={430} rx={110} ry={90} fill="none" stroke={C.lime} strokeWidth={6} strokeDasharray="16 12" />
+            <text x={335} y={545} fill={C.lime} fontSize={30} fontWeight={800} textAnchor="middle" fontFamily={interFamily}>
+              MEKİK
+            </text>
+          </g>
+        ) : null}
+      </svg>
+      <div style={{ display: "flex", gap: 24, fontFamily: monoFamily, fontSize: 26, letterSpacing: 4 }}>
+        <span style={{ color: C.warm }}>● YAĞ</span>
+        <span style={{ color: C.muted }}>{Math.round(100 - 70 * p)}%</span>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Kas çekirdekleri: büyürken eklenir, küçülünce kalır ---------- */
+// data: { phase: "buyume" | "kuculme" }
+
+const NUCLEI = Array.from({ length: 5 }, (_, f) =>
+  Array.from({ length: 6 }, (_, k) => ({ x: 110 + k * 120 + random(`nx${f}${k}`) * 50, extra: k % 2 === 1 })),
+);
+
+const Cekirdek: React.FC<VisualProps> = ({ data }) => {
+  const p = useProgress(0.05, 0.7);
+  const shrink = data.phase === "kuculme";
+  const size = shrink ? 1 - 0.4 * p : 0.65 + 0.35 * p;
+  const W = 820;
+  const fiberH = 110 * size;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 30 }}>
+      <svg width={W} height={640} viewBox={`0 0 ${W} 640`}>
+        <defs>
+          <linearGradient id="fib2" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#ff8f8f" />
+            <stop offset="50%" stopColor="#d9534f" />
+            <stop offset="100%" stopColor="#8f2a2a" />
+          </linearGradient>
+        </defs>
+        {NUCLEI.map((row, f) => {
+          const cy = 64 + f * 128;
+          return (
+            <g key={f}>
+              <rect x={40} y={cy - fiberH / 2} width={W - 80} height={fiberH} rx={fiberH / 2} fill="url(#fib2)" />
+              {row.map((n, k) => {
+                // Büyürken yeni çekirdekler belirir; küçülürken hepsi yerinde kalır
+                const show = shrink || !n.extra ? 1 : interpolate(p, [0.2 + k * 0.08, 0.35 + k * 0.08], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+                return <circle key={k} cx={n.x} cy={cy} r={15 * show} fill={C.lime} stroke="#000" strokeWidth={3} opacity={show} />;
+              })}
+            </g>
+          );
+        })}
+      </svg>
+      <div style={{ display: "flex", gap: 40, fontFamily: monoFamily, fontSize: 26, letterSpacing: 4 }}>
+        <span style={{ color: C.lime }}>● ÇEKİRDEK</span>
+        <span style={{ color: C.muted }}>KAS BOYUTU {Math.round(size * 100)}%</span>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Yüzücü: derin suda başı dışarıda tutmak ---------- */
+// data: { mode: "panik" | "nefes" | "el" | "bacak" | "sirt" }
+
+type Pt = { x: number; y: number };
+// Açı 0 = aşağı, pozitif = saat yönünün tersi (sağa)
+const limbEnd = (o: Pt, deg: number, len: number): Pt => ({
+  x: o.x + Math.sin((deg * Math.PI) / 180) * len,
+  y: o.y + Math.cos((deg * Math.PI) / 180) * len,
+});
+
+const SURFACE = 300;
+const SKIN = "#c9a58a";
+const SUIT = "#2b3440";
+
+const Yuzucu: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const mode = (data.mode as string) ?? "panik";
+  const p = useProgress(0.05, 0.6);
+  const panic = mode === "panik";
+  const back = mode === "sirt";
+
+  // Dikey konumda vücut: panikte inip çıkar, nefeste yavaşça yükselir
+  const bob = panic
+    ? Math.sin(frame / 4) * 18 + 22
+    : mode === "nefes"
+      ? 30 - 45 * p + Math.sin(frame / 20) * 4
+      : Math.sin(frame / 20) * 5;
+  const head: Pt = { x: 450, y: 245 + bob };
+  const sh = 335 + bob;
+  const hip = 520 + bob;
+  const shL: Pt = { x: 400, y: sh };
+  const shR: Pt = { x: 500, y: sh };
+  const hipL: Pt = { x: 425, y: hip };
+  const hipR: Pt = { x: 475, y: hip };
+
+  // Kollar
+  let armL: Pt[];
+  let armR: Pt[];
+  let handTrail: { cx: number; cy: number }[] = [];
+  if (panic) {
+    const a = 150 + Math.sin(frame / 2.5) * 55;
+    const b = 150 + Math.sin(frame / 2.5 + 1.8) * 55;
+    const eL = limbEnd(shL, -a, 90);
+    const eR = limbEnd(shR, b, 90);
+    armL = [shL, eL, limbEnd(eL, -a + 30, 85)];
+    armR = [shR, eR, limbEnd(eR, b - 30, 85)];
+  } else if (back) {
+    // Sırtüstü: kollar gövdenin yanında hafifçe açık (döndürülünce yatay uzanır)
+    const eL = limbEnd(shL, -14, 95);
+    const eR = limbEnd(shR, 6, 95);
+    armL = [shL, eL, limbEnd(eL, -18, 85)];
+    armR = [shR, eR, limbEnd(eR, 4, 85)];
+  } else {
+    // Sakin sculling: el göğüs hizasında yatay sekiz çizer
+    const t = frame / 9;
+    const amp = mode === "el" ? 1 : 0.45;
+    const cL = { cx: shL.x - 150, cy: sh + 80 };
+    const cR = { cx: shR.x + 150, cy: sh + 80 };
+    const hand = (c: { cx: number; cy: number }, dir: number) => ({
+      x: c.cx + dir * 45 * amp * Math.sin(t),
+      y: c.cy + 18 * amp * Math.sin(2 * t),
+    });
+    armL = [shL, { x: shL.x - 70, y: sh + 70 }, hand(cL, 1)];
+    armR = [shR, { x: shR.x + 70, y: sh + 70 }, hand(cR, -1)];
+    handTrail = mode === "el" ? [cL, cR] : [];
+  }
+
+  // Bacaklar
+  let legL: Pt[];
+  let legR: Pt[];
+  let legTrail: Pt[] = [];
+  if (panic) {
+    const k = Math.sin(frame / 2) * 30;
+    legL = [hipL, limbEnd(hipL, -10 + k, 110), limbEnd(limbEnd(hipL, -10 + k, 110), 10 - k, 105)];
+    legR = [hipR, limbEnd(hipR, 10 - k, 110), limbEnd(limbEnd(hipR, 10 - k, 110), -10 + k, 105)];
+  } else if (back) {
+    const sway = Math.sin(frame / 18) * 4;
+    const kL = limbEnd(hipL, -4 + sway, 110);
+    const kR = limbEnd(hipR, 4 - sway, 110);
+    legL = [hipL, kL, limbEnd(kL, -2, 105)];
+    legR = [hipR, kR, limbEnd(kR, 2, 105)];
+  } else {
+    // Yumurta çırpıcı: dizler açık, ayaklar sırayla daire çizer
+    const t = frame / 10;
+    const amp = mode === "bacak" ? 1 : 0.4;
+    const kL = { x: hipL.x - 70, y: hip + 80 };
+    const kR = { x: hipR.x + 70, y: hip + 80 };
+    legL = [hipL, kL, { x: kL.x + 10 + 50 * amp * Math.cos(t), y: kL.y + 95 + 28 * amp * Math.sin(t) }];
+    legR = [hipR, kR, { x: kR.x - 10 + 50 * amp * Math.cos(t + Math.PI), y: kR.y + 95 + 28 * amp * Math.sin(t + Math.PI) }];
+    legTrail = mode === "bacak" ? [{ x: kL.x + 10, y: kL.y + 95 }, { x: kR.x - 10, y: kR.y + 95 }] : [];
+  }
+
+  const poly = (pts: Pt[]) => pts.map((q, i) => `${i ? "L" : "M"}${q.x},${q.y}`).join(" ");
+  const wave = (off: number, amp: number) =>
+    `M0 ${SURFACE} ` +
+    Array.from({ length: 19 }, (_, i) => `L${i * 50} ${SURFACE + Math.sin(i * 0.9 + frame / (panic ? 4 : 12) + off) * amp}`).join(" ") +
+    ` L900 860 L0 860 Z`;
+  const breath = 1 + (mode === "nefes" ? 0.25 * p : 0) + Math.sin(frame / (panic ? 3 : 14)) * (panic ? 0.05 : 0.06);
+  const effort = { panik: 95, nefes: 45, el: 40, bacak: 45, sirt: 10 }[mode] ?? 50;
+  const effortColor = effort > 70 ? C.danger : effort > 30 ? C.warm : C.lime;
+  const status = { panik: "NEFES: HIZLI · SIĞ", nefes: "NEFES: DERİN · YAVAŞ", el: "TEMPO: SAKİN", bacak: "TEMPO: SAKİN", sirt: "DİNLENME" }[mode] ?? "";
+  const meter = useEnter(10, 200);
+
+  const body = (
+    <g>
+      {[armL, armR].map((a, i) => (
+        <path key={`a${i}`} d={poly(a)} stroke={SKIN} strokeWidth={30} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      ))}
+      {[legL, legR].map((l, i) => (
+        <path key={`l${i}`} d={poly(l)} stroke={SKIN} strokeWidth={40} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      ))}
+      <rect x={390} y={sh - 20} width={120} height={hip - sh + 50} rx={50} fill={SUIT} />
+      {/* Ciğerler: nefesle dolup boşalır */}
+      <ellipse cx={428} cy={sh + 60} rx={24 * breath} ry={44 * breath} fill={C.lime} opacity={mode === "nefes" ? 0.75 : 0.3} />
+      <ellipse cx={472} cy={sh + 60} rx={24 * breath} ry={44 * breath} fill={C.lime} opacity={mode === "nefes" ? 0.75 : 0.3} />
+      <rect x={438} y={head.y + 40} width={24} height={sh - head.y - 40} fill={SKIN} />
+      <circle cx={head.x} cy={head.y} r={52} fill={SKIN} />
+      <path d={`M${head.x - 52} ${head.y - 8} A52 52 0 0 1 ${head.x + 52} ${head.y - 8} Z`} fill="#1e2a35" />
+    </g>
+  );
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
+      <svg width={900} height={720} viewBox="0 60 900 800">
+        <defs>
+          {/* Kenarları yumuşakça kaybolsun, kutu gibi durmasın */}
+          <linearGradient id="edgeFade" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#fff" stopOpacity={0} />
+            <stop offset="18%" stopColor="#fff" stopOpacity={1} />
+            <stop offset="82%" stopColor="#fff" stopOpacity={1} />
+            <stop offset="100%" stopColor="#fff" stopOpacity={0} />
+          </linearGradient>
+          <mask id="edges">
+            <rect x={0} y={0} width={900} height={900} fill="url(#edgeFade)" />
+          </mask>
+          <linearGradient id="water" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#1d6fa3" stopOpacity={0.55} />
+            <stop offset="100%" stopColor="#0b2a44" stopOpacity={0.85} />
+          </linearGradient>
+        </defs>
+        {back ? (
+          // Sırtüstü: vücut yatay, yüz yukarıda, su taşıyor
+          <g transform={`translate(0 ${-118 + Math.sin(frame / 22) * 4}) rotate(-90 450 420)`}>{body}</g>
+        ) : (
+          body
+        )}
+        {/* Su: önce yarı saydam katman, sonra yüzey çizgisi */}
+        <g mask="url(#edges)">
+          <path d={wave(0, panic ? 14 : 5)} fill="url(#water)" />
+          <path d={wave(1.3, panic ? 10 : 3)} fill="none" stroke="#7cc7f0" strokeWidth={4} opacity={0.8} />
+        </g>
+        {panic
+          ? Array.from({ length: 10 }, (_, i) => {
+              const t = (frame * 3 + i * 37) % 60;
+              return <circle key={i} cx={330 + ((i * 73) % 240)} cy={SURFACE - t * 1.6} r={8 - t / 10} fill="#bfe6ff" opacity={1 - t / 60} />;
+            })
+          : null}
+        {handTrail.map((c, i) => (
+          <path
+            key={i}
+            d={`M${c.cx} ${c.cy} C ${c.cx + 45} ${c.cy - 30}, ${c.cx + 45} ${c.cy + 30}, ${c.cx} ${c.cy} C ${c.cx - 45} ${c.cy - 30}, ${c.cx - 45} ${c.cy + 30}, ${c.cx} ${c.cy}`}
+            fill="none"
+            stroke={C.lime}
+            strokeWidth={4}
+            strokeDasharray="10 10"
+            strokeDashoffset={-frame * 2}
+          />
+        ))}
+        {legTrail.map((c, i) => (
+          <ellipse key={i} cx={c.x} cy={c.y} rx={50} ry={28} fill="none" stroke={C.lime} strokeWidth={4} strokeDasharray="10 10" strokeDashoffset={-frame * 2 * (i ? -1 : 1)} />
+        ))}
+        {mode === "nefes" ? (
+          <g opacity={p}>
+            {[330, 570].map((x) => (
+              <path key={x} d={`M${x} 520 l0 -110 m-22 22 l22 -22 l22 22`} stroke={C.lime} strokeWidth={6} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            ))}
+          </g>
+        ) : null}
+      </svg>
+      <Card style={{ width: 760, padding: "22px 30px", opacity: meter }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: monoFamily, fontSize: 24, letterSpacing: 4, color: C.muted }}>
+          <span>EFOR</span>
+          <span style={{ color: effortColor }}>{status}</span>
+        </div>
+        <div style={{ marginTop: 14, height: 18, borderRadius: 9, backgroundColor: C.border }}>
+          <div style={{ width: `${effort * meter}%`, height: "100%", borderRadius: 9, backgroundColor: effortColor }} />
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+/* ---------- Kalp: atım ve kaslara taşınan oksijen ---------- */
+// data: { mode: "tek" | "karsilastir" }
+
+const HEART = "M0,-28 C -48,-78 -112,-18 0,62 C 112,-18 48,-78 0,-28 Z";
+
+const Heart: React.FC<{ x: number; y: number; size: number; period: number; drops: number; label?: string; sub?: string; color?: string }> = ({ x, y, size, period, drops, label, sub, color = C.danger }) => {
+  const frame = useCurrentFrame();
+  const ph = (frame % period) / period;
+  const beat = 1 + 0.12 * Math.max(0, Math.sin(ph * Math.PI * 2)) ** 3;
+  return (
+    <g>
+      <g transform={`translate(${x} ${y}) scale(${(size / 100) * beat})`}>
+        <path d={HEART} fill={color} />
+        <path d="M-40,-40 C -60,-30 -62,-5 -45,10" stroke="rgba(255,255,255,0.35)" strokeWidth={8} fill="none" strokeLinecap="round" />
+      </g>
+      {/* Atardamar ve akan kan damlaları */}
+      <path d={`M${x} ${y + size * 0.62} L${x} ${y + size * 1.25} L${x + 330} ${y + size * 1.25}`} stroke="#5a2a2a" strokeWidth={22} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      {Array.from({ length: 4 }, (_, i) => {
+        const t = ((frame + i * (period / 2)) % (period * 2)) / (period * 2);
+        return <circle key={i} cx={x + 330 * t} cy={y + size * 1.25} r={drops} fill={color} />;
+      })}
+      {label ? (
+        <text x={x} y={y + size * 1.25 + 80} fill={C.text} fontSize={30} fontWeight={800} fontFamily={interFamily} textAnchor="middle">
+          {label}
+        </text>
+      ) : null}
+      {sub ? (
+        <text x={x} y={y + size * 1.25 + 120} fill={C.muted} fontSize={24} fontFamily={monoFamily} textAnchor="middle" letterSpacing={3}>
+          {sub}
+        </text>
+      ) : null}
+    </g>
+  );
+};
+
+const Kalp: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const e = useEnter(0, 14);
+  if (data.mode === "karsilastir") {
+    return (
+      <svg width={900} height={760} viewBox="0 0 900 760" style={{ opacity: e }}>
+        <Heart x={230} y={190} size={120} period={13} drops={9} label="YENİ BAŞLAYAN" sub="HIZLI ATIM · AZ KAN" />
+        <g transform="translate(420 0)">
+          <Heart x={230} y={190} size={155} period={24} drops={16} label="ANTRENMANLI" sub="YAVAŞ ATIM · ÇOK KAN" color="#ff4d6d" />
+        </g>
+      </svg>
+    );
+  }
+  // Tek kalp: kandaki oksijen kasa taşınıyor
+  return (
+    <svg width={900} height={760} viewBox="0 0 900 760" style={{ opacity: e }}>
+      <Heart x={220} y={230} size={150} period={18} drops={13} label="KALP" sub="POMPA" />
+      <rect x={600} y={330} width={230} height={150} rx={60} fill="#d9534f" />
+      {[0.3, 0.55, 0.8].map((k) => (
+        <line key={k} x1={625} x2={805} y1={330 + 150 * k} y2={330 + 150 * k} stroke="rgba(255,255,255,0.2)" strokeWidth={3} />
+      ))}
+      <text x={715} y={540} fill={C.text} fontSize={30} fontWeight={800} fontFamily={interFamily} textAnchor="middle">KASLAR</text>
+      {Array.from({ length: 6 }, (_, i) => {
+        const t = ((frame * 1.5 + i * 25) % 150) / 150;
+        return (
+          <text key={i} x={560 + 200 * t} y={420 + Math.sin(i * 2 + frame / 10) * 40} fill={C.lime} fontSize={28} fontWeight={800} fontFamily={interFamily} opacity={Math.sin(t * Math.PI)}>
+            O₂
+          </text>
+        );
+      })}
+    </svg>
+  );
+};
+
+/* ---------- Diz: kas, diz kapağı tendonu ve yük ---------- */
+// data: { highlight: "kas" | "tendon" }
+
+const Diz: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const hl = (data.highlight as string) ?? "kas";
+  // Çömelip kalkma döngüsü: diz öne (sağa) bakar
+  const bend = 25 + 30 * (0.5 - 0.5 * Math.cos(frame / 14));
+  const L = 280;
+  const hip = { x: 170, y: 110 };
+  const knee = limbEnd(hip, bend, L);
+  const ankle = limbEnd(knee, -bend * 0.7, L);
+  const unit = (dx: number, dy: number) => {
+    const l = Math.hypot(dx, dy);
+    return { x: dx / l, y: dy / l };
+  };
+  // Uyluğun ve kaval kemiğinin ön yüzü (sağa bakan normal)
+  const t = unit(knee.x - hip.x, knee.y - hip.y);
+  const nT = { x: t.y, y: -t.x };
+  const sv = unit(ankle.x - knee.x, ankle.y - knee.y);
+  const nS = { x: sv.y, y: -sv.x };
+  const fS = nS.x < 0 ? { x: -nS.x, y: -nS.y } : nS;
+  const pulse = 0.5 + 0.5 * Math.sin(frame / 4);
+  const muscleColor = hl === "kas" ? C.lime : "#b5534f";
+  const tendonColor = hl === "tendon" ? (pulse > 0.5 ? C.danger : C.warm) : "#d8c3a5";
+  const mid = { x: (hip.x + knee.x) / 2, y: (hip.y + knee.y) / 2 };
+  const patella = { x: knee.x + nT.x * 34 + t.x * 6, y: knee.y + nT.y * 34 + t.y * 6 };
+  const tib = { x: knee.x + (ankle.x - knee.x) * 0.28 + fS.x * 24, y: knee.y + (ankle.y - knee.y) * 0.28 + fS.y * 24 };
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+      <svg width={560} height={760} viewBox="0 0 560 760">
+        <line x1={hip.x} y1={hip.y} x2={knee.x} y2={knee.y} stroke="#e8e2d6" strokeWidth={54} strokeLinecap="round" />
+        <line x1={knee.x} y1={knee.y} x2={ankle.x} y2={ankle.y} stroke="#e8e2d6" strokeWidth={46} strokeLinecap="round" />
+        {/* Ön uyluk kası */}
+        <path
+          d={`M${hip.x + nT.x * 30} ${hip.y + nT.y * 30} Q ${mid.x + nT.x * 75} ${mid.y + nT.y * 75} ${patella.x - t.x * 40} ${patella.y - t.y * 40}`}
+          stroke={muscleColor}
+          strokeWidth={hl === "kas" ? 62 + 10 * pulse : 56}
+          strokeLinecap="round"
+          fill="none"
+        />
+        {/* Diz kapağı tendonu */}
+        <line x1={patella.x} y1={patella.y} x2={tib.x} y2={tib.y} stroke={tendonColor} strokeWidth={hl === "tendon" ? 20 : 14} strokeLinecap="round" />
+        {hl === "tendon" ? <circle cx={(patella.x + tib.x) / 2} cy={(patella.y + tib.y) / 2} r={46 + 10 * pulse} fill={C.danger} opacity={0.18} /> : null}
+        <ellipse cx={patella.x} cy={patella.y} rx={26} ry={32} fill="#f6f1e7" stroke="#8a8a8a" strokeWidth={3} />
+        {[0, 1, 2].map((i) => (
+          <path key={i} d={`M${hip.x - 60 + i * 50} ${20 + ((frame * 2 + i * 20) % 40)} l0 36 m-13 -13 l13 13 l13 -13`} stroke={C.muted} strokeWidth={5} fill="none" opacity={0.6} />
+        ))}
+      </svg>
+      <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <Card style={{ padding: "20px 28px", borderColor: hl === "kas" ? C.lime : C.border }}>
+          <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>KAS</div>
+          <div style={{ fontSize: 38, fontWeight: 900, color: C.lime }}>HAFTALAR</div>
+        </Card>
+        <Card style={{ padding: "20px 28px", borderColor: hl === "tendon" ? C.danger : C.border }}>
+          <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>TENDON</div>
+          <div style={{ fontSize: 38, fontWeight: 900, color: C.warm }}>AYLAR</div>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Deri: hızlı gerilmede lifler kopar, iz kalır ---------- */
+// data: { phase: "gerilme" | "iz" }
+
+const FIB = Array.from({ length: 16 }, (_, i) => ({ y: 250 + (i % 8) * 34, x: 60 + Math.floor(i / 8) * 380, brk: 0.2 + random(`dk${i}`) * 0.6 }));
+
+const Deri: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const p = useProgress(0.05, 0.7);
+  if (data.phase === "iz") {
+    // Üstten görünüm: yeni çatlak kırmızı/mor, zamanla beyazlaşır
+    const col = (k: number) => {
+      const t = Math.min(1, Math.max(0, p * 1.4 - k * 0.1));
+      const r = Math.round(176 + (232 - 176) * t);
+      const g = Math.round(70 + (220 - 70) * t);
+      const b = Math.round(130 + (210 - 130) * t);
+      return `rgb(${r},${g},${b})`;
+    };
+    return (
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 26 }}>
+        <svg width={760} height={560} viewBox="0 0 760 560">
+          <rect x={0} y={0} width={760} height={560} rx={40} fill="#d9a88b" />
+          {[0, 1, 2, 3].map((k) => (
+            <path key={k} d={`M${150 + k * 130} 90 C ${200 + k * 130} 220, ${110 + k * 130} 330, ${170 + k * 130} 470`} stroke={col(k)} strokeWidth={22 - k * 2} strokeLinecap="round" fill="none" opacity={0.9} />
+          ))}
+        </svg>
+        <div style={{ display: "flex", gap: 30, fontFamily: monoFamily, fontSize: 26, letterSpacing: 4 }}>
+          <span style={{ color: "#c04d8a" }}>● YENİ</span>
+          <span style={{ color: C.muted }}>→</span>
+          <span style={{ color: "#eee" }}>● ESKİ</span>
+        </div>
+      </div>
+    );
+  }
+  // Kesit: deri yanlara gerilir, alttaki lifler kopar
+  const stretch = 1 + 0.35 * p;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <svg width={860} height={600} viewBox="0 0 860 600">
+        <g transform={`translate(430 0) scale(${stretch} 1) translate(-430 0)`}>
+          <rect x={40} y={140} width={780} height={60} rx={14} fill="#e6b8a2" />
+          <rect x={40} y={200} width={780} height={300} fill="#c98e7c" />
+          <rect x={40} y={500} width={780} height={70} rx={14} fill="#f1d27a" opacity={0.7} />
+          {FIB.map((f, i) => {
+            const broken = p > f.brk;
+            const gap = broken ? 30 * Math.min(1, (p - f.brk) * 4) : 0;
+            const w = 340;
+            const mid = f.x + w / 2;
+            const wav = (x0: number, x1: number) => `M${x0} ${f.y} Q ${(x0 + x1) / 2} ${f.y - 14 * (1 - p)} ${x1} ${f.y}`;
+            return (
+              <g key={i} stroke={broken ? C.warm : "#fbe3d6"} strokeWidth={6} fill="none" strokeLinecap="round">
+                <path d={wav(f.x, mid - gap)} />
+                <path d={wav(mid + gap, f.x + w)} />
+              </g>
+            );
+          })}
+        </g>
+        {[-1, 1].map((d) => (
+          <path key={d} d={`M${430 + d * 330} 360 l${d * 70} 0 m${-d * 20} -20 l${d * 20} 20 l${-d * 20} 20`} stroke={C.lime} strokeWidth={8} fill="none" strokeLinecap="round" opacity={0.5 + 0.5 * Math.sin(frame / 6)} />
+        ))}
+      </svg>
+      <div style={{ display: "flex", gap: 30, fontFamily: monoFamily, fontSize: 24, letterSpacing: 4 }}>
+        <span style={{ color: "#e6b8a2" }}>ÜST DERİ</span>
+        <span style={{ color: "#fbe3d6" }}>ESNEK LİFLER</span>
+        <span style={{ color: C.warm }}>KOPAN</span>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Zıplama figürü ---------- */
+// data: { mode: "kol" | "yay" | "kosu" }
+
+const Jumper: React.FC<{ x: number; ground: number; lift: number; crouch: number; arm: number; color?: string }> = ({ x, ground, lift, crouch, arm, color = SKIN }) => {
+  // crouch 0..1 (dizler bükülü), arm: kol açısı (0 = aşağı, 180 = yukarı)
+  const leg = 120;
+  const kneeAng = 50 * crouch;
+  const hipY = ground - lift - 2 * leg * Math.cos((kneeAng * Math.PI) / 180);
+  const hip = { x, y: hipY };
+  const knee = limbEnd(hip, kneeAng, leg);
+  const foot = limbEnd(knee, -kneeAng, leg);
+  const sh = { x: x - 10 * crouch, y: hipY - 150 };
+  const elbow = limbEnd(sh, -arm, 75);
+  const hand = limbEnd(elbow, -arm, 70);
+  return (
+    <g>
+      <path d={`M${hip.x} ${hip.y} L${knee.x} ${knee.y} L${foot.x} ${foot.y}`} stroke={color} strokeWidth={30} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <line x1={hip.x} y1={hip.y} x2={sh.x} y2={sh.y} stroke={SUIT} strokeWidth={56} strokeLinecap="round" />
+      <path d={`M${sh.x} ${sh.y} L${elbow.x} ${elbow.y} L${hand.x} ${hand.y}`} stroke={color} strokeWidth={24} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <circle cx={sh.x + 4} cy={sh.y - 62} r={36} fill={color} />
+    </g>
+  );
+};
+
+const jumpCycle = (frame: number, period: number, height: number) => {
+  const ph = (frame % period) / period;
+  // 0-0.35 çökme, 0.35-0.75 havada, 0.75-1 iniş
+  const crouch = ph < 0.35 ? ph / 0.35 : ph > 0.75 ? 1 - (ph - 0.75) / 0.25 : 0;
+  const air = ph >= 0.35 && ph <= 0.75 ? Math.sin(((ph - 0.35) / 0.4) * Math.PI) : 0;
+  return { crouch: Math.min(1, crouch), lift: air * height, ph };
+};
+
+const Ziplama: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const mode = (data.mode as string) ?? "kol";
+  const ground = 700;
+  if (mode === "kol") {
+    const a = jumpCycle(frame, 54, 150);
+    const b = jumpCycle(frame, 54, 195);
+    // Kollu zıplama: çökerken kollar geride, kalkarken yukarı savrulur
+    const swing = b.ph < 0.35 ? -40 * b.crouch : b.ph <= 0.75 ? 170 : 170 * (1 - (b.ph - 0.75) / 0.25);
+    return (
+      <svg width={900} height={780} viewBox="0 -40 900 780">
+        <line x1={40} x2={860} y1={ground} y2={ground} stroke={C.border} strokeWidth={6} />
+        {[{ x: 260, h: 150, t: "KOLSUZ", c: C.muted }, { x: 640, h: 195, t: "KOLLU", c: C.lime }].map((m) => (
+          <g key={m.x}>
+            <line x1={m.x - 110} x2={m.x + 110} y1={ground - 488 - m.h} y2={ground - 488 - m.h} stroke={m.c} strokeWidth={4} strokeDasharray="12 10" />
+            <text x={m.x} y={ground - 505 - m.h} fill={m.c} fontSize={30} fontWeight={800} fontFamily={interFamily} textAnchor="middle">{m.t}</text>
+          </g>
+        ))}
+        <Jumper x={260} ground={ground} lift={a.lift} crouch={a.crouch} arm={10} />
+        <Jumper x={640} ground={ground} lift={b.lift} crouch={b.crouch} arm={swing} />
+      </svg>
+    );
+  }
+  if (mode === "yay") {
+    const j = jumpCycle(frame, 60, 170);
+    const coils = 8;
+    const top = ground - 240 + 140 * j.crouch - j.lift;
+    const springPath = Array.from({ length: coils * 2 + 1 }, (_, i) => `${i ? "L" : "M"}${640 + (i % 2 ? 40 : -40) * (i === 0 || i === coils * 2 ? 0 : 1)} ${top + ((ground - top) * i) / (coils * 2)}`).join(" ");
+    return (
+      <svg width={900} height={760} viewBox="0 0 900 760">
+        <line x1={40} x2={860} y1={ground} y2={ground} stroke={C.border} strokeWidth={6} />
+        <Jumper x={330} ground={ground} lift={j.lift} crouch={j.crouch} arm={j.ph <= 0.75 && j.ph >= 0.35 ? 160 : -30 * j.crouch} />
+        <path d={springPath} stroke={j.crouch > 0.3 ? C.warm : C.lime} strokeWidth={8} fill="none" strokeLinejoin="round" />
+        <text x={640} y={ground + 50} fill={C.muted} fontSize={26} fontFamily={monoFamily} textAnchor="middle" letterSpacing={4}>
+          {j.crouch > 0.3 ? "GERİLİYO" : j.lift > 0 ? "FIRLATIYO" : ""}
+        </text>
+      </svg>
+    );
+  }
+  // Yaklaşma koşusu: yatay hız son adımda yukarı döner
+  const period = 75;
+  const ph = (frame % period) / period;
+  const run = Math.min(1, ph / 0.55);
+  const x = 120 + 420 * run;
+  const air = ph > 0.6 ? Math.sin(Math.min(1, (ph - 0.6) / 0.35) * Math.PI) : 0;
+  const crouch = ph > 0.5 && ph <= 0.6 ? (ph - 0.5) / 0.1 : 0;
+  const stride = ph < 0.55 ? Math.sin(frame / 2.5) * 0.3 : 0;
+  return (
+    <svg width={900} height={760} viewBox="0 0 900 760">
+      <line x1={40} x2={860} y1={ground} y2={ground} stroke={C.border} strokeWidth={6} />
+      <path d={`M120 ${ground - 60} L520 ${ground - 60} Q 600 ${ground - 60} 620 ${ground - 330}`} stroke={C.lime} strokeWidth={6} strokeDasharray="14 12" fill="none" />
+      <path d={`M606 ${ground - 300} l14 -30 l14 30`} stroke={C.lime} strokeWidth={6} fill="none" />
+      <Jumper x={ph > 0.6 ? 560 : x} ground={ground} lift={air * 200} crouch={Math.max(crouch, Math.abs(stride))} arm={ph > 0.6 ? 165 : 40 + 40 * Math.sin(frame / 2.5)} />
+    </svg>
+  );
+};
+
+/* ---------- Ayak bileği: düz iniş ve burkulma ---------- */
+// data: { mode: "normal" | "burkulma" }
+
+const Bilek: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const sprain = data.mode === "burkulma";
+  const p = useProgress(0.1, 0.55);
+  const drop = sprain ? 0 : 40 * Math.abs(Math.sin(frame / 12));
+  const roll = sprain ? 32 * p : 0;
+  const ankle = { x: 450, y: 380 + (sprain ? 0 : drop) };
+  const ligStretch = sprain ? p : 0;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <svg width={860} height={640} viewBox="0 0 860 640">
+        {/* Rakibin ayağı */}
+        {sprain ? (
+          <g>
+            <rect x={170} y={500} width={300} height={90} rx={40} fill="#4a5059" />
+            <text x={320} y={630} fill={C.muted} fontSize={24} fontFamily={monoFamily} textAnchor="middle" letterSpacing={4}>RAKİBİN AYAĞI</text>
+          </g>
+        ) : null}
+        <line x1={60} x2={800} y1={590} y2={590} stroke={C.border} strokeWidth={6} />
+        {/* Bacak (önden) */}
+        <rect x={ankle.x - 55} y={ankle.y - 330} width={110} height={330} rx={50} fill={SKIN} />
+        {/* Ayak: bilekten dönerek içe yatar */}
+        <g transform={`rotate(${roll} ${ankle.x} ${ankle.y})`}>
+          <rect x={ankle.x - 80} y={ankle.y + 10} width={160} height={110} rx={45} fill={SUIT} />
+          <rect x={ankle.x - 80} y={ankle.y + 90} width={160} height={30} rx={12} fill="#e6e6e6" />
+        </g>
+        {/* Dış yan bağ: burkulmada gerilip kırmızılaşır */}
+        <line
+          x1={ankle.x + 55}
+          y1={ankle.y - 30}
+          x2={ankle.x + 80 * Math.cos((roll * Math.PI) / 180) - 20 * Math.sin((roll * Math.PI) / 180)}
+          y2={ankle.y + 40 + 80 * Math.sin((roll * Math.PI) / 180)}
+          stroke={ligStretch > 0.4 ? C.danger : C.lime}
+          strokeWidth={14}
+          strokeLinecap="round"
+        />
+        {sprain && ligStretch > 0.4 ? (
+          <circle cx={ankle.x + 85} cy={ankle.y + 10} r={40 + 10 * Math.sin(frame / 4)} fill={C.danger} opacity={0.2} />
+        ) : null}
+      </svg>
+      <div style={{ display: "flex", gap: 30, fontFamily: monoFamily, fontSize: 24, letterSpacing: 4 }}>
+        <span style={{ color: ligStretch > 0.4 ? C.danger : C.lime }}>● DIŞ BAĞLAR</span>
+        <span style={{ color: C.muted }}>{sprain ? `DÖNÜŞ ${Math.round(roll)}°` : "DÜZ İNİŞ"}</span>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Omurga: diskler gün içinde ezilir, gece dolar ---------- */
+// data: { mode: "gun" | "gece" }
+
+const Omurga: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const p = useProgress(0.05, 0.75);
+  const night = data.mode === "gece";
+  const squash = night ? 1 - p : p; // 0 = dolu disk, 1 = ezik
+  const n = 7;
+  const vert = 62;
+  const disc0 = 34;
+  const disc = disc0 * (1 - 0.45 * squash);
+  const total = n * vert + (n - 1) * disc;
+  const top = 640 - total;
+  const hour = night ? 23 + Math.round(8 * p) : 8 + Math.round(14 * p);
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 50 }}>
+      <svg width={420} height={700} viewBox="0 0 420 700">
+        {Array.from({ length: n }, (_, i) => {
+          const y = top + i * (vert + disc);
+          return (
+            <g key={i}>
+              <rect x={110} y={y} width={200} height={vert} rx={18} fill="#e8e2d6" />
+              {i < n - 1 ? <ellipse cx={210} cy={y + vert + disc / 2} rx={95 + 12 * squash} ry={disc / 2} fill={night ? C.teal : squash > 0.5 ? C.warm : C.lime} opacity={0.9} /> : null}
+            </g>
+          );
+        })}
+        {!night ? (
+          [0, 1, 2].map((i) => (
+            <path key={i} d={`M${150 + i * 60} ${top - 80 + ((frame * 2 + i * 15) % 40)} l0 40 m-14 -14 l14 14 l14 -14`} stroke={C.muted} strokeWidth={5} fill="none" />
+          ))
+        ) : (
+          [0, 1, 2, 3].map((i) => (
+            <circle key={i} cx={60 + ((frame * 3 + i * 40) % 90)} cy={top + 120 + i * 110} r={9} fill={C.teal} opacity={0.8} />
+          ))
+        )}
+        <line x1={360} x2={400} y1={640 - (n * vert + (n - 1) * disc0)} y2={640 - (n * vert + (n - 1) * disc0)} stroke={C.muted} strokeWidth={4} strokeDasharray="8 6" />
+        <line x1={360} x2={400} y1={top} y2={top} stroke={C.lime} strokeWidth={4} />
+      </svg>
+      <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+        <Card style={{ padding: "20px 30px" }}>
+          <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>SAAT</div>
+          <div style={{ fontSize: 64, fontWeight: 900 }}>{String(hour % 24).padStart(2, "0")}:00</div>
+        </Card>
+        <Card style={{ padding: "20px 30px" }}>
+          <div style={{ fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>DİSKLER</div>
+          <div style={{ fontSize: 44, fontWeight: 900, color: night ? C.teal : squash > 0.5 ? C.warm : C.lime }}>{squash > 0.5 ? "EZİLDİ" : "DOLU"}</div>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- Kilit: adenozin yorgunluk sinyali ve kafeinin tıkaması ---------- */
+// data: { mode: "adenozin" | "kafein" }
+
+const SOCKETS = [130, 280, 430, 580, 730];
+
+const Kilit: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const caffeine = data.mode === "kafein";
+  const p = useProgress(0.05, 0.75);
+  const base = 520;
+  // Her yuvaya sırayla bir molekül iner
+  const docked = SOCKETS.map((_, i) => interpolate(p, [i * 0.15, i * 0.15 + 0.25], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  const tired = caffeine ? 0.15 : docked.reduce((a, b) => a + b, 0) / SOCKETS.length;
+  const color = tired > 0.6 ? C.danger : tired > 0.3 ? C.warm : C.lime;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <svg width={860} height={640} viewBox="0 0 860 640">
+        {/* Sinir hücresi zarı ve reseptör yuvaları */}
+        <rect x={40} y={base} width={780} height={90} rx={30} fill="#2b2f45" />
+        {SOCKETS.map((x) => (
+          <path key={x} d={`M${x - 50} ${base} L${x - 50} ${base - 40} L${x - 30} ${base - 40} L${x - 30} ${base - 10} L${x + 30} ${base - 10} L${x + 30} ${base - 40} L${x + 50} ${base - 40} L${x + 50} ${base} Z`} fill="#6c7bd9" />
+        ))}
+        {SOCKETS.map((x, i) => {
+          const d = docked[i];
+          const y = 60 + (base - 70 - 60) * d + Math.sin(frame / 8 + i) * 8 * (1 - d);
+          return (
+            <g key={x}>
+              {caffeine ? (
+                <>
+                  <polygon points={[0, 1, 2, 3, 4, 5].map((k) => `${x + 32 * Math.cos((k * Math.PI) / 3)},${y + 32 * Math.sin((k * Math.PI) / 3)}`).join(" ")} fill="#8b5a2b" stroke="#d9a066" strokeWidth={4} />
+                  <text x={x} y={y + 11} fill="#fff" fontSize={30} fontWeight={900} textAnchor="middle" fontFamily={interFamily}>K</text>
+                  {/* Yeri kapılan adenozin sekip uzaklaşır */}
+                  <circle cx={x + 60 + 40 * d} cy={140 - 80 * d + Math.sin(frame / 6 + i) * 10} r={26} fill={C.teal} opacity={0.9 * (0.4 + 0.6 * d)} />
+                  <text x={x + 60 + 40 * d} y={150 - 80 * d + Math.sin(frame / 6 + i) * 10} fill="#000" fontSize={26} fontWeight={900} textAnchor="middle" fontFamily={interFamily} opacity={0.4 + 0.6 * d}>A</text>
+                </>
+              ) : (
+                <>
+                  <circle cx={x} cy={y} r={30} fill={C.teal} />
+                  <text x={x} y={y + 10} fill="#000" fontSize={30} fontWeight={900} textAnchor="middle" fontFamily={interFamily}>A</text>
+                </>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+      <div style={{ display: "flex", gap: 26, fontFamily: monoFamily, fontSize: 24, letterSpacing: 4 }}>
+        <span style={{ color: C.teal }}>● ADENOZİN</span>
+        {caffeine ? <span style={{ color: "#d9a066" }}>⬢ KAFEİN</span> : null}
+      </div>
+      <Card style={{ width: 720, padding: "18px 28px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: monoFamily, fontSize: 22, letterSpacing: 4, color: C.muted }}>
+          <span>YORGUNLUK</span>
+          <span style={{ color }}>{caffeine ? "UYANIK" : tired > 0.6 ? "UYKUN GELDİ" : "ARTIYO"}</span>
+        </div>
+        <div style={{ marginTop: 12, height: 16, borderRadius: 8, backgroundColor: C.border }}>
+          <div style={{ width: `${tired * 100}%`, height: "100%", borderRadius: 8, backgroundColor: color }} />
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+/* ---------- Kemik: sürekli yenilenme ve yükle güçlenme ---------- */
+// data: { mode: "yenilenme" | "yuk" }
+
+const BONE_DOTS = Array.from({ length: 70 }, (_, i) => ({
+  x: 150 + random(`bx${i}`) * 560,
+  y: 250 + random(`by${i}`) * 140,
+  k: random(`bk${i}`),
+}));
+
+const Kemik: React.FC<VisualProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  const load = data.mode === "yuk";
+  const p = useProgress(0.05, 0.8);
+  const press = load ? Math.max(0, Math.sin(frame / 7)) : 0;
+  const bone = "M120 250 C 60 190, 40 300, 90 320 C 40 340, 60 450, 120 390 L 740 390 C 800 450, 820 340, 770 320 C 820 300, 800 190, 740 250 Z";
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <svg width={880} height={560} viewBox="20 80 820 460">
+        <g transform={`translate(0 ${press * 10}) scale(1 ${1 - press * 0.03})`}>
+          <path d={bone} fill="#efe6d2" stroke="#b9ab8c" strokeWidth={6} />
+          {BONE_DOTS.map((d, i) => {
+            if (load) {
+              // Yük arttıkça içerisi yoğunlaşır
+              const on = d.k < 0.35 + 0.65 * p;
+              return on ? <circle key={i} cx={d.x} cy={d.y} r={9} fill="#c9b892" /> : null;
+            }
+            // Yenilenme: her nokta kendi döngüsünde yıkılıp (turuncu) yeniden yapılır (yeşil)
+            const ph = ((frame / 40 + d.k * 3) % 1 + 1) % 1;
+            const col = ph < 0.3 ? C.warm : ph < 0.55 ? "transparent" : ph < 0.8 ? C.lime : "#c9b892";
+            return <circle key={i} cx={d.x} cy={d.y} r={9} fill={col} />;
+          })}
+        </g>
+        {load
+          ? [250, 430, 610].map((x) => (
+              <path key={x} d={`M${x} ${95 + press * 25} l0 70 m-24 -24 l24 24 l24 -24`} stroke={C.lime} strokeWidth={8} fill="none" strokeLinecap="round" />
+            ))
+          : null}
+      </svg>
+      <div style={{ display: "flex", gap: 30, fontFamily: monoFamily, fontSize: 24, letterSpacing: 4 }}>
+        {load ? (
+          <>
+            <span style={{ color: C.lime }}>↓ YÜK</span>
+            <span style={{ color: C.muted }}>YOĞUNLUK {Math.round(60 + 40 * p)}%</span>
+          </>
+        ) : (
+          <>
+            <span style={{ color: C.warm }}>● YIKAN HÜCRE</span>
+            <span style={{ color: C.lime }}>● YAPAN HÜCRE</span>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const VISUALS: Record<string, React.FC<VisualProps>> = {
+  kilit: Kilit,
+  kemik: Kemik,
+  kalp: Kalp,
+  diz: Diz,
+  deri: Deri,
+  ziplama: Ziplama,
+  bilek: Bilek,
+  omurga: Omurga,
+  yuzucu: Yuzucu,
+  sayi: Sayi,
+  halka: Halka,
+  parcacik: Parcacik,
+  vs: Vs,
+  termometre: Termometre,
+  vucut: Vucut,
+  cekirdek: Cekirdek,
+  soru: Soru,
+  kapanis: Kapanis,
+  cizgi: Cizgi,
+  takvim: Takvim,
+  bar: Bar,
+  seri: Seri,
+  mesaj: Mesaj,
+  liste: Liste,
+  zaman: Zaman,
+  piramit: Piramit,
+  kas: Kas,
+  figur: Figur,
+};

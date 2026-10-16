@@ -11,7 +11,8 @@ import {
   useVideoConfig,
 } from "remotion";
 import { interFamily, monoFamily } from "../fonts";
-import { audioFor, ProgressBar, sceneDurations, Subtitles, wordsFor } from "../shared";
+import { Captions, Confetti, SceneFX, Stickers, Title } from "../explainer/Explainer";
+import { audioFor, ProgressBar, sceneDurations, wordsFor } from "../shared";
 import type { PostVoiceover, Promo, PromoScene } from "../types";
 
 // VOOM uygulamasının kendi renkleri (ekran görüntülerinden alındı)
@@ -51,17 +52,21 @@ export const PromoVideo: React.FC<PromoProps> = ({ promo, voiceover }) => {
         const audio = audioFor(promo, voiceover, i);
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.kicker ?? "yazı"}`}>
-            <Fade>
-              {scene.screen ? (
-                <ScreenScene scene={scene} />
-              ) : i === last ? (
-                <EndCard scene={scene} />
-              ) : (
-                <TextScene scene={scene} />
-              )}
-            </Fade>
-            <Subtitles words={wordsFor(scene.voice, audio)} accent={C.lime} bottom={360} boxed={!!scene.screen} />
+            <SceneFX seed={scene.voice} stamp={scene.stamp} burstY={scene.screen ? 330 : 780}>
+              <Fade>
+                {scene.screen ? (
+                  <ScreenScene scene={scene} />
+                ) : i === last ? (
+                  <EndCard scene={scene} />
+                ) : (
+                  <TextScene scene={scene} />
+                )}
+                {scene.sticker ? <Stickers text={scene.sticker} fullscreen={!scene.screen} /> : null}
+              </Fade>
+            </SceneFX>
+            <Captions words={wordsFor(scene.voice, audio)} boxed={!!scene.screen} />
             {audio ? <Audio src={staticFile(audio.file)} /> : null}
+            <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.3} />
           </Sequence>
         );
       })}
@@ -105,6 +110,30 @@ const Wordmark: React.FC<{ size: number }> = ({ size }) => (
   <div style={{ fontFamily: monoFamily, fontSize: size, fontWeight: 500, letterSpacing: size * 0.45, marginRight: -size * 0.45 }}>
     VOOM
   </div>
+);
+
+// Başlıkta *yıldız* içindeki kelimeler vurgu rengiyle yazılır: "Günün antrenmanı *hazır*"
+const markedWords = (text: string) => {
+  let on = false;
+  return text.split(" ").map((raw) => {
+    const opens = raw.startsWith("*");
+    const closes = raw.endsWith("*") && (raw.length > 1 || !opens);
+    const word = raw.replace(/\*/g, "");
+    const mark = on || opens;
+    if (opens) on = true;
+    if (closes) on = false;
+    return { word, mark };
+  });
+};
+
+const Marked: React.FC<{ text: string }> = ({ text }) => (
+  <>
+    {markedWords(text).map(({ word, mark }, i) => (
+      <span key={i} style={{ color: mark ? C.lime : undefined }}>
+        {word}{" "}
+      </span>
+    ))}
+  </>
 );
 
 /* ---------- Telefon çerçevesinde ekran + odak bölgesine yakınlaşma ---------- */
@@ -203,7 +232,7 @@ const ScreenScene: React.FC<{ scene: PromoScene }> = ({ scene }) => {
         {scene.kicker ? <Kicker>{scene.kicker}</Kicker> : null}
         {scene.display ? (
           <div style={{ fontSize: 66, fontWeight: 700, lineHeight: 1.1, letterSpacing: -1.5, padding: "0 90px" }}>
-            {scene.display}
+            <Title text={scene.display} size={64} delay={4} />
           </div>
         ) : null}
       </div>
@@ -215,34 +244,15 @@ const ScreenScene: React.FC<{ scene: PromoScene }> = ({ scene }) => {
 
 const TextScene: React.FC<{ scene: PromoScene }> = ({ scene }) => {
   const frame = useCurrentFrame();
-  const words = (scene.display ?? scene.voice).split(" ");
   const mark = useEnter(0);
+  const pulse = 1 + Math.sin(frame / 8) * 0.03;
   return (
-    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", padding: "220px 90px 520px", gap: 70 }}>
+    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", padding: "220px 80px 560px", gap: 70 }}>
       <div style={{ opacity: mark, color: C.muted }}>
         <Wordmark size={40} />
       </div>
-      <div style={{ fontSize: 104, fontWeight: 800, lineHeight: 1.05, letterSpacing: -3, textAlign: "center" }}>
-        {words.map((w, i) => {
-          const o = interpolate(frame, [4 + i * 4, 12 + i * 4], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          });
-          const isLast = i === words.length - 1;
-          return (
-            <span
-              key={i}
-              style={{
-                display: "inline-block",
-                opacity: o,
-                transform: `translateY(${(1 - o) * 24}px)`,
-                color: isLast ? C.lime : undefined,
-              }}
-            >
-              {w}&nbsp;
-            </span>
-          );
-        })}
+      <div style={{ transform: `scale(${pulse})` }}>
+        <Title text={scene.display ?? scene.voice} size={96} delay={4} />
       </div>
     </AbsoluteFill>
   );
@@ -254,35 +264,32 @@ const EndCard: React.FC<{ scene: PromoScene }> = ({ scene }) => {
   const mark = useEnter(0, 14);
   const line = useEnter(14);
   const pill = useEnter(28, 12);
+  const tap = useEnter(46, 200);
   return (
-    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", padding: "220px 90px 520px", gap: 56 }}>
-      <div style={{ transform: `scale(${0.85 + 0.15 * mark})`, opacity: mark }}>
-        <Wordmark size={150} />
-      </div>
-      <div style={{ width: 120 * line, height: 4, backgroundColor: C.lime }} />
-      <div
-        style={{
-          fontSize: 60,
-          fontWeight: 600,
-          color: C.muted,
-          textAlign: "center",
-          lineHeight: 1.25,
-          opacity: line,
-        }}
-      >
-        {scene.display}
-      </div>
-      <div
-        style={{
-          opacity: pill,
-          transform: `scale(${pill})`,
-          border: `2px solid ${C.lime}`,
-          borderRadius: 999,
-          padding: "22px 52px",
-        }}
-      >
-        <Kicker>LİNK PROFİLDE</Kicker>
-      </div>
+    <AbsoluteFill>
+      <Confetti />
+      <Sequence from={46}>
+        <Audio src={staticFile("sfx/ding.mp3")} volume={0.35} />
+      </Sequence>
+      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", padding: "220px 90px 560px", gap: 56 }}>
+        <div style={{ transform: `scale(${0.85 + 0.15 * mark})`, opacity: mark }}>
+          <Wordmark size={150} />
+        </div>
+        <div style={{ width: 120 * line, height: 4, backgroundColor: C.lime }} />
+        {scene.display ? <Title text={scene.display} size={60} delay={14} /> : null}
+        <div
+          style={{
+            opacity: pill,
+            transform: `scale(${pill * (1 - 0.08 * Math.sin(Math.PI * Math.min(1, tap)))})`,
+            border: `3px solid ${C.lime}`,
+            backgroundColor: tap > 0.5 ? C.lime : "transparent",
+            borderRadius: 999,
+            padding: "22px 52px",
+          }}
+        >
+          <Kicker color={tap > 0.5 ? "#000" : C.lime}>LİNK PROFİLDE</Kicker>
+        </div>
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };

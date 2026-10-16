@@ -1,0 +1,73 @@
+{
+  "id": "seri2-05-basketbol",
+  "title": "Basketbolda en çok ne sakatlanır?",
+  "tag": "BASKETBOL",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Basketbolda en çok sakatlanan yer neresi? Diz diyosan, yanıldın.",
+      "title": "Basketbolda en çok *ne* sakatlanır?",
+      "sticker": "🏀🤔"
+    },
+    {
+      "visual": "bilek",
+      "voice": "Basketbolda en sık görülen sakatlıklardan biri ayak bileği burkulması.",
+      "kicker": "1 · BİLEK",
+      "title": "Ayak *bileği* burkulması",
+      "data": {
+        "mode": "normal"
+      },
+      "sticker": "🦶"
+    },
+    {
+      "visual": "bilek",
+      "voice": "Genelde zıplayıp inerken oluyo. Rakibin ayağına basınca bilek içe dönüyo, dış taraftaki bağlar zorlanıyo.",
+      "kicker": "2 · NASIL",
+      "title": "Rakibin *ayağına* iniş",
+      "data": {
+        "mode": "burkulma"
+      },
+      "sticker": "😖",
+      "stamp": "ÇAT!"
+    },
+    {
+      "visual": "liste",
+      "voice": "Tek ayak üstünde denge çalışmak ve dizleri bükerek yumuşak inmek, riski azaltabiliyo. Ağrırsa oyuna devam etme.",
+      "kicker": "3 · KORUNMA",
+      "title": "Denge *antrenmanı* korur",
+      "data": {
+        "items": [
+          {
+            "text": "Tek ayak denge",
+            "ok": true
+          },
+          {
+            "text": "Dizleri bükerek in",
+            "ok": true
+          },
+          {
+            "text": "Ağrıyla oyuna devam",
+            "ok": false
+          }
+        ]
+      },
+      "sticker": "⚖️"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Bileğin ne kadar sağlamsa, sahada o kadar uzun kalırsın. Artık biliyosun.",
+      "title": "İnişini *yumuşat*.",
+      "sticker": "🏀"
+    }
+  ],
+  "caption": "Basketbolda en sık sakatlanan yerlerden biri diz değil, ayak bileği 🏀\n\nÇoğu burkulma, zıplayıp rakibin ayağına inerken olur. Denge çalışması ve dizleri bükerek yumuşak iniş riski azaltabilir.\n\nKaydet, sonra lazım olur 🔖",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "id": "reels-05-ter",
+  "title": "Çok terlemek çok yağ mı yakar?",
+  "tag": "TER",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Sırılsıklam çıktın, demek çok yağ yaktın. Öyle mi? Hiç alakası yok.",
+      "title": "Çok terlemek çok yağ mı *yakar*?",
+      "sticker": "💦🤔"
+    },
+    {
+      "visual": "termometre",
+      "voice": "Ter vücudunun kliması. Isınınca terliyosun, ter buharlaşırken seni soğutuyo.",
+      "kicker": "1 · TER NEDİR",
+      "title": "Ter vücudunun *kliması*",
+      "data": {
+        "from": 36.6,
+        "to": 38.4,
+        "label": "VÜCUT ISISI"
+      },
+      "sticker": "🌡️"
+    },
+    {
+      "visual": "vs",
+      "voice": "Tartıdaki düşüş su. Bi iki bardak içince geri geliyo.",
+      "kicker": "2 · KİLO",
+      "title": "Giden kilo *su*, yağ değil",
+      "data": {
+        "left": {
+          "label": "Antrenman öncesi",
+          "value": "70,0"
+        },
+        "right": {
+          "label": "Sonrası (kg)",
+          "value": "69,2",
+          "tone": "teal"
+        }
+      },
+      "sticker": "💧",
+      "stamp": "SU!"
+    },
+    {
+      "visual": "liste",
+      "voice": "Ne kadar terlediğin havaya, genetiğine, kıyafetine bağlı. Yağla alakası yok.",
+      "kicker": "3 · KİŞİYE GÖRE",
+      "title": "Teri *belirleyenler*",
+      "data": {
+        "items": [
+          {
+            "text": "Hava ve nem",
+            "ok": true
+          },
+          {
+            "text": "Genetik",
+            "ok": true
+          },
+          {
+            "text": "Kıyafet",
+            "ok": true
+          },
+          {
+            "text": "Yakılan yağ",
+            "ok": false
+          }
+        ]
+      },
+      "sticker": "🧬"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Terlemek ısındığını gösterir, yağ yaktığını değil. Artık biliyosun.",
+      "title": "Ter = *soğutma*, yağ değil.",
+      "sticker": "❄️"
+    }
+  ],
+  "caption": "Sırılsıklam olmak daha çok yağ yaktığın anlamına gelmiyor 💦\n\nTer vücudun soğutma sistemidir. Antrenman sonrası tartıdaki düşüş sudur, içtiğinde geri gelir. Ne kadar terlediğin hava, nem, genetik ve kıyafete bağlıdır.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "sağlıklıyaşam",
+    "sporsalonu",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

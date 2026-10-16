@@ -37,17 +37,71 @@ export type PromoScene = {
   voice: string;
   // Üstte küçük etiket (ör. "BESLENME") ve büyük başlık
   kicker?: string;
+  // Başlık. *yıldız* içindeki kelimeler vurgu rengiyle yazılır: "Günün antrenmanı *hazır*"
   display?: string;
   // public/ altındaki ekran görüntüsü, ör. "app/beslenme.jpg". Yoksa sadece yazı gösterilir.
   screen?: string;
   // Kameranın yaklaşacağı bölge (ekran görüntüsü 923 px genişliğe ölçeklenmiş koordinatlarla)
   focus?: { x: number; y: number; w: number; h: number };
+  // Efektler (bilgi videolarıyla aynı): damga yazısı, emoji çıkartmalar, kapanış düğmesi
+  stamp?: string;
+  sticker?: string;
+  cta?: "gonder" | "kaydet";
 };
 
 export type Promo = {
   id: string;
   title: string;
+  voiceId?: string;
+  modelId?: string;
   scenes: PromoScene[];
+  caption: string;
+  hashtags: string[];
+};
+
+// Bilgi videosu: üstte numaralı etiket + vurgulu başlık, ortada animasyon (visual), altta altyazı
+export type ExplainerScene = {
+  visual: string;
+  voice: string;
+  // Ör. "1 · MOTİVASYON"
+  kicker?: string;
+  // *yıldız* içindeki kelimeler vurgu rengiyle yazılır
+  title?: string;
+  // Animasyona özel veriler (grafik noktaları, takvim günleri, mesajlar...)
+  data?: Record<string, unknown>;
+  // Sahnenin ortasında patlamayla inen damga yazısı, ör. "KOPTU!"
+  stamp?: string;
+  // Kenarlarda zıplayan emoji çıkartmalar, ör. "🦴💧"
+  sticker?: string;
+};
+
+export type Explainer = {
+  id: string;
+  title: string;
+  // Sol üstte "VOOM · <tag>" olarak görünen kısa konu adı, ör. "YAĞ YAKIMI"
+  tag?: string;
+  // İsteğe bağlı: bu videoya özel ElevenLabs ses ve model
+  voiceId?: string;
+  modelId?: string;
+  scenes: ExplainerScene[];
+  caption: string;
+  hashtags: string[];
+};
+
+// Çizimli video: her sahne, söylenen şeyi birebir gösteren kodla çizilmiş bir animasyon (visual)
+// voice: altyazı metni; say: (isteğe bağlı) seslendirilen metin, ton etiketleriyle, ör. "[whispers] ..."
+export type CizimScene = { visual: string; voice: string; say?: string; data?: Record<string, unknown> };
+
+export type Cizim = {
+  id: string;
+  title: string;
+  voiceId?: string;
+  modelId?: string;
+  // ElevenLabs ses ayarları, ör. { stability: 0.45, similarityBoost: 0.8, style: 0.25, useSpeakerBoost: true }
+  voiceSettings?: { stability?: number; similarityBoost?: number; style?: number; useSpeakerBoost?: boolean };
+  // Seslendirmede bundan uzun sessizlikler kısaltılır (saniye), ör. 0.3
+  maxPause?: number;
+  scenes: CizimScene[];
   caption: string;
   hashtags: string[];
 };
@@ -56,6 +110,7 @@ export type WordTiming = { word: string; start: number; end: number };
 
 export type SceneAudio = {
   voice: string;
+  say?: string;
   voiceId: string;
   file: string;
   durationInSeconds: number;

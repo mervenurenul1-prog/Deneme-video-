@@ -1,0 +1,236 @@
+{
+  "scenes": [
+    {
+      "voice": "Hangi takviyeyi, ne zaman alacağını hep unutuyor musun?",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-takviye/1-mv8k7ok8.mp3",
+      "durationInSeconds": 3.483,
+      "words": [
+        {
+          "word": "Hangi",
+          "start": 0,
+          "end": 0.36
+        },
+        {
+          "word": "takviyeyi,",
+          "start": 0.406,
+          "end": 1.057
+        },
+        {
+          "word": "ne",
+          "start": 1.231,
+          "end": 1.347
+        },
+        {
+          "word": "zaman",
+          "start": 1.405,
+          "end": 1.625
+        },
+        {
+          "word": "alacağını",
+          "start": 1.672,
+          "end": 2.125
+        },
+        {
+          "word": "hep",
+          "start": 2.159,
+          "end": 2.287
+        },
+        {
+          "word": "unutuyor",
+          "start": 2.368,
+          "end": 2.798
+        },
+        {
+          "word": "musun?",
+          "start": 2.844,
+          "end": 3.483
+        }
+      ]
+    },
+    {
+      "voice": "VOOM'da takviyelerin de günlük planının içinde. Sabah mı, akşam mı; hepsi yazıyor.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-takviye/2-mv8k7pre.mp3",
+      "durationInSeconds": 5.108,
+      "words": [
+        {
+          "word": "VOOM'da",
+          "start": 0,
+          "end": 0.441
+        },
+        {
+          "word": "takviyelerin",
+          "start": 0.499,
+          "end": 1.115
+        },
+        {
+          "word": "de",
+          "start": 1.161,
+          "end": 1.219
+        },
+        {
+          "word": "günlük",
+          "start": 1.277,
+          "end": 1.591
+        },
+        {
+          "word": "planının",
+          "start": 1.625,
+          "end": 2.032
+        },
+        {
+          "word": "içinde.",
+          "start": 2.101,
+          "end": 2.624
+        },
+        {
+          "word": "Sabah",
+          "start": 2.717,
+          "end": 3.1
+        },
+        {
+          "word": "mı,",
+          "start": 3.17,
+          "end": 3.297
+        },
+        {
+          "word": "akşam",
+          "start": 3.332,
+          "end": 3.738
+        },
+        {
+          "word": "mı;",
+          "start": 3.773,
+          "end": 3.959
+        },
+        {
+          "word": "hepsi",
+          "start": 4.005,
+          "end": 4.296
+        },
+        {
+          "word": "yazıyor.",
+          "start": 4.331,
+          "end": 5.108
+        }
+      ]
+    },
+    {
+      "voice": "Öneriler hedefine ve beslenme planına göre şekilleniyor. Aldıkça işaretle, takipte kal.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-takviye/3-mv8k7r0a.mp3",
+      "durationInSeconds": 5.944,
+      "words": [
+        {
+          "word": "Öneriler",
+          "start": 0,
+          "end": 0.488
+        },
+        {
+          "word": "hedefine",
+          "start": 0.546,
+          "end": 0.929
+        },
+        {
+          "word": "ve",
+          "start": 0.975,
+          "end": 1.057
+        },
+        {
+          "word": "beslenme",
+          "start": 1.115,
+          "end": 1.591
+        },
+        {
+          "word": "planına",
+          "start": 1.637,
+          "end": 2.009
+        },
+        {
+          "word": "göre",
+          "start": 2.055,
+          "end": 2.229
+        },
+        {
+          "word": "şekilleniyor.",
+          "start": 2.276,
+          "end": 3.077
+        },
+        {
+          "word": "Aldıkça",
+          "start": 3.402,
+          "end": 3.889
+        },
+        {
+          "word": "işaretle,",
+          "start": 3.947,
+          "end": 4.725
+        },
+        {
+          "word": "takipte",
+          "start": 4.807,
+          "end": 5.294
+        },
+        {
+          "word": "kal.",
+          "start": 5.352,
+          "end": 5.944
+        }
+      ]
+    },
+    {
+      "voice": "VOOM. Takviye kullanmadan önce doktoruna danışmayı unutma. Link profilde.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/voom-takviye/4-mv8k7s85.mp3",
+      "durationInSeconds": 5.201,
+      "words": [
+        {
+          "word": "VOOM.",
+          "start": 0,
+          "end": 0.522
+        },
+        {
+          "word": "Takviye",
+          "start": 1.126,
+          "end": 1.556
+        },
+        {
+          "word": "kullanmadan",
+          "start": 1.602,
+          "end": 2.125
+        },
+        {
+          "word": "önce",
+          "start": 2.183,
+          "end": 2.357
+        },
+        {
+          "word": "doktoruna",
+          "start": 2.415,
+          "end": 2.868
+        },
+        {
+          "word": "danışmayı",
+          "start": 2.914,
+          "end": 3.367
+        },
+        {
+          "word": "unutma.",
+          "start": 3.402,
+          "end": 3.947
+        },
+        {
+          "word": "Link",
+          "start": 4.098,
+          "end": 4.331
+        },
+        {
+          "word": "profilde.",
+          "start": 4.365,
+          "end": 5.201
+        }
+      ]
+    }
+  ]
+}

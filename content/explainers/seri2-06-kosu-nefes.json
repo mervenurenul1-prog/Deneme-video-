@@ -1,0 +1,96 @@
+{
+  "id": "seri2-06-kosu-nefes",
+  "title": "3 dakikada nefesin mi kesildi?",
+  "tag": "KOŞU",
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Koşuya başladın, üç dakikada nefesin kesildi. Ciğerin mi yetmiyo? Genelde hayır.",
+      "title": "3 dakikada *nefesin* mi kesildi?",
+      "sticker": "🏃💨"
+    },
+    {
+      "visual": "kalp",
+      "voice": "Ciğerin yeterince hava alıyo. Asıl mesele, kalbinin o oksijeni kaslara ne kadar hızlı taşıyabildiği.",
+      "kicker": "1 · TAŞIMA",
+      "title": "Mesele ciğer değil, *kalp*",
+      "data": {
+        "mode": "tek"
+      },
+      "sticker": "🫀"
+    },
+    {
+      "visual": "kalp",
+      "voice": "Düzenli koşan birinin kalbi her atışta daha çok kan pompalıyo. Seninki daha az, o yüzden hızlı hızlı atmak zorunda.",
+      "kicker": "2 · KALP",
+      "title": "Antrenmanlı kalp *daha çok* pompalar",
+      "data": {
+        "mode": "karsilastir"
+      },
+      "sticker": "🫀",
+      "stamp": "FARK BURDA!"
+    },
+    {
+      "visual": "liste",
+      "voice": "Bi de en büyük hata: çok hızlı başlamak. Koşarken cümle kurabiliyosan, tempon doğru.",
+      "kicker": "3 · TEMPO",
+      "title": "Konuşabileceğin *hızda* koş",
+      "data": {
+        "items": [
+          {
+            "text": "Cümle kurabiliyosun",
+            "ok": true
+          },
+          {
+            "text": "Nefes nefesesin",
+            "ok": false
+          }
+        ]
+      },
+      "sticker": "🗣️"
+    },
+    {
+      "visual": "zaman",
+      "voice": "Bi dakika koş, iki dakika yürü, sekiz kez tekrarla. Haftalar içinde koşu süren uzar.",
+      "kicker": "4 · YÖNTEM",
+      "title": "Koş, *yürü*, tekrarla",
+      "data": {
+        "items": [
+          {
+            "time": "1 DK",
+            "text": "Hafif koşu"
+          },
+          {
+            "time": "2 DK",
+            "text": "Yürüyüş"
+          },
+          {
+            "time": "8 KEZ",
+            "text": "Tekrarla",
+            "tone": "teal"
+          }
+        ]
+      },
+      "sticker": "⏱️"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "VOOM'da da planın senin seviyenden başlıyo. Koşuya yeni başlayan arkadaşına gönder.",
+      "title": "Yavaş koşan *uzun* koşar.",
+      "data": {
+        "cta": "gonder"
+      },
+      "sticker": "🏃"
+    }
+  ],
+  "caption": "Koşuda 3 dakikada nefesin kesiliyorsa suç ciğerinde değil 🏃\n\nAntrenmanlı kalp her atışta daha çok kan pompalar. En büyük hata çok hızlı başlamak: konuşabileceğin tempoda koş, koş-yürü aralıklarıyla başla.\n\nArkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "bunubiliyormuydun",
+    "sağlıklıyaşam",
+    "voom"
+  ]
+}

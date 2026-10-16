@@ -1,0 +1,54 @@
+{
+  "id": "voom-antrenman",
+  "title": "VOOM: Günün antrenmanı hazır",
+  "scenes": [
+    {
+      "voice": "Salona girip ne yapacağını düşünmek, antrenmanın yarısını yiyo.",
+      "display": "Salonda *ne yapacağını* düşünme.",
+      "sticker": "🤔🏋️"
+    },
+    {
+      "voice": "VOOM her gün o günün antrenmanını hazır veriyo. Hareket, set, süre; hepsi belli.",
+      "display": "Günün antrenmanı *hazır*",
+      "kicker": "BUGÜN",
+      "screen": "app/bugun.jpg",
+      "focus": {
+        "x": 50,
+        "y": 80,
+        "w": 820,
+        "h": 330
+      },
+      "sticker": "📋",
+      "stamp": "HAZIR!"
+    },
+    {
+      "voice": "Üstüne her kararın nedenini anlatıyo. Ezber yok, bilerek çalışıyosun.",
+      "display": "Her kararın bi *nedeni* var",
+      "kicker": "PROGRAM",
+      "screen": "app/program.jpg",
+      "focus": {
+        "x": 50,
+        "y": 840,
+        "w": 830,
+        "h": 470
+      },
+      "sticker": "🧠💡"
+    },
+    {
+      "voice": "VOOM. Düşünme, başla. Link profilde.",
+      "display": "Düşünme, *sadece başla*.",
+      "sticker": "🚀"
+    }
+  ],
+  "caption": "Salonda telefona bakıp ne yapacağını düşünmeye son 🏋️\n\nVOOM her gün antrenmanını hazır veriyor ve her kararın nedenini açıklıyor.\n\nİndirmek için link profilde 🔗",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "sporsalonu",
+    "kişiselantrenör",
+    "fitnessuygulaması",
+    "voom"
+  ],
+  "voiceId": "iP95p4xoKVk53GoZ742B",
+  "modelId": "eleven_v3"
+}

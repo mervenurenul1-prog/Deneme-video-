@@ -1,0 +1,379 @@
+{
+  "scenes": [
+    {
+      "voice": "Spora başlıyosun, ilk hafta süpersin. İkinci hafta? Bi bakmışsın bırakmışsın. Neden ya?",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-takip/1-mv8l15hf.mp3",
+      "durationInSeconds": 6.8,
+      "words": [
+        {
+          "word": "Spora",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "başlıyosun,",
+          "start": 0.38,
+          "end": 1.36
+        },
+        {
+          "word": "ilk",
+          "start": 1.42,
+          "end": 1.6
+        },
+        {
+          "word": "hafta",
+          "start": 1.653,
+          "end": 1.92
+        },
+        {
+          "word": "süpersin.",
+          "start": 2,
+          "end": 2.64
+        },
+        {
+          "word": "İkinci",
+          "start": 3.04,
+          "end": 3.68
+        },
+        {
+          "word": "hafta?",
+          "start": 3.733,
+          "end": 4.32
+        },
+        {
+          "word": "Bi",
+          "start": 4.427,
+          "end": 4.64
+        },
+        {
+          "word": "bakmışsın",
+          "start": 4.7,
+          "end": 5.12
+        },
+        {
+          "word": "bırakmışsın.",
+          "start": 5.173,
+          "end": 5.84
+        },
+        {
+          "word": "Neden",
+          "start": 6.08,
+          "end": 6.56
+        },
+        {
+          "word": "ya?",
+          "start": 6.613,
+          "end": 6.8
+        }
+      ]
+    },
+    {
+      "voice": "Çünkü ilk heves motivasyonla gidiyo. Motivasyon da birkaç gün içinde düşüyo. Bu gayet normal, sorun sende değil.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-takip/2-mv8l1727.mp3",
+      "durationInSeconds": 6.56,
+      "words": [
+        {
+          "word": "Çünkü",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "ilk",
+          "start": 0.38,
+          "end": 0.56
+        },
+        {
+          "word": "heves",
+          "start": 0.587,
+          "end": 0.96
+        },
+        {
+          "word": "motivasyonla",
+          "start": 1.013,
+          "end": 1.68
+        },
+        {
+          "word": "gidiyo.",
+          "start": 1.72,
+          "end": 2.08
+        },
+        {
+          "word": "Motivasyon",
+          "start": 2.22,
+          "end": 3.04
+        },
+        {
+          "word": "da",
+          "start": 3.067,
+          "end": 3.12
+        },
+        {
+          "word": "birkaç",
+          "start": 3.166,
+          "end": 3.44
+        },
+        {
+          "word": "gün",
+          "start": 3.48,
+          "end": 3.6
+        },
+        {
+          "word": "içinde",
+          "start": 3.634,
+          "end": 3.84
+        },
+        {
+          "word": "düşüyo.",
+          "start": 3.9,
+          "end": 4.32
+        },
+        {
+          "word": "Bu",
+          "start": 4.453,
+          "end": 4.72
+        },
+        {
+          "word": "gayet",
+          "start": 4.78,
+          "end": 5.04
+        },
+        {
+          "word": "normal,",
+          "start": 5.086,
+          "end": 5.6
+        },
+        {
+          "word": "sorun",
+          "start": 5.64,
+          "end": 5.84
+        },
+        {
+          "word": "sende",
+          "start": 5.904,
+          "end": 6.24
+        },
+        {
+          "word": "değil.",
+          "start": 6.28,
+          "end": 6.56
+        }
+      ]
+    },
+    {
+      "voice": "Seni salona götüren şey motivasyon değil, alışkanlık. O da ancak tekrar ede ede oturuyo.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-takip/3-mv8l18lc.mp3",
+      "durationInSeconds": 5.36,
+      "words": [
+        {
+          "word": "Seni",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "salona",
+          "start": 0.28,
+          "end": 0.56
+        },
+        {
+          "word": "götüren",
+          "start": 0.613,
+          "end": 0.96
+        },
+        {
+          "word": "şey",
+          "start": 1,
+          "end": 1.12
+        },
+        {
+          "word": "motivasyon",
+          "start": 1.187,
+          "end": 1.84
+        },
+        {
+          "word": "değil,",
+          "start": 1.88,
+          "end": 2.08
+        },
+        {
+          "word": "alışkanlık.",
+          "start": 2.176,
+          "end": 2.96
+        },
+        {
+          "word": "O",
+          "start": 3.2,
+          "end": 3.44
+        },
+        {
+          "word": "da",
+          "start": 3.467,
+          "end": 3.52
+        },
+        {
+          "word": "ancak",
+          "start": 3.587,
+          "end": 3.92
+        },
+        {
+          "word": "tekrar",
+          "start": 4.011,
+          "end": 4.56
+        },
+        {
+          "word": "ede",
+          "start": 4.613,
+          "end": 4.8
+        },
+        {
+          "word": "ede",
+          "start": 4.827,
+          "end": 4.96
+        },
+        {
+          "word": "oturuyo.",
+          "start": 5.008,
+          "end": 5.36
+        }
+      ]
+    },
+    {
+      "voice": "Asıl sır şu: Biri seni takip edince bırakmak zorlaşıyo. Hesap verdiğin biri olunca, devam ediyosun.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-takip/4-mv8l1a08.mp3",
+      "durationInSeconds": 5.84,
+      "words": [
+        {
+          "word": "Asıl",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "sır",
+          "start": 0.3,
+          "end": 0.48
+        },
+        {
+          "word": "şu:",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "word": "Biri",
+          "start": 1.08,
+          "end": 1.52
+        },
+        {
+          "word": "seni",
+          "start": 1.552,
+          "end": 1.68
+        },
+        {
+          "word": "takip",
+          "start": 1.733,
+          "end": 2
+        },
+        {
+          "word": "edince",
+          "start": 2.027,
+          "end": 2.32
+        },
+        {
+          "word": "bırakmak",
+          "start": 2.36,
+          "end": 2.72
+        },
+        {
+          "word": "zorlaşıyo.",
+          "start": 2.76,
+          "end": 3.28
+        },
+        {
+          "word": "Hesap",
+          "start": 3.56,
+          "end": 4
+        },
+        {
+          "word": "verdiğin",
+          "start": 4.053,
+          "end": 4.4
+        },
+        {
+          "word": "biri",
+          "start": 4.432,
+          "end": 4.56
+        },
+        {
+          "word": "olunca,",
+          "start": 4.613,
+          "end": 5.2
+        },
+        {
+          "word": "devam",
+          "start": 5.24,
+          "end": 5.44
+        },
+        {
+          "word": "ediyosun.",
+          "start": 5.467,
+          "end": 5.84
+        }
+      ]
+    },
+    {
+      "voice": "VOOM'da koçun seni takip ediyo. Bu sefer bırakmak yok.",
+      "voiceId": "iP95p4xoKVk53GoZ742B",
+      "file": "voiceover/bilgi-takip/5-mv8l1b4r.mp3",
+      "durationInSeconds": 3.68,
+      "words": [
+        {
+          "word": "VOOM'da",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "koçun",
+          "start": 0.4,
+          "end": 0.72
+        },
+        {
+          "word": "seni",
+          "start": 0.784,
+          "end": 1.04
+        },
+        {
+          "word": "takip",
+          "start": 1.093,
+          "end": 1.36
+        },
+        {
+          "word": "ediyo.",
+          "start": 1.4,
+          "end": 2.16
+        },
+        {
+          "word": "Bu",
+          "start": 2.187,
+          "end": 2.24
+        },
+        {
+          "word": "sefer",
+          "start": 2.293,
+          "end": 2.56
+        },
+        {
+          "word": "bırakmak",
+          "start": 2.613,
+          "end": 3.04
+        },
+        {
+          "word": "yok.",
+          "start": 3.1,
+          "end": 3.68
+        }
+      ]
+    }
+  ]
+}

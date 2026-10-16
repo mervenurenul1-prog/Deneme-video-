@@ -1,0 +1,98 @@
+{
+  "id": "reels-08-gunluk-hareket",
+  "title": "Salon mu yaktırıyo, gün mü?",
+  "tag": "GÜNLÜK HAREKET",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "modelId": "eleven_v3",
+  "scenes": [
+    {
+      "visual": "soru",
+      "voice": "Haftada üç gün salon, gerisi koltuk. Sence hangisi daha çok yaktırıyo?",
+      "title": "Salon mu yaktırıyo, *gün* mü?",
+      "sticker": "🛋️🤔"
+    },
+    {
+      "visual": "vs",
+      "voice": "Salonda bi saat geçiriyosun. Ama kalan yirmi üç saat de kalori yaktırıyo.",
+      "kicker": "1 · KIYAS",
+      "title": "1 saat salon, *23 saat* hayat",
+      "data": {
+        "left": {
+          "label": "Salon",
+          "value": "1 sa"
+        },
+        "right": {
+          "label": "Günün kalanı",
+          "value": "23 sa"
+        },
+        "sign": "vs"
+      },
+      "sticker": "🕐",
+      "stamp": "23 SAAT!"
+    },
+    {
+      "visual": "liste",
+      "voice": "Yürümek, merdiven, ayakta durmak, ev işleri... Hepsi sayılıyo.",
+      "kicker": "2 · GÜNLÜK",
+      "title": "Spor dışı hareket de *sayılır*",
+      "data": {
+        "items": [
+          {
+            "text": "Yürümek",
+            "ok": true
+          },
+          {
+            "text": "Merdiven",
+            "ok": true
+          },
+          {
+            "text": "Ayakta durmak",
+            "ok": true
+          },
+          {
+            "text": "Ev işleri",
+            "ok": true
+          }
+        ]
+      },
+      "sticker": "🚶"
+    },
+    {
+      "visual": "bar",
+      "voice": "Araştırmalara göre bu fark, günde yüzlerce kaloriyi bulabiliyo.",
+      "kicker": "3 · FARK",
+      "title": "Fark *yüzlerce* kalori",
+      "data": {
+        "bars": [
+          {
+            "label": "HAREKETSİZ",
+            "value": 35,
+            "text": "Az",
+            "tone": "muted"
+          },
+          {
+            "label": "HAREKETLİ",
+            "value": 95,
+            "text": "Çok"
+          }
+        ]
+      },
+      "sticker": "📈"
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Küçük başla: biraz daha fazla adım, asansör yerine merdiven.",
+      "title": "Salon 1 saat, *hayat 23*.",
+      "sticker": "👟"
+    }
+  ],
+  "caption": "Salon önemli ama günün kalan 23 saati de sayılıyor 🚶‍♀️\n\nYürümek, merdiven, ayakta durmak gibi spor dışı hareketler (NEAT) kişiler arasında günde yüzlerce kalorilik fark yaratabilir. Küçük başla: biraz daha fazla adım.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "bilgi",
+    "sağlıklıyaşam",
+    "sporsalonu",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}
