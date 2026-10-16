@@ -118,6 +118,9 @@ Sıradaki: 3) "30 dakikalık protein penceresi bir efsane".
 baktığında, boynunda aşağı yukarı sekiz yaşında bir çocuk taşıyorsun" — çocuk (`Kid`, sarı tişört, "8") avatarın
 omzuna tırmanır (`AvatarWithKid`, `neckSeat`); gün boyu (sabah/otobüs/iş/gece) hep orada; 27 kg = çocuk tartıda;
 telefonu kaldırınca zıplayıp iner; kapanış "o çocuk geri gelmeyi çok sever. Çünkü..." → çocuk geri gelir (döngü).
+**Kullanıcı: "çocuk değil dambıl daha mantıklı"** → çocuk yerine ensede 27 kg'lık dambıl (`NeckDumbbell`,
+`AvatarWithDumbbell`): yerden havalanıp enseye oturur, tartıya düşer, telefonu kaldırınca yere iner; kapanış
+"Ama telefona tekrar baktığın an, o dambıl geri gelir. Çünkü..." (dambıl yerde titrer = açılış karesi).
 **04 revize (kullanıcı: "beğendim ama daha iyi giriş, loop etkisi, daha kuvvetli betimleme"):** yeni açılış "Ağırlık
 kaldıran bir kadının iri olması, sandığından çok daha zor" + kadının kolları balon gibi şişip "izin vermez"de söner;
 kapanış "...arkadaşına gönder. Çünkü..." (avatar kâğıt uçakla gönderir, arkadaş dambılı alır = açılış karesi).

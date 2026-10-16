@@ -1,6 +1,6 @@
 {
   "id": "cizim1-05-boyun",
-  "title": "Boynunda bir çocuk taşıyorsun",
+  "title": "Boynunda bir dambıl taşıyorsun",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -13,13 +13,13 @@
   "scenes": [
     {
       "visual": "boyun-acilis",
-      "voice": "Telefona her baktığında, boynunda aşağı yukarı sekiz yaşında bir çocuk taşıyorsun.",
-      "say": "Telefona her baktığında, boynunda aşağı yukarı [curious] sekiz yaşında bir çocuk taşıyorsun."
+      "voice": "Telefona her baktığında, boynunda yirmi yedi kiloluk bir dambıl taşıyor gibisin.",
+      "say": "Telefona her baktığında, boynunda [curious] yirmi yedi kiloluk bir dambıl taşıyor gibisin."
     },
     {
       "visual": "boyun-gun",
-      "voice": "Sabah uyanınca, otobüste, işte, gece yatakta... O çocuk hep orada.",
-      "say": "Sabah uyanınca, otobüste, işte, gece yatakta... O çocuk, hmm, hep orada."
+      "voice": "Sabah uyanınca, otobüste, işte, gece yatakta... O dambıl hep orada.",
+      "say": "Sabah uyanınca, otobüste, işte, gece yatakta... O dambıl, hmm, hep orada."
     },
     {
       "visual": "boyun-kaldirac",
@@ -38,18 +38,18 @@
     },
     {
       "visual": "boyun-asil",
-      "voice": "Asıl yorucu olan, o çocuğu saatlerce hiç indirmemek. Boyun kasların dinlenemez.",
-      "say": "Asıl yorucu olan, o çocuğu saatlerce hiç indirmemek. Boyun kasların dinlenemez."
+      "voice": "Asıl yorucu olan, o dambılı saatlerce hiç indirmemek. Boyun kasların dinlenemez.",
+      "say": "Asıl yorucu olan, o dambılı saatlerce hiç indirmemek. Boyun kasların dinlenemez."
     },
     {
       "visual": "boyun-cozum",
-      "voice": "Telefonu göz hizasına kaldır, ara ara başını çevir. Çocuk iner, boynun rahatlar.",
-      "say": "Telefonu göz hizasına kaldır, ara ara başını çevir. Çocuk iner, boynun rahatlar."
+      "voice": "Telefonu göz hizasına kaldır, ara ara başını çevir. Dambıl iner, boynun rahatlar.",
+      "say": "Telefonu göz hizasına kaldır, ara ara başını çevir. Dambıl iner, boynun rahatlar."
     },
     {
       "visual": "boyun-kapanis",
-      "voice": "Ama dikkat et, o çocuk geri gelmeyi çok sever. Çünkü...",
-      "say": "Ama dikkat et, o çocuk geri gelmeyi [curious] çok sever. Çünkü..."
+      "voice": "Ama telefona tekrar baktığın an, o dambıl geri gelir. Çünkü...",
+      "say": "Ama telefona tekrar baktığın an, o dambıl [curious] geri gelir. Çünkü..."
     }
   ],
   "caption": "Telefona bakarken boynun kaç kilo taşıyor? 📱\n\nBaşın yaklaşık 5 kilo. Ama öne eğildikçe yer çekimi kaldıraç gibi çalışır: 15 derecede boyna binen yük yaklaşık 12 kiloya, 60 derecede yaklaşık 27 kiloya çıkar (Hansraj, Surgical Technology International, 2014; bilgisayar modeli tahmini).\n\nİlginç olan şu: Araştırmalar bu duruşun tek başına boyun ağrısına yol açtığını net olarak göstermedi. Asıl yorucu olan, saatlerce aynı pozisyonda kalmak.\n\nTelefonu biraz yukarı kaldır, ara ara başını çevir, boynunu esnet.\n\n📌 Kaydet, gün boyu telefona gömülü arkadaşına gönder.",

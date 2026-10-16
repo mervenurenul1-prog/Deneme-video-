@@ -368,14 +368,14 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-kapanis": (w) => [[0, "pop", 0.3], [w(0) - 4, "pop", 0.25], [w(4), "whoosh", 0.35], [w(5) + 6, "ding", 0.3], [w(6) - 2, "pop", 0.55], [w(6) + 2, "tak", 0.35]],
 
   // 05 boyun — her olayın kendi sesi
-  "boyun-acilis": (w) => [[w(0) + 2, "whoosh", 0.3], [w(1), "adim", 0.3], [w(3), "boom", 0.3], [w(3), "tak", 0.45], [w(6) - 2, "pop", 0.45], [w(6), "pirilti", 0.25], [w(10) - 2, "damla", 0.25], [w(10) + 8, "damla", 0.2]],
+  "boyun-acilis": (w) => [...every(4, w(2), 4, "tak", 0.15), [w(2), "whoosh", 0.4], [w(3) + 2, "boom", 0.35], [w(3) + 2, "tak", 0.5], [w(4) - 2, "pop", 0.45], [w(9) - 2, "damla", 0.25], [w(9) + 8, "damla", 0.2]],
   "boyun-gun": (w) => [...every(2, w(2) - 4, 7, "bip", 0.3), [w(2) - 2, "whoosh", 0.3], [w(2), "boom", 0.12], [w(3) - 2, "whoosh", 0.25], ...every(w(3), w(4) - 4, 4, "tik", 0.18), [w(4) - 2, "whoosh", 0.25], [w(4), "sonme", 0.15], [w(6), "pop", 0.3]],
   "boyun-kaldirac": (w) => [[0, "whoosh", 0.25], ...ticks(w(1), w(3) + 4, 4, 0.2), [w(3) + 4, "bip", 0.35], ...every(w(6), w(13) + 6, 6, "tik", 0.15), [w(11) - 2, "pop", 0.35], [w(11) + 4, "tak", 0.35]],
-  "boyun-altmis": (w) => [...ticks(w(3), w(5) + 4, 4, 0.2), [w(5) + 4, "ding", 0.25], ...every(w(6), w(11) + 4, 6, "tik", 0.18), [w(8), "pop", 0.3], [w(12) - 2, "boom", 0.3], [w(12), "adim", 0.35], ...ticks(w(12), w(14) + 2, 3, 0.2), [w(14) + 2, "bip", 0.4]],
+  "boyun-altmis": (w) => [...ticks(w(3), w(5) + 4, 4, 0.2), [w(5) + 4, "ding", 0.25], ...every(w(6), w(11) + 4, 6, "tik", 0.18), [w(8), "pop", 0.3], [w(12) - 2, "whoosh", 0.3], [w(12) + 8, "boom", 0.35], [w(12) + 8, "tak", 0.4], ...ticks(w(12), w(14) + 2, 3, 0.2), [w(14) + 2, "bip", 0.4]],
   "boyun-surpriz": (w) => [[2, "pop", 0.35], ...ticks(6, w(5) - 3, 9, 0.35), [w(5) - 3, "boom", 0.16], [w(5) - 2, "kagit", 0.4], [w(7) - 2, "pop", 0.4], [w(10) - 2, "pop", 0.4], ...every(w(11), w(12) + 6, 4, "tik", 0.2), [w(15) - 2, "cizik", 0.5], [w(15), "boom", 0.18], [w(15) + 4, "sonme", 0.3]],
   "boyun-asil": (w, d) => [...every(w(5) - 2, w(7) + 8, 3, "tik", 0.18), [w(5), "whoosh", 0.25], [w(6), "nefes", 0.3], [w(7) + 8, "ding", 0.2], ...every(w(8), d - 6, 10, "bip", 0.15)],
-  "boyun-cozum": (w) => [[w(0), "yuksel", 0.35], [w(4) - 2, "whoosh", 0.2], [w(4) + 14, "whoosh", 0.2], [w(8) - 2, "whoosh", 0.35], [w(9) + 6, "adim", 0.4], [w(10), "nefes", 0.4], [w(10) + 4, "pirilti", 0.35], [w(11), "ding", 0.25]],
-  "boyun-kapanis": (w, d) => [...steps(2, w(2), 3.8, 0.25), [w(1), "pop", 0.35], ...steps(w(5) - 2, d - 6, 3.8, 0.25), [w(8), "tik", 0.3], [w(9), "tak", 0.35]],
+  "boyun-cozum": (w) => [[w(0), "yuksel", 0.35], [w(4) - 2, "whoosh", 0.2], [w(4) + 14, "whoosh", 0.2], [w(8) - 2, "whoosh", 0.35], [w(9) + 6, "boom", 0.3], [w(9) + 6, "tak", 0.4], [w(10), "nefes", 0.4], [w(10) + 4, "pirilti", 0.35], [w(11), "ding", 0.25]],
+  "boyun-kapanis": (w) => [[w(1), "whoosh", 0.2], [w(6), "pop", 0.35], ...every(w(6), w(9) - 2, 3, "tak", 0.18), [w(9), "tik", 0.3]],
 };
 
 /* ---------- yardımcılar ---------- */
@@ -3211,29 +3211,24 @@ const PhoneInHand: React.FC<{ arm: Arm; glow?: number }> = ({ arm, glow = 1 }) =
 
 /* ---------- 05 boyun: hikâye — "boynunda bir çocuk taşıyorsun" ---------- */
 
-// Çocuk: küçük, sarı tişörtlü; göğsünde "8" (sekiz yaşında)
-const Kid: React.FC<{ x: number; y: number; s?: number; badge?: number; armL?: Arm; armR?: Arm; legL?: Leg; legR?: Leg; mouth?: Mouth; eyes?: Eyes; tilt?: number; lookY?: number }> = ({
-  x,
-  y,
-  s = 0.45,
-  badge = 0,
-  ...rest
-}) => (
-  <Person x={x} y={y} s={s} belly={0.3} shirt="#e8b84a" mouth="grin" {...rest}>
-    {badge > 0 ? (
-      <text x={0} y={-450} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130 * badge} fill={C.red}>
-        8
-      </text>
+// Ense dambılı: omuzların üstünde, başın arkasında (yandaki plakalar görünür); üstünde "27 kg" etiketi
+const neckSeat = (ax: number, ay: number, as: number) => ({ x: ax, y: ay - 640 * as, s: 2.1 * as });
+const NeckDumbbell: React.FC<{ x: number; y: number; s: number; label?: number; rot?: number }> = ({ x, y, s, label = 0, rot = 0 }) => (
+  <g>
+    <Dumbbell x={x} y={y} s={s} rot={rot} />
+    {label > 0 ? (
+      <g transform={`translate(${x + 115 * s} ${y - 95 * s}) scale(${label * 1.5})`}>
+        <rect x={-62} y={-34} width={124} height={56} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={5} />
+        <text x={0} y={8} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={40} fill={C.red}>
+          27 kg
+        </text>
+      </g>
     ) : null}
-  </Person>
+  </g>
 );
 
-// Çocuğun avatarın omuzlarındaki yeri (dünya koordinatı): kalçası başın arkasında, bacakları omuzlardan sarkar
-const neckSeat = (ax: number, ay: number, as: number) => ({ x: ax, y: ay - 527 * as, s: 0.5 * as });
-const SEAT_LEGS: Leg = { spread: 72, lift: 0.4 };
-
-// Avatar + omzundaki çocuk (çocuk önce çizilir, avatarın başı önde kalır)
-const AvatarWithKid: React.FC<{ x: number; y: number; s: number; kid: number; arm?: Arm; mouth?: Mouth; eyes?: Eyes; lookY?: number; blush?: number; kidEyes?: Eyes; kidMouth?: Mouth; badge?: number; phone?: boolean }> = ({
+// Avatar + ensesindeki dambıl (dambıl önce çizilir, avatarın başı önde kalır)
+const AvatarWithDumbbell: React.FC<{ x: number; y: number; s: number; kid: number; arm?: Arm; mouth?: Mouth; eyes?: Eyes; lookY?: number; blush?: number; badge?: number; phone?: boolean }> = ({
   x,
   y,
   s,
@@ -3243,8 +3238,6 @@ const AvatarWithKid: React.FC<{ x: number; y: number; s: number; kid: number; ar
   eyes = "open",
   lookY = 12,
   blush = 0.5,
-  kidEyes = "open",
-  kidMouth = "grin",
   badge = 0,
   phone = true,
 }) => {
@@ -3253,7 +3246,7 @@ const AvatarWithKid: React.FC<{ x: number; y: number; s: number; kid: number; ar
     <>
       {kid > 0 ? (
         <g opacity={kid}>
-          <Kid x={seat.x} y={seat.y} s={seat.s} armL={[150, -30]} armR={[150, -30]} legL={SEAT_LEGS} legR={SEAT_LEGS} eyes={kidEyes} mouth={kidMouth} badge={badge} />
+          <NeckDumbbell x={seat.x} y={seat.y} s={seat.s} label={badge} />
         </g>
       ) : null}
       <Person x={x} y={y} s={s} belly={0.4} armL={[12, 0]} armR={arm} mouth={mouth} eyes={eyes} lookY={lookY} blush={blush}>
@@ -3263,40 +3256,43 @@ const AvatarWithKid: React.FC<{ x: number; y: number; s: number; kid: number; ar
   );
 };
 
-const KID_START = { x: PX + 190, y: PY }; // açılış ve kapanış: çocuk avatarın yanında durur (döngü karesi)
+const BELL_START = { x: PX + 210, y: PY - 40 }; // açılış ve kapanış: dambıl avatarın yanında yerde durur (döngü karesi)
 
-// "Telefona her baktığında, boynunda aşağı yukarı sekiz yaşında bir çocuk taşıyorsun."
+// "Telefona her baktığında, boynunda yirmi yedi kiloluk bir dambıl taşıyor gibisin."
 const BoyunAcilis: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const A = { x: PX - 60, y: PY, s: 0.95 };
-  const climb = tw(f, w(0) + 2, w(3));
-  const landed = climb >= 1;
-  const squash = landed ? 1 - 0.06 * Math.exp(-(f - w(3)) / 6) - 0.02 : 1;
+  const wobble = f < w(2) ? Math.sin(f / 1.5) * 4 * tw(f, 2, w(1)) : 0; // yerdeki dambıl titrer: geliyor…
+  const fly = tw(f, w(2), w(3) + 2);
+  const landed = fly >= 1;
+  const squash = landed ? 1 - 0.06 * Math.exp(-(f - w(3) - 2) / 6) - 0.02 : 1;
   const seat = neckSeat(A.x, A.y, A.s * squash);
-  const kx = interpolate(climb, [0, 1], [KID_START.x, seat.x]);
-  const ky = interpolate(climb, [0, 1], [KID_START.y, seat.y]) - Math.sin(climb * Math.PI) * 240;
-  const badge = pop(f, w(6) - 2, 14);
-  const sweat = tw(f, w(10) - 2, w(10) + 8);
+  const dx = interpolate(fly, [0, 1], [BELL_START.x, seat.x]);
+  const dy = interpolate(fly, [0, 1], [BELL_START.y, seat.y]) - Math.sin(fly * Math.PI) * 300;
+  const label = pop(f, w(4) - 2, 14);
+  const sweat = tw(f, w(9) - 2, w(9) + 8);
   return (
     <>
       {landed ? (
-        <AvatarWithKid x={A.x} y={A.y} s={A.s * squash} kid={1} mouth="worry" eyes={sweat > 0.5 ? "wide" : "open"} badge={badge} blush={0.5 + 0.4 * sweat} />
+        <AvatarWithDumbbell x={A.x} y={A.y} s={A.s * squash} kid={1} mouth="worry" eyes={sweat > 0.5 ? "wide" : "open"} badge={label} blush={0.5 + 0.4 * sweat} />
       ) : (
         <>
           <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth="smile" lookY={12}>
             <PhoneInHand arm={PHONE_ARM} />
           </Person>
-          <Kid x={kx} y={ky} s={interpolate(climb, [0, 1], [0.45, seat.s])} armL={climb > 0 ? [150, -20] : [12, 0]} armR={climb > 0 ? [150, -20] : [12, 0]} legL={climb > 0 ? { lift: 0.6 } : {}} legR={climb > 0 ? { lift: 0.6 } : {}} />
+          <g transform={`rotate(${wobble + 200 * fly} ${dx} ${dy})`}>
+            <NeckDumbbell x={dx} y={dy} s={interpolate(fly, [0, 1], [1.1, seat.s])} />
+          </g>
         </>
       )}
       {sweat > 0
-        ? cycles(f, w(10), 10, 26).map(({ k, p }) => <Drop key={k} x={A.x + (k % 2 ? 1 : -1) * (95 + 40 * p) * A.s} y={A.y - 740 * A.s + 160 * p * p} s={0.8} o={(1 - p) * sweat} />)
+        ? cycles(f, w(9), 10, 26).map(({ k, p }) => <Drop key={k} x={A.x + (k % 2 ? 1 : -1) * (95 + 40 * p) * A.s} y={A.y - 740 * A.s + 160 * p * p} s={0.8} o={(1 - p) * sweat} />)
         : null}
     </>
   );
 };
 
-// "Sabah uyanınca, otobüste, işte, gece yatakta... O çocuk hep orada."
+// "Sabah uyanınca, otobüste, işte, gece yatakta... O dambıl hep orada."
 const BoyunGun: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   // her mekân kendi kelimesinde belirir
@@ -3355,7 +3351,7 @@ const BoyunGun: React.FC<SceneProps> = ({ w }) => {
           </g>
         )}
       </g>
-      <AvatarWithKid x={A.x - (seg === 2 ? 120 : 0)} y={A.y} s={A.s} kid={1} mouth={seg === 3 ? "flat" : "worry"} eyes={seg === 0 ? (f < 8 ? "closed" : "open") : "open"} kidEyes={seg === 3 && kidLook ? "closed" : "open"} kidMouth={kidLook ? "grin" : "smile"} blush={0.6} />
+      <AvatarWithDumbbell x={A.x - (seg === 2 ? 120 : 0)} y={A.y} s={A.s} kid={1} mouth={seg === 3 ? "flat" : "worry"} eyes={seg === 0 ? (f < 8 ? "closed" : "open") : "open"} badge={kidLook} blush={0.6} />
     </>
   );
 };
@@ -3381,7 +3377,7 @@ const BoyunKaldirac: React.FC<SceneProps> = ({ w }) => {
         </g>
       ) : null}
       <g transform="translate(200 1330) scale(0.5) translate(-200 -1330)">
-        <AvatarWithKid x={200} y={1330} s={1} kid={1} kidEyes="open" />
+        <AvatarWithDumbbell x={200} y={1330} s={1} kid={1} badge={1} />
       </g>
     </>
   );
@@ -3400,11 +3396,11 @@ const BoyunAltmis: React.FC<SceneProps> = ({ w }) => {
     <g transform={`translate(${shake} 0)`}>
       <NeckLens x={540} y={700} r={320} angle={angle} kg={kg} strain={Math.min(1, kg / 27)} />
       <Counter x={250} y={1170} to={12} suffix=" kg" p={tw(f, w(3), w(5) + 4)} size={90} color={C.red} rotate={-4} />
-      {/* 27 kilo = o çocuk: tartıya çıkar, tartı 27 kg gösterir */}
+      {/* 27 kilo = o dambıl: tartıya düşer, tartı 27 kg gösterir */}
       {reveal ? (
         <g>
           <Bathroom x={780} y={1330} value={`${Math.round(interpolate(kidUp, [0, 1], [0, 27]))}.0 kg`} />
-          <Kid x={780} y={1330 - 58 - 120 * (1 - kidUp) * (1 - kidUp)} s={0.48} badge={1} armL={[150, -20]} armR={[150, -20]} />
+          <NeckDumbbell x={780} y={1330 - 110 - 400 * (1 - kidUp) * (1 - kidUp)} s={1.1} label={kidUp} />
         </g>
       ) : (
         <HandText x={780} y={1250} text="?" size={160} p={pop(f, w(8), 12)} />
@@ -3488,14 +3484,10 @@ const BoyunAsil: React.FC<SceneProps> = ({ w, d }) => {
         <path d={`M0 0 L${Math.sin(spin * 3.3) * 55} ${-Math.cos(spin * 3.3) * 55}`} stroke={C.red} strokeWidth={12} strokeLinecap="round" />
         <circle r={10} fill={C.ink} />
       </g>
-      {/* çocuk omuzda uyuyakalır (hiç inmiyor), avatarın boynu zorlanır */}
-      <AvatarWithKid x={330} y={PY + 40} s={0.85} kid={1} mouth="flat" kidEyes={sleepy ? "closed" : "open"} kidMouth={sleepy ? "o" : "grin"} blush={0.4 + 0.4 * strain} />
+      {/* dambıl saatlerce ensede kalır; avatar giderek çöker, ter damlaları */}
+      <AvatarWithDumbbell x={330} y={PY + 40} s={0.85 * (1 - 0.04 * strain)} kid={1} mouth={sleepy ? "worry" : "flat"} badge={1} blush={0.4 + 0.4 * strain} />
       {sleepy
-        ? cycles(f, w(6), 24, 48).map(({ k, p }) => (
-            <text key={k} x={330 + 80 + 90 * p} y={PY + 40 - 0.85 * 1000 - 120 * p} fontFamily={handFamily} fontWeight={700} fontSize={50 + 30 * p} fill={C.ink} opacity={1 - p}>
-              z
-            </text>
-          ))
+        ? cycles(f, w(6), 12, 30).map(({ k, p }) => <Drop key={k} x={330 + (k % 2 ? 1 : -1) * (90 + 40 * p) * 0.85} y={PY + 40 - 700 * 0.85 + 150 * p * p} s={0.75} o={1 - p} />)
         : null}
       <g transform="translate(790 1060) scale(0.6) translate(-540 -780)">
         <NeckLens x={540} y={780} r={330} angle={55} kg={0} strain={strain} />
@@ -3521,13 +3513,15 @@ const BoyunCozum: React.FC<SceneProps> = ({ w }) => {
   const relief = tw(f, w(10), w(11) + 8);
   const seat = neckSeat(A.x, A.y, A.s);
   const kx = interpolate(hop, [0, 1], [seat.x, 820]);
-  const ky = interpolate(hop, [0, 1], [seat.y, PY]) - Math.sin(hop * Math.PI) * 260;
+  const ky = interpolate(hop, [0, 1], [seat.y, PY - 40]) - Math.sin(hop * Math.PI) * 200;
   return (
     <>
       {hop > 0 ? (
-        <Kid x={kx} y={ky} s={interpolate(hop, [0, 1], [seat.s, 0.45])} armL={hop < 1 ? [160, -10] : [150, -40 + 20 * Math.sin(f / 4)]} armR={hop < 1 ? [160, -10] : [12, 0]} legL={hop < 1 ? { lift: 0.7 } : {}} legR={hop < 1 ? { lift: 0.7 } : {}} />
+        <g transform={`rotate(${-120 * hop} ${kx} ${ky})`}>
+          <NeckDumbbell x={kx} y={ky} s={interpolate(hop, [0, 1], [seat.s, 1.1])} />
+        </g>
       ) : null}
-      <AvatarWithKid x={A.x} y={A.y} s={A.s} kid={hop > 0 ? 0 : 1} arm={arm} mouth={relief > 0.5 ? "grin" : raise > 0.5 ? "smile" : "flat"} lookY={interpolate(raise, [0, 1], [12, 0])} blush={0.4} />
+      <AvatarWithDumbbell x={A.x} y={A.y} s={A.s} kid={hop > 0 ? 0 : 1} arm={arm} mouth={relief > 0.5 ? "grin" : raise > 0.5 ? "smile" : "flat"} lookY={interpolate(raise, [0, 1], [12, 0])} blush={0.4} />
       {/* baş çevirme: avatarın başına küçük dönme okları */}
       {turn !== 0 ? (
         <g opacity={0.8}>
@@ -3546,25 +3540,23 @@ const BoyunCozum: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// "Ama dikkat et, o çocuk geri gelmeyi çok sever. Çünkü..."
-// Çocuk uzaklaşır, durur, sinsice döner ve avatarın yanına gelir; avatar yine telefona bakar = açılış karesi (döngü)
-const BoyunKapanis: React.FC<SceneProps> = ({ w, d }) => {
+// "Ama telefona tekrar baktığın an, o dambıl geri gelir. Çünkü..."
+// Dambıl yerde durur; avatar yeniden telefona bakınca dambıl titremeye başlar = açılış karesi (döngü)
+const BoyunKapanis: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const A = { x: PX - 60, y: PY, s: 0.95 };
-  const away = tw(f, 0, w(2));
-  const back = tw(f, w(5) - 2, d - 6);
-  const kx = back > 0 ? interpolate(back, [0, 1], [1020, KID_START.x]) : interpolate(away, [0, 1], [820, 1020]);
-  const kw = walk(f, (away > 0 && away < 1) || (back > 0 && back < 1) ? 1 : 0, 3.8);
-  const look = tw(f, w(5), w(8));
+  const look = tw(f, w(1), w(4));
   const arm: Arm = [interpolate(look, [0, 1], [120, 40]), -150];
-  const sneaky = back > 0 && back < 1;
+  const wob = f >= w(6) && f < w(9) - 2 ? Math.sin(f / 1.5) * 5 : 0;
   return (
     <>
       <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={arm} mouth={look > 0.5 ? "smile" : "grin"} lookY={interpolate(look, [0, 1], [0, 12])}>
         <PhoneInHand arm={arm} />
       </Person>
-      <Kid x={kx} y={KID_START.y - kw.bob * 0.4} s={0.45} legL={kw.legL} legR={kw.legR} armL={sneaky ? [100, -60] : kw.armL} armR={sneaky ? [100, -60] : kw.armR} mouth={sneaky || back >= 1 ? "grin" : "smile"} lookY={sneaky || back >= 1 ? 0 : -4} tilt={sneaky ? -8 : 0} />
-      {f >= w(1) && f < w(5) ? <HandText x={900} y={960} text="!" size={130} p={pop(f, w(1), 12)} color={C.red} rotate={8} /> : null}
+      <g transform={`rotate(${wob} ${BELL_START.x} ${BELL_START.y})`}>
+        <NeckDumbbell x={BELL_START.x} y={BELL_START.y} s={1.1} />
+      </g>
+      {f >= w(6) && f < w(9) ? <HandText x={900} y={1000} text="!" size={130} p={pop(f, w(6), 12)} color={C.red} rotate={8} /> : null}
     </>
   );
 };
