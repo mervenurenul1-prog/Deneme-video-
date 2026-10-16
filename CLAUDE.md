@@ -21,6 +21,12 @@ Tartı ve takip metinleri `content/uc/uc-02-tarti.json`, `uc-03-takip.json` içi
 stile taşınırken `say`'e dolgu eklenip ses Yunus yapılmalı). Gönderilen dosya 30 MB'ı geçerse ffmpeg ile
 sıkıştır (crf 23-24). Kısa, Türkçe, telefondan okunacak şekilde yaz. "Her zaman daha iyisi olabilir."
 
+**16 Ekim (gece):** 02 tartı yeni stile taşındı: `content/cizim1/cizim1-02-tarti.json` (Yunus, dolgulu `say`) +
+Cizim1.tsx'e `tarti-*` sahneleri (ay/güneş, yemek kulesi, kas içi glikojen+su merceği, tuzluk, takvim/mide/dambıl,
+haftalık grafik, şişen "+1 kg" balonu). O oturumda npm deposuna erişim yoktu: kod **typecheck/render edilmedi**,
+yalnız çalışma dalında. Sıradaki oturum: `npm ci` → `npx tsc --noEmit` → sessiz önizleme render → gönder → main'e
+birleştir. Pilot (01) için ekip geri bildirimi bekleniyor; revize gelirse önce o.
+
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
 değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
