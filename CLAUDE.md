@@ -10,14 +10,15 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
 ## >>> YENİ SOHBET: ÖNCE BUNU OKU (16 Ekim akşam devir notu) <<<
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
-Kalan ElevenLabs kredisi ≈ 15.750 karakter (yalnız Yunus seslendirmesi için kullan).
+Kalan ElevenLabs kredisi ≈ 15.585 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
 - **04 v5 (16 Ekim akşam, EN GÜNCEL):** Kullanıcı: "anlatıyorsun ama görsele kötü döküyorsun" + "104 nereden çıktı?" +
   "40 sn olsun, kısaltacağım diye bilgileri saçma sapan koyma". Hikâye 104'ü açıklıyor: kanca "Ağırlık kaldırırsan iri
   olur musun? Bu soru yüzünden kadınlar yüz dört yıl bekletildi." → 1896 erkekler kaldırdı, kadınlara "iri olursunuz"
   dendi (kırmızı tabela) → 2000 ip kopar, tartı titrer "ilk final kaç kiloydu?" → 48 → testosteron (iki kas
   büyüteci, 10:1) → kemik (8 ay) → "Sen bekleme" (avatar öne gelip dambıl uzatır) → "kırk sekiz kiloyu hatırla" (döngü).
-  Bileşenler `kadin5-*` (Cizim1.tsx), 42,6 sn sessiz önizleme gönderildi → onay → seslendirme (~600 karakter).
+  Bileşenler `kadin5-*` (Cizim1.tsx). **ONAYLANDI ve seslendirildi** (Yunus V4, 172 karakter düştü; kalan ≈ 15.585):
+  `ornek-videolar/cizim1-pilot/04-kadin-agirlik.mp4` (41,3 sn, SON HÂLİ). Sıradaki: 05 boyun baştan (önce sessiz önizleme).
   **KURALLAR:** her sahnede ortada tek büyük olay, karakterin vücudunda; sayı/olay havada kalmasın (nereden çıktığı
   anlatılsın); her cümle bir merak açsın; süre için bilgi kırpma (~40 sn olur).
 - **04 KISALTILDI (16 Ekim 17:30, ekip: "izlerken sıkıldık"):** 52 sn → **35 sn**, 7 sahne: kanca (aynı) → 104 yıl

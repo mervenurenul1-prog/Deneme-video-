@@ -4462,10 +4462,10 @@ const Kadin5Hormon: React.FC<SceneProps> = ({ w }) => {
 // Kadının arkasında takvim kulesi yükselir; "Sen"de avatar öne, izleyiciye gelir ve dambılı uzatır.
 const Kadin5Mesaj: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const grow = tw(f, 0, w(3) + 6);
+  const grow = tw(f, 0, w(2) + 6);
   const pages = Math.floor(24 * grow);
-  const come = tw(f, w(4) - 4, w(4) + 12);
-  const reach = tw(f, w(5) - 4, w(5) + 10);
+  const come = tw(f, w(3), w(4) + 4);
+  const reach = tw(f, w(4) + 2, w(5) + 6);
   const arm: Arm = [interpolate(reach, [0, 1], [12, 70]), interpolate(reach, [0, 1], [0, -30])];
   const hand = armPoints(1, arm)[2];
   return (
