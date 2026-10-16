@@ -106,6 +106,9 @@ soracak:" → "Beş kilo verdin..."). 01, 02, 03 döngülü.
 (`Gym`), röntgen kemik merceği (`Bones`), test tüpü (`Flask`). Sessiz önizleme gönderildi
 (`ornek-videolar/cizim1-pilot/04-kadin-agirlik-sessiz.mp4`), **onay bekleniyor → sonra kredi kontrol + seslendirme**.
 Sıradaki konu: 7) ertesi gün ağrımıyorsa antrenman boşa mı gitti?
+**04 güncellendi (kullanıcı 4A):** serinin ERKEK avatarı her sahnede ana karakter, kadınlar yan karakter (kadın konuları
+için de avatar sahnede olur). Müzik için 2 alternatif gönderildi (`muzik-uretim/13-belgesel-sicak`, `14-modern-merak`),
+kullanıcı dinleyip seçecek. Yeni konu adayları sunuldu, seçim bekleniyor.
 **Kullanıcı: "Kendi kafana göre iş yapma, sor."** Yapılacak işi söyle, onay al.
 **Referans analiz (kullanıcının gönderdiği tutan 2 Instagram videosu):** ters köşe açılış (ilk 3 sn) → neden-sonuç
 zinciri → sonda sürpriz bilgi → başa bağlanan döngü; tek tutarlı dünya (kart/grafik az); mekanizmada vücudun içine

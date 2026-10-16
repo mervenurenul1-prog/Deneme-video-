@@ -2742,7 +2742,8 @@ const curlArm = (c: number): Arm => [12 + 22 * c, -150 * c];
 // "\"Ağırlık kaldırırsam iri olurum.\" Bunu diyen çok kadın var. Ama vücudun buna pek izin vermez."
 const KadinAcilis: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const bubble = pop(f, w(0) - 2, 16);
+  // balon ilk karede görünmesin (döngüde son kare = ilk kare temiz kalsın)
+  const bubble = pop(f, Math.max(5, w(0) + 2), 16);
   const burst = tw(f, w(13) - 2, w(13) + 6);
   const worry = f >= w(1) && burst < 0.5;
   const shake = f >= w(9) && burst === 0 ? Math.sin(f / 1.8) * 5 : 0;
@@ -2750,17 +2751,29 @@ const KadinAcilis: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <Gym />
-      <Barbell x={760} y={PY - 70} s={0.62} />
+      <Barbell x={650} y={PY - 60} s={0.5} />
       {/* "bunu diyen çok kadın": arka planda başka kadınlar da aynı düşünceyle belirir */}
       {[0, 1].map((i) => (
         <g key={i} opacity={others * (1 - burst) * 0.75}>
-          <Person x={i ? 960 : 120} y={1220} s={0.42} female belly={0.2} shirt={i ? "#6e8fb3" : "#9a7bb0"} mouth="worry" lookY={-4} />
+          <Person x={i ? 1010 : 70} y={1220} s={0.42} female belly={0.2} shirt={i ? "#6e8fb3" : "#9a7bb0"} mouth="worry" lookY={-4} />
         </g>
       ))}
+      {/* serinin avatarı: kadının korkusunu dinler, "izin vermez" deyince gülümser */}
       <Person
-        x={PX - 140}
+        x={PX - 160}
         y={PY}
         s={0.92}
+        belly={0.4}
+        armL={[12, 0]}
+        armR={burst > 0.5 ? [140, -60] : [12, 0]}
+        mouth={burst > 0.5 ? "grin" : f >= w(9) ? "smile" : "flat"}
+        lookY={2}
+        tilt={f < w(9) ? 6 : 0}
+      />
+      <Person
+        x={830}
+        y={PY + 20}
+        s={0.72}
         female
         belly={0.2}
         armL={[12, 0]}
@@ -2768,20 +2781,20 @@ const KadinAcilis: React.FC<SceneProps> = ({ w }) => {
         mouth={burst > 0.5 ? "grin" : worry ? "worry" : "flat"}
         eyes={worry ? "wide" : "open"}
         lookY={4}
-        tilt={worry ? -6 : 0}
+        tilt={worry ? 6 : 0}
       />
       {bubble > 0 && burst < 1 ? (
-        <g transform={`rotate(${shake} 640 560) translate(640 560) scale(${1 + 0.4 * burst}) translate(-640 -560)`} opacity={1 - burst}>
-          <Bubble x={640} y={560} rx={230} ry={190} p={bubble} tail={[480, 820]}>
+        <g transform={`rotate(${shake} 690 520) translate(690 520) scale(${1 + 0.4 * burst}) translate(-690 -520)`} opacity={1 - burst}>
+          <Bubble x={690} y={520} rx={220} ry={180} p={bubble} tail={[810, 780]}>
             {/* korkulan görüntü: iri kollu, iri bacaklı kadın */}
-            <Person x={640} y={700} s={0.3} female belly={0.15} limbW={2.3} armL={[60, -120]} armR={[60, -120]} mouth="flat" />
+            <Person x={690} y={655} s={0.3} female belly={0.15} limbW={2.3} armL={[60, -120]} armR={[60, -120]} mouth="flat" />
           </Bubble>
         </g>
       ) : null}
       {burst > 0 && burst < 1
         ? Array.from({ length: 10 }, (_, i) => {
             const a = (i / 10) * Math.PI * 2;
-            return <circle key={i} cx={640 + Math.cos(a) * (200 + 160 * burst)} cy={560 + Math.sin(a) * (160 + 140 * burst)} r={14 * (1 - burst)} fill={C.cream} stroke={C.ink} strokeWidth={4} />;
+            return <circle key={i} cx={690 + Math.cos(a) * (190 + 160 * burst)} cy={520 + Math.sin(a) * (150 + 140 * burst)} r={14 * (1 - burst)} fill={C.cream} stroke={C.ink} strokeWidth={4} />;
           })
         : null}
     </>
@@ -2836,10 +2849,11 @@ const KadinKas: React.FC<SceneProps> = ({ w }) => {
       <Gym />
       {ghost > 0 ? (
         <g opacity={0.45 * ghost}>
-          <Person x={850} y={PY} s={0.62} female belly={0.15} limbW={2.2} armL={[40, -120]} armR={[40, -120]} mouth="flat" />
+          <Person x={895} y={PY} s={0.56} female belly={0.15} limbW={2.2} armL={[40, -120]} armR={[40, -120]} mouth="flat" />
         </g>
       ) : null}
-      <Person x={PX - 120} y={PY} s={s} female belly={0.15} limbW={grow} armL={[12, 0]} armR={arm} mouth={tone > 0.5 ? "grin" : "flat"} eyes={c > 0.8 ? "closed" : "open"}>
+      <Person x={190} y={PY + 30} s={0.7} belly={0.4} armL={[12, 0]} armR={[95, -25]} mouth={tone > 0.5 ? "grin" : "smile"} lookY={0} />
+      <Person x={560} y={PY} s={s * 0.92} female belly={0.15} limbW={grow} armL={[12, 0]} armR={arm} mouth={tone > 0.5 ? "grin" : "flat"} eyes={c > 0.8 ? "closed" : "open"}>
         <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${-20 + 60 * c})`}>
           <Dumbbell x={0} y={0} s={0.55} rot={90} />
         </g>
@@ -2852,7 +2866,7 @@ const KadinKas: React.FC<SceneProps> = ({ w }) => {
             })
           : null}
       </Person>
-      {ghost > 0 ? <Cross x={850} y={PY - 270} size={150} p={tw(f, w(11) - 2, w(11) + 12)} /> : null}
+      {ghost > 0 ? <Cross x={895} y={PY - 240} size={140} p={tw(f, w(11) - 2, w(11) + 12)} /> : null}
     </>
   );
 };
@@ -2871,6 +2885,8 @@ const KadinSahne: React.FC<SceneProps> = ({ w }) => {
       <ellipse cx={540} cy={1260} rx={320} ry={50} fill="#fff3c8" opacity={0.35 * light} />
       <rect x={180} y={1260} width={720} height={70} rx={10} fill="#6b4a2e" stroke={C.ink} strokeWidth={8} opacity={light} />
       <Person x={540} y={1262} s={0.8} female belly={0} limbW={1.8} shirt="#c9566b" armL={[95, -150]} armR={[95, -150]} mouth="grin" />
+      {/* avatar seyircilerin arasında, sahneye bakıyor */}
+      <Person x={150} y={1560} s={0.62} belly={0.4} armL={[12, 0]} armR={[12, 0]} mouth={f >= w(5) ? "smile" : "o"} eyes={f < w(5) ? "wide" : "open"} lookY={-8} tilt={-8} />
       {/* arka planda: yıllar (takvim yaprakları), program, diyet */}
       {pages > 0 ? (
         <g transform="translate(180 470)">
@@ -2915,12 +2931,13 @@ const KadinSahne: React.FC<SceneProps> = ({ w }) => {
 const KadinKemik: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const L = { x: 690, y: 820, r: 270 };
-  const person = { x: 250, y: PY, s: 0.82 };
+  const person = { x: 330, y: PY, s: 0.78 };
   const open = tw(f, w(1) - 2, w(1) + 12);
   const porous = tw(f, w(3), d - 6, 0.05, 0.85);
   const H = { x: person.x, y: person.y - 330 * person.s };
   return (
     <>
+      <Person x={110} y={PY + 40} s={0.6} belly={0.4} armL={[12, 0]} armR={[100, -30]} mouth={porous > 0.4 ? "worry" : "o"} eyes={porous > 0.4 ? "wide" : "open"} />
       <Person x={person.x} y={person.y} s={person.s} female belly={0.2} armL={[12, 0]} armR={[12, 0]} mouth={porous > 0.4 ? "worry" : "o"} lookY={4} />
       <g opacity={1 - tw(f, w(1) + 2, w(1) + 12)}>
         <MysteryBox x={L.x} y={L.y + 60} s={1.2} p={pop(f, 0, 12)} open={tw(f, w(1) - 2, w(1) + 8)} rays={false} shake={f < w(1) - 2 ? Math.sin(f / 2.4) * 6 : 0} />
@@ -2949,17 +2966,18 @@ const KadinKemik: React.FC<SceneProps> = ({ w, d }) => {
 // "Bir araştırmada ağır kaldıran kadınların omurga ve kalça kemik yoğunluğu sekiz ayda arttı."
 const KadinArastirma: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const L = { x: 720, y: 760, r: 250 };
+  const L = { x: 770, y: 760, r: 240 };
   const lift = (1 - Math.cos(f / 9)) / 2;
   const porous = tw(f, w(4), w(12), 0.85, 0.05);
   const glow = tw(f, w(9), w(12) + 6);
   const s = 0.82;
-  const px = 270;
+  const px = 380;
   const barY = PY - 250 * s - 120 * s * lift;
   const lens = tw(f, w(4) - 4, w(4) + 10);
   return (
     <>
       <Gym o={0.7} />
+      <Person x={110} y={PY + 40} s={0.6} belly={0.4} armL={glow > 0.3 ? [160, -10] : [12, 0]} armR={glow > 0.3 ? [160, -10] : [12, 0]} mouth={glow > 0.3 ? "grin" : "smile"} />
       <Person x={px} y={PY + 6 * (1 - lift)} s={s} female belly={0.15} armL={[6, 0]} armR={[6, 0]} mouth={lift > 0.6 ? "flat" : "o"} eyes={lift > 0.7 ? "closed" : "open"} />
       <Barbell x={px} y={barY} s={0.55} />
       {lens > 0 ? (
@@ -2967,7 +2985,7 @@ const KadinArastirma: React.FC<SceneProps> = ({ w }) => {
           <Bones x={L.x} y={L.y} r={L.r} porous={porous} glow={glow} />
         </g>
       ) : null}
-      <HandText x={720} y={1130} text="8 ay" size={130} p={tw(f, w(10) - 2, w(11) + 6)} color={C.red} rotate={-4} />
+      <HandText x={760} y={1130} text="8 ay" size={130} p={tw(f, w(10) - 2, w(11) + 6)} color={C.red} rotate={-4} />
       <Arrow d="M880 1100 L880 940" p={tw(f, w(12) - 2, w(12) + 8)} color="#3f7d4f" w={14} />
       <Arrow d="M850 975 L880 935 L910 975" p={tw(f, w(12) + 4, w(12) + 10)} color="#3f7d4f" w={14} />
       {cycles(f, w(9), 12, 30).map(({ k, p }) => (
@@ -2994,6 +3012,7 @@ const KadinSonuc: React.FC<SceneProps> = ({ w }) => {
         </g>
       ) : null}
       {ghost > 0 ? <Cross x={860} y={PY - 240} size={130} p={tw(f, w(4) - 2, w(4) + 10)} /> : null}
+      <Person x={130} y={PY + 40} s={0.58} belly={0.4} armL={up > 0.5 ? [140, -60] : [12, 0]} armR={[12, 0]} mouth={up > 0.5 ? "grin" : "smile"} />
       {up > 0.3 ? <ellipse cx={PX - 60} cy={PY - 420} rx={260 * up} ry={420 * up} fill={C.yellow} opacity={0.18 * up} filter="url(#glow)" /> : null}
       <Person x={PX - 60} y={PY - 10 * up} s={s} female belly={0.15} armL={[12 + 160 * up, -10 * up]} armR={armUp} mouth={up > 0.5 ? "grin" : "smile"}>
         {up > 0 ? (
@@ -3016,14 +3035,14 @@ const KadinKapanis: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <Gym />
-      <Barbell x={760} y={PY - 70} s={0.62} />
-      <Person x={PX - 140} y={PY} s={0.92} female belly={0.2} armL={[12, 0]} armR={[14 + 120 * tw(f, w(1), w(1) + 8), -60 * tw(f, w(1), w(1) + 8)]} mouth="grin" />
+      <Barbell x={650} y={PY - 60} s={0.5} />
+      <Person x={PX - 160} y={PY} s={0.92} belly={0.4} armL={[12, 0]} armR={[14 + 120 * tw(f, w(1), w(1) + 8), -60 * tw(f, w(1), w(1) + 8)]} mouth="grin" />
       <SaveMark x={230} y={560} p={save} />
       {friend > 0 ? (
-        <Person x={interpolate(friend, [0, 1], [1250, 900])} y={PY + 40 - fw.bob} s={0.66} female belly={0.3} shirt="#6e8fb3" legL={fw.legL} legR={fw.legR} armL={fw.armL} armR={fw.armR} mouth={ask > 0.5 ? "o" : "smile"} lookY={-4} />
+        <Person x={interpolate(friend, [0, 1], [1250, 860])} y={PY + 20 - fw.bob} s={0.72} female belly={0.2} legL={fw.legL} legR={fw.legR} armL={fw.armL} armR={fw.armR} mouth={ask > 0.5 ? "o" : "smile"} lookY={-4} />
       ) : null}
-      <Bubble x={820} y={560} rx={170} ry={120} p={ask} tail={[880, 820]}>
-        <text x={820} y={605} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={C.ink}>
+      <Bubble x={760} y={540} rx={170} ry={120} p={ask} tail={[840, 780]}>
+        <text x={760} y={585} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={C.ink}>
           ?
         </text>
       </Bubble>
