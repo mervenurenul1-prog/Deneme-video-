@@ -397,6 +397,13 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "boyun2-hook": (w) => [[w(2) - 2, "pop", 0.35], [w(5), "bip", 0.3], [w(10) - 2, "havalanma", 0.5], [w(11) + 4, "agir-dusme", 0.6]],
+  "boyun2-2008": (w) => [[2, "kalem", 0.35], [w(9) - 2, "pop", 0.3], [w(14) - 2, "boom", 0.18], [w(14), "pop", 0.4]],
+  "boyun2-hesap": (w) => [[2, "kalem", 0.3], [w(7), "tak", 0.25], [w(8), "tak", 0.25], [w(9), "tak", 0.25], [w(10), "agir-dusme", 0.3], [w(13), "ding", 0.35]],
+  "boyun2-soru": (w) => [[w(2) - 2, "pop", 0.35], [w(7) - 2, "sihir", 0.4]],
+  "boyun2-bag": (w) => [[w(5) - 4, "zincir", 0.35], [w(8), "cizik", 0.4], [w(8) + 4, "zincir", 0.4], [w(9), "pop", 0.3]],
+  "boyun2-hareket": (w) => [[w(3) - 4, "yuksel", 0.3], [w(5) - 2, "sihir", 0.4], [w(7), "whoosh", 0.3], [w(9), "whoosh", 0.3], [w(10), "pirilti", 0.4]],
+  "boyun2-kapanis": (w) => [[w(1), "havalanma", 0.3], [w(2) - 2, "pop", 0.3], [w(10) - 2, "pop", 0.3]],
   "boyun-acilis": (w) => [...every(4, w(2), 4, "tak", 0.18), [w(2) - 2, "havalanma", 0.7], [w(3) + 2, "agir-dusme", 0.9], [w(4) - 2, "pop", 0.45], [w(9) - 2, "damla", 0.3], [w(9) + 8, "damla", 0.25]],
   "boyun-gun": (w) => [[2, "alarm", 0.55], [w(2) - 2, "whoosh", 0.3], [w(2) - 2, "otobus", 0.55], [w(3) - 2, "whoosh", 0.25], [w(3), "klavye", 0.5], [w(4) - 2, "whoosh", 0.25], [w(4), "sonme", 0.2], [w(6), "agir-dusme", 0.35]],
   "boyun-kaldirac": (w) => [[0, "whoosh", 0.3], ...ticks(w(1), w(3) + 4, 4, 0.22), [w(3) + 4, "bip", 0.4], ...every(w(6), w(13) + 6, 6, "tik", 0.16), [w(11) - 2, "pop", 0.4], [w(11) + 4, "tak", 0.4]],
@@ -555,6 +562,13 @@ const ZOOM: Record<string, Zoom> = {
   "kadin-104": { to: 1.05, x: 600, y: 900 },
   "kadin-dongu2": { to: 1.03, x: 540, y: 900 },
   "kadin-kemik3": { to: 1.05, x: 600, y: 900 },
+  "boyun2-hook": { to: 1.04, x: 480, y: 800 },
+  "boyun2-2008": { to: 1.04, x: 600, y: 800 },
+  "boyun2-hesap": { to: 1.04, x: 560, y: 800 },
+  "boyun2-soru": { to: 1.05, x: 540, y: 900 },
+  "boyun2-bag": { to: 1.05, x: 540, y: 800 },
+  "boyun2-hareket": { to: 1.04, x: 540, y: 900 },
+  "boyun2-kapanis": { to: 1.0, x: 540, y: 960 },
   "kadin5-hook": { to: 1.05, x: 600, y: 900 },
   "kadin5-1896": { to: 1.05, x: 540, y: 900 },
   "kadin5-2000": { to: 1.05, x: 540, y: 1000 },
@@ -4491,7 +4505,301 @@ const Kadin5Mesaj: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 05 v2: "başın kaç kilo?" — text neck hikâyesi ---------- */
+
+const B2A = { x: PX - 60, y: PY, s: 0.95 }; // açılış ve kapanış: avatar telefona bakar, dambıl yanında yerde (döngü karesi)
+
+// Başın üstünde dijital kilo ekranı
+const KgDisplay: React.FC<{ x: number; y: number; p: number; value: string; color?: string }> = ({ x, y, p, value, color = "#9fe0a8" }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`}>
+      <path d="M0 70 L0 120" stroke={C.ink} strokeWidth={8} strokeDasharray="10 8" />
+      <rect x={-190} y={-80} width={380} height={150} rx={22} fill="#dcd6c8" stroke={C.ink} strokeWidth={9} />
+      <rect x={-150} y={-56} width={300} height={104} rx={12} fill="#26332b" stroke={C.ink} strokeWidth={6} />
+      <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={84} fill={color}>
+        {value}
+      </text>
+    </g>
+  ) : null;
+
+// Hansraj (2014) modeline göre açıya bağlı yük (kg): 0° 5, 15° 12, 30° 18, 45° 22, 60° 27
+const neckKg = (deg: number) => interpolate(deg, [0, 15, 30, 45, 60], [5, 12, 18, 22, 27], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+// "Telefona baktığında başın kaç kilo? Beş mi? Bir hesaba göre yirmi yedi."
+const Boyun2Hook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const A = B2A;
+  const disp = pop(f, w(2) - 2, 12);
+  const guess = f >= w(7) - 2 && f < w(10);
+  const value = f < w(5) - 1 ? "?? kg" : f < w(7) - 2 ? "5 kg" : guess ? `${5 + Math.floor(random(`b2${Math.floor(f / 3)}`) * 30)} kg` : "27 kg";
+  const red = f >= w(10);
+  const wobble = f < w(10) ? Math.sin(f / 1.5) * 4 * tw(f, w(7), w(9)) : 0;
+  const fly = tw(f, w(10), w(11) + 4);
+  const landed = fly >= 1;
+  const squash = landed ? 1 - 0.06 * Math.exp(-(f - w(11) - 4) / 6) - 0.02 : 1;
+  const seat = neckSeat(A.x, A.y, A.s * squash);
+  const dx = interpolate(fly, [0, 1], [BELL_START.x, seat.x]);
+  const dy = interpolate(fly, [0, 1], [BELL_START.y, seat.y]) - Math.sin(fly * Math.PI) * 300;
+  return (
+    <>
+      {landed ? (
+        <AvatarWithDumbbell x={A.x} y={A.y} s={A.s * squash} kid={1} mouth="worry" eyes="wide" blush={0.8} />
+      ) : (
+        <>
+          <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth={f >= w(5) - 1 && f < w(7) ? "o" : "smile"} lookY={12}>
+            <PhoneInHand arm={PHONE_ARM} />
+          </Person>
+          <g transform={`rotate(${wobble + 200 * fly} ${dx} ${dy})`}>
+            <NeckDumbbell x={dx} y={dy} s={interpolate(fly, [0, 1], [1.1, seat.s])} />
+          </g>
+        </>
+      )}
+      <KgDisplay x={A.x} y={A.y - 900 * A.s} p={disp} value={value} color={red ? "#ff8a7a" : "#9fe0a8"} />
+    </>
+  );
+};
+
+// "İki bin sekizde bir kayropraktör, telefona eğilen bir gencin boyun röntgenine bu adı verdi: text neck."
+const Boyun2_2008: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bend = tw(f, w(5), w(6) + 8);
+  const lens = pop(f, w(9) - 2, 14);
+  const stamp = pop(f, w(14) - 2, 10);
+  const shake = stamp > 0 && f < w(14) + 12 ? Math.sin(f * 1.7) * 5 : 0;
+  return (
+    <>
+      <Gym o={0.4} />
+      <HandText x={540} y={250} text="2008" size={170} p={tw(f, 0, w(2) + 4)} rotate={-4} />
+      {/* telefona eğilen genç */}
+      <Person x={250} y={PY + 60} s={0.72} belly={0.25} shirt="#c9566b" armL={[12, 0]} armR={PHONE_ARM} mouth="flat" lookY={4 + 12 * bend} tilt={8 * bend}>
+        <PhoneInHand arm={PHONE_ARM} />
+      </Person>
+      {/* röntgen: gencin boynu */}
+      {lens > 0 ? (
+        <g transform={`translate(700 760) scale(${lens}) translate(-700 -760)`}>
+          <NeckLens x={700} y={760} r={290} angle={45 * bend} kg={0} strain={0.3 * bend} />
+        </g>
+      ) : null}
+      {/* avatar izliyor */}
+      <Person x={830} y={PY + 330} s={0.55} belly={0.4} armL={[12, 0]} armR={[12, 0]} mouth={stamp > 0.5 ? "o" : "smile"} eyes={stamp > 0.5 ? "wide" : "open"} lookY={-8} />
+      <g transform={`rotate(${shake} 700 1100)`}>
+        <SignBoard x={700} y={1130} p={stamp * 0.85} lines={["TEXT NECK"]} rot={-5} />
+      </g>
+    </>
+  );
+};
+
+// "Altı yıl sonra bir cerrah hesapladı: baş altmış derece eğilince boyna binen yük yirmi yedi kilo."
+const Boyun2Hesap: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const angle = interpolate(f, [w(6) - 4, w(7), w(8), w(9), w(10)], [0, 15, 30, 45, 60], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const kg = neckKg(angle);
+  const big = pop(f, w(13) - 2, 14);
+  const A = { x: 230, y: PY + 250, s: 0.62 };
+  const seat = neckSeat(A.x, A.y, A.s);
+  return (
+    <>
+      <Gym o={0.4} />
+      <HandText x={540} y={200} text="2014" size={130} p={tw(f, 0, w(1) + 4)} rotate={-4} color={C.red} />
+      <NeckLens x={560} y={720} r={330} angle={angle} kg={kg} strain={(kg - 5) / 22} />
+      <KgDisplay x={820} y={1180} p={pop(f, w(6) - 6, 12) * 0.9} value={`${Math.round(kg)} kg`} color={kg > 20 ? "#ff8a7a" : "#9fe0a8"} />
+      {/* avatar: ensesindeki dambıl yükle büyür */}
+      <g>
+        <NeckDumbbell x={seat.x} y={seat.y} s={seat.s * (0.35 + 0.65 * ((kg - 5) / 22))} />
+        <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth={kg > 20 ? "worry" : "flat"} lookY={6 + angle / 6} blush={0.4 + kg / 50}>
+          <PhoneInHand arm={PHONE_ARM} />
+        </Person>
+      </g>
+      {big > 0 ? <Counter x={760} y={1500} to={27} suffix=" kg" p={tw(f, w(13) - 2, w(15) + 2)} size={180} color={C.red} rotate={-5} /> : null}
+    </>
+  );
+};
+
+// "Peki boynun bu yüzden mi ağrıyor? İşte sürpriz:"
+const Boyun2Soru: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const A = { x: 330, y: PY, s: 0.9 };
+  const pain = tw(f, w(1), w(5));
+  const open = tw(f, w(7) - 2, w(7) + 10);
+  const arm: Arm = [interpolate(pain, [0, 1], [40, 150]), interpolate(pain, [0, 1], [-150, -120])];
+  return (
+    <>
+      <Gym />
+      <AvatarWithDumbbell x={A.x} y={A.y} s={A.s} kid={1} arm={arm} phone={pain < 0.3} mouth="worry" eyes={pain > 0.5 ? "closed" : "open"} lookY={6} />
+      {pain > 0
+        ? [0, 1, 2].map((i) => (
+            <path key={i} d={`M${A.x + 100 + i * 10} ${A.y - 610 + i * 40} l40 -20 l-20 30 l40 -20`} stroke={C.red} strokeWidth={8} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={pain * (0.6 + 0.4 * Math.sin(f / 3 + i))} />
+          ))
+        : null}
+      <MysteryBox x={800} y={900} s={1.4} p={pop(f, w(2) - 2, 12)} open={open} shake={f < w(7) - 2 ? Math.sin(f / 2.2) * 6 : 0} />
+    </>
+  );
+};
+
+// Duruş ↔ ağrı arasındaki zincir; snap 0..1 koparır
+const Chain: React.FC<{ x1: number; x2: number; y: number; snap: number; p: number }> = ({ x1, x2, y, snap, p }) => {
+  const n = 9;
+  return (
+    <g opacity={p}>
+      {Array.from({ length: n }, (_, i) => {
+        const t = (i + 0.5) / n;
+        const cx = x1 + (x2 - x1) * t;
+        const side = t < 0.5 ? -1 : 1;
+        const mid = 1 - Math.abs(t - 0.5) * 2;
+        const fall = snap * mid;
+        return (
+          <ellipse
+            key={i}
+            cx={cx + side * 60 * fall}
+            cy={y + 400 * fall * fall}
+            rx={34}
+            ry={20}
+            fill="none"
+            stroke="#8a8f99"
+            strokeWidth={10}
+            transform={`rotate(${(i % 2 ? 90 : 0) + side * 120 * fall} ${cx + side * 60 * fall} ${y + 400 * fall * fall})`}
+            opacity={1 - 0.7 * fall}
+          />
+        );
+      })}
+    </g>
+  );
+};
+
+// "Araştırmalar bu duruşla boyun ağrısı arasında net bir bağ bulamadı."
+const Boyun2Bag: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const cards = pop(f, 0, 12);
+  const chain = tw(f, w(5) - 4, w(5) + 6);
+  const scan = tw(f, w(0), w(8));
+  const snap = tw(f, w(8), w(9) + 10);
+  const L = { x: 230, y: 760 };
+  const R = { x: 850, y: 760 };
+  return (
+    <>
+      <Gym o={0.4} />
+      {/* duruş: telefona eğilen baş */}
+      <g transform={`translate(${L.x} ${L.y}) scale(${cards})`}>
+        <circle r={150} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+        <Person x={0} y={120} s={0.32} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth="flat" lookY={14} tilt={10}>
+          <PhoneInHand arm={PHONE_ARM} />
+        </Person>
+        <text x={0} y={210} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={60} fill={C.ink}>
+          duruş
+        </text>
+      </g>
+      {/* ağrı: kırmızı şimşek */}
+      <g transform={`translate(${R.x} ${R.y}) scale(${cards})`}>
+        <circle r={150} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+        <path d="M-20 -90 L40 -10 L0 -10 L30 90 L-50 0 L-10 0 Z" fill={C.red} stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+        <text x={0} y={210} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={60} fill={C.ink}>
+          ağrı
+        </text>
+      </g>
+      <Chain x1={L.x + 150} x2={R.x - 150} y={L.y} snap={snap} p={chain} />
+      {/* araştırmalar: büyüteç zinciri tarar */}
+      {snap < 1 ? (
+        <g transform={`translate(${interpolate(scan, [0, 1], [250, 830])} ${L.y - 230}) rotate(-20)`} opacity={1 - snap}>
+          <circle r={70} fill="#cfe6f2" fillOpacity={0.35} stroke={C.ink} strokeWidth={10} />
+          <path d="M50 50 L120 120" stroke={C.ink} strokeWidth={18} strokeLinecap="round" />
+        </g>
+      ) : null}
+      {snap > 0.3 ? <HandText x={540} y={1120} text="net bağ yok" size={110} p={tw(f, w(9) - 2, w(9) + 14)} color={C.red} rotate={-4} /> : null}
+      <Person x={540} y={PY + 330} s={0.6} belly={0.4} armL={snap > 0.5 ? [150, -30] : [12, 0]} armR={snap > 0.5 ? [150, -30] : [12, 0]} mouth={snap > 0.5 ? "o" : "flat"} eyes={snap > 0.5 ? "wide" : "open"} lookY={-8} />
+    </>
+  );
+};
+
+// Örümcek ağı (köşeden yayılır), p: büyüme
+const Cobweb: React.FC<{ x: number; y: number; r: number; p: number; flip?: boolean }> = ({ x, y, r, p, flip }) => {
+  if (p <= 0) return null;
+  const k = flip ? -1 : 1;
+  const rays = [0, 22, 45, 68, 90].map((a) => (a * Math.PI) / 180);
+  return (
+    <g stroke="#f4efe2" strokeWidth={4} fill="none" opacity={0.85 * p}>
+      {rays.map((a, i) => (
+        <path key={i} d={`M${x} ${y} L${x + k * Math.cos(a) * r * p} ${y + Math.sin(a) * r * p}`} />
+      ))}
+      {[0.35, 0.6, 0.85].map((t, j) => (
+        <path key={j} d={rays.map((a, i) => `${i ? "L" : "M"}${x + k * Math.cos(a) * r * t * p} ${y + Math.sin(a) * r * t * p}`).join(" ")} />
+      ))}
+    </g>
+  );
+};
+
+// "Sorun eğilmek değil, saatlerce kıpırdamamak. En iyi duruş, bir sonraki duruşun."
+const Boyun2Hareket: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const A = { x: 520, y: PY, s: 0.95 };
+  const freeze = tw(f, w(3) - 2, w(4) + 6);
+  const free = tw(f, w(5) - 2, w(5) + 8);
+  const web = freeze * (1 - free);
+  const gray = web;
+  // duruş sırası: telefonu göz hizasına kaldır → başı çevir → gerin
+  const pose = f < w(7) ? 0 : f < w(9) ? 1 : 2;
+  const arm: Arm = pose === 0 ? PHONE_ARM : pose === 1 ? [150, -70] : [170, -10];
+  const armL: Arm = pose === 2 ? [170, -10] : [12, 0];
+  const load = 1 - tw(f, w(5), w(10) + 6);
+  const seat = neckSeat(A.x, A.y, A.s);
+  const clock = tw(f, w(3) - 4, w(4) + 6);
+  return (
+    <>
+      <Gym />
+      <g transform="translate(860 420)">
+        <circle r={110} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+        <path d={`M0 0 L${Math.sin(clock * 40) * 80} ${-Math.cos(clock * 40) * 80}`} stroke={C.ink} strokeWidth={9} strokeLinecap="round" />
+        <path d={`M0 0 L${Math.sin(clock * 4) * 55} ${-Math.cos(clock * 4) * 55}`} stroke={C.red} strokeWidth={11} strokeLinecap="round" />
+      </g>
+      {load > 0.02 ? <NeckDumbbell x={seat.x} y={seat.y} s={seat.s * (0.3 + 0.7 * load)} /> : null}
+      <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={armL} armR={arm} mouth={pose === 2 ? "grin" : free > 0.5 ? "smile" : "flat"} eyes={web > 0.5 ? "closed" : "open"} lookY={pose === 0 ? 12 : pose === 1 ? -6 : -10} tilt={pose === 1 ? Math.sin((f - w(7)) / 6) * 10 : 0}>
+        {pose < 2 ? <PhoneInHand arm={arm} /> : null}
+      </Person>
+      {gray > 0 ? <rect x={0} y={0} width={1080} height={1920} fill="#6d6a66" opacity={0.18 * gray} /> : null}
+      <Cobweb x={A.x - 300} y={A.y - 820} r={260} p={web} />
+      <Cobweb x={A.x + 300} y={A.y - 820} r={220} p={web} flip />
+      {free > 0 && free < 1 ? <Star x={A.x} y={A.y - 900} r={50 * free} rot={f * 8} /> : null}
+      {pose === 2 ? [0, 1, 2].map((i) => <Star key={i} x={A.x + (i - 1) * 220} y={A.y - 1000 + (i % 2) * 60} r={24} rot={f * 5} />) : null}
+      <HandText x={540} y={1660} text="bir sonraki duruş" size={96} p={tw(f, w(8) - 2, w(10) + 4)} color={C.red} rotate={-3} />
+    </>
+  );
+};
+
+// "Yani o yirmi yedi kilo seni korkutmasın. Ama telefona bakarken başın kaç kilo, artık biliyorsun."
+// Dambıl yere iner (açılıştaki yerine), avatar gülümser; "Ama telefona"da yine telefona bakar → son kare = açılış karesi
+const Boyun2Kapanis: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const A = B2A;
+  const label = pop(f, w(2) - 2, 12) * (1 - tw(f, w(6), w(6) + 8));
+  const look = tw(f, w(7) - 2, w(8) + 4);
+  const arm: Arm = [interpolate(look, [0, 1], [12, PHONE_ARM[0]]), interpolate(look, [0, 1], [0, PHONE_ARM[1]])];
+  const disp = pop(f, w(10) - 2, 12) * (1 - tw(f, d - 18, d - 8));
+  return (
+    <>
+      <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={arm} mouth={f < w(6) + 8 ? "grin" : "smile"} lookY={12 * look}>
+        {look > 0.5 ? <PhoneInHand arm={arm} /> : null}
+      </Person>
+      <NeckDumbbell x={BELL_START.x} y={BELL_START.y} s={1.1} />
+      {label > 0 ? (
+        <g transform={`translate(${BELL_START.x} ${BELL_START.y - 150}) scale(${label})`}>
+          <rect x={-90} y={-46} width={180} height={78} rx={12} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+          <text x={0} y={14} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.red}>
+            27 kg
+          </text>
+        </g>
+      ) : null}
+      <KgDisplay x={A.x} y={A.y - 900 * A.s} p={disp} value="?? kg" />
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "boyun2-hook": Boyun2Hook,
+  "boyun2-2008": Boyun2_2008,
+  "boyun2-hesap": Boyun2Hesap,
+  "boyun2-soru": Boyun2Soru,
+  "boyun2-bag": Boyun2Bag,
+  "boyun2-hareket": Boyun2Hareket,
+  "boyun2-kapanis": Boyun2Kapanis,
   "kadin5-hook": Kadin5Hook,
   "kadin5-1896": Kadin5_1896,
   "kadin5-2000": Kadin5_2000,

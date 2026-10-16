@@ -1,6 +1,6 @@
 {
   "id": "cizim1-05-boyun",
-  "title": "Boynunda bir dambıl taşıyorsun",
+  "title": "Telefona bakarken başın kaç kilo?",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -12,44 +12,39 @@
   "loop": true,
   "scenes": [
     {
-      "visual": "boyun-acilis",
-      "voice": "Telefona her baktığında, boynunda yirmi yedi kiloluk bir dambıl taşıyor gibisin.",
-      "say": "Telefona her baktığında, boynunda [curious] yirmi yedi kiloluk bir dambıl taşıyor gibisin."
+      "visual": "boyun2-hook",
+      "voice": "Telefona baktığında başın kaç kilo? Beş mi? Bir hesaba göre yirmi yedi.",
+      "say": "Telefona baktığında başın kaç kilo? Beş mi? [curious] Bir hesaba göre, yirmi yedi."
     },
     {
-      "visual": "boyun-gun",
-      "voice": "Sabah uyanınca, otobüste, işte, gece yatakta... O dambıl hep orada.",
-      "say": "Sabah uyanınca, otobüste, işte, gece yatakta... O dambıl, hmm, hep orada."
+      "visual": "boyun2-2008",
+      "voice": "İki bin sekizde bir kayropraktör, telefona eğilen bir gencin boyun röntgenine bu adı verdi: text neck.",
+      "say": "İki bin sekizde bir kayropraktör, telefona eğilen bir gencin boyun röntgenine bu adı verdi: text neck."
     },
     {
-      "visual": "boyun-kaldirac",
-      "voice": "Başın aslında beş kilo civarında. Ama öne eğildikçe yer çekimi bir kaldıraç gibi çalışır.",
-      "say": "Başın aslında beş kilo civarında. Ama öne eğildikçe, yer çekimi bir kaldıraç gibi çalışır."
+      "visual": "boyun2-hesap",
+      "voice": "Altı yıl sonra bir cerrah hesapladı: baş altmış derece eğilince boyna binen yük yirmi yedi kilo.",
+      "say": "Altı yıl sonra bir cerrah hesapladı: baş altmış derece eğilince, boyna binen yük, yirmi yedi kilo."
     },
     {
-      "visual": "boyun-altmis",
-      "voice": "On beş derecede on iki kilo. Altmış derecede, yani tam telefona bakarken: yirmi yedi kilo.",
-      "say": "On beş derecede on iki kilo. Altmış derecede, yani tam telefona bakarken: [curious] yirmi yedi kilo."
+      "visual": "boyun2-soru",
+      "voice": "Peki boynun bu yüzden mi ağrıyor? İşte sürpriz:",
+      "say": "Peki boynun bu yüzden mi ağrıyor? [curious] İşte sürpriz:"
     },
     {
-      "visual": "boyun-surpriz",
-      "voice": "Ama işin ilginç tarafı şu: araştırmalar bu duruşun tek başına boyun ağrısı yaptığını net olarak göstermedi.",
-      "say": "Ama işin ilginç tarafı şu: araştırmalar, bu duruşun tek başına boyun ağrısı yaptığını, hmm, net olarak göstermedi."
+      "visual": "boyun2-bag",
+      "voice": "Araştırmalar bu duruşla boyun ağrısı arasında net bir bağ bulamadı.",
+      "say": "Araştırmalar, bu duruşla boyun ağrısı arasında net bir bağ bulamadı."
     },
     {
-      "visual": "boyun-asil",
-      "voice": "Asıl yorucu olan, o dambılı saatlerce hiç indirmemek. Boyun kasların dinlenemez.",
-      "say": "Asıl yorucu olan, o dambılı saatlerce hiç indirmemek. Boyun kasların dinlenemez."
+      "visual": "boyun2-hareket",
+      "voice": "Sorun eğilmek değil, saatlerce kıpırdamamak. En iyi duruş, bir sonraki duruşun.",
+      "say": "Sorun eğilmek değil, saatlerce kıpırdamamak. En iyi duruş, bir sonraki duruşun."
     },
     {
-      "visual": "boyun-cozum",
-      "voice": "Telefonu göz hizasına kaldır, ara ara başını çevir. Dambıl iner, boynun rahatlar.",
-      "say": "Telefonu göz hizasına kaldır, ara ara başını çevir. Dambıl iner, boynun rahatlar."
-    },
-    {
-      "visual": "boyun-kapanis",
-      "voice": "Ama telefona tekrar baktığın an, o dambıl geri gelir. Çünkü...",
-      "say": "Ama telefona tekrar baktığın an, o dambıl [curious] geri gelir. Çünkü..."
+      "visual": "boyun2-kapanis",
+      "voice": "Yani o yirmi yedi kilo seni korkutmasın. Ama telefona bakarken başın kaç kilo, artık biliyorsun.",
+      "say": "Yani o yirmi yedi kilo seni korkutmasın. Ama telefona bakarken başın kaç kilo, artık biliyorsun."
     }
   ],
   "caption": "Telefona bakarken boynun kaç kilo taşıyor? 📱\n\nBaşın yaklaşık 5 kilo. Ama öne eğildikçe yer çekimi kaldıraç gibi çalışır: 15 derecede boyna binen yük yaklaşık 12 kiloya, 60 derecede yaklaşık 27 kiloya çıkar (Hansraj, Surgical Technology International, 2014; bilgisayar modeli tahmini).\n\nİlginç olan şu: Araştırmalar bu duruşun tek başına boyun ağrısına yol açtığını net olarak göstermedi. Asıl yorucu olan, saatlerce aynı pozisyonda kalmak.\n\nTelefonu biraz yukarı kaldır, ara ara başını çevir, boynunu esnet.\n\n📌 Kaydet, gün boyu telefona gömülü arkadaşına gönder.",
@@ -60,5 +55,6 @@
     "boyunağrısı",
     "bunubiliyormuydun",
     "voom"
-  ]
+  ],
+  "padding": 0.15
 }

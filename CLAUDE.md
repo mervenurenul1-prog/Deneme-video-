@@ -12,6 +12,13 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.585 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
+- **05 boyun v2 (16 Ekim gece, EN GÜNCEL):** kullanıcı metni onayladı ("olur"). Kanca "Telefona baktığında başın kaç
+  kilo? Beş mi? Bir hesaba göre yirmi yedi." → 2008 kayropraktör (Dean Fishman) "text neck" adını verdi (röntgen +
+  damga) → 2014 cerrah (Hansraj, model) 60° = 27 kg (NeckLens açı 0→60, kilo ekranı 5→27) → "bu yüzden mi ağrıyor?
+  İşte sürpriz" (? kutusu) → araştırmalar net bağ bulamadı (Damasceno 2018, Spine 2021; zincir kopar) → "sorun
+  eğilmek değil, saatlerce kıpırdamamak; en iyi duruş bir sonraki duruşun" (örümcek ağı, saat, poz değişimi) →
+  döngü "…başın kaç kilo, artık biliyorsun". Bileşenler `boyun2-*`, 41,1 sn sessiz önizleme
+  `05-boyun-sessiz.mp4` gönderildi → **onay → seslendirme**. `05-boyun.mp4` ESKİ sürüm.
 - **04 v5 (16 Ekim akşam, EN GÜNCEL):** Kullanıcı: "anlatıyorsun ama görsele kötü döküyorsun" + "104 nereden çıktı?" +
   "40 sn olsun, kısaltacağım diye bilgileri saçma sapan koyma". Hikâye 104'ü açıklıyor: kanca "Ağırlık kaldırırsan iri
   olur musun? Bu soru yüzünden kadınlar yüz dört yıl bekletildi." → 1896 erkekler kaldırdı, kadınlara "iri olursunuz"
