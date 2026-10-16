@@ -1,0 +1,519 @@
+{
+  "scenes": [
+    {
+      "voice": "Dün akşam her şey normaldi. Bu sabah tartıya çıktın ve bir kilo fazla.",
+      "say": "Dün akşam her şey normaldi. Bu sabah tartıya çıktın ve, ıı... [surprised] bir kilo fazla.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-02-tarti/1-mvacnbe7.mp3",
+      "durationInSeconds": 5.694694,
+      "words": [
+        {
+          "word": "Dün",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "akşam",
+          "start": 0.24,
+          "end": 0.56
+        },
+        {
+          "word": "her",
+          "start": 0.64,
+          "end": 0.8
+        },
+        {
+          "word": "şey",
+          "start": 0.84,
+          "end": 0.96
+        },
+        {
+          "word": "normaldi.",
+          "start": 1.04,
+          "end": 1.86009
+        },
+        {
+          "word": "Bu",
+          "start": 1.97553,
+          "end": 2.05553
+        },
+        {
+          "word": "sabah",
+          "start": 2.09553,
+          "end": 2.37553
+        },
+        {
+          "word": "tartıya",
+          "start": 2.41553,
+          "end": 2.85553
+        },
+        {
+          "word": "çıktın",
+          "start": 2.89553,
+          "end": 3.25553
+        },
+        {
+          "word": "ve",
+          "start": 3.33553,
+          "end": 3.81553
+        },
+        {
+          "word": "bir",
+          "start": 4.53553,
+          "end": 4.61553
+        },
+        {
+          "word": "kilo",
+          "start": 4.69553,
+          "end": 4.93553
+        },
+        {
+          "word": "fazla.",
+          "start": 5.01553,
+          "end": 5.73553
+        }
+      ]
+    },
+    {
+      "voice": "Panik yapma. O bir kilo yağ değil.",
+      "say": "Hmm, panik yapma. O bir kilo yağ değil.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-02-tarti/2-mvacnckk.mp3",
+      "durationInSeconds": 3.239184,
+      "words": [
+        {
+          "word": "Panik",
+          "start": 0.72,
+          "end": 0.96
+        },
+        {
+          "word": "yapma.",
+          "start": 1.04,
+          "end": 1.6
+        },
+        {
+          "word": "O",
+          "start": 1.76,
+          "end": 1.84
+        },
+        {
+          "word": "bir",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "word": "kilo",
+          "start": 2.16,
+          "end": 2.32
+        },
+        {
+          "word": "yağ",
+          "start": 2.4,
+          "end": 2.6
+        },
+        {
+          "word": "değil.",
+          "start": 2.64,
+          "end": 3.28
+        }
+      ]
+    },
+    {
+      "voice": "Bir kilo yağ için yaklaşık yedi bin yedi yüz kalori fazla yemen gerekir. Tek gecede mi? Neredeyse imkânsız.",
+      "say": "Bir kilo yağ için, ıı, yaklaşık yedi bin yedi yüz kalori fazla yemen gerekir. [curious] Tek gecede mi? Neredeyse imkânsız.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-02-tarti/3-mvacne92.mp3",
+      "durationInSeconds": 7.57551,
+      "words": [
+        {
+          "word": "Bir",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "kilo",
+          "start": 0.24,
+          "end": 0.48
+        },
+        {
+          "word": "yağ",
+          "start": 0.56,
+          "end": 0.72
+        },
+        {
+          "word": "için",
+          "start": 0.8,
+          "end": 1.36
+        },
+        {
+          "word": "yaklaşık",
+          "start": 1.6,
+          "end": 2.16
+        },
+        {
+          "word": "yedi",
+          "start": 2.32,
+          "end": 2.48
+        },
+        {
+          "word": "bin",
+          "start": 2.56,
+          "end": 2.72
+        },
+        {
+          "word": "yedi",
+          "start": 2.8,
+          "end": 2.96
+        },
+        {
+          "word": "yüz",
+          "start": 3.04,
+          "end": 3.12
+        },
+        {
+          "word": "kalori",
+          "start": 3.2,
+          "end": 3.52
+        },
+        {
+          "word": "fazla",
+          "start": 3.6,
+          "end": 3.92
+        },
+        {
+          "word": "yemen",
+          "start": 4,
+          "end": 4.16
+        },
+        {
+          "word": "gerekir.",
+          "start": 4.24,
+          "end": 4.88
+        },
+        {
+          "word": "Tek",
+          "start": 5.054360000000001,
+          "end": 5.214360000000001
+        },
+        {
+          "word": "gecede",
+          "start": 5.294360000000001,
+          "end": 5.6143600000000005
+        },
+        {
+          "word": "mi?",
+          "start": 5.6943600000000005,
+          "end": 6.101300000000001
+        },
+        {
+          "word": "Neredeyse",
+          "start": 6.141300000000001,
+          "end": 6.661300000000001
+        },
+        {
+          "word": "imkânsız.",
+          "start": 6.741300000000001,
+          "end": 7.621300000000001
+        }
+      ]
+    },
+    {
+      "voice": "Asıl sebep su. Kasların karbonhidrat depolarken yanında üç katı su tutar.",
+      "say": "Asıl sebep, hani, su. Kasların karbonhidrat depolarken yanında üç katı su tutar.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-02-tarti/4-mvacnflj.mp3",
+      "durationInSeconds": 5.903673,
+      "words": [
+        {
+          "word": "Asıl",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "sebep",
+          "start": 0.4,
+          "end": 0.96
+        },
+        {
+          "word": "su.",
+          "start": 1.6,
+          "end": 1.92
+        },
+        {
+          "word": "Kasların",
+          "start": 2.1811499999999997,
+          "end": 2.58115
+        },
+        {
+          "word": "karbonhidrat",
+          "start": 2.6611499999999997,
+          "end": 3.2211499999999997
+        },
+        {
+          "word": "depolarken",
+          "start": 3.30115,
+          "end": 3.94115
+        },
+        {
+          "word": "yanında",
+          "start": 4.1011500000000005,
+          "end": 4.501149999999999
+        },
+        {
+          "word": "üç",
+          "start": 4.661149999999999,
+          "end": 4.78115
+        },
+        {
+          "word": "katı",
+          "start": 4.821149999999999,
+          "end": 5.06115
+        },
+        {
+          "word": "su",
+          "start": 5.14115,
+          "end": 5.22115
+        },
+        {
+          "word": "tutar.",
+          "start": 5.261150000000001,
+          "end": 5.94115
+        }
+      ]
+    },
+    {
+      "voice": "Tuzlu bir akşam yemeği yedin mi, vücudun o suyu bırakmaz.",
+      "say": "Tuzlu bir akşam yemeği yedin mi, vücudun o suyu, ıı, bırakmaz.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-02-tarti/5-mvacnh1c.mp3",
+      "durationInSeconds": 4.440816,
+      "words": [
+        {
+          "word": "Tuzlu",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "bir",
+          "start": 0.4,
+          "end": 0.48
+        },
+        {
+          "word": "akşam",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "word": "yemeği",
+          "start": 0.88,
+          "end": 1.12
+        },
+        {
+          "word": "yedin",
+          "start": 1.16,
+          "end": 1.44
+        },
+        {
+          "word": "mi,",
+          "start": 1.52,
+          "end": 1.92
+        },
+        {
+          "word": "vücudun",
+          "start": 2,
+          "end": 2.48
+        },
+        {
+          "word": "o",
+          "start": 2.56,
+          "end": 2.72
+        },
+        {
+          "word": "suyu",
+          "start": 2.76,
+          "end": 3.28
+        },
+        {
+          "word": "bırakmaz.",
+          "start": 3.6,
+          "end": 4.48
+        }
+      ]
+    },
+    {
+      "voice": "Regl dönemi, midendeki yemek, hatta dünkü antrenman bile tartıyı oynatır.",
+      "say": "Regl dönemi, midendeki yemek, hatta, şey, dünkü antrenman bile tartıyı oynatır.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-02-tarti/6-mvacnidx.mp3",
+      "durationInSeconds": 5.642449,
+      "words": [
+        {
+          "word": "Regl",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "dönemi,",
+          "start": 0.4,
+          "end": 1.04
+        },
+        {
+          "word": "midendeki",
+          "start": 1.12,
+          "end": 1.68
+        },
+        {
+          "word": "yemek,",
+          "start": 1.72,
+          "end": 2.32
+        },
+        {
+          "word": "hatta",
+          "start": 2.44,
+          "end": 2.88
+        },
+        {
+          "word": "dünkü",
+          "start": 3.44,
+          "end": 3.76
+        },
+        {
+          "word": "antrenman",
+          "start": 3.88,
+          "end": 4.32
+        },
+        {
+          "word": "bile",
+          "start": 4.4,
+          "end": 4.56
+        },
+        {
+          "word": "tartıyı",
+          "start": 4.64,
+          "end": 4.96
+        },
+        {
+          "word": "oynatır.",
+          "start": 5.013,
+          "end": 5.68
+        }
+      ]
+    },
+    {
+      "voice": "O yüzden tek bir güne değil, haftalık ortalamaya bak.",
+      "say": "O yüzden, yani, tek bir güne değil, haftalık ortalamaya bak.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-02-tarti/7-mvacnjf4.mp3",
+      "durationInSeconds": 4.205714,
+      "words": [
+        {
+          "word": "O",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "word": "yüzden",
+          "start": 0.12,
+          "end": 0.8
+        },
+        {
+          "word": "tek",
+          "start": 1.44,
+          "end": 1.6
+        },
+        {
+          "word": "bir",
+          "start": 1.68,
+          "end": 1.76
+        },
+        {
+          "word": "güne",
+          "start": 1.8,
+          "end": 2
+        },
+        {
+          "word": "değil,",
+          "start": 2.08,
+          "end": 2.64
+        },
+        {
+          "word": "haftalık",
+          "start": 2.76,
+          "end": 3.12
+        },
+        {
+          "word": "ortalamaya",
+          "start": 3.2,
+          "end": 3.68
+        },
+        {
+          "word": "bak.",
+          "start": 3.84,
+          "end": 4.24
+        }
+      ]
+    },
+    {
+      "voice": "Tartı yalan söylemez ama abartır. Kaydet, sonra lazım olur.",
+      "say": "Tartı yalan söylemez, ama abartır. [excited] Kaydet, sonra lazım olur.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-02-tarti/8-mvacnkjk.mp3",
+      "durationInSeconds": 4.728163,
+      "words": [
+        {
+          "word": "Tartı",
+          "start": 0,
+          "end": 0.36
+        },
+        {
+          "word": "yalan",
+          "start": 0.4,
+          "end": 0.64
+        },
+        {
+          "word": "söylemez",
+          "start": 0.72,
+          "end": 1.6
+        },
+        {
+          "word": "ama",
+          "start": 1.72,
+          "end": 1.84
+        },
+        {
+          "word": "abartır.",
+          "start": 1.92,
+          "end": 2.48
+        },
+        {
+          "word": "Kaydet,",
+          "start": 2.9782599999999997,
+          "end": 3.3782599999999996
+        },
+        {
+          "word": "sonra",
+          "start": 3.4982599999999997,
+          "end": 3.7382599999999995
+        },
+        {
+          "word": "lazım",
+          "start": 3.8182599999999995,
+          "end": 4.13826
+        },
+        {
+          "word": "olur.",
+          "start": 4.21826,
+          "end": 4.7782599999999995
+        }
+      ]
+    }
+  ]
+}

@@ -106,13 +106,20 @@ const every = (from: number, to: number, step: number, file: string, vol: number
   for (let t = from; t < to; t += step) out.push([t, file, vol]);
   return out;
 };
+// Saat tiklemesi (tik-tak): cevap gelmeden önceki bekleyiş ve dönen sayaçlar için
+const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
+  every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
-  tarti: (w) => [
+  tarti: (w, d) => [
     [w(0) + 2, "bip", 0.35],
     [w(2) + 18, "bip", 0.35],
     [w(2) + 4, "pirilti", 0.3],
-    [w(6), "pop", 0.4],
+    [w(5) - 6, "pop", 0.4],
+    [w(5) + 2, "whoosh", 0.3],
+    [w(6), "pop", 0.35],
     [w(7), "pop", 0.4],
+    [w(7) + 8, "boom", 0.18],
+    ...ticks(w(7) + 14, d - 4, 9, 0.35),
   ],
   "yanlis-fikir": (w) => [
     [w(2) - 4, "pop", 0.45],
@@ -125,16 +132,61 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
     [w(11) + 6, "cizik", 0.5],
   ],
   "yag-hucresi": (w) => [
-    [4, "pop", 0.4],
+    [2, "pop", 0.35],
+    ...ticks(6, w(1) - 4, 9, 0.35),
+    [w(1) - 4, "boom", 0.18],
+    [w(1) - 2, "pirilti", 0.4],
+    [w(2), "ding", 0.25],
+    [w(4), "damla", 0.4],
     ...Array.from({ length: 10 }, (_, i): Sfx => [w(1) + i * Math.max(3, (w(5) - w(1)) / 10), "pop", 0.18]),
     [w(2), "kalem", 0.3],
     [w(4), "kalem", 0.3],
   ],
-  nefes: (w, d) => [[w(1), "kalem", 0.35], [w(4), "kalem", 0.25], ...every(w(4) - 10, d - 20, 42, "nefes", 0.45)],
-  su: (w, d) => [[w(2) - 3, "damla", 0.45], [w(2), "kalem", 0.3], ...every(w(4), d - 10, 18, "damla", 0.22)],
-  "hizli-nefes": (w) => [...every(w(1), w(10), 18, "nefes", 0.3), [w(10), "cizik", 0.4], [w(10) + 4, "pirilti", 0.35], [w(10) + 8, "kalem", 0.3]],
+  nefes: (w, d) => [...ticks(w(0), w(3) + 2, 4, 0.22), [w(3) + 4, "ding", 0.3], [w(4), "kalem", 0.25], ...every(w(4) - 10, d - 20, 42, "nefes", 0.45)],
+  su: (w, d) => [...ticks(w(0), w(2), 5, 0.22), [w(2) - 3, "damla", 0.45], [w(2) + 2, "ding", 0.25], ...every(w(4), d - 10, 18, "damla", 0.22)],
+  "hizli-nefes": (w) => [
+    [w(1) - 4, "pop", 0.35],
+    ...every(w(1), w(10), 18, "nefes", 0.3),
+    ...ticks(w(1) + 4, w(10) - 2, 9, 0.28),
+    [w(10), "cizik", 0.4],
+    [w(10) + 2, "boom", 0.15],
+    [w(10) + 8, "kalem", 0.3],
+  ],
   hareket: (w, d) => [[w(1), "boom", 0.15], [w(4), "kalem", 0.3], [w(4) + 2, "ding", 0.25], ...every(w(7), d - 20, 22, "nefes", 0.35)],
   kapanis: (w) => [[w(1), "kalem", 0.35], [w(4), "kalem", 0.35], [w(4), "nefes", 0.4], [w(7), "pop", 0.5], [w(8), "ding", 0.3]],
+
+  // 02 tartı
+  "tarti-acilis": (w) => [
+    [w(5) - 4, "pirilti", 0.25],
+    [w(8) + 4, "tak", 0.45],
+    ...ticks(w(8) + 10, w(12) - 3, 4, 0.25),
+    [w(12) - 2, "bip", 0.4],
+    [w(12), "boom", 0.2],
+    [w(12) + 2, "kalem", 0.35],
+  ],
+  "tarti-panik": (w) => [...every(4, w(1), 9, "damla", 0.18), [w(1) + 2, "nefes", 0.4], [w(3) - 2, "pop", 0.45], [w(6) - 2, "cizik", 0.5], [w(6) + 6, "cizik", 0.5]],
+  "tarti-kalori": (w) => {
+    const step = Math.max(3, (w(12) - w(4)) / 9);
+    return [
+      ...Array.from({ length: 9 }, (_, i): Sfx => [w(4) + i * step, "pop", 0.16]),
+      ...ticks(w(5), w(9) + 2, 4, 0.2),
+      [w(9) + 4, "ding", 0.28],
+      [w(13) - 2, "pirilti", 0.25],
+      [w(17) - 2, "cizik", 0.5],
+      [w(17) + 6, "cizik", 0.5],
+    ];
+  },
+  "tarti-su": (w) => [[2, "pop", 0.35], ...ticks(6, w(2) - 3, 9, 0.35), [w(2) - 3, "boom", 0.16], [w(2) - 2, "pirilti", 0.4], [w(2), "damla", 0.45], ...every(w(7) - 4, w(10), 6, "damla", 0.14)],
+  "tarti-tuz": (w, d) => [[w(5) + 4, "tak", 0.3], [w(6) - 2, "damla", 0.35], ...every(w(6) + 4, d - 10, 12, "damla", 0.16)],
+  "tarti-diger": (w) => [[w(0) - 2, "pop", 0.4], [w(2) - 2, "pop", 0.4], [w(5) - 2, "pop", 0.4], [w(8), "boom", 0.16], ...every(w(8), w(8) + 36, 6, "bip", 0.18)],
+  "tarti-ortalama": (w) => [
+    ...Array.from({ length: 7 }, (_, i): Sfx => [2 + i * ((w(2) + 4) / 7), "tik", 0.25]),
+    [w(2), "pop", 0.4],
+    [w(5) - 2, "cizik", 0.45],
+    [w(6) - 2, "kalem", 0.4],
+    [w(7) + 12, "ding", 0.3],
+  ],
+  "tarti-kapanis": (w) => [[w(3) - 2, "pirilti", 0.25], [w(4) + 14, "pop", 0.4], [w(5), "pop", 0.5], [w(6), "ding", 0.3]],
 };
 
 /* ---------- yardımcılar ---------- */
@@ -732,6 +784,89 @@ const Bathroom: React.FC<{ x: number; y: number; value: string }> = ({ x, y, val
   </g>
 );
 
+// Gizem kutusu: üstünde "?" olan kapalı karton kutu. Cevap söylenene kadar kapalı kalır ve sallanır
+// (izleyici "içinde ne var?" diye bekler); open 0 → 1 iken kapak uçar, içerik ışıkla yukarı yükselir.
+const MysteryBox: React.FC<{
+  x: number;
+  y: number;
+  s?: number;
+  p: number; // beliriş
+  open: number;
+  shake?: number; // derece
+  rays?: boolean;
+  children?: React.ReactNode; // kutu merkezine göre çizilen içerik
+}> = ({ x, y, s = 1, p, open, shake = 0, rays = true, children }) => {
+  if (p <= 0) return null;
+  const rise = Easing.out(Easing.back(1.6))(open);
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s * p}) rotate(${shake})`}>
+      {rays && open > 0
+        ? Array.from({ length: 9 }, (_, i) => {
+            const a = ((-80 + i * 20) * Math.PI) / 180;
+            return (
+              <path
+                key={i}
+                d={`M${Math.sin(a) * 70} ${-100 - Math.cos(a) * 40} L${Math.sin(a) * 260} ${-100 - Math.cos(a) * 230}`}
+                stroke={C.yellow}
+                strokeWidth={14}
+                strokeLinecap="round"
+                opacity={0.75 * open}
+              />
+            );
+          })
+        : null}
+      {children && open > 0 ? (
+        <g transform={`translate(0 ${-60 - 150 * rise}) scale(${0.3 + 0.7 * rise})`} opacity={Math.min(1, open * 2)}>
+          {children}
+        </g>
+      ) : null}
+      <rect x={-110} y={-90} width={220} height={170} rx={8} fill="#c99a5c" stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      <rect x={-18} y={-90} width={36} height={170} fill="#e0bb7f" opacity={0.8} />
+      <text x={0} y={42} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={C.ink} opacity={1 - open}>
+        ?
+      </text>
+      <g transform={`translate(${-90 * open} ${-170 * open}) rotate(${-40 * open})`} opacity={1 - tw(open, 0.5, 1)}>
+        <rect x={-122} y={-114} width={244} height={30} rx={8} fill="#b8864a" stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      </g>
+    </g>
+  );
+};
+
+// Sayaç: hedef sayıya kadar hızla döner (merak), p = 1 olunca sabitlenir ve son eki görünür
+const fmtNum = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const Counter: React.FC<{
+  x: number;
+  y: number;
+  to: number;
+  p: number;
+  prefix?: string;
+  suffix?: string;
+  size?: number;
+  color?: string;
+  rotate?: number;
+}> = ({ x, y, to, p, prefix = "", suffix = "", size = 150, color = C.ink, rotate = -4 }) => {
+  if (p <= 0) return null;
+  const n = Math.round(to * Easing.out(Easing.quad)(p));
+  const done = p >= 1;
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor="middle"
+      fontFamily={handFamily}
+      fontWeight={700}
+      fontSize={size}
+      fill={color}
+      transform={`rotate(${rotate} ${x} ${y})`}
+      opacity={Math.min(1, p * 4)}
+    >
+      {prefix}
+      {fmtNum(n)}
+      {done ? suffix : ""}
+    </text>
+  );
+};
+
 /* ---------- sahneler ---------- */
 
 const PX = 540;
@@ -744,8 +879,12 @@ const Tarti: React.FC<SceneProps> = ({ w }) => {
   const kg = tw(f, w(0), w(2) + 18, 85, 80);
   const cheer = tw(f, w(2) + 4, w(2) + 12) - tw(f, w(3) + 2, w(3) + 12);
   const think = tw(f, w(4), w(4) + 12);
-  const ghost = tw(f, w(5) - 4, w(7) + 30);
+  const ghost = tw(f, w(5), w(7) + 2);
   const lift = Math.abs(Math.sin(f / 5)) * cheer;
+  // yağ "?" kutusuna girer, kutu kapanır ve sallanır: cevap videonun devamında
+  const box = pop(f, w(5) - 6, 14);
+  const lid = tw(f, w(5) - 6, w(5) + 4) - tw(f, w(7) + 2, w(7) + 10);
+  const shut = f > w(7) + 10;
   return (
     <>
       <Bathroom x={PX} y={PY + 6} value={`${kg.toFixed(1)} kg`} />
@@ -762,7 +901,7 @@ const Tarti: React.FC<SceneProps> = ({ w }) => {
       >
         {/* kaybolan yağ: göbekten ayrılıp süzülür ve gözden kaybolur */}
         {ghost > 0 && ghost < 1 ? (
-          <g opacity={interpolate(ghost, [0, 0.15, 0.7, 1], [0, 0.9, 0.7, 0])}>
+          <g opacity={interpolate(ghost, [0, 0.15, 0.85, 1], [0, 0.9, 0.9, 0])}>
             <path
               d="M-60 0 C-70 -50 -20 -70 10 -55 C50 -75 80 -30 60 0 C70 40 20 55 -10 40 C-50 55 -75 30 -60 0 Z"
               transform={`translate(${-260 * ghost} ${-445 - 330 * ghost}) scale(${1 - 0.3 * ghost})`}
@@ -774,19 +913,20 @@ const Tarti: React.FC<SceneProps> = ({ w }) => {
           </g>
         ) : null}
       </Person>
+      <MysteryBox x={300} y={600} s={1.05} p={box} open={lid} rays={false} shake={shut ? Math.sin(f / 2.4) * 6 : 0} />
       {[w(6), w(7)].map((t, i) => {
         const p = pop(f, t, 12);
         return p > 0 ? (
           <text
             key={i}
-            x={i ? 770 : 300}
-            y={i ? 520 : 610}
+            x={i ? 800 : 640}
+            y={i ? 560 : 420}
             textAnchor="middle"
             fontFamily={handFamily}
             fontWeight={700}
-            fontSize={190 * p}
+            fontSize={(i ? 190 : 120) * p}
             fill={C.ink}
-            transform={`rotate(${i ? 12 : -10} ${i ? 770 : 300} ${i ? 520 : 610})`}
+            transform={`rotate(${i ? 12 : -10} ${i ? 800 : 640} ${i ? 560 : 420})`}
           >
             ?
           </text>
@@ -872,7 +1012,9 @@ const YagHucresi: React.FC<SceneProps> = ({ w }) => {
   const L = { x: 720, y: 700, r: 250 };
   const person = { x: 290, y: PY, s: 0.84 };
   const B = { x: person.x, y: person.y - 450 * person.s };
-  const open = tw(f, 0, 16);
+  // 1. sahnedeki "?" kutusu burada açılır: içinden büyüteç çıkar
+  const open = tw(f, w(1) - 4, w(1) + 12);
+  const boxShake = f < w(1) - 4 ? Math.sin(f / 2.4) * 6 : 0;
   const v = [L.x - B.x, L.y - B.y];
   const len = Math.hypot(v[0], v[1]);
   const n = [-v[1] / len, v[0] / len];
@@ -881,6 +1023,9 @@ const YagHucresi: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <Person x={person.x} y={person.y} s={person.s} belly={0.42} armL={[10, 0]} armR={[14, 0]} tilt={6} lookY={-3} mouth="o" />
+      <g opacity={1 - tw(f, w(1) + 4, w(1) + 14)}>
+        <MysteryBox x={L.x} y={L.y + 60} s={1.2} p={pop(f, 0, 12)} open={tw(f, w(1) - 4, w(1) + 6)} rays={false} shake={boxShake} />
+      </g>
       <g opacity={open}>
         <circle cx={B.x} cy={B.y} r={46} fill="none" stroke={C.ink} strokeWidth={6} strokeDasharray="12 9" />
         {[1, -1].map((k) => (
@@ -918,6 +1063,14 @@ const YagHucresi: React.FC<SceneProps> = ({ w }) => {
                       const dist = 30 + 110 * Easing.out(Easing.quad)(p);
                       const px = X + Math.cos(a) * dist;
                       const py = Y + Math.sin(a) * dist - 40 * p;
+                      // adı söylenene kadar parçacık bir "?" (ne olduğu merak edilir)
+                      const named = f >= (k < 3 ? w(2) : w(4)) - 2;
+                      if (!named)
+                        return (
+                          <text key={k} x={px} y={py + 14} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={44} fill={k < 3 ? "#6d6f74" : C.water} opacity={Math.min(1, p * 3)}>
+                            ?
+                          </text>
+                        );
                       return k < 3 ? (
                         <circle key={k} cx={px} cy={py} r={15} fill={C.co2} stroke={C.ink} strokeWidth={4} opacity={Math.min(1, p * 3)} />
                       ) : (
@@ -972,7 +1125,7 @@ const Nefes: React.FC<SceneProps> = ({ w, d }) => {
       {cycles(f, start, period, 54).map(({ k, p }) => (
         <Puff key={k} x={mouth.x + 30} y={mouth.y} p={p} dx={200} dy={-200} label="CO₂" s={1.25} />
       ))}
-      <HandText x={260} y={480} text="%84" size={170} p={tw(f, w(1), w(3) + 6)} color={C.red} />
+      <Counter x={260} y={480} to={84} prefix="%" p={tw(f, w(0), w(3) + 4)} size={170} color={C.red} />
       <Arrow d="M380 470 Q520 380 690 450" p={tw(f, w(4), w(4) + 14)} color={C.red} w={9} />
       <Arrow d="M668 420 L692 452 L655 466" p={tw(f, w(4) + 12, w(4) + 18)} color={C.red} w={9} />
     </>
@@ -1007,7 +1160,7 @@ const Su: React.FC<SceneProps> = ({ w }) => {
       <ellipse cx={PX} cy={PY + 18} rx={60 + 120 * tw(f, w(4), w(7) + 20)} ry={12 + 10 * tw(f, w(4), w(7) + 20)} fill={C.water} opacity={0.45} />
       <g>
         <Drop x={300} y={460} s={2.4 * pop(f, w(2) - 3)} />
-        <HandText x={470} y={490} text="%16 su" size={110} p={tw(f, w(2), w(3) + 6)} color={C.water} />
+        <Counter x={530} y={490} to={16} prefix="%" suffix=" su" p={tw(f, w(0), w(2) + 2)} size={110} color={C.water} rotate={-3} />
       </g>
     </>
   );
@@ -1046,10 +1199,48 @@ const HizliNefes: React.FC<SceneProps> = ({ w }) => {
       {pant && !dizzy
         ? cycles(f, w(1), 9, 18).map(({ k, p }) => <Puff key={k} x={mouth.x + 25} y={mouth.y} p={p} dx={120} dy={-60 + (k % 3) * 40} s={0.6} />)
         : null}
+      <Gauge x={260} y={600} f={f} start={w(1)} drop={w(10)} />
       <HandText x={760} y={560} text="Hayır!" size={150} p={tw(f, w(10), w(10) + 10)} color={C.red} rotate={-8} />
       <HandText x={250} y={880} text="yağ aynı" size={74} p={tw(f, w(10) + 8, w(10) + 22)} />
       <Arrow d="M300 900 Q360 960 430 935" p={tw(f, w(10) + 18, w(10) + 28)} w={7} />
     </>
+  );
+};
+
+// "Yağ yakımı" göstergesi: nefes hızlandıkça ibre umutla titreyerek yükselir ("?" yanıp söner),
+// "Hayır" denince ibre başa düşer
+const Gauge: React.FC<{ x: number; y: number; f: number; start: number; drop: number }> = ({ x, y, f, start, drop }) => {
+  const show = pop(f, start - 4, 14);
+  if (show <= 0) return null;
+  const hope = tw(f, start, drop, 0, 1);
+  const jitter = f >= start && f < drop ? Math.sin(f / 2.2) * 9 + Math.sin(f / 5.3) * 6 : 0;
+  const fall = tw(f, drop, drop + 8);
+  const angle = (-62 + 110 * hope + jitter) * (1 - fall) + -62 * fall;
+  const a = (angle * Math.PI) / 180;
+  const R = 130;
+  const arc = (from: number, to: number) => {
+    const p = (d: number) => [Math.sin((d * Math.PI) / 180) * R, -Math.cos((d * Math.PI) / 180) * R];
+    const [x1, y1] = p(from);
+    const [x2, y2] = p(to);
+    return `M${x1.toFixed(1)} ${y1.toFixed(1)} A${R} ${R} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+  };
+  return (
+    <g transform={`translate(${x} ${y}) scale(${show})`}>
+      <path d={`${arc(-90, 90)} Z`} fill={C.cream} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      <path d={arc(-80, -30)} stroke="#9a9a9a" strokeWidth={18} fill="none" />
+      <path d={arc(-28, 28)} stroke={C.yellow} strokeWidth={18} fill="none" />
+      <path d={arc(30, 80)} stroke={C.glow} strokeWidth={18} fill="none" />
+      <path d={`M0 0 L${(Math.sin(a) * (R - 24)).toFixed(1)} ${(-Math.cos(a) * (R - 24)).toFixed(1)}`} stroke={fall > 0.5 ? C.red : C.ink} strokeWidth={10} strokeLinecap="round" />
+      <circle r={16} fill={C.ink} />
+      <text x={0} y={70} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={54} fill={C.ink}>
+        yağ yakımı
+      </text>
+      {f >= start && f < drop ? (
+        <text x={150} y={-110} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.ink} opacity={0.5 + 0.5 * Math.abs(Math.sin(f / 6))}>
+          ?
+        </text>
+      ) : null}
+    </g>
   );
 };
 
@@ -1270,14 +1461,16 @@ const TartiAcilis: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const morning = tw(f, w(5) - 4, w(5) + 16);
   const step = tw(f, w(7) - 2, w(8) + 8);
-  const kg = tw(f, w(9), w(12) + 6, 80, 81);
   const shock = tw(f, w(12) - 2, w(12) + 8);
   const shake = shock > 0 ? Math.sin(f / 2) * 3 * shock : 0;
+  // tartı rakamları kararsızca titrer (bekleyiş), "fazla" denince 81.0'a oturur
+  const settled = f >= w(12) - 2;
+  const flicker = (79.2 + random(`kg${Math.floor(f / 3)}`) * 2.6).toFixed(1);
   return (
     <>
       <Moon x={790} y={430} o={1 - morning} />
       <Sun x={790} y={430 + 60 * (1 - morning)} o={morning} rot={f * 0.4} />
-      <Bathroom x={PX + 60} y={PY + 6} value={step < 1 ? "--.-" : `${kg.toFixed(1)} kg`} />
+      <Bathroom x={PX + 60} y={PY + 6} value={step < 1 ? "--.-" : settled ? "81.0 kg" : `${flicker} kg`} />
       <Person
         x={interpolate(step, [0, 1], [PX - 230, PX + 60]) + shake}
         y={PY - 58 * step - Math.sin(step * Math.PI) * 60}
@@ -1383,7 +1576,7 @@ const TartiKalori: React.FC<SceneProps> = ({ w }) => {
         lookY={no ? 0 : -6}
         tilt={no ? shakeHead : -10 * tw(f, w(4), w(6))}
       />
-      <HandText x={760} y={470} text="7.700 kcal" size={120} p={tw(f, w(5), w(9) + 6)} color={C.red} rotate={-4} />
+      <Counter x={760} y={470} to={7700} suffix=" kcal" p={tw(f, w(5), w(9) + 4)} size={120} color={C.red} />
       <Moon x={830} y={250} s={0.7 * night} o={night > 0 ? 1 : 0} />
       <Cross x={290} y={950} size={200} p={tw(f, w(17) - 2, w(17) + 14)} />
     </>
@@ -1469,7 +1662,10 @@ const TartiSu: React.FC<SceneProps> = ({ w }) => {
         <circle cx={L.x} cy={L.y} r={L.r - 14} fill="none" stroke="#fff6dc" strokeWidth={5} opacity={0.6} />
         <path d={`M${L.x - 150} ${L.y - 150} A210 210 0 0 1 ${L.x + 20} ${L.y - 210}`} stroke="#fff" strokeWidth={10} fill="none" opacity={0.5} strokeLinecap="round" />
       </g>
-      {big > 0 ? <Drop x={250} y={430} s={3.2 * big} /> : null}
+      {/* "asıl sebep" kutusu: sallanarak bekler, "su" denince açılır ve içinden damla çıkar */}
+      <MysteryBox x={240} y={560} s={0.95} p={pop(f, 0, 12)} open={big > 0 ? tw(f, w(2) - 3, w(2) + 9) : 0} shake={f < w(2) - 3 ? Math.sin(f / 2.4) * 6 : 0}>
+        <Drop x={0} y={0} s={3.2} />
+      </MysteryBox>
       <HandText x={720} y={1150} text="×3 su" size={130} p={tw(f, w(7), w(9) + 6)} color={C.water} />
     </>
   );

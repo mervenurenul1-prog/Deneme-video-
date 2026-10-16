@@ -2,12 +2,13 @@
   "id": "cizim1-02-tarti",
   "title": "Bir gecede 1 kilo mu aldın?",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-  "modelId": "eleven_v3",
+  "modelId": "eleven_v4",
   "voiceSettings": {
     "stability": 0.5,
     "similarityBoost": 0.8
   },
   "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
   "scenes": [
     {
       "visual": "tarti-acilis",
@@ -22,7 +23,7 @@
     {
       "visual": "tarti-kalori",
       "voice": "Bir kilo yağ için yaklaşık yedi bin yedi yüz kalori fazla yemen gerekir. Tek gecede mi? Neredeyse imkânsız.",
-      "say": "Bir kilo yağ için, ıı, yaklaşık yedi bin yedi yüz kalori fazla yemen gerekir. [curious] Tek gecede mi? [chuckles] Neredeyse imkânsız."
+      "say": "Bir kilo yağ için, ıı, yaklaşık yedi bin yedi yüz kalori fazla yemen gerekir. [curious] Tek gecede mi? Neredeyse imkânsız."
     },
     {
       "visual": "tarti-su",
@@ -47,7 +48,7 @@
     {
       "visual": "tarti-kapanis",
       "voice": "Tartı yalan söylemez ama abartır. Kaydet, sonra lazım olur.",
-      "say": "Tartı yalan söylemez, [chuckles] ama abartır. [excited] Kaydet, sonra lazım olur."
+      "say": "Tartı yalan söylemez, ama abartır. [excited] Kaydet, sonra lazım olur."
     }
   ],
   "caption": "Bir gecede aldığın o 1 kilo yağ değil ⚖️\n\n1 kg yağ için yaklaşık 7.700 kalori fazlası gerekir. Kaslar karbonhidratı (glikojen) yaklaşık 3 katı suyla birlikte depolar; tuz, regl dönemi, sindirimdeki yemek ve yoğun antrenman da tartıyı günlük 1-2 kg oynatabilir. Tek güne değil, haftalık ortalamaya bak.\n\nKaydet, arkadaşına gönder 📲",
