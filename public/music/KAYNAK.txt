@@ -8,3 +8,7 @@ Dosyalar -20 LUFS'a normalize edildi.
 - clean-soul.mp3: "Clean Soul"
 - lobby-time.mp3: "Lobby Time"
 - dreamy-flashback.mp3: "Dreamy Flashback"
+- hypnothis.mp3: "Hypnothis"
+- unanswered-questions.mp3: "Unanswered Questions"
+- spy-glass.mp3: "Spy Glass"
+- mesmerize.mp3: "Mesmerize"
