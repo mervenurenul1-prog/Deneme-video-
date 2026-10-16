@@ -1,0 +1,324 @@
+{
+  "scenes": [
+    {
+      "voice": "Spor salonunda herkesin yaptığı üç hata. Üçüncüsü seni şaşırtacak.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/salon-hatalari/1-mvaa8k74.mp3",
+      "durationInSeconds": 4.365,
+      "words": [
+        {
+          "word": "Spor",
+          "start": 0,
+          "end": 0.348
+        },
+        {
+          "word": "salonunda",
+          "start": 0.406,
+          "end": 0.871
+        },
+        {
+          "word": "herkesin",
+          "start": 0.929,
+          "end": 1.335
+        },
+        {
+          "word": "yaptığı",
+          "start": 1.393,
+          "end": 1.718
+        },
+        {
+          "word": "üç",
+          "start": 1.788,
+          "end": 1.904
+        },
+        {
+          "word": "hata.",
+          "start": 1.962,
+          "end": 2.392
+        },
+        {
+          "word": "Üçüncüsü",
+          "start": 2.601,
+          "end": 3.088
+        },
+        {
+          "word": "seni",
+          "start": 3.135,
+          "end": 3.344
+        },
+        {
+          "word": "şaşırtacak.",
+          "start": 3.379,
+          "end": 4.365
+        }
+      ]
+    },
+    {
+      "voice": "Bir: Isınmadan doğrudan ağır kilolara geçmek. Beş dakikalık ısınma sakatlık riskini ciddi şekilde azaltır.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/salon-hatalari/2-mvaa8l8p.mp3",
+      "durationInSeconds": 7.105,
+      "words": [
+        {
+          "word": "Bir:",
+          "start": 0,
+          "end": 0.383
+        },
+        {
+          "word": "Isınmadan",
+          "start": 0.499,
+          "end": 1.08
+        },
+        {
+          "word": "doğrudan",
+          "start": 1.138,
+          "end": 1.521
+        },
+        {
+          "word": "ağır",
+          "start": 1.602,
+          "end": 1.823
+        },
+        {
+          "word": "kilolara",
+          "start": 1.881,
+          "end": 2.264
+        },
+        {
+          "word": "geçmek.",
+          "start": 2.31,
+          "end": 2.856
+        },
+        {
+          "word": "Beş",
+          "start": 3.239,
+          "end": 3.471
+        },
+        {
+          "word": "dakikalık",
+          "start": 3.529,
+          "end": 3.994
+        },
+        {
+          "word": "ısınma",
+          "start": 4.063,
+          "end": 4.389
+        },
+        {
+          "word": "sakatlık",
+          "start": 4.435,
+          "end": 4.888
+        },
+        {
+          "word": "riskini",
+          "start": 4.934,
+          "end": 5.399
+        },
+        {
+          "word": "ciddi",
+          "start": 5.492,
+          "end": 5.828
+        },
+        {
+          "word": "şekilde",
+          "start": 5.875,
+          "end": 6.223
+        },
+        {
+          "word": "azaltır.",
+          "start": 6.246,
+          "end": 7.105
+        }
+      ]
+    },
+    {
+      "voice": "İki: Kiloyu artırmak için formu bozmak. Doğru form, fazla kilodan her zaman daha değerlidir.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/salon-hatalari/3-mvaa8mfs.mp3",
+      "durationInSeconds": 5.805,
+      "words": [
+        {
+          "word": "İki:",
+          "start": 0,
+          "end": 0.464
+        },
+        {
+          "word": "Kiloyu",
+          "start": 0.522,
+          "end": 0.894
+        },
+        {
+          "word": "artırmak",
+          "start": 0.952,
+          "end": 1.405
+        },
+        {
+          "word": "için",
+          "start": 1.44,
+          "end": 1.649
+        },
+        {
+          "word": "formu",
+          "start": 1.718,
+          "end": 2.009
+        },
+        {
+          "word": "bozmak.",
+          "start": 2.043,
+          "end": 2.589
+        },
+        {
+          "word": "Doğru",
+          "start": 2.833,
+          "end": 3.135
+        },
+        {
+          "word": "form,",
+          "start": 3.17,
+          "end": 3.425
+        },
+        {
+          "word": "fazla",
+          "start": 3.46,
+          "end": 3.762
+        },
+        {
+          "word": "kilodan",
+          "start": 3.808,
+          "end": 4.156
+        },
+        {
+          "word": "her",
+          "start": 4.214,
+          "end": 4.319
+        },
+        {
+          "word": "zaman",
+          "start": 4.365,
+          "end": 4.598
+        },
+        {
+          "word": "daha",
+          "start": 4.644,
+          "end": 4.818
+        },
+        {
+          "word": "değerlidir.",
+          "start": 4.865,
+          "end": 5.805
+        }
+      ]
+    },
+    {
+      "voice": "Üç: Dinlenme günlerini atlamak. Kaslar antrenmanda değil, dinlenirken gelişir.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/salon-hatalari/4-mvaa8nfc.mp3",
+      "durationInSeconds": 5.619,
+      "words": [
+        {
+          "word": "Üç:",
+          "start": 0,
+          "end": 0.453
+        },
+        {
+          "word": "Dinlenme",
+          "start": 0.604,
+          "end": 1.103
+        },
+        {
+          "word": "günlerini",
+          "start": 1.161,
+          "end": 1.544
+        },
+        {
+          "word": "atlamak.",
+          "start": 1.602,
+          "end": 2.241
+        },
+        {
+          "word": "Kaslar",
+          "start": 2.45,
+          "end": 2.879
+        },
+        {
+          "word": "antrenmanda",
+          "start": 2.937,
+          "end": 3.529
+        },
+        {
+          "word": "değil,",
+          "start": 3.587,
+          "end": 3.947
+        },
+        {
+          "word": "dinlenirken",
+          "start": 4.063,
+          "end": 4.725
+        },
+        {
+          "word": "gelişir.",
+          "start": 4.783,
+          "end": 5.619
+        }
+      ]
+    },
+    {
+      "voice": "Programını bu hatalardan uzak planlamak için uygulamamızı dene. Kaydetmeyi unutma!",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/salon-hatalari/5-mvaa8ooa.mp3",
+      "durationInSeconds": 5.851,
+      "words": [
+        {
+          "word": "Programını",
+          "start": 0,
+          "end": 0.604
+        },
+        {
+          "word": "bu",
+          "start": 0.65,
+          "end": 0.755
+        },
+        {
+          "word": "hatalardan",
+          "start": 0.789,
+          "end": 1.382
+        },
+        {
+          "word": "uzak",
+          "start": 1.463,
+          "end": 1.73
+        },
+        {
+          "word": "planlamak",
+          "start": 1.776,
+          "end": 2.252
+        },
+        {
+          "word": "için",
+          "start": 2.287,
+          "end": 2.543
+        },
+        {
+          "word": "uygulamamızı",
+          "start": 2.786,
+          "end": 3.471
+        },
+        {
+          "word": "dene.",
+          "start": 3.518,
+          "end": 3.959
+        },
+        {
+          "word": "Kaydetmeyi",
+          "start": 4.4,
+          "end": 4.981
+        },
+        {
+          "word": "unutma!",
+          "start": 5.05,
+          "end": 5.851
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,568 @@
+{
+  "scenes": [
+    {
+      "voice": "Bin dokuz yüz yirmi sekiz. Bir bilim insanı tatile çıkarken laboratuvarını dağınık bıraktı. Bu dağınıklık, milyonlarca hayat kurtaracaktı.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/penisilin/1-mvaa8q5x.mp3",
+      "durationInSeconds": 8.87,
+      "words": [
+        {
+          "word": "Bin",
+          "start": 0,
+          "end": 0.255
+        },
+        {
+          "word": "dokuz",
+          "start": 0.313,
+          "end": 0.65
+        },
+        {
+          "word": "yüz",
+          "start": 0.708,
+          "end": 0.929
+        },
+        {
+          "word": "yirmi",
+          "start": 1.045,
+          "end": 1.324
+        },
+        {
+          "word": "sekiz.",
+          "start": 1.37,
+          "end": 1.904
+        },
+        {
+          "word": "Bir",
+          "start": 2.183,
+          "end": 2.38
+        },
+        {
+          "word": "bilim",
+          "start": 2.45,
+          "end": 2.659
+        },
+        {
+          "word": "insanı",
+          "start": 2.717,
+          "end": 3.019
+        },
+        {
+          "word": "tatile",
+          "start": 3.077,
+          "end": 3.46
+        },
+        {
+          "word": "çıkarken",
+          "start": 3.506,
+          "end": 4.005
+        },
+        {
+          "word": "laboratuvarını",
+          "start": 4.087,
+          "end": 4.772
+        },
+        {
+          "word": "dağınık",
+          "start": 4.818,
+          "end": 5.155
+        },
+        {
+          "word": "bıraktı.",
+          "start": 5.213,
+          "end": 5.77
+        },
+        {
+          "word": "Bu",
+          "start": 6.014,
+          "end": 6.165
+        },
+        {
+          "word": "dağınıklık,",
+          "start": 6.223,
+          "end": 6.78
+        },
+        {
+          "word": "milyonlarca",
+          "start": 6.827,
+          "end": 7.465
+        },
+        {
+          "word": "hayat",
+          "start": 7.512,
+          "end": 7.732
+        },
+        {
+          "word": "kurtaracaktı.",
+          "start": 7.79,
+          "end": 8.87
+        }
+      ]
+    },
+    {
+      "voice": "Adı Alexander Fleming'di. Londra'da, hastalık yapan bakterileri inceliyordu.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/penisilin/2-mvaa8raa.mp3",
+      "durationInSeconds": 4.83,
+      "words": [
+        {
+          "word": "Adı",
+          "start": 0,
+          "end": 0.244
+        },
+        {
+          "word": "Alexander",
+          "start": 0.313,
+          "end": 0.859
+        },
+        {
+          "word": "Fleming'di.",
+          "start": 0.917,
+          "end": 1.602
+        },
+        {
+          "word": "Londra'da,",
+          "start": 1.811,
+          "end": 2.426
+        },
+        {
+          "word": "hastalık",
+          "start": 2.461,
+          "end": 2.914
+        },
+        {
+          "word": "yapan",
+          "start": 2.961,
+          "end": 3.193
+        },
+        {
+          "word": "bakterileri",
+          "start": 3.239,
+          "end": 3.808
+        },
+        {
+          "word": "inceliyordu.",
+          "start": 3.843,
+          "end": 4.83
+        }
+      ]
+    },
+    {
+      "voice": "Tatilden döndüğünde, masada unuttuğu bir kabın içinde küf ürediğini gördü. Normalde bunu çöpe atardı.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/penisilin/3-mvaa8sip.mp3",
+      "durationInSeconds": 6.455,
+      "words": [
+        {
+          "word": "Tatilden",
+          "start": 0,
+          "end": 0.627
+        },
+        {
+          "word": "döndüğünde,",
+          "start": 0.685,
+          "end": 1.312
+        },
+        {
+          "word": "masada",
+          "start": 1.37,
+          "end": 1.73
+        },
+        {
+          "word": "unuttuğu",
+          "start": 1.811,
+          "end": 2.171
+        },
+        {
+          "word": "bir",
+          "start": 2.218,
+          "end": 2.357
+        },
+        {
+          "word": "kabın",
+          "start": 2.415,
+          "end": 2.659
+        },
+        {
+          "word": "içinde",
+          "start": 2.705,
+          "end": 3.042
+        },
+        {
+          "word": "küf",
+          "start": 3.111,
+          "end": 3.286
+        },
+        {
+          "word": "ürediğini",
+          "start": 3.355,
+          "end": 3.75
+        },
+        {
+          "word": "gördü.",
+          "start": 3.796,
+          "end": 4.319
+        },
+        {
+          "word": "Normalde",
+          "start": 4.702,
+          "end": 5.132
+        },
+        {
+          "word": "bunu",
+          "start": 5.178,
+          "end": 5.364
+        },
+        {
+          "word": "çöpe",
+          "start": 5.399,
+          "end": 5.619
+        },
+        {
+          "word": "atardı.",
+          "start": 5.654,
+          "end": 6.455
+        }
+      ]
+    },
+    {
+      "voice": "Ama bir şey dikkatini çekti. Küfün çevresindeki bakteriler... yok olmuştu.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/penisilin/4-mvaa8tnf.mp3",
+      "durationInSeconds": 4.969,
+      "words": [
+        {
+          "word": "Ama",
+          "start": 0,
+          "end": 0.221
+        },
+        {
+          "word": "bir",
+          "start": 0.267,
+          "end": 0.36
+        },
+        {
+          "word": "şey",
+          "start": 0.395,
+          "end": 0.534
+        },
+        {
+          "word": "dikkatini",
+          "start": 0.58,
+          "end": 1.033
+        },
+        {
+          "word": "çekti.",
+          "start": 1.068,
+          "end": 1.602
+        },
+        {
+          "word": "Küfün",
+          "start": 1.811,
+          "end": 2.125
+        },
+        {
+          "word": "çevresindeki",
+          "start": 2.171,
+          "end": 2.798
+        },
+        {
+          "word": "bakteriler...",
+          "start": 2.844,
+          "end": 3.611
+        },
+        {
+          "word": "yok",
+          "start": 3.855,
+          "end": 4.063
+        },
+        {
+          "word": "olmuştu.",
+          "start": 4.122,
+          "end": 4.969
+        }
+      ]
+    },
+    {
+      "voice": "Fleming, bakterileri öldüren bu maddeye bir isim verdi: Penisilin.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/penisilin/5-mvaa8um9.mp3",
+      "durationInSeconds": 4.272,
+      "words": [
+        {
+          "word": "Fleming,",
+          "start": 0,
+          "end": 0.522
+        },
+        {
+          "word": "bakterileri",
+          "start": 0.557,
+          "end": 1.207
+        },
+        {
+          "word": "öldüren",
+          "start": 1.277,
+          "end": 1.649
+        },
+        {
+          "word": "bu",
+          "start": 1.707,
+          "end": 1.811
+        },
+        {
+          "word": "maddeye",
+          "start": 1.846,
+          "end": 2.241
+        },
+        {
+          "word": "bir",
+          "start": 2.287,
+          "end": 2.415
+        },
+        {
+          "word": "isim",
+          "start": 2.461,
+          "end": 2.682
+        },
+        {
+          "word": "verdi:",
+          "start": 2.717,
+          "end": 3.193
+        },
+        {
+          "word": "Penisilin.",
+          "start": 3.402,
+          "end": 4.272
+        }
+      ]
+    },
+    {
+      "voice": "Yıllarca kimse onu ilaca dönüştüremedi. Ta ki İkinci Dünya Savaşı sırasında, Oxford'daki bir ekip onu saflaştırıp seri üretimin yolunu açana kadar.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/penisilin/6-mvaa8vua.mp3",
+      "durationInSeconds": 9.009,
+      "words": [
+        {
+          "word": "Yıllarca",
+          "start": 0,
+          "end": 0.534
+        },
+        {
+          "word": "kimse",
+          "start": 0.604,
+          "end": 0.848
+        },
+        {
+          "word": "onu",
+          "start": 0.882,
+          "end": 1.057
+        },
+        {
+          "word": "ilaca",
+          "start": 1.103,
+          "end": 1.393
+        },
+        {
+          "word": "dönüştüremedi.",
+          "start": 1.451,
+          "end": 2.299
+        },
+        {
+          "word": "Ta",
+          "start": 2.508,
+          "end": 2.728
+        },
+        {
+          "word": "ki",
+          "start": 2.786,
+          "end": 2.891
+        },
+        {
+          "word": "İkinci",
+          "start": 2.949,
+          "end": 3.251
+        },
+        {
+          "word": "Dünya",
+          "start": 3.297,
+          "end": 3.541
+        },
+        {
+          "word": "Savaşı",
+          "start": 3.587,
+          "end": 3.924
+        },
+        {
+          "word": "sırasında,",
+          "start": 3.959,
+          "end": 4.621
+        },
+        {
+          "word": "Oxford'daki",
+          "start": 4.83,
+          "end": 5.468
+        },
+        {
+          "word": "bir",
+          "start": 5.515,
+          "end": 5.631
+        },
+        {
+          "word": "ekip",
+          "start": 5.677,
+          "end": 5.921
+        },
+        {
+          "word": "onu",
+          "start": 6.014,
+          "end": 6.223
+        },
+        {
+          "word": "saflaştırıp",
+          "start": 6.258,
+          "end": 6.92
+        },
+        {
+          "word": "seri",
+          "start": 6.989,
+          "end": 7.198
+        },
+        {
+          "word": "üretimin",
+          "start": 7.256,
+          "end": 7.651
+        },
+        {
+          "word": "yolunu",
+          "start": 7.697,
+          "end": 7.964
+        },
+        {
+          "word": "açana",
+          "start": 7.999,
+          "end": 8.301
+        },
+        {
+          "word": "kadar.",
+          "start": 8.348,
+          "end": 9.009
+        }
+      ]
+    },
+    {
+      "voice": "Böylece ilk antibiyotik doğdu. Bugün milyonlarca insan, hayatını bu küçük kazaya borçlu.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/penisilin/7-mvaa8x0b.mp3",
+      "durationInSeconds": 5.805,
+      "words": [
+        {
+          "word": "Böylece",
+          "start": 0,
+          "end": 0.441
+        },
+        {
+          "word": "ilk",
+          "start": 0.522,
+          "end": 0.685
+        },
+        {
+          "word": "antibiyotik",
+          "start": 0.766,
+          "end": 1.347
+        },
+        {
+          "word": "doğdu.",
+          "start": 1.405,
+          "end": 1.858
+        },
+        {
+          "word": "Bugün",
+          "start": 1.95,
+          "end": 2.241
+        },
+        {
+          "word": "milyonlarca",
+          "start": 2.287,
+          "end": 2.902
+        },
+        {
+          "word": "insan,",
+          "start": 2.972,
+          "end": 3.46
+        },
+        {
+          "word": "hayatını",
+          "start": 3.634,
+          "end": 4.098
+        },
+        {
+          "word": "bu",
+          "start": 4.133,
+          "end": 4.214
+        },
+        {
+          "word": "küçük",
+          "start": 4.261,
+          "end": 4.528
+        },
+        {
+          "word": "kazaya",
+          "start": 4.563,
+          "end": 4.957
+        },
+        {
+          "word": "borçlu.",
+          "start": 5.004,
+          "end": 5.805
+        }
+      ]
+    },
+    {
+      "voice": "Fleming'in dediği gibi: İnsan bazen, aramadığı şeyi bulur.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/penisilin/8-mvaa8y0g.mp3",
+      "durationInSeconds": 3.808,
+      "words": [
+        {
+          "word": "Fleming'in",
+          "start": 0,
+          "end": 0.546
+        },
+        {
+          "word": "dediği",
+          "start": 0.604,
+          "end": 0.859
+        },
+        {
+          "word": "gibi:",
+          "start": 0.906,
+          "end": 1.265
+        },
+        {
+          "word": "İnsan",
+          "start": 1.382,
+          "end": 1.776
+        },
+        {
+          "word": "bazen,",
+          "start": 1.834,
+          "end": 2.322
+        },
+        {
+          "word": "aramadığı",
+          "start": 2.38,
+          "end": 2.879
+        },
+        {
+          "word": "şeyi",
+          "start": 2.926,
+          "end": 3.123
+        },
+        {
+          "word": "bulur.",
+          "start": 3.17,
+          "end": 3.808
+        }
+      ]
+    }
+  ]
+}

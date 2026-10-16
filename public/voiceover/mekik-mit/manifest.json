@@ -1,0 +1,344 @@
+{
+  "scenes": [
+    {
+      "voice": "Her gün yüz mekik çekiyorsun ama göbeğin hâlâ gitmiyor mu?",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/mekik-mit/1-mvaa8enp.mp3",
+      "durationInSeconds": 3.622,
+      "words": [
+        {
+          "word": "Her",
+          "start": 0,
+          "end": 0.255
+        },
+        {
+          "word": "gün",
+          "start": 0.325,
+          "end": 0.488
+        },
+        {
+          "word": "yüz",
+          "start": 0.546,
+          "end": 0.708
+        },
+        {
+          "word": "mekik",
+          "start": 0.778,
+          "end": 1.033
+        },
+        {
+          "word": "çekiyorsun",
+          "start": 1.08,
+          "end": 1.614
+        },
+        {
+          "word": "ama",
+          "start": 1.672,
+          "end": 1.846
+        },
+        {
+          "word": "göbeğin",
+          "start": 1.904,
+          "end": 2.252
+        },
+        {
+          "word": "hâlâ",
+          "start": 2.322,
+          "end": 2.601
+        },
+        {
+          "word": "gitmiyor",
+          "start": 2.682,
+          "end": 3.135
+        },
+        {
+          "word": "mu?",
+          "start": 3.204,
+          "end": 3.622
+        }
+      ]
+    },
+    {
+      "voice": "Yaygın inanış: Mekik çekersen karın bölgesindeki yağlar erir.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/mekik-mit/2-mvaa8fjn.mp3",
+      "durationInSeconds": 4.133,
+      "words": [
+        {
+          "word": "Yaygın",
+          "start": 0,
+          "end": 0.418
+        },
+        {
+          "word": "inanış:",
+          "start": 0.476,
+          "end": 0.964
+        },
+        {
+          "word": "Mekik",
+          "start": 1.207,
+          "end": 1.544
+        },
+        {
+          "word": "çekersen",
+          "start": 1.591,
+          "end": 2.09
+        },
+        {
+          "word": "karın",
+          "start": 2.171,
+          "end": 2.403
+        },
+        {
+          "word": "bölgesindeki",
+          "start": 2.438,
+          "end": 3.065
+        },
+        {
+          "word": "yağlar",
+          "start": 3.111,
+          "end": 3.448
+        },
+        {
+          "word": "erir.",
+          "start": 3.518,
+          "end": 4.133
+        }
+      ]
+    },
+    {
+      "voice": "Gerçek şu: Bölgesel yağ yakımı yoktur. Vücut yağı, kalori açığı ve düzenli antrenmanla genel olarak azalır.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/mekik-mit/3-mvaa8guy.mp3",
+      "durationInSeconds": 6.873,
+      "words": [
+        {
+          "word": "Gerçek",
+          "start": 0,
+          "end": 0.441
+        },
+        {
+          "word": "şu:",
+          "start": 0.499,
+          "end": 0.813
+        },
+        {
+          "word": "Bölgesel",
+          "start": 0.987,
+          "end": 1.509
+        },
+        {
+          "word": "yağ",
+          "start": 1.591,
+          "end": 1.73
+        },
+        {
+          "word": "yakımı",
+          "start": 1.8,
+          "end": 2.09
+        },
+        {
+          "word": "yoktur.",
+          "start": 2.125,
+          "end": 2.612
+        },
+        {
+          "word": "Vücut",
+          "start": 2.891,
+          "end": 3.251
+        },
+        {
+          "word": "yağı,",
+          "start": 3.332,
+          "end": 3.587
+        },
+        {
+          "word": "kalori",
+          "start": 3.646,
+          "end": 3.994
+        },
+        {
+          "word": "açığı",
+          "start": 4.04,
+          "end": 4.319
+        },
+        {
+          "word": "ve",
+          "start": 4.354,
+          "end": 4.435
+        },
+        {
+          "word": "düzenli",
+          "start": 4.481,
+          "end": 4.865
+        },
+        {
+          "word": "antrenmanla",
+          "start": 4.923,
+          "end": 5.492
+        },
+        {
+          "word": "genel",
+          "start": 5.55,
+          "end": 5.793
+        },
+        {
+          "word": "olarak",
+          "start": 5.84,
+          "end": 6.095
+        },
+        {
+          "word": "azalır.",
+          "start": 6.165,
+          "end": 6.873
+        }
+      ]
+    },
+    {
+      "voice": "Yani beslenmeni düzenle, tüm vücut antrenmanı yap ve karın kaslarını da bu programın bir parçası olarak çalış.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/mekik-mit/4-mvaa8i5a.mp3",
+      "durationInSeconds": 6.966,
+      "words": [
+        {
+          "word": "Yani",
+          "start": 0,
+          "end": 0.325
+        },
+        {
+          "word": "beslenmeni",
+          "start": 0.372,
+          "end": 0.94
+        },
+        {
+          "word": "düzenle,",
+          "start": 0.975,
+          "end": 1.567
+        },
+        {
+          "word": "tüm",
+          "start": 1.683,
+          "end": 1.904
+        },
+        {
+          "word": "vücut",
+          "start": 1.939,
+          "end": 2.229
+        },
+        {
+          "word": "antrenmanı",
+          "start": 2.299,
+          "end": 2.786
+        },
+        {
+          "word": "yap",
+          "start": 2.844,
+          "end": 3.053
+        },
+        {
+          "word": "ve",
+          "start": 3.297,
+          "end": 3.425
+        },
+        {
+          "word": "karın",
+          "start": 3.495,
+          "end": 3.738
+        },
+        {
+          "word": "kaslarını",
+          "start": 3.785,
+          "end": 4.284
+        },
+        {
+          "word": "da",
+          "start": 4.331,
+          "end": 4.528
+        },
+        {
+          "word": "bu",
+          "start": 4.644,
+          "end": 4.795
+        },
+        {
+          "word": "programın",
+          "start": 4.83,
+          "end": 5.306
+        },
+        {
+          "word": "bir",
+          "start": 5.352,
+          "end": 5.492
+        },
+        {
+          "word": "parçası",
+          "start": 5.55,
+          "end": 5.921
+        },
+        {
+          "word": "olarak",
+          "start": 5.968,
+          "end": 6.235
+        },
+        {
+          "word": "çalış.",
+          "start": 6.304,
+          "end": 6.966
+        }
+      ]
+    },
+    {
+      "voice": "Sana özel beslenme ve antrenman planı için uygulamamızı indir.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/mekik-mit/5-mvaa8j5h.mp3",
+      "durationInSeconds": 3.947,
+      "words": [
+        {
+          "word": "Sana",
+          "start": 0,
+          "end": 0.313
+        },
+        {
+          "word": "özel",
+          "start": 0.383,
+          "end": 0.662
+        },
+        {
+          "word": "beslenme",
+          "start": 0.731,
+          "end": 1.242
+        },
+        {
+          "word": "ve",
+          "start": 1.289,
+          "end": 1.37
+        },
+        {
+          "word": "antrenman",
+          "start": 1.428,
+          "end": 1.904
+        },
+        {
+          "word": "planı",
+          "start": 1.95,
+          "end": 2.229
+        },
+        {
+          "word": "için",
+          "start": 2.264,
+          "end": 2.473
+        },
+        {
+          "word": "uygulamamızı",
+          "start": 2.543,
+          "end": 3.158
+        },
+        {
+          "word": "indir.",
+          "start": 3.228,
+          "end": 3.947
+        }
+      ]
+    }
+  ]
+}

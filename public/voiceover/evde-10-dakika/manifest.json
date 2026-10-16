@@ -1,0 +1,310 @@
+{
+  "scenes": [
+    {
+      "voice": "Vaktin yok mu? Ekipmansız, sadece on dakikalık bir antrenman.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/evde-10-dakika/1-mvaa88g0.mp3",
+      "durationInSeconds": 4.319,
+      "words": [
+        {
+          "word": "Vaktin",
+          "start": 0,
+          "end": 0.453
+        },
+        {
+          "word": "yok",
+          "start": 0.511,
+          "end": 0.697
+        },
+        {
+          "word": "mu?",
+          "start": 0.778,
+          "end": 0.987
+        },
+        {
+          "word": "Ekipmansız,",
+          "start": 1.138,
+          "end": 2.02
+        },
+        {
+          "word": "sadece",
+          "start": 2.136,
+          "end": 2.589
+        },
+        {
+          "word": "on",
+          "start": 2.659,
+          "end": 2.786
+        },
+        {
+          "word": "dakikalık",
+          "start": 2.833,
+          "end": 3.309
+        },
+        {
+          "word": "bir",
+          "start": 3.355,
+          "end": 3.448
+        },
+        {
+          "word": "antrenman.",
+          "start": 3.471,
+          "end": 4.319
+        }
+      ]
+    },
+    {
+      "voice": "Kırk saniye squat, yirmi saniye dinlen.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/evde-10-dakika/2-mvaa898e.mp3",
+      "durationInSeconds": 2.461,
+      "words": [
+        {
+          "word": "Kırk",
+          "start": 0,
+          "end": 0.29
+        },
+        {
+          "word": "saniye",
+          "start": 0.348,
+          "end": 0.673
+        },
+        {
+          "word": "squat,",
+          "start": 0.72,
+          "end": 1.138
+        },
+        {
+          "word": "yirmi",
+          "start": 1.184,
+          "end": 1.463
+        },
+        {
+          "word": "saniye",
+          "start": 1.498,
+          "end": 1.823
+        },
+        {
+          "word": "dinlen.",
+          "start": 1.869,
+          "end": 2.461
+        }
+      ]
+    },
+    {
+      "voice": "Kırk saniye şınav. Zorlanırsan dizlerinin üzerinde yap.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/evde-10-dakika/3-mvaa8a3g.mp3",
+      "durationInSeconds": 3.947,
+      "words": [
+        {
+          "word": "Kırk",
+          "start": 0,
+          "end": 0.279
+        },
+        {
+          "word": "saniye",
+          "start": 0.325,
+          "end": 0.662
+        },
+        {
+          "word": "şınav.",
+          "start": 0.72,
+          "end": 1.173
+        },
+        {
+          "word": "Zorlanırsan",
+          "start": 1.614,
+          "end": 2.31
+        },
+        {
+          "word": "dizlerinin",
+          "start": 2.368,
+          "end": 2.891
+        },
+        {
+          "word": "üzerinde",
+          "start": 2.961,
+          "end": 3.379
+        },
+        {
+          "word": "yap.",
+          "start": 3.425,
+          "end": 3.947
+        }
+      ]
+    },
+    {
+      "voice": "Kırk saniye lunge, bacak değiştirerek.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/evde-10-dakika/4-mvaa8awm.mp3",
+      "durationInSeconds": 2.647,
+      "words": [
+        {
+          "word": "Kırk",
+          "start": 0,
+          "end": 0.279
+        },
+        {
+          "word": "saniye",
+          "start": 0.325,
+          "end": 0.662
+        },
+        {
+          "word": "lunge,",
+          "start": 0.708,
+          "end": 1.149
+        },
+        {
+          "word": "bacak",
+          "start": 1.265,
+          "end": 1.591
+        },
+        {
+          "word": "değiştirerek.",
+          "start": 1.66,
+          "end": 2.647
+        }
+      ]
+    },
+    {
+      "voice": "Kırk saniye plank. Karnını sık, kalçanı düşürme.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/evde-10-dakika/5-mvaa8bue.mp3",
+      "durationInSeconds": 3.344,
+      "words": [
+        {
+          "word": "Kırk",
+          "start": 0,
+          "end": 0.267
+        },
+        {
+          "word": "saniye",
+          "start": 0.325,
+          "end": 0.662
+        },
+        {
+          "word": "plank.",
+          "start": 0.708,
+          "end": 1.149
+        },
+        {
+          "word": "Karnını",
+          "start": 1.265,
+          "end": 1.718
+        },
+        {
+          "word": "sık,",
+          "start": 1.765,
+          "end": 2.067
+        },
+        {
+          "word": "kalçanı",
+          "start": 2.09,
+          "end": 2.543
+        },
+        {
+          "word": "düşürme.",
+          "start": 2.577,
+          "end": 3.344
+        }
+      ]
+    },
+    {
+      "voice": "Bu turu iki kez tekrarla. Hepsi bu kadar!",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/evde-10-dakika/6-mvaa8cqp.mp3",
+      "durationInSeconds": 2.647,
+      "words": [
+        {
+          "word": "Bu",
+          "start": 0,
+          "end": 0.163
+        },
+        {
+          "word": "turu",
+          "start": 0.209,
+          "end": 0.43
+        },
+        {
+          "word": "iki",
+          "start": 0.488,
+          "end": 0.673
+        },
+        {
+          "word": "kez",
+          "start": 0.708,
+          "end": 0.871
+        },
+        {
+          "word": "tekrarla.",
+          "start": 0.94,
+          "end": 1.556
+        },
+        {
+          "word": "Hepsi",
+          "start": 1.602,
+          "end": 1.869
+        },
+        {
+          "word": "bu",
+          "start": 1.904,
+          "end": 1.985
+        },
+        {
+          "word": "kadar!",
+          "start": 2.02,
+          "end": 2.647
+        }
+      ]
+    },
+    {
+      "voice": "Her gün yeni bir antrenman için uygulamamızı indir.",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "file": "voiceover/evde-10-dakika/7-mvaa8dnd.mp3",
+      "durationInSeconds": 2.972,
+      "words": [
+        {
+          "word": "Her",
+          "start": 0,
+          "end": 0.267
+        },
+        {
+          "word": "gün",
+          "start": 0.337,
+          "end": 0.464
+        },
+        {
+          "word": "yeni",
+          "start": 0.534,
+          "end": 0.708
+        },
+        {
+          "word": "bir",
+          "start": 0.743,
+          "end": 0.859
+        },
+        {
+          "word": "antrenman",
+          "start": 0.906,
+          "end": 1.324
+        },
+        {
+          "word": "için",
+          "start": 1.37,
+          "end": 1.579
+        },
+        {
+          "word": "uygulamamızı",
+          "start": 1.672,
+          "end": 2.31
+        },
+        {
+          "word": "indir.",
+          "start": 2.357,
+          "end": 2.972
+        }
+      ]
+    }
+  ]
+}
