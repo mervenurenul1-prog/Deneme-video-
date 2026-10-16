@@ -19,6 +19,8 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
   (Python/numpy sentez, açık kaynak araçlar, CC0 ses paketleri). Mevcut `merak-gerilim` ve üretilmiş efektler kullanılabilir.
   ElevenLabs kredisi yalnız seslendirme (Yunus) için.
 - Kullanıcının söylediklerini dikkate al; her isteğini not et.
+- **BEĞENİLEN FORMÜL (10 bin adım, kullanıcı tarif etti): başta TARİHÇE (gerçek bir köken/olay), ortada GÖRSEL
+  ögeler, sonda LOOP, baştan sona DİKKAT ÇEKİCİ / algısı yüksek cümleler.** Her yeni videoyu bu formülle hikâyeleştir.
 - **EFEKTLER AZ VE KISIK (kullanıcı: "efektler Yunus'un ve müziğin önüne geçmiş, çok tik-tak var"):** kodda
   `SFX_GAIN = 0.45` ve `tidySfx` (küçük tekrar eden sesler 20 kareden yakınsa yalnız ilki). Yeni videolarda efekt
   yalnız önemli anlarda; sayaç/tik-tak dizileri koyma. Öncelik: Yunus > müzik > efekt.
@@ -133,7 +135,13 @@ telefonu kaldırınca zıplayıp iner; kapanış "o çocuk geri gelmeyi çok sev
 Kullanıcı "çarpıcı ses efektleri" istedi → ElevenLabs Sound Effects (`POST /v1/sound-generation` {text, duration_seconds,
 prompt_influence}) ile gerçekçi efektler üretildi, −16 LUFS: `agir-dusme`, `havalanma`, `alarm`, `otobus`, `klavye`,
 `zincir` (public/sfx). Anahtar anlarda bunları kullan. Not: müzik/efekt üretimi kredi düşürebiliyor, kontrol et.
-**04 ONAYLANDI ve seslendirildi** (~709 karakter, 51,9 sn): `ornek-videolar/cizim1-pilot/04-kadin-agirlik.mp4`.
+**04 BAŞTAN HİKÂYELEŞTİRİLDİ (kullanıcı: "anlatım ve animasyon olmadı, ikisi de baştan"):** "1896'da erkekler
+ağırlık kaldırdı, kadınlar 104 yıl bekledi (Olimpiyat 2000 Sydney); ilk altını 48 kg sınıfında yarışan kadın kazandı"
+→ korku → testosteron → kas → kemik (LIFTMOR) → "104 yıl beklediler, sen bir gün daha bekleme" → döngü: "Çünkü bu hikâye
+nasıl başladı, biliyor musun?" (avatar eski fotoğrafa dalar → 1896). Eski fotoğraf katmanı `OldPhoto`, `Temple`,
+`GlobeBarbell`, `Rope`, `GoldMedal`, `OperaHouse`, `Confetti`. Sessiz önizleme gönderildi → onay → seslendirme
+(testosteron sahnesinin sesi önbellekte). Sonra 05 boyun da aynı formülle baştan.
+(eski) **04 ONAYLANDI ve seslendirildi** (~709 karakter, 51,9 sn): `ornek-videolar/cizim1-pilot/04-kadin-agirlik.mp4`.
 Sıradaki: yeni konu 3) "30 dakikalık protein penceresi bir efsane" (önce sessiz önizleme). Müzik/efekt ÜCRETSİZ.
 **04 revize (kullanıcı: "beğendim ama daha iyi giriş, loop etkisi, daha kuvvetli betimleme"):** yeni açılış "Ağırlık
 kaldıran bir kadının iri olması, sandığından çok daha zor" + kadının kolları balon gibi şişip "izin vermez"de söner;
