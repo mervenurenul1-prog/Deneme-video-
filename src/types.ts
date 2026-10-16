@@ -101,6 +101,8 @@ export type Cizim = {
   voiceSettings?: { stability?: number; similarityBoost?: number; style?: number; useSpeakerBoost?: boolean };
   // Seslendirmede bundan uzun sessizlikler kısaltılır (saniye), ör. 0.3
   maxPause?: number;
+  // Arka plan müziği (public/ altında), ör. "music/investigations.mp3"
+  music?: string;
   scenes: CizimScene[];
   caption: string;
   hashtags: string[];

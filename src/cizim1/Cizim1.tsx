@@ -65,15 +65,77 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
             </Shot>
             <Captions words={words} />
             {audio ? <Audio src={staticFile(audio.file)} /> : null}
+            {/* sahne geçişi + o sahnedeki olayların efekt sesleri */}
+            {i > 0 ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18} /> : null}
+            {(SFX[scene.visual]?.(w, durations[i]) ?? []).map(([at, file, vol], k) =>
+              at >= 0 && at < durations[i] ? (
+                <Sequence key={k} from={Math.round(at)} layout="none">
+                  <Audio src={staticFile(`sfx/${file}.mp3`)} volume={vol} />
+                </Sequence>
+              ) : null,
+            )}
           </Sequence>
         );
       })}
+      {cizim.music ? <Music src={cizim.music} /> : null}
       <Dust />
     </AbsoluteFill>
   );
 };
 
 const Missing: React.FC<SceneProps> = () => null;
+
+// Arka plan müziği: konuşmanın altında kısık, başta ve sonda yumuşak geçiş
+const Music: React.FC<{ src: string }> = ({ src }) => {
+  const { durationInFrames } = useVideoConfig();
+  return (
+    <Audio
+      src={staticFile(src)}
+      loop
+      volume={(f) =>
+        0.11 * interpolate(f, [0, 20, durationInFrames - 45, durationInFrames - 1], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
+      }
+    />
+  );
+};
+
+// Efekt sesleri: [kare, dosya (public/sfx), ses düzeyi]. Animasyonlarla aynı kelime zamanlarına bağlı.
+type Sfx = [number, string, number];
+const every = (from: number, to: number, step: number, file: string, vol: number): Sfx[] => {
+  const out: Sfx[] = [];
+  for (let t = from; t < to; t += step) out.push([t, file, vol]);
+  return out;
+};
+const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  tarti: (w) => [
+    [w(0) + 2, "bip", 0.35],
+    [w(2) + 18, "bip", 0.35],
+    [w(2) + 4, "pirilti", 0.3],
+    [w(6), "pop", 0.4],
+    [w(7), "pop", 0.4],
+  ],
+  "yanlis-fikir": (w) => [
+    [w(2) - 4, "pop", 0.45],
+    [w(3), "kalem", 0.35],
+    [w(6) - 4, "pop", 0.45],
+    [w(6), "damla", 0.4],
+    [w(6) + 14, "damla", 0.3],
+    [w(7), "kalem", 0.35],
+    [w(11) - 2, "cizik", 0.5],
+    [w(11) + 6, "cizik", 0.5],
+  ],
+  "yag-hucresi": (w) => [
+    [4, "pop", 0.4],
+    ...Array.from({ length: 10 }, (_, i): Sfx => [w(1) + i * Math.max(3, (w(5) - w(1)) / 10), "pop", 0.18]),
+    [w(2), "kalem", 0.3],
+    [w(4), "kalem", 0.3],
+  ],
+  nefes: (w, d) => [[w(1), "kalem", 0.35], [w(4), "kalem", 0.25], ...every(w(4) - 10, d - 20, 42, "nefes", 0.45)],
+  su: (w, d) => [[w(2) - 3, "damla", 0.45], [w(2), "kalem", 0.3], ...every(w(4), d - 10, 18, "damla", 0.22)],
+  "hizli-nefes": (w) => [...every(w(1), w(10), 18, "nefes", 0.3), [w(10), "cizik", 0.4], [w(10) + 4, "pirilti", 0.35], [w(10) + 8, "kalem", 0.3]],
+  hareket: (w, d) => [[w(1), "boom", 0.15], [w(4), "kalem", 0.3], [w(4) + 2, "ding", 0.25], ...every(w(7), d - 20, 22, "nefes", 0.35)],
+  kapanis: (w) => [[w(1), "kalem", 0.35], [w(4), "kalem", 0.35], [w(4), "nefes", 0.4], [w(7), "pop", 0.5], [w(8), "ding", 0.3]],
+};
 
 /* ---------- yardımcılar ---------- */
 
