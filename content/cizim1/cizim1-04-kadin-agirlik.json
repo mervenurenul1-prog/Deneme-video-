@@ -17,29 +17,24 @@
       "say": "Ağırlık kaldırırsan iri olur musun? [curious] Olimpiyatta halter altını alan ilk kadına bak: kırk sekiz kilo sınıfı."
     },
     {
-      "visual": "kadin-104",
-      "voice": "Ve kadınlar o sahneye çıkmak için yüz dört yıl bekledi. Erkekler bin sekiz yüz doksan altıdan beri kaldırıyordu.",
-      "say": "Ve kadınlar o sahneye çıkmak için, tam yüz dört yıl bekledi. Erkekler bin sekiz yüz doksan altıdan beri kaldırıyordu."
+      "visual": "kadin-104k",
+      "voice": "Kadınlar o sahneye çıkmak için yüz dört yıl bekledi.",
+      "say": "Kadınlar o sahneye çıkmak için, tam yüz dört yıl bekledi."
     },
     {
-      "visual": "kadin-korku",
-      "voice": "Yani ağırlık onu iri yapmamıştı. Ama bir korku hâlâ yaşıyor: \"Kaldırırsam iri olurum.\"",
-      "say": "Yani ağırlık onu iri yapmamıştı. Ama bir korku, hmm, hâlâ yaşıyor: \"Kaldırırsam iri olurum.\""
+      "visual": "kadin-hormon-k",
+      "voice": "Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar.",
+      "say": "Çünkü kası iri yapan, ıı, testosteron, kadınlarda erkeklerin onda biri kadar."
     },
     {
-      "visual": "kadin-hormon",
-      "voice": "Kası iri yapan en önemli hormonlardan biri testosteron. Kadınlarda bu hormon, erkeklerin yaklaşık onda biri kadar.",
-      "say": "Kası iri yapan en önemli hormonlardan biri, ıı, testosteron. Kadınlarda bu hormon, erkeklerin yaklaşık onda biri kadar."
+      "visual": "kadin-kas-k",
+      "voice": "Kasların güçlenir, sıkılaşır, şekillenir. Ama iri olmaz.",
+      "say": "Kasların güçlenir, sıkılaşır, şekillenir. Ama iri olmaz."
     },
     {
-      "visual": "kadin-kas2",
-      "voice": "Yani kasların güçlenir, sıkılaşır, şekillenir. Ama iri olmaz.",
-      "say": "Yani kasların güçlenir, sıkılaşır, şekillenir. Ama iri olmaz."
-    },
-    {
-      "visual": "kadin-kemik2",
-      "voice": "Asıl sürpriz kemiklerde. Bir araştırmada ağır kaldıran kadınların omurga ve kalça kemik yoğunluğu sekiz ayda arttı.",
-      "say": "[curious] Asıl sürpriz kemiklerde. Bir araştırmada, ağır kaldıran kadınların omurga ve kalça kemik yoğunluğu sekiz ayda arttı."
+      "visual": "kadin-kemik-k",
+      "voice": "Asıl sürpriz kemiklerde: bir araştırmada kemik yoğunluğu sekiz ayda arttı.",
+      "say": "[curious] Asıl sürpriz kemiklerde: bir araştırmada, kemik yoğunluğu sekiz ayda arttı."
     },
     {
       "visual": "kadin-mesaj",
@@ -47,9 +42,9 @@
       "say": "Yüz dört yıl beklediler. Sen bir gün daha bekleme."
     },
     {
-      "visual": "kadin-dongu2",
-      "voice": "Ve bir dahaki sefere biri sana şunu sorarsa:",
-      "say": "Ve bir dahaki sefere, biri sana şunu sorarsa:"
+      "visual": "kadin-dongu-k",
+      "voice": "Biri sana şunu sorarsa:",
+      "say": "Biri sana şunu sorarsa:"
     }
   ],
   "caption": "Ağırlık kaldıran kadın iri olmaz, güçlü olur 💪\n\nKadınlarda testosteron erkeklerin yaklaşık onda biri kadar. Kasların yine güçlenir ve büyür, ama sonuç iri değil; sıkı ve şekilli bir vücut. Sahnedeki vücut geliştiricilerin arkasında yıllar süren özel program ve diyet var.\n\nÜstelik ağırlık kemiği korur: LIFTMOR çalışmasında (Watson ve ark., JBMR 2018) menopoz sonrası düşük kemik yoğunluğu olan kadınlarda 8 aylık ağır direnç antrenmanı omurga ve kalça kemik yoğunluğunu artırdı.\n\nKaydet, \"iri olurum\" diyen arkadaşına gönder 📲",

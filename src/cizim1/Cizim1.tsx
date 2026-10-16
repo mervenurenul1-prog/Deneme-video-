@@ -4140,3 +4140,26 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   hareket: Hareket,
   kapanis: Kapanis,
 };
+
+// Kısa sürümler (04 kısaltıldı, ekip: "izlerken sıkıldık"): aynı sahne, kısaltılmış metin.
+// Eşleme: eski metindeki kelime sırası → yeni metindeki kelime sırası (animasyon ve efektler yeni kelimelere oturur).
+const KISA: Record<string, [string, Record<number, number>]> = {
+  // "Kadınlar o sahneye çıkmak için yüz dört yıl bekledi."
+  "kadin-104k": ["kadin-104", { 6: 5, 9: 8, 11: 0, 15: 0, 16: 3, 17: 2 }],
+  // "Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar."
+  "kadin-hormon-k": ["kadin-hormon", { 5: 1, 7: 4, 8: 5, 13: 7 }],
+  // "Kasların güçlenir, sıkılaşır, şekillenir. Ama iri olmaz."
+  "kadin-kas-k": ["kadin-kas2", { 1: 0, 2: 1, 3: 2, 4: 3, 6: 5, 7: 6 }],
+  // "Asıl sürpriz kemiklerde: bir araştırmada kemik yoğunluğu sekiz ayda arttı."
+  "kadin-kemik-k": ["kadin-kemik2", { 1: 2, 5: 2, 12: 6, 13: 7, 14: 8, 15: 9 }],
+  // "Biri sana şunu sorarsa:"
+  "kadin-dongu-k": ["kadin-dongu2", { 4: 2, 6: 3 }],
+};
+for (const [id, [base, map]] of Object.entries(KISA)) {
+  const remap = (w: (i: number) => number) => (i: number) => w(map[i] ?? i);
+  const Base = SCENES[base];
+  SCENES[id] = ({ w, d }) => <Base d={d} w={remap(w)} />;
+  const sfx = SFX[base];
+  if (sfx) SFX[id] = (w, d) => sfx(remap(w), d).map(([at, file, vol]): Sfx => [Math.max(0, at), file, vol]);
+  if (ZOOM[base]) ZOOM[id] = ZOOM[base];
+}

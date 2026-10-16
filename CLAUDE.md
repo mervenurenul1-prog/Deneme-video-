@@ -9,9 +9,14 @@ birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqx
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
 ## >>> YENİ SOHBET: ÖNCE BUNU OKU (16 Ekim akşam devir notu) <<<
-Çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc` (main ile aynı). `npm ci` → işe başla.
+Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.750 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
+- **04 KISALTILDI (16 Ekim 17:30, ekip: "izlerken sıkıldık"):** 52 sn → **35 sn**, 7 sahne: kanca (aynı) → 104 yıl
+  (1896 cümlesi atıldı) → testosteron 1/10 ("korku" sahnesi atıldı) → kas → kemik (8 ay) → "104 yıl beklediler" →
+  döngü "Biri sana şunu sorarsa:". Kısa sahneler `KISA` haritasıyla eski bileşenleri yeni kelime sırasına bağlıyor
+  (Cizim1.tsx sonu). Yeni sessiz önizleme `04-kadin-agirlik-sessiz.mp4` gönderildi → **onay → seslendirme**
+  (~420 karakter). KURAL: yeni videolar da kısa olsun (~30-35 sn).
 - 03 on bin adım ✅ BEĞENİLDİ — serinin örnek videosu (formül: kanca → kısa tarihçe → görsel anlatım → loop).
 - 04 kadın ve ağırlık (`cizim1-04-kadin-agirlik`, "104 yıl bekleyen kadınlar"): YENİ hâli sessiz önizleme
   (`04-kadin-agirlik-sessiz.mp4`). Kanca "Ağırlık kaldırırsan iri olur musun? … 48 kilo sınıfı" → 104 yıl tarihçe →
