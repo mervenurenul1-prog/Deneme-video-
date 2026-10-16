@@ -1,92 +1,72 @@
 {
   "scenes": [
     {
-      "voice": "Ağırlık kaldıran bir kadının iri olması, sandığından çok daha zor. Vücudu buna kolay kolay izin vermez.",
-      "say": "Ağırlık kaldıran bir kadının iri olması, sandığından [curious] çok daha zor. Vücudu buna, hani, kolay kolay izin vermez.",
+      "voice": "Bir kadın, bilerek iri olmak için ağırlık kaldırsa bile... bu yıllar sürer.",
+      "say": "Bir kadın, bilerek iri olmak için ağırlık kaldırsa bile... [curious] bu yıllar sürer.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-04-kadin-agirlik/1-mvb5fu3f.mp3",
-      "durationInSeconds": 7.810612,
+      "file": "voiceover/cizim1-04-kadin-agirlik/1-mvb5ry42.mp3",
+      "durationInSeconds": 5.276735,
       "words": [
         {
-          "word": "Ağırlık",
+          "word": "Bir",
           "start": 0,
-          "end": 0.4
+          "end": 0.16
         },
         {
-          "word": "kaldıran",
-          "start": 0.48,
-          "end": 0.88
+          "word": "kadın,",
+          "start": 0.28,
+          "end": 0.72
         },
         {
-          "word": "bir",
-          "start": 0.96,
-          "end": 1.04
-        },
-        {
-          "word": "kadının",
-          "start": 1.12,
-          "end": 1.44
+          "word": "bilerek",
+          "start": 0.88,
+          "end": 1.28
         },
         {
           "word": "iri",
-          "start": 1.52,
-          "end": 1.68
+          "start": 1.36,
+          "end": 1.52
         },
         {
-          "word": "olması,",
-          "start": 1.76,
-          "end": 2.64
+          "word": "olmak",
+          "start": 1.6,
+          "end": 1.84
         },
         {
-          "word": "sandığından",
-          "start": 2.8,
-          "end": 3.36
+          "word": "için",
+          "start": 1.88,
+          "end": 2.08
         },
         {
-          "word": "çok",
-          "start": 3.744,
-          "end": 3.92
+          "word": "ağırlık",
+          "start": 2.16,
+          "end": 2.48
         },
         {
-          "word": "daha",
-          "start": 4,
-          "end": 4.16
+          "word": "kaldırsa",
+          "start": 2.56,
+          "end": 3.04
         },
         {
-          "word": "zor.",
-          "start": 4.24,
-          "end": 4.894330000000001
+          "word": "bile...",
+          "start": 3.08,
+          "end": 3.7028299999999996
         },
         {
-          "word": "Vücudu",
-          "start": 4.934330000000001,
-          "end": 5.214330000000001
+          "word": "bu",
+          "start": 3.8628299999999998,
+          "end": 4.02283
         },
         {
-          "word": "buna",
-          "start": 5.294330000000001,
-          "end": 5.774330000000001
+          "word": "yıllar",
+          "start": 4.10283,
+          "end": 4.502829999999999
         },
         {
-          "word": "kolay",
-          "start": 6.294330000000001,
-          "end": 6.494330000000001
-        },
-        {
-          "word": "kolay",
-          "start": 6.574330000000001,
-          "end": 6.814330000000001
-        },
-        {
-          "word": "izin",
-          "start": 6.934330000000001,
-          "end": 7.054330000000001
-        },
-        {
-          "word": "vermez.",
-          "start": 7.134330000000001,
-          "end": 7.774330000000001
+          "word": "sürer.",
+          "start": 4.5828299999999995,
+          "end": 5.30283
         }
       ]
     },

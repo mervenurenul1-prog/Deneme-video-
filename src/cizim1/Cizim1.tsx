@@ -78,8 +78,8 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
             <Captions words={words} hideFrom={loop && i === last ? durations[i] - LOOP_FRAMES : undefined} />
             {audio ? <Audio src={staticFile(audio.file)} /> : null}
             {/* sahne geçişi + o sahnedeki olayların efekt sesleri */}
-            {i > 0 ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18} /> : null}
-            {(SFX[scene.visual]?.(w, durations[i]) ?? []).map(([at, file, vol], k) =>
+            {i > 0 ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
+            {tidySfx(SFX[scene.visual]?.(w, durations[i]) ?? []).map(([at, file, vol], k) =>
               at >= 0 && at < durations[i] ? (
                 <Sequence key={k} from={Math.round(at)} layout="none">
                   <Audio src={staticFile(`sfx/${file}.mp3`)} volume={vol} />
@@ -135,6 +135,22 @@ const Music: React.FC<{ src: string; loop?: boolean }> = ({ src, loop = false })
 
 // Efekt sesleri: [kare, dosya (public/sfx), ses düzeyi]. Animasyonlarla aynı kelime zamanlarına bağlı.
 type Sfx = [number, string, number];
+// Kullanıcı: "efektler sesin ve müziğin önüne geçmesin, çok tik-tak olmasın". Hepsi kısılır; küçük tekrar eden
+// sesler (tik, tak, bip, pop, damla, kalem…) birbirine 20 kareden yakınsa yalnız ilki çalar.
+const SFX_GAIN = 0.45;
+const SMALL = new Set(["tik", "tak", "bip", "pop", "damla", "kalem", "cizik", "adim", "nefes"]);
+const tidySfx = (list: Sfx[]): Sfx[] => {
+  const out: Sfx[] = [];
+  let lastSmall = -999;
+  for (const [at, file, vol] of [...list].sort((a, b) => a[0] - b[0])) {
+    if (SMALL.has(file)) {
+      if (at - lastSmall < 20) continue;
+      lastSmall = at;
+    }
+    out.push([at, file, vol * SFX_GAIN]);
+  }
+  return out;
+};
 const every = (from: number, to: number, step: number, file: string, vol: number): Sfx[] => {
   const out: Sfx[] = [];
   for (let t = from; t < to; t += step) out.push([t, file, vol]);
@@ -317,12 +333,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   ],
 
   // 04 kadın ve ağırlık — her olayın kendi sesi
-  "kadin-acilis": (w) => {
-    // her tekrarın tepesinde "tak" + şişme sesi; "izin vermez" denince sönme
-    const reps: Sfx[] = [];
-    for (let k = 0; 4 + Math.PI * 6 * (2 * k + 1) < w(14) - 4; k++) reps.push([Math.round(4 + Math.PI * 6 * (2 * k + 1)), "tak", 0.28]);
-    return [[2, "whoosh", 0.15], ...reps, [8, "yuksel", 0.25], [w(2), "yuksel", 0.3], [w(4), "pop", 0.4], ...every(w(6), w(14) - 2, 8, "tik", 0.18), [w(14) - 2, "sonme", 0.55], [w(14), "whoosh", 0.3], [w(14) + 6, "pop", 0.35]];
-  },
+  "kadin-acilis": (w) => [[w(3) - 2, "pop", 0.35], [w(10) - 2, "kagit", 0.45]],
   "kadin-hormon": (w) => [
     [w(5) - 2, "pop", 0.4],
     [w(7) - 2, "kalem", 0.3],
@@ -2755,24 +2766,27 @@ const curlArm = (c: number): Arm => [12 + 22 * c, -150 * c];
 
 /* ---------- 04 kadın ve ağırlık: sahneler ---------- */
 
-// "Ağırlık kaldıran bir kadının iri olması, sandığından çok daha zor. Vücudu buna kolay kolay izin vermez."
-// Kadın dambıl kaldırdıkça kol ve bacakları balon gibi şişer (iri mi oluyor?); "izin vermez" denince fısss diye söner.
-const KadinAcilis: React.FC<SceneProps> = ({ w }) => {
+// "Bir kadın, bilerek iri olmak için ağırlık kaldırsa bile... bu yıllar sürer."
+// Kadın kararlılıkla çalışır; düşünce balonunda hedefi (iri vücut). "Yıllar" denince takvim yaprakları uçuşur,
+// aynadaki yansıma neredeyse hiç değişmez; avatar gülümser.
+const KadinAcilis: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const c = f > 4 ? (1 - Math.cos((f - 4) / 6)) / 2 : 0;
-  const pump = tw(f, 6, w(4) + 4); // her tekrarda biraz daha şişer
-  const strain = f >= w(6) && f < w(14) - 2;
-  const deflate = tw(f, w(14) - 2, w(14) + 8);
-  const limb = 1 + (0.95 * pump + (strain ? 0.08 * Math.sin(f / 1.6) : 0)) * (1 - deflate);
-  const arm = curlArm(c * (1 - deflate * 0.6));
-  const hand = armPoints(1, arm)[2];
   const avatarArm = tw(f, 0, 10);
-  const puzzled = deflate > 0.5;
+  const goal = pop(f, w(3) - 2, 16);
+  const work = f >= w(6) - 2;
+  const c = work ? (1 - Math.cos((f - w(6) + 2) / 4.5)) / 2 : 0;
+  const years = tw(f, w(10) - 2, d - 4);
+  const tone = 1 + 0.1 * years;
+  const arm = curlArm(c);
+  const hand = armPoints(1, arm)[2];
   return (
     <>
       <Gym />
       <Barbell x={480} y={PY - 60} s={0.45} />
-      {/* serinin avatarı: elindeki telefonu indirir, şişen kollara şaşırır, sönünce güler */}
+      {/* aynadaki yansıma: yıllar geçse de neredeyse aynı */}
+      <g opacity={0.35}>
+        <Person x={810} y={1010} s={0.42} female belly={0.2} limbW={tone} armL={[12, 0]} armR={arm} mouth="flat" />
+      </g>
       <Person
         x={250}
         y={PY + 20}
@@ -2780,24 +2794,36 @@ const KadinAcilis: React.FC<SceneProps> = ({ w }) => {
         belly={0.4}
         armL={[12, 0]}
         armR={[interpolate(avatarArm, [0, 1], [40, 12]), interpolate(avatarArm, [0, 1], [-150, 0])]}
-        mouth={puzzled ? "grin" : pump > 0.6 ? "o" : "smile"}
-        eyes={pump > 0.6 && !puzzled ? "wide" : "open"}
+        mouth={years > 0.4 ? "grin" : "smile"}
       >
         {avatarArm < 1 ? <g opacity={1 - avatarArm}><PhoneInHand arm={[interpolate(avatarArm, [0, 1], [40, 12]), interpolate(avatarArm, [0, 1], [-150, 0])]} /></g> : null}
       </Person>
-      <Person x={720} y={PY} s={0.9} female belly={0.2} limbW={limb} armL={[12, 0]} armR={arm} mouth={puzzled ? "o" : strain ? "flat" : "smile"} eyes={c > 0.85 && !puzzled ? "closed" : "open"} tilt={puzzled ? 8 : 0}>
+      <Person x={720} y={PY} s={0.9} female belly={0.2} limbW={tone} armL={[12, 0]} armR={arm} mouth={work ? "flat" : "smile"} eyes={c > 0.85 ? "closed" : "open"} blush={work ? 0.7 : 0.4}>
         <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${-20 + 60 * c})`}>
           <Dumbbell x={0} y={0} s={0.55} rot={90} />
         </g>
-        {/* sönerken kollardan kaçan hava */}
-        {deflate > 0 && deflate < 1
-          ? [0, 1, 2, 3].map((i) => (
-              <path key={i} d={`M${(i % 2 ? 1 : -1) * (150 + 120 * deflate)} ${-520 + i * 40} l${(i % 2 ? 1 : -1) * 50} ${-10 + i * 6}`} stroke={C.ink} strokeWidth={7} strokeLinecap="round" opacity={1 - deflate} />
-            ))
+        {work
+          ? cycles(f, w(6), 14, 30).map(({ k, p }) => <Drop key={k} x={(k % 2 ? 1 : -1) * (95 + 40 * p)} y={-740 + 160 * p * p} s={0.8} o={1 - p} />)
           : null}
       </Person>
-      {pump > 0.3 && !puzzled ? <HandText x={720} y={420} text="?" size={150} p={pop(f, w(4), 12)} rotate={8} /> : null}
-      {puzzled ? <HandText x={860} y={460} text="?" size={130} p={pop(f, w(14) + 6, 12)} rotate={-8} /> : null}
+      {/* hedef: iri vücut */}
+      {goal > 0 ? (
+        <Bubble x={720} y={430} rx={180} ry={140} p={goal} tail={[730, 720]}>
+          <Person x={720} y={530} s={0.24} female belly={0.15} limbW={2.3} armL={[60, -120]} armR={[60, -120]} mouth="grin" />
+        </Bubble>
+      ) : null}
+      {/* yıllar: takvim yaprakları hızla uçuşur */}
+      {years > 0 ? (
+        <g transform="translate(200 520)">
+          <Calendar x={0} y={0} s={0.85} mark={1} />
+          {Array.from({ length: 10 }, (_, i) => {
+            const p = tw(years, i / 10, (i + 1) / 10);
+            return p > 0 && p < 1 ? (
+              <rect key={i} x={-80} y={-75 - 280 * p} width={160} height={150} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={5} opacity={1 - p} transform={`rotate(${-35 * p})`} />
+            ) : null;
+          })}
+        </g>
+      ) : null}
     </>
   );
 };
@@ -3077,6 +3103,10 @@ const KadinKapanis: React.FC<SceneProps> = ({ w, d }) => {
     <>
       <Gym />
       <Barbell x={480} y={PY - 60} s={0.45} />
+      {/* aynadaki yansıma (açılış karesiyle aynı, döngü) */}
+      <g opacity={0.35}>
+        <Person x={810} y={1010} s={0.42} female belly={0.2} armL={[12, 0]} armR={curlArm(0)} mouth="flat" />
+      </g>
       <Person x={250} y={PY + 20} s={0.82} belly={0.4} armL={[12, 0]} armR={avArm} mouth="grin">
         {phone > 0 ? <PhoneInHand arm={avArm} /> : null}
       </Person>

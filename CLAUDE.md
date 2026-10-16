@@ -19,6 +19,9 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
   (Python/numpy sentez, açık kaynak araçlar, CC0 ses paketleri). Mevcut `merak-gerilim` ve üretilmiş efektler kullanılabilir.
   ElevenLabs kredisi yalnız seslendirme (Yunus) için.
 - Kullanıcının söylediklerini dikkate al; her isteğini not et.
+- **EFEKTLER AZ VE KISIK (kullanıcı: "efektler Yunus'un ve müziğin önüne geçmiş, çok tik-tak var"):** kodda
+  `SFX_GAIN = 0.45` ve `tidySfx` (küçük tekrar eden sesler 20 kareden yakınsa yalnız ilki). Yeni videolarda efekt
+  yalnız önemli anlarda; sayaç/tik-tak dizileri koyma. Öncelik: Yunus > müzik > efekt.
 - **Instagram açıklaması YAZMA** — kullanıcı kendisi hallediyor ("sen videolarla ilgilen"). JSON `caption` alanı kalabilir.
 - Kanca (ilk cümle) durdurucu ve **hikâyesel** olsun; döngü hem görüntüde hem cümlede hissedilsin (son kare = ilk kare, son cümle "Çünkü..." gibi açılışa akar).
 

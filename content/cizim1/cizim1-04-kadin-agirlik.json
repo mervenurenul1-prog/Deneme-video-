@@ -13,8 +13,8 @@
   "scenes": [
     {
       "visual": "kadin-acilis",
-      "voice": "Ağırlık kaldıran bir kadının iri olması, sandığından çok daha zor. Vücudu buna kolay kolay izin vermez.",
-      "say": "Ağırlık kaldıran bir kadının iri olması, sandığından [curious] çok daha zor. Vücudu buna, hani, kolay kolay izin vermez."
+      "voice": "Bir kadın, bilerek iri olmak için ağırlık kaldırsa bile... bu yıllar sürer.",
+      "say": "Bir kadın, bilerek iri olmak için ağırlık kaldırsa bile... [curious] bu yıllar sürer."
     },
     {
       "visual": "kadin-hormon",
