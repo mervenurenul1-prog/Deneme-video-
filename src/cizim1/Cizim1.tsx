@@ -85,7 +85,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
 
 const Missing: React.FC<SceneProps> = () => null;
 
-// Arka plan müziği: konuşmanın altında kısık, başta ve sonda yumuşak geçiş
+// Arka plan müziği: konuşmanın altında ama belirgin (kullanıcı: kısık olunca "var ile yok arası"), başta ve sonda yumuşak geçiş
 const Music: React.FC<{ src: string }> = ({ src }) => {
   const { durationInFrames } = useVideoConfig();
   return (
@@ -93,7 +93,7 @@ const Music: React.FC<{ src: string }> = ({ src }) => {
       src={staticFile(src)}
       loop
       volume={(f) =>
-        0.11 * interpolate(f, [0, 20, durationInFrames - 45, durationInFrames - 1], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
+        0.62 * interpolate(f, [0, 20, durationInFrames - 45, durationInFrames - 1], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
       }
     />
   );
