@@ -1,0 +1,60 @@
+{
+  "id": "cizim1-01-yag-nereye",
+  "title": "Verdiğin yağ nereye gidiyor?",
+  "voiceId": "TASY7VCrU29rEMoYFTGG",
+  "modelId": "eleven_v3",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "scenes": [
+    {
+      "visual": "tarti",
+      "voice": "Beş kilo verdin. Peki o yağ nereye gitti?",
+      "say": "Beş kilo verdin. [curious] Peki... o yağ nereye gitti?"
+    },
+    {
+      "visual": "yanlis-fikir",
+      "voice": "Çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. İkisi de doğru değil.",
+      "say": "Çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. [short pause] İkisi de doğru değil."
+    },
+    {
+      "visual": "yag-hucresi",
+      "voice": "Yağ yakıldığında karbondioksit ve suya dönüşür.",
+      "say": "Yağ yakıldığında... karbondioksit ve suya dönüşür."
+    },
+    {
+      "visual": "nefes",
+      "voice": "Bunun yüzde seksen dördü, nefes verirken akciğerlerinden dışarı çıkar.",
+      "say": "Bunun yüzde seksen dördü, nefes verirken... akciğerlerinden dışarı çıkar."
+    },
+    {
+      "visual": "su",
+      "voice": "Geri kalanı su olarak ter ve idrarla atılır.",
+      "say": "Geri kalanı su olarak, ter ve idrarla atılır."
+    },
+    {
+      "visual": "hizli-nefes",
+      "voice": "Peki hızlı hızlı nefes alsan, daha çok yağ yakar mısın? Hayır.",
+      "say": "[curious] Peki hızlı hızlı nefes alsan, daha çok yağ yakar mısın? [short pause] Hayır."
+    },
+    {
+      "visual": "hareket",
+      "voice": "Önce kasların bu yağı yakıt olarak kullanmalı. Bu da ancak hareketle olur.",
+      "say": "Önce kasların bu yağı yakıt olarak kullanmalı. [short pause] Bu da ancak... hareketle olur."
+    },
+    {
+      "visual": "kapanis",
+      "voice": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. Bunu kaydet, unutma.",
+      "say": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. [excited] Bunu kaydet, unutma."
+    }
+  ],
+  "caption": "Verdiğin yağın çoğu nefesinle çıkıyor 🫁\n\nYağ yakıldığında karbondioksit ve suya dönüşür; yaklaşık %84'ü karbondioksit olarak solunumla atılır, kalanı su olarak ter ve idrarla (Meerman & Brown, BMJ 2014). Ama önce kasların o yağı yakıt olarak kullanması gerekir: bu da hareketle olur.\n\nKaydet, arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "sağlıklıyaşam",
+    "yağyakımı",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

@@ -57,6 +57,15 @@ indirildi. Referans: "örneğe yakın olsun, aynısı/kopyası değil".
 Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
 Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
+## KARAR (EN GÜNCEL): 1. sürüm çizim stili, 3D kız İPTAL
+Kullanıcı ilk gönderilen çizimli pilotu (v1, commit c610079: sade karakter, yavaş animasyonlar, düz arka plan)
+geri gönderdi: "bu beğeni aldı, artık bununla ilerleyeceğiz, kız iptal; bunu seslendir; bunun gibi yavaş
+animasyonlarla ilerle". v1 şablonu geri getirildi: `src/cizim1/Cizim1.tsx`, içerik `content/cizim1/`
+(id `cizim1-01-yag-nereye`). Seslendirme: Hürrem + eleven_v3 + `say` (hikâye tonu), 39 sn.
+Yeni videolar bu stilde (`content/cizim1/` + Cizim1.tsx sahneleri), yavaş animasyon, Zack kurgusu YOK.
+3D (`src/uc`) ve çizim v3 (`src/cizim`) yedek olarak duruyor; tartı/takip 3D sessiz önizlemeleri iptal sayılır
+(metinleri `content/uc/` içinde, yeni stile taşınabilir).
+
 ## Kullanıcının kendi sesi (izinli)
 Kullanıcı kendi videosunu gönderip "benim sesimi kullanabilirsin, tiz olmasın, daha cool" dedi. Instant klon:
 `MalkCL6Ms3mHRGDVY6vZ` ("VOOM Kullanıcı"). Örnekler `ses-ornekleri/kullanici-sesi/` (1 doğal = v3; 2 cool = v3 +

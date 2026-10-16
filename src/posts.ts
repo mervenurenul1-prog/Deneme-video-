@@ -16,3 +16,4 @@ export const promos = load<Promo>(require.context("../content/promos", false, /\
 export const explainers = load<Explainer>(require.context("../content/explainers", false, /\.json$/));
 export const cizimler = load<Cizim>(require.context("../content/cizim", false, /\.json$/));
 export const ucler = load<Cizim>(require.context("../content/uc", false, /\.json$/));
+export const cizimler1 = load<Cizim>(require.context("../content/cizim1", false, /\.json$/));

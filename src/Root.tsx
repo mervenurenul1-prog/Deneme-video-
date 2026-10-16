@@ -3,7 +3,8 @@ import { VIDEO } from "./brand";
 import { ExplainerVideo, type ExplainerProps } from "./explainer/Explainer";
 import { Deneme3D } from "./deneme3d/Deneme3D";
 import { CizimVideo, type CizimProps } from "./cizim/Cizim";
-import { cizimler, explainers, posts, promos, stories, ucler } from "./posts";
+import { Cizim1Video, type Cizim1Props } from "./cizim1/Cizim1";
+import { cizimler, cizimler1, explainers, posts, promos, stories, ucler } from "./posts";
 import { UcVideo, type UcProps } from "./uc/Uc";
 import { PromoVideo, type PromoProps } from "./promo/Promo";
 import { Reel, type ReelProps } from "./Reel";
@@ -96,6 +97,22 @@ export const RemotionRoot: React.FC = () => {
           height={VIDEO.height}
           durationInFrames={1}
           defaultProps={{ cizim, voiceover: null } as CizimProps}
+          calculateMetadata={async ({ props }) => {
+            const voiceover = await loadVoiceover(props.cizim.id);
+            return { props: { ...props, voiceover }, durationInFrames: total(props.cizim, voiceover) };
+          }}
+        />
+      ))}
+      {cizimler1.map((cizim) => (
+        <Composition
+          key={cizim.id}
+          id={cizim.id}
+          component={Cizim1Video}
+          fps={VIDEO.fps}
+          width={VIDEO.width}
+          height={VIDEO.height}
+          durationInFrames={1}
+          defaultProps={{ cizim, voiceover: null } as Cizim1Props}
           calculateMetadata={async ({ props }) => {
             const voiceover = await loadVoiceover(props.cizim.id);
             return { props: { ...props, voiceover }, durationInFrames: total(props.cizim, voiceover) };
