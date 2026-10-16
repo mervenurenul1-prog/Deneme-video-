@@ -1,0 +1,6 @@
+# ElevenLabs Music istemleri (7-9)
+`POST /v1/music` — `music_length_ms: 45000`, `force_instrumental: true`. `-sesli` = pilot Yunus sesi (−15 LUFS) + müzik (−22 LUFS).
+
+- **7-merak-pizzicato:** Curious, playful-mysterious instrumental for an Instagram Reels science explainer. Pizzicato strings melody with a sneaky, questioning feel, soft ticking clock percussion, light modern hip-hop drum groove at 95 BPM, warm sub bass, occasional glockenspiel sparkle. Medium energy, steady, not busy. Leaves room for a voiceover, no big drops, consistent loopable mood. Clearly audible but not distracting.
+- **8-merak-lofi:** Intriguing modern background music for a short educational social media video. Mysterious minor-key plucked synth arpeggio, muted electric piano chords, soft lo-fi boom-bap beat at 90 BPM, subtle vinyl texture, gentle rising tension in the middle as if a secret is about to be revealed. Medium energy, curious, cool, not sleepy, not dramatic. Voiceover friendly.
+- **9-merak-dedektif-modern:** Light investigative curiosity theme for a fitness facts Reel. Staccato strings and marimba playing a questioning motif, finger snaps and soft claps, tight modern drums at 100 BPM, round bass line, small suspense swells every 8 bars that resolve playfully. Smart, intriguing, medium energy, modern and clean, suitable under a talking narrator.

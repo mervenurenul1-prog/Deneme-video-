@@ -62,6 +62,8 @@ sönük olmasın". Denenenler ve sonuç (`ses-ornekleri/`): incompetech Clean So
 ElevenLabs Music: `POST /v1/music` {prompt, music_length_ms, force_instrumental:true} — şimdiye kadar kredi
 düşmedi. Önizleme: Yunus sesi + müzik `volume=0.62` (kodda Music bileşeni 0.62). Seçilen müzik → JSON `music`.
 Pilot (01) son hâli: V4 ses + müzik (eski) + efektler; müzik seçilince yeniden render (seslendirme hazır, kredi yok).
+Yeni adaylar (16 Ekim 02:05): `muzik-uretim/` 7 merak-pizzicato, 8 merak-lofi, 9 merak-dedektif-modern (+ `-sesli`
+karışımları, istemler `ISTEMLER.md`). Kullanıcının seçimi bekleniyor. Not: Music API eşzamanlı istekte 429 veriyor, sırayla üret.
 
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
