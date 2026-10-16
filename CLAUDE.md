@@ -8,6 +8,23 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## >>> YENİ SOHBET: ÖNCE BUNU OKU (16 Ekim akşam devir notu) <<<
+Çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc` (main ile aynı). `npm ci` → işe başla.
+Kalan ElevenLabs kredisi ≈ 15.750 karakter (yalnız Yunus seslendirmesi için kullan).
+**Videoların durumu (ornek-videolar/cizim1-pilot/):**
+- 03 on bin adım ✅ BEĞENİLDİ — serinin örnek videosu (formül: kanca → kısa tarihçe → görsel anlatım → loop).
+- 04 kadın ve ağırlık (`cizim1-04-kadin-agirlik`, "104 yıl bekleyen kadınlar"): YENİ hâli sessiz önizleme
+  (`04-kadin-agirlik-sessiz.mp4`). Kanca "Ağırlık kaldırırsan iri olur musun? … 48 kilo sınıfı" → 104 yıl tarihçe →
+  korku → testosteron → kas → kemik → "Sen bir gün daha bekleme" → döngü. Kullanıcı "güzel" dedi; **seslendirmeden önce
+  yine onay iste** (~600 karakter; testosteron sahnesinin sesi önbellekte). `04-kadin-agirlik.mp4` ESKİ sürüm.
+- 05 boyun (`cizim1-05-boyun`, ensede 27 kg dambıl): seslendirilmiş hâli var (`05-boyun.mp4`) AMA kullanıcı
+  "anlatım ve animasyon olmadı, baştan hikâyeleştir" dedi → 04 gibi formülle BAŞTAN yap (kanca → kısa tarihçe →
+  görsel → loop). Tarihçe adayı: "text neck" terimi (doğrula!). Önce sessiz önizleme.
+- Sıradaki yeni konu (kullanıcı seçti): "Antrenman sonrası 30 dakikalık protein penceresi bir efsane".
+**Sesler:** müzik `merak-gerilim` (seri müziği, değişmez). Efektler kısık/seyrek (`SFX_GAIN`, `tidySfx`).
+Yeni müzik/efekt gerekiyorsa ÜCRETSİZ üret (Python/numpy, açık kaynak, CC0) — ElevenLabs Music/SFX KULLANMA.
+**Kullanıcıyla:** Türkçe, kısa; kendi kafana göre iş yapma, sor; Instagram açıklaması yazma; konuyu kullanıcı seçer.
+
 ## !!! SERİ KURALLARI (kullanıcı, 16 Ekim — her videoda uy) !!!
 - Bu bir **SERİ**: aynı avatar, aynı çizim stili, aynı kalite. **Avatarı değiştirme** ("bu avatarı seviyorum").
 - **Her yeni video döngülü** (`"loop": true`, kapanış cümlesi açılışa bağlanır).
