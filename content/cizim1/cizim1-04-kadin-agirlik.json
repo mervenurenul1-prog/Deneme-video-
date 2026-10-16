@@ -1,0 +1,64 @@
+{
+  "id": "cizim1-04-kadin-agirlik",
+  "title": "Ağırlık kaldıran kadın iri olur mu?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "scenes": [
+    {
+      "visual": "kadin-acilis",
+      "voice": "\"Ağırlık kaldırırsam iri olurum.\" Bunu diyen çok kadın var. Ama vücudun buna pek izin vermez.",
+      "say": "\"Ağırlık kaldırırsam iri olurum.\" Bunu diyen çok kadın var. [curious] Ama vücudun buna pek izin vermez."
+    },
+    {
+      "visual": "kadin-hormon",
+      "voice": "Kası iri yapan en önemli hormonlardan biri testosteron. Kadınlarda bu hormon, erkeklerin yaklaşık onda biri kadar.",
+      "say": "Kası iri yapan en önemli hormonlardan biri, ıı, testosteron. Kadınlarda bu hormon, erkeklerin yaklaşık onda biri kadar."
+    },
+    {
+      "visual": "kadin-kas",
+      "voice": "Yani kasların yine güçlenir, yine büyür. Ama ortaya çıkan şey iri değil, sıkı ve şekilli bir vücut.",
+      "say": "Yani kasların yine güçlenir, yine büyür. Ama ortaya çıkan şey, hani, iri değil; sıkı ve şekilli bir vücut."
+    },
+    {
+      "visual": "kadin-sahne",
+      "voice": "Sahnedeki o kaslı kadınlar mı? Arkalarında yıllar süren özel program ve çok sıkı bir diyet var.",
+      "say": "Sahnedeki o kaslı kadınlar mı? Arkalarında, hmm, yıllar süren özel program ve çok sıkı bir diyet var."
+    },
+    {
+      "visual": "kadin-kemik",
+      "voice": "Asıl sürpriz kemiklerde. Menopozdan sonra kemik kaybı hızlanır.",
+      "say": "[curious] Asıl sürpriz kemiklerde. Menopozdan sonra kemik kaybı hızlanır."
+    },
+    {
+      "visual": "kadin-arastirma",
+      "voice": "Bir araştırmada ağır kaldıran kadınların omurga ve kalça kemik yoğunluğu sekiz ayda arttı.",
+      "say": "Bir araştırmada, ağır kaldıran kadınların omurga ve kalça kemik yoğunluğu sekiz ayda arttı."
+    },
+    {
+      "visual": "kadin-sonuc",
+      "voice": "Yani ağırlık seni iri yapmaz. Seni güçlü yapar.",
+      "say": "Yani ağırlık seni iri yapmaz. Seni güçlü yapar."
+    },
+    {
+      "visual": "kadin-kapanis",
+      "voice": "Bunu kaydet, çünkü biri yine diyecek ki:",
+      "say": "Bunu kaydet, çünkü biri yine [curious] diyecek ki:"
+    }
+  ],
+  "caption": "Ağırlık kaldıran kadın iri olmaz, güçlü olur 💪\n\nKadınlarda testosteron erkeklerin yaklaşık onda biri kadar. Kasların yine güçlenir ve büyür, ama sonuç iri değil; sıkı ve şekilli bir vücut. Sahnedeki vücut geliştiricilerin arkasında yıllar süren özel program ve diyet var.\n\nÜstelik ağırlık kemiği korur: LIFTMOR çalışmasında (Watson ve ark., JBMR 2018) menopoz sonrası düşük kemik yoğunluğu olan kadınlarda 8 aylık ağır direnç antrenmanı omurga ve kalça kemik yoğunluğunu artırdı.\n\nKaydet, \"iri olurum\" diyen arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "kadınfitness",
+    "ağırlıkantrenmanı",
+    "sağlıklıyaşam",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

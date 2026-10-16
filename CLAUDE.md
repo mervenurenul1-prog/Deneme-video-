@@ -93,6 +93,17 @@ soracak:" → "Beş kilo verdin..."). 01, 02, 03 döngülü.
 **SEÇİLEN YENİ KONULAR (kullanıcı, 16 Ekim):** 1) 10 bin adım bir reklam sloganıydı (`cizim1-03-on-bin-adim`),
 5) ağırlık kaldıran kadın iri olmaz, 7) ertesi gün ağrımıyorsa antrenman boşa mı gitti? Sırayla, tek tek.
 
+**16 Ekim 12:30 — SON DURUM:** 03 on bin adım **BEĞENİLDİ** (tam hâli `ornek-videolar/cizim1-pilot/03-on-bin-adim.mp4`).
+04 kadın ve ağırlık (`cizim1-04-kadin-agirlik`) yazıldı: kadın karakter (`Person female`, `limbW`), spor salonu fonu
+(`Gym`), röntgen kemik merceği (`Bones`), test tüpü (`Flask`). Sessiz önizleme gönderildi
+(`ornek-videolar/cizim1-pilot/04-kadin-agirlik-sessiz.mp4`), **onay bekleniyor → sonra kredi kontrol + seslendirme**.
+Sıradaki konu: 7) ertesi gün ağrımıyorsa antrenman boşa mı gitti?
+**Kullanıcı: "Kendi kafana göre iş yapma, sor."** Yapılacak işi söyle, onay al.
+**Referans analiz (kullanıcının gönderdiği tutan 2 Instagram videosu):** ters köşe açılış (ilk 3 sn) → neden-sonuç
+zinciri → sonda sürpriz bilgi → başa bağlanan döngü; tek tutarlı dünya (kart/grafik az); mekanizmada vücudun içine
+gir; müzik kelime aralarında açıkça duyulur (bizimkinden ~5 dB yüksek); kedi videosu ~65-70 BPM sıcak, yavaş fon.
+Yeni efekt sesleri (Python ile üretildi): adim, kacing, sihir, sonme, kagit, yuksel (+ tik, tak). `steps()` ayak sesi.
+
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
 değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),

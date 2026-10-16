@@ -315,6 +315,59 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
     [w(3) + 6, "adim", 0.3],
     [w(5), "pop", 0.45],
   ],
+
+  // 04 kadın ve ağırlık — her olayın kendi sesi
+  "kadin-acilis": (w) => [
+    [w(0) - 2, "pop", 0.45],
+    [w(0) + 4, "whoosh", 0.2],
+    [w(5), "pop", 0.25],
+    [w(5) + 4, "pop", 0.25],
+    ...ticks(w(9), w(13) - 2, 6, 0.25),
+    [w(13) - 2, "pop", 0.6],
+    [w(13), "whoosh", 0.3],
+    [w(13) + 4, "pirilti", 0.3],
+  ],
+  "kadin-hormon": (w) => [
+    [w(5) - 2, "pop", 0.4],
+    [w(7) - 2, "kalem", 0.3],
+    [w(7) - 2, "yuksel", 0.35],
+    ...ticks(w(8), w(13) - 2, 6, 0.2),
+    [w(13) - 2, "boom", 0.16],
+    [w(13), "ding", 0.35],
+  ],
+  "kadin-kas": (w, d) => {
+    // her tekrarın tepesinde (kol yukarıdayken) kısa bir "tak"
+    const reps: Sfx[] = [];
+    for (let k = 0; Math.PI * 6.5 * (2 * k + 1) < d; k++) reps.push([Math.round(Math.PI * 6.5 * (2 * k + 1)), "tak", 0.3]);
+    return [...reps, [w(2), "yuksel", 0.25], [w(10) - 2, "whoosh", 0.3], [w(11) - 2, "cizik", 0.45], [w(11) + 6, "cizik", 0.45], [w(12), "sihir", 0.4]];
+  },
+  "kadin-sahne": (w) => [
+    [0, "boom", 0.18],
+    [2, "pirilti", 0.25],
+    ...every(w(6) - 2, w(7) + 10, Math.max(3, (w(7) + 12 - w(6)) / 6), "kagit", 0.3),
+    [w(8) - 2, "pop", 0.4],
+    ...[0, 1, 2, 3].map((i): Sfx => [w(8) + i * 4, "kalem", 0.22]),
+    [w(11) - 2, "pop", 0.35],
+    [w(11) + 4, "pop", 0.35],
+    [w(11) + 10, "pop", 0.35],
+  ],
+  "kadin-kemik": (w, d) => [
+    [2, "pop", 0.35],
+    ...ticks(6, w(1) - 2, 9, 0.35),
+    [w(1) - 2, "boom", 0.16],
+    [w(1), "whoosh", 0.3],
+    [w(3) - 2, "pop", 0.3],
+    [w(3), "sonme", 0.4],
+    ...every(w(4), d - 6, 9, "cizik", 0.1),
+  ],
+  "kadin-arastirma": (w, d) => {
+    // halter her kalkışta (aşağıdan yukarı) kısa bir "tak"
+    const lifts: Sfx[] = [];
+    for (let k = 0; Math.PI * 9 * (2 * k + 1) < d; k++) lifts.push([Math.round(Math.PI * 9 * (2 * k + 1)), "tak", 0.3]);
+    return [...lifts, [w(4) - 4, "whoosh", 0.3], [w(4), "yuksel", 0.3], [w(9), "pirilti", 0.35], [w(10) - 2, "kalem", 0.35], [w(12) - 2, "ding", 0.4]];
+  },
+  "kadin-sonuc": (w) => [[w(3) - 2, "pop", 0.35], [w(4) - 2, "cizik", 0.45], [w(5) - 2, "whoosh", 0.3], [w(6), "boom", 0.18], [w(6) + 2, "sihir", 0.45]],
+  "kadin-kapanis": (w) => [[w(1) - 2, "pop", 0.5], ...steps(w(2) - 4, w(4) + 4, 4.5, 0.3), [w(5) - 2, "pop", 0.45]],
 };
 
 /* ---------- yardımcılar ---------- */
@@ -453,6 +506,14 @@ const ZOOM: Record<string, Zoom> = {
   "adim-sihirli": { to: 1.05, x: 540, y: 600 },
   "adim-her-adim": { to: 1.04, x: 540, y: 900 },
   "adim-kapanis": { to: 1.04, x: 540, y: 800 },
+  "kadin-acilis": { to: 1.06, x: 540, y: 800 },
+  "kadin-hormon": { to: 1.05, x: 540, y: 700 },
+  "kadin-kas": { to: 1.07, x: 540, y: 900 },
+  "kadin-sahne": { to: 1.06, x: 540, y: 900 },
+  "kadin-kemik": { to: 1.06, x: 690, y: 820 },
+  "kadin-arastirma": { to: 1.05, x: 600, y: 900 },
+  "kadin-sonuc": { to: 1.06, x: 480, y: 800 },
+  "kadin-kapanis": { to: 1.04, x: 540, y: 800 },
 };
 
 // noIn / noOut: döngülü videoda ilk sahne karartmasız başlar, son sahne karartmasız biter
@@ -549,6 +610,8 @@ type PersonProps = {
   legGlow?: number; // kasların "yanması"
   blush?: number;
   shirt?: string; // gömlek rengi (ör. doktor önlüğü için beyaz)
+  female?: boolean; // kadın karakter: at kuyruğu saç, kirpik, mercan tişört
+  limbW?: number; // kol/bacak kalınlığı çarpanı (1 = normal; "iri vücut" korkusu için >1)
   children?: React.ReactNode; // karakterin koordinatlarında ek çizimler
 };
 
@@ -607,9 +670,12 @@ const Person: React.FC<PersonProps> = ({
   breath = 0,
   legGlow = 0,
   blush = 0.4,
-  shirt = C.shirt,
+  shirt,
+  female = false,
+  limbW = 1,
   children,
 }) => {
+  const top = shirt ?? (female ? "#d9705f" : C.shirt);
   const frame = useCurrentFrame();
   const waist = 88 + 70 * belly;
   const hipW = 84 + 32 * belly;
@@ -642,8 +708,8 @@ const Person: React.FC<PersonProps> = ({
           ))}
         </g>
       ) : null}
-      <Limb p={lL} w={52} color={C.skin} />
-      <Limb p={lR} w={52} color={C.skin} />
+      <Limb p={lL} w={52 * limbW} color={C.skin} />
+      <Limb p={lR} w={52 * limbW} color={C.skin} />
       {legGlow > 0 ? (
         <g opacity={legGlow * 0.55}>
           {[lL, lR].map((p, i) => (
@@ -672,8 +738,8 @@ const Person: React.FC<PersonProps> = ({
         strokeLinejoin="round"
       />
       {/* gövde */}
-      <path d={torso} fill={shirt} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
-      <ellipse cx={0} cy={-445} rx={waist * 0.62} ry={52 + 40 * belly} fill={C.shirtLight} opacity={0.25 + 0.4 * belly} />
+      <path d={torso} fill={top} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      {top === C.shirt ? <ellipse cx={0} cy={-445} rx={waist * 0.62} ry={52 + 40 * belly} fill={C.shirtLight} opacity={0.25 + 0.4 * belly} /> : null}
       {belly > 0.15 ? (
         <path
           d={`M${-waist * 0.72} -410 Q0 ${-372 + 26 * belly} ${waist * 0.72} -410`}
@@ -687,13 +753,20 @@ const Person: React.FC<PersonProps> = ({
       <path d="M-34 -603 Q0 -566 34 -603" stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
       {lungs > 0 ? <Lungs o={lungs} breath={breath} /> : null}
       {/* kollar */}
-      <Limb p={aL} w={44} color={C.skin} sleeve={shirt} />
-      <Limb p={aR} w={44} color={C.skin} sleeve={shirt} />
+      <Limb p={aL} w={44 * limbW} color={C.skin} sleeve={top} />
+      <Limb p={aR} w={44 * limbW} color={C.skin} sleeve={top} />
       {[aL, aR].map((p, i) => (
         <circle key={i} cx={p[2][0]} cy={p[2][1]} r={27} fill={C.skin} stroke={C.ink} strokeWidth={6} />
       ))}
       {/* baş */}
       <g transform={`rotate(${tilt} 0 -630)`}>
+        {female ? (
+          // at kuyruğu: başın arkasında, hareketle hafifçe sallanır
+          <g transform={`rotate(${Math.sin(frame / 9) * 6} 62 -740)`}>
+            <path d="M58 -748 C120 -740 132 -660 104 -600 C96 -640 80 -690 50 -712 Z" fill={C.hair} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+            <circle cx={62} cy={-736} r={11} fill={C.red} stroke={C.ink} strokeWidth={4} />
+          </g>
+        ) : null}
         <rect x={-24} y={-650} width={48} height={52} fill={C.skin} stroke={C.ink} strokeWidth={6} />
         <circle cx={-80} cy={-700} r={17} fill={C.skin} stroke={C.ink} strokeWidth={6} />
         <circle cx={80} cy={-700} r={17} fill={C.skin} stroke={C.ink} strokeWidth={6} />
@@ -705,9 +778,15 @@ const Person: React.FC<PersonProps> = ({
           strokeWidth={6}
           strokeLinejoin="round"
         />
+        {female ? (
+          <path d="M-86 -700 C-92 -660 -84 -640 -72 -626 L-66 -690 Z M86 -700 C92 -660 84 -640 72 -626 L66 -690 Z" fill={C.hair} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+        ) : null}
         <ellipse cx={-48} cy={-676} rx={16} ry={9} fill="#e0806f" opacity={blush} />
         <ellipse cx={48} cy={-676} rx={16} ry={9} fill="#e0806f" opacity={blush} />
         <Face eyes={blink ? "closed" : eyes} mouth={mouth} lookY={lookY} />
+        {female && !blink && eyes !== "closed" ? (
+          <path d={`M-40 ${-716 + lookY} l-9 -7 M40 ${-716 + lookY} l9 -7`} stroke={C.ink} strokeWidth={4} strokeLinecap="round" />
+        ) : null}
       </g>
       {children}
     </g>
@@ -2543,7 +2622,424 @@ const AdimKapanis: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 04 kadın ve ağırlık: eşyalar ---------- */
+
+// Spor salonu fonu: tüm sahneler aynı dünyada geçer (ayna, dambıl rafı, pencere, zemin)
+const Gym: React.FC<{ o?: number }> = ({ o = 1 }) => (
+  <g opacity={0.55 * o} stroke={C.ink} strokeLinejoin="round">
+    <rect x={-20} y={1150} width={1120} height={800} fill="#d9c6a0" strokeWidth={0} />
+    <path d="M-20 1150 L1100 1150" strokeWidth={6} />
+    <rect x={640} y={420} width={330} height={640} rx={10} fill="#e9e2cf" strokeWidth={7} />
+    <path d="M700 480 L760 420 M700 560 L840 420" stroke="#fff" strokeWidth={10} opacity={0.7} />
+    <rect x={60} y={430} width={220} height={260} rx={8} fill="#f3e6c4" strokeWidth={7} />
+    <path d="M170 430 L170 690 M60 560 L280 560" strokeWidth={6} />
+    <g strokeWidth={6}>
+      <rect x={50} y={900} width={260} height={18} rx={6} fill="#8a5c35" />
+      <rect x={50} y={1000} width={260} height={18} rx={6} fill="#8a5c35" />
+      <path d="M70 918 L70 1150 M290 918 L290 1150" />
+    </g>
+    {[0, 1, 2].map((i) => (
+      <Dumbbell key={i} x={110 + i * 70} y={880} s={0.32} rot={90} />
+    ))}
+    {[0, 1, 2].map((i) => (
+      <Dumbbell key={`b${i}`} x={110 + i * 70} y={980} s={0.36} rot={90} />
+    ))}
+  </g>
+);
+
+const Barbell: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`} stroke={C.ink} strokeWidth={6} strokeLinejoin="round">
+    <rect x={-250} y={-8} width={500} height={16} rx={8} fill="#9a9a9a" />
+    {[-1, 1].map((k) => (
+      <g key={k}>
+        <rect x={k * 190 - 22} y={-80} width={44} height={160} rx={10} fill="#4b4b55" />
+        <rect x={k * 230 - 14} y={-58} width={28} height={116} rx={8} fill="#4b4b55" />
+      </g>
+    ))}
+  </g>
+);
+
+// Test tüpü: içindeki sıvı seviyesi 0..1
+const Flask: React.FC<{ x: number; y: number; level: number; color: string; label: string }> = ({ x, y, level, color, label }) => {
+  const id = svgId(useId());
+  const h = 320;
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <clipPath id={`fl${id}`}>
+        <rect x={-55} y={-h / 2} width={110} height={h} rx={52} />
+      </clipPath>
+      <rect x={-55} y={-h / 2} width={110} height={h} rx={52} fill="#fbf6ea" />
+      <g clipPath={`url(#fl${id})`}>
+        <rect x={-60} y={h / 2 - h * level} width={120} height={h * level + 10} fill={color} />
+        <path d={`M-60 ${h / 2 - h * level} Q-30 ${h / 2 - h * level - 8} 0 ${h / 2 - h * level} T60 ${h / 2 - h * level}`} stroke="#fff" strokeWidth={6} fill="none" opacity={0.6} />
+      </g>
+      <rect x={-55} y={-h / 2} width={110} height={h} rx={52} fill="none" stroke={C.ink} strokeWidth={8} />
+      <rect x={-70} y={-h / 2 - 26} width={140} height={30} rx={8} fill="#9a9a9a" stroke={C.ink} strokeWidth={6} />
+      <text x={0} y={h / 2 + 70} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink}>
+        {label}
+      </text>
+    </g>
+  );
+};
+
+// Röntgen merceği içindeki omurga + leğen kemiği; porous = kemikteki boşluk oranı (0 sağlam … 1 çok boşluklu)
+const HOLES = Array.from({ length: 34 }, (_, i) => ({
+  x: (random(`hx${i}`) - 0.5) * 300,
+  y: (random(`hy${i}`) - 0.5) * 360,
+  r: 6 + random(`hr${i}`) * 9,
+  t: random(`ht${i}`),
+}));
+const Bones: React.FC<{ x: number; y: number; r: number; porous: number; glow?: number }> = ({ x, y, r, porous, glow = 0 }) => {
+  const id = svgId(useId());
+  const bone = glow > 0 ? `rgb(250 ${242 - 8 * glow} ${222 - 70 * glow})` : "#f4efe2";
+  // omurlar (5), leğen kemiği, iki uyluk kemiği; mercek merkezine göre
+  const verts = [0, 1, 2, 3, 4].map((i) => ({ y: y - 250 + i * 50, w: 70 + i * 6 }));
+  const pelvis = `M${x - 175} ${y + 10} C${x - 215} ${y + 90} ${x - 160} ${y + 165} ${x - 70} ${y + 150} C${x - 30} ${y + 110} ${x + 30} ${y + 110} ${x + 70} ${y + 150} C${x + 160} ${y + 165} ${x + 215} ${y + 90} ${x + 175} ${y + 10} C${x + 100} ${y + 40} ${x + 40} ${y + 20} ${x} ${y + 30} C${x - 40} ${y + 20} ${x - 100} ${y + 40} ${x - 175} ${y + 10} Z`;
+  const shapes = (
+    <>
+      {verts.map((v, i) => (
+        <rect key={i} x={x - v.w / 2} y={v.y} width={v.w} height={40} rx={12} />
+      ))}
+      <path d={pelvis} />
+      {[-1, 1].map((k) => (
+        <g key={k}>
+          <circle cx={x + k * 120} cy={y + 165} r={34} />
+          <path d={`M${x + k * 130} ${y + 180} L${x + k * 165} ${y + 360} L${x + k * 125} ${y + 365} L${x + k * 100} ${y + 190} Z`} />
+        </g>
+      ))}
+    </>
+  );
+  return (
+    <g>
+      <clipPath id={`xr${id}`}>
+        <circle cx={x} cy={y} r={r} />
+      </clipPath>
+      <circle cx={x} cy={y} r={r} fill="#24333f" />
+      <g clipPath={`url(#xr${id})`}>
+        <clipPath id={`bn${id}`}>{shapes}</clipPath>
+        <g clipPath={`url(#bn${id})`}>
+          <rect x={x - r} y={y - r} width={r * 2} height={r * 2} fill={bone} />
+          {HOLES.map((h, i) =>
+            h.t < porous ? <circle key={i} cx={x + h.x * 0.9} cy={y + h.y * 0.95 - 30} r={h.r * Math.min(1, (porous - h.t) * 4)} fill="#24333f" opacity={0.85} /> : null,
+          )}
+        </g>
+        <g fill="none" stroke="#9fb6c4" strokeWidth={4} opacity={0.9}>
+          {shapes}
+        </g>
+        {glow > 0 ? <circle cx={x} cy={y} r={r * 0.85} fill={C.yellow} opacity={0.12 * glow} /> : null}
+      </g>
+      <circle cx={x} cy={y} r={r} fill="none" stroke={C.ink} strokeWidth={16} />
+      <circle cx={x} cy={y} r={r - 14} fill="none" stroke="#9fd0e8" strokeWidth={4} opacity={0.5} />
+    </g>
+  );
+};
+
+// Dambıl kaldırma (biseps): c = 0 kol aşağıda … 1 yukarıda
+const curlArm = (c: number): Arm => [12 + 22 * c, -150 * c];
+
+/* ---------- 04 kadın ve ağırlık: sahneler ---------- */
+
+// "\"Ağırlık kaldırırsam iri olurum.\" Bunu diyen çok kadın var. Ama vücudun buna pek izin vermez."
+const KadinAcilis: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bubble = pop(f, w(0) - 2, 16);
+  const burst = tw(f, w(13) - 2, w(13) + 6);
+  const worry = f >= w(1) && burst < 0.5;
+  const shake = f >= w(9) && burst === 0 ? Math.sin(f / 1.8) * 5 : 0;
+  const others = tw(f, w(5), w(7) + 6);
+  return (
+    <>
+      <Gym />
+      <Barbell x={760} y={PY - 70} s={0.62} />
+      {/* "bunu diyen çok kadın": arka planda başka kadınlar da aynı düşünceyle belirir */}
+      {[0, 1].map((i) => (
+        <g key={i} opacity={others * (1 - burst) * 0.75}>
+          <Person x={i ? 960 : 120} y={1220} s={0.42} female belly={0.2} shirt={i ? "#6e8fb3" : "#9a7bb0"} mouth="worry" lookY={-4} />
+        </g>
+      ))}
+      <Person
+        x={PX - 140}
+        y={PY}
+        s={0.92}
+        female
+        belly={0.2}
+        armL={[12, 0]}
+        armR={worry ? [150, -140] : [12, 0]}
+        mouth={burst > 0.5 ? "grin" : worry ? "worry" : "flat"}
+        eyes={worry ? "wide" : "open"}
+        lookY={4}
+        tilt={worry ? -6 : 0}
+      />
+      {bubble > 0 && burst < 1 ? (
+        <g transform={`rotate(${shake} 640 560) translate(640 560) scale(${1 + 0.4 * burst}) translate(-640 -560)`} opacity={1 - burst}>
+          <Bubble x={640} y={560} rx={230} ry={190} p={bubble} tail={[480, 820]}>
+            {/* korkulan görüntü: iri kollu, iri bacaklı kadın */}
+            <Person x={640} y={700} s={0.3} female belly={0.15} limbW={2.3} armL={[60, -120]} armR={[60, -120]} mouth="flat" />
+          </Bubble>
+        </g>
+      ) : null}
+      {burst > 0 && burst < 1
+        ? Array.from({ length: 10 }, (_, i) => {
+            const a = (i / 10) * Math.PI * 2;
+            return <circle key={i} cx={640 + Math.cos(a) * (200 + 160 * burst)} cy={560 + Math.sin(a) * (160 + 140 * burst)} r={14 * (1 - burst)} fill={C.cream} stroke={C.ink} strokeWidth={4} />;
+          })
+        : null}
+    </>
+  );
+};
+
+// "Kası iri yapan en önemli hormonlardan biri testosteron. Kadınlarda bu hormon, erkeklerin yaklaşık onda biri kadar."
+const KadinHormon: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const flasks = pop(f, w(5) - 2, 16);
+  const man = tw(f, w(7) - 2, w(8) + 4) * 0.9;
+  // kadının tüpü yavaşça dolar… ve erken durur (izleyici "ne kadar dolacak?" diye bekler)
+  const woman = tw(f, w(8), w(13), 0, 0.09);
+  const frac = pop(f, w(13) - 2, 14);
+  return (
+    <>
+      <Gym o={0.6} />
+      <Person x={290} y={PY} s={0.78} belly={0.35} armL={[12, 0]} armR={[12, 0]} mouth="smile" lookY={-6} />
+      <Person x={790} y={PY} s={0.78} female belly={0.2} armL={[12, 0]} armR={frac > 0.5 ? [140, -60] : [12, 0]} mouth={frac > 0.5 ? "grin" : "o"} lookY={-6} />
+      {flasks > 0 ? (
+        <g opacity={flasks}>
+          <g transform={`translate(290 420) scale(${flasks}) translate(-290 -420)`}>
+            <Flask x={290} y={420} level={man} color={C.water} label="erkek" />
+          </g>
+          <g transform={`translate(790 420) scale(${flasks}) translate(-790 -420)`}>
+            <Flask x={790} y={420} level={woman} color={C.lung} label="kadın" />
+          </g>
+        </g>
+      ) : null}
+      <HandText x={540} y={200} text="testosteron" size={86} p={tw(f, w(7) - 2, w(7) + 12)} rotate={-3} />
+      {frac > 0 ? (
+        <text x={940} y={560} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130 * frac} fill={C.red} transform="rotate(-8 940 560)">
+          1/10
+        </text>
+      ) : null}
+    </>
+  );
+};
+
+// "Yani kasların yine güçlenir, yine büyür. Ama ortaya çıkan şey iri değil, sıkı ve şekilli bir vücut."
+const KadinKas: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const c = (1 - Math.cos(f / 6.5)) / 2;
+  const grow = 1 + 0.12 * tw(f, w(2), w(5) + 6);
+  const ghost = tw(f, w(10) - 2, w(10) + 8) * (1 - tw(f, w(11) + 8, w(12) + 4));
+  const tone = tw(f, w(12), w(14) + 6);
+  const arm = curlArm(c);
+  const hand = armPoints(1, arm)[2];
+  const s = 0.95;
+  return (
+    <>
+      <Gym />
+      {ghost > 0 ? (
+        <g opacity={0.45 * ghost}>
+          <Person x={850} y={PY} s={0.62} female belly={0.15} limbW={2.2} armL={[40, -120]} armR={[40, -120]} mouth="flat" />
+        </g>
+      ) : null}
+      <Person x={PX - 120} y={PY} s={s} female belly={0.15} limbW={grow} armL={[12, 0]} armR={arm} mouth={tone > 0.5 ? "grin" : "flat"} eyes={c > 0.8 ? "closed" : "open"}>
+        <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${-20 + 60 * c})`}>
+          <Dumbbell x={0} y={0} s={0.55} rot={90} />
+        </g>
+        {/* kas çalışırken kolda sıcak bir parıltı */}
+        <ellipse cx={100 + 20 * c} cy={-500} rx={40} ry={60} fill={C.glow} opacity={0.18 * c * grow} filter="url(#glow)" />
+        {tone > 0
+          ? [0, 1, 2, 3, 4].map((i) => {
+              const a = (i / 5) * Math.PI * 2 + f / 20;
+              return <Star key={i} x={Math.cos(a) * 230} y={-480 + Math.sin(a) * 300} r={22 * tone} rot={f * 4} />;
+            })
+          : null}
+      </Person>
+      {ghost > 0 ? <Cross x={850} y={PY - 270} size={150} p={tw(f, w(11) - 2, w(11) + 12)} /> : null}
+    </>
+  );
+};
+
+// "Sahnedeki o kaslı kadınlar mı? Arkalarında yıllar süren özel program ve çok sıkı bir diyet var."
+const KadinSahne: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const light = tw(f, 0, 12);
+  const pages = tw(f, w(6) - 2, w(7) + 10);
+  const plan = pop(f, w(8) - 2, 14);
+  const diet = tw(f, w(11) - 2, w(14) + 6);
+  return (
+    <>
+      <rect x={0} y={0} width={1080} height={1920} fill="#2a2018" opacity={0.55 * light} />
+      <path d="M540 120 L250 1250 L830 1250 Z" fill="#fff3c8" opacity={0.28 * light} />
+      <ellipse cx={540} cy={1260} rx={320} ry={50} fill="#fff3c8" opacity={0.35 * light} />
+      <rect x={180} y={1260} width={720} height={70} rx={10} fill="#6b4a2e" stroke={C.ink} strokeWidth={8} opacity={light} />
+      <Person x={540} y={1262} s={0.8} female belly={0} limbW={1.8} shirt="#c9566b" armL={[95, -150]} armR={[95, -150]} mouth="grin" />
+      {/* arka planda: yıllar (takvim yaprakları), program, diyet */}
+      {pages > 0 ? (
+        <g transform="translate(180 470)">
+          <Calendar x={0} y={0} s={0.9} mark={1} />
+          {Array.from({ length: 6 }, (_, i) => {
+            const p = tw(pages, i / 6, (i + 1) / 6);
+            return p > 0 && p < 1 ? (
+              <rect key={i} x={-85} y={-80 - 300 * p} width={170} height={160} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={5} opacity={1 - p} transform={`rotate(${-30 * p})`} />
+            ) : null;
+          })}
+        </g>
+      ) : null}
+      {plan > 0 ? (
+        <g transform={`translate(880 460) scale(${plan}) rotate(5)`}>
+          <rect x={-90} y={-120} width={180} height={240} rx={12} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+          <rect x={-35} y={-136} width={70} height={30} rx={8} fill="#9a9a9a" stroke={C.ink} strokeWidth={5} />
+          {[-60, -15, 30, 75].map((ly, i) => (
+            <g key={ly}>
+              <path d={`M-60 ${ly} l14 14 l26 -30`} stroke="#3f7d4f" strokeWidth={8} fill="none" strokeLinecap="round" opacity={tw(f, w(8) + i * 4, w(8) + i * 4 + 6)} />
+              <path d={`M-10 ${ly} L60 ${ly}`} stroke={C.ink} strokeWidth={6} strokeLinecap="round" opacity={0.6} />
+            </g>
+          ))}
+        </g>
+      ) : null}
+      {[0, 1, 2].map((i) => {
+        const p = pop(f, w(11) - 2 + i * 6, 12);
+        return p > 0 ? (
+          <g key={i} transform={`translate(${i === 1 ? 175 : 880} ${i === 1 ? 760 : 700 + i * 60}) scale(${p})`} opacity={diet > 0 ? 1 : 0}>
+            <rect x={-85} y={-50} width={170} height={100} rx={14} fill="#e8f1f0" stroke={C.ink} strokeWidth={6} />
+            <path d="M-85 -10 L85 -10" stroke={C.ink} strokeWidth={4} opacity={0.5} />
+            <ellipse cx={-35} cy={20} rx={30} ry={18} fill="#f3e3c3" stroke={C.ink} strokeWidth={3} />
+            <ellipse cx={30} cy={18} rx={34} ry={16} fill="#d7a26a" stroke={C.ink} strokeWidth={3} />
+            <circle cx={50} cy={-30} r={14} fill="#5e9a3c" stroke={C.ink} strokeWidth={3} />
+          </g>
+        ) : null;
+      })}
+    </>
+  );
+};
+
+// "Asıl sürpriz kemiklerde. Menopozdan sonra kemik kaybı hızlanır."
+const KadinKemik: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const L = { x: 690, y: 820, r: 270 };
+  const person = { x: 250, y: PY, s: 0.82 };
+  const open = tw(f, w(1) - 2, w(1) + 12);
+  const porous = tw(f, w(3), d - 6, 0.05, 0.85);
+  const H = { x: person.x, y: person.y - 330 * person.s };
+  return (
+    <>
+      <Person x={person.x} y={person.y} s={person.s} female belly={0.2} armL={[12, 0]} armR={[12, 0]} mouth={porous > 0.4 ? "worry" : "o"} lookY={4} />
+      <g opacity={1 - tw(f, w(1) + 2, w(1) + 12)}>
+        <MysteryBox x={L.x} y={L.y + 60} s={1.2} p={pop(f, 0, 12)} open={tw(f, w(1) - 2, w(1) + 8)} rays={false} shake={f < w(1) - 2 ? Math.sin(f / 2.4) * 6 : 0} />
+      </g>
+      {open > 0 ? (
+        <g opacity={open}>
+          <circle cx={H.x} cy={H.y} r={44} fill="none" stroke={C.ink} strokeWidth={6} strokeDasharray="12 9" />
+          <path d={`M${H.x + 40} ${H.y - 20} L${L.x - L.r + 20} ${L.y - 120}`} stroke={C.ink} strokeWidth={5} strokeDasharray="14 10" opacity={0.55} />
+          <path d={`M${H.x + 40} ${H.y + 20} L${L.x - L.r + 40} ${L.y + 160}`} stroke={C.ink} strokeWidth={5} strokeDasharray="14 10" opacity={0.55} />
+          <g transform={`translate(${L.x} ${L.y}) scale(${open}) translate(${-L.x} ${-L.y})`}>
+            <Bones x={L.x} y={L.y} r={L.r} porous={porous} />
+          </g>
+        </g>
+      ) : null}
+      {/* yıllar geçer: kum saati */}
+      {f >= w(3) - 2 ? (
+        <g transform={`translate(830 420) scale(${pop(f, w(3) - 2, 14)}) rotate(${tw(f, w(3), d, 0, 180)})`}>
+          <path d="M-50 -70 L50 -70 L8 0 L50 70 L-50 70 L-8 0 Z" fill={C.cream} stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+          <path d={`M-30 ${-50 + 40 * porous} L30 ${-50 + 40 * porous} L4 -6 L-4 -6 Z`} fill="#d79a4e" />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Bir araştırmada ağır kaldıran kadınların omurga ve kalça kemik yoğunluğu sekiz ayda arttı."
+const KadinArastirma: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const L = { x: 720, y: 760, r: 250 };
+  const lift = (1 - Math.cos(f / 9)) / 2;
+  const porous = tw(f, w(4), w(12), 0.85, 0.05);
+  const glow = tw(f, w(9), w(12) + 6);
+  const s = 0.82;
+  const px = 270;
+  const barY = PY - 250 * s - 120 * s * lift;
+  const lens = tw(f, w(4) - 4, w(4) + 10);
+  return (
+    <>
+      <Gym o={0.7} />
+      <Person x={px} y={PY + 6 * (1 - lift)} s={s} female belly={0.15} armL={[6, 0]} armR={[6, 0]} mouth={lift > 0.6 ? "flat" : "o"} eyes={lift > 0.7 ? "closed" : "open"} />
+      <Barbell x={px} y={barY} s={0.55} />
+      {lens > 0 ? (
+        <g transform={`translate(${L.x} ${L.y}) scale(${lens}) translate(${-L.x} ${-L.y})`}>
+          <Bones x={L.x} y={L.y} r={L.r} porous={porous} glow={glow} />
+        </g>
+      ) : null}
+      <HandText x={720} y={1130} text="8 ay" size={130} p={tw(f, w(10) - 2, w(11) + 6)} color={C.red} rotate={-4} />
+      <Arrow d="M880 1100 L880 940" p={tw(f, w(12) - 2, w(12) + 8)} color="#3f7d4f" w={14} />
+      <Arrow d="M850 975 L880 935 L910 975" p={tw(f, w(12) + 4, w(12) + 10)} color="#3f7d4f" w={14} />
+      {cycles(f, w(9), 12, 30).map(({ k, p }) => (
+        <Star key={k} x={L.x + Math.cos(k * 2.1) * 200 * p} y={L.y - 40 + Math.sin(k * 2.1) * 200 * p} r={14 * (1 - p)} rot={f * 5} />
+      ))}
+    </>
+  );
+};
+
+// "Yani ağırlık seni iri yapmaz. Seni güçlü yapar."
+const KadinSonuc: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const ghost = pop(f, w(3) - 2, 12) * (1 - tw(f, w(4) + 6, w(5)));
+  const up = tw(f, w(5) - 2, w(6) + 4);
+  const s = 0.95;
+  const armUp: Arm = [12 + 160 * up, -10 * up];
+  const hand = armPoints(1, armUp)[2];
+  return (
+    <>
+      <Gym />
+      {ghost > 0 ? (
+        <g opacity={0.4 * ghost}>
+          <Person x={860} y={PY} s={0.55} female belly={0.15} limbW={2.2} armL={[40, -120]} armR={[40, -120]} mouth="flat" />
+        </g>
+      ) : null}
+      {ghost > 0 ? <Cross x={860} y={PY - 240} size={130} p={tw(f, w(4) - 2, w(4) + 10)} /> : null}
+      {up > 0.3 ? <ellipse cx={PX - 60} cy={PY - 420} rx={260 * up} ry={420 * up} fill={C.yellow} opacity={0.18 * up} filter="url(#glow)" /> : null}
+      <Person x={PX - 60} y={PY - 10 * up} s={s} female belly={0.15} armL={[12 + 160 * up, -10 * up]} armR={armUp} mouth={up > 0.5 ? "grin" : "smile"}>
+        {up > 0 ? (
+          <g transform={`translate(0 ${hand[1] - 10})`}>
+            <Barbell x={0} y={0} s={0.62} />
+          </g>
+        ) : null}
+      </Person>
+    </>
+  );
+};
+
+// "Bunu kaydet, çünkü biri yine diyecek ki:"
+const KadinKapanis: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const save = pop(f, w(1) - 2, 14);
+  const friend = tw(f, w(2) - 4, w(4) + 4);
+  const fw = walk(f, friend > 0 && friend < 1 ? 1 : 0, 4.5);
+  const ask = pop(f, w(5) - 2, 14);
+  return (
+    <>
+      <Gym />
+      <Barbell x={760} y={PY - 70} s={0.62} />
+      <Person x={PX - 140} y={PY} s={0.92} female belly={0.2} armL={[12, 0]} armR={[14 + 120 * tw(f, w(1), w(1) + 8), -60 * tw(f, w(1), w(1) + 8)]} mouth="grin" />
+      <SaveMark x={230} y={560} p={save} />
+      {friend > 0 ? (
+        <Person x={interpolate(friend, [0, 1], [1250, 900])} y={PY + 40 - fw.bob} s={0.66} female belly={0.3} shirt="#6e8fb3" legL={fw.legL} legR={fw.legR} armL={fw.armL} armR={fw.armR} mouth={ask > 0.5 ? "o" : "smile"} lookY={-4} />
+      ) : null}
+      <Bubble x={820} y={560} rx={170} ry={120} p={ask} tail={[880, 820]}>
+        <text x={820} y={605} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={C.ink}>
+          ?
+        </text>
+      </Bubble>
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kadin-acilis": KadinAcilis,
+  "kadin-hormon": KadinHormon,
+  "kadin-kas": KadinKas,
+  "kadin-sahne": KadinSahne,
+  "kadin-kemik": KadinKemik,
+  "kadin-arastirma": KadinArastirma,
+  "kadin-sonuc": KadinSonuc,
+  "kadin-kapanis": KadinKapanis,
   "adim-acilis": AdimAcilis,
   "adim-reklam": AdimReklam,
   "adim-yayildi": AdimYayildi,
