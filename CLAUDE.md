@@ -68,6 +68,15 @@ karışımları, istemler `ISTEMLER.md`). **Kullanıcı 7-merak-pizzicato'yu SE�
 Kullanıcı "7 yakın, son kez en iyisini yap" dedi → 10 akılda, 11 gerilim, 12 modern üretildi; **Kullanıcı 11-pizzicato-gerilim'i SEÇTİ (son karar)** → `public/music/merak-gerilim.mp3` (−20 LUFS, künye yok);
 pilot bununla yeniden render edildi. **Tartı ve sonraki tüm videolar `"music": "music/merak-gerilim.mp3"` kullanacak.** Not: Music API eşzamanlı istekte 429 veriyor, sırayla üret.
 
+**16 Ekim 02:35 — SON DURUM (en güncel):** Kullanıcı "her şeyi geliştir, bitir, at" dedi →
+- Merak bırakan animasyonlar eklendi (REVİZE 1): `MysteryBox` (sallanan "?" kutusu, cevap kelimesinde açılır),
+  `Counter` (hedefe dönen sayaç: %84, %16, 7.700 kcal), `Gauge` (yağ yakımı ibresi, "Hayır"da düşer), tartıda titreyen
+  rakamlar, adı söylenene kadar "?" görünen parçacıklar. Saat tiklemesi efektleri `public/sfx/tik.mp3`, `tak.mp3`
+  (Python ile üretildi), `ticks()` yardımcısı. Yeni videolarda da bu parçaları kullan.
+- Pilot 01 bu animasyonlarla yeniden render edildi; **02 tartı Yunus eleven_v4 ile seslendirildi** (~600 karakter),
+  efektler + `merak-gerilim` müziği ile render edildi (44,4 sn): `ornek-videolar/cizim1-pilot/02-tarti.mp4`.
+- Sıradaki: kullanıcı onayı → 03 takip (`content/uc/uc-03-takip.json` metni yeni stile taşınacak).
+
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
 değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
