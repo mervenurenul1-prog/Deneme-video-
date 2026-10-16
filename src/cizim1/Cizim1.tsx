@@ -382,6 +382,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-hook": (w) => [[3, "pop", 0.35], [w(5) - 3, "whoosh", 0.4], [w(5) - 2, "boom", 0.25], [w(8), "agir-dusme", 0.35], [w(8) + 2, "pirilti", 0.45], [w(15) + 2, "ding", 0.3]],
   "kadin-104": (w) => [[w(6) - 2, "yuksel", 0.35], [w(9) + 4, "ding", 0.25], [w(11) - 2, "kalem", 0.35], [w(17), "agir-dusme", 0.3]],
   "kadin-dongu2": (w) => [[w(6), "pop", 0.35]],
+  "kadin-kemik3": (w) => [[w(2) - 2, "pirilti", 0.4], [w(7) - 2, "kalem", 0.3], [w(9), "yuksel", 0.35], [w(9) + 6, "ding", 0.35]],
+  "kadin-dongu3": (w) => [[w(5) - 2, "pop", 0.35], [w(7) - 2, "whoosh", 0.35], [w(7), "pirilti", 0.4], [w(9), "ding", 0.3]],
   "kadin-1896": (w) => [[2, "kalem", 0.4], [w(10), "agir-dusme", 0.45], [w(13), "yuksel", 0.35], [w(17) + 4, "ding", 0.3]],
   "kadin-2000": (w) => [[2, "kalem", 0.4], [w(6), "agir-dusme", 0.35], [w(6) + 2, "pirilti", 0.45], [w(10) + 4, "ding", 0.3]],
   "kadin-korku": (w) => [[w(4) - 2, "cizik", 0.4], [w(5), "sonme", 0.4], [w(10) - 2, "pop", 0.4]],
@@ -547,6 +549,8 @@ const ZOOM: Record<string, Zoom> = {
   "kadin-hook": { to: 1.06, x: 540, y: 900 },
   "kadin-104": { to: 1.05, x: 600, y: 900 },
   "kadin-dongu2": { to: 1.03, x: 540, y: 900 },
+  "kadin-kemik3": { to: 1.05, x: 600, y: 900 },
+  "kadin-dongu3": { to: 1.03, x: 540, y: 900 },
   "kadin-1896": { to: 1.05, x: 540, y: 900 },
   "kadin-2000": { to: 1.06, x: 540, y: 900 },
   "kadin-korku": { to: 1.05, x: 560, y: 800 },
@@ -4088,7 +4092,106 @@ const BoyunKapanis: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 04 kısa sürüm: güçlü kemik sahnesi ve kapanış ---------- */
+
+// "Asıl sürpriz kemiklerde: bir araştırmada kemik yoğunluğu sekiz ayda arttı."
+// Kadın halteri kaldırdıkça röntgendeki kemik her tekrarda biraz daha dolar ve parlar; takvim 8 aya döner.
+const KadinKemik3: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const L = { x: 720, y: 720, r: 270 };
+  const open = tw(f, w(2) - 2, w(2) + 10);
+  const period = 26;
+  const lift = (1 - Math.cos((f / period) * Math.PI * 2)) / 2;
+  const fill = tw(f, w(2) + 6, w(9) + 6);
+  const porous = interpolate(fill, [0, 1], [0.85, 0.04]);
+  const glow = tw(f, w(8), w(9) + 8);
+  // her tekrarın tepesinde (kol yukarıda) kemikte bir dalga
+  const repPhase = ((f + period / 2) % period) / period;
+  const pulse = open > 0.9 && f > w(2) + 6 && f < d - 10 ? 1 - repPhase : 0;
+  const px = 300;
+  const s = 0.86;
+  return (
+    <>
+      <Gym o={0.7} />
+      <Person x={110} y={PY + 40} s={0.6} belly={0.4} armL={glow > 0.3 ? [160, -10] : [12, 0]} armR={glow > 0.3 ? [160, -10] : [12, 0]} mouth={glow > 0.3 ? "grin" : "o"} eyes={open > 0.5 ? "wide" : "open"} />
+      <Person x={px} y={PY + 6 * (1 - lift)} s={s} female belly={0.15} armL={[6, 0]} armR={[6, 0]} mouth={lift > 0.6 ? "flat" : "o"} eyes={lift > 0.7 ? "closed" : "open"} />
+      <Barbell x={px} y={PY - 250 * s - 120 * s * lift} s={0.55} />
+      <g opacity={1 - tw(f, w(2), w(2) + 10)}>
+        <MysteryBox x={L.x} y={L.y + 60} s={1.15} p={pop(f, 0, 10)} open={tw(f, w(2) - 2, w(2) + 8)} rays={false} shake={f < w(2) - 2 ? Math.sin(f / 2.4) * 6 : 0} />
+      </g>
+      {open > 0 ? (
+        <g transform={`translate(${L.x} ${L.y}) scale(${open}) translate(${-L.x} ${-L.y})`}>
+          <Bones x={L.x} y={L.y} r={L.r} porous={porous} glow={glow} />
+          {pulse > 0 ? <circle cx={L.x} cy={L.y} r={L.r * (0.35 + 0.6 * (1 - pulse))} fill="none" stroke={C.yellow} strokeWidth={10} opacity={0.6 * pulse} /> : null}
+        </g>
+      ) : null}
+      {/* yükselen dolgu çubuğu: kemik yoğunluğu */}
+      {open > 0 ? (
+        <g opacity={open}>
+          <rect x={1005} y={470} width={44} height={500} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+          <rect x={1011} y={476 + 488 * (1 - fill)} width={32} height={488 * fill} rx={14} fill="#3f7d4f" />
+        </g>
+      ) : null}
+      <Counter x={720} y={1170} to={8} suffix=" ay" p={tw(f, w(7) - 2, w(8) + 4)} size={130} color={C.red} rotate={-4} />
+      <Arrow d="M1027 1060 L1027 1000" p={tw(f, w(9) - 2, w(9) + 8)} color="#3f7d4f" w={14} />
+      {glow > 0
+        ? [0, 1, 2, 3].map((i) => {
+            const a = (i / 4) * Math.PI * 2 + f / 18;
+            return <Star key={i} x={L.x + Math.cos(a) * (L.r + 40)} y={L.y + Math.sin(a) * (L.r + 40)} r={22 * glow} rot={f * 4} />;
+          })
+        : null}
+    </>
+  );
+};
+
+// "Ve biri sana bunu yine sorarsa, sadece kırk sekiz kiloyu hatırla."
+// Arkadaş dambılla gelir, "?" belirir; "kırk sekiz"de şampiyonun fotoğrafı (48 kg, madalya) avatarın yanında parlar.
+// Son karede fotoğraf kaybolur: sahne kancanın ilk karesine döner (döngü).
+const KadinDongu3: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const come = tw(f, 0, w(3));
+  const fw = walk(f, come > 0 && come < 1 ? 1 : 0, 4.5);
+  const end = 1 - tw(f, d - 16, d - 6);
+  const ask = pop(f, w(5) - 2, 12) * end;
+  const photo = pop(f, w(7) - 2, 14) * end;
+  const kg = tw(f, w(7), w(9));
+  return (
+    <>
+      <Gym />
+      <Person x={250} y={PY + 20} s={0.82} belly={0.4} armL={[12, 0]} armR={photo > 0.5 ? [100, -40] : [12, 0]} mouth={photo > 0.5 ? "grin" : "smile"} lookY={0} />
+      <Person x={interpolate(come, [0, 1], [1250, 720])} y={PY - fw.bob} s={0.9} female belly={0.2} legL={fw.legL} legR={fw.legR} armL={come < 1 ? fw.armL : [12, 0]} armR={curlArm(0)} mouth={photo > 0.5 ? "o" : "flat"} eyes={photo > 0.5 ? "wide" : "open"}>
+        <g transform={`translate(${armPoints(1, curlArm(0))[2][0]} ${armPoints(1, curlArm(0))[2][1]}) rotate(-20)`}>
+          <Dumbbell x={0} y={0} s={0.55} rot={90} />
+        </g>
+      </Person>
+      {ask > 0 ? (
+        <g transform={`translate(720 600) scale(${ask})`}>
+          <ellipse rx={90} ry={70} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+          <path d="M10 62 L-10 120 L-40 58 Z" fill={C.cream} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90} fill={C.ink}>
+            ?
+          </text>
+        </g>
+      ) : null}
+      {photo > 0 ? (
+        <g transform={`translate(400 470) scale(${photo * 0.9}) rotate(-5)`}>
+          <circle r={260} fill={C.yellow} opacity={0.18} />
+          <rect x={-170} y={-230} width={340} height={440} rx={10} fill="#2a2018" stroke={C.ink} strokeWidth={8} />
+          <path d="M0 -220 L-130 160 L130 160 Z" fill="#fff3c8" opacity={0.3} />
+          <Person x={0} y={150} s={0.42} female belly={0.1} shirt="#4f97c2" armL={[168, -8]} armR={[168, -8]} mouth="grin">
+            <Barbell x={0} y={armPoints(1, [168, -8])[2][1]} s={0.5} />
+            <GoldMedal x={0} y={-500} s={1.1} />
+          </Person>
+          <Counter x={0} y={200} to={48} suffix=" kg" p={kg} size={70} color={C.yellow} rotate={0} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kadin-kemik3": KadinKemik3,
+  "kadin-dongu3": KadinDongu3,
   "kadin-hook": KadinHook,
   "kadin-104": Kadin104,
   "kadin-dongu2": KadinDongu2,
@@ -4146,8 +4249,10 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
 const KISA: Record<string, [string, Record<number, number>]> = {
   // "Kadınlar o sahneye çıkmak için yüz dört yıl bekledi."
   "kadin-104k": ["kadin-104", { 6: 5, 9: 8, 11: 0, 15: 0, 16: 3, 17: 2 }],
-  // "Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar."
-  "kadin-hormon-k": ["kadin-hormon", { 5: 1, 7: 4, 8: 5, 13: 7 }],
+  // "Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar." (tüpler hemen çıkar, hızlı dolar)
+  "kadin-hormon-k": ["kadin-hormon", { 5: 0, 7: 3, 8: 5, 13: 7 }],
+  // "Yüz dört yıl beklediler. Sen bekleme."
+  "kadin-mesaj-k": ["kadin-mesaj", { 4: 4, 6: 5, 8: 5 }],
   // "Kasların güçlenir, sıkılaşır, şekillenir. Ama iri olmaz."
   "kadin-kas-k": ["kadin-kas2", { 1: 0, 2: 1, 3: 2, 4: 3, 6: 5, 7: 6 }],
   // "Asıl sürpriz kemiklerde: bir araştırmada kemik yoğunluğu sekiz ayda arttı."

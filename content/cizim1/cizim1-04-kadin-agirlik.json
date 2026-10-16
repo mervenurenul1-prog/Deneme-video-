@@ -10,6 +10,7 @@
   "maxPause": 0.3,
   "music": "music/merak-gerilim.mp3",
   "loop": true,
+  "padding": 0.15,
   "scenes": [
     {
       "visual": "kadin-hook",
@@ -24,7 +25,7 @@
     {
       "visual": "kadin-hormon-k",
       "voice": "Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar.",
-      "say": "Çünkü kası iri yapan, ıı, testosteron, kadınlarda erkeklerin onda biri kadar."
+      "say": "Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar."
     },
     {
       "visual": "kadin-kas-k",
@@ -32,19 +33,19 @@
       "say": "Kasların güçlenir, sıkılaşır, şekillenir. Ama iri olmaz."
     },
     {
-      "visual": "kadin-kemik-k",
+      "visual": "kadin-kemik3",
       "voice": "Asıl sürpriz kemiklerde: bir araştırmada kemik yoğunluğu sekiz ayda arttı.",
       "say": "[curious] Asıl sürpriz kemiklerde: bir araştırmada, kemik yoğunluğu sekiz ayda arttı."
     },
     {
-      "visual": "kadin-mesaj",
-      "voice": "Yüz dört yıl beklediler. Sen bir gün daha bekleme.",
-      "say": "Yüz dört yıl beklediler. Sen bir gün daha bekleme."
+      "visual": "kadin-mesaj-k",
+      "voice": "Yüz dört yıl beklediler. Sen bekleme.",
+      "say": "Yüz dört yıl beklediler. Sen bekleme."
     },
     {
-      "visual": "kadin-dongu-k",
-      "voice": "Ve biri sana bunu bir daha sorarsa, cevabı artık biliyorsun.",
-      "say": "Ve biri sana bunu bir daha sorarsa, cevabı artık biliyorsun."
+      "visual": "kadin-dongu3",
+      "voice": "Ve biri sana bunu yine sorarsa, sadece kırk sekiz kiloyu hatırla.",
+      "say": "Ve biri sana bunu yine sorarsa, sadece kırk sekiz kiloyu hatırla."
     }
   ],
   "caption": "Ağırlık kaldıran kadın iri olmaz, güçlü olur 💪\n\nKadınlarda testosteron erkeklerin yaklaşık onda biri kadar. Kasların yine güçlenir ve büyür, ama sonuç iri değil; sıkı ve şekilli bir vücut. Sahnedeki vücut geliştiricilerin arkasında yıllar süren özel program ve diyet var.\n\nÜstelik ağırlık kemiği korur: LIFTMOR çalışmasında (Watson ve ark., JBMR 2018) menopoz sonrası düşük kemik yoğunluğu olan kadınlarda 8 aylık ağır direnç antrenmanı omurga ve kalça kemik yoğunluğunu artırdı.\n\nKaydet, \"iri olurum\" diyen arkadaşına gönder 📲",

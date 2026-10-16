@@ -15,7 +15,12 @@ Kalan ElevenLabs kredisi ≈ 15.750 karakter (yalnız Yunus seslendirmesi için 
 - **04 KISALTILDI (16 Ekim 17:30, ekip: "izlerken sıkıldık"):** 52 sn → **35 sn**, 7 sahne: kanca (aynı) → 104 yıl
   (1896 cümlesi atıldı) → testosteron 1/10 ("korku" sahnesi atıldı) → kas → kemik (8 ay) → "104 yıl beklediler" →
   kapanış "Ve biri sana bunu bir daha sorarsa, cevabı artık biliyorsun." (36 sn). **KURAL (kullanıcı kızdı):
-  kısaltırken cümleyi yarıda kesme; video tam bir cümleyle bitsin, döngü yarım cümleye dayanmasın.** Kısa sahneler `KISA` haritasıyla eski bileşenleri yeni kelime sırasına bağlıyor
+  kısaltırken cümleyi yarıda kesme; video tam bir cümleyle bitsin, döngü yarım cümleye dayanmasın.**
+  **04 iyileştirme (kullanıcı "hepsini yap"):** (1) kapanış "Yüz dört yıl beklediler. Sen bekleme." → "Ve biri sana bunu
+  yine sorarsa, sadece kırk sekiz kiloyu hatırla." (`kadin-dongu3`: şampiyon fotoğrafı + 48 kg belirir, son karede
+  kaybolur = kanca karesi); (2) testosteron tüpleri sahne başında çıkar, dolgu sözcüğü yok; (3) yeni kemik sahnesi
+  `kadin-kemik3` (her halter tekrarında kemik dolar/parlar, yoğunluk çubuğu, "8 ay" sayacı); (4) tempo: JSON
+  `"padding": 0.15` (sahne sonu boşluğu; varsayılan 0.35). 34,6 sn sessiz önizleme gönderildi → onay → seslendirme. Kısa sahneler `KISA` haritasıyla eski bileşenleri yeni kelime sırasına bağlıyor
   (Cizim1.tsx sonu). Yeni sessiz önizleme `04-kadin-agirlik-sessiz.mp4` gönderildi → **onay → seslendirme**
   (~420 karakter). KURAL: yeni videolar da kısa olsun (~30-35 sn).
 - 03 on bin adım ✅ BEĞENİLDİ — serinin örnek videosu (formül: kanca → kısa tarihçe → görsel anlatım → loop).

@@ -105,6 +105,8 @@ export type Cizim = {
   music?: string;
   // true: video kusursuz döngü olur (son kare = ilk kare), Instagram başa sardığında kesinti görünmez
   loop?: boolean;
+  // Sahne sonunda ses bittikten sonra bırakılan boşluk (saniye); yoksa VIDEO.paddingSeconds. Tempo için kısalt
+  padding?: number;
   scenes: CizimScene[];
   caption: string;
   hashtags: string[];
