@@ -1,6 +1,6 @@
 {
   "id": "cizim1-05-boyun",
-  "title": "Telefona bakarken boynun kaç kilo taşıyor?",
+  "title": "Boynunda bir çocuk taşıyorsun",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -13,23 +13,23 @@
   "scenes": [
     {
       "visual": "boyun-acilis",
-      "voice": "Şu an telefona bakıyorsan, boynun yaklaşık yirmi yedi kilo taşıyor olabilir.",
-      "say": "Şu an telefona bakıyorsan, boynun yaklaşık [curious] yirmi yedi kilo taşıyor olabilir."
+      "voice": "Telefona her baktığında, boynunda aşağı yukarı sekiz yaşında bir çocuk taşıyorsun.",
+      "say": "Telefona her baktığında, boynunda aşağı yukarı [curious] sekiz yaşında bir çocuk taşıyorsun."
     },
     {
-      "visual": "boyun-kafa",
-      "voice": "Başın aslında beş kilo civarında. Dik dururken boynun sadece bu ağırlığı taşır.",
-      "say": "Başın aslında, ıı, beş kilo civarında. Dik dururken boynun sadece bu ağırlığı taşır."
+      "visual": "boyun-gun",
+      "voice": "Sabah uyanınca, otobüste, işte, gece yatakta... O çocuk hep orada.",
+      "say": "Sabah uyanınca, otobüste, işte, gece yatakta... O çocuk, hmm, hep orada."
     },
     {
-      "visual": "boyun-aci",
-      "voice": "Ama başını öne eğdikçe yer çekimi bir kaldıraç gibi çalışır. On beş derecede yük on iki kiloya çıkar.",
-      "say": "Ama başını öne eğdikçe, yer çekimi bir kaldıraç gibi çalışır. On beş derecede yük on iki kiloya çıkar."
+      "visual": "boyun-kaldirac",
+      "voice": "Başın aslında beş kilo civarında. Ama öne eğildikçe yer çekimi bir kaldıraç gibi çalışır.",
+      "say": "Başın aslında beş kilo civarında. Ama öne eğildikçe, yer çekimi bir kaldıraç gibi çalışır."
     },
     {
       "visual": "boyun-altmis",
-      "voice": "Altmış dereceye, yani tam telefona bakma açısına gelince: yirmi yedi kilo.",
-      "say": "Altmış dereceye, yani tam telefona bakma açısına gelince: [curious] yirmi yedi kilo."
+      "voice": "On beş derecede on iki kilo. Altmış derecede, yani tam telefona bakarken: yirmi yedi kilo.",
+      "say": "On beş derecede on iki kilo. Altmış derecede, yani tam telefona bakarken: [curious] yirmi yedi kilo."
     },
     {
       "visual": "boyun-surpriz",
@@ -38,18 +38,18 @@
     },
     {
       "visual": "boyun-asil",
-      "voice": "Asıl yorucu olan, saatlerce aynı pozisyonda kalmak. Boyun kasların hiç dinlenemez.",
-      "say": "Asıl yorucu olan, saatlerce aynı pozisyonda kalmak. Boyun kasların hiç dinlenemez."
+      "voice": "Asıl yorucu olan, o çocuğu saatlerce hiç indirmemek. Boyun kasların dinlenemez.",
+      "say": "Asıl yorucu olan, o çocuğu saatlerce hiç indirmemek. Boyun kasların dinlenemez."
     },
     {
       "visual": "boyun-cozum",
-      "voice": "Telefonu biraz yukarı kaldır, ara ara başını çevir ve boynunu esnet.",
-      "say": "Telefonu biraz yukarı kaldır, ara ara başını çevir ve boynunu esnet."
+      "voice": "Telefonu göz hizasına kaldır, ara ara başını çevir. Çocuk iner, boynun rahatlar.",
+      "say": "Telefonu göz hizasına kaldır, ara ara başını çevir. Çocuk iner, boynun rahatlar."
     },
     {
       "visual": "boyun-kapanis",
-      "voice": "Bunu kaydet. Ve şimdi, bu videoyu izlerken başına bir bak:",
-      "say": "Bunu kaydet. Ve şimdi, bu videoyu izlerken, [curious] başına bir bak:"
+      "voice": "Ama dikkat et, o çocuk geri gelmeyi çok sever. Çünkü...",
+      "say": "Ama dikkat et, o çocuk geri gelmeyi [curious] çok sever. Çünkü..."
     }
   ],
   "caption": "Telefona bakarken boynun kaç kilo taşıyor? 📱\n\nBaşın yaklaşık 5 kilo. Ama öne eğildikçe yer çekimi kaldıraç gibi çalışır: 15 derecede boyna binen yük yaklaşık 12 kiloya, 60 derecede yaklaşık 27 kiloya çıkar (Hansraj, Surgical Technology International, 2014; bilgisayar modeli tahmini).\n\nİlginç olan şu: Araştırmalar bu duruşun tek başına boyun ağrısına yol açtığını net olarak göstermedi. Asıl yorucu olan, saatlerce aynı pozisyonda kalmak.\n\nTelefonu biraz yukarı kaldır, ara ara başını çevir, boynunu esnet.\n\n📌 Kaydet, gün boyu telefona gömülü arkadaşına gönder.",

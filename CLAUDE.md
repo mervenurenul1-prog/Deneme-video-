@@ -14,7 +14,8 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 - **Konuyu kullanıcı seçer:** Claude konu önerir, kullanıcı seçer, sonra video hazırlanır. Kendi başına konu seçme.
 - Fazla betimleme, ince düşünülmüş, kaliteli içerik; her görsel olayın kendi efekt sesi; referans yapı (aşağıda).
 - Kendi kafana göre iş yapma; emin değilsen sor. Önce sessiz önizleme, onaydan sonra seslendirme.
-- Her video için Instagram açıklaması da hazırla (JSON `caption` + `hashtags`, kullanıcıya metin olarak da ver).
+- **Instagram açıklaması YAZMA** — kullanıcı kendisi hallediyor ("sen videolarla ilgilen"). JSON `caption` alanı kalabilir.
+- Kanca (ilk cümle) durdurucu ve **hikâyesel** olsun; döngü hem görüntüde hem cümlede hissedilsin (son kare = ilk kare, son cümle "Çünkü..." gibi açılışa akar).
 
 ## >>> YENİ OTURUM: BURADAN BAŞLA <<<
 **Geçerli yöntem:** çizim v1 stili (`src/cizim1/Cizim1.tsx`, içerik `content/cizim1/*.json`): sade erkek
@@ -113,6 +114,10 @@ kullanıcı dinleyip seçecek.
 Hansraj 2014 model tahmini + dürüst sürpriz: araştırmalar duruşun tek başına ağrı yaptığını net göstermedi). Yandan
 boyun röntgeni (`NeckLens`), telefon (`Phone`, `PHONE_ARM`), kettlebell. Sessiz önizleme gönderildi, onay bekleniyor.
 Sıradaki: 3) "30 dakikalık protein penceresi bir efsane".
+**05 boyun yeniden kuruldu (kullanıcı: "daha ilgi çekici, hook durdurucu ve hikâyesel, loop"):** kanca "Telefona her
+baktığında, boynunda aşağı yukarı sekiz yaşında bir çocuk taşıyorsun" — çocuk (`Kid`, sarı tişört, "8") avatarın
+omzuna tırmanır (`AvatarWithKid`, `neckSeat`); gün boyu (sabah/otobüs/iş/gece) hep orada; 27 kg = çocuk tartıda;
+telefonu kaldırınca zıplayıp iner; kapanış "o çocuk geri gelmeyi çok sever. Çünkü..." → çocuk geri gelir (döngü).
 **04 revize (kullanıcı: "beğendim ama daha iyi giriş, loop etkisi, daha kuvvetli betimleme"):** yeni açılış "Ağırlık
 kaldıran bir kadının iri olması, sandığından çok daha zor" + kadının kolları balon gibi şişip "izin vermez"de söner;
 kapanış "...arkadaşına gönder. Çünkü..." (avatar kâğıt uçakla gönderir, arkadaş dambılı alır = açılış karesi).

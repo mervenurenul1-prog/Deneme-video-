@@ -368,14 +368,14 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-kapanis": (w) => [[0, "pop", 0.3], [w(0) - 4, "pop", 0.25], [w(4), "whoosh", 0.35], [w(5) + 6, "ding", 0.3], [w(6) - 2, "pop", 0.55], [w(6) + 2, "tak", 0.35]],
 
   // 05 boyun — her olayın kendi sesi
-  "boyun-acilis": (w) => [[w(2), "pop", 0.35], [w(6) - 8, "whoosh", 0.35], [w(6) + 4, "boom", 0.3], [w(6) + 4, "tak", 0.5], [w(8), "damla", 0.25], [w(8) + 10, "damla", 0.2]],
-  "boyun-kafa": (w) => [[w(0) - 2, "pop", 0.4], ...ticks(w(1), w(3) + 2, 4, 0.2), [w(3) + 2, "bip", 0.35], [w(5) - 4, "whoosh", 0.3], [w(10) - 2, "kalem", 0.3]],
-  "boyun-aci": (w) => [[0, "whoosh", 0.25], ...every(w(1), w(12), 6, "tik", 0.16), [w(7) - 2, "pop", 0.35], [w(7) + 2, "tak", 0.35], [w(9) + 4, "tak", 0.3], ...ticks(w(13), w(16) + 4, 4, 0.2), [w(16) + 4, "ding", 0.3]],
-  "boyun-altmis": (w) => [...every(0, w(6) + 4, 6, "tik", 0.18), [w(3), "pop", 0.35], [w(8) - 2, "boom", 0.32], [w(8) - 2, "tak", 0.5], [w(8) + 2, "yuksel", 0.3], [w(10) + 4, "cizik", 0.3]],
+  "boyun-acilis": (w) => [[w(0) + 2, "whoosh", 0.3], [w(1), "adim", 0.3], [w(3), "boom", 0.3], [w(3), "tak", 0.45], [w(6) - 2, "pop", 0.45], [w(6), "pirilti", 0.25], [w(10) - 2, "damla", 0.25], [w(10) + 8, "damla", 0.2]],
+  "boyun-gun": (w) => [...every(2, w(2) - 4, 7, "bip", 0.3), [w(2) - 2, "whoosh", 0.3], [w(2), "boom", 0.12], [w(3) - 2, "whoosh", 0.25], ...every(w(3), w(4) - 4, 4, "tik", 0.18), [w(4) - 2, "whoosh", 0.25], [w(4), "sonme", 0.15], [w(6), "pop", 0.3]],
+  "boyun-kaldirac": (w) => [[0, "whoosh", 0.25], ...ticks(w(1), w(3) + 4, 4, 0.2), [w(3) + 4, "bip", 0.35], ...every(w(6), w(13) + 6, 6, "tik", 0.15), [w(11) - 2, "pop", 0.35], [w(11) + 4, "tak", 0.35]],
+  "boyun-altmis": (w) => [...ticks(w(3), w(5) + 4, 4, 0.2), [w(5) + 4, "ding", 0.25], ...every(w(6), w(11) + 4, 6, "tik", 0.18), [w(8), "pop", 0.3], [w(12) - 2, "boom", 0.3], [w(12), "adim", 0.35], ...ticks(w(12), w(14) + 2, 3, 0.2), [w(14) + 2, "bip", 0.4]],
   "boyun-surpriz": (w) => [[2, "pop", 0.35], ...ticks(6, w(5) - 3, 9, 0.35), [w(5) - 3, "boom", 0.16], [w(5) - 2, "kagit", 0.4], [w(7) - 2, "pop", 0.4], [w(10) - 2, "pop", 0.4], ...every(w(11), w(12) + 6, 4, "tik", 0.2), [w(15) - 2, "cizik", 0.5], [w(15), "boom", 0.18], [w(15) + 4, "sonme", 0.3]],
-  "boyun-asil": (w, d) => [...every(w(3) - 2, w(6) + 8, 3, "tik", 0.18), [w(3), "whoosh", 0.25], [w(6) + 8, "ding", 0.25], ...every(w(7), d - 6, 10, "bip", 0.15)],
-  "boyun-cozum": (w, d) => [[w(0), "yuksel", 0.35], [w(3) + 6, "ding", 0.3], [w(6) - 2, "whoosh", 0.2], [w(6) + 14, "whoosh", 0.2], [w(9), "nefes", 0.4], [w(9) + 4, "pirilti", 0.35], [d - 14, "pop", 0.2]],
-  "boyun-kapanis": (w) => [[w(1) - 2, "pop", 0.5], [w(5), "whoosh", 0.2], [w(7), "pop", 0.35]],
+  "boyun-asil": (w, d) => [...every(w(5) - 2, w(7) + 8, 3, "tik", 0.18), [w(5), "whoosh", 0.25], [w(6), "nefes", 0.3], [w(7) + 8, "ding", 0.2], ...every(w(8), d - 6, 10, "bip", 0.15)],
+  "boyun-cozum": (w) => [[w(0), "yuksel", 0.35], [w(4) - 2, "whoosh", 0.2], [w(4) + 14, "whoosh", 0.2], [w(8) - 2, "whoosh", 0.35], [w(9) + 6, "adim", 0.4], [w(10), "nefes", 0.4], [w(10) + 4, "pirilti", 0.35], [w(11), "ding", 0.25]],
+  "boyun-kapanis": (w, d) => [...steps(2, w(2), 3.8, 0.25), [w(1), "pop", 0.35], ...steps(w(5) - 2, d - 6, 3.8, 0.25), [w(8), "tik", 0.3], [w(9), "tak", 0.35]],
 };
 
 /* ---------- yardımcılar ---------- */
@@ -523,8 +523,8 @@ const ZOOM: Record<string, Zoom> = {
   "kadin-sonuc": { to: 1.06, x: 480, y: 800 },
   "kadin-kapanis": { to: 1.04, x: 540, y: 800 },
   "boyun-acilis": { to: 1.07, x: 480, y: 700 },
-  "boyun-kafa": { to: 1.05, x: 600, y: 900 },
-  "boyun-aci": { to: 1.07, x: 540, y: 780 },
+  "boyun-gun": { to: 1.05, x: 560, y: 900 },
+  "boyun-kaldirac": { to: 1.06, x: 540, y: 760 },
   "boyun-altmis": { to: 1.08, x: 540, y: 780 },
   "boyun-surpriz": { to: 1.05, x: 540, y: 900 },
   "boyun-asil": { to: 1.05, x: 540, y: 800 },
@@ -3209,109 +3209,206 @@ const PhoneInHand: React.FC<{ arm: Arm; glow?: number }> = ({ arm, glow = 1 }) =
   return <Phone x={h[0] - 10} y={h[1] - 40} s={1} rot={-10} glow={glow} />;
 };
 
-/* ---------- 05 boyun: sahneler ---------- */
+/* ---------- 05 boyun: hikâye — "boynunda bir çocuk taşıyorsun" ---------- */
 
-// "Şu an telefona bakıyorsan, boynun yaklaşık yirmi yedi kilo taşıyor olabilir."
+// Çocuk: küçük, sarı tişörtlü; göğsünde "8" (sekiz yaşında)
+const Kid: React.FC<{ x: number; y: number; s?: number; badge?: number; armL?: Arm; armR?: Arm; legL?: Leg; legR?: Leg; mouth?: Mouth; eyes?: Eyes; tilt?: number; lookY?: number }> = ({
+  x,
+  y,
+  s = 0.45,
+  badge = 0,
+  ...rest
+}) => (
+  <Person x={x} y={y} s={s} belly={0.3} shirt="#e8b84a" mouth="grin" {...rest}>
+    {badge > 0 ? (
+      <text x={0} y={-450} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130 * badge} fill={C.red}>
+        8
+      </text>
+    ) : null}
+  </Person>
+);
+
+// Çocuğun avatarın omuzlarındaki yeri (dünya koordinatı): kalçası başın arkasında, bacakları omuzlardan sarkar
+const neckSeat = (ax: number, ay: number, as: number) => ({ x: ax, y: ay - 527 * as, s: 0.5 * as });
+const SEAT_LEGS: Leg = { spread: 72, lift: 0.4 };
+
+// Avatar + omzundaki çocuk (çocuk önce çizilir, avatarın başı önde kalır)
+const AvatarWithKid: React.FC<{ x: number; y: number; s: number; kid: number; arm?: Arm; mouth?: Mouth; eyes?: Eyes; lookY?: number; blush?: number; kidEyes?: Eyes; kidMouth?: Mouth; badge?: number; phone?: boolean }> = ({
+  x,
+  y,
+  s,
+  kid,
+  arm = PHONE_ARM,
+  mouth = "flat",
+  eyes = "open",
+  lookY = 12,
+  blush = 0.5,
+  kidEyes = "open",
+  kidMouth = "grin",
+  badge = 0,
+  phone = true,
+}) => {
+  const seat = neckSeat(x, y, s);
+  return (
+    <>
+      {kid > 0 ? (
+        <g opacity={kid}>
+          <Kid x={seat.x} y={seat.y} s={seat.s} armL={[150, -30]} armR={[150, -30]} legL={SEAT_LEGS} legR={SEAT_LEGS} eyes={kidEyes} mouth={kidMouth} badge={badge} />
+        </g>
+      ) : null}
+      <Person x={x} y={y} s={s} belly={0.4} armL={[12, 0]} armR={arm} mouth={mouth} eyes={eyes} lookY={lookY} blush={blush}>
+        {phone ? <PhoneInHand arm={arm} /> : null}
+      </Person>
+    </>
+  );
+};
+
+const KID_START = { x: PX + 190, y: PY }; // açılış ve kapanış: çocuk avatarın yanında durur (döngü karesi)
+
+// "Telefona her baktığında, boynunda aşağı yukarı sekiz yaşında bir çocuk taşıyorsun."
 const BoyunAcilis: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  // ağırlık yukarıdan iner, "yirmi yedi kilo" denince başın üstüne oturur
-  const drop = tw(f, w(6) - 8, w(6) + 4);
-  const land = f >= w(6) + 4;
-  const squash = land ? 1 - 0.05 * Math.exp(-(f - w(6) - 4) / 5) : 1;
-  const sweat = tw(f, w(8), w(10) + 6);
+  const A = { x: PX - 60, y: PY, s: 0.95 };
+  const climb = tw(f, w(0) + 2, w(3));
+  const landed = climb >= 1;
+  const squash = landed ? 1 - 0.06 * Math.exp(-(f - w(3)) / 6) - 0.02 : 1;
+  const seat = neckSeat(A.x, A.y, A.s * squash);
+  const kx = interpolate(climb, [0, 1], [KID_START.x, seat.x]);
+  const ky = interpolate(climb, [0, 1], [KID_START.y, seat.y]) - Math.sin(climb * Math.PI) * 240;
+  const badge = pop(f, w(6) - 2, 14);
+  const sweat = tw(f, w(10) - 2, w(10) + 8);
   return (
     <>
-      <Person x={PX - 60} y={PY} s={0.95 * squash} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth={land ? "worry" : "smile"} eyes={land ? "wide" : "open"} lookY={12}>
-        <PhoneInHand arm={PHONE_ARM} />
-        {drop > 0 ? <Kettlebell x={0} y={interpolate(drop, [0, 1], [-1700, -880])} s={1.05} label={land ? "27 kg" : "?"} /> : null}
-        {sweat > 0
-          ? cycles(f, w(8), 10, 26).map(({ k, p }) => <Drop key={k} x={(k % 2 ? 1 : -1) * (95 + 40 * p)} y={-740 + 160 * p * p} s={0.8} o={(1 - p) * sweat} />)
-          : null}
-      </Person>
-      {land ? (
-        <g opacity={1 - tw(f, w(6) + 4, w(6) + 14)}>
-          {[-1, 1].map((k) => (
-            <path key={k} d={`M${PX - 60 + k * 120} ${PY - 860} l${k * 50} -30 M${PX - 60 + k * 130} ${PY - 820} l${k * 60} 0`} stroke={C.ink} strokeWidth={7} strokeLinecap="round" />
-          ))}
-        </g>
-      ) : null}
-      <HandText x={830} y={520} text="?" size={170} p={pop(f, w(2), 12) * (1 - tw(f, w(6), w(6) + 6))} rotate={10} />
+      {landed ? (
+        <AvatarWithKid x={A.x} y={A.y} s={A.s * squash} kid={1} mouth="worry" eyes={sweat > 0.5 ? "wide" : "open"} badge={badge} blush={0.5 + 0.4 * sweat} />
+      ) : (
+        <>
+          <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth="smile" lookY={12}>
+            <PhoneInHand arm={PHONE_ARM} />
+          </Person>
+          <Kid x={kx} y={ky} s={interpolate(climb, [0, 1], [0.45, seat.s])} armL={climb > 0 ? [150, -20] : [12, 0]} armR={climb > 0 ? [150, -20] : [12, 0]} legL={climb > 0 ? { lift: 0.6 } : {}} legR={climb > 0 ? { lift: 0.6 } : {}} />
+        </>
+      )}
+      {sweat > 0
+        ? cycles(f, w(10), 10, 26).map(({ k, p }) => <Drop key={k} x={A.x + (k % 2 ? 1 : -1) * (95 + 40 * p) * A.s} y={A.y - 740 * A.s + 160 * p * p} s={0.8} o={(1 - p) * sweat} />)
+        : null}
     </>
   );
 };
 
-// "Başın aslında beş kilo civarında. Dik dururken boynun sadece bu ağırlığı taşır."
-const BoyunKafa: React.FC<SceneProps> = ({ w }) => {
+// "Sabah uyanınca, otobüste, işte, gece yatakta... O çocuk hep orada."
+const BoyunGun: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const scale = pop(f, w(0) - 2, 14);
-  const lens = tw(f, w(5) - 4, w(5) + 10);
+  // her mekân kendi kelimesinde belirir
+  const seg = f < w(2) - 2 ? 0 : f < w(3) - 2 ? 1 : f < w(4) - 2 ? 2 : 3;
+  const starts = [0, w(2) - 2, w(3) - 2, w(4) - 2];
+  const fade = tw(f, starts[seg], starts[seg] + 6);
+  const A = { x: 560, y: PY, s: 0.9 };
+  const kidLook = f >= w(6) ? 1 : 0;
   return (
     <>
-      <Person x={230} y={PY} s={0.82} belly={0.4} armL={[12, 0]} armR={[150, -150]} mouth="o" lookY={-4} />
-      {/* baş = bovling topu gibi: mutfak tartısında 5 kilo */}
-      {scale > 0 ? (
-        <g transform={`translate(560 640) scale(${scale})`}>
-          <rect x={-120} y={20} width={240} height={50} rx={14} fill="#dcd6c8" stroke={C.ink} strokeWidth={7} />
-          <rect x={-60} y={30} width={120} height={30} rx={6} fill="#26332b" stroke={C.ink} strokeWidth={4} />
-          <Counter x={0} y={56} to={5} suffix=" kg" p={tw(f, w(1), w(3) + 2)} size={34} color="#b8f28a" rotate={0} />
-          <circle cx={0} cy={-60} r={78} fill={C.skin} stroke={C.ink} strokeWidth={7} />
-          <path d="M-80 -58 C-90 -160 90 -160 80 -58 C70 -100 30 -112 0 -108 C-30 -112 -70 -100 -80 -58 Z" fill={C.hair} stroke={C.ink} strokeWidth={6} />
-          <path d="M-20 -50 Q0 -36 20 -50" stroke={C.ink} strokeWidth={5} fill="none" strokeLinecap="round" />
-        </g>
-      ) : null}
-      {lens > 0 ? (
-        <g transform={`translate(720 1180) scale(${lens}) translate(-720 -1180)`}>
-          <NeckLens x={720} y={1180} r={230} angle={0} kg={tw(f, w(10) - 2, w(11) + 4) * 5} strain={0.05} />
-        </g>
-      ) : null}
+      <g opacity={fade}>
+        {seg === 0 || seg === 3 ? (
+          <g>
+            {/* yatak odası: sabah güneş, gece ay */}
+            <rect x={60} y={360} width={320} height={300} rx={12} fill={seg === 0 ? "#cfe6f2" : "#3b3f5c"} stroke={C.ink} strokeWidth={8} />
+            {seg === 0 ? <Sun x={220} y={480} s={0.6} rot={f} /> : <Moon x={220} y={500} s={0.6} />}
+            <rect x={640} y={1150} width={400} height={110} rx={20} fill={seg === 0 ? "#f3e6c4" : "#6b6f8c"} stroke={C.ink} strokeWidth={8} />
+            <rect x={640} y={1080} width={120} height={90} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+            <rect x={660} y={1260} width={30} height={70} fill="#8a5c35" stroke={C.ink} strokeWidth={6} />
+            <rect x={990} y={1260} width={30} height={70} fill="#8a5c35" stroke={C.ink} strokeWidth={6} />
+            {seg === 0 ? (
+              <g transform={`translate(170 1240) rotate(${Math.sin(f / 1.5) * 8})`}>
+                <circle r={60} fill={C.red} stroke={C.ink} strokeWidth={7} />
+                <circle r={44} fill={C.cream} />
+                <path d="M0 0 L0 -30 M0 0 L22 10" stroke={C.ink} strokeWidth={6} strokeLinecap="round" />
+                <path d="M-46 -52 l-14 -14 M46 -52 l14 -14" stroke={C.ink} strokeWidth={7} strokeLinecap="round" />
+              </g>
+            ) : null}
+            {seg === 3 ? <rect x={0} y={0} width={1080} height={1920} fill="#1d2235" opacity={0.25} /> : null}
+          </g>
+        ) : seg === 1 ? (
+          <g>
+            {/* otobüs: pencereler kayar, tutunma direği */}
+            <rect x={-20} y={300} width={1120} height={420} fill="#e3d9c3" stroke={C.ink} strokeWidth={8} />
+            {[0, 1, 2].map((i) => {
+              const x = ((i * 380 - (f - starts[1]) * 9) % 1140 + 1140) % 1140 - 60;
+              return (
+                <g key={i}>
+                  <rect x={x} y={360} width={300} height={260} rx={16} fill="#cfe6f2" stroke={C.ink} strokeWidth={7} />
+                  <circle cx={x + 80 + ((i * 50) % 120)} cy={540} r={40} fill="#8bb36a" opacity={0.7} />
+                </g>
+              );
+            })}
+            <path d="M880 280 L880 1330" stroke="#9a9a9a" strokeWidth={22} />
+            <path d="M-20 300 L1100 300" stroke={C.ink} strokeWidth={10} />
+          </g>
+        ) : (
+          <g>
+            {/* iş: masa ve ekran */}
+            <rect x={600} y={1020} width={440} height={34} rx={8} fill="#b07b4a" stroke={C.ink} strokeWidth={8} />
+            <rect x={640} y={1054} width={26} height={280} fill="#8a5c35" stroke={C.ink} strokeWidth={6} />
+            <rect x={980} y={1054} width={26} height={280} fill="#8a5c35" stroke={C.ink} strokeWidth={6} />
+            <rect x={700} y={760} width={300} height={200} rx={12} fill="#2f3b4a" stroke={C.ink} strokeWidth={8} />
+            <rect x={725} y={785} width={250} height={150} fill="#9fd0e8" opacity={0.7} />
+            <path d="M850 960 L850 1020 M800 1020 L900 1020" stroke={C.ink} strokeWidth={10} />
+          </g>
+        )}
+      </g>
+      <AvatarWithKid x={A.x - (seg === 2 ? 120 : 0)} y={A.y} s={A.s} kid={1} mouth={seg === 3 ? "flat" : "worry"} eyes={seg === 0 ? (f < 8 ? "closed" : "open") : "open"} kidEyes={seg === 3 && kidLook ? "closed" : "open"} kidMouth={kidLook ? "grin" : "smile"} blush={0.6} />
     </>
   );
 };
 
-// "Ama başını öne eğdikçe yer çekimi bir kaldıraç gibi çalışır. On beş derecede yük on iki kiloya çıkar."
-const BoyunAci: React.FC<SceneProps> = ({ w }) => {
+// "Başın aslında beş kilo civarında. Ama öne eğildikçe yer çekimi bir kaldıraç gibi çalışır."
+const BoyunKaldirac: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const angle = tw(f, w(1), w(12), 0, 15);
-  const kg = interpolate(angle, [0, 15], [5, 12]);
+  const lens = tw(f, 0, 12);
+  const kg = tw(f, w(1), w(3) + 4) * 5;
+  const angle = tw(f, w(6), w(13) + 6, 0, 15);
+  const lever = pop(f, w(11) - 2, 14);
   return (
     <>
-      <NeckLens x={540} y={780} r={330} angle={angle} kg={kg} strain={angle / 60} />
-      {/* kaldıraç: tahterevalli simgesi, "kaldıraç" denince */}
-      {pop(f, w(7) - 2, 14) > 0 ? (
-        <g transform={`translate(230 1310) scale(${pop(f, w(7) - 2, 14)}) rotate(${-8 + 16 * tw(f, w(7), w(9) + 6)})`}>
+      <g transform={`translate(540 760) scale(${lens}) translate(-540 -760)`}>
+        <NeckLens x={540} y={760} r={330} angle={angle} kg={angle > 0 ? interpolate(angle, [0, 15], [5, 12]) : kg} strain={angle / 60} />
+      </g>
+      <Counter x={540} y={1250} to={5} suffix=" kg" p={tw(f, w(1), w(3) + 4)} size={100} color={C.red} rotate={0} />
+      {lever > 0 ? (
+        <g transform={`translate(830 1300) scale(${lever}) rotate(${-10 + 20 * tw(f, w(11), w(13) + 6)})`}>
           <path d="M-150 0 L150 0" stroke={C.ink} strokeWidth={14} strokeLinecap="round" />
           <path d="M-20 40 L0 4 L20 40 Z" fill={C.ink} />
           <circle cx={130} cy={-30} r={28} fill={C.red} stroke={C.ink} strokeWidth={5} />
         </g>
       ) : null}
-      <Counter x={830} y={1300} to={12} suffix=" kg" p={tw(f, w(13), w(16) + 4)} size={110} color={C.red} />
-      <Person x={560} y={PY + 210} s={0.5} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth="flat" lookY={8 * (angle / 15)}>
-        <PhoneInHand arm={PHONE_ARM} />
-      </Person>
+      <g transform="translate(200 1330) scale(0.5) translate(-200 -1330)">
+        <AvatarWithKid x={200} y={1330} s={1} kid={1} kidEyes="open" />
+      </g>
     </>
   );
 };
 
-// "Altmış dereceye, yani tam telefona bakma açısına gelince: yirmi yedi kilo."
+// "On beş derecede on iki kilo. Altmış derecede, yani tam telefona bakarken: yirmi yedi kilo."
 const BoyunAltmis: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const angle = tw(f, 0, w(6) + 4, 15, 60);
-  const kg = f >= w(8) - 2 ? interpolate(tw(f, w(8) - 2, w(10) + 4), [0, 1], [12, 27]) : interpolate(angle, [15, 60], [12, 20]);
-  const reveal = f >= w(8) - 2;
-  const shake = reveal ? Math.sin(f / 1.6) * 4 * (1 - tw(f, w(10), w(10) + 16)) : 0;
+  const a1 = tw(f, 0, w(2), 15, 15);
+  const angle = f < w(6) ? a1 : tw(f, w(6), w(11) + 4, 15, 60);
+  const kg = f < w(6) ? 12 : f < w(12) - 2 ? interpolate(angle, [15, 60], [12, 20]) : interpolate(tw(f, w(12) - 2, w(14) + 4), [0, 1], [20, 27]);
+  const reveal = f >= w(12) - 2;
+  const shake = reveal ? Math.sin(f / 1.6) * 4 * (1 - tw(f, w(14), w(14) + 16)) : 0;
+  const kidUp = tw(f, w(12), w(14) + 2);
   return (
     <g transform={`translate(${shake} 0)`}>
-      <NeckLens x={540} y={780} r={330} angle={angle} kg={kg} strain={Math.min(1, kg / 27)} />
+      <NeckLens x={540} y={700} r={320} angle={angle} kg={kg} strain={Math.min(1, kg / 27)} />
+      <Counter x={250} y={1170} to={12} suffix=" kg" p={tw(f, w(3), w(5) + 4)} size={90} color={C.red} rotate={-4} />
+      {/* 27 kilo = o çocuk: tartıya çıkar, tartı 27 kg gösterir */}
       {reveal ? (
-        <g transform={`translate(800 1320) scale(${pop(f, w(8) - 2, 14)})`}>
-          <Kettlebell x={0} y={0} s={1} label="27 kg" />
+        <g>
+          <Bathroom x={780} y={1330} value={`${Math.round(interpolate(kidUp, [0, 1], [0, 27]))}.0 kg`} />
+          <Kid x={780} y={1330 - 58 - 120 * (1 - kidUp) * (1 - kidUp)} s={0.48} badge={1} armL={[150, -20]} armR={[150, -20]} />
         </g>
       ) : (
-        <HandText x={800} y={1330} text="?" size={160} p={pop(f, w(3), 12)} />
+        <HandText x={780} y={1250} text="?" size={160} p={pop(f, w(8), 12)} />
       )}
-      <Person x={300} y={PY + 210} s={0.5} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth={reveal ? "worry" : "flat"} lookY={12} eyes={reveal ? "wide" : "open"}>
-        <PhoneInHand arm={PHONE_ARM} />
-      </Person>
     </g>
   );
 };
@@ -3373,96 +3470,109 @@ const BoyunSurpriz: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// "Asıl yorucu olan, saatlerce aynı pozisyonda kalmak. Boyun kasların hiç dinlenemez."
+// "Asıl yorucu olan, o çocuğu saatlerce hiç indirmemek. Boyun kasların dinlenemez."
 const BoyunAsil: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const spin = tw(f, w(3) - 2, w(6) + 8);
-  const strain = tw(f, w(7), d - 6, 0.4, 1);
-  const sun = tw(f, w(3), w(6) + 8);
+  const spin = tw(f, w(5) - 2, w(7) + 8);
+  const strain = tw(f, w(8), d - 6, 0.4, 1);
+  const sun = tw(f, w(5), w(7) + 8);
+  const sleepy = f >= w(6);
   return (
     <>
-      {/* gün geçer: pencerede güneş batar, ay doğar */}
       <rect x={70} y={300} width={300} height={300} rx={12} fill={sun > 0.5 ? "#3b3f5c" : "#cfe6f2"} stroke={C.ink} strokeWidth={8} />
       <Sun x={220} y={380 + 260 * sun} s={0.6} o={1 - sun} />
       <Moon x={220} y={600 - 200 * sun} s={0.6} o={sun} />
-      {/* saat: akrep ve yelkovan hızla döner */}
-      <g transform="translate(820 420)">
+      <g transform="translate(830 430)">
         <circle r={110} fill={C.cream} stroke={C.ink} strokeWidth={9} />
         <path d={`M0 0 L${Math.sin(spin * 40) * 80} ${-Math.cos(spin * 40) * 80}`} stroke={C.ink} strokeWidth={9} strokeLinecap="round" />
         <path d={`M0 0 L${Math.sin(spin * 3.3) * 55} ${-Math.cos(spin * 3.3) * 55}`} stroke={C.red} strokeWidth={12} strokeLinecap="round" />
         <circle r={10} fill={C.ink} />
       </g>
-      {/* avatar hiç kıpırdamadan telefona bakıyor */}
-      <Person x={300} y={PY + 40} s={0.78} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth="flat" lookY={12} blush={0.4 + 0.4 * strain}>
-        <PhoneInHand arm={PHONE_ARM} />
-      </Person>
-      <g transform="translate(760 1050) scale(0.62) translate(-540 -780)">
+      {/* çocuk omuzda uyuyakalır (hiç inmiyor), avatarın boynu zorlanır */}
+      <AvatarWithKid x={330} y={PY + 40} s={0.85} kid={1} mouth="flat" kidEyes={sleepy ? "closed" : "open"} kidMouth={sleepy ? "o" : "grin"} blush={0.4 + 0.4 * strain} />
+      {sleepy
+        ? cycles(f, w(6), 24, 48).map(({ k, p }) => (
+            <text key={k} x={330 + 80 + 90 * p} y={PY + 40 - 0.85 * 1000 - 120 * p} fontFamily={handFamily} fontWeight={700} fontSize={50 + 30 * p} fill={C.ink} opacity={1 - p}>
+              z
+            </text>
+          ))
+        : null}
+      <g transform="translate(790 1060) scale(0.6) translate(-540 -780)">
         <NeckLens x={540} y={780} r={330} angle={55} kg={0} strain={strain} />
       </g>
-      {/* yanıp sönen uyarı: kas hiç dinlenemiyor */}
-      {f >= w(7) ? (
+      {f >= w(8) ? (
         <g opacity={0.5 + 0.5 * Math.abs(Math.sin(f / 5))}>
-          <path d="M760 760 L800 690 L840 760 Z" fill={C.yellow} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
-          <path d="M800 712 L800 735 M800 746 L800 748" stroke={C.ink} strokeWidth={7} strokeLinecap="round" />
+          <path d="M790 780 L830 710 L870 780 Z" fill={C.yellow} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+          <path d="M830 732 L830 755 M830 766 L830 768" stroke={C.ink} strokeWidth={7} strokeLinecap="round" />
         </g>
       ) : null}
     </>
   );
 };
 
-// "Telefonu biraz yukarı kaldır, ara ara başını çevir ve boynunu esnet."
-const BoyunCozum: React.FC<SceneProps> = ({ w, d }) => {
+// "Telefonu göz hizasına kaldır, ara ara başını çevir. Çocuk iner, boynun rahatlar."
+const BoyunCozum: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
+  const A = { x: 400, y: PY, s: 0.9 };
   const raise = tw(f, w(0), w(3) + 6);
-  const arm: Arm = [interpolate(raise, [0, 1], [40, 120]), interpolate(raise, [0, 1], [-150, -150])];
-  const turn = f >= w(6) - 2 && f < w(9) ? Math.sin((f - w(6)) / 5) * 12 : 0;
-  const stretch = tw(f, w(9), w(10) + 8) * (1 - tw(f, d - 14, d - 2));
-  const angle = interpolate(raise, [0, 1], [55, 5]);
+  const arm: Arm = [interpolate(raise, [0, 1], [40, 120]), -150];
+  const turn = f >= w(4) - 2 && f < w(8) ? Math.sin((f - w(4)) / 5) * 12 : 0;
+  const hop = tw(f, w(8) - 2, w(9) + 6);
+  const relief = tw(f, w(10), w(11) + 8);
+  const seat = neckSeat(A.x, A.y, A.s);
+  const kx = interpolate(hop, [0, 1], [seat.x, 820]);
+  const ky = interpolate(hop, [0, 1], [seat.y, PY]) - Math.sin(hop * Math.PI) * 260;
   return (
     <>
-      <Person x={300} y={PY} s={0.86} belly={0.4} armL={stretch > 0 ? [150, -150] : [12, 0]} armR={arm} mouth={raise > 0.5 ? "grin" : "flat"} lookY={interpolate(raise, [0, 1], [12, 0])} tilt={turn + 16 * stretch}>
-        <PhoneInHand arm={arm} />
-      </Person>
-      <g transform="translate(770 900) scale(0.68) translate(-540 -780)">
-        <NeckLens x={540} y={780} r={330} angle={angle} kg={interpolate(raise, [0, 1], [27, 5])} strain={interpolate(raise, [0, 1], [1, 0.1])} rest={tw(f, w(6), w(10) + 6)} />
-      </g>
-      {raise > 0.95 ? (
-        <g opacity={tw(f, w(3) + 6, w(4) + 4)}>
-          <Counter x={770} y={1290} to={5} suffix=" kg" p={1} size={90} color="#3f7d4f" />
+      {hop > 0 ? (
+        <Kid x={kx} y={ky} s={interpolate(hop, [0, 1], [seat.s, 0.45])} armL={hop < 1 ? [160, -10] : [150, -40 + 20 * Math.sin(f / 4)]} armR={hop < 1 ? [160, -10] : [12, 0]} legL={hop < 1 ? { lift: 0.7 } : {}} legR={hop < 1 ? { lift: 0.7 } : {}} />
+      ) : null}
+      <AvatarWithKid x={A.x} y={A.y} s={A.s} kid={hop > 0 ? 0 : 1} arm={arm} mouth={relief > 0.5 ? "grin" : raise > 0.5 ? "smile" : "flat"} lookY={interpolate(raise, [0, 1], [12, 0])} blush={0.4} />
+      {/* baş çevirme: avatarın başına küçük dönme okları */}
+      {turn !== 0 ? (
+        <g opacity={0.8}>
+          <Arrow d={`M${A.x - 120} ${A.y - 760} q-40 30 0 60`} p={1} w={7} />
+          <Arrow d={`M${A.x + 120} ${A.y - 760} q40 30 0 60`} p={1} w={7} />
         </g>
       ) : null}
-      {stretch > 0
+      {relief > 0
         ? [0, 1, 2].map((i) => {
             const a = f / 14 + (i * Math.PI * 2) / 3;
-            return <Star key={i} x={300 + Math.cos(a) * 120} y={PY - 720 + Math.sin(a) * 30} r={18 * stretch} rot={f * 4} />;
+            return <Star key={i} x={A.x + Math.cos(a) * 140} y={A.y - 690 + Math.sin(a) * 30} r={18 * relief} rot={f * 4} />;
           })
         : null}
+      <Counter x={760} y={560} to={5} suffix=" kg" p={relief} size={100} color="#3f7d4f" rotate={0} />
     </>
   );
 };
 
-// "Bunu kaydet. Ve şimdi, bu videoyu izlerken başına bir bak:"
-const BoyunKapanis: React.FC<SceneProps> = ({ w }) => {
+// "Ama dikkat et, o çocuk geri gelmeyi çok sever. Çünkü..."
+// Çocuk uzaklaşır, durur, sinsice döner ve avatarın yanına gelir; avatar yine telefona bakar = açılış karesi (döngü)
+const BoyunKapanis: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const save = pop(f, w(1) - 2, 14);
-  const look = tw(f, w(6), w(9));
+  const A = { x: PX - 60, y: PY, s: 0.95 };
+  const away = tw(f, 0, w(2));
+  const back = tw(f, w(5) - 2, d - 6);
+  const kx = back > 0 ? interpolate(back, [0, 1], [1020, KID_START.x]) : interpolate(away, [0, 1], [820, 1020]);
+  const kw = walk(f, (away > 0 && away < 1) || (back > 0 && back < 1) ? 1 : 0, 3.8);
+  const look = tw(f, w(5), w(8));
   const arm: Arm = [interpolate(look, [0, 1], [120, 40]), -150];
+  const sneaky = back > 0 && back < 1;
   return (
     <>
-      <SaveMark x={830} y={560} p={save * (1 - tw(f, w(5), w(6) + 4))} />
-      {/* izleyiciye döner, sonra yeniden telefona bakar: açılış karesiyle aynı poz (döngü) */}
-      <Person x={PX - 60} y={PY} s={0.95} belly={0.4} armL={[12, 0]} armR={arm} mouth={look > 0.5 ? "smile" : "grin"} lookY={interpolate(look, [0, 1], [0, 12])}>
+      <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={arm} mouth={look > 0.5 ? "smile" : "grin"} lookY={interpolate(look, [0, 1], [0, 12])}>
         <PhoneInHand arm={arm} />
       </Person>
-      <HandText x={830} y={760} text="?" size={150} p={pop(f, w(7), 12) * (1 - tw(f, w(9), w(9) + 6))} rotate={10} />
+      <Kid x={kx} y={KID_START.y - kw.bob * 0.4} s={0.45} legL={kw.legL} legR={kw.legR} armL={sneaky ? [100, -60] : kw.armL} armR={sneaky ? [100, -60] : kw.armR} mouth={sneaky || back >= 1 ? "grin" : "smile"} lookY={sneaky || back >= 1 ? 0 : -4} tilt={sneaky ? -8 : 0} />
+      {f >= w(1) && f < w(5) ? <HandText x={900} y={960} text="!" size={130} p={pop(f, w(1), 12)} color={C.red} rotate={8} /> : null}
     </>
   );
 };
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
   "boyun-acilis": BoyunAcilis,
-  "boyun-kafa": BoyunKafa,
-  "boyun-aci": BoyunAci,
+  "boyun-gun": BoyunGun,
+  "boyun-kaldirac": BoyunKaldirac,
   "boyun-altmis": BoyunAltmis,
   "boyun-surpriz": BoyunSurpriz,
   "boyun-asil": BoyunAsil,
