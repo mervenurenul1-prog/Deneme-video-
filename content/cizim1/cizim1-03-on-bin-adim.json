@@ -1,0 +1,64 @@
+{
+  "id": "cizim1-03-on-bin-adim",
+  "title": "10 bin adım nereden çıktı?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "scenes": [
+    {
+      "visual": "adim-acilis",
+      "voice": "Günde on bin adım atman gerektiğini kim söyledi? Bir doktor değil.",
+      "say": "Günde on bin adım atman gerektiğini kim söyledi? [curious] Bir doktor değil."
+    },
+    {
+      "visual": "adim-reklam",
+      "voice": "Altmışlı yıllarda Japonya'da bir şirket adımsayar sattı. Adı: on bin adım ölçer.",
+      "say": "Altmışlı yıllarda Japonya'da, ıı, bir şirket adımsayar sattı. Adı: on bin adım ölçer."
+    },
+    {
+      "visual": "adim-yayildi",
+      "voice": "Sayı akılda kalıcıydı. Reklam tuttu ve bütün dünyaya yayıldı.",
+      "say": "Sayı akılda kalıcıydı. Reklam tuttu ve, hani, bütün dünyaya yayıldı."
+    },
+    {
+      "visual": "adim-bilim",
+      "voice": "Peki bilim ne diyor? Kırk yedi bin kişiyi izleyen bir araştırmaya göre,",
+      "say": "[curious] Peki bilim ne diyor? Kırk yedi bin kişiyi izleyen bir araştırmaya göre,"
+    },
+    {
+      "visual": "adim-egri",
+      "voice": "altmış yaş üstünde fayda altı ile sekiz bin adımda doyuyor. Daha gençlerde sekiz ile on bin arasında.",
+      "say": "altmış yaş üstünde fayda altı ile sekiz bin adımda doyuyor. Daha gençlerde, ıı, sekiz ile on bin arasında."
+    },
+    {
+      "visual": "adim-sihirli",
+      "voice": "Yani on bin sihirli bir sayı değil. Ulaşamadın diye o günü boşa sayma.",
+      "say": "Yani on bin sihirli bir sayı değil. Ulaşamadın diye, hmm, o günü boşa sayma."
+    },
+    {
+      "visual": "adim-her-adim",
+      "voice": "Asıl önemli olan, bugün dünden biraz daha fazla yürümek.",
+      "say": "Asıl önemli olan, bugün dünden biraz daha fazla yürümek."
+    },
+    {
+      "visual": "adim-kapanis",
+      "voice": "Bunu kaydet, çünkü yarın biri yine soracak:",
+      "say": "Bunu kaydet, çünkü yarın biri yine [curious] soracak:"
+    }
+  ],
+  "caption": "10 bin adım bir reklamdan çıktı 👣\n\n1964 Tokyo Olimpiyatları'ndan sonra Japonya'da satılan bir adımsayarın adı \"Manpo-kei\", yani \"10 bin adım ölçer\"di. Bilim ise başka bir şey söylüyor: 47 bin kişiyi kapsayan bir araştırmada (Paluch ve ark., Lancet Public Health 2022) ölüm riskindeki azalma 60 yaş üstünde günde 6-8 bin, daha gençlerde 8-10 bin adım civarında düzleşti.\n\nYani her adım sayılır. Bugün dünden biraz fazla yürü.\n\nKaydet, adımlarını takip eden arkadaşına gönder 📲",
+  "hashtags": [
+    "fitness",
+    "sağlıklıyaşam",
+    "yürüyüş",
+    "10binadım",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

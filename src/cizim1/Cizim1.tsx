@@ -221,6 +221,16 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
     [w(7) + 12, "ding", 0.3],
   ],
   "tarti-kapanis": (w) => [[w(3) - 2, "pirilti", 0.25], [w(4) + 14, "pop", 0.4], [w(5), "pop", 0.5], [w(6), "ding", 0.3]],
+
+  // 03 on bin adım
+  "adim-acilis": (w) => [...ticks(w(0), w(3) + 4, 3, 0.2), [w(3) + 6, "ding", 0.3], [w(6), "pop", 0.45], [w(8) - 2, "pop", 0.4], [w(10) - 2, "cizik", 0.5], [w(10) + 6, "cizik", 0.5]],
+  "adim-reklam": (w) => [[2, "pop", 0.35], [w(0), "kalem", 0.35], [w(2) - 2, "pop", 0.4], [w(5) - 2, "pop", 0.4], ...ticks(w(5), w(7), 6, 0.22), [w(6), "ding", 0.25], [w(7) + 2, "whoosh", 0.35], [w(8), "pirilti", 0.4], [w(8) + 2, "kalem", 0.35]],
+  "adim-yayildi": (w, d) => [[w(0) - 2, "pop", 0.4], [w(1), "pirilti", 0.3], [w(3), "pop", 0.3], [w(3) + 5, "pop", 0.3], [w(3) + 10, "pop", 0.3], [w(6) - 4, "whoosh", 0.35], ...every(w(7), d - 12, Math.max(3, (d - 12 - w(7)) / 9), "pop", 0.16)],
+  "adim-bilim": (w) => [[2, "pop", 0.35], ...ticks(6, w(4) - 3, 9, 0.35), [w(4) - 3, "boom", 0.16], [w(4) - 2, "pirilti", 0.4], ...ticks(w(4), w(7) + 4, 3, 0.16), [w(7) + 6, "ding", 0.28], [w(8), "whoosh", 0.25]],
+  "adim-egri": (w) => [[2, "kalem", 0.3], [w(1), "kalem", 0.3], [w(4), "pop", 0.3], [w(9) - 2, "ding", 0.3], [w(10), "kalem", 0.3], [w(12), "pop", 0.3]],
+  "adim-sihirli": (w) => [[w(1) - 2, "pirilti", 0.45], [w(3), "pirilti", 0.3], [w(6) - 2, "cizik", 0.5], [w(6) + 6, "boom", 0.18], [w(7), "pop", 0.4], [w(11) - 2, "cizik", 0.4], [w(12) - 2, "ding", 0.35]],
+  "adim-her-adim": (w) => [[w(3), "pop", 0.3], [w(5), "pop", 0.3], [w(6), "pirilti", 0.35], [w(7) + 8, "ding", 0.3]],
+  "adim-kapanis": (w) => [[w(1) - 2, "pop", 0.5], [w(3) - 2, "pop", 0.35], [w(5), "pop", 0.4]],
 };
 
 /* ---------- yardımcılar ---------- */
@@ -351,6 +361,14 @@ const ZOOM: Record<string, Zoom> = {
   "tarti-diger": { to: 1.05, x: 540, y: 900 },
   "tarti-ortalama": { to: 1.05, x: 540, y: 600 },
   "tarti-kapanis": { to: 1.04, x: 540, y: 900 },
+  "adim-acilis": { to: 1.06, x: 540, y: 700 },
+  "adim-reklam": { to: 1.07, x: 470, y: 900 },
+  "adim-yayildi": { to: 1.05, x: 600, y: 760 },
+  "adim-bilim": { to: 1.06, x: 540, y: 1000 },
+  "adim-egri": { to: 1.05, x: 540, y: 640 },
+  "adim-sihirli": { to: 1.05, x: 540, y: 600 },
+  "adim-her-adim": { to: 1.04, x: 540, y: 900 },
+  "adim-kapanis": { to: 1.04, x: 540, y: 800 },
 };
 
 // noIn / noOut: döngülü videoda ilk sahne karartmasız başlar, son sahne karartmasız biter
@@ -524,8 +542,11 @@ const Person: React.FC<PersonProps> = ({
   const [tLo, tLi] = thigh(lL, -1);
   const [tRo, tRi] = thigh(lR, 1);
   const torso = `M-98 -592 Q-102 -520 ${-waist} -455 Q${-waist - 4} -385 ${-hipW} -362 Q0 ${hem + 22} ${hipW} -362 Q${waist + 4} -385 ${waist} -455 Q102 -520 98 -592 Q0 -614 -98 -592 Z`;
+  // canlılık: ara ara göz kırpar, hafifçe nefes alıp verir (karakter hiç donup kalmaz)
+  const blink = (frame + Math.round(x * 0.37)) % 96 < 4 && (eyes === "open" || eyes === "wide");
+  const idle = 1 + 0.007 * Math.sin(frame / 22);
   return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <g transform={`translate(${x} ${y}) scale(${s} ${s * idle})`}>
       <ellipse cx={0} cy={14} rx={150 + 30 * belly} ry={20} fill={C.ink} opacity={0.18} />
       {/* bacaklar */}
       {legGlow > 0 ? (
@@ -600,7 +621,7 @@ const Person: React.FC<PersonProps> = ({
         />
         <ellipse cx={-48} cy={-676} rx={16} ry={9} fill="#e0806f" opacity={blush} />
         <ellipse cx={48} cy={-676} rx={16} ry={9} fill="#e0806f" opacity={blush} />
-        <Face eyes={eyes} mouth={mouth} lookY={lookY} />
+        <Face eyes={blink ? "closed" : eyes} mouth={mouth} lookY={lookY} />
       </g>
       {children}
     </g>
@@ -1933,7 +1954,471 @@ const TartiKapanis: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 03 on bin adım: eşyalar ---------- */
+
+// Yürüyüş döngüsü: bacaklar sırayla kalkar, kollar karşı yönde sallanır, gövde hafifçe yaylanır
+const walk = (f: number, on: number, speed = 5.5) => {
+  const t = f / speed;
+  const l = Math.max(0, Math.sin(t)) * on;
+  const r = Math.max(0, -Math.sin(t)) * on;
+  return {
+    legL: { lift: l * 0.7 },
+    legR: { lift: r * 0.7 },
+    armL: [10 + 26 * Math.sin(t) * on, -10 * on] as Arm,
+    armR: [10 - 26 * Math.sin(t) * on, -10 * on] as Arm,
+    bob: Math.abs(Math.sin(t)) * 10 * on,
+  };
+};
+
+const Footprint: React.FC<{ x: number; y: number; s?: number; rot?: number; o?: number; color?: string }> = ({ x, y, s = 1, rot = 0, o = 1, color = C.ink }) =>
+  o > 0 ? (
+    <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`} opacity={o} fill={color}>
+      <ellipse cx={0} cy={6} rx={13} ry={22} />
+      {[-11, -4, 3, 9].map((tx, i) => (
+        <circle key={i} cx={tx} cy={-22 - (i === 0 ? 0 : 3)} r={i === 0 ? 5.5 : 4} />
+      ))}
+    </g>
+  ) : null;
+
+// Bilekte/elde tutulan adımsayar ekranı
+const StepScreen: React.FC<{ x: number; y: number; s?: number; children: React.ReactNode }> = ({ x, y, s = 1, children }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <rect x={-230} y={-120} width={460} height={240} rx={48} fill="#2f3b33" stroke={C.ink} strokeWidth={10} />
+    <rect x={-200} y={-92} width={400} height={184} rx={30} fill="#26332b" />
+    <Footprint x={-150} y={-40} s={1.1} rot={-12} color="#b8f28a" />
+    <Footprint x={-118} y={20} s={1.1} rot={12} color="#b8f28a" o={0.6} />
+    {children}
+  </g>
+);
+
+// Eski usul adımsayar: kadranlı, yuvarlak köşeli kutu
+const Pedometer: React.FC<{ x: number; y: number; s?: number; needle: number }> = ({ x, y, s = 1, needle }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <rect x={-95} y={-120} width={190} height={240} rx={44} fill="#d9d2c0" stroke={C.ink} strokeWidth={8} />
+    <circle cx={0} cy={-18} r={70} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+    {Array.from({ length: 9 }, (_, i) => {
+      const a = ((-120 + i * 30) * Math.PI) / 180;
+      return <path key={i} d={`M${Math.sin(a) * 52} ${-18 - Math.cos(a) * 52} L${Math.sin(a) * 64} ${-18 - Math.cos(a) * 64}`} stroke={C.ink} strokeWidth={5} strokeLinecap="round" />;
+    })}
+    <path
+      d={`M0 -18 L${(Math.sin(((-120 + 240 * needle) * Math.PI) / 180) * 50).toFixed(1)} ${(-18 - Math.cos(((-120 + 240 * needle) * Math.PI) / 180) * 50).toFixed(1)}`}
+      stroke={C.red}
+      strokeWidth={7}
+      strokeLinecap="round"
+    />
+    <circle cx={0} cy={-18} r={9} fill={C.ink} />
+    <rect x={-40} y={70} width={80} height={22} rx={8} fill={C.ink} opacity={0.75} />
+  </g>
+);
+
+const Globe: React.FC<{ x: number; y: number; r: number; spin: number }> = ({ x, y, r, spin }) => {
+  const id = svgId(useId());
+  const lands = [
+    [-0.45, -0.35, 0.32, 0.22],
+    [0.1, -0.45, 0.25, 0.16],
+    [0.35, 0.05, 0.3, 0.26],
+    [-0.3, 0.35, 0.22, 0.28],
+    [0.75, -0.3, 0.18, 0.14],
+  ];
+  return (
+    <g>
+      <clipPath id={`g${id}`}>
+        <circle cx={x} cy={y} r={r} />
+      </clipPath>
+      <circle cx={x} cy={y} r={r} fill="#8fc3dd" stroke={C.ink} strokeWidth={9} />
+      <g clipPath={`url(#g${id})`}>
+        {lands.map(([lx, ly, rx, ry], i) => {
+          const px = ((((lx + spin) % 2) + 3) % 2) - 1;
+          return <ellipse key={i} cx={x + px * r * 1.2} cy={y + ly * r} rx={rx * r} ry={ry * r} fill="#8bb36a" stroke={C.ink} strokeWidth={5} />;
+        })}
+      </g>
+      <path d={`M${x - r * 0.6} ${y - r * 0.55} A${r} ${r} 0 0 1 ${x + r * 0.1} ${y - r * 0.85}`} stroke="#fff" strokeWidth={9} fill="none" opacity={0.5} strokeLinecap="round" />
+    </g>
+  );
+};
+
+// Kalabalıktaki küçük insan simgesi
+const Mini: React.FC<{ x: number; y: number; s: number; c: string }> = ({ x, y, s, c }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <circle cx={0} cy={-34} r={13} fill={C.skin} stroke={C.ink} strokeWidth={4} />
+    <path d="M-18 0 Q-18 -20 0 -20 Q18 -20 18 0 Z" fill={c} stroke={C.ink} strokeWidth={4} strokeLinejoin="round" />
+  </g>
+);
+
+const SaveMark: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p}) rotate(-6)`}>
+      <path d="M-70 -95 L70 -95 L70 100 L0 50 L-70 100 Z" fill={C.yellow} stroke={C.ink} strokeWidth={10} strokeLinejoin="round" />
+      <text x={0} y={175} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink}>
+        kaydet
+      </text>
+    </g>
+  ) : null;
+
+/* ---------- 03 on bin adım: sahneler ---------- */
+
+// "Günde on bin adım atman gerektiğini kim söyledi? Bir doktor değil."
+const AdimAcilis: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const stop = tw(f, w(6) - 4, w(6) + 6);
+  const g = walk(f, tw(f, 2, 10) * (1 - stop));
+  const think = tw(f, w(6), w(7) + 4);
+  const screen = pop(f, w(0), 14);
+  const doc = pop(f, w(8) - 2, 14);
+  return (
+    <>
+      {cycles(f, 6, 11, 70).map(({ k, p }) => (
+        <Footprint key={k} x={PX - 40 + (k % 2 ? 34 : -34) - 460 * p} y={PY + 20} rot={90} s={1.1} o={interpolate(p, [0, 0.1, 0.7, 1], [0, 0.35, 0.35, 0]) * (1 - stop)} />
+      ))}
+      <Person
+        x={PX - 40}
+        y={PY - g.bob}
+        s={0.92}
+        belly={0.4}
+        legL={g.legL}
+        legR={g.legR}
+        armL={g.armL}
+        armR={[g.armR[0] * (1 - think) + 150 * think, g.armR[1] * (1 - think) - 135 * think]}
+        mouth={think > 0.5 ? "worry" : "smile"}
+        eyes={think > 0.5 ? "wide" : "open"}
+        tilt={-8 * think}
+      />
+      {screen > 0 ? (
+        <StepScreen x={PX} y={420} s={screen}>
+          <Counter x={40} y={30} to={10000} p={tw(f, w(0), w(3) + 4)} size={110} color="#b8f28a" rotate={0} />
+        </StepScreen>
+      ) : null}
+      <HandText x={300} y={720} text="?" size={190} p={pop(f, w(6), 12)} rotate={-10} />
+      {doc > 0 ? (
+        <g transform={`translate(830 760) scale(${doc})`}>
+          <circle r={95} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <path d="M-45 -40 Q-50 30 0 40 Q50 30 45 -40" stroke={C.ink} strokeWidth={10} fill="none" strokeLinecap="round" />
+          <circle cx={0} cy={40} r={8} fill={C.ink} />
+          <path d="M0 48 Q0 70 26 70" stroke={C.ink} strokeWidth={8} fill="none" />
+          <circle cx={36} cy={70} r={16} fill="#9a9a9a" stroke={C.ink} strokeWidth={6} />
+          <text x={0} y={-110} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
+            doktor
+          </text>
+        </g>
+      ) : null}
+      {doc > 0 ? <Cross x={830} y={760} size={110} p={tw(f, w(10) - 2, w(10) + 12)} /> : null}
+    </>
+  );
+};
+
+// "Altmışlı yıllarda Japonya'da bir şirket adımsayar sattı. Adı: on bin adım ölçer."
+const AdimReklam: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const poster = pop(f, 0, 16);
+  const sun = pop(f, w(2) - 2, 14);
+  const ped = pop(f, w(5) - 2, 14);
+  const curtain = tw(f, w(7) + 2, w(8) + 6); // isim etiketi "Adı:" denince açılır
+  const P = { x: 470, y: 720 };
+  return (
+    <>
+      <g transform={`translate(${P.x} ${P.y}) scale(${poster}) rotate(-2)`}>
+        <rect x={-300} y={-380} width={600} height={760} rx={14} fill="#f6ead0" stroke={C.ink} strokeWidth={10} />
+        <rect x={-275} y={-355} width={550} height={710} fill="none" stroke={C.red} strokeWidth={8} />
+        {sun > 0 ? <circle cx={150} cy={-230} r={85 * sun} fill={C.red} stroke={C.ink} strokeWidth={6} /> : null}
+        <HandText x={-120} y={-240} text="1960'lar" size={84} p={tw(f, w(0), w(1) + 8)} />
+        {ped > 0 ? (
+          <g transform={`scale(${ped})`}>
+            <Pedometer x={0} y={20} s={1.15} needle={tw(f, w(5), w(7) + 20) * 0.9 + 0.05 * Math.sin(f / 4)} />
+          </g>
+        ) : null}
+        {/* isim bandı: "?" yazan örtü kalkar, altından isim çıkar */}
+        <rect x={-240} y={200} width={480} height={120} rx={14} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+        <HandText x={0} y={285} text="10.000 adım ölçer" size={66} p={tw(f, w(8), w(11) + 4)} color={C.red} rotate={0} />
+        {curtain < 1 ? (
+          <g transform={`translate(0 ${-200 * curtain})`} opacity={1 - curtain}>
+            <rect x={-250} y={190} width={500} height={140} rx={14} fill={C.shorts} stroke={C.ink} strokeWidth={7} />
+            <text x={0} y={292} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.cream}>
+              ?
+            </text>
+          </g>
+        ) : null}
+      </g>
+      <Person x={900} y={PY + 30} s={0.6} belly={0.4} armL={[150, -40]} armR={[12, 0]} mouth={curtain > 0.5 ? "o" : "smile"} eyes={curtain > 0.5 ? "wide" : "open"} lookY={-4} />
+      {/* satış: para ve etiket */}
+      <g opacity={tw(f, w(6) - 2, w(6) + 8)}>
+        <HandText x={830} y={500} text="satış!" size={80} p={tw(f, w(6) - 2, w(6) + 10)} color={C.glow} rotate={8} />
+      </g>
+    </>
+  );
+};
+
+// "Sayı akılda kalıcıydı. Reklam tuttu ve bütün dünyaya yayıldı."
+const AdimYayildi: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const bubble = pop(f, w(0) - 2, 16);
+  const shrink = tw(f, w(5), w(6) + 6);
+  const globe = pop(f, w(6) - 4, 18);
+  const G = { x: 600, y: 760, r: 230 };
+  const tags = 9;
+  const step = Math.max(3, (d - 12 - w(7)) / tags);
+  return (
+    <>
+      <Person x={220} y={PY} s={0.78} belly={0.4} armL={[12, 0]} armR={[150, -135]} mouth="grin" lookY={-6} />
+      <g opacity={1 - shrink}>
+        <Bubble x={330} y={560} rx={200} ry={140} p={bubble} tail={[260, 790]}>
+          <text x={330} y={600} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={120} fill={C.red}>
+            10.000
+          </text>
+        </Bubble>
+        {cycles(f, w(1), 10, 30).map(({ k, p }) => (
+          <Star key={k} x={180 + (k % 4) * 100} y={420 - 80 * p} r={16 * (1 - p)} rot={f * 5} />
+        ))}
+      </g>
+      {/* reklam afişleri sağa doğru çoğalır */}
+      {[0, 1, 2].map((i) => {
+        const p = pop(f, w(3) + i * 5, 12) * (1 - shrink);
+        return p > 0 ? (
+          <g key={i} transform={`translate(${720 + i * 110} ${420 + i * 40}) scale(${p * 0.55}) rotate(${-6 + i * 6})`}>
+            <rect x={-90} y={-120} width={180} height={240} rx={8} fill="#f6ead0" stroke={C.ink} strokeWidth={8} />
+            <circle cx={0} cy={-40} r={40} fill={C.red} />
+            <text x={0} y={80} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={54} fill={C.ink}>
+              10.000
+            </text>
+          </g>
+        ) : null;
+      })}
+      {globe > 0 ? (
+        <g transform={`translate(${G.x} ${G.y}) scale(${globe}) translate(${-G.x} ${-G.y})`}>
+          <Globe x={G.x} y={G.y} r={G.r} spin={f / 140} />
+          {Array.from({ length: tags }, (_, i) => {
+            const p = pop(f, w(7) + i * step, 12);
+            const a = (i / tags) * Math.PI * 2 + f / 90;
+            return p > 0 ? (
+              <g key={i} transform={`translate(${G.x + Math.cos(a) * (G.r + 70)} ${G.y + Math.sin(a) * (G.r + 70)}) scale(${p})`}>
+                <Footprint x={0} y={0} s={1.2} rot={(a * 180) / Math.PI + 90} color={C.red} />
+              </g>
+            ) : null;
+          })}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Peki bilim ne diyor? Kırk yedi bin kişiyi izleyen bir araştırmaya göre,"
+const CROWD = Array.from({ length: 84 }, (_, i) => ({
+  x: 150 + (i % 12) * 70 + (Math.floor(i / 12) % 2) * 35,
+  y: 940 + Math.floor(i / 12) * 62,
+  c: ["#5d8c87", "#b23a2a", "#4b3f5e", "#d79a4e", "#4f97c2"][Math.floor(random(`cr${i}`) * 5)],
+}));
+const AdimBilim: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const open = tw(f, w(4) - 3, w(4) + 9);
+  const fill = tw(f, w(4), w(7) + 6);
+  const lens = tw(f, w(8) - 2, d);
+  const lx = 200 + 680 * lens;
+  return (
+    <>
+      <MysteryBox x={300} y={560} s={1.05} p={pop(f, 0, 12)} open={open} shake={f < w(4) - 3 ? Math.sin(f / 2.4) * 6 : 0}>
+        <g>
+          <rect x={-70} y={-90} width={140} height={180} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+          {[-50, -20, 10, 40].map((ly) => (
+            <path key={ly} d={`M-45 ${ly} L45 ${ly}`} stroke={C.ink} strokeWidth={6} strokeLinecap="round" opacity={0.6} />
+          ))}
+        </g>
+      </MysteryBox>
+      <Counter x={730} y={600} to={47000} p={tw(f, w(4), w(7) + 4)} suffix=" kişi" size={110} color={C.red} />
+      {CROWD.map((c, i) => {
+        const p = tw(fill, i / CROWD.length, Math.min(1, i / CROWD.length + 0.08));
+        return p > 0 ? <Mini key={i} x={c.x} y={c.y - 30 * (1 - p)} s={0.9 * p} c={c.c} /> : null;
+      })}
+      {lens > 0 ? (
+        <g opacity={tw(f, w(8) - 2, w(8) + 6)}>
+          <circle cx={lx} cy={1060} r={95} fill="#fff8e6" opacity={0.35} stroke={C.ink} strokeWidth={12} />
+          <path d={`M${lx + 68} ${1128} L${lx + 140} ${1200}`} stroke={C.ink} strokeWidth={22} strokeLinecap="round" />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "altmış yaş üstünde fayda altı ile sekiz bin adımda doyuyor. Daha gençlerde sekiz ile on bin arasında."
+const AdimEgri: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const B = { x0: 170, x1: 930, y0: 900, y1: 380 };
+  const X = (steps: number) => B.x0 + (steps / 12000) * (B.x1 - B.x0);
+  const Y = (v: number) => B.y0 - v * (B.y0 - B.y1);
+  // fayda eğrisi: hızlı yükselir, eşikte düzleşir
+  const curve = (plateau: number, top: number) =>
+    Array.from({ length: 25 }, (_, i) => {
+      const s = (i / 24) * 12000;
+      const v = top * (1 - Math.exp(-s / (plateau / 2.6)));
+      return `${i ? "L" : "M"}${X(s).toFixed(1)} ${Y(v).toFixed(1)}`;
+    }).join(" ");
+  const old = tw(f, w(0), w(8) + 4);
+  const young = tw(f, w(10), w(15) + 4);
+  const band1 = tw(f, w(4), w(7) + 4);
+  const band2 = tw(f, w(12), w(15) + 2);
+  const sat = f >= w(9) - 2;
+  return (
+    <>
+      <g opacity={tw(f, 0, 12)} transform="rotate(-1.2 540 640)">
+        <rect x={100} y={300} width={880} height={700} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+        <rect x={X(6000)} y={B.y1 - 20} width={(X(8000) - X(6000)) * band1} height={B.y0 - B.y1 + 20} fill="#3f7d4f" opacity={0.18} />
+        <rect x={X(8000)} y={B.y1 - 20} width={(X(10000) - X(8000)) * band2} height={B.y0 - B.y1 + 20} fill={C.water} opacity={0.18} />
+        <path d={`M${B.x0} ${B.y1 - 30} L${B.x0} ${B.y0} L${B.x1} ${B.y0}`} stroke={C.ink} strokeWidth={6} fill="none" />
+        {[0, 2, 4, 6, 8, 10, 12].map((k) => (
+          <text key={k} x={X(k * 1000)} y={B.y0 + 56} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={44} fill={C.ink}>
+            {k ? `${k}b` : "0"}
+          </text>
+        ))}
+        <text x={B.x0 + 14} y={B.y1 - 40} fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.ink}>
+          fayda
+        </text>
+        <Arrow d={curve(7000, 0.82)} p={old} color="#3f7d4f" w={12} />
+        <Arrow d={curve(9500, 0.95)} p={young} color={C.water} w={12} />
+        <HandText x={X(11500)} y={Y(0.82) + 60} text="60+" size={60} p={tw(f, w(1), w(2) + 6)} color="#3f7d4f" anchor="end" rotate={0} />
+        <HandText x={X(11500)} y={Y(0.95) - 18} text="genç" size={60} p={tw(f, w(11), w(11) + 10)} color={C.water} anchor="end" rotate={0} />
+        {/* eğrinin ucu nereye varacak? "doyuyor" denince düz çizgi ve etiket */}
+        {!sat && old > 0.2 ? (
+          <text x={X(12000 * old) + 20} y={Y(0.82 * (1 - Math.exp(-(12000 * old) / 2700))) - 20} fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink} opacity={0.5 + 0.5 * Math.abs(Math.sin(f / 6))}>
+            ?
+          </text>
+        ) : null}
+        <HandText x={X(7000)} y={Y(0.82) - 30} text="doyuyor" size={58} p={tw(f, w(9) - 2, w(9) + 12)} color="#3f7d4f" rotate={-4} />
+      </g>
+      <Person x={880} y={PY + 70} s={0.62} belly={0.4} armL={[150, -20]} armR={[12, 0]} mouth={sat ? "grin" : "o"} lookY={-6} tilt={-6} />
+    </>
+  );
+};
+
+// "Yani on bin sihirli bir sayı değil. Ulaşamadın diye o günü boşa sayma."
+const AdimSihirli: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const magic = pop(f, w(1) - 2, 14);
+  const fizzle = tw(f, w(6) - 2, w(6) + 10);
+  const fall = tw(f, w(6) + 4, w(7) + 4);
+  const card = pop(f, w(7), 14);
+  const ok = tw(f, w(12) - 2, w(12) + 10);
+  const bad = f >= w(11) - 2 && ok < 0.5;
+  return (
+    <>
+      {magic > 0 && fall < 1 ? (
+        <g transform={`translate(540 ${520 + 900 * fall * fall}) rotate(${40 * fall}) scale(${magic})`} opacity={1 - fall}>
+          <text x={0} y={60} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={200} fill={fizzle > 0.5 ? "#9a9a9a" : C.red}>
+            10.000
+          </text>
+          {[0, 1, 2, 3, 4].map((i) => {
+            const a = f / 12 + (i * Math.PI * 2) / 5;
+            return <Star key={i} x={Math.cos(a) * 280} y={Math.sin(a) * 90 - 10} r={26 * (1 - fizzle)} rot={f * 4} />;
+          })}
+          {/* sihirli değnek */}
+          <g transform={`rotate(${-30 + 10 * Math.sin(f / 6)} -300 120)`} opacity={1 - fizzle}>
+            <path d="M-300 120 L-170 -10" stroke={C.ink} strokeWidth={16} strokeLinecap="round" />
+            <Star x={-160} y={-20} r={30} rot={f * 3} />
+          </g>
+        </g>
+      ) : null}
+      {magic > 0 ? <Cross x={540} y={500} size={190} p={tw(f, w(6) - 2, w(6) + 12) * (1 - fall)} /> : null}
+      {card > 0 ? (
+        <g transform={`translate(330 640) scale(${card}) rotate(-4)`}>
+          <rect x={-170} y={-130} width={340} height={260} rx={18} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <rect x={-170} y={-130} width={340} height={60} rx={18} fill={C.red} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={-86} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={46} fill={C.cream}>
+            bugün
+          </text>
+          <text x={0} y={20} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={72} fill={C.ink}>
+            7.400
+          </text>
+          <text x={0} y={80} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={44} fill={C.ink} opacity={0.7}>
+            adım
+          </text>
+          {bad ? <Cross x={0} y={0} size={110} p={tw(f, w(11) - 2, w(11) + 8)} /> : null}
+          {ok > 0 ? (
+            <path d="M-80 10 L-20 70 L100 -70" stroke="#3f7d4f" strokeWidth={26} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - ok} />
+          ) : null}
+        </g>
+      ) : null}
+      <Person
+        x={780}
+        y={PY}
+        s={0.8}
+        belly={0.4}
+        armL={[12, 0]}
+        armR={ok > 0.5 ? [140, -60] : [12, 0]}
+        mouth={ok > 0.5 ? "grin" : bad ? "worry" : f >= w(6) ? "o" : "smile"}
+        eyes={f >= w(6) && f < w(7) ? "wide" : "open"}
+        lookY={card > 0 ? 0 : -6}
+      />
+    </>
+  );
+};
+
+// "Asıl önemli olan, bugün dünden biraz daha fazla yürümek."
+const AdimHerAdim: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const g = walk(f, tw(f, 0, 10));
+  const yesterday = tw(f, w(3), w(4) + 8);
+  const today = tw(f, w(5), w(7) + 10);
+  const plus = pop(f, w(6), 14);
+  const bar = (x: number, h: number, label: string, color: string) => (
+    <g>
+      <rect x={x - 70} y={1000 - h} width={140} height={h} rx={14} fill={color} stroke={C.ink} strokeWidth={7} />
+      {Array.from({ length: Math.floor(h / 70) }, (_, i) => (
+        <Footprint key={i} x={x + (i % 2 ? 22 : -22)} y={1000 - 40 - i * 70} s={0.9} color={C.cream} o={0.8} />
+      ))}
+      <text x={x} y={1070} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={58} fill={C.ink}>
+        {label}
+      </text>
+    </g>
+  );
+  return (
+    <>
+      <g opacity={tw(f, 0, 10)}>
+        {bar(220, 420 * yesterday, "dün", "#9a9a9a")}
+        {bar(420, 500 * today, "bugün", "#3f7d4f")}
+        {plus > 0 ? (
+          <text x={420} y={1000 - 500 * today - 30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110 * plus} fill="#3f7d4f">
+            +
+          </text>
+        ) : null}
+      </g>
+      {cycles(f, 6, 11, 70).map(({ k, p }) => (
+        <Footprint key={k} x={780 + (k % 2 ? 34 : -34) - 300 * p} y={PY + 20} rot={90} s={1.1} o={interpolate(p, [0, 0.1, 0.7, 1], [0, 0.35, 0.35, 0])} />
+      ))}
+      <Person x={780} y={PY - g.bob} s={0.85} belly={0.36} legL={g.legL} legR={g.legR} armL={g.armL} armR={g.armR} mouth="grin" />
+    </>
+  );
+};
+
+// "Bunu kaydet, çünkü yarın biri yine soracak:"
+const AdimKapanis: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const save = pop(f, w(1) - 2, 14);
+  const friend = pop(f, w(3) - 2, 16);
+  const ask = pop(f, w(5), 14);
+  return (
+    <>
+      <Person x={PX - 40} y={PY} s={0.92} belly={0.4} armL={[12, 0]} armR={[14 + 120 * tw(f, w(1), w(1) + 8), -60 * tw(f, w(1), w(1) + 8)]} mouth="grin" />
+      <SaveMark x={230} y={560} p={save} />
+      {friend > 0 ? (
+        <g opacity={friend}>
+          <Person x={900} y={PY + 40} s={0.62} belly={0.55} armL={[12, 0]} armR={[12, 0]} mouth={ask > 0.5 ? "o" : "smile"} lookY={-4} tilt={-6} />
+        </g>
+      ) : null}
+      <Bubble x={830} y={560} rx={150} ry={110} p={ask} tail={[880, 800]}>
+        <text x={830} y={600} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={C.ink}>
+          ?
+        </text>
+      </Bubble>
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "adim-acilis": AdimAcilis,
+  "adim-reklam": AdimReklam,
+  "adim-yayildi": AdimYayildi,
+  "adim-bilim": AdimBilim,
+  "adim-egri": AdimEgri,
+  "adim-sihirli": AdimSihirli,
+  "adim-her-adim": AdimHerAdim,
+  "adim-kapanis": AdimKapanis,
   "tarti-acilis": TartiAcilis,
   "tarti-panik": TartiPanik,
   "tarti-kalori": TartiKalori,
