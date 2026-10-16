@@ -1,0 +1,587 @@
+{
+  "scenes": [
+    {
+      "voice": "Ağırlık kaldıran bir kadının iri olması, sandığından çok daha zor. Vücudu buna kolay kolay izin vermez.",
+      "say": "Ağırlık kaldıran bir kadının iri olması, sandığından [curious] çok daha zor. Vücudu buna, hani, kolay kolay izin vermez.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-04-kadin-agirlik/1-mvb5fu3f.mp3",
+      "durationInSeconds": 7.810612,
+      "words": [
+        {
+          "word": "Ağırlık",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "kaldıran",
+          "start": 0.48,
+          "end": 0.88
+        },
+        {
+          "word": "bir",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "word": "kadının",
+          "start": 1.12,
+          "end": 1.44
+        },
+        {
+          "word": "iri",
+          "start": 1.52,
+          "end": 1.68
+        },
+        {
+          "word": "olması,",
+          "start": 1.76,
+          "end": 2.64
+        },
+        {
+          "word": "sandığından",
+          "start": 2.8,
+          "end": 3.36
+        },
+        {
+          "word": "çok",
+          "start": 3.744,
+          "end": 3.92
+        },
+        {
+          "word": "daha",
+          "start": 4,
+          "end": 4.16
+        },
+        {
+          "word": "zor.",
+          "start": 4.24,
+          "end": 4.894330000000001
+        },
+        {
+          "word": "Vücudu",
+          "start": 4.934330000000001,
+          "end": 5.214330000000001
+        },
+        {
+          "word": "buna",
+          "start": 5.294330000000001,
+          "end": 5.774330000000001
+        },
+        {
+          "word": "kolay",
+          "start": 6.294330000000001,
+          "end": 6.494330000000001
+        },
+        {
+          "word": "kolay",
+          "start": 6.574330000000001,
+          "end": 6.814330000000001
+        },
+        {
+          "word": "izin",
+          "start": 6.934330000000001,
+          "end": 7.054330000000001
+        },
+        {
+          "word": "vermez.",
+          "start": 7.134330000000001,
+          "end": 7.774330000000001
+        }
+      ]
+    },
+    {
+      "voice": "Kası iri yapan en önemli hormonlardan biri testosteron. Kadınlarda bu hormon, erkeklerin yaklaşık onda biri kadar.",
+      "say": "Kası iri yapan en önemli hormonlardan biri, ıı, testosteron. Kadınlarda bu hormon, erkeklerin yaklaşık onda biri kadar.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-04-kadin-agirlik/2-mvb5fw38.mp3",
+      "durationInSeconds": 7.810612,
+      "words": [
+        {
+          "word": "Kası",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "iri",
+          "start": 0.4,
+          "end": 0.56
+        },
+        {
+          "word": "yapan",
+          "start": 0.6,
+          "end": 0.96
+        },
+        {
+          "word": "en",
+          "start": 1.04,
+          "end": 1.12
+        },
+        {
+          "word": "önemli",
+          "start": 1.2,
+          "end": 1.52
+        },
+        {
+          "word": "hormonlardan",
+          "start": 1.56,
+          "end": 2.24
+        },
+        {
+          "word": "biri",
+          "start": 2.32,
+          "end": 2.8
+        },
+        {
+          "word": "testosteron.",
+          "start": 3.12,
+          "end": 3.92
+        },
+        {
+          "word": "Kadınlarda",
+          "start": 4.16127,
+          "end": 4.7212700000000005
+        },
+        {
+          "word": "bu",
+          "start": 4.76127,
+          "end": 4.801270000000001
+        },
+        {
+          "word": "hormon,",
+          "start": 4.881270000000001,
+          "end": 5.441269999999999
+        },
+        {
+          "word": "erkeklerin",
+          "start": 5.5212699999999995,
+          "end": 6.00127
+        },
+        {
+          "word": "yaklaşık",
+          "start": 6.08127,
+          "end": 6.56127
+        },
+        {
+          "word": "onda",
+          "start": 6.6412700000000005,
+          "end": 6.881270000000001
+        },
+        {
+          "word": "biri",
+          "start": 6.961270000000001,
+          "end": 7.121270000000001
+        },
+        {
+          "word": "kadar.",
+          "start": 7.201270000000001,
+          "end": 7.84127
+        }
+      ]
+    },
+    {
+      "voice": "Yani kasların yine güçlenir, yine büyür. Ama ortaya çıkan şey iri değil, sıkı ve şekilli bir vücut.",
+      "say": "Yani kasların yine güçlenir, yine büyür. Ama ortaya çıkan şey, hani, iri değil; sıkı ve şekilli bir vücut.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-04-kadin-agirlik/3-mvb5fyd0.mp3",
+      "durationInSeconds": 7.941224,
+      "words": [
+        {
+          "word": "Yani",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "kasların",
+          "start": 0.56,
+          "end": 1.04
+        },
+        {
+          "word": "yine",
+          "start": 1.12,
+          "end": 1.28
+        },
+        {
+          "word": "güçlenir,",
+          "start": 1.36,
+          "end": 2.08
+        },
+        {
+          "word": "yine",
+          "start": 2.12,
+          "end": 2.32
+        },
+        {
+          "word": "büyür.",
+          "start": 2.36,
+          "end": 2.88
+        },
+        {
+          "word": "Ama",
+          "start": 3.04,
+          "end": 3.2
+        },
+        {
+          "word": "ortaya",
+          "start": 3.28,
+          "end": 3.6
+        },
+        {
+          "word": "çıkan",
+          "start": 3.64,
+          "end": 3.92
+        },
+        {
+          "word": "şey",
+          "start": 4,
+          "end": 4.4
+        },
+        {
+          "word": "iri",
+          "start": 4.96,
+          "end": 5.12
+        },
+        {
+          "word": "değil,",
+          "start": 5.2,
+          "end": 5.6
+        },
+        {
+          "word": "sıkı",
+          "start": 5.975370000000001,
+          "end": 6.375370000000001
+        },
+        {
+          "word": "ve",
+          "start": 6.53537,
+          "end": 6.61537
+        },
+        {
+          "word": "şekilli",
+          "start": 6.775370000000001,
+          "end": 7.175370000000001
+        },
+        {
+          "word": "bir",
+          "start": 7.255370000000001,
+          "end": 7.335370000000001
+        },
+        {
+          "word": "vücut.",
+          "start": 7.375370000000001,
+          "end": 7.975370000000001
+        }
+      ]
+    },
+    {
+      "voice": "Sahnedeki o kaslı kadınlar mı? Arkalarında yıllar süren özel program ve çok sıkı bir diyet var.",
+      "say": "Sahnedeki o kaslı kadınlar mı? Arkalarında, hmm, yıllar süren özel program ve çok sıkı bir diyet var.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-04-kadin-agirlik/4-mvb5g0e6.mp3",
+      "durationInSeconds": 7.523265,
+      "words": [
+        {
+          "word": "Sahnedeki",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "word": "o",
+          "start": 0.72,
+          "end": 0.88
+        },
+        {
+          "word": "kaslı",
+          "start": 0.96,
+          "end": 1.28
+        },
+        {
+          "word": "kadınlar",
+          "start": 1.36,
+          "end": 1.76
+        },
+        {
+          "word": "mı?",
+          "start": 1.88,
+          "end": 2.12805
+        },
+        {
+          "word": "Arkalarında",
+          "start": 2.28698,
+          "end": 3.32698
+        },
+        {
+          "word": "yıllar",
+          "start": 4.12698,
+          "end": 4.44698
+        },
+        {
+          "word": "süren",
+          "start": 4.52698,
+          "end": 4.84698
+        },
+        {
+          "word": "özel",
+          "start": 4.92698,
+          "end": 5.166980000000001
+        },
+        {
+          "word": "program",
+          "start": 5.246980000000001,
+          "end": 5.726979999999999
+        },
+        {
+          "word": "ve",
+          "start": 5.806979999999999,
+          "end": 5.886979999999999
+        },
+        {
+          "word": "çok",
+          "start": 6.04698,
+          "end": 6.28698
+        },
+        {
+          "word": "sıkı",
+          "start": 6.36698,
+          "end": 6.566979999999999
+        },
+        {
+          "word": "bir",
+          "start": 6.60698,
+          "end": 6.68698
+        },
+        {
+          "word": "diyet",
+          "start": 6.76698,
+          "end": 7.00698
+        },
+        {
+          "word": "var.",
+          "start": 7.12698,
+          "end": 7.566979999999999
+        }
+      ]
+    },
+    {
+      "voice": "Asıl sürpriz kemiklerde. Menopozdan sonra kemik kaybı hızlanır.",
+      "say": "[curious] Asıl sürpriz kemiklerde. Menopozdan sonra kemik kaybı hızlanır.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-04-kadin-agirlik/5-mvb5g1xc.mp3",
+      "durationInSeconds": 4.545306,
+      "words": [
+        {
+          "word": "Asıl",
+          "start": 0.08,
+          "end": 0.4
+        },
+        {
+          "word": "sürpriz",
+          "start": 0.44,
+          "end": 0.8
+        },
+        {
+          "word": "kemiklerde.",
+          "start": 0.88,
+          "end": 1.84
+        },
+        {
+          "word": "Menopozdan",
+          "start": 2.0157599999999998,
+          "end": 2.57576
+        },
+        {
+          "word": "sonra",
+          "start": 2.65576,
+          "end": 2.9757599999999997
+        },
+        {
+          "word": "kemik",
+          "start": 3.13576,
+          "end": 3.3757599999999996
+        },
+        {
+          "word": "kaybı",
+          "start": 3.4557599999999997,
+          "end": 3.6957599999999995
+        },
+        {
+          "word": "hızlanır.",
+          "start": 3.7757599999999996,
+          "end": 4.575759999999999
+        }
+      ]
+    },
+    {
+      "voice": "Bir araştırmada ağır kaldıran kadınların omurga ve kalça kemik yoğunluğu sekiz ayda arttı.",
+      "say": "Bir araştırmada, ağır kaldıran kadınların omurga ve kalça kemik yoğunluğu sekiz ayda arttı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-04-kadin-agirlik/6-mvb5g3mb.mp3",
+      "durationInSeconds": 6.034286,
+      "words": [
+        {
+          "word": "Bir",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "araştırmada",
+          "start": 0.28,
+          "end": 1.12
+        },
+        {
+          "word": "ağır",
+          "start": 1.28,
+          "end": 1.52
+        },
+        {
+          "word": "kaldıran",
+          "start": 1.6,
+          "end": 2
+        },
+        {
+          "word": "kadınların",
+          "start": 2.08,
+          "end": 2.64
+        },
+        {
+          "word": "omurga",
+          "start": 2.72,
+          "end": 3.04
+        },
+        {
+          "word": "ve",
+          "start": 3.12,
+          "end": 3.2
+        },
+        {
+          "word": "kalça",
+          "start": 3.28,
+          "end": 3.6
+        },
+        {
+          "word": "kemik",
+          "start": 3.68,
+          "end": 3.92
+        },
+        {
+          "word": "yoğunluğu",
+          "start": 4,
+          "end": 4.48
+        },
+        {
+          "word": "sekiz",
+          "start": 4.72,
+          "end": 4.96
+        },
+        {
+          "word": "ayda",
+          "start": 5.04,
+          "end": 5.28
+        },
+        {
+          "word": "arttı.",
+          "start": 5.36,
+          "end": 6.08
+        }
+      ]
+    },
+    {
+      "voice": "Yani ağırlık seni iri yapmaz. Seni güçlü yapar.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-04-kadin-agirlik/7-mvb5g4o8.mp3",
+      "durationInSeconds": 3.657143,
+      "words": [
+        {
+          "word": "Yani",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "ağırlık",
+          "start": 0.56,
+          "end": 0.96
+        },
+        {
+          "word": "seni",
+          "start": 1.08,
+          "end": 1.24
+        },
+        {
+          "word": "iri",
+          "start": 1.28,
+          "end": 1.44
+        },
+        {
+          "word": "yapmaz.",
+          "start": 1.48,
+          "end": 2.25397
+        },
+        {
+          "word": "Seni",
+          "start": 2.4307999999999996,
+          "end": 2.6308
+        },
+        {
+          "word": "güçlü",
+          "start": 2.6708,
+          "end": 2.9907999999999997
+        },
+        {
+          "word": "yapar.",
+          "start": 3.0307999999999997,
+          "end": 3.7107999999999994
+        }
+      ]
+    },
+    {
+      "voice": "Bunu, \"iri olurum\" diyen arkadaşına gönder. Çünkü...",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-04-kadin-agirlik/8-mvb5g5wm.mp3",
+      "durationInSeconds": 3.63102,
+      "words": [
+        {
+          "word": "Bunu,",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "word": "\"iri",
+          "start": 0.64,
+          "end": 0.88
+        },
+        {
+          "word": "olurum\"",
+          "start": 0.96,
+          "end": 1.307
+        },
+        {
+          "word": "diyen",
+          "start": 1.333,
+          "end": 1.52
+        },
+        {
+          "word": "arkadaşına",
+          "start": 1.6,
+          "end": 2.08
+        },
+        {
+          "word": "gönder.",
+          "start": 2.16,
+          "end": 2.64
+        },
+        {
+          "word": "Çünkü...",
+          "start": 2.96,
+          "end": 3.68
+        }
+      ]
+    }
+  ]
+}

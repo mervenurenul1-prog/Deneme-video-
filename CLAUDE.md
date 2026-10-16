@@ -14,6 +14,11 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 - **Konuyu kullanıcı seçer:** Claude konu önerir, kullanıcı seçer, sonra video hazırlanır. Kendi başına konu seçme.
 - Fazla betimleme, ince düşünülmüş, kaliteli içerik; her görsel olayın kendi efekt sesi; referans yapı (aşağıda).
 - Kendi kafana göre iş yapma; emin değilsen sor. Önce sessiz önizleme, onaydan sonra seslendirme.
+- **MÜZİK VE EFEKT ÜCRETSİZ OLACAK (kullanıcı: "müziği ücretsiz senden istemiştim, gerekirse kurulum yapalım"):**
+  ElevenLabs Music / Sound Effects ile ÜRETİM YAPMA (kredi harcıyor). Gerekirse ücretsiz araç kur ve yerelde üret
+  (Python/numpy sentez, açık kaynak araçlar, CC0 ses paketleri). Mevcut `merak-gerilim` ve üretilmiş efektler kullanılabilir.
+  ElevenLabs kredisi yalnız seslendirme (Yunus) için.
+- Kullanıcının söylediklerini dikkate al; her isteğini not et.
 - **Instagram açıklaması YAZMA** — kullanıcı kendisi hallediyor ("sen videolarla ilgilen"). JSON `caption` alanı kalabilir.
 - Kanca (ilk cümle) durdurucu ve **hikâyesel** olsun; döngü hem görüntüde hem cümlede hissedilsin (son kare = ilk kare, son cümle "Çünkü..." gibi açılışa akar).
 
@@ -125,6 +130,8 @@ telefonu kaldırınca zıplayıp iner; kapanış "o çocuk geri gelmeyi çok sev
 Kullanıcı "çarpıcı ses efektleri" istedi → ElevenLabs Sound Effects (`POST /v1/sound-generation` {text, duration_seconds,
 prompt_influence}) ile gerçekçi efektler üretildi, −16 LUFS: `agir-dusme`, `havalanma`, `alarm`, `otobus`, `klavye`,
 `zincir` (public/sfx). Anahtar anlarda bunları kullan. Not: müzik/efekt üretimi kredi düşürebiliyor, kontrol et.
+**04 ONAYLANDI ve seslendirildi** (~709 karakter, 51,9 sn): `ornek-videolar/cizim1-pilot/04-kadin-agirlik.mp4`.
+Sıradaki: yeni konu 3) "30 dakikalık protein penceresi bir efsane" (önce sessiz önizleme). Müzik/efekt ÜCRETSİZ.
 **04 revize (kullanıcı: "beğendim ama daha iyi giriş, loop etkisi, daha kuvvetli betimleme"):** yeni açılış "Ağırlık
 kaldıran bir kadının iri olması, sandığından çok daha zor" + kadının kolları balon gibi şişip "izin vermez"de söner;
 kapanış "...arkadaşına gönder. Çünkü..." (avatar kâğıt uçakla gönderir, arkadaş dambılı alır = açılış karesi).

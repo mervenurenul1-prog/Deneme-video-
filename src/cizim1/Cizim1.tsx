@@ -364,8 +364,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
     for (let k = 0; Math.PI * 9 * (2 * k + 1) < d; k++) lifts.push([Math.round(Math.PI * 9 * (2 * k + 1)), "tak", 0.3]);
     return [...lifts, [w(4) - 4, "whoosh", 0.3], [w(4), "yuksel", 0.3], [w(9), "pirilti", 0.35], [w(10) - 2, "kalem", 0.35], [w(12) - 2, "ding", 0.4]];
   },
-  "kadin-sonuc": (w) => [[w(3) - 2, "pop", 0.35], [w(4) - 2, "cizik", 0.45], [w(5) - 2, "whoosh", 0.3], [w(6), "boom", 0.18], [w(6) + 2, "sihir", 0.45]],
-  "kadin-kapanis": (w) => [[0, "pop", 0.3], [w(0) - 4, "pop", 0.25], [w(4), "whoosh", 0.35], [w(5) + 6, "ding", 0.3], [w(6) - 2, "pop", 0.55], [w(6) + 2, "tak", 0.35]],
+  "kadin-sonuc": (w) => [[w(3) - 2, "pop", 0.35], [w(4) - 2, "cizik", 0.45], [w(5) - 2, "havalanma", 0.55], [w(6), "boom", 0.2], [w(6) + 2, "sihir", 0.45]],
+  "kadin-kapanis": (w) => [[0, "pop", 0.3], [w(0) - 4, "pop", 0.25], [w(4), "havalanma", 0.4], [w(5) + 6, "ding", 0.3], [w(6) - 2, "pop", 0.55], [w(6) + 2, "tak", 0.35]],
 
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
   "boyun-acilis": (w) => [...every(4, w(2), 4, "tak", 0.18), [w(2) - 2, "havalanma", 0.7], [w(3) + 2, "agir-dusme", 0.9], [w(4) - 2, "pop", 0.45], [w(9) - 2, "damla", 0.3], [w(9) + 8, "damla", 0.25]],
