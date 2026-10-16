@@ -13,32 +13,32 @@
   "padding": 0.15,
   "scenes": [
     {
-      "visual": "kadin-hook",
-      "voice": "Ağırlık kaldırırsan iri olur musun? Olimpiyatta halter altını alan ilk kadına bak: kırk sekiz kilo sınıfı.",
-      "say": "Ağırlık kaldırırsan iri olur musun? [curious] Olimpiyatta halter altını alan ilk kadına bak: kırk sekiz kilo sınıfı."
+      "visual": "kadin5-hook",
+      "voice": "Ağırlık kaldırırsan iri olur musun? Bu soru yüzünden kadınlar yüz dört yıl bekletildi.",
+      "say": "Ağırlık kaldırırsan iri olur musun? [curious] Bu soru yüzünden kadınlar, tam yüz dört yıl bekletildi."
     },
     {
-      "visual": "kadin-104k",
-      "voice": "Kadınlar o sahneye çıkmak için yüz dört yıl bekledi.",
-      "say": "Kadınlar o sahneye çıkmak için, tam yüz dört yıl bekledi."
+      "visual": "kadin5-1896",
+      "voice": "Erkekler bin sekiz yüz doksan altıda olimpiyatta halter kaldırdı. Kadınlara ise iri olursunuz dendi.",
+      "say": "Erkekler bin sekiz yüz doksan altıda olimpiyatta halter kaldırdı. Kadınlara ise, \"iri olursunuz\" dendi."
     },
     {
-      "visual": "kadin-hormon-k",
-      "voice": "Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar.",
-      "say": "Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar."
+      "visual": "kadin5-2000",
+      "voice": "İki binde sonunda sahneye çıktılar. İlk final kaç kiloydu, biliyor musun? Kırk sekiz.",
+      "say": "İki binde sonunda sahneye çıktılar. [curious] İlk final kaç kiloydu, biliyor musun? ... Kırk sekiz."
     },
     {
-      "visual": "kadin-kas-k",
-      "voice": "Kasların güçlenir, sıkılaşır, şekillenir. Ama iri olmaz.",
-      "say": "Kasların güçlenir, sıkılaşır, şekillenir. Ama iri olmaz."
+      "visual": "kadin5-hormon",
+      "voice": "Peki neden iri olmadılar? Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar. Kas güçlenir ama iri olmaz.",
+      "say": "Peki neden iri olmadılar? Çünkü kası iri yapan testosteron, kadınlarda erkeklerin onda biri kadar. Kas güçlenir, ama iri olmaz."
     },
     {
-      "visual": "kadin-kemik3",
-      "voice": "Asıl sürpriz kemiklerde: bir araştırmada kemik yoğunluğu sekiz ayda arttı.",
-      "say": "[curious] Asıl sürpriz kemiklerde: bir araştırmada, kemik yoğunluğu sekiz ayda arttı."
+      "visual": "kadin5-kemik",
+      "voice": "Üstelik kemik de güçlenir: bir araştırmada kemik yoğunluğu sekiz ayda arttı.",
+      "say": "[curious] Üstelik kemik de güçlenir: bir araştırmada, kemik yoğunluğu sekiz ayda arttı."
     },
     {
-      "visual": "kadin-mesaj-k",
+      "visual": "kadin5-mesaj",
       "voice": "Yüz dört yıl beklediler. Sen bekleme.",
       "say": "Yüz dört yıl beklediler. Sen bekleme."
     },
