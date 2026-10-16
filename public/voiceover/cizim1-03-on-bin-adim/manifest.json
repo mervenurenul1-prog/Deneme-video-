@@ -1,0 +1,533 @@
+{
+  "scenes": [
+    {
+      "voice": "Günde on bin adım atman gerektiğini kim söyledi? Bir doktor değil.",
+      "say": "Günde on bin adım atman gerektiğini kim söyledi? [curious] Bir doktor değil.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-03-on-bin-adim/1-mvas5s8y.mp3",
+      "durationInSeconds": 4.153469,
+      "words": [
+        {
+          "word": "Günde",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "on",
+          "start": 0.48,
+          "end": 0.56
+        },
+        {
+          "word": "bin",
+          "start": 0.64,
+          "end": 0.8
+        },
+        {
+          "word": "adım",
+          "start": 0.84,
+          "end": 0.96
+        },
+        {
+          "word": "atman",
+          "start": 1.04,
+          "end": 1.28
+        },
+        {
+          "word": "gerektiğini",
+          "start": 1.36,
+          "end": 1.92
+        },
+        {
+          "word": "kim",
+          "start": 2,
+          "end": 2.16
+        },
+        {
+          "word": "söyledi?",
+          "start": 2.24,
+          "end": 2.8942
+        },
+        {
+          "word": "Bir",
+          "start": 3.07524,
+          "end": 3.12824
+        },
+        {
+          "word": "doktor",
+          "start": 3.1552399999999996,
+          "end": 3.47524
+        },
+        {
+          "word": "değil.",
+          "start": 3.55524,
+          "end": 4.19524
+        }
+      ]
+    },
+    {
+      "voice": "Altmışlı yıllarda Japonya'da bir şirket adımsayar sattı. Adı: on bin adım ölçer.",
+      "say": "Altmışlı yıllarda Japonya'da, ıı, bir şirket adımsayar sattı. Adı: on bin adım ölçer.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-03-on-bin-adim/2-mvas5twi.mp3",
+      "durationInSeconds": 6.373878,
+      "words": [
+        {
+          "word": "Altmışlı",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "yıllarda",
+          "start": 0.48,
+          "end": 1.04
+        },
+        {
+          "word": "Japonya'da",
+          "start": 1.2,
+          "end": 2.08
+        },
+        {
+          "word": "bir",
+          "start": 2.24,
+          "end": 2.4
+        },
+        {
+          "word": "şirket",
+          "start": 2.44,
+          "end": 2.8
+        },
+        {
+          "word": "adımsayar",
+          "start": 2.96,
+          "end": 3.52
+        },
+        {
+          "word": "sattı.",
+          "start": 3.56,
+          "end": 4
+        },
+        {
+          "word": "Adı:",
+          "start": 4.329930000000001,
+          "end": 4.64993
+        },
+        {
+          "word": "on",
+          "start": 4.959320000000002,
+          "end": 5.039320000000002
+        },
+        {
+          "word": "bin",
+          "start": 5.119320000000002,
+          "end": 5.279320000000002
+        },
+        {
+          "word": "adım",
+          "start": 5.439320000000001,
+          "end": 5.599320000000001
+        },
+        {
+          "word": "ölçer.",
+          "start": 5.6793200000000015,
+          "end": 6.399320000000001
+        }
+      ]
+    },
+    {
+      "voice": "Sayı akılda kalıcıydı. Reklam tuttu ve bütün dünyaya yayıldı.",
+      "say": "Sayı akılda kalıcıydı. Reklam tuttu ve, hani, bütün dünyaya yayıldı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-03-on-bin-adim/3-mvas5vbm.mp3",
+      "durationInSeconds": 5.067755,
+      "words": [
+        {
+          "word": "Sayı",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "akılda",
+          "start": 0.4,
+          "end": 0.72
+        },
+        {
+          "word": "kalıcıydı.",
+          "start": 0.8,
+          "end": 1.56
+        },
+        {
+          "word": "Reklam",
+          "start": 1.69186,
+          "end": 2.01186
+        },
+        {
+          "word": "tuttu",
+          "start": 2.09186,
+          "end": 2.57186
+        },
+        {
+          "word": "ve",
+          "start": 2.65186,
+          "end": 3.01186
+        },
+        {
+          "word": "bütün",
+          "start": 3.53186,
+          "end": 3.85186
+        },
+        {
+          "word": "dünyaya",
+          "start": 3.93186,
+          "end": 4.411860000000001
+        },
+        {
+          "word": "yayıldı.",
+          "start": 4.45186,
+          "end": 5.13186
+        }
+      ]
+    },
+    {
+      "voice": "Peki bilim ne diyor? Kırk yedi bin kişiyi izleyen bir araştırmaya göre,",
+      "say": "[curious] Peki bilim ne diyor? Kırk yedi bin kişiyi izleyen bir araştırmaya göre,",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-03-on-bin-adim/4-mvas5wpb.mp3",
+      "durationInSeconds": 4.780408,
+      "words": [
+        {
+          "word": "Peki",
+          "start": 0.08,
+          "end": 0.48
+        },
+        {
+          "word": "bilim",
+          "start": 0.8,
+          "end": 1.04
+        },
+        {
+          "word": "ne",
+          "start": 1.12,
+          "end": 1.2
+        },
+        {
+          "word": "diyor?",
+          "start": 1.24,
+          "end": 1.7126299999999999
+        },
+        {
+          "word": "Kırk",
+          "start": 1.8718999999999997,
+          "end": 2.0319
+        },
+        {
+          "word": "yedi",
+          "start": 2.1118999999999994,
+          "end": 2.1918999999999995
+        },
+        {
+          "word": "bin",
+          "start": 2.2718999999999996,
+          "end": 2.4318999999999997
+        },
+        {
+          "word": "kişiyi",
+          "start": 2.5119,
+          "end": 2.7918999999999996
+        },
+        {
+          "word": "izleyen",
+          "start": 2.8318999999999996,
+          "end": 3.2318999999999996
+        },
+        {
+          "word": "bir",
+          "start": 3.2718999999999996,
+          "end": 3.3118999999999996
+        },
+        {
+          "word": "araştırmaya",
+          "start": 3.3918999999999997,
+          "end": 4.0319
+        },
+        {
+          "word": "göre,",
+          "start": 4.1119,
+          "end": 4.751899999999999
+        }
+      ]
+    },
+    {
+      "voice": "altmış yaş üstünde fayda altı ile sekiz bin adımda doyuyor. Daha gençlerde sekiz ile on bin arasında.",
+      "say": "altmış yaş üstünde fayda altı ile sekiz bin adımda doyuyor. Daha gençlerde, ıı, sekiz ile on bin arasında.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-03-on-bin-adim/5-mvas5y9p.mp3",
+      "durationInSeconds": 7.366531,
+      "words": [
+        {
+          "word": "altmış",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "yaş",
+          "start": 0.4,
+          "end": 0.56
+        },
+        {
+          "word": "üstünde",
+          "start": 0.68,
+          "end": 1.12
+        },
+        {
+          "word": "fayda",
+          "start": 1.28,
+          "end": 1.68
+        },
+        {
+          "word": "altı",
+          "start": 1.84,
+          "end": 2.16
+        },
+        {
+          "word": "ile",
+          "start": 2.32,
+          "end": 2.48
+        },
+        {
+          "word": "sekiz",
+          "start": 2.56,
+          "end": 2.72
+        },
+        {
+          "word": "bin",
+          "start": 2.8,
+          "end": 2.96
+        },
+        {
+          "word": "adımda",
+          "start": 3,
+          "end": 3.28
+        },
+        {
+          "word": "doyuyor.",
+          "start": 3.36,
+          "end": 3.84
+        },
+        {
+          "word": "Daha",
+          "start": 4.07195,
+          "end": 4.23195
+        },
+        {
+          "word": "gençlerde",
+          "start": 4.31195,
+          "end": 5.19195
+        },
+        {
+          "word": "sekiz",
+          "start": 5.59195,
+          "end": 5.83195
+        },
+        {
+          "word": "ile",
+          "start": 5.91195,
+          "end": 6.15195
+        },
+        {
+          "word": "on",
+          "start": 6.23195,
+          "end": 6.31195
+        },
+        {
+          "word": "bin",
+          "start": 6.39195,
+          "end": 6.55195
+        },
+        {
+          "word": "arasında.",
+          "start": 6.63195,
+          "end": 7.43195
+        }
+      ]
+    },
+    {
+      "voice": "Yani on bin sihirli bir sayı değil. Ulaşamadın diye o günü boşa sayma.",
+      "say": "Yani on bin sihirli bir sayı değil. Ulaşamadın diye, hmm, o günü boşa sayma.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-03-on-bin-adim/6-mvas5zw7.mp3",
+      "durationInSeconds": 5.799184,
+      "words": [
+        {
+          "word": "Yani",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "on",
+          "start": 0.72,
+          "end": 0.88
+        },
+        {
+          "word": "bin",
+          "start": 1,
+          "end": 1.12
+        },
+        {
+          "word": "sihirli",
+          "start": 1.2,
+          "end": 1.56
+        },
+        {
+          "word": "bir",
+          "start": 1.6,
+          "end": 1.68
+        },
+        {
+          "word": "sayı",
+          "start": 1.76,
+          "end": 1.92
+        },
+        {
+          "word": "değil.",
+          "start": 2,
+          "end": 2.4
+        },
+        {
+          "word": "Ulaşamadın",
+          "start": 2.62631,
+          "end": 3.26631
+        },
+        {
+          "word": "diye",
+          "start": 3.34631,
+          "end": 3.82631
+        },
+        {
+          "word": "o",
+          "start": 4.54631,
+          "end": 4.586309999999999
+        },
+        {
+          "word": "günü",
+          "start": 4.62631,
+          "end": 4.86631
+        },
+        {
+          "word": "boşa",
+          "start": 4.9063099999999995,
+          "end": 5.106310000000001
+        },
+        {
+          "word": "sayma.",
+          "start": 5.22631,
+          "end": 5.826309999999999
+        }
+      ]
+    },
+    {
+      "voice": "Asıl önemli olan, bugün dünden biraz daha fazla yürümek.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-03-on-bin-adim/7-mvas611b.mp3",
+      "durationInSeconds": 4.127347,
+      "words": [
+        {
+          "word": "Asıl",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "önemli",
+          "start": 0.4,
+          "end": 0.72
+        },
+        {
+          "word": "olan,",
+          "start": 0.8,
+          "end": 1.12
+        },
+        {
+          "word": "bugün",
+          "start": 1.52,
+          "end": 1.84
+        },
+        {
+          "word": "dünden",
+          "start": 2.08,
+          "end": 2.48
+        },
+        {
+          "word": "biraz",
+          "start": 2.56,
+          "end": 2.8
+        },
+        {
+          "word": "daha",
+          "start": 2.84,
+          "end": 3.04
+        },
+        {
+          "word": "fazla",
+          "start": 3.12,
+          "end": 3.44
+        },
+        {
+          "word": "yürümek.",
+          "start": 3.493,
+          "end": 4.16
+        }
+      ]
+    },
+    {
+      "voice": "Bunu kaydet, çünkü yarın biri yine soracak:",
+      "say": "Bunu kaydet, çünkü yarın biri yine [curious] soracak:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-03-on-bin-adim/8-mvas6254.mp3",
+      "durationInSeconds": 3.787755,
+      "words": [
+        {
+          "word": "Bunu",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "kaydet,",
+          "start": 0.28,
+          "end": 1.12
+        },
+        {
+          "word": "çünkü",
+          "start": 1.16,
+          "end": 1.44
+        },
+        {
+          "word": "yarın",
+          "start": 1.6,
+          "end": 2
+        },
+        {
+          "word": "biri",
+          "start": 2.08,
+          "end": 2.24
+        },
+        {
+          "word": "yine",
+          "start": 2.28,
+          "end": 2.56
+        },
+        {
+          "word": "soracak:",
+          "start": 2.88,
+          "end": 3.76
+        }
+      ]
+    }
+  ]
+}
