@@ -12,8 +12,8 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 **Geçerli yöntem:** çizim v1 stili (`src/cizim1/Cizim1.tsx`, içerik `content/cizim1/*.json`): sade erkek
 karakter, düz sepya kâğıt, YAVAŞ animasyonlar (Zack kurgusu, oda, 3D YOK). Ses: **Yunus**, **eleven_v4**
 (kullanıcı V4'ü seçti; v3'ten daha akıcı, aynı kredi),
-sohbet tarzı `say` (+ dolgular), `maxPause: 0.3`, arka plan müziği `music` (Kevin MacLeod, CC BY 4.0 —
-künye açıklamada; `public/music/KAYNAK.txt`) ve olaylara bağlı efekt sesleri (`SFX` haritası, `public/sfx/`). Pilot: `cizim1-01-yag-nereye` → video
+sohbet tarzı `say` (+ dolgular), `maxPause: 0.3`, arka plan müziği `music` = `music/merak-gerilim.mp3`
+(ElevenLabs Music, bize ait, künye yok; `public/music/KAYNAK.txt`) ve olaylara bağlı efekt sesleri (`SFX` haritası, `public/sfx/`). Pilot: `cizim1-01-yag-nereye` → video
 `ornek-videolar/cizim1-pilot/01-yag-nereye.mp4` (kullanıcı onayı bekleniyor).
 Sonraki işler (onaydan sonra): 2 tartı, 3 takip (bırakma), 4 mekik, 5 kas ağrısı, 6 duruş, 7 ter, 8 kas hafızası
 → sonra eleme listesindeki diğerleri. Her biri: `content/cizim1/cizim1-NN-<konu>.json` (voice + say + visual)
@@ -41,7 +41,7 @@ bekle**, kullanıcı "başla" demeden seslendirme/render yapma.
 **16 Ekim (SON DURUM, bunu oku):** Pilot 01 son hâli kullanıcıya gönderildi: Yunus + **eleven_v4** + arka plan
 müziği + olaylara bağlı efekt sesleri → `ornek-videolar/cizim1-pilot/01-yag-nereye.mp4` (onay bekleniyor).
 02 tartı'ya geçerken: `content/cizim1/cizim1-02-tarti.json` içinde `"modelId": "eleven_v4"` yap, `"music":
-"music/investigations.mp3"` (veya `easy-lemon` / `life-of-riley`) ekle + açıklamaya müzik künyesi ekle, Cizim1.tsx
+"music/merak-gerilim.mp3"` ekle (künye gerekmez), Cizim1.tsx
 `SFX` haritasına `tarti-*` sahneleri için efektler ekle (pop/kalem/bip/damla/nefes/cizik/pirilti/ding/boom/whoosh).
 Sessiz önizleme zaten gönderildiyse onay sonrası: kredi kontrol → voiceover → render → gönder.
 
@@ -65,8 +65,8 @@ Pilot (01) son hâli: V4 ses + müzik (eski) + efektler; müzik seçilince yenid
 Yeni adaylar (16 Ekim 02:05): `muzik-uretim/` 7 merak-pizzicato, 8 merak-lofi, 9 merak-dedektif-modern (+ `-sesli`
 karışımları, istemler `ISTEMLER.md`). **Kullanıcı 7-merak-pizzicato'yu SEÇTİ** → `public/music/merak-pizzicato.mp3`
 (−20 LUFS, bize ait, künye yok). Pilot bu müzikle yeniden render edildi (40,8 sn), `ornek-videolar/cizim1-pilot/` güncel.
-Tartı ve sonraki videolar da `"music": "music/merak-pizzicato.mp3"` kullanacak.
-Kullanıcı "7 yakın, son kez en iyisini yap" dedi → 10 akılda, 11 gerilim, 12 modern üretildi; seçim bekleniyor (seçilirse public/music + pilot yeniden render). Not: Music API eşzamanlı istekte 429 veriyor, sırayla üret.
+Kullanıcı "7 yakın, son kez en iyisini yap" dedi → 10 akılda, 11 gerilim, 12 modern üretildi; **Kullanıcı 11-pizzicato-gerilim'i SEÇTİ (son karar)** → `public/music/merak-gerilim.mp3` (−20 LUFS, künye yok);
+pilot bununla yeniden render edildi. **Tartı ve sonraki tüm videolar `"music": "music/merak-gerilim.mp3"` kullanacak.** Not: Music API eşzamanlı istekte 429 veriyor, sırayla üret.
 
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
