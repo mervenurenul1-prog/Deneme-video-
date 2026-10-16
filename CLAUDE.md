@@ -53,6 +53,16 @@ cevap kelimesi söylenirken aç; her sahnede "bakalım ne olacak" hissi (beklete
 parçayı JSON `music` alanına yaz, künyeyi açıklamada güncelle. (Gülmeler de çıkarıldı.)
 (3) İzleyici ekrana kilitlensin: görsel anlatım konuyu tek başına net anlatabilmeli (sessiz izleyen de anlamalı).
 
+**MÜZİK ARAYIŞI (açık iş, 16 Ekim):** Pilotun müziği "Investigations" BEĞENİLMEDİ ("cacık" = kötü). Kullanıcı:
+"merak uyandırıcı olsun; arka plan sesi gibi ama duyulsun (kısık olunca 'var ile yok arası'); sadece piyano gibi
+sönük olmasın". Denenenler ve sonuç (`ses-ornekleri/`): incompetech Clean Soul/Lobby Time/Dreamy Flashback/Easy Lemon
+(sönük), Hypnothis/Unanswered Questions/**Spy Glass (en yakın ama oturmadı)**/Mesmerize; ElevenLabs Music üretimleri
+(`muzik-uretim/`): 1 gizem-nabız, 2 belgesel-merak → "çok hareketli"; 3 dedektif-caz, 4 modern-casus → beğenilmedi;
+5 sakin-merak, 6 yumuşak-gizem → "ikisi de değil". Hedef: Spy Glass ile 1-2 arası (orta enerji, meraklı, modern).
+ElevenLabs Music: `POST /v1/music` {prompt, music_length_ms, force_instrumental:true} — şimdiye kadar kredi
+düşmedi. Önizleme: Yunus sesi + müzik `volume=0.62` (kodda Music bileşeni 0.62). Seçilen müzik → JSON `music`.
+Pilot (01) son hâli: V4 ses + müzik (eski) + efektler; müzik seçilince yeniden render (seslendirme hazır, kredi yok).
+
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
 değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
