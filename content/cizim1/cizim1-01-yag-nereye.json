@@ -9,6 +9,7 @@
   },
   "maxPause": 0.3,
   "music": "music/merak-gerilim.mp3",
+  "loop": true,
   "scenes": [
     {
       "visual": "tarti",
@@ -47,8 +48,8 @@
     },
     {
       "visual": "kapanis",
-      "voice": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. Bunu kaydet, unutma.",
-      "say": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. [excited] Bunu kaydet, unutma."
+      "voice": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. Bunu kaydet, çünkü biri sana soracak:",
+      "say": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. Bunu kaydet, çünkü [curious] biri sana soracak:"
     }
   ],
   "caption": "Verdiğin yağın çoğu nefesinle çıkıyor 🫁\n\nYağ yakıldığında karbondioksit ve suya dönüşür; yaklaşık %84'ü karbondioksit olarak solunumla atılır, kalanı su olarak ter ve idrarla (Meerman & Brown, BMJ 2014). Ama önce kasların o yağı yakıt olarak kullanması gerekir: bu da hareketle olur.\n\nKaydet, arkadaşına gönder 📲",

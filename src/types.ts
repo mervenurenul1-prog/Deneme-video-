@@ -103,6 +103,8 @@ export type Cizim = {
   maxPause?: number;
   // Arka plan müziği (public/ altında), ör. "music/investigations.mp3"
   music?: string;
+  // true: video kusursuz döngü olur (son kare = ilk kare), Instagram başa sardığında kesinti görünmez
+  loop?: boolean;
   scenes: CizimScene[];
   caption: string;
   hashtags: string[];

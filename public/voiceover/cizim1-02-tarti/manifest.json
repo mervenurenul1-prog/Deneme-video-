@@ -461,57 +461,67 @@
       ]
     },
     {
-      "voice": "Tartı yalan söylemez ama abartır. Kaydet, sonra lazım olur.",
-      "say": "Tartı yalan söylemez, ama abartır. [excited] Kaydet, sonra lazım olur.",
+      "voice": "Tartı yalan söylemez ama abartır. Kaydet, çünkü bu herkesin başına gelir:",
+      "say": "Tartı yalan söylemez, ama abartır. Kaydet, çünkü bu, ıı, herkesin başına gelir:",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-02-tarti/8-mvacnkjk.mp3",
-      "durationInSeconds": 4.728163,
+      "file": "voiceover/cizim1-02-tarti/8-mvarz50q.mp3",
+      "durationInSeconds": 6.269388,
       "words": [
         {
           "word": "Tartı",
           "start": 0,
-          "end": 0.36
+          "end": 0.4
         },
         {
           "word": "yalan",
-          "start": 0.4,
-          "end": 0.64
+          "start": 0.48,
+          "end": 0.72
         },
         {
           "word": "söylemez",
-          "start": 0.72,
-          "end": 1.6
+          "start": 0.8,
+          "end": 1.76
         },
         {
           "word": "ama",
-          "start": 1.72,
-          "end": 1.84
+          "start": 1.88,
+          "end": 2
         },
         {
           "word": "abartır.",
-          "start": 1.92,
-          "end": 2.48
+          "start": 2.08,
+          "end": 2.8127
         },
         {
           "word": "Kaydet,",
-          "start": 2.9782599999999997,
-          "end": 3.3782599999999996
+          "start": 2.95483,
+          "end": 3.6748299999999996
         },
         {
-          "word": "sonra",
-          "start": 3.4982599999999997,
-          "end": 3.7382599999999995
+          "word": "çünkü",
+          "start": 3.7148299999999996,
+          "end": 3.99483
         },
         {
-          "word": "lazım",
-          "start": 3.8182599999999995,
-          "end": 4.13826
+          "word": "bu",
+          "start": 4.07483,
+          "end": 4.474829999999999
         },
         {
-          "word": "olur.",
-          "start": 4.21826,
-          "end": 4.7782599999999995
+          "word": "herkesin",
+          "start": 4.794829999999999,
+          "end": 5.27483
+        },
+        {
+          "word": "başına",
+          "start": 5.35483,
+          "end": 5.67483
+        },
+        {
+          "word": "gelir:",
+          "start": 5.75483,
+          "end": 6.314830000000001
         }
       ]
     }

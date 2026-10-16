@@ -3,6 +3,7 @@ import {
   AbsoluteFill,
   Audio,
   Easing,
+  Freeze,
   interpolate,
   random,
   Sequence,
@@ -43,10 +44,21 @@ export type Cizim1Props = { cizim: Cizim; voiceover: PostVoiceover | null };
 // w(i): i. kelimenin başladığı kare (sahneye göre)
 type SceneProps = { d: number; w: (i: number) => number };
 
+// Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
+const LOOP_FRAMES = 14;
+
 export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
-  const { fps } = useVideoConfig();
+  const { fps, durationInFrames } = useVideoConfig();
   const durations = sceneDurations(cizim, voiceover, fps);
+  const loop = cizim.loop === true;
+  const last = cizim.scenes.length - 1;
   let from = 0;
+  const wordsAt = (i: number) => wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i));
+  const wOf = (i: number) => {
+    const words = wordsAt(i);
+    return (k: number) => Math.round((words[Math.min(k, words.length - 1)]?.start ?? 0) * fps);
+  };
+  const First = SCENES[cizim.scenes[0].visual] ?? Missing;
   return (
     <AbsoluteFill style={{ backgroundColor: C.paper, fontFamily }}>
       <Paper />
@@ -55,15 +67,15 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         const start = from;
         from += durations[i];
         const audio = audioFor(cizim, voiceover, i);
-        const words = wordsFor(scene.voice, audio);
-        const w = (k: number) => Math.round((words[Math.min(k, words.length - 1)]?.start ?? 0) * fps);
+        const words = wordsAt(i);
+        const w = wOf(i);
         const Visual = SCENES[scene.visual] ?? Missing;
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.visual}`}>
-            <Shot d={durations[i]} zoom={ZOOM[scene.visual]}>
+            <Shot d={durations[i]} zoom={ZOOM[scene.visual]} noIn={loop && i === 0} noOut={loop && i === last}>
               <Visual d={durations[i]} w={w} />
             </Shot>
-            <Captions words={words} />
+            <Captions words={words} hideFrom={loop && i === last ? durations[i] - LOOP_FRAMES : undefined} />
             {audio ? <Audio src={staticFile(audio.file)} /> : null}
             {/* sahne geçişi + o sahnedeki olayların efekt sesleri */}
             {i > 0 ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18} /> : null}
@@ -77,24 +89,46 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
           </Sequence>
         );
       })}
-      {cizim.music ? <Music src={cizim.music} /> : null}
-      <Dust />
+      {loop ? (
+        <Sequence from={durationInFrames - LOOP_FRAMES} durationInFrames={LOOP_FRAMES} name="dongu">
+          <LoopIn>
+            <Freeze frame={0}>
+              <Paper />
+              <Beams />
+              <Shot d={durations[0]} zoom={ZOOM[cizim.scenes[0].visual]} noIn>
+                <First d={durations[0]} w={wOf(0)} />
+              </Shot>
+              <Captions words={wordsAt(0)} />
+            </Freeze>
+          </LoopIn>
+        </Sequence>
+      ) : null}
+      {cizim.music ? <Music src={cizim.music} loop={loop} /> : null}
+      <Dust loop={loop} />
     </AbsoluteFill>
   );
+};
+
+// Döngü geçişi: ilk kare, kâğıt dahil tam opak olana kadar belirir (son kare = ilk kare)
+const LoopIn: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const f = useCurrentFrame();
+  const o = interpolate(f, [0, LOOP_FRAMES - 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
+  return <AbsoluteFill style={{ opacity: o }}>{children}</AbsoluteFill>;
 };
 
 const Missing: React.FC<SceneProps> = () => null;
 
 // Arka plan müziği: konuşmanın altında ama belirgin (kullanıcı: kısık olunca "var ile yok arası"), başta ve sonda yumuşak geçiş
-const Music: React.FC<{ src: string }> = ({ src }) => {
+// Döngülü videoda müzik baştan tam sesle girer, sonda yalnızca kısa bir an kısılır (başa sarınca kopukluk duyulmasın)
+const Music: React.FC<{ src: string; loop?: boolean }> = ({ src, loop = false }) => {
   const { durationInFrames } = useVideoConfig();
+  const edges = loop ? [0, 3, durationInFrames - 6, durationInFrames - 1] : [0, 20, durationInFrames - 45, durationInFrames - 1];
+  const levels = loop ? [0.6, 1, 1, 0.6] : [0, 1, 1, 0];
   return (
     <Audio
       src={staticFile(src)}
       loop
-      volume={(f) =>
-        0.62 * interpolate(f, [0, 20, durationInFrames - 45, durationInFrames - 1], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
-      }
+      volume={(f) => 0.62 * interpolate(f, edges, levels, { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}
     />
   );
 };
@@ -273,8 +307,11 @@ const DUST = Array.from({ length: 28 }, (_, i) => ({
   v: 0.2 + random(`dv${i}`) * 0.5,
 }));
 
-const Dust: React.FC = () => {
-  const frame = useCurrentFrame();
+// Döngülü videoda toz, süre boyunca tam tur atar: son karedeki konumlar ilk karedekilerle aynıdır
+const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
+  const now = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const frame = loop ? (now % (durationInFrames - 1)) : now;
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <svg width="100%" height="100%" viewBox="0 0 1080 1920">
@@ -316,12 +353,13 @@ const ZOOM: Record<string, Zoom> = {
   "tarti-kapanis": { to: 1.04, x: 540, y: 900 },
 };
 
-const Shot: React.FC<{ d: number; zoom?: Zoom; children: React.ReactNode }> = ({ d, zoom, children }) => {
+// noIn / noOut: döngülü videoda ilk sahne karartmasız başlar, son sahne karartmasız biter
+const Shot: React.FC<{ d: number; zoom?: Zoom; noIn?: boolean; noOut?: boolean; children: React.ReactNode }> = ({ d, zoom, noIn, noOut, children }) => {
   const f = useCurrentFrame();
   const z = zoom ?? { to: 1.05, x: 540, y: 960 };
-  const opacity = interpolate(f, [0, 9, d - 7, d], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const opacity = interpolate(f, [0, 9, d - 7, d], [noIn ? 1 : 0, 1, 1, noOut ? 1 : 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const scale = interpolate(f, [0, d], [1, z.to]);
-  const blur = interpolate(f, [0, 9], [6, 0], { extrapolateRight: "clamp" });
+  const blur = noIn ? 0 : interpolate(f, [0, 9], [6, 0], { extrapolateRight: "clamp" });
   return (
     <AbsoluteFill style={{ opacity, transform: `scale(${scale})`, transformOrigin: `${z.x}px ${z.y}px`, filter: `blur(${blur}px)` }}>
       <svg width="100%" height="100%" viewBox="0 0 1080 1920">
@@ -350,8 +388,10 @@ const Rough: React.FC = () => {
 
 /* ---------- altyazı: ortada, küçük, o anki kelime sarı ---------- */
 
-const Captions: React.FC<{ words: WordTiming[] }> = ({ words }) => {
+const Captions: React.FC<{ words: WordTiming[]; hideFrom?: number }> = ({ words, hideFrom }) => {
   const t = useSeconds();
+  const frame = useCurrentFrame();
+  if (hideFrom !== undefined && frame >= hideFrom) return null;
   const chunks: WordTiming[][] = [];
   for (let i = 0; i < words.length; i += 3) chunks.push(words.slice(i, i + 3));
   const current = chunks.findLast((c) => t >= c[0].start) ?? chunks[0];

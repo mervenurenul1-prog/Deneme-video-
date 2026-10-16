@@ -405,12 +405,12 @@
       ]
     },
     {
-      "voice": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. Bunu kaydet, unutma.",
-      "say": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. [excited] Bunu kaydet, unutma.",
+      "voice": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. Bunu kaydet, çünkü biri sana soracak:",
+      "say": "Yani yağı hareketle yakar, nefesinle dışarı verirsin. Bunu kaydet, çünkü [curious] biri sana soracak:",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-01-yag-nereye/8-mvaaqmco.mp3",
-      "durationInSeconds": 5.407347,
+      "file": "voiceover/cizim1-01-yag-nereye/8-mvarz1bn.mp3",
+      "durationInSeconds": 7.131429,
       "words": [
         {
           "word": "Yani",
@@ -424,43 +424,58 @@
         },
         {
           "word": "hareketle",
-          "start": 1,
+          "start": 0.96,
           "end": 1.44
         },
         {
           "word": "yakar,",
           "start": 1.48,
-          "end": 2.08
+          "end": 2.16
         },
         {
           "word": "nefesinle",
-          "start": 2.16,
-          "end": 2.64
+          "start": 2.24,
+          "end": 2.72
         },
         {
           "word": "dışarı",
-          "start": 2.72,
-          "end": 2.96
+          "start": 2.76,
+          "end": 3.04
         },
         {
           "word": "verirsin.",
-          "start": 3.04,
-          "end": 3.64
+          "start": 3.12,
+          "end": 3.76
         },
         {
           "word": "Bunu",
-          "start": 3.84,
-          "end": 4
+          "start": 3.92,
+          "end": 4.16
         },
         {
           "word": "kaydet,",
-          "start": 4.08,
-          "end": 4.64
+          "start": 4.2,
+          "end": 4.96
         },
         {
-          "word": "unutma.",
-          "start": 4.68,
+          "word": "çünkü",
+          "start": 5,
           "end": 5.44
+        },
+        {
+          "word": "biri",
+          "start": 5.84,
+          "end": 6
+        },
+        {
+          "word": "sana",
+          "start": 6.04,
+          "end": 6.24
+        },
+        {
+          "word": "soracak:",
+          "start": 6.28,
+          "end": 7.0898200000000005
         }
       ]
     }
