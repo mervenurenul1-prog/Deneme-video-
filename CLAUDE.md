@@ -65,7 +65,8 @@ Pilot (01) son hâli: V4 ses + müzik (eski) + efektler; müzik seçilince yenid
 Yeni adaylar (16 Ekim 02:05): `muzik-uretim/` 7 merak-pizzicato, 8 merak-lofi, 9 merak-dedektif-modern (+ `-sesli`
 karışımları, istemler `ISTEMLER.md`). **Kullanıcı 7-merak-pizzicato'yu SEÇTİ** → `public/music/merak-pizzicato.mp3`
 (−20 LUFS, bize ait, künye yok). Pilot bu müzikle yeniden render edildi (40,8 sn), `ornek-videolar/cizim1-pilot/` güncel.
-Tartı ve sonraki videolar da `"music": "music/merak-pizzicato.mp3"` kullanacak. Not: Music API eşzamanlı istekte 429 veriyor, sırayla üret.
+Tartı ve sonraki videolar da `"music": "music/merak-pizzicato.mp3"` kullanacak.
+Kullanıcı "7 yakın, son kez en iyisini yap" dedi → 10 akılda, 11 gerilim, 12 modern üretildi; seçim bekleniyor (seçilirse public/music + pilot yeniden render). Not: Music API eşzamanlı istekte 429 veriyor, sırayla üret.
 
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
