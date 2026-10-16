@@ -5278,7 +5278,7 @@ const Boyun4Alarm: React.FC<SceneProps> = ({ w }) => {
 const Boyun4Viral: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const p2 = tw(f, w(14) - 4, w(14) + 4);
-  const p3 = tw(f, w(21) - 4, w(21) + 4);
+  const p3 = tw(f, w(21), w(21) + 8);
   const bend = tw(f, w(5), w(7) + 6);
   const stamp = pop(f, w(12) - 2, 10);
   // haberin yayıldığı telefonlar: merkezden dışa sırayla
@@ -5309,9 +5309,9 @@ const Boyun4Viral: React.FC<SceneProps> = ({ w }) => {
           {Array.from({ length: 9 }, (_, i) => (
             <path key={i} d={`M190 ${520 + i * 75} L890 ${520 + i * 75}`} stroke="#9fb6c4" strokeWidth={3} />
           ))}
-          <HandText x={540} y={580} text="baş = 5 kg" size={96} p={tw(f, w(15), w(16) + 6)} rotate={-2} />
-          <HandText x={540} y={760} text="eğilince 5 katı" size={96} p={tw(f, w(16) + 2, w(17) + 6)} rotate={-2} />
-          <HandText x={540} y={990} text="= 27 kg" size={150} p={tw(f, w(18) - 2, w(20))} color={C.red} rotate={-4} />
+          <HandText x={540} y={580} text="baş = 5 kg" size={96} p={tw(f, w(14), w(15) + 4)} rotate={-2} />
+          <HandText x={540} y={760} text="eğilince 5 katı" size={96} p={tw(f, w(16), w(17) + 4)} rotate={-2} />
+          <HandText x={540} y={990} text="= 27 kg" size={150} p={tw(f, w(18) - 2, w(19) + 4)} color={C.red} rotate={-4} />
           <Person x={150} y={PY + 330} s={0.6} belly={0.4} armL={[12, 0]} armR={[150, -60]} mouth="o" eyes="wide" lookY={-8} />
         </g>
       ) : null}

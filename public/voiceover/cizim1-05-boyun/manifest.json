@@ -1,575 +1,509 @@
 {
   "scenes": [
     {
-      "voice": "Telefona her baktığında, boynunda yirmi yedi kiloluk bir dambıl taşıyor gibisin.",
-      "say": "Telefona her baktığında, boynunda [curious] yirmi yedi kiloluk bir dambıl taşıyor gibisin.",
+      "voice": "Dikkat! Telefona eğildiğinde boynun yirmi yedi kilo taşıyor! Bunu sen de duydun, değil mi? Peki ya bu korku, yarım bir bilgiyse?",
+      "say": "[excited] Dikkat! Telefona eğildiğinde boynun yirmi yedi kilo taşıyor! ... Bunu sen de duydun, değil mi? [curious] Peki ya bu korku, yarım bir bilgiyse?",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/1-mvb54c7s.mp3",
-      "durationInSeconds": 5.250612,
+      "file": "voiceover/cizim1-05-boyun/1-mvbhp7lq.mp3",
+      "durationInSeconds": 8.202449,
       "words": [
+        {
+          "word": "Dikkat!",
+          "start": 0.08,
+          "end": 0.72
+        },
         {
           "word": "Telefona",
-          "start": 0,
-          "end": 0.48
-        },
-        {
-          "word": "her",
-          "start": 0.6,
-          "end": 0.72
-        },
-        {
-          "word": "baktığında,",
-          "start": 0.76,
-          "end": 1.68
-        },
-        {
-          "word": "boynunda",
-          "start": 1.84,
-          "end": 2.4
-        },
-        {
-          "word": "yirmi",
-          "start": 2.8,
-          "end": 3.04
-        },
-        {
-          "word": "yedi",
-          "start": 3.12,
-          "end": 3.2
-        },
-        {
-          "word": "kiloluk",
-          "start": 3.36,
-          "end": 3.68
-        },
-        {
-          "word": "bir",
-          "start": 3.72,
-          "end": 3.76
-        },
-        {
-          "word": "dambıl",
-          "start": 3.84,
-          "end": 4.16
-        },
-        {
-          "word": "taşıyor",
-          "start": 4.24,
-          "end": 4.56
-        },
-        {
-          "word": "gibisin.",
-          "start": 4.6,
-          "end": 5.28
-        }
-      ]
-    },
-    {
-      "voice": "Sabah uyanınca, otobüste, işte, gece yatakta... O dambıl hep orada.",
-      "say": "Sabah uyanınca, otobüste, işte, gece yatakta... O dambıl, hmm, hep orada.",
-      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/2-mvb54ef5.mp3",
-      "durationInSeconds": 6.426122,
-      "words": [
-        {
-          "word": "Sabah",
-          "start": 0,
-          "end": 0.32
-        },
-        {
-          "word": "uyanınca,",
-          "start": 0.4,
-          "end": 1.12
-        },
-        {
-          "word": "otobüste,",
-          "start": 1.36,
-          "end": 2.4
-        },
-        {
-          "word": "işte,",
-          "start": 2.52,
-          "end": 3.04
-        },
-        {
-          "word": "gece",
-          "start": 3.2,
-          "end": 3.36
-        },
-        {
-          "word": "yatakta...",
-          "start": 3.44,
-          "end": 4.303870000000001
-        },
-        {
-          "word": "O",
-          "start": 4.34387,
-          "end": 4.38387
-        },
-        {
-          "word": "dambıl",
-          "start": 4.46387,
-          "end": 5.103870000000001
-        },
-        {
-          "word": "hep",
-          "start": 5.58387,
-          "end": 5.74387
-        },
-        {
-          "word": "orada.",
-          "start": 5.82387,
-          "end": 6.46387
-        }
-      ]
-    },
-    {
-      "voice": "Başın aslında beş kilo civarında. Ama öne eğildikçe yer çekimi bir kaldıraç gibi çalışır.",
-      "say": "Başın aslında beş kilo civarında. Ama öne eğildikçe, yer çekimi bir kaldıraç gibi çalışır.",
-      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/3-mvb54gbq.mp3",
-      "durationInSeconds": 6.19102,
-      "words": [
-        {
-          "word": "Başın",
-          "start": 0,
-          "end": 0.32
-        },
-        {
-          "word": "aslında",
-          "start": 0.4,
-          "end": 0.8
-        },
-        {
-          "word": "beş",
-          "start": 0.96,
-          "end": 1.12
-        },
-        {
-          "word": "kilo",
-          "start": 1.2,
-          "end": 1.36
-        },
-        {
-          "word": "civarında.",
-          "start": 1.4,
-          "end": 2.08
-        },
-        {
-          "word": "Ama",
-          "start": 2.4,
-          "end": 2.64
-        },
-        {
-          "word": "öne",
-          "start": 2.8,
-          "end": 3.04
-        },
-        {
-          "word": "eğildikçe",
-          "start": 3.12,
-          "end": 4
-        },
-        {
-          "word": "yer",
-          "start": 4.12,
-          "end": 4.24
-        },
-        {
-          "word": "çekimi",
-          "start": 4.32,
-          "end": 4.56
-        },
-        {
-          "word": "bir",
-          "start": 4.64,
-          "end": 4.72
-        },
-        {
-          "word": "kaldıraç",
-          "start": 4.8,
-          "end": 5.28
-        },
-        {
-          "word": "gibi",
-          "start": 5.32,
-          "end": 5.44
-        },
-        {
-          "word": "çalışır.",
-          "start": 5.52,
-          "end": 6.24
-        }
-      ]
-    },
-    {
-      "voice": "On beş derecede on iki kilo. Altmış derecede, yani tam telefona bakarken: yirmi yedi kilo.",
-      "say": "On beş derecede on iki kilo. Altmış derecede, yani tam telefona bakarken: [curious] yirmi yedi kilo.",
-      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/4-mvb54hzr.mp3",
-      "durationInSeconds": 6.713469,
-      "words": [
-        {
-          "word": "On",
-          "start": 0,
-          "end": 0.24
-        },
-        {
-          "word": "beş",
-          "start": 0.28,
-          "end": 0.4
-        },
-        {
-          "word": "derecede",
-          "start": 0.48,
-          "end": 1.12
-        },
-        {
-          "word": "on",
-          "start": 1.36,
-          "end": 1.44
-        },
-        {
-          "word": "iki",
-          "start": 1.52,
-          "end": 1.6
-        },
-        {
-          "word": "kilo.",
-          "start": 1.76,
-          "end": 2.34583
-        },
-        {
-          "word": "Altmış",
-          "start": 2.42583,
-          "end": 2.6658299999999997
-        },
-        {
-          "word": "derecede,",
-          "start": 2.7458299999999998,
-          "end": 3.46583
-        },
-        {
-          "word": "yani",
-          "start": 3.50583,
-          "end": 3.78583
-        },
-        {
-          "word": "tam",
-          "start": 3.94583,
-          "end": 4.18583
-        },
-        {
-          "word": "telefona",
-          "start": 4.26583,
-          "end": 4.58583
-        },
-        {
-          "word": "bakarken:",
-          "start": 4.66583,
-          "end": 5.4258299999999995
-        },
-        {
-          "word": "yirmi",
-          "start": 5.63649,
-          "end": 5.83649
-        },
-        {
-          "word": "yedi",
-          "start": 5.87649,
-          "end": 6.036490000000001
-        },
-        {
-          "word": "kilo.",
-          "start": 6.196490000000001,
-          "end": 6.75649
-        }
-      ]
-    },
-    {
-      "voice": "Ama işin ilginç tarafı şu: araştırmalar bu duruşun tek başına boyun ağrısı yaptığını net olarak göstermedi.",
-      "say": "Ama işin ilginç tarafı şu: araştırmalar, bu duruşun tek başına boyun ağrısı yaptığını, hmm, net olarak göstermedi.",
-      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/5-mvb54k0s.mp3",
-      "durationInSeconds": 7.706122,
-      "words": [
-        {
-          "word": "Ama",
-          "start": 0,
-          "end": 0.4
-        },
-        {
-          "word": "işin",
-          "start": 0.48,
-          "end": 0.72
-        },
-        {
-          "word": "ilginç",
-          "start": 0.8,
-          "end": 1.08
-        },
-        {
-          "word": "tarafı",
-          "start": 1.12,
-          "end": 1.44
-        },
-        {
-          "word": "şu:",
-          "start": 1.52,
-          "end": 1.92254
-        },
-        {
-          "word": "araştırmalar",
-          "start": 2.14361,
-          "end": 3.0236099999999997
-        },
-        {
-          "word": "bu",
-          "start": 3.0636099999999997,
-          "end": 3.1036099999999998
-        },
-        {
-          "word": "duruşun",
-          "start": 3.18361,
-          "end": 3.58361
-        },
-        {
-          "word": "tek",
-          "start": 3.6636099999999994,
-          "end": 3.8236099999999995
-        },
-        {
-          "word": "başına",
-          "start": 3.9036099999999996,
-          "end": 4.22361
-        },
-        {
-          "word": "boyun",
-          "start": 4.30361,
-          "end": 4.543609999999999
-        },
-        {
-          "word": "ağrısı",
-          "start": 4.623609999999999,
-          "end": 4.8636099999999995
-        },
-        {
-          "word": "yaptığını",
-          "start": 4.90361,
-          "end": 5.743609999999999
-        },
-        {
-          "word": "net",
-          "start": 6.30361,
-          "end": 6.463609999999999
-        },
-        {
-          "word": "olarak",
-          "start": 6.543609999999999,
-          "end": 6.7836099999999995
-        },
-        {
-          "word": "göstermedi.",
-          "start": 6.8636099999999995,
-          "end": 7.743609999999999
-        }
-      ]
-    },
-    {
-      "voice": "Asıl yorucu olan, o dambılı saatlerce hiç indirmemek. Boyun kasların dinlenemez.",
-      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/6-mvb54lr0.mp3",
-      "durationInSeconds": 5.642449,
-      "words": [
-        {
-          "word": "Asıl",
-          "start": 0,
-          "end": 0.32
-        },
-        {
-          "word": "yorucu",
-          "start": 0.4,
-          "end": 0.72
-        },
-        {
-          "word": "olan,",
-          "start": 0.8,
+          "start": 0.88,
           "end": 1.28
         },
         {
-          "word": "o",
-          "start": 1.32,
-          "end": 1.36
-        },
-        {
-          "word": "dambılı",
-          "start": 1.44,
+          "word": "eğildiğinde",
+          "start": 1.36,
           "end": 1.92
         },
         {
-          "word": "saatlerce",
-          "start": 2,
-          "end": 2.64
-        },
-        {
-          "word": "hiç",
-          "start": 2.8,
-          "end": 2.96
-        },
-        {
-          "word": "indirmemek.",
-          "start": 3.04,
-          "end": 3.85932
-        },
-        {
-          "word": "Boyun",
-          "start": 4.00517,
-          "end": 4.24517
-        },
-        {
-          "word": "kasların",
-          "start": 4.36517,
-          "end": 4.725169999999999
-        },
-        {
-          "word": "dinlenemez.",
-          "start": 4.8051699999999995,
-          "end": 5.685169999999999
-        }
-      ]
-    },
-    {
-      "voice": "Telefonu göz hizasına kaldır, ara ara başını çevir. Dambıl iner, boynun rahatlar.",
-      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/7-mvb54nfs.mp3",
-      "durationInSeconds": 5.773061,
-      "words": [
-        {
-          "word": "Telefonu",
-          "start": 0,
-          "end": 0.44
-        },
-        {
-          "word": "göz",
-          "start": 0.48,
-          "end": 0.64
-        },
-        {
-          "word": "hizasına",
-          "start": 0.72,
-          "end": 1.2
-        },
-        {
-          "word": "kaldır,",
-          "start": 1.28,
-          "end": 2
-        },
-        {
-          "word": "ara",
-          "start": 2.08,
-          "end": 2.24
-        },
-        {
-          "word": "ara",
-          "start": 2.32,
-          "end": 2.48
-        },
-        {
-          "word": "başını",
-          "start": 2.56,
-          "end": 2.88
-        },
-        {
-          "word": "çevir.",
-          "start": 2.92,
-          "end": 3.45971
-        },
-        {
-          "word": "Dambıl",
-          "start": 3.64998,
-          "end": 3.9699799999999996
-        },
-        {
-          "word": "iner,",
-          "start": 4.16998,
-          "end": 4.489979999999999
-        },
-        {
           "word": "boynun",
-          "start": 4.609979999999999,
-          "end": 4.92998
-        },
-        {
-          "word": "rahatlar.",
-          "start": 5.00998,
-          "end": 5.8099799999999995
-        }
-      ]
-    },
-    {
-      "voice": "Ama telefona tekrar baktığın an, o dambıl geri gelir. Çünkü...",
-      "say": "Ama telefona tekrar baktığın an, o dambıl [curious] geri gelir. Çünkü...",
-      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
-      "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/8-mvb54p3z.mp3",
-      "durationInSeconds": 5.172245,
-      "words": [
-        {
-          "word": "Ama",
-          "start": 0,
-          "end": 0.24
-        },
-        {
-          "word": "telefona",
-          "start": 0.48,
-          "end": 0.88
-        },
-        {
-          "word": "tekrar",
-          "start": 0.96,
-          "end": 1.28
-        },
-        {
-          "word": "baktığın",
-          "start": 1.387,
-          "end": 1.76
-        },
-        {
-          "word": "an,",
-          "start": 1.88,
-          "end": 2.16
-        },
-        {
-          "word": "o",
-          "start": 2.32,
+          "start": 2,
           "end": 2.4
         },
         {
-          "word": "dambıl",
+          "word": "yirmi",
+          "start": 2.48,
+          "end": 2.68
+        },
+        {
+          "word": "yedi",
+          "start": 2.72,
+          "end": 2.88
+        },
+        {
+          "word": "kilo",
+          "start": 2.96,
+          "end": 3.12
+        },
+        {
+          "word": "taşıyor!",
+          "start": 3.2,
+          "end": 3.8137
+        },
+        {
+          "word": "Bunu",
+          "start": 3.99046,
+          "end": 4.070460000000001
+        },
+        {
+          "word": "sen",
+          "start": 4.150460000000001,
+          "end": 4.310460000000001
+        },
+        {
+          "word": "de",
+          "start": 4.35046,
+          "end": 4.390459999999999
+        },
+        {
+          "word": "duydun,",
+          "start": 4.470459999999999,
+          "end": 4.7374600000000004
+        },
+        {
+          "word": "değil",
+          "start": 4.76346,
+          "end": 4.87046
+        },
+        {
+          "word": "mi?",
+          "start": 4.95046,
+          "end": 5.11046
+        },
+        {
+          "word": "Peki",
+          "start": 5.4416899999999995,
+          "end": 5.69769
+        },
+        {
+          "word": "ya",
+          "start": 5.77769,
+          "end": 5.85769
+        },
+        {
+          "word": "bu",
+          "start": 5.93769,
+          "end": 6.09769
+        },
+        {
+          "word": "korku,",
+          "start": 6.17769,
+          "end": 6.977690000000001
+        },
+        {
+          "word": "yarım",
+          "start": 7.057690000000001,
+          "end": 7.217689999999999
+        },
+        {
+          "word": "bir",
+          "start": 7.297689999999999,
+          "end": 7.377689999999999
+        },
+        {
+          "word": "bilgiyse?",
+          "start": 7.4576899999999995,
+          "end": 8.25769
+        }
+      ]
+    },
+    {
+      "voice": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck. Sonra bir cerrah hesapladı: yirmi yedi kilo. Haber dünyayı dolaştı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-05-boyun/2-mvbhp9u7.mp3",
+      "durationInSeconds": 10.187755,
+      "words": [
+        {
+          "word": "İki",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "bin",
+          "start": 0.24,
+          "end": 0.32
+        },
+        {
+          "word": "sekizde",
+          "start": 0.4,
+          "end": 0.88
+        },
+        {
+          "word": "bir",
+          "start": 1.04,
+          "end": 1.12
+        },
+        {
+          "word": "terapist,",
+          "start": 1.2,
+          "end": 1.92
+        },
+        {
+          "word": "bir",
+          "start": 2,
+          "end": 2.08
+        },
+        {
+          "word": "gencin",
+          "start": 2.12,
+          "end": 2.4
+        },
+        {
+          "word": "röntgenine",
           "start": 2.48,
           "end": 2.96
         },
         {
-          "word": "geri",
-          "start": 3.3684299999999996,
-          "end": 3.4804299999999997
+          "word": "bakıp",
+          "start": 3.04,
+          "end": 3.36
         },
         {
-          "word": "gelir.",
-          "start": 3.5604299999999998,
-          "end": 4.14764
+          "word": "buna",
+          "start": 3.44,
+          "end": 3.6
         },
         {
-          "word": "Çünkü...",
-          "start": 4.306170000000001,
-          "end": 5.186170000000001
+          "word": "isim",
+          "start": 3.68,
+          "end": 3.92
+        },
+        {
+          "word": "verdi:",
+          "start": 4.04,
+          "end": 4.72
+        },
+        {
+          "word": "text",
+          "start": 4.88,
+          "end": 5.04
+        },
+        {
+          "word": "neck.",
+          "start": 5.2,
+          "end": 5.44
+        },
+        {
+          "word": "Sonra",
+          "start": 5.835260000000001,
+          "end": 6.075260000000001
+        },
+        {
+          "word": "bir",
+          "start": 6.115260000000001,
+          "end": 6.155260000000001
+        },
+        {
+          "word": "cerrah",
+          "start": 6.235260000000001,
+          "end": 6.5552600000000005
+        },
+        {
+          "word": "hesapladı:",
+          "start": 6.635260000000001,
+          "end": 7.4665300000000006
+        },
+        {
+          "word": "yirmi",
+          "start": 7.546530000000001,
+          "end": 7.786530000000001
+        },
+        {
+          "word": "yedi",
+          "start": 7.866530000000001,
+          "end": 7.946530000000001
+        },
+        {
+          "word": "kilo.",
+          "start": 8.026530000000001,
+          "end": 8.346530000000001
+        },
+        {
+          "word": "Haber",
+          "start": 8.599660000000002,
+          "end": 8.91966
+        },
+        {
+          "word": "dünyayı",
+          "start": 8.99966,
+          "end": 9.39966
+        },
+        {
+          "word": "dolaştı.",
+          "start": 9.439660000000002,
+          "end": 10.119660000000001
+        }
+      ]
+    },
+    {
+      "voice": "Ama araştırmacılar gerçek insanlara baktı. Başı eğik olanlarla dik duranlar arasında, boyun ağrısında net bir fark bulamadılar.",
+      "say": "Ama araştırmacılar gerçek insanlara baktı. Başı eğik olanlarla dik duranlar arasında, boyun ağrısında, net bir fark bulamadılar.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-05-boyun/3-mvbhpbth.mp3",
+      "durationInSeconds": 8.280816,
+      "words": [
+        {
+          "word": "Ama",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "araştırmacılar",
+          "start": 0.4,
+          "end": 1.2
+        },
+        {
+          "word": "gerçek",
+          "start": 1.28,
+          "end": 1.6
+        },
+        {
+          "word": "insanlara",
+          "start": 1.68,
+          "end": 2.16
+        },
+        {
+          "word": "baktı.",
+          "start": 2.267,
+          "end": 2.70315
+        },
+        {
+          "word": "Başı",
+          "start": 2.8866,
+          "end": 3.1266
+        },
+        {
+          "word": "eğik",
+          "start": 3.2066,
+          "end": 3.3666
+        },
+        {
+          "word": "olanlarla",
+          "start": 3.4466,
+          "end": 4.006600000000001
+        },
+        {
+          "word": "dik",
+          "start": 4.086600000000001,
+          "end": 4.246600000000001
+        },
+        {
+          "word": "duranlar",
+          "start": 4.2866,
+          "end": 4.646599999999999
+        },
+        {
+          "word": "arasında,",
+          "start": 4.7265999999999995,
+          "end": 5.5266
+        },
+        {
+          "word": "boyun",
+          "start": 5.6066,
+          "end": 5.8466000000000005
+        },
+        {
+          "word": "ağrısında",
+          "start": 5.9266000000000005,
+          "end": 6.7265999999999995
+        },
+        {
+          "word": "net",
+          "start": 6.8466000000000005,
+          "end": 6.9666
+        },
+        {
+          "word": "bir",
+          "start": 7.0466,
+          "end": 7.1266
+        },
+        {
+          "word": "fark",
+          "start": 7.166600000000001,
+          "end": 7.3666
+        },
+        {
+          "word": "bulamadılar.",
+          "start": 7.4466,
+          "end": 8.326600000000001
+        }
+      ]
+    },
+    {
+      "voice": "Çünkü asıl yorgunluk duruştan değil, kıpırdamamaktan. Saatlerce donup kalan boyun, dik de dursa yorulur.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-05-boyun/4-mvbhpdoo.mp3",
+      "durationInSeconds": 7.183673,
+      "words": [
+        {
+          "word": "Çünkü",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "asıl",
+          "start": 0.4,
+          "end": 0.64
+        },
+        {
+          "word": "yorgunluk",
+          "start": 0.72,
+          "end": 1.28
+        },
+        {
+          "word": "duruştan",
+          "start": 1.44,
+          "end": 1.92
+        },
+        {
+          "word": "değil,",
+          "start": 2,
+          "end": 2.48
+        },
+        {
+          "word": "kıpırdamamaktan.",
+          "start": 2.56,
+          "end": 3.6553099999999996
+        },
+        {
+          "word": "Saatlerce",
+          "start": 3.93531,
+          "end": 4.57531
+        },
+        {
+          "word": "donup",
+          "start": 4.65531,
+          "end": 4.81531
+        },
+        {
+          "word": "kalan",
+          "start": 4.89531,
+          "end": 5.1353100000000005
+        },
+        {
+          "word": "boyun,",
+          "start": 5.215310000000001,
+          "end": 5.775309999999999
+        },
+        {
+          "word": "dik",
+          "start": 5.855309999999999,
+          "end": 6.0153099999999995
+        },
+        {
+          "word": "de",
+          "start": 6.09531,
+          "end": 6.17531
+        },
+        {
+          "word": "dursa",
+          "start": 6.25531,
+          "end": 6.49531
+        },
+        {
+          "word": "yorulur.",
+          "start": 6.57531,
+          "end": 7.215310000000001
+        }
+      ]
+    },
+    {
+      "voice": "Yani boynunu suçlama, hareket ettir. Ve biri sana o yirmi yedi kiloyu anlatırsa, bu videoyu gönder.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-05-boyun/5-mvbhpffr.mp3",
+      "durationInSeconds": 6.60898,
+      "words": [
+        {
+          "word": "Yani",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "boynunu",
+          "start": 0.56,
+          "end": 0.88
+        },
+        {
+          "word": "suçlama,",
+          "start": 0.96,
+          "end": 1.76
+        },
+        {
+          "word": "hareket",
+          "start": 1.88,
+          "end": 2.16
+        },
+        {
+          "word": "ettir.",
+          "start": 2.28,
+          "end": 2.88
+        },
+        {
+          "word": "Ve",
+          "start": 2.92,
+          "end": 2.96
+        },
+        {
+          "word": "biri",
+          "start": 3.04,
+          "end": 3.2
+        },
+        {
+          "word": "sana",
+          "start": 3.28,
+          "end": 3.52
+        },
+        {
+          "word": "o",
+          "start": 3.6,
+          "end": 3.68
+        },
+        {
+          "word": "yirmi",
+          "start": 3.76,
+          "end": 3.96
+        },
+        {
+          "word": "yedi",
+          "start": 4,
+          "end": 4.08
+        },
+        {
+          "word": "kiloyu",
+          "start": 4.24,
+          "end": 4.48
+        },
+        {
+          "word": "anlatırsa,",
+          "start": 4.56,
+          "end": 5.44
+        },
+        {
+          "word": "bu",
+          "start": 5.48,
+          "end": 5.52
+        },
+        {
+          "word": "videoyu",
+          "start": 5.68,
+          "end": 5.92
+        },
+        {
+          "word": "gönder.",
+          "start": 5.96,
+          "end": 6.64
         }
       ]
     }
