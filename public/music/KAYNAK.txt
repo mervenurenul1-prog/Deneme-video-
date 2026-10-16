@@ -13,3 +13,4 @@ Dosyalar -20 LUFS'a normalize edildi.
 - spy-glass.mp3: "Spy Glass"
 - mesmerize.mp3: "Mesmerize"
 - 1-gizem-nabiz.mp3, 2-belgesel-merak.mp3: ElevenLabs Music ile üretildi (bize ait, künye gerekmez)
+- merak-pizzicato.mp3: ElevenLabs Music ile üretildi (bize ait, künye gerekmez) — pilotun müziği
