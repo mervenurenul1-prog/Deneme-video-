@@ -14,7 +14,8 @@ Kalan ElevenLabs kredisi ≈ 15.750 karakter (yalnız Yunus seslendirmesi için 
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
 - **04 KISALTILDI (16 Ekim 17:30, ekip: "izlerken sıkıldık"):** 52 sn → **35 sn**, 7 sahne: kanca (aynı) → 104 yıl
   (1896 cümlesi atıldı) → testosteron 1/10 ("korku" sahnesi atıldı) → kas → kemik (8 ay) → "104 yıl beklediler" →
-  döngü "Biri sana şunu sorarsa:". Kısa sahneler `KISA` haritasıyla eski bileşenleri yeni kelime sırasına bağlıyor
+  kapanış "Ve biri sana bunu bir daha sorarsa, cevabı artık biliyorsun." (36 sn). **KURAL (kullanıcı kızdı):
+  kısaltırken cümleyi yarıda kesme; video tam bir cümleyle bitsin, döngü yarım cümleye dayanmasın.** Kısa sahneler `KISA` haritasıyla eski bileşenleri yeni kelime sırasına bağlıyor
   (Cizim1.tsx sonu). Yeni sessiz önizleme `04-kadin-agirlik-sessiz.mp4` gönderildi → **onay → seslendirme**
   (~420 karakter). KURAL: yeni videolar da kısa olsun (~30-35 sn).
 - 03 on bin adım ✅ BEĞENİLDİ — serinin örnek videosu (formül: kanca → kısa tarihçe → görsel anlatım → loop).

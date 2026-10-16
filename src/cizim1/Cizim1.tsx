@@ -4152,8 +4152,8 @@ const KISA: Record<string, [string, Record<number, number>]> = {
   "kadin-kas-k": ["kadin-kas2", { 1: 0, 2: 1, 3: 2, 4: 3, 6: 5, 7: 6 }],
   // "Asıl sürpriz kemiklerde: bir araştırmada kemik yoğunluğu sekiz ayda arttı."
   "kadin-kemik-k": ["kadin-kemik2", { 1: 2, 5: 2, 12: 6, 13: 7, 14: 8, 15: 9 }],
-  // "Biri sana şunu sorarsa:"
-  "kadin-dongu-k": ["kadin-dongu2", { 4: 2, 6: 3 }],
+  // "Ve biri sana bunu bir daha sorarsa, cevabı artık biliyorsun."
+  "kadin-dongu-k": ["kadin-dongu2", { 4: 3, 6: 6 }],
 };
 for (const [id, [base, map]] of Object.entries(KISA)) {
   const remap = (w: (i: number) => number) => (i: number) => w(map[i] ?? i);
