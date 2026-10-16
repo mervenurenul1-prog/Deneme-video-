@@ -192,6 +192,14 @@ const ZOOM: Record<string, Zoom> = {
   "hizli-nefes": { to: 1.07, x: 540, y: 800 },
   hareket: { to: 1.05, x: 540, y: 950 },
   kapanis: { to: 1.04, x: 540, y: 800 },
+  "tarti-acilis": { to: 1.07, x: 540, y: 1050 },
+  "tarti-panik": { to: 1.06, x: 540, y: 800 },
+  "tarti-kalori": { to: 1.05, x: 400, y: 900 },
+  "tarti-su": { to: 1.06, x: 700, y: 760 },
+  "tarti-tuz": { to: 1.06, x: 700, y: 950 },
+  "tarti-diger": { to: 1.05, x: 540, y: 900 },
+  "tarti-ortalama": { to: 1.05, x: 540, y: 600 },
+  "tarti-kapanis": { to: 1.04, x: 540, y: 900 },
 };
 
 const Shot: React.FC<{ d: number; zoom?: Zoom; children: React.ReactNode }> = ({ d, zoom, children }) => {
@@ -1079,7 +1087,563 @@ const Kapanis: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 02 tartı: eşyalar ---------- */
+
+const Moon: React.FC<{ x: number; y: number; s?: number; o?: number }> = ({ x, y, s = 1, o = 1 }) =>
+  o > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${s})`} opacity={o}>
+      <path d="M10 -70 A70 70 0 1 0 10 70 A56 56 0 1 1 10 -70 Z" fill={C.cream} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+      {[
+        [-150, -40, 10],
+        [80, 50, 8],
+        [-120, 70, 7],
+      ].map(([sx, sy, r], i) => (
+        <Star key={i} x={sx} y={sy} r={r * 1.6} rot={0} />
+      ))}
+    </g>
+  ) : null;
+
+const Sun: React.FC<{ x: number; y: number; s?: number; o?: number; rot?: number }> = ({ x, y, s = 1, o = 1, rot = 0 }) =>
+  o > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${s})`} opacity={o}>
+      <g transform={`rotate(${rot})`} stroke={C.ink} strokeWidth={7} strokeLinecap="round">
+        {Array.from({ length: 10 }, (_, i) => {
+          const a = (i * 36 * Math.PI) / 180;
+          return <path key={i} d={`M${Math.sin(a) * 82} ${Math.cos(a) * 82} L${Math.sin(a) * 110} ${Math.cos(a) * 110}`} />;
+        })}
+      </g>
+      <circle r={62} fill={C.yellow} stroke={C.ink} strokeWidth={7} />
+    </g>
+  ) : null;
+
+const Burger: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} strokeLinejoin="round">
+    <path d="M-72 0 Q-76 -16 -58 -16 L58 -16 Q76 -16 72 0 Z" fill="#d79a4e" stroke={C.ink} strokeWidth={5} />
+    <rect x={-78} y={-36} width={156} height={22} rx={11} fill="#6b3b22" stroke={C.ink} strokeWidth={5} />
+    <path d="M-80 -38 l16 -9 l16 9 l16 -9 l16 9 l16 -9 l16 9 l16 -9 l16 9 l16 -9 l16 9" stroke="#5e9a3c" strokeWidth={8} fill="none" strokeLinecap="round" />
+    <path d="M-74 -44 Q-74 -96 0 -96 Q74 -96 74 -44 Z" fill="#e0a65a" stroke={C.ink} strokeWidth={5} />
+    {[
+      [-30, -72],
+      [8, -82],
+      [36, -66],
+      [-4, -60],
+    ].map(([sx, sy], i) => (
+      <ellipse key={i} cx={sx} cy={sy} rx={6} ry={3.5} fill={C.cream} />
+    ))}
+  </g>
+);
+
+const Cake: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} strokeLinejoin="round">
+    <rect x={-72} y={-80} width={144} height={80} rx={8} fill="#f3d7a8" stroke={C.ink} strokeWidth={5} />
+    <rect x={-72} y={-48} width={144} height={14} fill="#c9566b" />
+    <path d="M-74 -78 Q-60 -96 -45 -80 Q-30 -96 -15 -80 Q0 -96 15 -80 Q30 -96 45 -80 Q60 -96 74 -78" fill={C.cream} stroke={C.ink} strokeWidth={5} />
+    <circle cx={0} cy={-100} r={13} fill={C.red} stroke={C.ink} strokeWidth={4} />
+  </g>
+);
+
+const Calendar: React.FC<{ x: number; y: number; s?: number; mark: number }> = ({ x, y, s = 1, mark }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <rect x={-95} y={-90} width={190} height={180} rx={14} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+    <path d="M-95 -50 L-95 -76 Q-95 -90 -81 -90 L81 -90 Q95 -90 95 -76 L95 -50 Z" fill={C.red} stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+    {[-50, 50].map((rx) => (
+      <rect key={rx} x={rx - 6} y={-104} width={12} height={30} rx={6} fill={C.ink} />
+    ))}
+    {Array.from({ length: 12 }, (_, i) => {
+      const cx = -66 + (i % 4) * 44;
+      const cy = -26 + Math.floor(i / 4) * 44;
+      return <rect key={i} x={cx - 13} y={cy - 13} width={26} height={26} rx={4} fill="#e4d4b4" />;
+    })}
+    {[5, 6, 7].map((k, i) => {
+      const cx = -66 + (k % 4) * 44;
+      const cy = -26 + Math.floor(k / 4) * 44;
+      const p = tw(mark, i / 3, (i + 1) / 3);
+      return p > 0 ? (
+        <circle key={k} cx={cx} cy={cy} r={20} fill="none" stroke={C.red} strokeWidth={6} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - p} />
+      ) : null;
+    })}
+  </g>
+);
+
+const Stomach: React.FC<{ x: number; y: number; s?: number; fill: number }> = ({ x, y, s = 1, fill }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <path d="M-30 -120 L-30 -70" stroke={C.ink} strokeWidth={26} strokeLinecap="round" />
+    <path d="M-30 -120 L-30 -70" stroke={C.lung} strokeWidth={14} strokeLinecap="round" />
+    <path
+      d="M-40 -78 C-10 -100 85 -86 82 -10 C80 60 10 92 -45 66 C-95 42 -78 -4 -40 -6 C-20 -8 -70 -48 -40 -78 Z"
+      fill={C.lung}
+      stroke={C.ink}
+      strokeWidth={7}
+      strokeLinejoin="round"
+    />
+    {[
+      [10, 30, "#8a5a2b"],
+      [40, 0, "#5e9a3c"],
+      [-20, 45, "#d79a4e"],
+      [30, 45, "#c9566b"],
+      [55, 25, "#d79a4e"],
+    ].map(([fx, fy, c], i) => {
+      const p = tw(fill, i / 5, (i + 1) / 5);
+      return <circle key={i} cx={fx as number} cy={(fy as number) - 40 * (1 - p)} r={13 * p} fill={c as string} stroke={C.ink} strokeWidth={3} />;
+    })}
+  </g>
+);
+
+const Dumbbell: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s}) rotate(${rot})`} stroke={C.ink} strokeWidth={6} strokeLinejoin="round">
+    <rect x={-92} y={-9} width={184} height={18} rx={9} fill="#9a9a9a" />
+    {[-1, 1].map((k) => (
+      <g key={k}>
+        <rect x={k * 70 - 16} y={-56} width={32} height={112} rx={8} fill="#4b4b55" />
+        <rect x={k * 100 - 11} y={-40} width={22} height={80} rx={7} fill="#4b4b55" />
+      </g>
+    ))}
+  </g>
+);
+
+/* ---------- 02 tartı: sahneler ---------- */
+
+// "Dün akşam her şey normaldi. Bu sabah tartıya çıktın ve bir kilo fazla."
+const TartiAcilis: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const morning = tw(f, w(5) - 4, w(5) + 16);
+  const step = tw(f, w(7) - 2, w(8) + 8);
+  const kg = tw(f, w(9), w(12) + 6, 80, 81);
+  const shock = tw(f, w(12) - 2, w(12) + 8);
+  const shake = shock > 0 ? Math.sin(f / 2) * 3 * shock : 0;
+  return (
+    <>
+      <Moon x={790} y={430} o={1 - morning} />
+      <Sun x={790} y={430 + 60 * (1 - morning)} o={morning} rot={f * 0.4} />
+      <Bathroom x={PX + 60} y={PY + 6} value={step < 1 ? "--.-" : `${kg.toFixed(1)} kg`} />
+      <Person
+        x={interpolate(step, [0, 1], [PX - 230, PX + 60]) + shake}
+        y={PY - 58 * step - Math.sin(step * Math.PI) * 60}
+        s={0.95}
+        belly={0.42}
+        legL={{ lift: Math.sin(step * Math.PI) * 0.6 }}
+        armL={[10 + 135 * shock, -140 * shock]}
+        armR={[10 + 135 * shock, -140 * shock]}
+        mouth={shock > 0.5 ? "o" : f < w(5) ? "smile" : "flat"}
+        eyes={shock > 0.5 ? "wide" : f < w(5) ? "closed" : "open"}
+        lookY={step > 0.5 && shock < 0.5 ? 10 : 0}
+        tilt={step > 0.5 && shock < 0.5 ? 8 : 0}
+      />
+      <HandText x={270} y={600} text="+1 kg" size={150} p={tw(f, w(12), w(12) + 12)} color={C.red} rotate={-8} />
+    </>
+  );
+};
+
+// "Panik yapma. O bir kilo yağ değil."
+const TartiPanik: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const calm = tw(f, w(1) + 2, w(2) + 8);
+  const panic = 1 - calm;
+  const wob = Math.sin(f / 2.5) * 6 * panic;
+  const blob = pop(f, w(3) - 2, 14);
+  const x = tw(f, w(6) - 2, w(6) + 14);
+  return (
+    <>
+      <Bathroom x={PX + 120} y={PY + 6} value="81.0 kg" />
+      <Person
+        x={PX + 120 + wob}
+        y={PY - 58}
+        s={0.92}
+        belly={0.42}
+        armL={[150 * panic + 10 * calm, -150 * panic]}
+        armR={[150 * panic + 10 * calm, -150 * panic]}
+        mouth={panic > 0.5 ? "open" : "smile"}
+        eyes={panic > 0.5 ? "wide" : f < w(3) ? "closed" : "open"}
+        tilt={wob}
+        blush={0.4 + 0.4 * panic}
+      >
+        {panic > 0.3
+          ? cycles(f, 0, 7, 22).map(({ k, p }) => (
+              <Drop key={k} x={(k % 2 ? 1 : -1) * (95 + 60 * p)} y={-760 + 120 * p * p} s={0.9} o={(1 - p) * panic} />
+            ))
+          : null}
+      </Person>
+      {calm > 0.2 && f < w(3) + 10
+        ? cycles(f, w(2), 60, 50).map(({ k, p }) => <Puff key={k} x={PX + 150} y={PY - 58 - 600} p={p} dx={160} dy={-120} />)
+        : null}
+      {blob > 0 ? (
+        <g transform={`translate(270 640) scale(${blob})`}>
+          <path
+            d="M-120 0 C-140 -100 -40 -140 20 -110 C100 -150 160 -60 120 0 C140 80 40 110 -20 80 C-100 110 -150 60 -120 0 Z"
+            fill={C.fat}
+            stroke={C.fatDark}
+            strokeWidth={8}
+          />
+          <ellipse cx={-40} cy={-50} rx={34} ry={18} fill="#fff4c8" opacity={0.7} />
+          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90} fill={C.ink}>
+            1 kg
+          </text>
+        </g>
+      ) : null}
+      {blob > 0 ? <Cross x={270} y={640} size={150} p={x} /> : null}
+    </>
+  );
+};
+
+// "Bir kilo yağ için yaklaşık yedi bin yedi yüz kalori fazla yemen gerekir. Tek gecede mi? Neredeyse imkânsız."
+const TartiKalori: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const n = 9;
+  const t0 = w(4);
+  const step = Math.max(3, (w(12) - t0) / n);
+  const night = pop(f, w(13) - 2, 14);
+  const no = f >= w(16);
+  const shakeHead = no ? Math.sin((f - w(16)) / 3) * 8 * (1 - tw(f, w(17) + 10, w(17) + 30)) : 0;
+  return (
+    <>
+      <ellipse cx={290} cy={PY + 4} rx={140} ry={26} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+      {Array.from({ length: n }, (_, i) => {
+        const p = tw(f, t0 + i * step, t0 + i * step + 10);
+        if (p <= 0) return null;
+        const y = PY - 8 - i * 88 - 140 * (1 - p);
+        const sway = Math.sin(f / 18 + i * 0.7) * i * 1.4;
+        const Item = i % 2 ? Cake : Burger;
+        return (
+          <g key={i} opacity={Math.min(1, p * 2)}>
+            <Item x={290 + sway} y={y} s={0.95} />
+          </g>
+        );
+      })}
+      <Person
+        x={790}
+        y={PY}
+        s={0.82}
+        belly={0.42}
+        armL={[14, 0]}
+        armR={[14, 0]}
+        mouth={no ? "grin" : f >= w(9) ? "o" : "flat"}
+        eyes={f >= w(9) && !no ? "wide" : "open"}
+        lookY={no ? 0 : -6}
+        tilt={no ? shakeHead : -10 * tw(f, w(4), w(6))}
+      />
+      <HandText x={760} y={470} text="7.700 kcal" size={120} p={tw(f, w(5), w(9) + 6)} color={C.red} rotate={-4} />
+      <Moon x={830} y={250} s={0.7 * night} o={night > 0 ? 1 : 0} />
+      <Cross x={290} y={950} size={200} p={tw(f, w(17) - 2, w(17) + 14)} />
+    </>
+  );
+};
+
+// "Asıl sebep su. Kasların karbonhidrat depolarken yanında üç katı su tutar."
+const GRAINS = [
+  [-120, -100],
+  [25, -130],
+  [140, -50],
+  [-160, 30],
+  [-20, 10],
+  [115, 85],
+  [-70, 140],
+];
+const TartiSu: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const id = svgId(useId());
+  const L = { x: 720, y: 760, r: 250 };
+  const person = { x: 270, y: PY, s: 0.84 };
+  const B = { x: person.x + 47 * person.s, y: person.y - 262 * person.s };
+  const open = tw(f, 0, 16);
+  const v = [L.x - B.x, L.y - B.y];
+  const len = Math.hypot(v[0], v[1]);
+  const nrm = [-v[1] / len, v[0] / len];
+  const gStart = w(4) - 4;
+  const gStep = Math.max(3, (w(6) - gStart) / GRAINS.length);
+  const wStart = w(7) - 4;
+  const wStep = Math.max(2, (w(10) - wStart) / GRAINS.length);
+  const big = pop(f, w(2) - 3, 14);
+  return (
+    <>
+      <Person x={person.x} y={person.y} s={person.s} belly={0.42} armL={[10, 0]} armR={[14, 0]} tilt={8} lookY={6} mouth="o" />
+      <g opacity={open}>
+        <circle cx={B.x} cy={B.y} r={40} fill="none" stroke={C.ink} strokeWidth={6} strokeDasharray="12 9" />
+        {[1, -1].map((k) => (
+          <path
+            key={k}
+            d={`M${B.x + nrm[0] * 40 * k} ${B.y + nrm[1] * 40 * k} L${L.x + nrm[0] * L.r * k} ${L.y + nrm[1] * L.r * k}`}
+            stroke={C.ink}
+            strokeWidth={5}
+            strokeDasharray="14 10"
+            opacity={0.55}
+          />
+        ))}
+      </g>
+      <g transform={`translate(${L.x} ${L.y}) scale(${open}) translate(${-L.x} ${-L.y})`}>
+        <clipPath id={`lens${id}`}>
+          <circle cx={L.x} cy={L.y} r={L.r} />
+        </clipPath>
+        <circle cx={L.x} cy={L.y} r={L.r} fill="#eab0a2" />
+        <g clipPath={`url(#lens${id})`}>
+          {[-4, -3, -2, -1, 0, 1, 2, 3, 4].map((i) => {
+            const y = L.y + i * 56 + Math.sin(f / 30 + i) * 3;
+            return (
+              <g key={i}>
+                <path d={`M${L.x - 280} ${y} Q${L.x} ${y + 14} ${L.x + 280} ${y}`} stroke="#c9685b" strokeWidth={34} fill="none" opacity={0.55} />
+                <path d={`M${L.x - 280} ${y + 22} Q${L.x} ${y + 36} ${L.x + 280} ${y + 22}`} stroke={C.ink} strokeWidth={3} fill="none" opacity={0.35} />
+              </g>
+            );
+          })}
+          {GRAINS.map(([gx, gy], i) => {
+            const p = tw(f, gStart + i * gStep, gStart + i * gStep + 18);
+            if (p <= 0) return null;
+            const X = L.x + gx - 320 * (1 - p);
+            const Y = L.y + gy;
+            const wp = tw(f, wStart + i * wStep, wStart + i * wStep + 12);
+            return (
+              <g key={i}>
+                {[0, 1, 2].map((k) => {
+                  const a = ((k * 120 + i * 37) * Math.PI) / 180;
+                  const r = 30 + 30 * wp;
+                  return wp > 0 ? <Drop key={k} x={X + Math.cos(a) * r} y={Y + Math.sin(a) * r + 6} s={0.85 * wp} /> : null;
+                })}
+                <circle cx={X} cy={Y} r={20} fill="#c98a3a" stroke={C.ink} strokeWidth={4} />
+                <ellipse cx={X - 6} cy={Y - 7} rx={6} ry={4} fill="#f6d8a0" opacity={0.8} />
+              </g>
+            );
+          })}
+        </g>
+        <circle cx={L.x} cy={L.y} r={L.r} fill="none" stroke={C.ink} strokeWidth={16} />
+        <circle cx={L.x} cy={L.y} r={L.r - 14} fill="none" stroke="#fff6dc" strokeWidth={5} opacity={0.6} />
+        <path d={`M${L.x - 150} ${L.y - 150} A210 210 0 0 1 ${L.x + 20} ${L.y - 210}`} stroke="#fff" strokeWidth={10} fill="none" opacity={0.5} strokeLinecap="round" />
+      </g>
+      {big > 0 ? <Drop x={250} y={430} s={3.2 * big} /> : null}
+      <HandText x={720} y={1150} text="×3 su" size={130} p={tw(f, w(7), w(9) + 6)} color={C.water} />
+    </>
+  );
+};
+
+// "Tuzlu bir akşam yemeği yedin mi, vücudun o suyu bırakmaz."
+const TartiTuz: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const s = 0.9;
+  const px = PX - 120;
+  const lower = tw(f, w(5) + 4, w(6) + 6);
+  const shake = lower < 1 ? Math.sin(f / 2.2) * 9 * (1 - lower) : 0;
+  const armR: Arm = [interpolate(lower, [0, 1], [100, 14]) + shake, interpolate(lower, [0, 1], [-45, 0])];
+  const hand = armPoints(1, armR)[2];
+  const plate = { x: px + armPoints(1, [100, -45])[2][0] * s, y: 1010 };
+  const level = tw(f, w(6) - 2, d - 6);
+  return (
+    <>
+      {/* masa */}
+      <g stroke={C.ink} strokeWidth={8} strokeLinejoin="round">
+        <rect x={plate.x - 200} y={1040} width={400} height={30} rx={8} fill="#b07b4a" />
+        <rect x={plate.x - 170} y={1068} width={24} height={PY - 1060} fill="#8a5c35" />
+        <rect x={plate.x + 146} y={1068} width={24} height={PY - 1060} fill="#8a5c35" />
+      </g>
+      <ellipse cx={plate.x} cy={plate.y + 18} rx={120} ry={26} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+      <ellipse cx={plate.x - 20} cy={plate.y + 6} rx={55} ry={20} fill="#8a5a2b" stroke={C.ink} strokeWidth={4} />
+      <ellipse cx={plate.x + 40} cy={plate.y + 10} rx={34} ry={14} fill={C.cream} stroke={C.ink} strokeWidth={4} />
+      {[-40, 0, 30].map((gx, i) => (
+        <circle key={i} cx={plate.x + gx} cy={plate.y - 4 + (i % 2) * 8} r={7} fill="#5e9a3c" />
+      ))}
+      <Person
+        x={px}
+        y={PY}
+        s={s}
+        belly={interpolate(level, [0, 1], [0.42, 0.62])}
+        armL={[12, 0]}
+        armR={armR}
+        mouth={level > 0.3 ? "worry" : "smile"}
+        eyes={level > 0.6 ? "wide" : "open"}
+        blush={0.4 + 0.4 * level}
+      >
+        {level > 0 ? (
+          <ellipse cx={0} cy={-450} rx={70 + 30 * level} ry={30 + 45 * level} fill={C.water} opacity={0.35 * level} stroke={C.water} strokeWidth={4} />
+        ) : null}
+        {lower < 1 ? (
+          <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${160 + shake * 2})`} opacity={1 - lower}>
+            <path d="M-26 -10 L26 -10 L22 70 Q0 78 -22 70 Z" fill={C.cream} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+            <path d="M-26 -10 Q0 -40 26 -10 Z" fill="#9a9a9a" stroke={C.ink} strokeWidth={6} />
+            <text x={0} y={42} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={34} fill={C.ink} transform="rotate(180 0 32)">
+              T
+            </text>
+          </g>
+        ) : null}
+        {lower < 1
+          ? cycles(f, 4, 2, 16).map(({ k, p }) => (
+              <circle
+                key={k}
+                cx={hand[0] + ((k * 7) % 20) - 10}
+                cy={hand[1] + 50 + 170 * p}
+                r={4}
+                fill="#fffaf0"
+                stroke={C.ink}
+                strokeWidth={1.5}
+                opacity={(1 - lower) * (1 - p * 0.5)}
+              />
+            ))
+          : null}
+        {/* su, dışarıdan vücuda çekilir ve orada kalır */}
+        {cycles(f, w(6) - 2, 6, 30).map(({ k, p }) => {
+          const a = random(`ts${k}`) * Math.PI * 2;
+          const r0 = 380;
+          const e = Easing.in(Easing.quad)(p);
+          return (
+            <Drop key={k} x={Math.cos(a) * r0 * (1 - e)} y={-450 + Math.sin(a) * r0 * (1 - e)} s={1} o={interpolate(p, [0, 0.15, 0.85, 1], [0, 1, 1, 0])} />
+          );
+        })}
+      </Person>
+    </>
+  );
+};
+
+// "Regl dönemi, midendeki yemek, hatta dünkü antrenman bile tartıyı oynatır."
+const TartiDiger: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const jolt = f >= w(8);
+  const bounce = (i: number) => (jolt ? Math.abs(Math.sin((f - w(8)) / 4 + i)) * 18 : 0);
+  const values = ["80.0", "81.2", "79.6", "80.9", "79.9", "81.4"];
+  const val = jolt ? values[Math.floor((f - w(8)) / 6) % values.length] : "80.0";
+  const shake = jolt ? Math.sin(f / 1.8) * 3 : 0;
+  const c = pop(f, w(0) - 2, 14);
+  const st = pop(f, w(2) - 2, 14);
+  const db = pop(f, w(5) - 2, 14);
+  return (
+    <>
+      {c > 0 ? (
+        <g transform={`translate(210 ${560 - bounce(0)}) scale(${c})`}>
+          <Calendar x={0} y={0} mark={tw(f, w(0) + 4, w(1) + 10)} />
+        </g>
+      ) : null}
+      {st > 0 ? (
+        <g transform={`translate(540 ${520 - bounce(1)}) scale(${st})`}>
+          <Stomach x={0} y={0} s={1.15} fill={tw(f, w(2) + 2, w(3) + 12)} />
+        </g>
+      ) : null}
+      {db > 0 ? (
+        <g transform={`translate(870 ${560 - bounce(2)}) scale(${db})`}>
+          <Dumbbell x={0} y={0} s={0.95} rot={-20 + (f > w(5) && f < w(7) + 10 ? Math.sin(f / 4) * 14 : 0)} />
+        </g>
+      ) : null}
+      <g transform={`rotate(${shake} ${PX} ${PY})`}>
+        <Bathroom x={PX} y={PY + 6} value={`${val} kg`} />
+        <Person
+          x={PX}
+          y={PY - 58}
+          s={0.9}
+          belly={0.42}
+          armL={[16, 0]}
+          armR={[16, 0]}
+          mouth={jolt ? "worry" : "flat"}
+          eyes={jolt ? "wide" : "open"}
+          lookY={jolt ? 10 : -6}
+          tilt={jolt ? 8 : f < w(2) ? -6 : f < w(5) ? 0 : 6}
+        />
+      </g>
+      {jolt
+        ? [-1, 1].map((k) => (
+            <g key={k} stroke={C.ink} strokeWidth={6} strokeLinecap="round" fill="none" opacity={0.6 + 0.3 * Math.sin(f / 3)}>
+              <path d={`M${PX + k * 230} ${PY - 40} q${k * 20} 20 0 40 q${-k * 20} 20 0 40`} />
+              <path d={`M${PX + k * 265} ${PY - 50} q${k * 20} 25 0 50 q${-k * 20} 25 0 50`} />
+            </g>
+          ))
+        : null}
+    </>
+  );
+};
+
+// "O yüzden tek bir güne değil, haftalık ortalamaya bak."
+const DAILY = [520, 410, 575, 495, 605, 525, 640];
+const DAYS = ["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"];
+const TartiOrtalama: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const x = (i: number) => 190 + i * 118;
+  const board = tw(f, 0, 14);
+  const line = tw(f, 2, w(2) + 6);
+  const spike = pop(f, w(2), 14);
+  const avg = tw(f, w(6) - 2, w(7) + 12);
+  const pts = DAILY.map((y, i) => `${i ? "L" : "M"}${x(i)} ${y}`).join(" ");
+  return (
+    <>
+      <g opacity={board} transform="rotate(-1.5 540 600)">
+        <rect x={110} y={300} width={860} height={560} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+        <path d={`M150 760 L930 760`} stroke={C.ink} strokeWidth={5} opacity={0.5} />
+        {DAYS.map((t, i) => (
+          <text key={t} x={x(i)} y={820} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={46} fill={C.ink}>
+            {t}
+          </text>
+        ))}
+        <Arrow d={pts} p={line} w={6} color={C.ink} />
+        {DAILY.map((y, i) => {
+          const p = pop(f, 2 + i * ((w(2) + 4) / 7), 10);
+          return p > 0 ? <circle key={i} cx={x(i)} cy={y} r={14 * p} fill={C.ink} /> : null;
+        })}
+        {spike > 0 ? <circle cx={x(1)} cy={DAILY[1]} r={44 * spike} fill="none" stroke={C.red} strokeWidth={7} /> : null}
+        <Cross x={x(1)} y={DAILY[1]} size={34} p={tw(f, w(5) - 2, w(5) + 10)} />
+        <Arrow d={`M${x(0)} 500 L${x(6)} 610`} p={avg} w={16} color="#3f7d4f" />
+      </g>
+      <Person
+        x={820}
+        y={PY + 40}
+        s={0.68}
+        belly={0.42}
+        armL={[interpolate(avg, [0, 1], [150, 140]), -10]}
+        armR={[14, 0]}
+        mouth={avg > 0.5 ? "grin" : "smile"}
+        lookY={-6}
+        tilt={-6}
+      />
+    </>
+  );
+};
+
+// "Tartı yalan söylemez ama abartır. Kaydet, sonra lazım olur."
+const TartiKapanis: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const grow = tw(f, w(3) - 2, w(4) + 16);
+  const laugh = f >= w(4) && f < w(5) + 6;
+  const thumbs = tw(f, w(6) - 3, w(6) + 8);
+  const save = pop(f, w(5), 14);
+  const sx = 740;
+  const disp = { x: sx, y: PY - 20 };
+  const bx = interpolate(grow, [0, 1], [disp.x, 470]);
+  const by = interpolate(grow, [0, 1], [disp.y, 560]);
+  const wob = Math.sin(f / 6) * 4 * grow;
+  return (
+    <>
+      <Bathroom x={sx} y={PY + 6} value="81.0 kg" />
+      <Person
+        x={sx}
+        y={PY - 58 - (laugh ? Math.abs(Math.sin(f / 3)) * 10 : 0)}
+        s={0.88}
+        belly={0.42}
+        armL={[14, 0]}
+        armR={[14 + 130 * thumbs, -60 * thumbs]}
+        mouth={laugh || thumbs > 0.5 ? "grin" : "smile"}
+        eyes={laugh ? "closed" : "open"}
+      />
+      {grow > 0 ? (
+        <g transform={`translate(${bx} ${by}) scale(${0.25 + 1.6 * grow}) rotate(${wob})`}>
+          <ellipse cx={0} cy={-30} rx={150} ry={100} fill="#fbe3dc" stroke={C.red} strokeWidth={6} />
+          <path d="M-10 70 L10 70 L0 88 Z" fill={C.red} />
+          <text x={0} y={0} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.red}>
+            +1 kg
+          </text>
+        </g>
+      ) : null}
+      {save > 0 ? (
+        <g transform={`translate(220 1060) scale(${save}) rotate(-6)`}>
+          <path d="M-70 -95 L70 -95 L70 100 L0 50 L-70 100 Z" fill={C.yellow} stroke={C.ink} strokeWidth={10} strokeLinejoin="round" />
+          <text x={0} y={175} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink}>
+            kaydet
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "tarti-acilis": TartiAcilis,
+  "tarti-panik": TartiPanik,
+  "tarti-kalori": TartiKalori,
+  "tarti-su": TartiSu,
+  "tarti-tuz": TartiTuz,
+  "tarti-diger": TartiDiger,
+  "tarti-ortalama": TartiOrtalama,
+  "tarti-kapanis": TartiKapanis,
   tarti: Tarti,
   "yanlis-fikir": YanlisFikir,
   "yag-hucresi": YagHucresi,
