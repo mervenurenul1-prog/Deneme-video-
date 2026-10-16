@@ -399,6 +399,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
   "boyun4-alarm": (w) => [[0, "alarm", 0.35], [w(4) - 2, "boom", 0.25], [w(8) - 3, "cizik", 0.7], [w(9), "whoosh", 0.25], [w(16) - 2, "pop", 0.3], [w(18) - 2, "kagit", 0.5]],
   "boyun4-viral": (w) => [[2, "kalem", 0.3], [w(12) - 2, "boom", 0.18], [w(12), "pop", 0.4], [w(17), "kalem", 0.35], [w(21), "pop", 0.3], [w(22), "pirilti", 0.3]],
+  "boyun4-isim": (w) => [[2, "kalem", 0.3], [w(6) - 2, "pirilti", 0.3], [w(12) - 2, "boom", 0.18], [w(12), "pop", 0.4]],
+  "boyun4-hesap": (w) => [[2, "kalem", 0.3], [w(4) - 2, "bip", 0.3], [w(10), "yuksel", 0.3], [w(21) - 2, "agir-dusme", 0.3], [w(22), "bip", 0.35], [w(25), "pop", 0.3], [w(26), "pirilti", 0.3]],
   "boyun4-arastirma": (w) => [[w(1), "whoosh", 0.25], [w(5) - 2, "pop", 0.3], [w(8) - 2, "pop", 0.3], [w(11), "cizik", 0.3], [w(13), "ding", 0.35]],
   "boyun4-heykel": (w) => [[w(5), "yuksel", 0.3], [w(8), "sonme", 0.3], [w(13) - 2, "cizik", 0.35]],
   "boyun4-gonder": (w) => [[w(2), "kacing", 0.3], [w(11), "havalanma", 0.3], [w(13), "pop", 0.35], [w(14), "whoosh", 0.35]],
@@ -584,6 +586,8 @@ const ZOOM: Record<string, Zoom> = {
   "boyun3-sen": { to: 1.0, x: 540, y: 960 },
   "boyun4-alarm": { to: 1.0, x: 540, y: 960 },
   "boyun4-viral": { to: 1.03, x: 540, y: 900 },
+  "boyun4-isim": { to: 1.03, x: 540, y: 900 },
+  "boyun4-hesap": { to: 1.02, x: 540, y: 900 },
   "boyun4-arastirma": { to: 1.03, x: 540, y: 900 },
   "boyun4-heykel": { to: 1.0, x: 540, y: 960 },
   "boyun4-gonder": { to: 1.0, x: 540, y: 960 },
@@ -5478,7 +5482,112 @@ const Boyun4Gonder: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck."
+const Boyun4Isim: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bend = tw(f, w(5), w(7) + 6);
+  const stamp = pop(f, w(12) - 2, 10);
+  return (
+    <>
+      <Gym o={0.4} />
+      <HandText x={540} y={250} text="2008" size={160} p={tw(f, 0, w(2) + 4)} rotate={-4} />
+      <Person x={230} y={PY + 60} s={0.72} belly={0.25} shirt="#c9566b" armL={[12, 0]} armR={PHONE_ARM} mouth="flat" lookY={4 + 12 * bend} tilt={8 * bend}>
+        <PhoneInHand arm={PHONE_ARM} />
+      </Person>
+      <g transform={`translate(700 760) scale(${pop(f, w(6) - 2, 14)}) translate(-700 -760)`}>
+        <NeckLens x={700} y={760} r={290} angle={42 * bend} kg={0} strain={0.3 * bend} hideAngle />
+      </g>
+      <Person x={840} y={PY + 330} s={0.6} belly={0.4} armL={[12, 0]} armR={[interpolate(bend, [0, 1], [12, 150]), interpolate(bend, [0, 1], [0, -30])]} mouth="smile" lookY={-8} />
+      <g transform="translate(600 1150)">
+        <SignBoard x={0} y={0} p={stamp} lines={["TEXT NECK"]} rot={-5} />
+      </g>
+    </>
+  );
+};
+
+// "Sonra bir cerrah hesapladı: başın beş kilo, ama öne eğildikçe ensen onu düşürmemek için daha çok çeker.
+//  Telefona bakarken bu yük yirmi yedi kiloyu bulur. Haber dünyayı dolaştı."
+// Yandan boyun röntgeni: baş eğildikçe ense kası kızarır, geriden çeken oklar çoğalır, kilo 5 → 27.
+const Boyun4Hesap: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const angle = interpolate(f, [w(8) - 2, w(16), w(17), w(22)], [0, 35, 35, 60], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  const kg = neckKg(angle);
+  const show = pop(f, w(4) - 2, 12);
+  const pull = tw(f, w(10), w(16));
+  const big = pop(f, w(21) - 2, 14);
+  const grid = tw(f, w(25) - 2, w(25) + 8);
+  const L = { x: 560, y: 700, r: 330 };
+  const A = { x: 230, y: PY + 300, s: 0.6 };
+  const spots: [number, number][] = [];
+  for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) spots.push([200 + c * 340, 520 + r * 330]);
+  const order = spots.map(([x, y]) => Math.hypot(x - 540, y - 1000) / 900);
+  return (
+    <>
+      <Gym o={0.4} />
+      <g opacity={1 - grid}>
+        <HandText x={540} y={200} text="cerrahın hesabı" size={90} p={tw(f, 0, w(3) + 4)} rotate={-3} />
+        <g transform={`translate(${L.x} ${L.y}) scale(${pop(f, 0, 12)}) translate(${-L.x} ${-L.y})`}>
+          <NeckLens x={L.x} y={L.y} r={L.r} angle={angle} kg={kg} strain={(kg - 5) / 22} hideAngle />
+        </g>
+        {pull > 0
+          ? (() => {
+              // ensenin arkası boyunca (NeckLens geometrisiyle aynı) aşağı doğru akan çekiş oku
+              const base = { x: L.x - 40, y: L.y + 170 };
+              const pts: [number, number][] = [];
+              let px = base.x;
+              let py = base.y;
+              for (let i = 0; i < 7; i++) {
+                const a = ((angle * (i + 1)) / 7) * (Math.PI / 180);
+                px += Math.sin(a) * 30;
+                py -= Math.cos(a) * 30;
+                pts.push([px - Math.cos(a) * 80, py - Math.sin(a) * 80]);
+              }
+              const d = pts.slice().reverse().map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join(" ");
+              const [ex, ey] = pts[0];
+              const [bx, by] = pts[1];
+              const ang = Math.atan2(ey - by, ex - bx);
+              const wdt = 8 + 10 * ((kg - 5) / 22);
+              const head = (k: number) => [ex + Math.cos(ang + k) * -34, ey + Math.sin(ang + k) * -34];
+              return (
+                <g opacity={pull}>
+                  <path d={d} stroke={C.red} strokeWidth={wdt} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="18 14" strokeDashoffset={-f * 2.5} />
+                  <path d={`M${head(0.6)[0]} ${head(0.6)[1]} L${ex} ${ey} L${head(-0.6)[0]} ${head(-0.6)[1]}`} stroke={C.red} strokeWidth={wdt} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                </g>
+              );
+            })()
+          : null}
+        {pull > 0.3 ? <HandText x={250} y={1060} text="ense çeker" size={70} p={tw(f, w(10), w(12) + 4)} color={C.red} rotate={-4} /> : null}
+        <KgDisplay x={830} y={1150} p={show * (0.9 + 0.35 * big)} value={`${Math.round(kg)} kg`} color={kg > 20 ? "#ff8a7a" : "#9fe0a8"} />
+        <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth={kg > 20 ? "worry" : "flat"} lookY={14 * (angle / 60)} tilt={8 * (angle / 60)} blush={0.4 + kg / 50}>
+          <PhoneInHand arm={PHONE_ARM} />
+        </Person>
+      </g>
+      {/* haber dünyayı dolaşır */}
+      {grid > 0
+        ? spots.map(([x, y], i) => {
+            const on = pop(f, w(25) + order[i] * (w(27) - w(25) + 8), 10);
+            return on > 0 ? (
+              <g key={i} transform={`translate(${x} ${y}) scale(${on})`}>
+                <Person x={0} y={0} s={0.3} belly={0.3} shirt={["#c9566b", "#6e8fb3", "#9a7bb0", C.shirt][i % 4]} armL={[12, 0]} armR={PHONE_ARM} mouth="worry" lookY={14} tilt={8}>
+                  <PhoneInHand arm={PHONE_ARM} />
+                </Person>
+                <g transform="translate(70 -250)">
+                  <rect x={-50} y={-30} width={100} height={52} rx={10} fill="#d1271b" stroke={C.ink} strokeWidth={4} />
+                  <text x={0} y={10} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={36} fill="#ffcf3f">
+                    27!
+                  </text>
+                </g>
+              </g>
+            ) : null;
+          })
+        : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "boyun4-isim": Boyun4Isim,
+  "boyun4-hesap": Boyun4Hesap,
   "boyun4-alarm": Boyun4Alarm,
   "boyun4-viral": Boyun4Viral,
   "boyun4-arastirma": Boyun4Arastirma,

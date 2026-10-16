@@ -17,9 +17,14 @@
       "say": "[excited] Dikkat! Telefona eğildiğinde boynun yirmi yedi kilo taşıyor! ... Bunu sen de duydun, değil mi? [curious] Peki ya bu korku, yarım bir bilgiyse?"
     },
     {
-      "visual": "boyun4-viral",
-      "voice": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck. Sonra bir cerrah hesapladı: yirmi yedi kilo. Haber dünyayı dolaştı.",
-      "say": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck. Sonra bir cerrah hesapladı: yirmi yedi kilo. Haber dünyayı dolaştı."
+      "visual": "boyun4-isim",
+      "voice": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck.",
+      "say": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck."
+    },
+    {
+      "visual": "boyun4-hesap",
+      "voice": "Sonra bir cerrah hesapladı: başın beş kilo, ama öne eğildikçe ensen onu düşürmemek için daha çok çeker. Telefona bakarken bu yük yirmi yedi kiloyu bulur. Haber dünyayı dolaştı.",
+      "say": "Sonra bir cerrah hesapladı: başın beş kilo, ama öne eğildikçe, ensen onu düşürmemek için daha çok çeker. Telefona bakarken bu yük, yirmi yedi kiloyu bulur. Haber dünyayı dolaştı."
     },
     {
       "visual": "boyun4-arastirma",
