@@ -7,6 +7,24 @@ VOOM (antrenman + beslenme + kişisel koç uygulaması) için Instagram Reels ü
 Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Çalışma dalı:
 `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`.
 
+## >>> YENİ OTURUM: BURADAN BAŞLA <<<
+**Geçerli yöntem:** çizim v1 stili (`src/cizim1/Cizim1.tsx`, içerik `content/cizim1/*.json`): sade erkek
+karakter, düz sepya kâğıt, YAVAŞ animasyonlar (Zack kurgusu, oda, 3D YOK). Ses: **Yunus**, eleven_v3,
+sohbet tarzı `say` (+ dolgular), `maxPause: 0.3`. Pilot: `cizim1-01-yag-nereye` → video
+`ornek-videolar/cizim1-pilot/01-yag-nereye.mp4` (kullanıcı onayı bekleniyor).
+Sonraki işler (onaydan sonra): 2 tartı, 3 takip (bırakma), 4 mekik, 5 kas ağrısı, 6 duruş, 7 ter, 8 kas hafızası
+→ sonra eleme listesindeki diğerleri. Her biri: `content/cizim1/cizim1-NN-<konu>.json` (voice + say + visual)
++ Cizim1.tsx'e o videoya özel sahne bileşenleri (SCENES'e benzersiz adla) → sessiz önizleme gönder → onay →
+`npm run voiceover -- <id>` → `npm run render -- <id>` (çizim ~10 dk) → `ornek-videolar/` + commit + push.
+Tartı ve takip metinleri `content/uc/uc-02-tarti.json`, `uc-03-takip.json` içinde hazır (hikâye tonu; yeni
+stile taşınırken `say`'e dolgu eklenip ses Yunus yapılmalı). Gönderilen dosya 30 MB'ı geçerse ffmpeg ile
+sıkıştır (crf 23-24). Kısa, Türkçe, telefondan okunacak şekilde yaz. "Her zaman daha iyisi olabilir."
+
+## Geçmiş (özet)
+Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
+değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
+`src/uc` (3D). Eski notlar aşağıda.
+
 ## Kullanıcıyla anlaşılan çalışma kuralları
 - **Önce sessiz önizleme, onaydan sonra seslendirme.** Kredi boşa gitmesin.
 - **Adım adım, yavaş:** önce 1 pilot, onay gelince kalanlar. Yarım iş bırakma.
@@ -44,18 +62,6 @@ Kalan 22 bilgi videosu:
 Elenen 7: yuzme-suda-kalmak, seri2-02-voleybol, seri2-05-basketbol, seri2-04-catlak,
 seri2-01-sabah-uzun, bilgi-hobi, seri3-05-kahve.
 VOOM tanıtım videoları (content/promos/voom-*) kalıyor.
-
-## Sıradaki adım
-Pilot (yağ nereye gidiyor) çizimli 3. sürüm **onaylandı ve seslendirildi** (erkek ses, 36 sn ses / 39 sn video):
-`ornek-videolar/cizim-pilot/01-yag-nereye.mp4`. Yöntem denemesi (çizim mi 3D mi) kullanıcıya gönderildi, cevap bekleniyor:
-`ornek-videolar/yontem-denemesi/karsilastirma.mp4`. Önceki notlar:
-`ornek-videolar/cizim-pilot/01-yag-nereye-sessiz.mp4` (id `cizim-01-yag-nereye`, 8 sahne, ~45 sn). 2. sürüm: gerçekçi oranlı gölgeli karakter, kamera hareketleri, yeni metin (kullanıcı ilk sürüm için "karakter basit, hareket az, metin zayıf" dedi).
-3. sürüm: kullanıcı ikinci örnek olarak Zack D. Films videosu gönderdi ("harmanla"): sepya çizim stili
-korundu, kurgu Zack gibi yapıldı — her cümle 2-4 kamera planına bölünür (geniş, yakın, arkadan, nesne yakın
-çekimi), sert kesmeler, karakter çizilmiş bir odada (pencere, güneş, parke, bitki, dambıl), ekran yazısı en aza
-indirildi. Referans: "örneğe yakın olsun, aynısı/kopyası değil".
-Onay gelince: `npm run voiceover -- cizim-01-yag-nereye` → `npm run render -- cizim-01-yag-nereye`.
-Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/OKU.md`'deki 11 video).
 
 ## KARAR (EN GÜNCEL): 1. sürüm çizim stili, 3D kız İPTAL
 Kullanıcı ilk gönderilen çizimli pilotu (v1, commit c610079: sade karakter, yavaş animasyonlar, düz arka plan)
