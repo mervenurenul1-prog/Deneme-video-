@@ -108,7 +108,11 @@ soracak:" → "Beş kilo verdin..."). 01, 02, 03 döngülü.
 Sıradaki konu: 7) ertesi gün ağrımıyorsa antrenman boşa mı gitti?
 **04 güncellendi (kullanıcı 4A):** serinin ERKEK avatarı her sahnede ana karakter, kadınlar yan karakter (kadın konuları
 için de avatar sahnede olur). Müzik için 2 alternatif gönderildi (`muzik-uretim/13-belgesel-sicak`, `14-modern-merak`),
-kullanıcı dinleyip seçecek. Yeni konu adayları sunuldu, seçim bekleniyor.
+kullanıcı dinleyip seçecek.
+**Kullanıcı yeni konulardan 5 ve 3'ü seçti, önce 5:** `cizim1-05-boyun` ("telefona bakarken boynun 27 kilo taşıyor";
+Hansraj 2014 model tahmini + dürüst sürpriz: araştırmalar duruşun tek başına ağrı yaptığını net göstermedi). Yandan
+boyun röntgeni (`NeckLens`), telefon (`Phone`, `PHONE_ARM`), kettlebell. Sessiz önizleme gönderildi, onay bekleniyor.
+Sıradaki: 3) "30 dakikalık protein penceresi bir efsane".
 **Kullanıcı: "Kendi kafana göre iş yapma, sor."** Yapılacak işi söyle, onay al.
 **Referans analiz (kullanıcının gönderdiği tutan 2 Instagram videosu):** ters köşe açılış (ilk 3 sn) → neden-sonuç
 zinciri → sonda sürpriz bilgi → başa bağlanan döngü; tek tutarlı dünya (kart/grafik az); mekanizmada vücudun içine

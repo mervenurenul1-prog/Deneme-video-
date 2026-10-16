@@ -1,0 +1,64 @@
+{
+  "id": "cizim1-05-boyun",
+  "title": "Telefona bakarken boynun kaç kilo taşıyor?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "scenes": [
+    {
+      "visual": "boyun-acilis",
+      "voice": "Şu an telefona bakıyorsan, boynun yaklaşık yirmi yedi kilo taşıyor olabilir.",
+      "say": "Şu an telefona bakıyorsan, boynun yaklaşık [curious] yirmi yedi kilo taşıyor olabilir."
+    },
+    {
+      "visual": "boyun-kafa",
+      "voice": "Başın aslında beş kilo civarında. Dik dururken boynun sadece bu ağırlığı taşır.",
+      "say": "Başın aslında, ıı, beş kilo civarında. Dik dururken boynun sadece bu ağırlığı taşır."
+    },
+    {
+      "visual": "boyun-aci",
+      "voice": "Ama başını öne eğdikçe yer çekimi bir kaldıraç gibi çalışır. On beş derecede yük on iki kiloya çıkar.",
+      "say": "Ama başını öne eğdikçe, yer çekimi bir kaldıraç gibi çalışır. On beş derecede yük on iki kiloya çıkar."
+    },
+    {
+      "visual": "boyun-altmis",
+      "voice": "Altmış dereceye, yani tam telefona bakma açısına gelince: yirmi yedi kilo.",
+      "say": "Altmış dereceye, yani tam telefona bakma açısına gelince: [curious] yirmi yedi kilo."
+    },
+    {
+      "visual": "boyun-surpriz",
+      "voice": "Ama işin ilginç tarafı şu: araştırmalar bu duruşun tek başına boyun ağrısı yaptığını net olarak göstermedi.",
+      "say": "Ama işin ilginç tarafı şu: araştırmalar, bu duruşun tek başına boyun ağrısı yaptığını, hmm, net olarak göstermedi."
+    },
+    {
+      "visual": "boyun-asil",
+      "voice": "Asıl yorucu olan, saatlerce aynı pozisyonda kalmak. Boyun kasların hiç dinlenemez.",
+      "say": "Asıl yorucu olan, saatlerce aynı pozisyonda kalmak. Boyun kasların hiç dinlenemez."
+    },
+    {
+      "visual": "boyun-cozum",
+      "voice": "Telefonu biraz yukarı kaldır, ara ara başını çevir ve boynunu esnet.",
+      "say": "Telefonu biraz yukarı kaldır, ara ara başını çevir ve boynunu esnet."
+    },
+    {
+      "visual": "boyun-kapanis",
+      "voice": "Bunu kaydet. Ve şimdi, bu videoyu izlerken başına bir bak:",
+      "say": "Bunu kaydet. Ve şimdi, bu videoyu izlerken, [curious] başına bir bak:"
+    }
+  ],
+  "caption": "Telefona bakarken boynun kaç kilo taşıyor? 📱\n\nBaşın yaklaşık 5 kilo. Ama öne eğildikçe yer çekimi kaldıraç gibi çalışır: 15 derecede boyna binen yük yaklaşık 12 kiloya, 60 derecede yaklaşık 27 kiloya çıkar (Hansraj, Surgical Technology International, 2014; bilgisayar modeli tahmini).\n\nİlginç olan şu: Araştırmalar bu duruşun tek başına boyun ağrısına yol açtığını net olarak göstermedi. Asıl yorucu olan, saatlerce aynı pozisyonda kalmak.\n\nTelefonu biraz yukarı kaldır, ara ara başını çevir, boynunu esnet.\n\n📌 Kaydet, gün boyu telefona gömülü arkadaşına gönder.",
+  "hashtags": [
+    "fitness",
+    "sağlıklıyaşam",
+    "duruş",
+    "boyunağrısı",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}
