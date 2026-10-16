@@ -1,9 +1,10 @@
 import "dotenv/config";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 import type { PostVoiceover, SceneAudio, WordTiming } from "../src/types";
 import { loadVideos, ROOT } from "./lib";
+import { matchWords, tightenPauses } from "./ses-duzen";
 
 // Kullanım: npm run voiceover            → tüm gönderiler
 //           npm run voiceover -- <id>... → sadece belirtilenler
@@ -83,15 +84,32 @@ for (const post of videos) {
     });
     // Dosya adı benzersiz olsun ki tarayıcı önbelleği eski sesi çalmasın
     const name = `${i + 1}-${Date.now().toString(36)}.mp3`;
-    await writeFile(path.join(dir, name), Buffer.from(res.audioBase64, "base64"));
     const a = res.alignment;
+    const spoken = a ? toWords(a.characters, a.characterStartTimesSeconds, a.characterEndTimesSeconds) : [];
+    // Altyazı = metindeki kelimeler (dolgu sesleri "ıı, hmm" konuşmada kalır, altyazıya girmez)
+    const words = matchWords(spoken, scene.voice);
+    let duration = a?.characterEndTimesSeconds.at(-1) ?? 3;
+    let finalWords = words;
+    const maxPause = "maxPause" in post && typeof post.maxPause === "number" ? post.maxPause : null;
+    if (maxPause) {
+      // Uzun sessizlikleri kısalt: izleyici beklemeden geçmesin
+      const raw = path.join(dir, `_ham-${name}`);
+      await writeFile(raw, Buffer.from(res.audioBase64, "base64"));
+      const t = tightenPauses(raw, path.join(dir, name), words, maxPause);
+      await rm(raw);
+      duration = t.duration;
+      finalWords = t.words;
+      if (t.removed > 0.05) console.log(`   ${t.removed.toFixed(2)} sn sessizlik kısaltıldı`);
+    } else {
+      await writeFile(path.join(dir, name), Buffer.from(res.audioBase64, "base64"));
+    }
     scenes.push({
       voice: scene.voice,
       ...(say !== scene.voice ? { say } : {}),
       voiceId: vId,
       file: `voiceover/${post.id}/${name}`,
-      durationInSeconds: a?.characterEndTimesSeconds.at(-1) ?? 3,
-      words: a ? toWords(a.characters, a.characterStartTimesSeconds, a.characterEndTimesSeconds) : [],
+      durationInSeconds: duration,
+      words: finalWords,
     });
     generated++;
     // Her sahneden sonra kaydet: kota yarıda biterse üretilen sesler kaybolmaz, tekrar çalıştırınca kaldığı yerden devam eder

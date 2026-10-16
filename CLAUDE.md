@@ -61,7 +61,12 @@ Sonra kalan videolar sırayla aynı yöntemle (öncelik `ornek-videolar/ekip-11/
 Kullanıcı ilk gönderilen çizimli pilotu (v1, commit c610079: sade karakter, yavaş animasyonlar, düz arka plan)
 geri gönderdi: "bu beğeni aldı, artık bununla ilerleyeceğiz, kız iptal; bunu seslendir; bunun gibi yavaş
 animasyonlarla ilerle". v1 şablonu geri getirildi: `src/cizim1/Cizim1.tsx`, içerik `content/cizim1/`
-(id `cizim1-01-yag-nereye`). Seslendirme: Hürrem + eleven_v3 + `say` (hikâye tonu), 39 sn.
+(id `cizim1-01-yag-nereye`).
+**Ses: Yunus** (`Q5n6GDIjpN0pLOlycRFT`, genç erkek, sohbet tarzı) — karakter erkek olduğu için erkek ses.
+Kullanıcı: "ChatGPT gibi, karşısında insan varmış gibi, düşünerek konuşsun; ıı/hmm olabilir; yapay tonlama
+olmasın". `say` metnine yalnız dolgular eklenir (ıı, hmm, hani, yani, şey) + [curious]/[chuckles]; dolgular
+altyazıya girmez (`scripts/ses-duzen.ts` matchWords). Uzun bekleme YOK: JSON'da `maxPause: 0.3` →
+0.3 sn'den uzun sessizlikler otomatik kısaltılır (kullanıcı: "o kadar beklersen insanlar geçer").
 Yeni videolar bu stilde (`content/cizim1/` + Cizim1.tsx sahneleri), yavaş animasyon, Zack kurgusu YOK.
 3D (`src/uc`) ve çizim v3 (`src/cizim`) yedek olarak duruyor; tartı/takip 3D sessiz önizlemeleri iptal sayılır
 (metinleri `content/uc/` içinde, yeni stile taşınabilir).
