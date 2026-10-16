@@ -10,7 +10,7 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
 ## >>> YENİ SOHBET: ÖNCE BUNU OKU (16 Ekim akşam devir notu) <<<
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
-Kalan ElevenLabs kredisi ≈ 15.585 karakter (yalnız Yunus seslendirmesi için kullan).
+Kalan ElevenLabs kredisi ≈ 15.250 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
 - **05 boyun v4 (EN GÜNCEL, v2/v3'ün yerine):** Kullanıcı v3 ve nesne benzetmelerini (bowling, karpuz, bidon, bagaj,
   dambıl) BEĞENMEDİ: "daha yaratıcı ol, fark yarat, insansı düşün, ALGIYI YANILT; bu hook'ta durup izler misin?"
@@ -19,8 +19,8 @@ Kalan ElevenLabs kredisi ≈ 15.585 karakter (yalnız Yunus seslendirmesi için 
   27 KG kartı yırtılır) → 2008 text neck + cerrahın hesabı + haber dünyayı dolaştı (telefon ızgarası) →
   araştırma: eğik ve dik sıralarda ağrı eşit, "fark yok" → iki heykel (eğik + dik), ikisi de yorulur →
   "boynunu suçlama, hareket ettir; biri 27 kiloyu anlatırsa bu videoyu gönder" → kâğıt uçak, kamera arkadaşın
-  telefonuna dalar = açılış ekranı (döngü). `BigPhone`, `diveTo`, `AlarmScreen`; bileşenler `boyun4-*`. 44,5 sn
-  sessiz önizleme gönderildi → onay → seslendirme. **DERS:** nesne benzetmesi değil, izleyicinin algısıyla oynayan
+  telefonuna dalar = açılış ekranı (döngü). `BigPhone`, `diveTo`, `AlarmScreen`; bileşenler `boyun4-*`. **ONAYLANDI ve seslendirildi** (Yunus V4; kalan kredi ≈ 15.250): `ornek-videolar/cizim1-pilot/05-boyun.mp4`
+  (41,4 sn, SON HÂLİ). Sıradaki yeni konu: 30 dk protein penceresi. **DERS:** nesne benzetmesi değil, izleyicinin algısıyla oynayan
   fikirler (ters köşe, video içinde video, izleyiciye hitap).
 - **05 boyun v3 (EN GÜNCEL, v2'nin yerine):** Kullanıcı v2 için: "kareler stabil, dikkat çekici yap, genelden kaçın;
   60 derece gibi şeyler kafa karıştırır, izleyiciye SAMİMİ yaklaş"; "karpuz olmaz"; "aşırı hareketli olmasın ama hareket
