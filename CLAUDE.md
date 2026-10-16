@@ -12,6 +12,16 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.585 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
+- **05 boyun v4 (EN GÜNCEL, v2/v3'ün yerine):** Kullanıcı v3 ve nesne benzetmelerini (bowling, karpuz, bidon, bagaj,
+  dambıl) BEĞENMEDİ: "daha yaratıcı ol, fark yarat, insansı düşün, ALGIYI YANILT; bu hook'ta durup izler misin?"
+  Fikir: video bir KORKU VİDEOSU gibi açılır (kırmızı UYARI ekranı, "Dikkat! … 27 kilo!"), cızırt + donma, kamera geri
+  çekilir: o video avatarın telefonunda oynuyordu ("Bunu sen de duydun, değil mi? Peki ya yarım bir bilgiyse?",
+  27 KG kartı yırtılır) → 2008 text neck + cerrahın hesabı + haber dünyayı dolaştı (telefon ızgarası) →
+  araştırma: eğik ve dik sıralarda ağrı eşit, "fark yok" → iki heykel (eğik + dik), ikisi de yorulur →
+  "boynunu suçlama, hareket ettir; biri 27 kiloyu anlatırsa bu videoyu gönder" → kâğıt uçak, kamera arkadaşın
+  telefonuna dalar = açılış ekranı (döngü). `BigPhone`, `diveTo`, `AlarmScreen`; bileşenler `boyun4-*`. 44,5 sn
+  sessiz önizleme gönderildi → onay → seslendirme. **DERS:** nesne benzetmesi değil, izleyicinin algısıyla oynayan
+  fikirler (ters köşe, video içinde video, izleyiciye hitap).
 - **05 boyun v3 (EN GÜNCEL, v2'nin yerine):** Kullanıcı v2 için: "kareler stabil, dikkat çekici yap, genelden kaçın;
   60 derece gibi şeyler kafa karıştırır, izleyiciye SAMİMİ yaklaş"; "karpuz olmaz"; "aşırı hareketli olmasın ama hareket
   ekle". v3: izleyiciye hitap ("Şu an bu videoyu nasıl izliyorsun? Başın öne eğik, değil mi?") → text neck adı (2008,

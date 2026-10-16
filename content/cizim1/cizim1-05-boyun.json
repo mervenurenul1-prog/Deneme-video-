@@ -1,6 +1,6 @@
 {
   "id": "cizim1-05-boyun",
-  "title": "Şu an başın kaç kilo?",
+  "title": "27 kilo korkusu",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -12,39 +12,29 @@
   "loop": true,
   "scenes": [
     {
-      "visual": "boyun3-sen",
-      "voice": "Şu an bu videoyu nasıl izliyorsun? Başın öne eğik, değil mi? Bir hesaba göre boynuna şu an yirmi yedi kilo biniyor.",
-      "say": "Şu an bu videoyu nasıl izliyorsun? Başın öne eğik, değil mi? [curious] Bir hesaba göre, boynuna şu an yirmi yedi kilo biniyor."
+      "visual": "boyun4-alarm",
+      "voice": "Dikkat! Telefona eğildiğinde boynun yirmi yedi kilo taşıyor! Bunu sen de duydun, değil mi? Peki ya bu korku, yarım bir bilgiyse?",
+      "say": "[excited] Dikkat! Telefona eğildiğinde boynun yirmi yedi kilo taşıyor! ... Bunu sen de duydun, değil mi? [curious] Peki ya bu korku, yarım bir bilgiyse?"
     },
     {
-      "visual": "boyun3-isim",
-      "voice": "Bunun bir adı bile var: text neck. İki bin sekizde, telefona gömülü bir gencin röntgenini gören bir omurga terapisti koymuş.",
-      "say": "Bunun bir adı bile var: text neck. İki bin sekizde, telefona gömülü bir gencin röntgenini gören bir omurga terapisti koymuş."
+      "visual": "boyun4-viral",
+      "voice": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck. Sonra bir cerrah hesapladı: yirmi yedi kilo. Haber dünyayı dolaştı.",
+      "say": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck. Sonra bir cerrah hesapladı: yirmi yedi kilo. Haber dünyayı dolaştı."
     },
     {
-      "visual": "boyun3-bowling",
-      "voice": "Başın bir bowling topu kadar, beş kilo. Göğsünde tutmak kolay, kolunu uzatınca ağırlaşır. Başını eğmek de böyle.",
-      "say": "Başın bir bowling topu kadar, beş kilo. Göğsünde tutmak kolay, ama kolunu uzatınca ağırlaşır. Başını eğmek de böyle."
+      "visual": "boyun4-arastirma",
+      "voice": "Ama araştırmacılar gerçek insanlara baktı. Başı eğik olanlarla dik duranlar arasında, boyun ağrısında net bir fark bulamadılar.",
+      "say": "Ama araştırmacılar gerçek insanlara baktı. Başı eğik olanlarla dik duranlar arasında, boyun ağrısında, net bir fark bulamadılar."
     },
     {
-      "visual": "boyun3-bagaj",
-      "voice": "Telefona gömülünce yük yirmi yedi kiloya çıkar. Bavul olsa, fazla bagaja girerdi.",
-      "say": "Telefona gömülünce yük, yirmi yedi kiloya çıkar. [chuckles] Bavul olsa, fazla bagaja girerdi."
+      "visual": "boyun4-heykel",
+      "voice": "Çünkü asıl yorgunluk duruştan değil, kıpırdamamaktan. Saatlerce donup kalan boyun, dik de dursa yorulur.",
+      "say": "Çünkü asıl yorgunluk duruştan değil, kıpırdamamaktan. Saatlerce donup kalan boyun, dik de dursa yorulur."
     },
     {
-      "visual": "boyun3-surpriz",
-      "voice": "Peki boynun bu yüzden mi ağrıyor? İlginç ama araştırmalar, ikisi arasında net bir bağ bulamamış.",
-      "say": "Peki boynun bu yüzden mi ağrıyor? [curious] İlginç ama araştırmalar, ikisi arasında net bir bağ bulamamış."
-    },
-    {
-      "visual": "boyun3-heykel",
-      "voice": "Asıl dert, saatlerce heykel gibi donup kalmak. Arada bir kıpırda, başını kaldır, gerin.",
-      "say": "Asıl dert, saatlerce heykel gibi donup kalmak. Arada bir kıpırda, başını kaldır, gerin."
-    },
-    {
-      "visual": "boyun3-kapanis",
-      "voice": "Hadi, başını kaldır. Ama videoyu tekrar izlerken yine eğileceksin, değil mi?",
-      "say": "Hadi, başını kaldır. Ama videoyu tekrar izlerken, yine eğileceksin, değil mi?"
+      "visual": "boyun4-gonder",
+      "voice": "Yani boynunu suçlama, hareket ettir. Ve biri sana o yirmi yedi kiloyu anlatırsa, bu videoyu gönder.",
+      "say": "Yani boynunu suçlama, hareket ettir. Ve biri sana o yirmi yedi kiloyu anlatırsa, bu videoyu gönder."
     }
   ],
   "caption": "Telefona bakarken boynun kaç kilo taşıyor? 📱\n\nBaşın yaklaşık 5 kilo. Ama öne eğildikçe yer çekimi kaldıraç gibi çalışır: 15 derecede boyna binen yük yaklaşık 12 kiloya, 60 derecede yaklaşık 27 kiloya çıkar (Hansraj, Surgical Technology International, 2014; bilgisayar modeli tahmini).\n\nİlginç olan şu: Araştırmalar bu duruşun tek başına boyun ağrısına yol açtığını net olarak göstermedi. Asıl yorucu olan, saatlerce aynı pozisyonda kalmak.\n\nTelefonu biraz yukarı kaldır, ara ara başını çevir, boynunu esnet.\n\n📌 Kaydet, gün boyu telefona gömülü arkadaşına gönder.",

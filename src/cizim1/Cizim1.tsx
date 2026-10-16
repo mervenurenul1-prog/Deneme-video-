@@ -397,6 +397,11 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "boyun4-alarm": (w) => [[0, "alarm", 0.35], [w(4) - 2, "boom", 0.25], [w(8) - 3, "cizik", 0.7], [w(9), "whoosh", 0.25], [w(16) - 2, "pop", 0.3], [w(18) - 2, "kagit", 0.5]],
+  "boyun4-viral": (w) => [[2, "kalem", 0.3], [w(12) - 2, "boom", 0.18], [w(12), "pop", 0.4], [w(17), "kalem", 0.35], [w(21), "pop", 0.3], [w(22), "pirilti", 0.3]],
+  "boyun4-arastirma": (w) => [[w(1), "whoosh", 0.25], [w(5) - 2, "pop", 0.3], [w(8) - 2, "pop", 0.3], [w(11), "cizik", 0.3], [w(13), "ding", 0.35]],
+  "boyun4-heykel": (w) => [[w(5), "yuksel", 0.3], [w(8), "sonme", 0.3], [w(13) - 2, "cizik", 0.35]],
+  "boyun4-gonder": (w) => [[w(2), "kacing", 0.3], [w(11), "havalanma", 0.3], [w(13), "pop", 0.35], [w(14), "whoosh", 0.35]],
   "boyun3-sen": (w) => [[w(6), "whoosh", 0.25], [w(16), "havalanma", 0.5], [w(18) + 2, "agir-dusme", 0.6], [w(19) - 2, "pop", 0.3]],
   "boyun3-isim": (w) => [[w(5) - 2, "boom", 0.2], [w(5), "pop", 0.4], [w(7), "whoosh", 0.3], [w(14) - 2, "pirilti", 0.35]],
   "boyun3-bowling": (w) => [[w(2) - 2, "pop", 0.35], [w(7), "tak", 0.3], [w(11), "yuksel", 0.35], [w(13), "whoosh", 0.25]],
@@ -577,6 +582,11 @@ const ZOOM: Record<string, Zoom> = {
   "boyun2-hareket": { to: 1.04, x: 540, y: 900 },
   "boyun2-kapanis": { to: 1.0, x: 540, y: 960 },
   "boyun3-sen": { to: 1.0, x: 540, y: 960 },
+  "boyun4-alarm": { to: 1.0, x: 540, y: 960 },
+  "boyun4-viral": { to: 1.03, x: 540, y: 900 },
+  "boyun4-arastirma": { to: 1.03, x: 540, y: 900 },
+  "boyun4-heykel": { to: 1.0, x: 540, y: 960 },
+  "boyun4-gonder": { to: 1.0, x: 540, y: 960 },
   "boyun3-isim": { to: 1.0, x: 540, y: 960 },
   "boyun3-bowling": { to: 1.0, x: 540, y: 960 },
   "boyun3-bagaj": { to: 1.0, x: 540, y: 960 },
@@ -5158,7 +5168,322 @@ const Boyun3Kapanis: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- 05 v4: "korku videosu" ters köşesi ---------- */
+
+// Ekranı 108x192 (9:16) olan telefon; içerik 1080x1920 tuvalde çizilir ve ekrana 0.1 ölçekle sığar
+const SCREEN = { w: 108, h: 192 };
+const BigPhone: React.FC<{ cx: number; cy: number; children?: React.ReactNode }> = ({ cx, cy, children }) => {
+  const id = svgId(useId());
+  return (
+    <g>
+      <rect x={cx - 66} y={cy - 116} width={132} height={232} rx={20} fill="#2f2f36" stroke={C.ink} strokeWidth={6} />
+      <clipPath id={`ph${id}`}>
+        <rect x={cx - SCREEN.w / 2} y={cy - SCREEN.h / 2} width={SCREEN.w} height={SCREEN.h} />
+      </clipPath>
+      <g clipPath={`url(#ph${id})`}>
+        <rect x={cx - SCREEN.w / 2} y={cy - SCREEN.h / 2} width={SCREEN.w} height={SCREEN.h} fill="#9fd0e8" />
+        <g transform={`translate(${cx - SCREEN.w / 2} ${cy - SCREEN.h / 2}) scale(0.1)`}>{children}</g>
+      </g>
+    </g>
+  );
+};
+
+// Kamerayı telefon ekranına daldırır: p=0 normal görünüm, p=1 ekran tüm kareyi kaplar (10x)
+const diveTo = (p: number, sx: number, sy: number) => {
+  const z = Math.pow(10, p);
+  const X = interpolate(p, [0, 1], [sx, 540]);
+  const Y = interpolate(p, [0, 1], [sy, 960]);
+  const cx = sx - (X - 540) / z;
+  const cy = sy - (Y - 960) / z;
+  return `translate(540 960) scale(${z}) translate(${-cx} ${-cy})`;
+};
+
+// Korku videosu: kırmızı uyarı ekranı, "UYARI" bandı, başı eğik adam, "27 KG!" (t: kare, slam 0..1, gray: donma)
+const AlarmScreen: React.FC<{ t: number; slam: number; gray?: number }> = ({ t, slam, gray = 0 }) => {
+  const pulse = 0.5 + 0.5 * Math.sin(t / 3);
+  const shake = slam > 0 && slam < 1 ? Math.sin(t * 2.1) * 12 : 0;
+  return (
+    <g>
+      <rect x={0} y={0} width={1080} height={1920} fill="#5a1414" />
+      <rect x={0} y={0} width={1080} height={1920} fill="#d1271b" opacity={0.25 + 0.3 * pulse * (1 - gray)} />
+      {[0, 1, 2].map((i) => (
+        <circle key={i} cx={540} cy={1060} r={260 + i * 150 + ((t * 6) % 150)} fill="none" stroke="#ffcf3f" strokeWidth={10} opacity={0.35 * (1 - gray)} />
+      ))}
+      <g transform="translate(0 150)">
+        <rect x={0} y={0} width={1080} height={170} fill="#ffcf3f" />
+        {Array.from({ length: 14 }, (_, i) => (
+          <path key={i} d={`M${i * 90 - 40} 0 l50 0 l-60 170 l-50 0 Z`} fill={C.ink} opacity={0.85} transform={i > 2 && i < 11 ? "translate(0 -400)" : ""} />
+        ))}
+        <text x={540} y={125} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={C.ink}>
+          UYARI!
+        </text>
+      </g>
+      <Person x={540} y={1650} s={1.05} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth="worry" eyes="wide" lookY={14} tilt={10} blush={0.9}>
+        <PhoneInHand arm={PHONE_ARM} />
+      </Person>
+      {slam > 0 ? (
+        <text x={540 + shake} y={720} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={270 * (2 - slam)} fill="#ffcf3f" stroke={C.ink} strokeWidth={10} paintOrder="stroke" opacity={Math.min(1, slam * 3)} transform="rotate(-5 540 720)">
+          27 KG!
+        </text>
+      ) : null}
+      {gray > 0 ? <rect x={0} y={0} width={1080} height={1920} fill="#8a8170" opacity={0.55 * gray} /> : null}
+    </g>
+  );
+};
+
+// "Dikkat! Telefona eğildiğinde boynun yirmi yedi kilo taşıyor! Bunu sen de duydun, değil mi? Peki ya bu korku, yarım bir bilgiyse?"
+// Ekran bir korku videosu gibi açılır; cızırt → donar → kamera geri çekilir: video aslında avatarın telefonunda oynuyordu.
+const Boyun4Alarm: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const stop = w(8) - 3;
+  const fa = Math.min(f, stop);
+  const slam = tw(fa, w(4) - 2, w(5) + 4);
+  const gray = tw(f, stop, stop + 4);
+  const back = tw(f, stop + 4, w(10) + 4);
+  const A = { x: 400, y: PY, s: 0.95 };
+  const P = { x: A.x + 200, y: A.y - 430 }; // göğüs hizası, yüzü kapatmaz
+  const look = tw(f, w(9) - 2, w(9) + 6);
+  const card = pop(f, w(16) - 2, 12);
+  const tear = tw(f, w(18) - 2, w(18) + 10);
+  return (
+    <g transform={diveTo(1 - back, P.x, P.y)}>
+      <Gym />
+      <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={[45, -70]} mouth={look > 0.5 ? "smile" : "flat"} lookY={12 * (1 - look)} />
+      <BigPhone cx={P.x} cy={P.y}>
+        <AlarmScreen t={fa} slam={slam} gray={gray} />
+      </BigPhone>
+      {/* "yarım bir bilgi": 27 KG kartı ikiye yırtılır */}
+      {card > 0 ? (
+        <g transform={`translate(800 650) scale(${card}) rotate(-6)`}>
+          {[-1, 1].map((k) => (
+            <g key={k} transform={`translate(${k * 60 * tear} ${120 * tear * tear}) rotate(${k * 18 * tear})`}>
+              <clipPath id={`tr${k}`}>
+                <path d={k < 0 ? "M-200 -110 L10 -110 L-15 -40 L12 20 L-10 110 L-200 110 Z" : "M200 -110 L10 -110 L-15 -40 L12 20 L-10 110 L200 110 Z"} />
+              </clipPath>
+              <g clipPath={`url(#tr${k})`}>
+                <rect x={-190} y={-100} width={380} height={200} rx={16} fill="#d1271b" stroke={C.ink} strokeWidth={9} />
+                <text x={0} y={45} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill="#ffcf3f">
+                  27 KG!
+                </text>
+              </g>
+            </g>
+          ))}
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck. Sonra bir cerrah hesapladı: yirmi yedi kilo. Haber dünyayı dolaştı."
+const Boyun4Viral: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const p2 = tw(f, w(14) - 4, w(14) + 4);
+  const p3 = tw(f, w(21) - 4, w(21) + 4);
+  const bend = tw(f, w(5), w(7) + 6);
+  const stamp = pop(f, w(12) - 2, 10);
+  // haberin yayıldığı telefonlar: merkezden dışa sırayla
+  const spots: [number, number][] = [];
+  for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) spots.push([200 + c * 340, 520 + r * 330]);
+  const order = spots.map(([x, y]) => Math.hypot(x - 540, y - 1000)).map((dd) => dd / 900);
+  return (
+    <>
+      <Gym o={0.4} />
+      {/* 1: 2008 — röntgen ve isim */}
+      <g opacity={1 - p2}>
+        <HandText x={540} y={250} text="2008" size={160} p={tw(f, 0, w(2) + 4)} rotate={-4} />
+        <Person x={230} y={PY + 60} s={0.72} belly={0.25} shirt="#c9566b" armL={[12, 0]} armR={PHONE_ARM} mouth="flat" lookY={4 + 12 * bend} tilt={8 * bend}>
+          <PhoneInHand arm={PHONE_ARM} />
+        </Person>
+        <g transform={`translate(700 760) scale(${pop(f, w(6) - 2, 14)}) translate(-700 -760)`}>
+          <NeckLens x={700} y={760} r={290} angle={42 * bend} kg={0} strain={0.3 * bend} hideAngle />
+        </g>
+        <Person x={840} y={PY + 330} s={0.6} belly={0.4} armL={[12, 0]} armR={[interpolate(bend, [0, 1], [12, 150]), interpolate(bend, [0, 1], [0, -30])]} mouth="smile" lookY={-8} />
+        <g transform="translate(600 1150)">
+          <SignBoard x={0} y={0} p={stamp} lines={["TEXT NECK"]} rot={-5} />
+        </g>
+      </g>
+      {/* 2: cerrahın hesabı */}
+      {p2 > 0 && p3 < 1 ? (
+        <g opacity={p2 * (1 - p3)}>
+          <rect x={150} y={420} width={780} height={760} rx={14} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          {Array.from({ length: 9 }, (_, i) => (
+            <path key={i} d={`M190 ${520 + i * 75} L890 ${520 + i * 75}`} stroke="#9fb6c4" strokeWidth={3} />
+          ))}
+          <HandText x={540} y={580} text="baş = 5 kg" size={96} p={tw(f, w(15), w(16) + 6)} rotate={-2} />
+          <HandText x={540} y={760} text="eğilince 5 katı" size={96} p={tw(f, w(16) + 2, w(17) + 6)} rotate={-2} />
+          <HandText x={540} y={990} text="= 27 kg" size={150} p={tw(f, w(18) - 2, w(20))} color={C.red} rotate={-4} />
+          <Person x={150} y={PY + 330} s={0.6} belly={0.4} armL={[12, 0]} armR={[150, -60]} mouth="o" eyes="wide" lookY={-8} />
+        </g>
+      ) : null}
+      {/* 3: haber dünyayı dolaşır */}
+      {p3 > 0 ? (
+        <g opacity={p3}>
+          {spots.map(([x, y], i) => {
+            const on = pop(f, w(21) + order[i] * (w(23) - w(21) + 6), 10);
+            return on > 0 ? (
+              <g key={i} transform={`translate(${x} ${y}) scale(${on})`}>
+                <Person x={0} y={0} s={0.3} belly={0.3} shirt={["#c9566b", "#6e8fb3", "#9a7bb0", C.shirt][i % 4]} armL={[12, 0]} armR={PHONE_ARM} mouth="worry" lookY={14} tilt={8}>
+                  <PhoneInHand arm={PHONE_ARM} />
+                </Person>
+                <g transform="translate(70 -250)">
+                  <rect x={-50} y={-30} width={100} height={52} rx={10} fill="#d1271b" stroke={C.ink} strokeWidth={4} />
+                  <text x={0} y={10} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={36} fill="#ffcf3f">
+                    27!
+                  </text>
+                </g>
+              </g>
+            ) : null;
+          })}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Ama araştırmacılar gerçek insanlara baktı. Başı eğik olanlarla dik duranlar arasında, boyun ağrısında net bir fark bulamadılar."
+const Boyun4Arastirma: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const row1 = tw(f, w(5) - 2, w(6) + 4);
+  const row2 = tw(f, w(8) - 2, w(9) + 4);
+  const pain = tw(f, w(11) - 2, w(12) + 4);
+  const verdict = tw(f, w(13), w(16) + 4);
+  const scan = tw(f, w(1), w(4) + 6);
+  const X = [190, 420, 650, 880];
+  const Y1 = 840;
+  const Y2 = 1330;
+  const hurt = [1, 3];
+  const zig = (x: number, y: number, k: number) => (
+    <path key={k} d={`M${x + 40} ${y} l28 -14 l-14 20 l28 -14`} stroke={C.red} strokeWidth={7} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={pain * (0.6 + 0.4 * Math.sin(f / 3 + k))} />
+  );
+  return (
+    <>
+      <Gym o={0.35} />
+      <HandText x={140} y={430} text="eğik" size={80} p={row1} anchor="start" rotate={-3} />
+      {X.map((x, i) => (
+        <g key={i} opacity={row1}>
+          <Person x={x} y={Y1} s={0.45} belly={0.35} shirt={["#c9566b", "#6e8fb3", "#9a7bb0", "#d9705f"][i]} armL={[12, 0]} armR={PHONE_ARM} mouth={pain > 0.5 && hurt.includes(i) ? "worry" : "flat"} lookY={14} tilt={8}>
+            <PhoneInHand arm={PHONE_ARM} />
+          </Person>
+          {hurt.includes(i) ? zig(x, Y1 - 270, i) : null}
+        </g>
+      ))}
+      <HandText x={140} y={920} text="dik" size={80} p={row2} anchor="start" rotate={-3} />
+      {X.map((x, i) => (
+        <g key={i} opacity={row2}>
+          <Person x={x} y={Y2} s={0.45} belly={0.35} shirt={["#6e8fb3", "#d9705f", "#c9566b", "#9a7bb0"][i]} armL={[12, 0]} armR={[12, 0]} mouth={pain > 0.5 && hurt.includes(i) ? "worry" : "smile"} lookY={-2} />
+          {hurt.includes(i) ? zig(x, Y2 - 270, i + 10) : null}
+        </g>
+      ))}
+      {/* araştırmacı avatar büyüteçle sıraları dolaşır */}
+      <g transform={`translate(${interpolate(scan, [0, 1], [-200, 0])} 0)`}>
+        <Person x={540} y={1840} s={0.55} belly={0.4} armL={[12, 0]} armR={[150, -40]} mouth={verdict > 0.5 ? "o" : "flat"} eyes={verdict > 0.5 ? "wide" : "open"} lookY={-8}>
+          <g transform={`translate(${armPoints(1, [150, -40])[2][0]} ${armPoints(1, [150, -40])[2][1] - 60}) rotate(-20)`}>
+            <circle r={70} fill="#cfe6f2" fillOpacity={0.35} stroke={C.ink} strokeWidth={12} />
+            <path d="M50 50 L120 120" stroke={C.ink} strokeWidth={20} strokeLinecap="round" />
+          </g>
+        </Person>
+      </g>
+      {verdict > 0 ? (
+        <g transform={`translate(780 1500) scale(${pop(f, w(13), 12)}) rotate(-5)`}>
+          <rect x={-200} y={-70} width={400} height={130} rx={18} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={25} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={84} fill={C.red}>
+            fark yok
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Çünkü asıl yorgunluk duruştan değil, kıpırdamamaktan. Saatlerce donup kalan boyun, dik de dursa yorulur."
+// İki heykel: başı eğik avatar ve dimdik duran genç; ikisinin üstünde de ağ örülür.
+const Boyun4Heykel: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const id = svgId(useId());
+  const stone = tw(f, w(5) - 2, w(8));
+  const clock = tw(f, w(6) - 2, w(8) + 8);
+  const web = tw(f, w(7), w(9) + 6);
+  const pain = tw(f, w(13) - 2, w(13) + 6);
+  const L = { x: 300, y: PY - 60 };
+  const R = { x: 790, y: PY - 60 };
+  const figs = (filtered: boolean) => (
+    <g filter={filtered ? `url(#st${id})` : undefined}>
+      <Person x={L.x} y={L.y} s={0.8} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth="flat" lookY={12} tilt={6}>
+        <PhoneInHand arm={PHONE_ARM} />
+      </Person>
+      <Person x={R.x} y={R.y} s={0.8} belly={0.25} shirt="#c9566b" armL={[12, 0]} armR={[12, 0]} mouth={pain > 0.5 ? "worry" : "flat"} lookY={-2} />
+    </g>
+  );
+  return (
+    <CamK k={[[0, 1, 540, 900], [w(9), 1, 540, 900], [w(11), 1.25, R.x, R.y - 450], [w(13) + 12, 1.25, R.x, R.y - 450]]}>
+      <defs>
+        <filter id={`st${id}`}>
+          <feColorMatrix type="matrix" values="0.3 0.45 0.12 0 0.04  0.3 0.45 0.12 0 0.04  0.3 0.45 0.12 0 0.04  0 0 0 1 0" />
+        </filter>
+      </defs>
+      <Gym />
+      <g transform="translate(540 330)">
+        <circle r={95} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+        <path d={`M0 0 L${Math.sin(clock * 40) * 70} ${-Math.cos(clock * 40) * 70}`} stroke={C.ink} strokeWidth={9} strokeLinecap="round" />
+        <path d={`M0 0 L${Math.sin(clock * 4) * 48} ${-Math.cos(clock * 4) * 48}`} stroke={C.red} strokeWidth={11} strokeLinecap="round" />
+      </g>
+      {[L, R].map((p, i) => (
+        <rect key={i} x={p.x - 170} y={p.y} width={340} height={110 * stone} fill="#b9b2a6" stroke={C.ink} strokeWidth={stone > 0.05 ? 8 : 0} transform={`translate(0 ${-110 * stone})`} />
+      ))}
+      <g transform={`translate(0 ${-110 * stone})`}>
+        {figs(false)}
+        {stone > 0 ? <g opacity={stone}>{figs(true)}</g> : null}
+        <Cobweb x={L.x - 230} y={L.y - 700} r={200} p={web} />
+        <Cobweb x={R.x + 230} y={R.y - 700} r={200} p={web} flip />
+        {pain > 0 ? [0, 1, 2].map((i) => <path key={i} d={`M${R.x + 70 + i * 8} ${R.y - 560 + i * 26} l30 -15 l-15 22 l30 -15`} stroke={C.red} strokeWidth={8} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={pain} />) : null}
+      </g>
+      <HandText x={R.x} y={R.y + 150} text="dik ama yorgun" size={70} p={tw(f, w(10), w(12) + 6)} color={C.red} rotate={-3} />
+    </CamK>
+  );
+};
+
+// "Yani boynunu suçlama, hareket ettir. Ve biri sana o yirmi yedi kiloyu anlatırsa, bu videoyu gönder."
+// Avatar boynunu çevirir, gerinir; videoyu arkadaşına gönderir; kamera arkadaşın telefonuna dalar = açılıştaki uyarı ekranı (döngü).
+const Boyun4Gonder: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const A = { x: 300, y: PY, s: 0.9 };
+  const move = tw(f, w(2), w(4) + 6) * (1 - tw(f, w(5) - 2, w(5) + 6));
+  const roll = Math.sin(f / 5) * 12 * move;
+  const armUp: Arm = [interpolate(move, [0, 1], [12, 165]), interpolate(move, [0, 1], [0, -10])];
+  const send = tw(f, w(11), w(13));
+  const armR: Arm = move > 0.05 ? armUp : PHONE_ARM;
+  const friendIn = tw(f, w(5) - 4, w(7) + 4);
+  const fw = walk(f, friendIn > 0 && friendIn < 1 ? 1 : 0, 4.5);
+  const F = { x: interpolate(friendIn, [0, 1], [1250, 800]), y: PY - fw.bob, s: 0.9 };
+  const FP = { x: F.x - 200, y: F.y - 430 }; // arkadaş telefonu avatara dönük, göğüs hizasında
+  const ah = armPoints(1, PHONE_ARM)[2];
+  const AP = { x: A.x + ah[0] * A.s, y: A.y + ah[1] * A.s - 40 };
+  const plane = { x: interpolate(send, [0, 1], [AP.x, FP.x]), y: interpolate(send, [0, 1], [AP.y, FP.y]) - Math.sin(send * Math.PI) * 260 };
+  const dive = tw(f, w(14), d - 4);
+  const lit = pop(f, w(13), 10);
+  return (
+    <g transform={diveTo(dive, FP.x, FP.y)}>
+      <Gym />
+      <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={move > 0.05 ? armUp : [12, 0]} armR={armR} mouth={move > 0.5 ? "grin" : "smile"} eyes={move > 0.5 ? "closed" : "open"} lookY={move > 0.05 ? -6 : 6} tilt={roll}>
+        {move <= 0.05 ? <PhoneInHand arm={PHONE_ARM} /> : null}
+      </Person>
+      <Person x={F.x} y={F.y} s={F.s} belly={0.25} shirt="#c9566b" legL={fw.legL} legR={fw.legR} armL={friendIn < 1 ? fw.armL : [45, -70]} armR={[12, 0]} mouth={lit > 0.5 ? "o" : "flat"} lookY={10} />
+      <BigPhone cx={FP.x} cy={FP.y}>{lit > 0 ? <AlarmScreen t={0} slam={0} /> : <rect x={0} y={0} width={1080} height={1920} fill="#26332b" />}</BigPhone>
+      {send > 0 && send < 1 ? (
+        <g transform={`translate(${plane.x} ${plane.y}) rotate(${-20 + 40 * send})`}>
+          <path d="M-40 -10 L40 0 L-40 14 L-24 0 Z" fill={C.cream} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "boyun4-alarm": Boyun4Alarm,
+  "boyun4-viral": Boyun4Viral,
+  "boyun4-arastirma": Boyun4Arastirma,
+  "boyun4-heykel": Boyun4Heykel,
+  "boyun4-gonder": Boyun4Gonder,
   "boyun3-sen": Boyun3Sen,
   "boyun3-isim": Boyun3Isim,
   "boyun3-bowling": Boyun3Bowling,
