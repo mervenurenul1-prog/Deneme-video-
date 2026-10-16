@@ -48,7 +48,10 @@ Sessiz önizleme zaten gönderildiyse onay sonrası: kredi kontrol → voiceover
 **REVİZE (kullanıcı, 16 Ekim):** (1) Animasyonlar anlatıma birebir uysun ve **izleyiciyi merakta bıraksın**:
 cevabı hemen gösterme, önce soruyu/gizemi göster (ör. "?" ile kapalı kutu, yarım kalan hareket, sayaç),
 cevap kelimesi söylenirken aç; her sahnede "bakalım ne olacak" hissi (bekleten ama sıkmayan ipucu, hafif gerilim).
-(2) **[chuckles]/[laughs] etiketi KULLANMA**: V4'te gülme sesi "cacık" gibi duyuldu, pilottan çıkarıldı.
+(2) "Cacık" = kullanıcının deyimi: **arka plan müziği (Investigations) kötü**. Yeni müzik adayları
+`ses-ornekleri/muzik-adaylar/` (clean-soul, lobby-time, dreamy-flashback, easy-lemon) — kullanıcı seçecek, seçilen
+parçayı JSON `music` alanına yaz, künyeyi açıklamada güncelle. (Gülmeler de çıkarıldı.)
+(3) İzleyici ekrana kilitlensin: görsel anlatım konuyu tek başına net anlatabilmeli (sessiz izleyen de anlamalı).
 
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin

@@ -5,3 +5,6 @@ Dosyalar -20 LUFS'a normalize edildi.
 - investigations.mp3: "Investigations"
 - easy-lemon.mp3: "Easy Lemon"
 - life-of-riley.mp3: "Life of Riley"
+- clean-soul.mp3: "Clean Soul"
+- lobby-time.mp3: "Lobby Time"
+- dreamy-flashback.mp3: "Dreamy Flashback"
