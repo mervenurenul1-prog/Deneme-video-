@@ -77,6 +77,10 @@ pilot bununla yeniden render edildi. **Tartı ve sonraki tüm videolar `"music":
   efektler + `merak-gerilim` müziği ile render edildi (44,4 sn): `ornek-videolar/cizim1-pilot/02-tarti.mp4`.
 - Sıradaki: kullanıcı onayı → 03 takip (`content/uc/uc-03-takip.json` metni yeni stile taşınacak).
 
+**EKİP GERİ BİLDİRİMİ (16 Ekim, 01+02 sonrası):** "Animasyonlar ve konular daha iyi olmalı; konu da animasyon
+kadar önemli." → Konu seçimi ve açılış cümlesi (hook) güçlendirilecek; animasyonlar daha canlı olacak. Claude yeni
+konu açıları + animasyon iyileştirme önerisi sundu, kullanıcının seçimi bekleniyor. Seçim gelmeden 03'e geçme.
+
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
 değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
