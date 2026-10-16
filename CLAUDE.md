@@ -27,6 +27,12 @@ haftalık grafik, şişen "+1 kg" balonu). O oturumda npm deposuna erişim yoktu
 yalnız çalışma dalında. Sıradaki oturum: `npm ci` → `npx tsc --noEmit` → sessiz önizleme render → gönder → main'e
 birleştir. Pilot (01) için ekip geri bildirimi bekleniyor; revize gelirse önce o.
 
+**16 Ekim (sonraki oturum):** 02 tartı typecheck'ten geçti, sessiz önizleme render edildi (41 sn, ~4 dk render):
+`ornek-videolar/cizim1-pilot/02-tarti-sessiz.mp4`, main'e birleştirildi. **Kullanıcı onayı bekleniyor** → onaydan
+sonra kredi kontrol → `npm run voiceover -- cizim1-02-tarti` → render. Pilot (01) geri bildirimini kullanıcı
+kendisi hallediyor. Not: oturum eski `claude/remotion-eleven-labs-integration-za21fe` dalında açılabiliyor —
+o dal eski; her zaman bu dosyadaki çalışma dalına geç.
+
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
 değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
