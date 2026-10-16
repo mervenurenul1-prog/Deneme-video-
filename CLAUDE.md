@@ -8,6 +8,14 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## !!! SERİ KURALLARI (kullanıcı, 16 Ekim — her videoda uy) !!!
+- Bu bir **SERİ**: aynı avatar, aynı çizim stili, aynı kalite. **Avatarı değiştirme** ("bu avatarı seviyorum").
+- **Her yeni video döngülü** (`"loop": true`, kapanış cümlesi açılışa bağlanır).
+- **Konuyu kullanıcı seçer:** Claude konu önerir, kullanıcı seçer, sonra video hazırlanır. Kendi başına konu seçme.
+- Fazla betimleme, ince düşünülmüş, kaliteli içerik; her görsel olayın kendi efekt sesi; referans yapı (aşağıda).
+- Kendi kafana göre iş yapma; emin değilsen sor. Önce sessiz önizleme, onaydan sonra seslendirme.
+- Her video için Instagram açıklaması da hazırla (JSON `caption` + `hashtags`, kullanıcıya metin olarak da ver).
+
 ## >>> YENİ OTURUM: BURADAN BAŞLA <<<
 **Geçerli yöntem:** çizim v1 stili (`src/cizim1/Cizim1.tsx`, içerik `content/cizim1/*.json`): sade erkek
 karakter, düz sepya kâğıt, YAVAŞ animasyonlar (Zack kurgusu, oda, 3D YOK). Ses: **Yunus**, **eleven_v4**
