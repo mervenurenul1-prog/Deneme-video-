@@ -52,11 +52,11 @@
     },
     {
       "voice": "Çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. İkisi de doğru değil.",
-      "say": "Hmm, çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. [chuckles] İkisi de doğru değil.",
+      "say": "Hmm, çoğu insan yağın eridiğini ya da tere dönüştüğünü sanır. İkisi de doğru değil.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-01-yag-nereye/2-mvaaqfh0.mp3",
-      "durationInSeconds": 6.687347,
+      "file": "voiceover/cizim1-01-yag-nereye/2-mvaba7jy.mp3",
+      "durationInSeconds": 5.799184,
       "words": [
         {
           "word": "Çoğu",
@@ -70,58 +70,58 @@
         },
         {
           "word": "yağın",
-          "start": 1.68,
-          "end": 1.92
+          "start": 1.6,
+          "end": 1.84
         },
         {
           "word": "eridiğini",
-          "start": 2,
-          "end": 2.64
+          "start": 1.92,
+          "end": 2.48
         },
         {
           "word": "ya",
-          "start": 2.72,
-          "end": 2.88
+          "start": 2.64,
+          "end": 2.72
         },
         {
           "word": "da",
-          "start": 2.96,
-          "end": 3.04
+          "start": 2.8,
+          "end": 2.88
         },
         {
           "word": "tere",
-          "start": 3.2,
-          "end": 3.44
+          "start": 3.04,
+          "end": 3.2
         },
         {
           "word": "dönüştüğünü",
-          "start": 3.48,
-          "end": 4
+          "start": 3.28,
+          "end": 3.76
         },
         {
           "word": "sanır.",
-          "start": 4.08,
-          "end": 4.56
+          "start": 3.84,
+          "end": 4.24
         },
         {
           "word": "İkisi",
-          "start": 5.36,
-          "end": 5.68
+          "start": 4.476100000000001,
+          "end": 4.796100000000001
         },
         {
           "word": "de",
-          "start": 5.72,
-          "end": 5.76
+          "start": 4.876100000000001,
+          "end": 4.956100000000001
         },
         {
           "word": "doğru",
-          "start": 5.84,
-          "end": 6.08
+          "start": 5.036100000000001,
+          "end": 5.196100000000001
         },
         {
           "word": "değil.",
-          "start": 6.16,
-          "end": 6.72
+          "start": 5.276100000000001,
+          "end": 5.836100000000001
         }
       ]
     },
@@ -271,11 +271,11 @@
     },
     {
       "voice": "Peki hızlı hızlı nefes alsan, daha çok yağ yakar mısın? Hayır.",
-      "say": "[curious] Peki hızlı hızlı nefes alsan, daha çok yağ yakar mısın? [chuckles] Hayır.",
+      "say": "[curious] Peki hızlı hızlı nefes alsan, daha çok yağ yakar mısın? Hayır.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-01-yag-nereye/6-mvaaqjrg.mp3",
-      "durationInSeconds": 5.407347,
+      "file": "voiceover/cizim1-01-yag-nereye/6-mvaba8wa.mp3",
+      "durationInSeconds": 4.597551,
       "words": [
         {
           "word": "Peki",
@@ -289,48 +289,48 @@
         },
         {
           "word": "hızlı",
-          "start": 1.08,
-          "end": 1.28
+          "start": 1.12,
+          "end": 1.36
         },
         {
           "word": "nefes",
-          "start": 1.36,
-          "end": 1.6
+          "start": 1.44,
+          "end": 1.68
         },
         {
           "word": "alsan,",
-          "start": 1.68,
-          "end": 2.2
+          "start": 1.8,
+          "end": 2.32
         },
         {
           "word": "daha",
-          "start": 2.32,
-          "end": 2.48
+          "start": 2.4,
+          "end": 2.56
         },
         {
           "word": "çok",
-          "start": 2.56,
-          "end": 2.72
+          "start": 2.64,
+          "end": 2.8
         },
         {
           "word": "yağ",
-          "start": 2.8,
-          "end": 2.907
+          "start": 2.84,
+          "end": 2.96
         },
         {
           "word": "yakar",
-          "start": 2.933,
-          "end": 3.2
+          "start": 3,
+          "end": 3.28
         },
         {
           "word": "mısın?",
-          "start": 3.24,
-          "end": 3.76
+          "start": 3.32,
+          "end": 3.68
         },
         {
           "word": "Hayır.",
-          "start": 4.72,
-          "end": 5.44
+          "start": 3.9246700000000003,
+          "end": 4.64467
         }
       ]
     },

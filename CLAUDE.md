@@ -45,6 +45,11 @@ müziği + olaylara bağlı efekt sesleri → `ornek-videolar/cizim1-pilot/01-ya
 `SFX` haritasına `tarti-*` sahneleri için efektler ekle (pop/kalem/bip/damla/nefes/cizik/pirilti/ding/boom/whoosh).
 Sessiz önizleme zaten gönderildiyse onay sonrası: kredi kontrol → voiceover → render → gönder.
 
+**REVİZE (kullanıcı, 16 Ekim):** (1) Animasyonlar anlatıma birebir uysun ve **izleyiciyi merakta bıraksın**:
+cevabı hemen gösterme, önce soruyu/gizemi göster (ör. "?" ile kapalı kutu, yarım kalan hareket, sayaç),
+cevap kelimesi söylenirken aç; her sahnede "bakalım ne olacak" hissi (bekleten ama sıkmayan ipucu, hafif gerilim).
+(2) **[chuckles]/[laughs] etiketi KULLANMA**: V4'te gülme sesi "cacık" gibi duyuldu, pilottan çıkarıldı.
+
 ## Geçmiş (özet)
 Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
 değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
