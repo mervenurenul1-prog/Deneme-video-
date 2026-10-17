@@ -13,17 +13,22 @@
   "padding": 0.05,
   "scenes": [
     {
-      "visual": "diz7-hook",
-      "voice": "Koşmak dizini aşındırmıyor. Bunu kanıtlamak on sekiz yıl sürdü.",
-      "say": "Koşmak dizini aşındırmıyor. [serious] Bunu kanıtlamak... on sekiz yıl sürdü."
+      "visual": "diz4-pist",
+      "lead": 0.2,
+      "intro": {
+        "voice": "Koşuya yeni başladıysan, bu an bir gün senin de başına gelecek.",
+        "say": "Koşuya yeni başladıysan... [serious] bu an, bir gün senin de başına gelecek."
+      },
+      "voice": "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "say": "[serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
     },
     {
-      "visual": "diz7-anne",
-      "voice": "Ama annen hep şöyle derdi:",
-      "say": "Ama annen hep şöyle derdi:"
+      "visual": "diz4-anne",
+      "voice": "Kulağında annenin sesi:",
+      "say": "Kulağında annenin sesi:"
     },
     {
-      "visual": "diz7-annesoz",
+      "visual": "diz4-annesoz",
       "voice": "Koşma, dizlerin aşınır! Benim gibi mi olmak istiyorsun?",
       "say": "Koşma, dizlerin aşınır! [sighs] Benim gibi mi olmak istiyorsun?",
       "voiceId": "qLdPxFtPuffoxx5gieBJ"
@@ -40,8 +45,8 @@
     },
     {
       "visual": "diz4-doz",
-      "voice": "Peki koşunca dizin neden sızlar? Çünkü çoğu zaman yükü birden artırırsın: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır.",
-      "say": "[curious] Peki koşunca dizin neden sızlar? Çünkü çoğu zaman yükü birden artırırsın: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır."
+      "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır.",
+      "say": "O sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır."
     },
     {
       "visual": "diz4-soru",

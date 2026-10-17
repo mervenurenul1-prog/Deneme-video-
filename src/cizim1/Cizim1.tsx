@@ -419,7 +419,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [Math.max(15, w(1) - 40), "pop", 0.3], [w(1), "boom", 0.2], [w(1) + 1, "cizik", 0.45], [w(1) + 3, "sonme", 0.25], [w(9), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
-  "diz4-doz": (w) => [[w(11), "pop", 0.25], [w(16) - 2, "boom", 0.18], [w(17), "cizik", 0.35], [w(19), "pop", 0.25], [w(23), "pirilti", 0.35]],
+  "diz4-doz": (w) => [[w(8), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(16), "pop", 0.25], [w(20), "pirilti", 0.35]],
   "diz4-stanford": (w, d) => [[2, "kalem", 0.3], [w(6) - 2, "pop", 0.3], [w(12), "whoosh", 0.25], [d - 14, "kagit", 0.3]],
   "diz4-sonuc": (w) => [[w(1) - 2, "ding", 0.35], [w(4), "cizik", 0.35], [w(9), "pop", 0.3], [w(13), "pirilti", 0.35]],
   "diz4-soru": (w) => [[w(5) - 2, "pop", 0.3]],
@@ -7172,9 +7172,9 @@ const runIntegral = (f: number, speedAt: (i: number) => number) => {
   return { off, ph };
 };
 
-// Kanca (intro sesi): "Koşmak dizini aşındırmıyor. Bunu kanıtlamak on sekiz yıl sürdü." → "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+// Kanca (intro sesi): "Koşuya yeni başladıysan, bu an bir gün senin de başına gelecek." → "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
 // Uzak planda zorlanarak koşu; dizin içi küçük röntgen merceğinde canlı görünür (her adımda kıkırdak ezilir, giderek kızarır);
-// bitiş çizgisi geçilince "2. TUR" → "3. TUR"; "birden"de ağır çekim, parlama, dize yakınlaşma + büyük röntgen → eğilir, oturur.
+// bitiş çizgisi geçilince kanca tabelası → "3. TUR"; "birden"de ağır çekim, parlama, dize yakınlaşma + büyük röntgen → eğilir, oturur.
 const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const hitAt = w(1);
@@ -7195,7 +7195,9 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const glow = tw(f, hitAt, hitAt + 6);
   const crossF = Math.max(15, hitAt - 40);
   const lapN = f < crossF ? 2 : 3;
-  const lapP = (lapN === 2 ? 1 : pop(f, crossF, 10)) * (1 - tw(f, w(1) + 4, w(2) + 4));
+  // kanca boyunca üstte "KOŞUYA YENİ BAŞLADIYSAN" tabelası; bitiş çizgisinde yerini kırmızı "3. TUR"a bırakır
+  const banner = pop(f, 0, 10) * (1 - tw(f, crossF - 8, crossF));
+  const lapP = (lapN === 2 ? 0 : pop(f, crossF, 10)) * (1 - tw(f, w(1) + 4, w(2) + 4));
   const lineX = 420 + 17 * (crossF - f);
   const cam: [number, number, number, number][] = [
     // uzak plan (pist + orman + dağlar) → sızıdan az önce bir kademe yakın → "birden"de dize
@@ -7250,6 +7252,14 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
             <KneeLens x={760} y={780} r={220} press={1} crack={1} />
             <circle cx={760} cy={780} r={(90 + 20 * Math.sin(f / 2)) * xr} fill={C.red} opacity={0.35} />
           </g>
+        </g>
+      ) : null}
+      {banner > 0 ? (
+        <g transform={`translate(540 300) scale(${banner}) rotate(-3)`}>
+          <rect x={-480} y={-95} width={960} height={170} rx={22} fill={C.red} stroke={C.ink} strokeWidth={9} />
+          <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={72} fill={C.cream}>
+            KOŞUYA YENİ BAŞLADIYSAN
+          </text>
         </g>
       ) : null}
       {lapP > 0 ? (
@@ -7453,10 +7463,10 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   const row1 = [2, 2, 2, 10];
   const row2 = [2, 3, 4, 5];
   // "iki, iki, iki" → 2·2·2, "sonra bir günde on" → dev 10 km ve sızı; "her hafta biraz artırırsan" → 2·3·4·5
-  const spike = tw(f, w(16) - 2, w(17) + 4);
-  const r2on = tw(f, w(19) - 2, w(19) + 6);
-  const painT = Math.max(spike * (1 - tw(f, w(18), w(19))), 0.5 * tw(f, w(4) - 2, w(4) + 4) * (1 - tw(f, w(6), w(7))));
-  const speedAt = (i: number) => 1 - 0.55 * (tw(i, w(16) - 2, w(17) + 4) * (1 - tw(i, w(18), w(19))));
+  const spike = tw(f, w(13) - 2, w(14) + 4);
+  const r2on = tw(f, w(16) - 2, w(16) + 6);
+  const painT = Math.max(spike * (1 - tw(f, w(15), w(16))), 0.5 * tw(f, w(1) - 2, w(1) + 4) * (1 - tw(f, w(3), w(4))));
+  const speedAt = (i: number) => 1 - 0.55 * (tw(i, w(13) - 2, w(14) + 4) * (1 - tw(i, w(15), w(16))));
   const { off, ph } = runIntegral(f, speedAt);
   const pose = runPose(ph, speedAt(f));
   const card = (x: number, y: number, v: number, p: number, red: boolean) =>
@@ -7471,11 +7481,11 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <SideTrack off={off} />
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} />
-      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 250, v, pop(f, i < 3 ? w(11 + i) : w(16) - 2, 10), i === 3))}</g>
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} bandage />
+      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 250, v, pop(f, i < 3 ? w(8 + i) : w(13) - 2, 10), i === 3))}</g>
       <g opacity={r2on}>
-        {row2.map((v, i) => card(150 + i * 260, 430, v, pop(f, w(19) + i * 5, 10), false))}
-        <HandText x={790} y={640} text="dizin alışır" size={100} p={tw(f, w(23), w(23) + 8)} color="#3f7d4f" rotate={-3} />
+        {row2.map((v, i) => card(150 + i * 260, 430, v, pop(f, w(16) + i * 5, 10), false))}
+        <HandText x={790} y={640} text="dizin alışır" size={100} p={tw(f, w(20), w(20) + 8)} color="#3f7d4f" rotate={-3} />
       </g>
     </>
   );
@@ -7486,11 +7496,11 @@ const Diz4Soru: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const q = pop(f, w(5) - 2, 12) * (1 - tw(f, d - 22, d - 12));
   const up = tw(f, d - 22, d - 2);
-  const pose = mixPose(squatUp, runPose(0, 1), up);
+  const pose = mixPose(sitPose, runPose(0, 1), up);
   return (
     <CamK k={[[0, 1.15, 520, 1300], [w(4), 1.15, 520, 1300], [d - 4, 1, 540, 1200]]}>
       <SideTrack off={0} />
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={up > 0.5 ? "smile" : "worry"} />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={1 - up} face={up > 0.5 ? "smile" : "worry"} painGlow={0} bandage />
       {q > 0 ? <HandText x={760} y={760} text="?" size={240} p={q} color={C.red} rotate={8} /> : null}
     </CamK>
   );
