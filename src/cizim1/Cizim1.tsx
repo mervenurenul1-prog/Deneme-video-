@@ -7431,7 +7431,7 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <SideTrack off={off} />
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} bandage />
       <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 250, v, pop(f, i < 3 ? w(8 + i) : w(13) - 2, 10), i === 3))}</g>
       <g opacity={r2on}>
         {row2.map((v, i) => card(150 + i * 260, 430, v, pop(f, w(16) + i * 5, 10), false))}

@@ -1,6 +1,6 @@
 {
   "id": "cizim1-06-diz",
-  "title": "Koşu dizi aşındırır mı?",
+  "title": "Koşu dizini bitirir mi?",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -13,12 +13,18 @@
   "padding": 0.05,
   "scenes": [
     {
-      "visual": "diz6-hook",
-      "voice": "Biri yetmiş yaşında ve her sabah koşuyor. Diğeri kırk beş yaşında, hiç koşmuyor. Sence hangisinin dizi daha yıpranmış?",
-      "say": "Biri yetmiş yaşında ve her sabah koşuyor. Diğeri kırk beş yaşında, hiç koşmuyor. [curious] Sence hangisinin dizi daha yıpranmış?"
+      "visual": "diz4-pist",
+      "lead": 0.5,
+      "voice": "Hadi… yapabilirsin… son tur! Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "say": "[out of breath] Hah... hah... Hadi... yapabilirsin... hah... son tur! [serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
     },
     {
-      "visual": "diz6-annesoz",
+      "visual": "diz4-anne",
+      "voice": "Kulağında annenin sesi:",
+      "say": "Kulağında annenin sesi:"
+    },
+    {
+      "visual": "diz4-annesoz",
       "voice": "Koşma, dizlerin aşınır! Benim gibi mi olmak istiyorsun?",
       "say": "Koşma, dizlerin aşınır! [sighs] Benim gibi mi olmak istiyorsun?",
       "voiceId": "qLdPxFtPuffoxx5gieBJ"
@@ -35,13 +41,13 @@
     },
     {
       "visual": "diz4-doz",
-      "voice": "Dizdeki sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır.",
-      "say": "Dizdeki sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır."
+      "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır.",
+      "say": "O sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır."
     },
     {
-      "visual": "diz6-son",
-      "voice": "Şimdi tekrar bak: hangisinin dizi daha yıpranmış?",
-      "say": "Şimdi tekrar bak: hangisinin dizi daha yıpranmış?"
+      "visual": "diz4-soru",
+      "voice": "Peki sen yarın o piste dönecek misin?",
+      "say": "Peki sen yarın o piste dönecek misin?"
     }
   ],
   "caption": "",
