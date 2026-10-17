@@ -397,6 +397,13 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "diz3-pist": (w) => [[0, "adim", 0.25], [w(9) - 2, "cizik", 0.45], [w(11), "sonme", 0.3]],
+  "diz3-anne": (w) => [[w(0), "pop", 0.3], [w(4), "cizik", 0.3], [w(8), "cizik", 0.3]],
+  "diz3-stanford": (w) => [[2, "kalem", 0.3], [w(8) - 2, "pop", 0.3], [w(10), "pop", 0.25], [w(14), "kagit", 0.3], [w(17), "kagit", 0.3]],
+  "diz3-sonuc": (w) => [[w(1) - 2, "ding", 0.35], [w(4), "cizik", 0.35], [w(9), "pop", 0.3], [w(13), "pirilti", 0.35]],
+  "diz3-squat": (w) => [[w(2), "sihir", 0.35], [w(6), "sonme", 0.3]],
+  "diz3-doz": (w) => [[w(3), "pop", 0.25], [w(5) - 2, "boom", 0.18], [w(5), "cizik", 0.35], [w(9), "pop", 0.25], [w(10), "pirilti", 0.35]],
+  "diz3-soru": (w) => [[w(5) - 2, "pop", 0.3]],
   "diz-hook": (w) => [[w(4) - 2, "pop", 0.35], [w(5) - 2, "pop", 0.35], [w(9) - 2, "cizik", 0.5]],
   "diz-kosu": (w) => [[w(1) - 2, "pop", 0.3], [w(7) - 2, "whoosh", 0.25], [w(9), "pop", 0.3], [w(13) - 2, "pop", 0.25], [w(14), "ding", 0.35]],
   "diz-sunger": (w) => [[w(1), "pirilti", 0.3], [w(6), "damla", 0.3], [w(7), "sihir", 0.3], [w(9), "whoosh", 0.2], [w(10), "sonme", 0.35]],
@@ -603,6 +610,13 @@ const ZOOM: Record<string, Zoom> = {
   "boyun5-gonder": { to: 1.0, x: 540, y: 960 },
   "kosu-hook": { to: 1.0, x: 540, y: 960 },
   "diz-hook": { to: 1.0, x: 540, y: 960 },
+  "diz3-pist": { to: 1.0, x: 540, y: 960 },
+  "diz3-anne": { to: 1.0, x: 540, y: 960 },
+  "diz3-stanford": { to: 1.03, x: 540, y: 900 },
+  "diz3-sonuc": { to: 1.03, x: 540, y: 900 },
+  "diz3-squat": { to: 1.03, x: 540, y: 1000 },
+  "diz3-doz": { to: 1.0, x: 540, y: 960 },
+  "diz3-soru": { to: 1.0, x: 540, y: 960 },
   "diz-kosu": { to: 1.03, x: 540, y: 900 },
   "diz-sunger": { to: 1.03, x: 540, y: 800 },
   "diz-squat": { to: 1.03, x: 540, y: 1000 },
@@ -6387,7 +6401,322 @@ const Boyun5Gonder: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- 06 diz v3: "Sabah koşusu… annenin sesi… Stanford 18 yıl" ---------- */
+
+const HORIZON = 720;
+// Sabah koşu pisti (perspektif): gökyüzü, alçak güneş, ağaçlar, ufka uzanan turuncu pist; şerit çizgileri akar (ileri koşu hissi)
+const RunTrack: React.FC<{ f: number; speed?: number }> = ({ f, speed = 1 }) => {
+  const lanes = [-3, -2, -1, 0, 1, 2, 3];
+  const L = (k: number, y: number) => {
+    const t = (y - HORIZON) / (1920 - HORIZON);
+    return 540 + k * interpolate(t, [0, 1], [28, 300]);
+  };
+  return (
+    <g>
+      <rect x={0} y={0} width={1080} height={HORIZON} fill="#f6dcb6" />
+      <rect x={0} y={HORIZON - 260} width={1080} height={260} fill="#f3c9a0" opacity={0.6} />
+      <circle cx={250} cy={HORIZON - 120} r={90} fill="#ffd27a" opacity={0.95} />
+      {Array.from({ length: 12 }, (_, i) => (
+        <ellipse key={i} cx={40 + i * 95} cy={HORIZON - 30 - ((i * 37) % 40)} rx={70} ry={60 + ((i * 53) % 30)} fill={i % 2 ? "#7f9a5c" : "#6e8a50"} stroke={C.ink} strokeWidth={5} />
+      ))}
+      <rect x={0} y={HORIZON} width={1080} height={1920 - HORIZON} fill="#9fbf74" />
+      <path d={`M${L(-3.6, HORIZON)} ${HORIZON} L${L(3.6, HORIZON)} ${HORIZON} L${L(3.6, 1920)} 1920 L${L(-3.6, 1920)} 1920 Z`} fill="#d9693a" stroke={C.ink} strokeWidth={6} />
+      {lanes.map((k) => (
+        <path key={k} d={`M${L(k, HORIZON)} ${HORIZON} L${L(k, 1920)} 1920`} stroke="#fbf3e2" strokeWidth={6} opacity={0.85} />
+      ))}
+      {/* akan enine çizgiler */}
+      {Array.from({ length: 6 }, (_, i) => {
+        const t = (((f * 0.012 * speed + i / 6) % 1) + 1) % 1;
+        const y = HORIZON + (1920 - HORIZON) * t * t;
+        return <path key={i} d={`M${L(-3.6, y)} ${y} L${L(3.6, y)} ${y}`} stroke="#fbf3e2" strokeWidth={2 + 8 * t} opacity={0.35} />;
+      })}
+    </g>
+  );
+};
+
+// Koşan avatar (önden, bize doğru): run 0..1 koşu şiddeti; hold 0..1 eğilip dizini tutar; pain kırmızı şimşek
+const Runner: React.FC<{ f: number; x: number; y: number; s: number; run: number; hold?: number; pain?: number; lookY?: number; mouth?: Mouth; eyes?: Eyes }> = ({ f, x, y, s, run, hold = 0, pain = 0, lookY, mouth, eyes }) => {
+  const rw = walk(f, run, 3);
+  const lift = 0.8 * hold;
+  const drop = hold * 92 * s; // bükülen bacaklar kısaldığı için gövde yere oturur
+  const armRun = (k: number): Arm => [30 + k * 32 * Math.sin(f / 3) * run, -90 * run];
+  const armHold: Arm = [8, -6];
+  const armL = hold > 0.05 ? armHold : armRun(1);
+  const armR = hold > 0.05 ? armHold : armRun(-1);
+  const knee = { x: x + 45 * s, y: y + drop - (345 - 99 * hold - 66 * (1 - hold)) * s };
+  return (
+    <g>
+      <Person x={x} y={y + drop - rw.bob * (1 - hold)} s={s} belly={0.4} legL={hold > 0.05 ? { lift } : rw.legL} legR={hold > 0.05 ? { lift } : rw.legR} armL={armL} armR={armR} mouth={mouth ?? (pain > 0.3 ? "worry" : "smile")} eyes={eyes ?? (pain > 0.5 ? "closed" : "open")} lookY={lookY ?? 6 * hold} blush={0.4 + 0.4 * run} />
+      {pain > 0
+        ? [0, 1, 2].map((i) => (
+            <path key={i} d={`M${knee.x + 30 + i * 6} ${knee.y - 20 + i * 22} l34 -16 l-16 24 l34 -16`} stroke={C.red} strokeWidth={8} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={pain * (0.6 + 0.4 * Math.sin(f / 2 + i))} />
+          ))
+        : null}
+    </g>
+  );
+};
+
+// "Sabah koşusu. Turuncu pistte üçüncü turdasın ve dizine bir sızı giriyor. Duruyorsun, eğilip dizini tutuyorsun."
+const Diz3Pist: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const pain = tw(f, w(9) - 2, w(9) + 4);
+  const slow = tw(f, w(11) - 4, w(11) + 6);
+  const hold = tw(f, w(12) - 2, w(13) + 4);
+  const lap = pop(f, w(4) - 2, 12) * (1 - tw(f, w(7), w(8)));
+  const speed = 1 - slow;
+  return (
+    <CamK k={[[0, 1, 540, 1100], [w(9), 1, 540, 1100], [w(12), 1.25, 560, 1350], [w(14) + 12, 1.3, 560, 1350]]} shake={hit(f, Math.round(w(9)), 10) * 0.5}>
+      <RunTrack f={f} speed={speed} />
+      <Runner f={f} x={540} y={1720} s={1.0} run={1 - slow} hold={hold} pain={pain} />
+      {lap > 0 ? <HandText x={820} y={900} text="3. tur" size={110} p={lap} rotate={-6} /> : null}
+    </CamK>
+  );
+};
+
+// Anne figürü (düşünce balonunda): parmak sallar
+const Mom: React.FC<{ f: number; x: number; y: number; s: number; wag: number }> = ({ f, x, y, s, wag }) => (
+  <Person x={x} y={y} s={s} female belly={0.55} shirt="#9a7bb0" armL={[12, 0]} armR={[150 + 14 * Math.sin(f / 2.5) * wag, -70]} mouth="open" eyes="open" lookY={0} />
+);
+// Üstü çizilen küçük simge (koşan ya da çömelen figür)
+const BanIcon: React.FC<{ x: number; y: number; p: number; cross: number; squat?: boolean; f: number }> = ({ x, y, p, cross, squat, f }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`}>
+      <circle r={110} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+      {squat ? (
+        <g transform="translate(-60 95) scale(0.42)">
+          <SideSquat x={0} floor={0} d={0.9} lock={0} kneeLoad={0} hipLoad={0} />
+        </g>
+      ) : (
+        <Person x={0} y={85} s={0.24} belly={0.4} legL={walk(f, 1, 3).legL} legR={walk(f, 1, 3).legR} armL={[40, -90]} armR={[20, -90]} mouth="smile" />
+      )}
+      {cross > 0 ? <Cross x={0} y={0} size={170} p={cross} /> : null}
+    </g>
+  ) : null;
+
+// "Kulağında annenin sesi: koşma, dizin biter. Çok çömelme, dizine yazık."
+const Diz3Anne: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bubble = pop(f, w(0) - 2, 14);
+  const i1 = pop(f, w(3) - 2, 12);
+  const c1 = tw(f, w(4), w(5) + 4);
+  const i2 = pop(f, w(6) - 2, 12);
+  const c2 = tw(f, w(8), w(9) + 4);
+  return (
+    <CamK k={[[0, 1.25, 560, 1350], [w(1), 1.0, 540, 1000]]}>
+      <RunTrack f={0} speed={0} />
+      <Runner f={f} x={540} y={1720} s={1.0} run={0} hold={1} pain={0.5} lookY={0} mouth="worry" eyes="open" />
+      <Bubble x={540} y={520} rx={330} ry={250} p={bubble} tail={[600, 980]}>
+        <Mom f={f} x={540} y={720} s={0.5} wag={1} />
+      </Bubble>
+      <BanIcon x={200} y={980} p={i1} cross={c1} f={f} />
+      <BanIcon x={880} y={980} p={i2} cross={c2} squat f={f} />
+    </CamK>
+  );
+};
+
+// Röntgen karesi (küçük diz): bad 0..1 kıkırdak kızarır, aralık daralır
+const XrayTile: React.FC<{ x: number; y: number; p: number; bad?: number; label?: string }> = ({ x, y, p, bad = 0, label }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`}>
+      <rect x={-90} y={-120} width={180} height={240} rx={10} fill="#24333f" stroke={C.ink} strokeWidth={7} />
+      <path d="M-45 -120 L-45 -40 Q-70 -10 -40 -4 L40 -4 Q70 -10 45 -40 L45 -120 Z" fill="#f4efe2" opacity={0.9} />
+      <path d={`M-62 ${16 - 10 * bad} L62 ${16 - 10 * bad} Q66 40 38 52 L38 120 L-38 120 L-38 52 Q-66 40 -62 ${16 - 10 * bad} Z`} fill="#f4efe2" opacity={0.9} />
+      <rect x={-56} y={-4} width={112} height={8} rx={4} fill={bad > 0.5 ? C.red : "#ffe9a8"} />
+      <rect x={-58} y={8 - 10 * bad} width={116} height={8} rx={4} fill={bad > 0.5 ? C.red : "#ffe9a8"} />
+      {label ? (
+        <text x={0} y={150} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={40} fill={C.ink}>
+          {label}
+        </text>
+      ) : null}
+    </g>
+  ) : null;
+
+// Beyaz önlüklü doktor
+const Doctor: React.FC<{ x: number; y: number; s: number; arm?: Arm; mouth?: Mouth; eyes?: Eyes }> = ({ x, y, s, arm = [12, 0], mouth = "flat", eyes = "open" }) => (
+  <Person x={x} y={y} s={s} belly={0.3} shirt="#f4f4f0" armL={[12, 0]} armR={arm} mouth={mouth} eyes={eyes} lookY={-2} />
+);
+
+// "Bin dokuz yüz seksen dörtte Stanford'daki doktorlar da bundan emindi. Kanıtlamak için koşucuların dizlerini on sekiz yıl boyunca röntgenlediler."
+const YEARS = [1984, 1986, 1996, 2002];
+const Diz3Stanford: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const file = pop(f, w(8) - 2, 12);
+  const board = pop(f, w(10) - 2, 12);
+  const yrsT = tw(f, w(14) - 2, w(18) + 4);
+  const yi = Math.min(3, Math.floor(yrsT * 4));
+  return (
+    <>
+      <Gym o={0.25} />
+      <HandText x={300} y={250} text="1984" size={150} p={tw(f, 0, w(4) + 4)} rotate={-4} />
+      <text x={760} y={250} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.ink} opacity={tw(f, w(5) - 2, w(5) + 6)}>
+        Stanford
+      </text>
+      {/* röntgen panosu: her yılda bir kare daha */}
+      {board > 0 ? (
+        <g opacity={board}>
+          <rect x={100} y={380} width={880} height={400} rx={16} fill="#3a4a56" stroke={C.ink} strokeWidth={9} />
+          {YEARS.map((yr, i) => (
+            <XrayTile key={yr} x={210 + i * 220} y={560} p={i === 0 ? board : i <= yi ? pop(f, w(14) - 2 + i * ((w(18) - w(14)) / 3), 10) : 0} label={`${yr}`} />
+          ))}
+        </g>
+      ) : null}
+      {yrsT > 0 ? (
+        <text x={540} y={900} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.red} transform="rotate(-3 540 900)">
+          {YEARS[yi]}
+        </text>
+      ) : null}
+      <Doctor x={260} y={PY + 240} s={0.75} arm={[150, -40]} />
+      <Doctor x={480} y={PY + 260} s={0.72} />
+      {file > 0 ? (
+        <g transform={`translate(330 1040) rotate(-5) scale(${file})`}>
+          <rect x={-170} y={-60} width={340} height={120} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+          <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.red}>
+            dizleri bitecek
+          </text>
+        </g>
+      ) : null}
+      <Runner f={f} x={820} y={PY + 280} s={0.75} run={1} />
+    </>
+  );
+};
+
+// "Sonuç: koşucuların dizleri daha kötü çıkmadı. Kireçlenme, evde oturanlarda yüzde on, hobi koşucularında yüzde üç buçuk."
+const Diz3Sonuc: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const verdict = pop(f, w(1) - 2, 12);
+  const strike = tw(f, w(4) - 2, w(5) + 4);
+  const p2 = tw(f, w(6) - 4, w(6) + 6);
+  const redL = tw(f, w(9), w(10) + 4);
+  const redR = tw(f, w(13), w(15) + 4);
+  return (
+    <>
+      <Gym o={0.25} />
+      <g opacity={1 - p2}>
+        <rect x={290} y={380} width={500} height={460} rx={16} fill="#3a4a56" stroke={C.ink} strokeWidth={9} />
+        <XrayTile x={540} y={600} p={1} bad={0} label="2002" />
+        {verdict > 0 ? (
+          <g transform={`translate(780 470) scale(${verdict})`}>
+            <circle r={60} fill="#3f7d4f" stroke={C.ink} strokeWidth={6} />
+            <path d="M-26 0 L-6 22 L28 -20" stroke="#fff" strokeWidth={12} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          </g>
+        ) : null}
+        <g transform="translate(330 1040) rotate(-5)">
+          <rect x={-170} y={-60} width={340} height={120} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+          <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.red}>
+            dizleri bitecek
+          </text>
+          <path d="M-160 0 L160 0" stroke={C.ink} strokeWidth={10} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - strike} />
+        </g>
+        <Doctor x={260} y={PY + 240} s={0.75} mouth={strike > 0.5 ? "o" : "flat"} eyes={strike > 0.5 ? "wide" : "open"} />
+        <Runner f={f} x={820} y={PY + 280} s={0.75} run={1} mouth="grin" />
+      </g>
+      {p2 > 0 ? (
+        <g opacity={p2}>
+          <text x={290} y={430} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
+            evde oturan
+          </text>
+          <Crowd ox={100} oy={520} runner={false} nRed={10} p={redL} />
+          <Counter x={290} y={1170} to={10} prefix="%" p={redL} size={130} color={C.red} rotate={-4} />
+          <text x={790} y={430} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
+            hobi koşucusu
+          </text>
+          <Crowd ox={600} oy={520} runner nRed={3.5} p={redR} />
+          {redR > 0 ? (
+            <text x={790} y={1170} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill="#3f7d4f" transform="rotate(-4 790 1170)" opacity={Math.min(1, redR * 3)}>
+              %3,5
+            </text>
+          ) : null}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Derin squatın sağlıklı dizi bozduğu da hiç kanıtlanmadı."
+const Diz3Squat: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const floor = 1380;
+  const X = 420;
+  const d = (1 - Math.cos((f / 24) * Math.PI * 2)) / 2;
+  const glow = tw(f, w(2), w(3) + 6);
+  const rad = (deg: number) => (deg * Math.PI) / 180;
+  const shin = 38 * d;
+  const K = { x: X + Math.sin(rad(shin)) * 170, y: floor - 24 - Math.cos(rad(shin)) * 170 };
+  const ban = pop(f, 0, 12);
+  const unban = tw(f, w(5), w(7) + 6);
+  return (
+    <>
+      <Gym o={0.4} />
+      {glow > 0 ? <circle cx={K.x} cy={K.y} r={60 + 20 * Math.sin(f / 4)} fill="#6fd08c" opacity={0.35 * glow} stroke="#3f7d4f" strokeWidth={6} /> : null}
+      <SideSquat x={X} floor={floor} d={d} lock={0} kneeLoad={0} hipLoad={0} />
+      <path d={`M60 ${floor} L1020 ${floor}`} stroke={C.ink} strokeWidth={6} />
+      {/* annenin yasağı: "çok çömelme!" — silinir */}
+      <g opacity={ban * (1 - unban)}>
+        <Bubble x={760} y={520} rx={240} ry={170} p={ban} tail={[700, 760]}>
+          <Mom f={f} x={680} y={660} s={0.36} wag={1} />
+          <text x={850} y={500} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={52} fill={C.red}>
+            çömelme!
+          </text>
+        </Bubble>
+      </g>
+      {glow > 0.5 ? <HandText x={760} y={1560} text="sağlıklı diz" size={80} p={tw(f, w(2), w(3) + 8)} color="#3f7d4f" rotate={-3} /> : null}
+    </>
+  );
+};
+
+// "O sızı çoğu zaman yükü birden artırmaktan gelir. Dizin bitmiyor, dozunu bekliyor."
+const Diz3Doz: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const row1 = [2, 2, 2, 10];
+  const row2 = [2, 3, 4, 5];
+  const r1 = (i: number) => pop(f, w(3) + i * 5, 10);
+  const spike = tw(f, w(5) - 2, w(6) + 4);
+  const r2on = tw(f, w(9) - 2, w(9) + 6);
+  const pain = spike * (1 - tw(f, w(8), w(9)));
+  const card = (x: number, y: number, v: number, p: number, red: boolean) =>
+    p > 0 ? (
+      <g key={`${x}${y}`} transform={`translate(${x} ${y}) scale(${p * (red ? 1 + 0.25 * spike : 1)})`}>
+        <rect x={-85} y={-55} width={170} height={110} rx={14} fill={red ? C.red : C.cream} stroke={C.ink} strokeWidth={6} />
+        <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={red ? C.cream : C.ink}>
+          {v} km
+        </text>
+      </g>
+    ) : null;
+  return (
+    <>
+      <RunTrack f={f} speed={0.8} />
+      <Runner f={f} x={540} y={1780} s={0.85} run={1} pain={pain} />
+      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(165 + i * 250, 300, v, r1(i), i === 3))}</g>
+      <g opacity={r2on}>
+        {row2.map((v, i) => card(165 + i * 250, 470, v, pop(f, w(9) + i * 4, 10), false))}
+        <HandText x={540} y={620} text="dozunda" size={90} p={tw(f, w(10), w(11) + 6)} color="#3f7d4f" rotate={-3} />
+      </g>
+    </>
+  );
+};
+
+// "Peki sen yarın o piste dönecek misin?" — avatar pistte durur, bize bakar; sonda yeniden koşmaya başlar (= açılış karesi)
+const Diz3Soru: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, w(5) - 2, 12) * (1 - tw(f, d - 18, d - 8));
+  const run = tw(f, d - 16, d - 4);
+  return (
+    <CamK k={[[0, 1.15, 540, 1300], [w(4), 1.15, 540, 1300], [d - 14, 1, 540, 1100]]}>
+      <RunTrack f={f} speed={run} />
+      <Runner f={f} x={540} y={1720} s={1.0} run={run} lookY={0} mouth={run > 0.5 ? "smile" : "grin"} />
+      {q > 0 ? <HandText x={540} y={850} text="?" size={240} p={q} color={C.red} rotate={8} /> : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "diz3-pist": Diz3Pist,
+  "diz3-anne": Diz3Anne,
+  "diz3-stanford": Diz3Stanford,
+  "diz3-sonuc": Diz3Sonuc,
+  "diz3-squat": Diz3Squat,
+  "diz3-doz": Diz3Doz,
+  "diz3-soru": Diz3Soru,
   "boyun5-sen": Boyun5Sen,
   "boyun5-gonder": Boyun5Gonder,
   "diz-hook": Diz1Hook,

@@ -1,6 +1,6 @@
 {
   "id": "cizim1-06-diz",
-  "title": "Dizin için iki yanlış kural",
+  "title": "Koşu dizini bitirir mi?",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -13,34 +13,39 @@
   "padding": 0.15,
   "scenes": [
     {
-      "visual": "diz-hook",
-      "voice": "Dizlerini korumak için bildiğin iki kural var. İkisi de yanlış olabilir.",
-      "say": "Dizlerini korumak için bildiğin iki kural var. [curious] İkisi de, yanlış olabilir."
+      "visual": "diz3-pist",
+      "voice": "Sabah koşusu. Turuncu pistte üçüncü turdasın ve dizine bir sızı giriyor. Duruyorsun, eğilip dizini tutuyorsun.",
+      "say": "Sabah koşusu. Turuncu pistte üçüncü turdasın, ve dizine bir sızı giriyor. Duruyorsun, eğilip dizini tutuyorsun."
     },
     {
-      "visual": "diz-kosu",
-      "voice": "Birincisi: koşu dizi bitirir. Oysa araştırmalarda kireçlenme, hiç koşmayanlarda yüzde on, hobi olarak koşanlarda yüzde üç buçuk çıktı.",
-      "say": "Birincisi: koşu dizi bitirir. Oysa araştırmalarda kireçlenme, hiç koşmayanlarda yüzde on, hobi olarak koşanlarda yüzde üç buçuk çıktı."
+      "visual": "diz3-anne",
+      "voice": "Kulağında annenin sesi: koşma, dizin biter. Çok çömelme, dizine yazık.",
+      "say": "Kulağında annenin sesi: \"Koşma, dizin biter. Çok çömelme, dizine yazık.\""
     },
     {
-      "visual": "diz-sunger",
-      "voice": "Çünkü kıkırdak sünger gibi: her adımda sıkışır, besinle dolar. Koltukta ise kurur.",
-      "say": "Çünkü kıkırdak sünger gibi: her adımda sıkışır, besinle dolar. Koltukta ise kurur."
+      "visual": "diz3-stanford",
+      "voice": "Bin dokuz yüz seksen dörtte Stanford'daki doktorlar da bundan emindi. Kanıtlamak için koşucuların dizlerini on sekiz yıl boyunca röntgenlediler.",
+      "say": "Bin dokuz yüz seksen dörtte, Stanford'daki doktorlar da bundan emindi. [curious] Kanıtlamak için koşucuların dizlerini, on sekiz yıl boyunca röntgenlediler."
     },
     {
-      "visual": "diz-squat",
-      "voice": "İkincisi: squatta diz parmak ucunu geçmesin. Bir deneyde diz geride tutulunca yük kalçaya kaydı, on kattan fazla.",
-      "say": "İkincisi: squatta diz parmak ucunu geçmesin. Bir deneyde diz geride tutulunca yük kalçaya kaydı, on kattan fazla."
+      "visual": "diz3-sonuc",
+      "voice": "Sonuç: koşucuların dizleri daha kötü çıkmadı. Kireçlenme, evde oturanlarda yüzde on, hobi koşucularında yüzde üç buçuk.",
+      "say": "Sonuç: ... koşucuların dizleri daha kötü çıkmadı. Kireçlenme, evde oturanlarda yüzde on, hobi koşucularında yüzde üç buçuk."
     },
     {
-      "visual": "diz-doz",
-      "voice": "Yani dizini korumanın yolu onu saklamak değil, dozunda kullanmak.",
-      "say": "Yani dizini korumanın yolu onu saklamak değil, dozunda kullanmak."
+      "visual": "diz3-squat",
+      "voice": "Derin squatın sağlıklı dizi bozduğu da hiç kanıtlanmadı.",
+      "say": "Derin squatın sağlıklı dizi bozduğu da hiç kanıtlanmadı."
     },
     {
-      "visual": "diz-kapanis",
-      "voice": "Peki sen bu iki kuraldan hangisine inanıyordun?",
-      "say": "Peki sen bu iki kuraldan hangisine inanıyordun?"
+      "visual": "diz3-doz",
+      "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir. Dizin bitmiyor, dozunu bekliyor.",
+      "say": "O sızı çoğu zaman yükü birden artırmaktan gelir. Dizin bitmiyor, dozunu bekliyor."
+    },
+    {
+      "visual": "diz3-soru",
+      "voice": "Peki sen yarın o piste dönecek misin?",
+      "say": "Peki sen yarın o piste dönecek misin?"
     }
   ],
   "caption": "",
