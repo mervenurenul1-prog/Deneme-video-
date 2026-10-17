@@ -12,7 +12,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import { fontFamily, handFamily } from "../fonts";
-import { audioFor, SAFE, sceneDurations, useSeconds, wordsFor } from "../shared";
+import { audioFor, introFor, introWords, leadSeconds, SAFE, sceneDurations, useSeconds, wordsFor } from "../shared";
 import type { Cizim, PostVoiceover, WordTiming } from "../types";
 
 // 1. sürüm çizim stili (kullanıcının seçtiği): sade karakter, yavaş animasyonlar.
@@ -54,11 +54,13 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
   const last = cizim.scenes.length - 1;
   let from = 0;
   // Sahnenin sessiz açılışı (lead): kelimeler ve ses o kadar kaydırılır
-  const leadOf = (i: number) => cizim.scenes[i].lead ?? 0;
-  const wordsAt = (i: number) =>
+  const leadOf = (i: number) => leadSeconds(cizim, voiceover, i);
+  const mainWords = (i: number) =>
     wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i)).map((x) => ({ ...x, start: x.start + leadOf(i), end: x.end + leadOf(i) }));
+  // altyazı: varsa kanca (intro) kelimeleri + asıl kelimeler; w(i) yalnız asıl kelimeleri sayar
+  const wordsAt = (i: number) => [...introWords(cizim, voiceover, i), ...mainWords(i)];
   const wOf = (i: number) => {
-    const words = wordsAt(i);
+    const words = mainWords(i);
     return (k: number) => Math.round((words[Math.min(k, words.length - 1)]?.start ?? 0) * fps);
   };
   const First = SCENES[cizim.scenes[0].visual] ?? Missing;
@@ -70,6 +72,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         const start = from;
         from += durations[i];
         const audio = audioFor(cizim, voiceover, i);
+        const intro = introFor(cizim, voiceover, i);
         const words = wordsAt(i);
         const w = wOf(i);
         const Visual = SCENES[scene.visual] ?? Missing;
@@ -79,6 +82,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
               <Visual d={durations[i]} w={w} />
             </Shot>
             <Captions words={words} hideFrom={loop && i === last ? durations[i] - LOOP_FRAMES : undefined} />
+            {intro ? <Audio src={staticFile(intro.file)} /> : null}
             {audio ? (
               <Sequence from={Math.round(leadOf(i) * fps)} layout="none">
                 <Audio src={staticFile(audio.file)} />
@@ -409,7 +413,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "diz6-son": (w) => [[0, "pop", 0.25], [w(2), "pirilti", 0.35]],
   "diz5-hook": (w) => [[0, "adim", 0.25], [w(6), "cizik", 0.35], [w(7) - 2, "pop", 0.3]],
   "diz5-pist": (w) => [[w(3), "boom", 0.2], [w(3) + 1, "cizik", 0.45], [w(3) + 3, "sonme", 0.25], [w(7), "agir-dusme", 0.2], [w(9) - 2, "pop", 0.3]],
-  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [20, "pop", 0.3], [w(5), "boom", 0.2], [w(5) + 1, "cizik", 0.45], [w(5) + 3, "sonme", 0.25], [w(13), "agir-dusme", 0.2]],
+  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [Math.max(20, w(0) - 16), "pop", 0.3], [w(5), "boom", 0.2], [w(5) + 1, "cizik", 0.45], [w(5) + 3, "sonme", 0.25], [w(13), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
   "diz4-doz": (w) => [[w(8), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(16), "pop", 0.25], [w(20), "pirilti", 0.35]],
@@ -7170,10 +7174,13 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const flash = hit(f, hitAt, 6);
   const glow = tw(f, hitAt, hitAt + 6);
   // 2. tur biter: koşucu bitiş çizgisini geçer, üstteki tabela "2. TUR"dan kırmızı "3. TUR"a döner
-  const crossF = 20;
+  const crossF = Math.max(20, w(0) - 16);
   const lineX = 420 + 17 * (crossF - f);
   const lapN = f < crossF ? 2 : 3;
   const lapP = (lapN === 2 ? 1 : pop(f, crossF, 10)) * (1 - tw(f, w(5) + 4, w(6) + 4));
+  // kanca: "Bu adamın dizi yedi saniye sonra kilitlenecek." — sızıya kadar geri sayan sayaç
+  const left = Math.max(0, Math.round((hitAt - f) / 30));
+  const timer = 1 - tw(f, hitAt + 14, hitAt + 22);
   return (
     <>
     <CamK
@@ -7213,10 +7220,18 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
         </g>
       ) : null}
       {lapP > 0 ? (
-        <g transform={`translate(540 380) scale(${lapP}) rotate(-5)`}>
+        <g transform={`translate(540 470) scale(${lapP}) rotate(-5)`}>
           <rect x={-200} y={-80} width={400} height={150} rx={20} fill={lapN === 3 ? C.red : C.cream} stroke={C.ink} strokeWidth={8} />
           <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={100} fill={lapN === 3 ? C.cream : C.ink}>
             {lapN}. TUR
+          </text>
+        </g>
+      ) : null}
+      {timer > 0 ? (
+        <g transform={`translate(540 250) scale(${left === 0 ? 1 + 0.15 * hit(f, hitAt, 10) : 1})`} opacity={timer}>
+          <rect x={-230} y={-95} width={460} height={170} rx={24} fill={left === 0 ? C.red : C.ink} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={42} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={130} fill={left === 0 ? C.cream : "#ff5a4a"}>
+            {`00:0${left}`}
           </text>
         </g>
       ) : null}

@@ -65,34 +65,23 @@ for (const post of videos) {
   const old = await readManifest(manifestPath);
   const scenes: SceneAudio[] = [];
 
-  for (const [i, scene] of post.scenes.entries()) {
-    // Sahneye özel ses (ör. annenin repliği başka seslendirmenle): sahnedeki voiceId/voiceSettings videonunkini ezer
-    const sv = scene as { voiceId?: string; voiceSettings?: Record<string, number | boolean> };
-    const vId = sv.voiceId || ("voiceId" in post && post.voiceId) || voiceId;
-    const mId = ("modelId" in post && post.modelId) || modelId;
-    // Seslendirilen metin: varsa ton etiketli `say`, yoksa altyazı metni `voice`
-    const say: string = ("say" in scene && typeof scene.say === "string" && scene.say) || scene.voice;
-    const cached = old?.scenes.find((s) => s && s.voice === scene.voice && s.voiceId === vId && (s.say ?? s.voice) === say && sameModel(s.modelId, mId));
-    if (cached) {
-      scenes.push(cached);
-      continue;
-    }
-    console.log(`[${post.id}] sahne ${i + 1}: "${scene.voice}"`);
+  // Metni seslendirir; dosyayı yazar, uzun sessizlikleri kısaltır, altyazı kelimelerini döndürür
+  const speak = async (text: string, caption: string, vId: string, mId: string, settings: Record<string, number | boolean> | undefined, tag: string) => {
     const res = await client.textToSpeech.convertWithTimestamps(vId, {
-      text: say,
+      text,
       modelId: mId,
       // v3 modeli dili metinden tahmin etmeye çalışır; Türkçe olduğunu açıkça söyle
       ...(mId === "eleven_v3" || mId.startsWith("eleven_v4") ? { languageCode: "tr" } : {}),
       // İsteğe bağlı videoya özel ses ayarları (doğallık için: düşük stability, biraz style)
-      ...(sv.voiceSettings ? { voiceSettings: sv.voiceSettings } : "voiceSettings" in post && post.voiceSettings ? { voiceSettings: post.voiceSettings } : {}),
+      ...(settings ? { voiceSettings: settings } : "voiceSettings" in post && post.voiceSettings ? { voiceSettings: post.voiceSettings } : {}),
       outputFormat: "mp3_44100_128",
     });
     // Dosya adı benzersiz olsun ki tarayıcı önbelleği eski sesi çalmasın
-    const name = `${i + 1}-${Date.now().toString(36)}.mp3`;
+    const name = `${tag}-${Date.now().toString(36)}.mp3`;
     const a = res.alignment;
     const spoken = a ? toWords(a.characters, a.characterStartTimesSeconds, a.characterEndTimesSeconds) : [];
     // Altyazı = metindeki kelimeler (dolgu sesleri "ıı, hmm" konuşmada kalır, altyazıya girmez)
-    const words = matchWords(spoken, scene.voice);
+    const words = matchWords(spoken, caption);
     let duration = a?.characterEndTimesSeconds.at(-1) ?? 3;
     let finalWords = words;
     const maxPause = "maxPause" in post && typeof post.maxPause === "number" ? post.maxPause : null;
@@ -108,16 +97,43 @@ for (const post of videos) {
     } else {
       await writeFile(path.join(dir, name), Buffer.from(res.audioBase64, "base64"));
     }
-    scenes.push({
-      voice: scene.voice,
-      ...(say !== scene.voice ? { say } : {}),
-      voiceId: vId,
-      modelId: mId,
-      file: `voiceover/${post.id}/${name}`,
-      durationInSeconds: duration,
-      words: finalWords,
-    });
     generated++;
+    return { file: `voiceover/${post.id}/${name}`, durationInSeconds: duration, words: finalWords };
+  };
+
+  for (const [i, scene] of post.scenes.entries()) {
+    // Sahneye özel ses (ör. annenin repliği başka seslendirmenle): sahnedeki voiceId/voiceSettings videonunkini ezer
+    const sv = scene as { voiceId?: string; voiceSettings?: Record<string, number | boolean> };
+    const vId = sv.voiceId || ("voiceId" in post && post.voiceId) || voiceId;
+    const mId = ("modelId" in post && post.modelId) || modelId;
+    // Seslendirilen metin: varsa ton etiketli `say`, yoksa altyazı metni `voice`
+    const say: string = ("say" in scene && typeof scene.say === "string" && scene.say) || scene.voice;
+    const cached = old?.scenes.find((s) => s && s.voice === scene.voice && s.voiceId === vId && (s.say ?? s.voice) === say && sameModel(s.modelId, mId));
+    if (cached) {
+      scenes.push({ ...cached });
+    } else {
+      console.log(`[${post.id}] sahne ${i + 1}: "${scene.voice}"`);
+      const main = await speak(say, scene.voice, vId, mId, sv.voiceSettings, `${i + 1}`);
+      scenes.push({
+        voice: scene.voice,
+        ...(say !== scene.voice ? { say } : {}),
+        voiceId: vId,
+        modelId: mId,
+        ...main,
+      });
+    }
+    // Sahne başındaki kanca sesi (intro): ayrı seslendirilir, metni aynıysa önbellekten
+    const intro = (scene as { intro?: { voice: string; say?: string } }).intro;
+    const entry = scenes[scenes.length - 1];
+    if (intro) {
+      const iSay = intro.say || intro.voice;
+      const hit = old?.scenes.find((s) => s?.intro && s.intro.voice === intro.voice && (s.intro.say ?? s.intro.voice) === iSay)?.intro;
+      if (hit) entry.intro = hit;
+      else {
+        console.log(`[${post.id}] sahne ${i + 1} kanca: "${intro.voice}"`);
+        entry.intro = { voice: intro.voice, ...(iSay !== intro.voice ? { say: iSay } : {}), ...(await speak(iSay, intro.voice, vId, mId, sv.voiceSettings, `${i + 1}k`)) };
+      }
+    } else delete entry.intro;
     // Her sahneden sonra kaydet: kota yarıda biterse üretilen sesler kaybolmaz, tekrar çalıştırınca kaldığı yerden devam eder
     await writeFile(manifestPath, JSON.stringify({ scenes } satisfies PostVoiceover, null, 2));
   }

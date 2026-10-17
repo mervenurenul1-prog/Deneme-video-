@@ -91,7 +91,8 @@ export type Explainer = {
 // Çizimli video: her sahne, söylenen şeyi birebir gösteren kodla çizilmiş bir animasyon (visual)
 // voice: altyazı metni; say: (isteğe bağlı) seslendirilen metin, ton etiketleriyle, ör. "[whispers] ..."
 // lead: ses başlamadan önce sahnenin sessiz açılış süresi (saniye), ör. konuşmadan önce koşu
-export type CizimScene = { visual: string; voice: string; say?: string; lead?: number; data?: Record<string, unknown> };
+// intro: sahnenin başında, asıl sesten önce çalan ayrı kısa seslendirme (ör. kanca cümlesi); asıl ses onun ardından başlar
+export type CizimScene = { visual: string; voice: string; say?: string; lead?: number; intro?: { voice: string; say?: string }; data?: Record<string, unknown> };
 
 export type Cizim = {
   id: string;
@@ -123,6 +124,7 @@ export type SceneAudio = {
   file: string;
   durationInSeconds: number;
   words: WordTiming[];
+  intro?: { voice: string; say?: string; file: string; durationInSeconds: number; words: WordTiming[] };
 };
 
 // public/voiceover/<post-id>/manifest.json
