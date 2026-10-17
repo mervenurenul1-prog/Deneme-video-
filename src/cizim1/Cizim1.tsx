@@ -408,6 +408,9 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "diz7-hook": (w) => [[0, "adim", 0.25], [w(2) - 2, "ding", 0.35], [w(5) - 2, "kalem", 0.3]],
+  "diz7-anne": (w) => [[w(1) - 2, "pop", 0.3]],
+  "diz7-annesoz": (w) => [[w(1), "cizik", 0.3]],
   "diz6-hook": (w) => [[0, "adim", 0.2], [w(7), "whoosh", 0.25], [w(15) - 2, "pop", 0.3], [w(17), "cizik", 0.3]],
   "diz6-annesoz": (w) => [[0, "pop", 0.25], [w(1), "cizik", 0.3]],
   "diz6-son": (w) => [[0, "pop", 0.25], [w(2), "pirilti", 0.35]],
@@ -416,7 +419,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [Math.max(15, w(1) - 40), "pop", 0.3], [w(1), "boom", 0.2], [w(1) + 1, "cizik", 0.45], [w(1) + 3, "sonme", 0.25], [w(9), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
-  "diz4-doz": (w) => [[w(8), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(16), "pop", 0.25], [w(20), "pirilti", 0.35]],
+  "diz4-doz": (w) => [[w(11), "pop", 0.25], [w(16) - 2, "boom", 0.18], [w(17), "cizik", 0.35], [w(19), "pop", 0.25], [w(23), "pirilti", 0.35]],
   "diz4-stanford": (w, d) => [[2, "kalem", 0.3], [w(6) - 2, "pop", 0.3], [w(12), "whoosh", 0.25], [d - 14, "kagit", 0.3]],
   "diz4-sonuc": (w) => [[w(1) - 2, "ding", 0.35], [w(4), "cizik", 0.35], [w(9), "pop", 0.3], [w(13), "pirilti", 0.35]],
   "diz4-soru": (w) => [[w(5) - 2, "pop", 0.3]],
@@ -639,6 +642,9 @@ const ZOOM: Record<string, Zoom> = {
   "diz4-pist": { to: 1.0, x: 540, y: 960 },
   "diz5-hook": { to: 1.0, x: 540, y: 960 },
   "diz6-hook": { to: 1.0, x: 540, y: 960 },
+  "diz7-hook": { to: 1.0, x: 540, y: 960 },
+  "diz7-anne": { to: 1.0, x: 540, y: 960 },
+  "diz7-annesoz": { to: 1.0, x: 540, y: 960 },
   "diz6-annesoz": { to: 1.0, x: 540, y: 960 },
   "diz6-son": { to: 1.0, x: 540, y: 960 },
   "diz5-pist": { to: 1.0, x: 540, y: 960 },
@@ -7447,10 +7453,10 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   const row1 = [2, 2, 2, 10];
   const row2 = [2, 3, 4, 5];
   // "iki, iki, iki" → 2·2·2, "sonra bir günde on" → dev 10 km ve sızı; "her hafta biraz artırırsan" → 2·3·4·5
-  const spike = tw(f, w(13) - 2, w(14) + 4);
-  const r2on = tw(f, w(16) - 2, w(16) + 6);
-  const painT = Math.max(spike * (1 - tw(f, w(15), w(16))), 0.5 * tw(f, w(1) - 2, w(1) + 4) * (1 - tw(f, w(3), w(4))));
-  const speedAt = (i: number) => 1 - 0.55 * (tw(i, w(13) - 2, w(14) + 4) * (1 - tw(i, w(15), w(16))));
+  const spike = tw(f, w(16) - 2, w(17) + 4);
+  const r2on = tw(f, w(19) - 2, w(19) + 6);
+  const painT = Math.max(spike * (1 - tw(f, w(18), w(19))), 0.5 * tw(f, w(4) - 2, w(4) + 4) * (1 - tw(f, w(6), w(7))));
+  const speedAt = (i: number) => 1 - 0.55 * (tw(i, w(16) - 2, w(17) + 4) * (1 - tw(i, w(18), w(19))));
   const { off, ph } = runIntegral(f, speedAt);
   const pose = runPose(ph, speedAt(f));
   const card = (x: number, y: number, v: number, p: number, red: boolean) =>
@@ -7465,11 +7471,11 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <SideTrack off={off} />
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} bandage />
-      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 250, v, pop(f, i < 3 ? w(8 + i) : w(13) - 2, 10), i === 3))}</g>
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} />
+      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 250, v, pop(f, i < 3 ? w(11 + i) : w(16) - 2, 10), i === 3))}</g>
       <g opacity={r2on}>
-        {row2.map((v, i) => card(150 + i * 260, 430, v, pop(f, w(16) + i * 5, 10), false))}
-        <HandText x={790} y={640} text="dizin alışır" size={100} p={tw(f, w(20), w(20) + 8)} color="#3f7d4f" rotate={-3} />
+        {row2.map((v, i) => card(150 + i * 260, 430, v, pop(f, w(19) + i * 5, 10), false))}
+        <HandText x={790} y={640} text="dizin alışır" size={100} p={tw(f, w(23), w(23) + 8)} color="#3f7d4f" rotate={-3} />
       </g>
     </>
   );
@@ -7480,11 +7486,11 @@ const Diz4Soru: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const q = pop(f, w(5) - 2, 12) * (1 - tw(f, d - 22, d - 12));
   const up = tw(f, d - 22, d - 2);
-  const pose = mixPose(sitPose, runPose(0, 1), up);
+  const pose = mixPose(squatUp, runPose(0, 1), up);
   return (
     <CamK k={[[0, 1.15, 520, 1300], [w(4), 1.15, 520, 1300], [d - 4, 1, 540, 1200]]}>
       <SideTrack off={0} />
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={1 - up} face={up > 0.5 ? "smile" : "worry"} painGlow={0} bandage />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={up > 0.5 ? "smile" : "worry"} />
       {q > 0 ? <HandText x={760} y={760} text="?" size={240} p={q} color={C.red} rotate={8} /> : null}
     </CamK>
   );
@@ -7619,7 +7625,96 @@ const Diz6AnneSoz: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+// ---------- 06 diz v7: kanca iddia ile başlar, anne "eski inanç" olarak gelir (sızı/oturma yok) ----------
+// "Koşmak dizini aşındırmıyor. Bunu kanıtlamak on sekiz yıl sürdü."
+// Uzak planda koşu; yandaki röntgen merceğinde dizin içi canlı (her adımda ezilir ama sağlam kalır), "aşındırmıyor"da yeşil tik;
+// "on sekiz yıl"da el yazısı "18 yıl"; kamera bir kademe yaklaşır.
+const Diz7Hook: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const { off, ph } = runIntegral(f, () => 1);
+  const pose = runPose(ph, 1);
+  const cam: [number, number, number, number][] = [
+    [0, 0.58, 540, 1000],
+    [w(3) - 4, 0.62, 540, 1020],
+    [w(3) + 4, 0.9, 520, 1250],
+    [d, 1.0, 540, 1200],
+  ];
+  const [cs, ccx, ccy] = camAt(cam, f);
+  const kx = 420 + Math.sin(deg(pose.front.a)) * L_T * 1.45;
+  const ky = TRACK_Y + (pose.hipY + Math.cos(deg(pose.front.a)) * L_T) * 1.45;
+  const ks = { x: ccx + (kx - ccx) * cs, y: ccy + (ky - ccy) * cs };
+  const strike = Math.pow(Math.max(0, Math.sin(ph * 2)), 6);
+  const lx = Math.min(925, ks.x + 380);
+  const ly = Math.max(560, ks.y - 230);
+  const ok = pop(f, w(2) - 2, 12);
+  const yrs = tw(f, w(5) - 2, w(7) + 6);
+  return (
+    <>
+      <CamK k={cam}>
+        <SideTrack off={off} wide />
+        <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face="smile" />
+      </CamK>
+      <path d={`M${ks.x} ${ks.y} L${lx} ${ly}`} stroke={C.ink} strokeWidth={7} strokeDasharray="16 12" />
+      <circle cx={ks.x} cy={ks.y} r={40 * cs} fill="none" stroke={C.ink} strokeWidth={7} />
+      <g transform={`translate(${lx} ${ly}) scale(${0.62 * (1 + 0.04 * strike)}) translate(${-lx} ${-ly})`}>
+        <KneeLens x={lx} y={ly} r={230} press={0.2 + 0.8 * strike} />
+        {ok > 0 ? (
+          <g transform={`translate(${lx + 190} ${ly - 190}) scale(${ok})`}>
+            <circle r={70} fill="#3f7d4f" stroke={C.ink} strokeWidth={7} />
+            <path d="M-30 0 L-6 26 L32 -24" stroke="#fff" strokeWidth={13} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          </g>
+        ) : null}
+      </g>
+      {yrs > 0 ? <HandText x={540} y={330} text="18 yıl" size={170} p={yrs} color={C.red} rotate={-5} /> : null}
+    </>
+  );
+};
+
+// Koşarken düşünce balonunda anne (balon p ile açılır; children yoksa anne parmak sallar)
+const RunWithMom: React.FC<{ f: number; bubble: number; children?: React.ReactNode }> = ({ f, bubble, children }) => {
+  const { off, ph } = runIntegral(f + 400, () => 0.8);
+  return (
+    <>
+      <SideTrack off={off} />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.1} pose={runPose(ph, 0.8)} face="worry" />
+      <Bubble x={620} y={430} rx={330} ry={250} p={bubble} tail={[520, 820]}>
+        {children ?? <Mom f={f} x={620} y={630} s={0.5} wag={1} />}
+      </Bubble>
+    </>
+  );
+};
+// "Ama annen hep şöyle derdi:"
+const Diz7Anne: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  return (
+    <CamK k={[[0, 1.0, 540, 1200], [w(2) + 6, 1.0, 540, 1000]]}>
+      <RunWithMom f={f} bubble={pop(f, w(1) - 2, 14)} />
+    </CamK>
+  );
+};
+// Anne (Sibel): "Koşma, dizlerin aşınır! Benim gibi mi olmak istiyorsun?"
+const Diz7AnneSoz: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const i1 = pop(f, w(0) - 2, 12);
+  const c1 = tw(f, w(1), w(2) + 4);
+  const own = tw(f, w(3) - 2, w(4) + 6);
+  const zoom = tw(f, w(3) - 2, w(5) + 4);
+  return (
+    <CamK k={[[0, 1, 540, 1000], [w(3) - 2, 1, 540, 1000], [w(5) + 4, 1.3, 620, 560]]}>
+      <RunWithMom f={f + 60} bubble={1}>
+        {own > 0.05 ? <SideRunner f={f} x={590} y={640} s={0.5} pose={bendPose} reach={1} face="pain" painGlow={own} shirt="#9a7bb0" female /> : undefined}
+      </RunWithMom>
+      <g opacity={1 - zoom}>
+        <BanIcon x={170} y={1000} p={i1} cross={c1} f={f} />
+      </g>
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "diz7-hook": Diz7Hook,
+  "diz7-anne": Diz7Anne,
+  "diz7-annesoz": Diz7AnneSoz,
   "diz6-hook": Diz6Hook,
   "diz6-annesoz": Diz6AnneSoz,
   "diz6-son": Diz6Son,

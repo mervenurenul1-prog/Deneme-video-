@@ -47,6 +47,18 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   dağlar + çam ormanı + pist) → "yapabilirsin"de bir kademe yakın → "birden"de (ağrı) beyaz parlama + dize yakınlaşma +
   röntgen merceği → geri çekilip eğilir/oturur. Ses başındaki 1,6 sn soluma kırpıldı (manifest güncellendi), `lead` 0.5,
   `padding` 0.05 → ~46,9 sn (45'i ~2 sn aşıyor; kullanıcıya söylendi). Doz kartları başın üstünden yukarı alındı.
+  (i) 17 Ekim akşam — CEFF: "konu yine anlaşılmıyor, 3-4 sn'den sonra yakalıyor" → kanca arayışı. Denenip reddedilenler:
+  diz5 (röntgende aşınan diz + başlık), diz6 (70 yaşında koşan / 45 yaşında oturan bölünmüş ekran; kullanıcı "beyni
+  almadı"), "Bu adamın dizi yedi saniye sonra kilitlenecek" + geri sayım (sayaç ve "Hadi… son tur" istenmedi; asma kilit
+  koyma, "kilitlenmek" mecaz). Kullanıcı yan profil koşucuyu ve anneyi istiyor. SON SEÇİM (kullanıcı onayladı, yalnız
+  kod/JSON, SESLENDİRİLMEDİ, önizleme render edilmedi): kanca "Koşmak dizini aşındırmıyor. Bunu kanıtlamak on sekiz yıl
+  sürdü." (`diz7-hook`: uzak plan koşu, yandaki canlı röntgen merceği, yeşil tik, "18 yıl") → "Ama annen hep şöyle derdi:"
+  (`diz7-anne`, koşarken balonda anne) → Sibel (hazır, `diz7-annesoz`) → Stanford/sonuç (hazır) → doz "Peki koşunca dizin
+  neden sızlar? Çünkü çoğu zaman yükü birden artırırsın: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz
+  artırırsan, dizin yüke alışır." → soru (hazır; avatar ayakta, bandaj yok). Sızı/oturma sahnesi çıktı. Altyazı artık
+  cümle sonunda bölünür ve biten satır ekranda asılı kalmaz. Sahne başına `intro` sesi desteği eklendi (şu an kullanılmıyor).
+  **Kullanıcı 17 Ekim akşam "her şeyi durduruyorum" dedi** — devam etmeden önce sor. Sıradaki: sessiz önizleme → onay →
+  seslendirme (kanca + "Ama annen…" + doz ≈ 260 karakter; kalan kredi ≈ 14.730).
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi
