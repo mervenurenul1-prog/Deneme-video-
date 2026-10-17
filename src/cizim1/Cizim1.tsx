@@ -408,6 +408,13 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  // 08 sauna eşofmanı
+  "sauna-hook": (w) => [[0, "adim", 0.25], [w(3) - 4, "whoosh", 0.25], [w(5), "bip", 0.3], [w(12) - 2, "cizik", 0.3], [w(14) - 2, "damla", 0.4]],
+  "sauna-tarih": (w) => [[2, "kagit", 0.3], [w(24) - 2, "boom", 0.18]],
+  "sauna-su": (w) => [[w(1), "damla", 0.35], [w(3), "cizik", 0.3], [w(9), "damla", 0.3], [w(11), "bip", 0.3]],
+  "sauna-yag": (w) => [[w(5), "tik", 0.25], [w(12) - 2, "cizik", 0.3]],
+  "sauna-tehlike": (w) => [[w(3), "sihir", 0.25], [w(6), "agir-dusme", 0.25]],
+  "sauna-dongu": (w) => [[0, "bip", 0.25], [w(4), "pop", 0.25]],
   // 07 spora kaç yaşında: yalnız önemli anlar
   "yas-hook": (w) => [[w(7), "cizik", 0.3], [w(10), "cizik", 0.3], [w(10) + 4, "yuksel", 0.25], [w(15), "pop", 0.3]],
   "yas-rapor": (w) => [[2, "kagit", 0.3], [w(11) - 2, "boom", 0.18], [w(13), "kalem", 0.3]],
@@ -829,6 +836,7 @@ type PersonProps = {
   shirt?: string; // gömlek rengi (ör. doktor önlüğü için beyaz)
   female?: boolean; // kadın karakter: at kuyruğu saç, kirpik, mercan tişört
   limbW?: number; // kol/bacak kalınlığı çarpanı (1 = normal; "iri vücut" korkusu için >1)
+  suit?: string; // baştan ayağa tek parça giysi (ör. sauna eşofmanı): kollar, bacaklar ve gövde bu renkte
   children?: React.ReactNode; // karakterin koordinatlarında ek çizimler
 };
 
@@ -890,9 +898,10 @@ const Person: React.FC<PersonProps> = ({
   shirt,
   female = false,
   limbW = 1,
+  suit,
   children,
 }) => {
-  const top = shirt ?? (female ? "#d9705f" : C.shirt);
+  const top = suit ?? shirt ?? (female ? "#d9705f" : C.shirt);
   const frame = useCurrentFrame();
   const waist = 88 + 70 * belly;
   const hipW = 84 + 32 * belly;
@@ -925,8 +934,8 @@ const Person: React.FC<PersonProps> = ({
           ))}
         </g>
       ) : null}
-      <Limb p={lL} w={52 * limbW} color={C.skin} />
-      <Limb p={lR} w={52 * limbW} color={C.skin} />
+      <Limb p={lL} w={52 * limbW} color={suit ?? C.skin} />
+      <Limb p={lR} w={52 * limbW} color={suit ?? C.skin} />
       {legGlow > 0 ? (
         <g opacity={legGlow * 0.55}>
           {[lL, lR].map((p, i) => (
@@ -949,7 +958,7 @@ const Person: React.FC<PersonProps> = ({
       {/* şort */}
       <path
         d={`M${-hipW - 4} -392 L${hipW + 4} -392 L${pt(tRo)} L${pt(tRi)} L0 -300 L${pt(tLi)} L${pt(tLo)} Z`}
-        fill={C.shorts}
+        fill={suit ?? C.shorts}
         stroke={C.ink}
         strokeWidth={7}
         strokeLinejoin="round"
@@ -970,8 +979,9 @@ const Person: React.FC<PersonProps> = ({
       <path d="M-34 -603 Q0 -566 34 -603" stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
       {lungs > 0 ? <Lungs o={lungs} breath={breath} /> : null}
       {/* kollar */}
-      <Limb p={aL} w={44 * limbW} color={C.skin} sleeve={top} />
-      <Limb p={aR} w={44 * limbW} color={C.skin} sleeve={top} />
+      <Limb p={aL} w={44 * limbW} color={suit ?? C.skin} sleeve={suit ? undefined : top} />
+      <Limb p={aR} w={44 * limbW} color={suit ?? C.skin} sleeve={suit ? undefined : top} />
+      {suit ? <path d="M-60 -560 Q-40 -500 -50 -430 M50 -575 Q66 -520 58 -470" stroke="#fff" strokeWidth={10} fill="none" opacity={0.55} strokeLinecap="round" /> : null}
       {[aL, aR].map((p, i) => (
         <circle key={i} cx={p[2][0]} cy={p[2][1]} r={27} fill={C.skin} stroke={C.ink} strokeWidth={6} />
       ))}
@@ -6991,7 +7001,7 @@ const mixPose = (p: SidePose, q: SidePose, t: number): SidePose => ({
 });
 
 // face: "smile" | "pain" | "worry" | "grin"; reach: 0..1 eller ön dize gider (eğilme/oturma)
-const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; reach?: number; face?: "smile" | "pain" | "worry" | "grin"; painGlow?: number; f: number; look?: number; bandage?: boolean; shirt?: string; female?: boolean; hair?: string; sweat?: boolean }> = ({
+const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; reach?: number; face?: "smile" | "pain" | "worry" | "grin"; painGlow?: number; f: number; look?: number; bandage?: boolean; shirt?: string; female?: boolean; hair?: string; sweat?: boolean; suit?: string }> = ({
   x,
   y,
   s,
@@ -7006,7 +7016,9 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
   female = false,
   hair = C.hair,
   sweat = false,
+  suit,
 }) => {
+  if (suit) shirt = suit;
   const H: P2 = { x: 0, y: pose.hipY };
   const legPts = (lp: LegPose) => {
     const K = add(H, L_T, lp.a);
@@ -7045,8 +7057,8 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
     const toe = { x: l.A.x + Math.cos(footAng) * 62, y: l.A.y + Math.sin(footAng) * 62 };
     return (
       <g opacity={shade}>
-        {seg(H, l.K, 50, C.shorts)}
-        {seg(l.K, l.A, 32, C.skin)}
+        {seg(H, l.K, 50, suit ?? C.shorts)}
+        {seg(l.K, l.A, 32, suit ?? C.skin)}
         {seg(l.A, toe, 26, "#e8e3d8")}
       </g>
     );
@@ -7054,7 +7066,7 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
   const arm = (e: P2, h: P2, shade: number) => (
     <g opacity={shade}>
       {seg(S, e, 34, shirt)}
-      {seg(e, h, 24, C.skin)}
+      {seg(e, h, 24, suit ?? C.skin)}
     </g>
   );
   const torso = (() => {
@@ -8528,7 +8540,333 @@ const YasBugun: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 08 sauna eşofmanı: sahneler ---------- */
+// Avatar baştan ayağa parlak gümüş sauna eşofmanı giyer (Person/SideRunner `suit`). Terle giden su, yağ değil.
+
+const SUIT = "#b9c2cc";
+const SAUNA_OK = "#1f4e8c";
+
+// Vücuttan damlayan ter: (x, y) çevresinde n damla, yukarıdan aşağı akar
+const Sweat: React.FC<{ f: number; x: number; y: number; w: number; h: number; n?: number; o?: number }> = ({ f, x, y, w, h, n = 8, o = 1 }) => (
+  <g opacity={o}>
+    {Array.from({ length: n }, (_, i) => {
+      const px = x + (random(`sw${i}`) - 0.5) * w;
+      const t = ((f * (2.2 + random(`sv${i}`)) + random(`sp${i}`) * h) % h) / h;
+      return <Drop key={i} x={px} y={y + t * h} s={0.8} o={0.85 * (1 - t * 0.6)} />;
+    })}
+  </g>
+);
+
+// Su şişesi: level 0..1
+const Bottle: React.FC<{ x: number; y: number; s?: number; level: number; rot?: number; label?: string }> = ({ x, y, s = 1, level, rot = 0, label }) => (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
+    <clipPath id="btl">
+      <rect x={-70} y={-190} width={140} height={260} rx={30} />
+    </clipPath>
+    <rect x={-70} y={-190} width={140} height={260} rx={30} fill="#eef5f8" stroke={C.ink} strokeWidth={8} />
+    <rect x={-70} y={70 - 260 * level} width={140} height={260 * level} fill={C.water} opacity={0.85} clipPath="url(#btl)" />
+    <rect x={-34} y={-236} width={68} height={50} rx={10} fill={SAUNA_OK} stroke={C.ink} strokeWidth={7} />
+    {label ? (
+      <text x={0} y={-40} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
+        {label}
+      </text>
+    ) : null}
+  </g>
+);
+
+// "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. Peki o kilo yağ mıydı? Hayır. Sadece su."
+// Gümüş eşofmanla pistte terleyerek koşu → tartıya çıkar, ekran 72,0 → 71,0 → "yağ?" çizilir → kocaman su damlası.
+const SaunaHook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const cut = w(3) - 4;
+  if (f < cut) {
+    const { off, ph } = runIntegral(f, () => 1);
+    const pose = runPose(ph, 1);
+    return (
+      <>
+        <SideTrack off={off} />
+        <SideRunner f={f} x={430} y={TRACK_Y} s={1.4} pose={pose} suit={SUIT} face="worry" sweat />
+        <Sweat f={f} x={470} y={1050} w={260} h={560} n={12} />
+        <HandText x={540} y={330} text="sauna eşofmanı" size={110} p={tw(f, 0, w(1) + 6)} color={C.red} rotate={-3} />
+      </>
+    );
+  }
+  const drop = tw(f, w(5) - 2, w(6) + 6);
+  const kg = lerp(72, 71, drop);
+  const fat = pop(f, w(10) - 2, 10);
+  const no = tw(f, w(12) - 2, w(12) + 8);
+  const water = pop(f, w(14) - 2, 12);
+  return (
+    <>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      <Bathroom x={PX} y={PY + 6} value={`${kg.toFixed(1)} kg`} />
+      <Person x={PX} y={PY - 48} s={0.82} suit={SUIT} belly={0.4} mouth={drop > 0.8 ? "grin" : "o"} eyes={drop > 0.2 && drop < 0.8 ? "wide" : "open"} lookY={10} />
+      <Sweat f={f} x={PX} y={780} w={240} h={500} n={8} o={1 - water * 0.6} />
+      <KgDisplay x={540} y={330} p={pop(f, cut, 12)} value={`${kg.toFixed(1)}`} color={drop > 0.95 ? "#9fe0a8" : "#e8f3d8"} />
+      {drop > 0.95 ? <HandText x={850} y={520} text="−1 kg" size={100} p={tw(f, w(6), w(6) + 8)} color="#3f7d4f" rotate={-6} /> : null}
+      {fat > 0 && water <= 0 ? (
+        <g transform={`translate(240 640) scale(${1.35 * fat})`}>
+          <ellipse cx={0} cy={0} rx={120} ry={90} fill={C.fat} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.ink}>
+            yağ?
+          </text>
+          {no > 0 ? <Cross x={0} y={0} size={110} p={no} /> : null}
+        </g>
+      ) : null}
+      {water > 0 ? (
+        <g transform={`translate(240 640) scale(${1.35 * water})`}>
+          <path d="M0 -150 C70 -40 110 10 110 60 C110 125 60 160 0 160 C-60 160 -110 125 -110 60 C-110 10 -70 -40 0 -150 Z" fill={C.water} stroke={C.ink} strokeWidth={9} />
+          <text x={0} y={90} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90} fill={C.cream}>
+            su
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Bin dokuz yüz doksan yedide Amerika'da üç genç güreşçi, kilo düşmek için ter eşofmanıyla çalışırken bir ay içinde
+// hayatını kaybetti. Ertesi ay bu eşofmanlar yasaklandı."
+// Eski fotoğraf: sıcak odada gümüş eşofmanlı üç güreşçi bisiklet çevirir, termometre kırmızı → sessizce soluklaşırlar;
+// askıdaki eşofmana kırmızı "YASAK" damgası.
+const SaunaTarih: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const fade = tw(f, w(18) - 4, w(19) + 10);
+  const heat = tw(f, w(9), w(14) + 6);
+  const ban = tw(f, w(20) - 4, w(21) + 6);
+  const stamp = pop(f, w(24) - 2, 10);
+  return (
+    <>
+      <rect x={-200} y={-200} width={1480} height={PY + 200} fill="#e9d6b0" />
+      <rect x={-200} y={PY} width={1480} height={800} fill="#c9a06c" />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      <HandText x={540} y={330} text="1997" size={200} p={tw(f, 0, w(4) + 4)} rotate={-4} />
+      <g opacity={1 - ban}>
+        {/* termometre */}
+        <g transform="translate(950 760)">
+          <rect x={-26} y={-260} width={52} height={300} rx={26} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+          <rect x={-14} y={30 - 280 * (0.35 + 0.6 * heat)} width={28} height={280 * (0.35 + 0.6 * heat)} rx={14} fill={C.red} />
+          <circle cx={0} cy={50} r={44} fill={C.red} stroke={C.ink} strokeWidth={7} />
+        </g>
+        {[0, 1, 2].map((i) => {
+          const x = 220 + i * 260;
+          const bob = Math.sin(f / 4 + i) * 6 * (1 - fade);
+          return (
+            <g key={i} opacity={1 - 0.75 * fade}>
+              <path d={`M${x - 90} ${PY} L${x - 40} ${PY - 140} L${x + 60} ${PY - 140} L${x + 90} ${PY} M${x - 60} ${PY - 140} L${x + 70} ${PY - 140}`} stroke={C.ink} strokeWidth={10} fill="none" strokeLinecap="round" />
+              <Person x={x} y={PY - 120 + bob} s={0.5} suit={fade > 0.5 ? "#9a9a9a" : SUIT} belly={0.3} armL={[40, -20]} armR={[40, -20]} legL={{ lift: 0.3 + 0.2 * Math.sin(f / 4 + i) * (1 - fade) }} legR={{ lift: 0.3 - 0.2 * Math.sin(f / 4 + i) * (1 - fade) }} mouth="worry" eyes={fade > 0.5 ? "closed" : "open"} lookY={6} />
+              {fade < 0.5 ? <Sweat f={f + i * 20} x={x} y={PY - 520} w={120} h={380} n={4} o={heat} /> : null}
+            </g>
+          );
+        })}
+      </g>
+      {ban > 0 ? (
+        <g opacity={ban}>
+          <path d="M540 520 L540 470 M440 560 L540 470 L640 560" stroke={C.ink} strokeWidth={8} fill="none" strokeLinecap="round" />
+          <Person x={540} y={1180} s={0.75} suit={SUIT} belly={0.3} eyes="closed" mouth="flat" />
+          <HandText x={540} y={1300} text="1998" size={110} p={ban} rotate={-3} />
+        </g>
+      ) : null}
+      {stamp > 0 ? (
+        <g transform={`translate(540 860) rotate(-14) scale(${stamp})`}>
+          <rect x={-250} y={-95} width={500} height={170} rx={16} fill="none" stroke={C.red} strokeWidth={16} />
+          <text x={0} y={38} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={140} fill={C.red}>
+            YASAK
+          </text>
+        </g>
+      ) : null}
+      <OldPhoto o={0.85} />
+    </>
+  );
+};
+
+// "Çünkü terle giden yağ değil, su. Bir şişe su içince o kilo geri gelir."
+// Ter damlaları şişede toplanır (1 L); "yağ" çizilir; avatar şişeyi içer, tartı ekranı 71,0 → 72,0.
+const SaunaSu: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const fill = tw(f, w(1) - 4, w(5) + 4);
+  const noFat = tw(f, w(3) - 2, w(4) + 6);
+  const drink = tw(f, w(8) - 4, w(9) + 6);
+  const level = fill * (1 - tw(f, w(9), w(11) + 4));
+  const back = tw(f, w(11) - 2, w(13) + 4);
+  const X = 380;
+  const Y = PY + 40;
+  const arm: Arm = [lerp(12, 120, drink), lerp(0, -205, drink)];
+  const hand = armPoints(1, arm)[2];
+  return (
+    <>
+      <rect x={-200} y={Y} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${Y} L1280 ${Y}`} stroke={C.ink} strokeWidth={6} />
+      <Person x={X} y={Y} s={0.82} suit={SUIT} belly={0.4} armR={arm} mouth={drink > 0.6 ? "o" : "flat"} eyes={drink > 0.6 ? "closed" : "open"} lookY={6}>
+        {drink > 0.02 ? <Bottle x={hand[0]} y={hand[1] - 40} s={1.1} level={level} rot={lerp(0, -120, drink)} /> : null}
+      </Person>
+      {/* ter: vücuttan şişeye akan damlalar */}
+      {fill > 0 && drink < 0.02 ? (
+        <g>
+          {Array.from({ length: 8 }, (_, i) => {
+            const t = ((f * 2.5 + i * 13) % 34) / 34;
+            const x0 = X + (i % 2 ? 80 : -60) * 0.82;
+            const y0 = Y - 480 + (i % 3) * 60;
+            return <Drop key={i} x={lerp(x0, 780, t)} y={lerp(y0, Y - 330, t) - Math.sin(t * Math.PI) * 120} s={0.9} o={1 - t * 0.3} />;
+          })}
+        </g>
+      ) : null}
+      {drink < 0.02 ? <Bottle x={780} y={Y - 90} level={fill} label="1 L" /> : null}
+      {noFat > 0 ? (
+        <g>
+          <HandText x={760} y={520} text="yağ" size={130} p={1} color={C.fatDark} rotate={-4} />
+          <Cross x={760} y={475} size={85} p={noFat} />
+          <HandText x={760} y={680} text="su ✓" size={120} p={tw(f, w(5) - 2, w(5) + 6)} color={SAUNA_OK} rotate={-4} />
+        </g>
+      ) : null}
+      <KgDisplay x={760} y={330} p={pop(f, w(11) - 4, 10)} value={lerp(71, 72, back).toFixed(1)} color={back > 0.95 ? "#e8b18a" : "#e8f3d8"} />
+    </>
+  );
+};
+
+// Yağ deposu: sarı, kabarık bir kütle (s = boyut)
+const FatBlob: React.FC<{ x: number; y: number; s: number; label?: string }> = ({ x, y, s, label }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    {[[-60, -30, 90], [50, -40, 100], [0, 40, 110], [-80, 50, 70], [90, 50, 70]].map(([cx, cy, r], i) => (
+      <circle key={i} cx={cx} cy={cy} r={r} fill={C.fat} stroke={C.ink} strokeWidth={7} />
+    ))}
+    {[[-60, -30, 90], [50, -40, 100], [0, 40, 110], [-80, 50, 70], [90, 50, 70]].map(([cx, cy, r], i) => (
+      <circle key={`f${i}`} cx={cx} cy={cy} r={r - 4} fill={C.fat} />
+    ))}
+    {label ? (
+      <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.ink}>
+        {label}
+      </text>
+    ) : null}
+  </g>
+);
+
+// "Bir kilo yağı eritmek için saatlerce hareket etmen gerekir. Ter eşofmanı bunu hızlandırmaz."
+// Üstte "1 kg yağ" kütlesi, yanında hızla dönen saat; avatar (normal kıyafet) koşar, kütle yavaş yavaş küçülür.
+// Sonra gümüş eşofmanla sırılsıklam koşar: kütle hiç değişmez, "ter ≠ yağ".
+const SaunaYag: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const hours = tw(f, w(5) - 2, w(8) + 6);
+  const suitOn = f >= w(9) - 4;
+  const blob = lerp(1, 0.72, hours);
+  const { off, ph } = runIntegral(f, () => 1);
+  const pose = runPose(ph, 1);
+  const neq = pop(f, w(12) - 2, 12);
+  return (
+    <>
+      <SideTrack off={off} />
+      <FatBlob x={400} y={560} s={blob} label="1 kg yağ" />
+      <g transform="translate(820 520)">
+        <circle cx={0} cy={0} r={130} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+        {Array.from({ length: 12 }, (_, i) => (
+          <path key={i} d={`M${Math.sin((i * Math.PI) / 6) * 105} ${-Math.cos((i * Math.PI) / 6) * 105} L${Math.sin((i * Math.PI) / 6) * 120} ${-Math.cos((i * Math.PI) / 6) * 120}`} stroke={C.ink} strokeWidth={6} />
+        ))}
+        <path d={`M0 0 L${Math.sin(hours * 50) * 60} ${-Math.cos(hours * 50) * 60}`} stroke={C.ink} strokeWidth={12} strokeLinecap="round" />
+        <path d={`M0 0 L${Math.sin(hours * 600) * 95} ${-Math.cos(hours * 600) * 95}`} stroke={C.red} strokeWidth={8} strokeLinecap="round" />
+        <circle cx={0} cy={0} r={12} fill={C.ink} />
+      </g>
+      {hours > 0.05 && !suitOn ? <HandText x={820} y={760} text="saatlerce" size={90} p={hours} color={SAUNA_OK} rotate={-4} /> : null}
+      <SideRunner f={f} x={430} y={TRACK_Y} s={1.4} pose={pose} suit={suitOn ? SUIT : undefined} face={suitOn ? "worry" : "smile"} sweat={suitOn} />
+      {suitOn ? <Sweat f={f} x={470} y={1050} w={280} h={560} n={16} /> : null}
+      {neq > 0 ? (
+        <g transform={`translate(540 330) scale(${neq}) rotate(-4)`}>
+          <text x={0} y={0} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={C.red}>
+            ter ≠ yağ
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Üstelik vücudun ısınır; baş dönmesi, hatta bayılma yapabilir."
+// Termometre kırmızıya çıkar, avatarın çevresinde sıcak dalgalar; başının etrafında yıldızlar döner, sendeler ve yere yığılır.
+const SaunaTehlike: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const heat = tw(f, 0, w(2) + 6);
+  const dizzy = tw(f, w(3) - 2, w(4) + 4);
+  const faint = tw(f, w(6) - 2, w(7) + 4);
+  const sway = Math.sin(f / 5) * 8 * dizzy * (1 - faint);
+  const X = 470;
+  const Y = PY + 40;
+  return (
+    <>
+      <rect x={-200} y={-200} width={1480} height={2400} fill={C.red} opacity={0.12 * heat} />
+      <rect x={-200} y={Y} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${Y} L1280 ${Y}`} stroke={C.ink} strokeWidth={6} />
+      {/* sıcak dalgaları */}
+      {[0, 1, 2, 3].map((i) => {
+        const t = ((f + i * 12) % 48) / 48;
+        const x = X - 220 + i * 140;
+        return <path key={i} d={`M${x} ${Y - 200 - t * 500} q20 -30 0 -60 q-20 -30 0 -60 q20 -30 0 -60`} stroke={C.red} strokeWidth={8} fill="none" opacity={heat * (1 - t) * 0.7} strokeLinecap="round" />;
+      })}
+      <g transform={`rotate(${sway + -84 * faint} ${X} ${Y})`}>
+        <Person x={X} y={Y} s={0.82} suit={SUIT} belly={0.4} mouth={dizzy > 0.3 ? "open" : "worry"} eyes={dizzy > 0.3 ? "dizzy" : "wide"} blush={0.4 + 0.5 * heat} />
+        {dizzy > 0 && faint < 0.9
+          ? [0, 1, 2].map((i) => {
+              const a = f / 6 + (i * Math.PI * 2) / 3;
+              return (
+                <g key={i} opacity={dizzy}>
+                  <Star x={X + Math.cos(a) * 110} y={Y - 760 + Math.sin(a) * 30} r={26} rot={f * 5} />
+                </g>
+              );
+            })
+          : null}
+      </g>
+      <Sweat f={f} x={X} y={Y - 600} w={260} h={500} n={8} o={1 - faint} />
+      {/* termometre */}
+      <g transform="translate(900 700)">
+        <rect x={-34} y={-330} width={68} height={380} rx={34} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+        <rect x={-18} y={40 - 360 * (0.3 + 0.7 * heat)} width={36} height={360 * (0.3 + 0.7 * heat)} rx={18} fill={C.red} />
+        <circle cx={0} cy={60} r={56} fill={C.red} stroke={C.ink} strokeWidth={8} />
+      </g>
+      {faint > 0.5 ? <HandText x={540} y={360} text="bayılma!" size={120} p={tw(faint, 0.5, 1)} color={C.red} rotate={-4} /> : null}
+      {dizzy > 0.3 && faint <= 0.5 ? <HandText x={540} y={360} text="baş dönmesi" size={110} p={tw(dizzy, 0.3, 1)} color={C.red} rotate={-4} /> : null}
+    </>
+  );
+};
+
+// "Yani tartı yalan söylemez, ama her şeyi de söylemez. Bir dahaki sefere o bir kiloya bakarken hatırla:"
+// Avatar tartıda; ekran −1 kg, altında iki etiket: "su −1" (mavi) ve "yağ 0" (sarı); avatar tartıya bakar → döngü (koşu).
+const SaunaDongu: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const tags = tw(f, w(4) - 2, w(8) + 6);
+  const look = tw(f, w(9), w(15));
+  return (
+    <CamK k={[[0, 1, 540, 1000], [w(9), 1, 540, 1000], [w(16), 1.12, 540, 900]]}>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      <Bathroom x={PX} y={PY + 6} value="71.0 kg" />
+      <Person x={PX} y={PY - 48} s={0.82} suit={SUIT} belly={0.4} mouth="flat" lookY={lerp(0, 14, look)} tilt={lerp(0, 6, look)} />
+      <KgDisplay x={540} y={330} p={pop(f, 0, 12)} value="−1 kg" color="#e8f3d8" />
+      {tags > 0 ? (
+        <g opacity={tags}>
+          <g transform={`translate(330 560) scale(${tw(tags, 0, 0.5)})`}>
+            <rect x={-140} y={-60} width={280} height={110} rx={16} fill={C.water} stroke={C.ink} strokeWidth={7} />
+            <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.cream}>
+              su −1
+            </text>
+          </g>
+          <g transform={`translate(750 560) scale(${tw(tags, 0.5, 1)})`}>
+            <rect x={-140} y={-60} width={280} height={110} rx={16} fill={C.fat} stroke={C.ink} strokeWidth={7} />
+            <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.ink}>
+              yağ 0
+            </text>
+          </g>
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "sauna-hook": SaunaHook,
+  "sauna-tarih": SaunaTarih,
+  "sauna-su": SaunaSu,
+  "sauna-yag": SaunaYag,
+  "sauna-tehlike": SaunaTehlike,
+  "sauna-dongu": SaunaDongu,
   "yas-hook": YasHook,
   "yas-rapor": YasRapor,
   "yas-oyun": YasOyun,

@@ -84,6 +84,13 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   lastik bant = dizlerin üstünde turuncu mini bant, yana adım; sakatlık balonu (kullanıcı: "evde halter saçma"): evde tek
   başına 20 kg dambılı kaldırmaya çalışır, sendeler, dambıl AYAĞINA düşer, ayağını tutup tek ayakla seker, "ah!", kırmızı çarpı.
   Kaza cümlenin ORTASINDA (kullanıcı): "olsun"dan sonra sese 1,6 sn sessizlik eklendi (manifest kelime zamanları kaydırıldı), kaza + "ah!" orada; SESLENDİRİLDİ (956 karakter, kalan ≈ 13.700), müzikle render → `ornek-videolar/cizim1-pilot/07-yas.mp4` (72,1 sn — 45 sınırının çok üstünde; kullanıcıya kısaltma seçenekleri sunuldu: sesi ~%12 hızlandır ≈64 sn veya kas sahnesini çıkar). "ah!" sesi `public/sfx/ah.mp3` (Yunus TTS "[pained] Aah!", ~10 karakter).
+**08 SAUNA EŞOFMANI (`cizim1-08-sauna`, 17 Ekim gece, DENEME — kullanıcı konudan emin değil, metne bakıp karar verecek):**
+  "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. Peki o kilo yağ mıydı? Hayır. Sadece su." → 1997 üç güreşçi bir ay
+  içinde hayatını kaybetti, 1998 NCAA ter eşofmanını yasakladı (kullanıcı: "yumuşatma, kalsın") → terle giden su, şişe →
+  saatlerce hareket, "ter ≠ yağ" → ısınma, baş dönmesi, bayılma → döngü "tartı yalan söylemez ama her şeyi de söylemez…
+  hatırla:". Avatar gümüş eşofmanlı (`Person`/`SideRunner` yeni `suit` prop). Bileşenler `sauna-*`. Sessiz önizleme
+  `08-sauna-sessiz.mp4` → onay → seslendirme. Diğer konu adayları: mekik/göbek (1971 tenis kolu), 8 bardak su (1945),
+  laktik asit (1922 Nobel), kas yağa dönüşür, boy kısalır (takipçi isteği).
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi

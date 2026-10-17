@@ -1,0 +1,48 @@
+{
+  "id": "cizim1-08-sauna",
+  "title": "Sauna eşofmanı yağ yakar mı?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "caption": "",
+  "hashtags": ["fitness", "kilo", "ter", "sauna", "voom"],
+  "scenes": [
+    {
+      "visual": "sauna-hook",
+      "voice": "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. Peki o kilo yağ mıydı? Hayır. Sadece su.",
+      "say": "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. [curious] Peki o kilo yağ mıydı? ... Hayır. Sadece su."
+    },
+    {
+      "visual": "sauna-tarih",
+      "voice": "Bin dokuz yüz doksan yedide Amerika'da üç genç güreşçi, kilo düşmek için ter eşofmanıyla çalışırken bir ay içinde hayatını kaybetti. Ertesi ay bu eşofmanlar yasaklandı.",
+      "say": "Bin dokuz yüz doksan yedide, Amerika'da üç genç güreşçi, kilo düşmek için ter eşofmanıyla çalışırken... bir ay içinde hayatını kaybetti. [serious] Ertesi ay bu eşofmanlar yasaklandı."
+    },
+    {
+      "visual": "sauna-su",
+      "voice": "Çünkü terle giden yağ değil, su. Bir şişe su içince o kilo geri gelir.",
+      "say": "Çünkü terle giden yağ değil, su. Bir şişe su içince, o kilo geri gelir."
+    },
+    {
+      "visual": "sauna-yag",
+      "voice": "Bir kilo yağı eritmek için saatlerce hareket etmen gerekir. Ter eşofmanı bunu hızlandırmaz.",
+      "say": "Bir kilo yağı eritmek için, saatlerce hareket etmen gerekir. Ter eşofmanı bunu hızlandırmaz."
+    },
+    {
+      "visual": "sauna-tehlike",
+      "voice": "Üstelik vücudun ısınır; baş dönmesi, hatta bayılma yapabilir.",
+      "say": "Üstelik vücudun ısınır; baş dönmesi, hatta bayılma yapabilir."
+    },
+    {
+      "visual": "sauna-dongu",
+      "voice": "Yani tartı yalan söylemez, ama her şeyi de söylemez. Bir dahaki sefere o bir kiloya bakarken hatırla:",
+      "say": "Yani tartı yalan söylemez, ama her şeyi de söylemez. Bir dahaki sefere o bir kiloya bakarken, hatırla:"
+    }
+  ]
+}
