@@ -59,12 +59,13 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   cümle sonunda bölünür ve biten satır ekranda asılı kalmaz. Sahne başına `intro` sesi desteği eklendi (şu an kullanılmıyor).
   **Kullanıcı 17 Ekim akşam "her şeyi durduruyorum" dedi** — devam etmeden önce sor. Sıradaki: sessiz önizleme → onay →
   seslendirme (kanca + "Ama annen…" + doz ≈ 260 karakter; kalan kredi ≈ 14.730).
-**GÜNCEL (17 Ekim gece, v8):** Kullanıcı v7'yi bıraktı; hazır seslendirilmiş sahnelere (sızı → "Kulağında annenin
-  sesi:" → anne → Stanford → sonuç → eski doz → soru; manifest hazır) yalnız yeni KANCA (`diz4-pist` `intro`) eklendi:
-  "Koşuya yeni başladıysan, bu an bir gün senin de başına gelecek." (kullanıcı 4 öneriden 2'yi seçti). Görsel: üstte kırmızı
-  "KOŞUYA YENİ BAŞLADIYSAN" tabelası → bitiş çizgisinde "3. TUR". `Diz4Doz`/`Diz4Soru` eski (seslendirilmiş metne uyan)
-  hâline döndü. `lead` 0.2. Sessiz giriş önizlemesi `06-diz-giris-sessiz.mp4` gönderildi → onay → YALNIZ kanca seslendirilir
-  (~65 karakter), müzikle render → `06-diz.mp4`. Süre ~46-47 sn (45'i aşıyor).
+**GÜNCEL (17 Ekim gece, v8):** Kullanıcı v7'yi bıraktı; hazır seslendirilmiş sahneler (anne → Stanford → sonuç → eski
+  doz "O sızı çoğu zaman…" → soru) kaldı, yalnız 1. sahne (`diz4-pist`) değişti. Kanca seçimi: "yeni başladıysan" yalnız
+  acemileri çağırıyor (reddedildi; "gelecek" de reddedildi, koşucular itiraz eder) → 10 öneriden **4** seçildi:
+  kanca (`intro`) "Koşarken dizin hiç sızladı mı?" → asıl "Hani bir anda yürüyemeyecek gibi olursun… Eğilip dizini tutarsın,
+  yere oturursun." (sızı tekrarı yok). Üstte kırmızı "DİZİN HİÇ SIZLADI MI?" tabelası → kanca bitince "3. TUR"; ağrı
+  `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
+  müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi

@@ -416,7 +416,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "diz6-son": (w) => [[0, "pop", 0.25], [w(2), "pirilti", 0.35]],
   "diz5-hook": (w) => [[0, "adim", 0.25], [w(6), "cizik", 0.35], [w(7) - 2, "pop", 0.3]],
   "diz5-pist": (w) => [[w(3), "boom", 0.2], [w(3) + 1, "cizik", 0.45], [w(3) + 3, "sonme", 0.25], [w(7), "agir-dusme", 0.2], [w(9) - 2, "pop", 0.3]],
-  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [Math.max(15, w(1) - 40), "pop", 0.3], [w(1), "boom", 0.2], [w(1) + 1, "cizik", 0.45], [w(1) + 3, "sonme", 0.25], [w(9), "agir-dusme", 0.2]],
+  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [Math.max(15, w(2) - 40), "pop", 0.3], [w(2), "boom", 0.2], [w(2) + 1, "cizik", 0.45], [w(2) + 3, "sonme", 0.25], [w(9), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
   "diz4-doz": (w) => [[w(8), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(16), "pop", 0.25], [w(20), "pirilti", 0.35]],
@@ -7172,12 +7172,12 @@ const runIntegral = (f: number, speedAt: (i: number) => number) => {
   return { off, ph };
 };
 
-// Kanca (intro sesi): "Koşuya yeni başladıysan, bu an bir gün senin de başına gelecek." → "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+// Kanca (intro sesi): "Koşarken dizin hiç sızladı mı?" → "Hani bir anda yürüyemeyecek gibi olursun… Eğilip dizini tutarsın, yere oturursun."
 // Uzak planda zorlanarak koşu; dizin içi küçük röntgen merceğinde canlı görünür (her adımda kıkırdak ezilir, giderek kızarır);
-// bitiş çizgisi geçilince kanca tabelası → "3. TUR"; "birden"de ağır çekim, parlama, dize yakınlaşma + büyük röntgen → eğilir, oturur.
+// bitiş çizgisi geçilince kanca tabelası → "3. TUR"; "anda"da ağır çekim, parlama, dize yakınlaşma + büyük röntgen → eğilir, oturur.
 const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const hitAt = w(1);
+  const hitAt = w(2);
   const speedAt = (i: number) =>
     i < hitAt - 12 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(5)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const { off, ph } = runIntegral(f, speedAt);
@@ -7195,12 +7195,12 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const glow = tw(f, hitAt, hitAt + 6);
   const crossF = Math.max(15, hitAt - 40);
   const lapN = f < crossF ? 2 : 3;
-  // kanca boyunca üstte "KOŞUYA YENİ BAŞLADIYSAN" tabelası; bitiş çizgisinde yerini kırmızı "3. TUR"a bırakır
-  const banner = pop(f, 0, 10) * (1 - tw(f, crossF - 8, crossF));
-  const lapP = (lapN === 2 ? 0 : pop(f, crossF, 10)) * (1 - tw(f, w(1) + 4, w(2) + 4));
+  // kanca boyunca üstte "DİZİN HİÇ SIZLADI MI?" tabelası; kanca bitince yerini kırmızı "3. TUR"a bırakır
+  const banner = pop(f, 0, 10) * (1 - tw(f, w(0) - 6, w(0)));
+  const lapP = (lapN === 2 || f < w(0) ? 0 : pop(f, Math.max(crossF, w(0)), 10)) * (1 - tw(f, w(2) + 4, w(3) + 4));
   const lineX = 420 + 17 * (crossF - f);
   const cam: [number, number, number, number][] = [
-    // uzak plan (pist + orman + dağlar) → sızıdan az önce bir kademe yakın → "birden"de dize
+    // uzak plan (pist + orman + dağlar) → sızıdan az önce bir kademe yakın → "anda"da dize
     [0, 0.58, 540, 1000],
     [hitAt - 30, 0.64, 540, 1030],
     [hitAt - 22, 0.9, 520, 1250],
@@ -7258,7 +7258,7 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
         <g transform={`translate(540 300) scale(${banner}) rotate(-3)`}>
           <rect x={-480} y={-95} width={960} height={170} rx={22} fill={C.red} stroke={C.ink} strokeWidth={9} />
           <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={72} fill={C.cream}>
-            KOŞUYA YENİ BAŞLADIYSAN
+            DİZİN HİÇ SIZLADI MI?
           </text>
         </g>
       ) : null}

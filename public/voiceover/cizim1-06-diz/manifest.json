@@ -1,69 +1,102 @@
 {
   "scenes": [
     {
-      "voice": "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
-      "say": "[serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "voice": "Hani bir anda yürüyemeyecek gibi olursun… Eğilip dizini tutarsın, yere oturursun.",
+      "say": "[serious] Hani bir anda... yürüyemeyecek gibi olursun. Eğilip dizini tutarsın, yere oturursun.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-06-diz/1-mvcgctfn.mp3",
-      "durationInSeconds": 4.884898,
+      "file": "voiceover/cizim1-06-diz/1-mvcm3kaj.mp3",
+      "durationInSeconds": 5.929796,
       "words": [
         {
-          "word": "Ve",
-          "start": 0.05,
-          "end": 0.066
-        },
-        {
-          "word": "birden",
-          "start": 0.146,
-          "end": 0.706
-        },
-        {
-          "word": "dizine",
-          "start": 0.866,
-          "end": 1.186
+          "word": "Hani",
+          "start": 0.08,
+          "end": 0.32
         },
         {
           "word": "bir",
-          "start": 1.266,
-          "end": 1.346
+          "start": 0.48,
+          "end": 0.56
         },
         {
-          "word": "sızı",
-          "start": 1.466,
-          "end": 1.626
+          "word": "anda",
+          "start": 0.64,
+          "end": 1.19311
         },
         {
-          "word": "giriyor.",
-          "start": 1.666,
-          "end": 2.176
+          "word": "yürüyemeyecek",
+          "start": 1.3776899999999999,
+          "end": 2.01769
+        },
+        {
+          "word": "gibi",
+          "start": 2.09769,
+          "end": 2.2576899999999998
+        },
+        {
+          "word": "olursun…",
+          "start": 2.29769,
+          "end": 3.01769
         },
         {
           "word": "Eğilip",
-          "start": 2.366,
-          "end": 2.686
+          "start": 3.29769,
+          "end": 3.6176899999999996
         },
         {
           "word": "dizini",
-          "start": 2.726,
-          "end": 3.006
+          "start": 3.67069,
+          "end": 3.93769
         },
         {
-          "word": "tutuyor,",
-          "start": 3.086,
-          "end": 3.801
+          "word": "tutarsın,",
+          "start": 3.97769,
+          "end": 4.75842
         },
         {
           "word": "yere",
-          "start": 3.841,
-          "end": 4.041
+          "start": 4.9484200000000005,
+          "end": 5.108420000000001
         },
         {
-          "word": "oturuyorsun.",
-          "start": 4.121,
-          "end": 4.921
+          "word": "oturursun.",
+          "start": 5.188420000000001,
+          "end": 5.9884200000000005
         }
-      ]
+      ],
+      "intro": {
+        "voice": "Koşarken dizin hiç sızladı mı?",
+        "say": "[curious] Koşarken dizin hiç sızladı mı?",
+        "file": "voiceover/cizim1-06-diz/1k-mvcm3l4x.mp3",
+        "durationInSeconds": 2.507755,
+        "words": [
+          {
+            "word": "Koşarken",
+            "start": 0.08,
+            "end": 0.72
+          },
+          {
+            "word": "dizin",
+            "start": 0.96,
+            "end": 1.28
+          },
+          {
+            "word": "hiç",
+            "start": 1.36,
+            "end": 1.52
+          },
+          {
+            "word": "sızladı",
+            "start": 1.64,
+            "end": 1.92
+          },
+          {
+            "word": "mı?",
+            "start": 2,
+            "end": 2.48
+          }
+        ]
+      }
     },
     {
       "voice": "Kulağında annenin sesi:",
