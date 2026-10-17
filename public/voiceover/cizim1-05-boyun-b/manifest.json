@@ -1,117 +1,117 @@
 {
   "scenes": [
     {
-      "voice": "Dikkat! Telefona eğildiğinde boynun yirmi yedi kilo taşıyor! Bunu sen de duydun, değil mi? Peki ya bu korku, yarım bir bilgiyse?",
-      "say": "[excited] Dikkat! Telefona eğildiğinde boynun yirmi yedi kilo taşıyor! ... Bunu sen de duydun, değil mi? [curious] Peki ya bu korku, yarım bir bilgiyse?",
+      "voice": "Şu an bu videoyu başın öne eğik izliyorsun, değil mi? Bunun için dünyaya yayılmış bir hesap var. Ama hikâyenin yarısı eksik.",
+      "say": "Şu an bu videoyu, başın öne eğik izliyorsun, değil mi? [curious] Bunun için dünyaya yayılmış bir hesap var. Ama hikâyenin yarısı eksik.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/1-mvbhp7lq.mp3",
-      "durationInSeconds": 8.202449,
+      "file": "voiceover/cizim1-05-boyun-b/1-mvc5zhe4.mp3",
+      "durationInSeconds": 7.941224,
       "words": [
         {
-          "word": "Dikkat!",
-          "start": 0.08,
-          "end": 0.72
+          "word": "Şu",
+          "start": 0,
+          "end": 0.16
         },
         {
-          "word": "Telefona",
-          "start": 0.88,
-          "end": 1.28
+          "word": "an",
+          "start": 0.28,
+          "end": 0.4
         },
         {
-          "word": "eğildiğinde",
-          "start": 1.36,
-          "end": 1.92
+          "word": "bu",
+          "start": 0.56,
+          "end": 0.64
         },
         {
-          "word": "boynun",
-          "start": 2,
-          "end": 2.4
+          "word": "videoyu",
+          "start": 0.72,
+          "end": 1.44
         },
         {
-          "word": "yirmi",
-          "start": 2.48,
-          "end": 2.68
+          "word": "başın",
+          "start": 1.52,
+          "end": 1.84
         },
         {
-          "word": "yedi",
-          "start": 2.72,
+          "word": "öne",
+          "start": 1.96,
+          "end": 2.08
+        },
+        {
+          "word": "eğik",
+          "start": 2.12,
+          "end": 2.32
+        },
+        {
+          "word": "izliyorsun,",
+          "start": 2.36,
+          "end": 2.76
+        },
+        {
+          "word": "değil",
+          "start": 2.8,
           "end": 2.88
         },
         {
-          "word": "kilo",
+          "word": "mi?",
           "start": 2.96,
           "end": 3.12
         },
         {
-          "word": "taşıyor!",
-          "start": 3.2,
-          "end": 3.8137
+          "word": "Bunun",
+          "start": 3.4468099999999997,
+          "end": 3.6228099999999994
         },
         {
-          "word": "Bunu",
-          "start": 3.99046,
-          "end": 4.070460000000001
+          "word": "için",
+          "start": 3.7028099999999995,
+          "end": 3.8628099999999996
         },
         {
-          "word": "sen",
-          "start": 4.150460000000001,
-          "end": 4.310460000000001
+          "word": "dünyaya",
+          "start": 3.9428099999999997,
+          "end": 4.34281
         },
         {
-          "word": "de",
-          "start": 4.35046,
-          "end": 4.390459999999999
-        },
-        {
-          "word": "duydun,",
-          "start": 4.470459999999999,
-          "end": 4.7374600000000004
-        },
-        {
-          "word": "değil",
-          "start": 4.76346,
-          "end": 4.87046
-        },
-        {
-          "word": "mi?",
-          "start": 4.95046,
-          "end": 5.11046
-        },
-        {
-          "word": "Peki",
-          "start": 5.4416899999999995,
-          "end": 5.69769
-        },
-        {
-          "word": "ya",
-          "start": 5.77769,
-          "end": 5.85769
-        },
-        {
-          "word": "bu",
-          "start": 5.93769,
-          "end": 6.09769
-        },
-        {
-          "word": "korku,",
-          "start": 6.17769,
-          "end": 6.977690000000001
-        },
-        {
-          "word": "yarım",
-          "start": 7.057690000000001,
-          "end": 7.217689999999999
+          "word": "yayılmış",
+          "start": 4.422809999999999,
+          "end": 4.82281
         },
         {
           "word": "bir",
-          "start": 7.297689999999999,
-          "end": 7.377689999999999
+          "start": 4.86281,
+          "end": 4.90281
         },
         {
-          "word": "bilgiyse?",
-          "start": 7.4576899999999995,
-          "end": 8.25769
+          "word": "hesap",
+          "start": 4.98281,
+          "end": 5.30281
+        },
+        {
+          "word": "var.",
+          "start": 5.462809999999999,
+          "end": 5.80047
+        },
+        {
+          "word": "Ama",
+          "start": 5.894480000000001,
+          "end": 6.134480000000001
+        },
+        {
+          "word": "hikâyenin",
+          "start": 6.37448,
+          "end": 6.854480000000001
+        },
+        {
+          "word": "yarısı",
+          "start": 6.934480000000001,
+          "end": 7.25448
+        },
+        {
+          "word": "eksik.",
+          "start": 7.37448,
+          "end": 7.974480000000001
         }
       ]
     },
