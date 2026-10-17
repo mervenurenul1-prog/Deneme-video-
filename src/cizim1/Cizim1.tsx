@@ -415,6 +415,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "diz3-stanford": (w) => [[2, "kalem", 0.3], [w(8) - 2, "pop", 0.3], [w(10), "pop", 0.25], [w(14), "kagit", 0.3], [w(17), "kagit", 0.3]],
   "diz3-sonuc": (w) => [[w(1) - 2, "ding", 0.35], [w(4), "cizik", 0.35], [w(9), "pop", 0.3], [w(13), "pirilti", 0.35]],
   "diz3-squat": (w) => [[w(2), "sihir", 0.35], [w(6), "sonme", 0.3]],
+  "diz4-squat": (w) => [[0, "pop", 0.25], [w(2), "sihir", 0.35], [w(6), "cizik", 0.35], [w(7) + 6, "sonme", 0.3]],
   "diz3-doz": (w) => [[w(3), "pop", 0.25], [w(5) - 2, "boom", 0.18], [w(5), "cizik", 0.35], [w(9), "pop", 0.25], [w(10), "pirilti", 0.35]],
   "diz3-soru": (w) => [[w(5) - 2, "pop", 0.3]],
   "diz-hook": (w) => [[w(4) - 2, "pop", 0.35], [w(5) - 2, "pop", 0.35], [w(9) - 2, "cizik", 0.5]],
@@ -634,6 +635,7 @@ const ZOOM: Record<string, Zoom> = {
   "diz3-stanford": { to: 1.03, x: 540, y: 900 },
   "diz3-sonuc": { to: 1.03, x: 540, y: 900 },
   "diz3-squat": { to: 1.03, x: 540, y: 1000 },
+  "diz4-squat": { to: 1.0, x: 540, y: 960 },
   "diz3-doz": { to: 1.0, x: 540, y: 960 },
   "diz3-soru": { to: 1.0, x: 540, y: 960 },
   "diz-kosu": { to: 1.03, x: 540, y: 900 },
@@ -7018,7 +7020,7 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
       {lapP > 0 ? (
         <g transform={`translate(540 380) scale(${lapP}) rotate(-5)`}>
           <rect x={-200} y={-80} width={400} height={150} rx={20} fill={lapN === 3 ? C.red : C.cream} stroke={C.ink} strokeWidth={8} />
-          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={100} fill={C.cream}>
+          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={100} fill={lapN === 3 ? C.cream : C.ink}>
             {lapN}. TUR
           </text>
         </g>
@@ -7077,6 +7079,49 @@ const Diz4AnneSoz: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+// "Derin squatın sağlıklı dizi bozduğu da hiç kanıtlanmadı." — aynı pistte, bandajlı dizle derin squat;
+// annenin "dizine yazık!" balonu "hiç kanıtlanmadı"da çizilip söner, avatar gülümseyerek bir tekrar daha yapar
+const squatUp: SidePose = { hipY: -358, lean: 4, front: { a: 4, k: 6 }, back: { a: -2, k: 4 }, armF: [18, 0], armB: [14, 0] };
+const squatDown: SidePose = { hipY: -150, lean: 40, front: { a: 100, k: 122 }, back: { a: 96, k: 118 }, armF: [86, 4], armB: [82, 4] };
+const Diz5Squat: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const dep = (i: number) =>
+    tw(i, w(0) - 6, w(1) + 6) * (1 - tw(i, w(4) - 2, w(5) + 4)) + tw(i, w(6) - 4, w(7) + 4) * (1 - tw(i, d - 16, d - 2));
+  const t = dep(f);
+  const pose = mixPose(squatUp, squatDown, t);
+  // ayaklar yerinde kalsın: ön bilek hizası kadar geri kaydır
+  const ankleX = Math.sin(deg(pose.front.a)) * L_T + Math.sin(deg(pose.front.a - pose.front.k)) * L_S;
+  const S_ = 1.45;
+  const X = 470 - ankleX * S_;
+  const knee = { x: X + Math.sin(deg(pose.front.a)) * L_T * S_, y: TRACK_Y + (pose.hipY + Math.cos(deg(pose.front.a)) * L_T) * S_ };
+  const glow = tw(f, w(2) - 2, w(3) + 6) * (1 - tw(f, w(6), w(7)));
+  const bubble = pop(f, 0, 12) * (1 - tw(f, w(7) + 4, w(7) + 14));
+  const cross = tw(f, w(6) - 2, w(7) + 2);
+  const happy = f > w(6) + 4;
+  return (
+    <CamK k={[[0, 1, 540, 1000], [w(2), 1, 540, 1000], [w(3) + 6, 1.08, 560, 1080], [w(6), 1.08, 560, 1080], [w(7) + 10, 1, 540, 1000]]}>
+      <SideTrack off={0} />
+      {glow > 0 ? <circle cx={knee.x} cy={knee.y} r={(70 + 18 * Math.sin(f / 4)) * glow} fill="#6fd08c" opacity={0.4} stroke="#3f7d4f" strokeWidth={6} /> : null}
+      <SideRunner f={f} x={X} y={TRACK_Y} s={S_} pose={pose} face={happy ? "grin" : "smile"} bandage />
+      {glow > 0.4 ? <HandText x={Math.min(840, knee.x + 250)} y={knee.y + 60} text="sağlıklı diz" size={78} p={glow} color="#3f7d4f" rotate={-4} /> : null}
+      {bubble > 0 ? (
+        <g opacity={Math.min(1, bubble * 1.5)}>
+          <Bubble x={810} y={440} rx={240} ry={190} p={bubble} tail={[660, 720]}>
+            <Mom f={f} x={730} y={580} s={0.34} wag={happy ? 0 : 1} />
+            <text x={890} y={420} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.red}>
+              dizine
+            </text>
+            <text x={890} y={476} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.red}>
+              yazık!
+            </text>
+            {cross > 0 ? <Cross x={890} y={450} size={110} p={cross} /> : null}
+          </Bubble>
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
 // "O sızı çoğu zaman yükü birden artırmaktan gelir. Dizin bitmiyor, dozunu bekliyor."
 const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
@@ -7129,6 +7174,7 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   "diz4-pist": Diz4Pist,
   "diz4-anne": Diz4Anne,
   "diz4-annesoz": Diz4AnneSoz,
+  "diz4-squat": Diz5Squat,
   "diz4-doz": Diz4Doz,
   "diz4-soru": Diz4Soru,
   "diz3-pist": Diz3Pist,

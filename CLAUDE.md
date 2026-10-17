@@ -26,7 +26,11 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
 **YAPILDI (17 Ekim, sonraki oturum):** (a) hızlı sarma kaldırıldı; sahneye JSON `"lead": 1` (ses başlamadan 1 sn
   sessiz normal koşu; `CizimScene.lead`, `sceneDurations` + Cizim1'de kelime/ses kaydırma) → "birden"e kadar ~2,4 sn koşu,
   "Üçüncü tur"da kırmızı "3. TUR" etiketi. (b) `SittingOnTrack`'ten bandaj kaldırıldı; bandaj yalnız `diz3-squat`,
-  `diz4-doz`, `diz4-soru`'da. Yeni sessiz önizleme gönderildi → **onay → seslendirme** (Yunus + Sibel, tek seferde).
+  `diz4-doz`, `diz4-soru`'da. (c) Kullanıcı: başta "2. TUR" sonra "3. TUR" etiketi (yapıldı; ses metni aynı).
+  (d) Anne "benim gibi mi" derken dizini değil ayağını tutuyor gibiydi → anne balonda YANDAN (`SideRunner` `female`
+  `shirt`) eğilip iki eliyle dizini tutar, dizi kızarır. (e) Squat "araya atılmış gibi" (spor salonu, farklı çöp adam)
+  → yeni `diz4-squat` (`Diz5Squat`): aynı pist + aynı avatar, bandajlı derin squat, "sağlıklı diz" yeşil parıltı,
+  annenin "dizine yazık!" balonu "hiç kanıtlanmadı"da çizilip söner. Yeni sessiz önizleme → **onay → seslendirme**.
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi
