@@ -41,6 +41,12 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   ("bitmek" yüklemi olmasın; tabela "dizleri aşınacak"); doz "…gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta
   biraz artırırsan, dizin yüke alışır." (kırmızı 10 km kartı kalsın, kullanıcı sevdi). SESLENDİRİLDİ (ses 43,0 sn,
   `padding` 0.1 → video ~44,8 sn), müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4`.
+  (h) Giriş yenilendi (kullanıcı: "giriş çok kötü, zorlanma sesi olsun, son tur hadi desin"): avatar nefes nefese
+  "Hadi… yapabilirsin… son tur!" (say'de `[out of breath] Hah... hah...`; "hah" artık `FILLERS`'ta, altyazıya girmez),
+  "2. TUR" tabelası → dama desenli bitiş çizgisi geçilince kırmızı "3. TUR". Kamera: uzak plan (`SideTrack wide`: karlı
+  dağlar + çam ormanı + pist) → "yapabilirsin"de bir kademe yakın → "birden"de (ağrı) beyaz parlama + dize yakınlaşma +
+  röntgen merceği → geri çekilip eğilir/oturur. Ses başındaki 1,6 sn soluma kırpıldı (manifest güncellendi), `lead` 0.5,
+  `padding` 0.05 → ~46,9 sn (45'i ~2 sn aşıyor; kullanıcıya söylendi). Doz kartları başın üstünden yukarı alındı.
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi

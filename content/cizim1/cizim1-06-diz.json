@@ -10,11 +10,11 @@
   "maxPause": 0.3,
   "music": "music/merak-gerilim.mp3",
   "loop": true,
-  "padding": 0.1,
+  "padding": 0.05,
   "scenes": [
     {
       "visual": "diz4-pist",
-      "lead": 1,
+      "lead": 0.5,
       "voice": "Hadi… yapabilirsin… son tur! Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
       "say": "[out of breath] Hah... hah... Hadi... yapabilirsin... hah... son tur! [serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
     },

@@ -7071,30 +7071,55 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
 };
 
 // Yandan koşu pisti: gökyüzü, güneş, ağaçlar, turuncu pist; off: kaydırma (koşu hissi)
-const SideTrack: React.FC<{ off: number }> = ({ off }) => {
+const SideTrack: React.FC<{ off: number; wide?: boolean }> = ({ off, wide = false }) => {
   const g = 1440; // pistin üst kenarı
-  const trees = (k: number) => ((k * 180 - off * 0.35) % 2160 + 2160) % 2160 - 300;
-  const dash = (k: number) => ((k * 220 - off) % 1320 + 1320) % 1320 - 200;
+  // wide: uzak plan için pist her yöne uzar, ağaçların ardında tribün ve ışık direkleri görünür
+  const X0 = wide ? -2400 : 0;
+  const W = wide ? 5880 : 1080;
+  const span = wide ? 5400 : 2160;
+  const nTrees = wide ? 30 : 12;
+  const trees = (k: number) => ((k * 180 - off * 0.35) % span + span) % span - 300 + (wide ? -2000 : 0);
+  const dashSpan = wide ? 5280 : 1320;
+  const dash = (k: number) => ((k * 220 - off) % dashSpan + dashSpan) % dashSpan - 200 + (wide ? -2000 : 0);
   return (
     <g>
-      <rect x={0} y={0} width={1080} height={g} fill="#f6dcb6" />
-      <rect x={0} y={g - 520} width={1080} height={520} fill="#f3c9a0" opacity={0.6} />
+      <rect x={X0} y={wide ? -2600 : 0} width={W} height={wide ? g + 2600 : g} fill="#f6dcb6" />
+      <rect x={X0} y={g - 520} width={W} height={520} fill="#f3c9a0" opacity={0.6} />
       <circle cx={780} cy={g - 520} r={110} fill="#ffd27a" />
-      {Array.from({ length: 12 }, (_, k) => (
+      {wide ? (
+        <g>
+          {/* uzakta karlı dağlar */}
+          {[
+            [-1900, 1300], [-900, 1550], [200, 1250], [1300, 1650], [2400, 1350],
+          ].map(([x, h], i) => (
+            <g key={i}>
+              <path d={`M${x - h * 0.8} ${g - 60} L${x} ${g - 60 - h} L${x + h * 0.8} ${g - 60} Z`} fill={i % 2 ? "#8f9fb0" : "#a3b1bf"} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+              <path d={`M${x - h * 0.18} ${g - 60 - h * 0.78} L${x} ${g - 60 - h} L${x + h * 0.18} ${g - 60 - h * 0.78} L${x + h * 0.06} ${g - 60 - h * 0.72} L${x - h * 0.05} ${g - 60 - h * 0.8} Z`} fill="#fbf7ef" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+            </g>
+          ))}
+          {/* dağ eteğinde orman: sık, koyu çam ağaçları */}
+          {Array.from({ length: 70 }, (_, k) => {
+            const x = -2400 + k * 84 + ((k * 37) % 40);
+            const h = 170 + ((k * 53) % 90);
+            return <path key={k} d={`M${x - h * 0.32} ${g - 70} L${x} ${g - 70 - h} L${x + h * 0.32} ${g - 70} Z`} fill={k % 3 ? "#4f6b45" : "#5d7a4f"} stroke={C.ink} strokeWidth={4} strokeLinejoin="round" />;
+          })}
+        </g>
+      ) : null}
+      {Array.from({ length: nTrees }, (_, k) => (
         <g key={k} transform={`translate(${trees(k)} ${g - 90})`}>
           <rect x={-14} y={-40} width={28} height={130} fill="#8a5c35" stroke={C.ink} strokeWidth={5} />
           <ellipse cx={0} cy={-120} rx={95} ry={110} fill={k % 2 ? "#7f9a5c" : "#6e8a50"} stroke={C.ink} strokeWidth={6} />
         </g>
       ))}
-      <rect x={0} y={g - 20} width={1080} height={60} fill="#9fbf74" />
-      <rect x={0} y={g + 30} width={1080} height={380} fill="#d9693a" stroke={C.ink} strokeWidth={6} />
+      <rect x={X0} y={g - 20} width={W} height={60} fill="#9fbf74" />
+      <rect x={X0} y={g + 30} width={W} height={380} fill="#d9693a" stroke={C.ink} strokeWidth={6} />
       {[0, 1, 2].map((i) => (
-        <path key={i} d={`M0 ${g + 120 + i * 110} L1080 ${g + 120 + i * 110}`} stroke="#fbf3e2" strokeWidth={6} opacity={0.8} />
+        <path key={i} d={`M${X0} ${g + 120 + i * 110} L${X0 + W} ${g + 120 + i * 110}`} stroke="#fbf3e2" strokeWidth={6} opacity={0.8} />
       ))}
-      {Array.from({ length: 6 }, (_, k) => (
+      {Array.from({ length: wide ? 24 : 6 }, (_, k) => (
         <path key={k} d={`M${dash(k)} ${g + 70} l60 0`} stroke="#fbf3e2" strokeWidth={8} opacity={0.6} />
       ))}
-      <rect x={0} y={g + 410} width={1080} height={200} fill="#9fbf74" />
+      <rect x={X0} y={g + 410} width={W} height={wide ? 2600 : 200} fill="#9fbf74" />
     </g>
   );
 };
@@ -7129,7 +7154,10 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const pain = f >= hitAt;
   // "birden": ağır çekimden sonra dizin içi bir anlığına röntgende görünür, kıkırdak kızarır
   const xr = pop(f, hitAt, 8) * (1 - tw(f, hitAt + 30, hitAt + 38));
-  const knee = { x: 420 + Math.sin(deg(pose.front.a)) * L_T * 1.45, y: TRACK_Y + (pose.hipY + Math.cos(deg(pose.front.a)) * L_T) * 1.45 };
+  const kneeAt = (p: SidePose) => ({ x: 420 + Math.sin(deg(p.front.a)) * L_T * 1.45, y: TRACK_Y + (p.hipY + Math.cos(deg(p.front.a)) * L_T) * 1.45 });
+  // "birden"de (ağrı girince) dize pat diye yakınlaşma
+  const hitK = kneeAt(runPose(runIntegral(hitAt, speedAt).ph, speedAt(hitAt)));
+  const flash = hit(f, hitAt, 6);
   const glow = tw(f, hitAt, hitAt + 6);
   // 2. tur biter: koşucu bitiş çizgisini geçer, üstteki tabela "2. TUR"dan kırmızı "3. TUR"a döner
   const crossF = 20;
@@ -7137,18 +7165,24 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const lapN = f < crossF ? 2 : 3;
   const lapP = (lapN === 2 ? 1 : pop(f, crossF, 10)) * (1 - tw(f, w(5) + 4, w(6) + 4));
   return (
+    <>
     <CamK
       k={[
-        [0, 1, 540, 1200],
-        [hitAt, 1, 540, 1200],
-        [hitAt + 10, 1.12, 520, 1300],
+        // uzak plan (pist + orman + dağlar) → "yapabilirsin"de bir kademe yakın → "birden"de dize
+        [0, 0.58, 540, 1000],
+        [w(1) - 2, 0.62, 540, 1020],
+        [w(1) + 4, 0.9, 520, 1250],
+        [hitAt - 1, 0.95, 520, 1260],
+        [hitAt + 2, 1.75, hitK.x, hitK.y],
+        [hitAt + 32, 1.75, hitK.x, hitK.y],
+        [hitAt + 46, 1.12, 520, 1300],
         [w(12), 1.12, 520, 1300],
         [w(14) + 10, 1.22, 520, 1420],
       ]}
       shake={hit(f, Math.round(hitAt), 10) * 0.6}
     >
-      <SideTrack off={off} />
-      {lineX > -60 && lineX < 1140 ? (
+      <SideTrack off={off} wide />
+      {lineX > -1400 && lineX < 2400 ? (
         <g>
           {Array.from({ length: 19 }, (_, r) =>
             [0, 1].map((c) => <rect key={`${r}${c}`} x={lineX - 20 + c * 20} y={1470 + r * 20} width={20} height={20} fill={(r + c) % 2 ? C.ink : C.cream} />),
@@ -7156,14 +7190,15 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
         </g>
       ) : null}
       <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={Math.max(bend, sit)} face={pain ? "pain" : "worry"} painGlow={glow} sweat />
+    </CamK>
       {xr > 0 ? (
         <g>
           <rect x={-200} y={-200} width={1480} height={2400} fill={C.ink} opacity={0.4 * xr} />
-          <path d={`M${knee.x} ${knee.y} L760 1080`} stroke={C.cream} strokeWidth={8} strokeDasharray="18 14" opacity={xr} />
-          <circle cx={knee.x} cy={knee.y} r={46} fill="none" stroke={C.cream} strokeWidth={8} opacity={xr} />
-          <g transform={`translate(760 900) scale(${xr}) translate(-760 -900)`}>
-            <KneeLens x={760} y={900} r={200} press={1} crack={tw(f, hitAt + 2, hitAt + 14)} />
-            <circle cx={760} cy={900} r={(90 + 20 * Math.sin(f / 2)) * xr} fill={C.red} opacity={0.35} />
+          <path d={`M${hitK.x} ${hitK.y} L760 1000`} stroke={C.cream} strokeWidth={8} strokeDasharray="18 14" opacity={xr} />
+          <circle cx={hitK.x} cy={hitK.y} r={90} fill="none" stroke={C.cream} strokeWidth={8} opacity={xr} />
+          <g transform={`translate(760 780) scale(${xr}) translate(-760 -780)`}>
+            <KneeLens x={760} y={780} r={220} press={1} crack={tw(f, hitAt + 2, hitAt + 14)} />
+            <circle cx={760} cy={780} r={(90 + 20 * Math.sin(f / 2)) * xr} fill={C.red} opacity={0.35} />
           </g>
         </g>
       ) : null}
@@ -7175,7 +7210,8 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
           </text>
         </g>
       ) : null}
-    </CamK>
+      {flash > 0 ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={0.7 * flash} /> : null}
+    </>
   );
 };
 
@@ -7294,10 +7330,10 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
     <>
       <SideTrack off={off} />
       <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} bandage />
-      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 330, v, pop(f, i < 3 ? w(8 + i) : w(13) - 2, 10), i === 3))}</g>
+      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 250, v, pop(f, i < 3 ? w(8 + i) : w(13) - 2, 10), i === 3))}</g>
       <g opacity={r2on}>
-        {row2.map((v, i) => card(150 + i * 260, 560, v, pop(f, w(16) + i * 5, 10), false))}
-        <HandText x={540} y={760} text="dizin alışır" size={100} p={tw(f, w(20), w(20) + 8)} color="#3f7d4f" rotate={-3} />
+        {row2.map((v, i) => card(150 + i * 260, 430, v, pop(f, w(16) + i * 5, 10), false))}
+        <HandText x={790} y={640} text="dizin alışır" size={100} p={tw(f, w(20), w(20) + 8)} color="#3f7d4f" rotate={-3} />
       </g>
     </>
   );
