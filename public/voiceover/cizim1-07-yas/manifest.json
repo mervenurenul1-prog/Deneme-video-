@@ -1,0 +1,781 @@
+{
+  "scenes": [
+    {
+      "voice": "Spora kaç yaşında başlanır? On sekiz mi? On altı mı? Çocuk doktorlarının cevabı seni şaşırtacak: zıplayabildiğin yaşta.",
+      "say": "Spora kaç yaşında başlanır? On sekiz mi? On altı mı? [curious] Çocuk doktorlarının cevabı seni şaşırtacak: ... zıplayabildiğin yaşta.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/1-mvcqq8hv.mp3",
+      "durationInSeconds": 8.202449,
+      "words": [
+        {
+          "word": "Spora",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "kaç",
+          "start": 0.48,
+          "end": 0.68
+        },
+        {
+          "word": "yaşında",
+          "start": 0.72,
+          "end": 1.04
+        },
+        {
+          "word": "başlanır?",
+          "start": 1.12,
+          "end": 1.68
+        },
+        {
+          "word": "On",
+          "start": 1.9505199999999998,
+          "end": 2.03052
+        },
+        {
+          "word": "sekiz",
+          "start": 2.11052,
+          "end": 2.4305199999999996
+        },
+        {
+          "word": "mi?",
+          "start": 2.5105199999999996,
+          "end": 2.75052
+        },
+        {
+          "word": "On",
+          "start": 2.99052,
+          "end": 3.07052
+        },
+        {
+          "word": "altı",
+          "start": 3.15052,
+          "end": 3.3905199999999995
+        },
+        {
+          "word": "mı?",
+          "start": 3.4705199999999996,
+          "end": 3.6305199999999997
+        },
+        {
+          "word": "Çocuk",
+          "start": 3.9490100000000004,
+          "end": 4.1250100000000005
+        },
+        {
+          "word": "doktorlarının",
+          "start": 4.205010000000001,
+          "end": 4.84501
+        },
+        {
+          "word": "cevabı",
+          "start": 4.92501,
+          "end": 5.245010000000001
+        },
+        {
+          "word": "seni",
+          "start": 5.32501,
+          "end": 5.52501
+        },
+        {
+          "word": "şaşırtacak:",
+          "start": 5.56501,
+          "end": 6.285010000000001
+        },
+        {
+          "word": "zıplayabildiğin",
+          "start": 6.679870000000001,
+          "end": 7.426870000000001
+        },
+        {
+          "word": "yaşta.",
+          "start": 7.506870000000001,
+          "end": 8.226870000000002
+        }
+      ]
+    },
+    {
+      "voice": "Amerikan çocuk doktorları iki bin yirmide yazdı: belli bir başlama yaşı yok. Ama bir sıra var.",
+      "say": "Amerikan çocuk doktorları, iki bin yirmide yazdı: belli bir başlama yaşı yok. [serious] Ama bir sıra var.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/2-mvcqqa5d.mp3",
+      "durationInSeconds": 6.661224,
+      "words": [
+        {
+          "word": "Amerikan",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "word": "çocuk",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "word": "doktorları",
+          "start": 0.88,
+          "end": 1.68
+        },
+        {
+          "word": "iki",
+          "start": 1.76,
+          "end": 1.84
+        },
+        {
+          "word": "bin",
+          "start": 1.92,
+          "end": 2
+        },
+        {
+          "word": "yirmide",
+          "start": 2.16,
+          "end": 2.48
+        },
+        {
+          "word": "yazdı:",
+          "start": 2.56,
+          "end": 3.1822299999999997
+        },
+        {
+          "word": "belli",
+          "start": 3.2622299999999997,
+          "end": 3.50223
+        },
+        {
+          "word": "bir",
+          "start": 3.5822299999999996,
+          "end": 3.6622299999999997
+        },
+        {
+          "word": "başlama",
+          "start": 3.7422299999999997,
+          "end": 4.14223
+        },
+        {
+          "word": "yaşı",
+          "start": 4.22223,
+          "end": 4.46223
+        },
+        {
+          "word": "yok.",
+          "start": 4.502229999999999,
+          "end": 4.961500000000001
+        },
+        {
+          "word": "Ama",
+          "start": 5.101450000000002,
+          "end": 5.34145
+        },
+        {
+          "word": "bir",
+          "start": 5.66145,
+          "end": 5.74145
+        },
+        {
+          "word": "sıra",
+          "start": 5.9014500000000005,
+          "end": 6.141450000000001
+        },
+        {
+          "word": "var.",
+          "start": 6.301450000000001,
+          "end": 6.701450000000001
+        }
+      ]
+    },
+    {
+      "voice": "Önce oyun: kurbağa zıplaması, ayı yürüyüşü, tek ayakla sekmek.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/3-mvcqqbix.mp3",
+      "durationInSeconds": 4.832653,
+      "words": [
+        {
+          "word": "Önce",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "oyun:",
+          "start": 0.4,
+          "end": 0.9388640000000001
+        },
+        {
+          "word": "kurbağa",
+          "start": 1.058864,
+          "end": 1.338864
+        },
+        {
+          "word": "zıplaması,",
+          "start": 1.4188640000000001,
+          "end": 2.298864
+        },
+        {
+          "word": "ayı",
+          "start": 2.378864,
+          "end": 2.618864
+        },
+        {
+          "word": "yürüyüşü,",
+          "start": 2.698864,
+          "end": 3.498864
+        },
+        {
+          "word": "tek",
+          "start": 3.578864,
+          "end": 3.738864
+        },
+        {
+          "word": "ayakla",
+          "start": 3.778864,
+          "end": 4.058864
+        },
+        {
+          "word": "sekmek.",
+          "start": 4.138864,
+          "end": 4.8588640000000005
+        }
+      ]
+    },
+    {
+      "voice": "Söyleneni doğru yapabildiğin gün, kendi ağırlığınla:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/4-mvcqqcl6.mp3",
+      "durationInSeconds": 3.63102,
+      "words": [
+        {
+          "word": "Söyleneni",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "word": "doğru",
+          "start": 0.72,
+          "end": 0.96
+        },
+        {
+          "word": "yapabildiğin",
+          "start": 1,
+          "end": 1.68
+        },
+        {
+          "word": "gün,",
+          "start": 1.76,
+          "end": 2
+        },
+        {
+          "word": "kendi",
+          "start": 2.32,
+          "end": 2.64
+        },
+        {
+          "word": "ağırlığınla:",
+          "start": 2.72,
+          "end": 3.68
+        }
+      ]
+    },
+    {
+      "voice": "Squat: kalçanı geriye ver, sandalyeye oturur gibi in. Dizlerin ayak uçlarına baksın.",
+      "say": "Squat: kalçanı geriye ver, sandalyeye oturur gibi in. Dizlerin, ayak uçlarına baksın.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/5-mvcqqdyb.mp3",
+      "durationInSeconds": 6.112653,
+      "words": [
+        {
+          "word": "Squat:",
+          "start": 0,
+          "end": 0.761565
+        },
+        {
+          "word": "kalçanı",
+          "start": 0.8926050000000002,
+          "end": 1.332605
+        },
+        {
+          "word": "geriye",
+          "start": 1.372605,
+          "end": 1.6926050000000004
+        },
+        {
+          "word": "ver,",
+          "start": 1.772605,
+          "end": 2.252605
+        },
+        {
+          "word": "sandalyeye",
+          "start": 2.372605,
+          "end": 2.892605
+        },
+        {
+          "word": "oturur",
+          "start": 2.972605,
+          "end": 3.292605
+        },
+        {
+          "word": "gibi",
+          "start": 3.372605,
+          "end": 3.532605
+        },
+        {
+          "word": "in.",
+          "start": 3.652605,
+          "end": 3.852605
+        },
+        {
+          "word": "Dizlerin",
+          "start": 4.072135000000001,
+          "end": 4.792135000000001
+        },
+        {
+          "word": "ayak",
+          "start": 4.872135000000001,
+          "end": 5.032135000000001
+        },
+        {
+          "word": "uçlarına",
+          "start": 5.112135000000001,
+          "end": 5.512135000000001
+        },
+        {
+          "word": "baksın.",
+          "start": 5.592135000000001,
+          "end": 6.152135000000001
+        }
+      ]
+    },
+    {
+      "voice": "Şınav: vücudun dümdüz, göğsün yere yaklaşsın. Zorsa dizlerinin üstünde.",
+      "say": "Şınav: vücudun dümdüz, göğsün yere yaklaşsın. Zorsa, dizlerinin üstünde.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/6-mvcqqffu.mp3",
+      "durationInSeconds": 5.694694,
+      "words": [
+        {
+          "word": "Şınav:",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "word": "vücudun",
+          "start": 0.799406,
+          "end": 1.359406
+        },
+        {
+          "word": "dümdüz,",
+          "start": 1.439406,
+          "end": 2.1194059999999997
+        },
+        {
+          "word": "göğsün",
+          "start": 2.239406,
+          "end": 2.6394059999999997
+        },
+        {
+          "word": "yere",
+          "start": 2.6794059999999997,
+          "end": 2.879406
+        },
+        {
+          "word": "yaklaşsın.",
+          "start": 2.932406,
+          "end": 3.619995999999999
+        },
+        {
+          "word": "Zorsa",
+          "start": 3.8199959999999993,
+          "end": 4.299995999999999
+        },
+        {
+          "word": "dizlerinin",
+          "start": 4.459995999999999,
+          "end": 4.939996
+        },
+        {
+          "word": "üstünde.",
+          "start": 5.019996,
+          "end": 5.739996
+        }
+      ]
+    },
+    {
+      "voice": "Plank: dirseklerin omuzlarının altında, kalçan ne düşsün ne kalksın.",
+      "say": "Plank: dirseklerin omuzlarının altında, kalçan ne düşsün, ne kalksın.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/7-mvcqqgqb.mp3",
+      "durationInSeconds": 5.093878,
+      "words": [
+        {
+          "word": "Plank:",
+          "start": 0,
+          "end": 0.677551
+        },
+        {
+          "word": "dirseklerin",
+          "start": 0.827029,
+          "end": 1.387029
+        },
+        {
+          "word": "omuzlarının",
+          "start": 1.4670290000000001,
+          "end": 2.027029
+        },
+        {
+          "word": "altında,",
+          "start": 2.1070290000000003,
+          "end": 2.6670290000000003
+        },
+        {
+          "word": "kalçan",
+          "start": 2.907029,
+          "end": 3.387029
+        },
+        {
+          "word": "ne",
+          "start": 3.467029,
+          "end": 3.547029
+        },
+        {
+          "word": "düşsün",
+          "start": 3.6270290000000003,
+          "end": 4.267029
+        },
+        {
+          "word": "ne",
+          "start": 4.307029,
+          "end": 4.347029
+        },
+        {
+          "word": "kalksın.",
+          "start": 4.427029,
+          "end": 5.147029
+        }
+      ]
+    },
+    {
+      "voice": "Teknik oturunca önce lastik bant, sonra hafif dambıl. Haftada iki üç gün.",
+      "say": "Teknik oturunca, önce lastik bant, sonra hafif dambıl. Haftada iki üç gün.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/8-mvcqqi5c.mp3",
+      "durationInSeconds": 5.302857,
+      "words": [
+        {
+          "word": "Teknik",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "oturunca",
+          "start": 0.4,
+          "end": 1.28
+        },
+        {
+          "word": "önce",
+          "start": 1.32,
+          "end": 1.52
+        },
+        {
+          "word": "lastik",
+          "start": 1.6,
+          "end": 2
+        },
+        {
+          "word": "bant,",
+          "start": 2.04,
+          "end": 2.56
+        },
+        {
+          "word": "sonra",
+          "start": 2.68,
+          "end": 2.88
+        },
+        {
+          "word": "hafif",
+          "start": 2.96,
+          "end": 3.2
+        },
+        {
+          "word": "dambıl.",
+          "start": 3.28,
+          "end": 3.8756699999999995
+        },
+        {
+          "word": "Haftada",
+          "start": 3.9556699999999996,
+          "end": 4.35567
+        },
+        {
+          "word": "iki",
+          "start": 4.43567,
+          "end": 4.595669999999999
+        },
+        {
+          "word": "üç",
+          "start": 4.675669999999999,
+          "end": 4.795669999999999
+        },
+        {
+          "word": "gün.",
+          "start": 4.8356699999999995,
+          "end": 5.23567
+        }
+      ]
+    },
+    {
+      "voice": "Ergenlikten önce kasların pek büyümez ama güçlenirsin: beynin kaslarını kullanmayı öğrenir. Kaslar ergenlikte büyür.",
+      "say": "Ergenlikten önce kasların pek büyümez, ama güçlenirsin: [curious] beynin, kaslarını kullanmayı öğrenir. Kaslar ergenlikte büyür.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/9-mvcqqk25.mp3",
+      "durationInSeconds": 8.359184,
+      "words": [
+        {
+          "word": "Ergenlikten",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "word": "önce",
+          "start": 0.72,
+          "end": 0.96
+        },
+        {
+          "word": "kasların",
+          "start": 1.04,
+          "end": 1.52
+        },
+        {
+          "word": "pek",
+          "start": 1.64,
+          "end": 1.76
+        },
+        {
+          "word": "büyümez",
+          "start": 1.84,
+          "end": 2.64
+        },
+        {
+          "word": "ama",
+          "start": 2.76,
+          "end": 2.88
+        },
+        {
+          "word": "güçlenirsin:",
+          "start": 2.96,
+          "end": 3.8997499999999996
+        },
+        {
+          "word": "beynin",
+          "start": 3.9797499999999997,
+          "end": 4.53975
+        },
+        {
+          "word": "kaslarını",
+          "start": 4.61975,
+          "end": 5.09975
+        },
+        {
+          "word": "kullanmayı",
+          "start": 5.17975,
+          "end": 5.739749999999999
+        },
+        {
+          "word": "öğrenir.",
+          "start": 5.819749999999999,
+          "end": 6.55517
+        },
+        {
+          "word": "Kaslar",
+          "start": 6.5951699999999995,
+          "end": 7.035170000000001
+        },
+        {
+          "word": "ergenlikte",
+          "start": 7.115170000000001,
+          "end": 7.75517
+        },
+        {
+          "word": "büyür.",
+          "start": 7.795170000000001,
+          "end": 8.39517
+        }
+      ]
+    },
+    {
+      "voice": "Yani önemli olan kaç yaşında olduğun değil, kaç yıldır doğru yaptığın.",
+      "say": "Yani önemli olan, kaç yaşında olduğun değil... kaç yıldır doğru yaptığın.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/10-mvcqqlfc.mp3",
+      "durationInSeconds": 4.963265,
+      "words": [
+        {
+          "word": "Yani",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "önemli",
+          "start": 0.56,
+          "end": 0.88
+        },
+        {
+          "word": "olan",
+          "start": 0.96,
+          "end": 1.32
+        },
+        {
+          "word": "kaç",
+          "start": 1.44,
+          "end": 1.6
+        },
+        {
+          "word": "yaşında",
+          "start": 1.68,
+          "end": 2
+        },
+        {
+          "word": "olduğun",
+          "start": 2.12,
+          "end": 2.4
+        },
+        {
+          "word": "değil,",
+          "start": 2.48,
+          "end": 3.1895899999999995
+        },
+        {
+          "word": "kaç",
+          "start": 3.2695899999999996,
+          "end": 3.4295899999999997
+        },
+        {
+          "word": "yıldır",
+          "start": 3.5095899999999998,
+          "end": 3.8295899999999996
+        },
+        {
+          "word": "doğru",
+          "start": 3.9095899999999997,
+          "end": 4.14959
+        },
+        {
+          "word": "yaptığın.",
+          "start": 4.22959,
+          "end": 5.02959
+        }
+      ]
+    },
+    {
+      "voice": "Ve yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/11-mvcqqmp3.mp3",
+      "durationInSeconds": 6.478367,
+      "words": [
+        {
+          "word": "Ve",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "yanında",
+          "start": 0.24,
+          "end": 0.56
+        },
+        {
+          "word": "bilen",
+          "start": 0.6,
+          "end": 0.88
+        },
+        {
+          "word": "biri",
+          "start": 0.92,
+          "end": 1.12
+        },
+        {
+          "word": "olsun;",
+          "start": 1.24,
+          "end": 1.8617
+        },
+        {
+          "word": "sakatlıkların",
+          "start": 3.5017,
+          "end": 4.2617
+        },
+        {
+          "word": "çoğu",
+          "start": 4.3416999999999994,
+          "end": 4.5817
+        },
+        {
+          "word": "evde,",
+          "start": 4.6617,
+          "end": 5.3817
+        },
+        {
+          "word": "tek",
+          "start": 5.4617,
+          "end": 5.5417000000000005
+        },
+        {
+          "word": "başına",
+          "start": 5.621700000000001,
+          "end": 5.861700000000001
+        },
+        {
+          "word": "olur.",
+          "start": 5.941700000000001,
+          "end": 6.5017
+        }
+      ]
+    },
+    {
+      "voice": "O yüzden en doğru yaş: bugün.",
+      "say": "O yüzden en doğru yaş: ... bugün.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/12-mvcqqnm7.mp3",
+      "durationInSeconds": 2.690612,
+      "words": [
+        {
+          "word": "O",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "yüzden",
+          "start": 0.213,
+          "end": 0.56
+        },
+        {
+          "word": "en",
+          "start": 0.8,
+          "end": 0.96
+        },
+        {
+          "word": "doğru",
+          "start": 1.04,
+          "end": 1.28
+        },
+        {
+          "word": "yaş:",
+          "start": 1.4,
+          "end": 1.76
+        },
+        {
+          "word": "bugün.",
+          "start": 2.09673,
+          "end": 2.7367299999999997
+        }
+      ]
+    }
+  ]
+}
