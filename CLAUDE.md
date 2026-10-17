@@ -12,6 +12,11 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.250 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
+- **05 boyun İPTAL (kullanıcı, 17 Ekim).** Üzerinde çalışma, kredi harcama.
+- **06 diz (ŞU AN):** `cizim1-06-diz` — iki yanlış kural harmanı: "koşu dizi bitirir" (2017 meta-analiz: koşmayan %10,
+  hobi koşucu %3,5; kıkırdak sünger) + "squatta diz parmak ucunu geçmesin" (Fry 2003, küçük deney: diz geride → kalça
+  yükü ~10 kat). Kapanış "Peki sen bu iki kuraldan hangisine inanıyordun?" (döngü). Bileşenler `diz-*` (yandan
+  `SideSquat`, `Crowd`, `KneeLens`, `DoseMeter`). Max 40 sn. Sessiz önizleme → onay → seslendirme (tek sefer).
 - **!!! DERS (17 Ekim, ekip geri bildirimi 05 için): "videodan hiçbir şey anlamadım."** Video "27 kilo"yu herkes
   duymuş gibi anlattı; Türkiye'de kimse duymamış. KURAL: efsane çürüten video yalnız izleyicinin ZATEN İNANDIĞI bir
   şey için yapılır (ör. "koşu dizi bitirir"). Bilinmeyen bir iddiayı önce kendisi anlatmalı; "bunu sen de duydun"
