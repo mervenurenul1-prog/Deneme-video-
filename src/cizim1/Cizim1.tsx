@@ -397,6 +397,12 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "diz-hook": (w) => [[w(4) - 2, "pop", 0.35], [w(5) - 2, "pop", 0.35], [w(9) - 2, "cizik", 0.5]],
+  "diz-kosu": (w) => [[w(1) - 2, "pop", 0.3], [w(7) - 2, "whoosh", 0.25], [w(9), "pop", 0.3], [w(13) - 2, "pop", 0.25], [w(14), "ding", 0.35]],
+  "diz-sunger": (w) => [[w(1), "pirilti", 0.3], [w(6), "damla", 0.3], [w(7), "sihir", 0.3], [w(9), "whoosh", 0.2], [w(10), "sonme", 0.35]],
+  "diz-squat": (w) => [[2, "pop", 0.3], [w(8), "agir-dusme", 0.3], [w(11), "yuksel", 0.35], [w(14) - 2, "boom", 0.18], [w(14), "pop", 0.4]],
+  "diz-doz": (w) => [[w(5), "sonme", 0.3], [w(7), "pirilti", 0.4]],
+  "diz-kapanis": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 2, "pop", 0.3]],
   "kosu-hook": (w) => [[w(6) - 2, "pop", 0.3], [w(11), "pirilti", 0.3], [w(12), "cizik", 0.4]],
   "kosu-arastirma": (w) => [[2, "kalem", 0.3], [w(5), "kagit", 0.35], [w(9), "whoosh", 0.25]],
   "kosu-oran": (w) => [[w(2), "pop", 0.3], [w(8) - 2, "pop", 0.3], [w(9), "ding", 0.35]],
@@ -592,6 +598,12 @@ const ZOOM: Record<string, Zoom> = {
   "boyun3-sen": { to: 1.0, x: 540, y: 960 },
   "boyun4-alarm": { to: 1.0, x: 540, y: 960 },
   "kosu-hook": { to: 1.0, x: 540, y: 960 },
+  "diz-hook": { to: 1.0, x: 540, y: 960 },
+  "diz-kosu": { to: 1.03, x: 540, y: 900 },
+  "diz-sunger": { to: 1.03, x: 540, y: 800 },
+  "diz-squat": { to: 1.03, x: 540, y: 1000 },
+  "diz-doz": { to: 1.03, x: 540, y: 900 },
+  "diz-kapanis": { to: 1.0, x: 540, y: 960 },
   "kosu-arastirma": { to: 1.04, x: 540, y: 900 },
   "kosu-oran": { to: 1.03, x: 540, y: 900 },
   "kosu-sunger": { to: 1.03, x: 540, y: 800 },
@@ -5881,7 +5893,7 @@ const Kosu4Sunger: React.FC<SceneProps> = ({ w }) => {
 };
 
 // Doz göstergesi: sol kırmızı (koltuk), orta yeşil (dozunda), sağ kırmızı (aşırı)
-const DoseMeter: React.FC<{ x: number; y: number; p: number; v: number }> = ({ x, y, p, v }) => {
+const DoseMeter: React.FC<{ x: number; y: number; p: number; v: number; right?: string }> = ({ x, y, p, v, right = "yarış" }) => {
   if (p <= 0) return null;
   const R = 220;
   const arc = (a0: number, a1: number) => {
@@ -5905,7 +5917,7 @@ const DoseMeter: React.FC<{ x: number; y: number; p: number; v: number }> = ({ x
         dozunda
       </text>
       <text x={x + R} y={y + 70} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={48} fill={C.ink}>
-        yarış
+        {right}
       </text>
     </g>
   );
@@ -5976,7 +5988,307 @@ const Kosu6Kapanis: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- 06 diz: "dizlerini korumak için bildiğin iki kural" ---------- */
+
+// Dize asılı kural tabelası (ip ile); crack: çatlak, p: beliriş
+const RuleSign: React.FC<{ x: number; y: number; ax: number; ay: number; text: string; p: number; crack?: number; rot?: number }> = ({ x, y, ax, ay, text, p, crack = 0, rot = 0 }) =>
+  p > 0 ? (
+    <g>
+      <path d={`M${ax} ${ay} L${x} ${y - 60 * p}`} stroke={C.ink} strokeWidth={5} opacity={p} />
+      <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${p})`}>
+        <rect x={-190} y={-62} width={380} height={124} rx={14} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+        <rect x={-176} y={-48} width={352} height={96} rx={8} fill="none" stroke={C.red} strokeWidth={6} />
+        <text x={0} y={20} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={text.length > 10 ? 44 : 64} fill={C.red}>
+          {text}
+        </text>
+        {crack > 0 ? (
+          <path d="M-60 -62 L-30 -20 L-55 5 L-10 30 L-25 62 M40 -62 L55 -15 L30 10 L60 62" stroke={C.ink} strokeWidth={7} fill="none" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - crack} />
+        ) : null}
+      </g>
+    </g>
+  ) : null;
+
+const D6A = { x: 540, y: PY, s: 0.95 }; // açılış/kapanış avatarı
+const kneePos = (side: number) => {
+  const k = legPoints(side, {})[1];
+  return { x: D6A.x + k[0] * D6A.s, y: D6A.y + k[1] * D6A.s };
+};
+
+// "Dizlerini korumak için bildiğin iki kural var. İkisi de yanlış olabilir."
+const Diz1Hook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const s1 = pop(f, w(4) - 2, 14);
+  const s2 = pop(f, w(5) - 2, 14);
+  const crack = tw(f, w(9) - 2, w(10) + 4);
+  const shake = crack > 0 && crack < 1 ? Math.sin(f * 1.9) * 5 : 0;
+  const kL = kneePos(-1);
+  const kR = kneePos(1);
+  return (
+    <CamK k={[[0, 1, 540, 1000], [w(6), 1.06, 540, 1000], [w(9), 1.06, 540, 1000], [w(10) + 10, 1.1, 540, 1050]]} shake={hit(f, Math.round(w(9)), 12) * 0.5}>
+      <Gym />
+      <Person x={D6A.x} y={D6A.y} s={D6A.s} belly={0.4} armL={[12, 0]} armR={[12, 0]} mouth={crack > 0.3 ? "o" : s2 > 0.5 ? "flat" : "smile"} eyes={crack > 0.3 ? "wide" : "open"} lookY={s1 > 0.5 && crack < 0.3 ? 8 : 0} />
+      <RuleSign x={250 + shake} y={kL.y + 220} ax={kL.x} ay={kL.y} text="KOŞMA!" p={s1} crack={crack} rot={-4} />
+      <RuleSign x={830 + shake} y={kR.y + 220} ax={kR.x} ay={kR.y} text="DİZ ÖNE GEÇMESİN!" p={s2} crack={crack} rot={4} />
+    </CamK>
+  );
+};
+
+// 100 kişilik kalabalık (koltuk / koşu); nRed: kırmızı yanan kişi sayısı (kesirli olabilir), p: ilerleme
+const Crowd: React.FC<{ ox: number; oy: number; runner: boolean; nRed: number; p: number }> = ({ ox, oy, runner, nRed, p }) => {
+  const idx = [12, 27, 35, 41, 58, 63, 76, 84, 90, 99];
+  return (
+    <g>
+      {Array.from({ length: 100 }, (_, i) => {
+        const k = idx.indexOf(i);
+        const full = Math.floor(nRed);
+        const amount = k < 0 ? 0 : k < full ? 1 : k === full ? nRed - full : 0;
+        const red = Math.min(1, Math.max(0, p * Math.ceil(nRed) - k)) * amount;
+        return <Mini2 key={i} x={ox + (i % 10) * 42} y={oy + Math.floor(i / 10) * 52} red={red} runner={runner} />;
+      })}
+    </g>
+  );
+};
+
+// "Birincisi: koşu dizi bitirir. Oysa araştırmalarda kireçlenme, hiç koşmayanlarda yüzde on, hobi olarak koşanlarda yüzde üç buçuk çıktı."
+const Diz2Kosu: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const rule = pop(f, 0, 12) * (1 - tw(f, w(4) - 2, w(4) + 6));
+  const left = pop(f, w(7) - 2, 12);
+  const right = pop(f, w(11) - 2, 12);
+  const redL = tw(f, w(9), w(10) + 4);
+  const redR = tw(f, w(14), w(16) + 4);
+  const ask = pop(f, w(13) - 2, 10) * (1 - tw(f, w(14) - 2, w(14) + 4));
+  const rw = walk(f, 1, 3.2);
+  return (
+    <>
+      <Gym o={0.3} />
+      {/* kural: "KOŞMA!" — koşan avatarın önüne düşer */}
+      {rule > 0 ? (
+        <g opacity={rule}>
+          <HandText x={540} y={300} text="1" size={200} p={1} color={C.red} rotate={-4} />
+          <Person x={540} y={PY - rw.bob} s={0.9} belly={0.4} legL={rw.legL} legR={rw.legR} armL={[30 + 30 * Math.sin(f / 3.2), -80]} armR={[30 - 30 * Math.sin(f / 3.2), -80]} mouth={f > w(3) ? "worry" : "grin"} />
+          <g transform={`translate(540 760) rotate(-6) scale(${pop(f, w(1) - 2, 12) * 1.3})`}>
+            <rect x={-190} y={-62} width={380} height={124} rx={14} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+            <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>
+              KOŞMA!
+            </text>
+          </g>
+        </g>
+      ) : null}
+      <g opacity={left}>
+        <text x={290} y={430} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={66} fill={C.ink}>
+          koşmayan
+        </text>
+        <Crowd ox={100} oy={520} runner={false} nRed={10} p={redL} />
+        <Counter x={290} y={1170} to={10} prefix="%" p={redL} size={130} color={C.red} rotate={-4} />
+      </g>
+      <g opacity={right}>
+        <text x={790} y={430} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={66} fill={C.ink}>
+          koşan
+        </text>
+        <Crowd ox={600} oy={520} runner nRed={3.5} p={redR} />
+        {redR > 0 ? (
+          <text x={790} y={1170} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill="#3f7d4f" transform="rotate(-4 790 1170)" opacity={Math.min(1, redR * 3)}>
+            %3,5
+          </text>
+        ) : null}
+        {ask > 0 ? <HandText x={790} y={780} text="?" size={260} p={ask} color={C.red} rotate={8} /> : null}
+      </g>
+      {left > 0 ? (
+        <Person x={540} y={PY + 400} s={0.55} belly={0.4} armL={[12, 0]} armR={redR > 0.5 ? [150, -30] : [12, 0]} mouth={redR > 0.5 ? "o" : "flat"} eyes={redR > 0.5 ? "wide" : "open"} lookY={-8} />
+      ) : null}
+    </>
+  );
+};
+
+// "Çünkü kıkırdak sünger gibi: her adımda sıkışır, besinle dolar. Koltukta ise kurur."
+const Diz3Sunger: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const L = { x: 540, y: 700, r: 360 };
+  const period = 20;
+  const ph = ((f - w(4)) / period) * Math.PI * 2;
+  const pumping = f >= w(4) - 2 && f < w(9);
+  const press = pumping ? (1 - Math.cos(ph)) / 2 : 0;
+  const dry = tw(f, w(10), w(11) + 8);
+  const runner = tw(f, w(4) - 4, w(4) + 6) * (1 - tw(f, w(9) - 4, w(9) + 4));
+  const couch = tw(f, w(9) - 2, w(9) + 6);
+  const rw = walk(f, 1, period / (2 * Math.PI));
+  return (
+    <>
+      <Gym o={0.3} />
+      <KneeLens x={L.x} y={L.y} r={L.r} press={press} wet={1 - dry * 0.85} crack={dry} />
+      <HandText x={540} y={240} text="kıkırdak = sünger" size={90} p={tw(f, w(1) - 2, w(3) + 4)} rotate={-3} />
+      {pumping && press > 0.5
+        ? [-1, 1].map((k) => [0, 1, 2].map((j) => <circle key={`${k}${j}`} cx={L.x + k * (250 + 50 * j * press)} cy={L.y - 10 + j * 14} r={14 - j * 3} fill={C.water} stroke={C.ink} strokeWidth={3} opacity={press} />))
+        : null}
+      {pumping && f >= w(7) - 4 && press < 0.5
+        ? cycles(f, w(7) - 4, 4, 18).map(({ k, p }) => (
+            <circle key={k} cx={L.x + (k % 2 ? 1 : -1) * interpolate(p, [0, 1], [330, 120 + (k % 3) * 40])} cy={L.y + ((k * 13) % 30) - 15} r={11} fill="#6fd08c" stroke={C.ink} strokeWidth={3} opacity={1 - p * 0.5} />
+          ))
+        : null}
+      {runner > 0 ? (
+        <g opacity={runner}>
+          <Person x={540} y={PY + 420 - rw.bob} s={0.55} belly={0.4} legL={rw.legL} legR={rw.legR} armL={[30 + 30 * Math.sin(ph), -80]} armR={[30 - 30 * Math.sin(ph), -80]} mouth="grin" />
+        </g>
+      ) : null}
+      {couch > 0 ? (
+        <g opacity={couch} transform="translate(-160 400) scale(0.75)">
+          <SofaBack />
+          <Person x={SOFA.x} y={sitY} s={SITS} belly={0.5} legL={{ lift: 1, spread: 10 }} legR={{ lift: 1, spread: 10 }} armL={[20, -60]} armR={[20, -60]} mouth="flat" eyes={dry > 0.5 ? "closed" : "open"} />
+          <SofaFront />
+        </g>
+      ) : null}
+      {dry > 0.3 ? <HandText x={540} y={1150} text="kurur" size={110} p={tw(f, w(10), w(11) + 6)} color={C.red} rotate={-4} /> : null}
+    </>
+  );
+};
+
+// Yandan squat yapan avatar (sade, aynı renkler). d: derinlik 0..1, lock: diz duvara takılır (geride kalır)
+const SideSquat: React.FC<{ x: number; floor: number; d: number; lock: number; kneeLoad: number; hipLoad: number }> = ({ x, floor, d, lock, kneeLoad, hipLoad }) => {
+  const rad = (deg: number) => (deg * Math.PI) / 180;
+  const A = { x, y: floor - 24 }; // ayak bileği
+  const shin = interpolate(lock, [0, 1], [38, 8]) * d; // kaval öne eğimi
+  const K = { x: A.x + Math.sin(rad(shin)) * 170, y: A.y - Math.cos(rad(shin)) * 170 };
+  const th = 82 * d; // uyluk eğimi (dikeyden geriye)
+  const H = { x: K.x - Math.sin(rad(th)) * 175, y: K.y - Math.cos(rad(th)) * 175 };
+  const lean = interpolate(lock, [0, 1], [28, 62]) * d; // gövde öne eğimi
+  const S = { x: H.x + Math.sin(rad(lean)) * 230, y: H.y - Math.cos(rad(lean)) * 230 };
+  const Hd = { x: S.x + Math.sin(rad(lean)) * 70, y: S.y - Math.cos(rad(lean)) * 70 };
+  const hand = { x: S.x + 150, y: S.y + 20 };
+  const line = (a: { x: number; y: number }, b: { x: number; y: number }, wd: number, col: string) => (
+    <>
+      <path d={`M${a.x} ${a.y} L${b.x} ${b.y}`} stroke={C.ink} strokeWidth={wd + 11} strokeLinecap="round" />
+      <path d={`M${a.x} ${a.y} L${b.x} ${b.y}`} stroke={col} strokeWidth={wd} strokeLinecap="round" />
+    </>
+  );
+  const torque = (c: { x: number; y: number }, v: number, col: string) =>
+    v > 0.02 ? <circle cx={c.x} cy={c.y} r={30 + 90 * v} fill={col} opacity={0.18 + 0.25 * v} stroke={col} strokeWidth={6} /> : null;
+  return (
+    <g>
+      {torque(K, kneeLoad, C.yellow)}
+      {torque(H, hipLoad, C.red)}
+      {line(A, K, 30, C.skin)}
+      {line(K, H, 40, C.shorts)}
+      {line(H, S, 58, C.shirt)}
+      {line(S, hand, 26, C.skin)}
+      <path d={`M${A.x - 20} ${A.y + 10} L${A.x + 75} ${A.y + 10}`} stroke={C.ink} strokeWidth={22} strokeLinecap="round" />
+      <circle cx={Hd.x} cy={Hd.y} r={52} fill={C.skin} stroke={C.ink} strokeWidth={7} />
+      <path d={`M${Hd.x - 50} ${Hd.y - 12} Q${Hd.x - 20} ${Hd.y - 70} ${Hd.x + 40} ${Hd.y - 30}`} fill={C.hair} stroke={C.ink} strokeWidth={5} />
+      <circle cx={Hd.x + 28} cy={Hd.y - 6} r={6} fill={C.ink} />
+    </g>
+  );
+};
+
+// "İkincisi: squatta diz parmak ucunu geçmesin. Bir deneyde diz geride tutulunca yük kalçaya kaydı, on kattan fazla."
+const Diz4Squat: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const floor = 1350;
+  const X = 380;
+  const rule = pop(f, 0, 12);
+  const wall = tw(f, w(8) - 2, w(9) + 4);
+  const lock = tw(f, w(9), w(10) + 6);
+  const d = f < w(11) - 2 ? (1 - Math.cos((f / 26) * Math.PI * 2)) / 2 : Math.max((1 - Math.cos((f / 26) * Math.PI * 2)) / 2, tw(f, w(11) - 2, w(11) + 8));
+  const hipBoost = tw(f, w(11), w(13) + 6);
+  const kneeLoad = d * (0.7 - 0.15 * lock);
+  const hipLoad = d * (0.15 + 0.85 * hipBoost);
+  const x10 = pop(f, w(14) - 2, 14);
+  return (
+    <>
+      <Gym o={0.4} />
+      <HandText x={540} y={230} text="2" size={180} p={rule} color={C.red} rotate={-4} />
+      <g transform={`translate(540 420) rotate(-4) scale(${rule * (1 - 0.35 * tw(f, w(6) - 2, w(6) + 8))})`}>
+        <rect x={-260} y={-62} width={520} height={124} rx={14} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+        <text x={0} y={20} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.red}>
+          DİZ ÖNE GEÇMESİN!
+        </text>
+      </g>
+      {/* parmak ucu çizgisi */}
+      <path d={`M${X + 75} ${floor - 10} L${X + 75} ${floor - 420}`} stroke={C.ink} strokeWidth={5} strokeDasharray="14 12" opacity={0.6 * (1 - wall)} />
+      {/* duvar: dizi geride tutar */}
+      {wall > 0 ? (
+        <g transform={`translate(0 ${-400 * (1 - wall)})`} opacity={wall}>
+          <rect x={X + 78} y={floor - 330} width={40} height={320} fill="#b9b2a6" stroke={C.ink} strokeWidth={7} />
+          <text x={X + 98} y={floor - 345} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={44} fill={C.ink}>
+            duvar
+          </text>
+        </g>
+      ) : null}
+      <SideSquat x={X} floor={floor} d={d} lock={lock} kneeLoad={kneeLoad} hipLoad={hipLoad} />
+      <path d={`M60 ${floor} L1020 ${floor}`} stroke={C.ink} strokeWidth={6} />
+      {/* yük etiketleri */}
+      <text x={820} y={980} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill="#b8862a" opacity={tw(f, w(2), w(4))}>
+        diz yükü
+      </text>
+      <text x={820} y={800} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.red} opacity={tw(f, w(11), w(12) + 4)}>
+        kalça yükü
+      </text>
+      {x10 > 0 ? <HandText x={820} y={700} text="×10" size={200} p={x10} color={C.red} rotate={-6} /> : null}
+      <HandText x={540} y={1560} text="küçük bir deney (2003)" size={60} p={tw(f, w(6), w(7) + 6)} rotate={-2} />
+    </>
+  );
+};
+
+// "Yani dizini korumanın yolu onu saklamak değil, dozunda kullanmak."
+const Diz5Doz: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const meter = pop(f, 0, 14);
+  const v = interpolate(f, [0, w(4), w(5) + 4, w(6), w(7) + 8], [0.5, 0.5, 0.05, 0.05, 0.5], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  const jw = walk(f, 1, 4);
+  const hide = tw(f, w(4), w(5) + 4) * (1 - tw(f, w(6), w(7) + 4));
+  return (
+    <>
+      <Gym o={0.4} />
+      <DoseMeter x={540} y={760} p={meter} v={v} right="aşırı" />
+      {hide > 0.5 ? (
+        <g opacity={hide}>
+          <SofaBack />
+          <Person x={SOFA.x} y={sitY} s={SITS} belly={0.5} legL={{ lift: 1, spread: 10 }} legR={{ lift: 1, spread: 10 }} armL={[20, -60]} armR={[20, -60]} mouth="flat" />
+          <SofaFront />
+        </g>
+      ) : (
+        <Person x={540} y={PY + 250 - jw.bob} s={0.8} belly={0.4} legL={jw.legL} legR={jw.legR} armL={[30 + 25 * Math.sin(f / 4), -80]} armR={[30 - 25 * Math.sin(f / 4), -80]} mouth="grin" />
+      )}
+    </>
+  );
+};
+
+// "Peki sen bu iki kuraldan hangisine inanıyordun?" — iki tabela başının iki yanında, sonra söner; son kare = açılış
+const Diz6Kapanis: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const signs = pop(f, w(2) - 2, 12) * (1 - tw(f, d - 20, d - 10));
+  const q = pop(f, w(5) - 2, 12) * (1 - tw(f, d - 20, d - 10));
+  return (
+    <CamK k={[[0, 1.1, 540, 900], [w(4), 1.1, 540, 900], [d - 14, 1, 540, 1000]]}>
+      <Gym />
+      <Person x={D6A.x} y={D6A.y} s={D6A.s} belly={0.4} armL={[12, 0]} armR={[12, 0]} mouth="smile" lookY={0} />
+      {signs > 0 ? (
+        <>
+          <g transform={`translate(250 520) rotate(-8) scale(${signs * 0.8})`}>
+            <rect x={-190} y={-62} width={380} height={124} rx={14} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+            <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>
+              KOŞMA!
+            </text>
+          </g>
+          <g transform={`translate(830 520) rotate(8) scale(${signs * 0.8})`}>
+            <rect x={-190} y={-62} width={380} height={124} rx={14} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+            <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={44} fill={C.red}>
+              DİZ ÖNE GEÇMESİN!
+            </text>
+          </g>
+        </>
+      ) : null}
+      {q > 0 ? <HandText x={540} y={330} text="?" size={220} p={q} color={C.red} rotate={8} /> : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "diz-hook": Diz1Hook,
+  "diz-kosu": Diz2Kosu,
+  "diz-sunger": Diz3Sunger,
+  "diz-squat": Diz4Squat,
+  "diz-doz": Diz5Doz,
+  "diz-kapanis": Diz6Kapanis,
   "kosu-hook": Kosu1Hook,
   "kosu-arastirma": Kosu2Arastirma,
   "kosu-oran": Kosu3Oran,

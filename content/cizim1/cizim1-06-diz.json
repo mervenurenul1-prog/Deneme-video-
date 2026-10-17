@@ -1,0 +1,54 @@
+{
+  "id": "cizim1-06-diz",
+  "title": "Dizin için iki yanlış kural",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.15,
+  "scenes": [
+    {
+      "visual": "diz-hook",
+      "voice": "Dizlerini korumak için bildiğin iki kural var. İkisi de yanlış olabilir.",
+      "say": "Dizlerini korumak için bildiğin iki kural var. [curious] İkisi de, yanlış olabilir."
+    },
+    {
+      "visual": "diz-kosu",
+      "voice": "Birincisi: koşu dizi bitirir. Oysa araştırmalarda kireçlenme, hiç koşmayanlarda yüzde on, hobi olarak koşanlarda yüzde üç buçuk çıktı.",
+      "say": "Birincisi: koşu dizi bitirir. Oysa araştırmalarda kireçlenme, hiç koşmayanlarda yüzde on, hobi olarak koşanlarda yüzde üç buçuk çıktı."
+    },
+    {
+      "visual": "diz-sunger",
+      "voice": "Çünkü kıkırdak sünger gibi: her adımda sıkışır, besinle dolar. Koltukta ise kurur.",
+      "say": "Çünkü kıkırdak sünger gibi: her adımda sıkışır, besinle dolar. Koltukta ise kurur."
+    },
+    {
+      "visual": "diz-squat",
+      "voice": "İkincisi: squatta diz parmak ucunu geçmesin. Bir deneyde diz geride tutulunca yük kalçaya kaydı, on kattan fazla.",
+      "say": "İkincisi: squatta diz parmak ucunu geçmesin. Bir deneyde diz geride tutulunca yük kalçaya kaydı, on kattan fazla."
+    },
+    {
+      "visual": "diz-doz",
+      "voice": "Yani dizini korumanın yolu onu saklamak değil, dozunda kullanmak.",
+      "say": "Yani dizini korumanın yolu onu saklamak değil, dozunda kullanmak."
+    },
+    {
+      "visual": "diz-kapanis",
+      "voice": "Peki sen bu iki kuraldan hangisine inanıyordun?",
+      "say": "Peki sen bu iki kuraldan hangisine inanıyordun?"
+    }
+  ],
+  "caption": "",
+  "hashtags": [
+    "fitness",
+    "diz",
+    "koşu",
+    "squat",
+    "voom"
+  ]
+}
