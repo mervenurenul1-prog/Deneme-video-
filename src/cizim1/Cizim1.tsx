@@ -6027,8 +6027,8 @@ const Diz1Hook: React.FC<SceneProps> = ({ w }) => {
     <CamK k={[[0, 1, 540, 1000], [w(6), 1.06, 540, 1000], [w(9), 1.06, 540, 1000], [w(10) + 10, 1.1, 540, 1050]]} shake={hit(f, Math.round(w(9)), 12) * 0.5}>
       <Gym />
       <Person x={D6A.x} y={D6A.y} s={D6A.s} belly={0.4} armL={[12, 0]} armR={[12, 0]} mouth={crack > 0.3 ? "o" : s2 > 0.5 ? "flat" : "smile"} eyes={crack > 0.3 ? "wide" : "open"} lookY={s1 > 0.5 && crack < 0.3 ? 8 : 0} />
-      <RuleSign x={250 + shake} y={kL.y + 220} ax={kL.x} ay={kL.y} text="KOŞMA!" p={s1} crack={crack} rot={-4} />
-      <RuleSign x={830 + shake} y={kR.y + 220} ax={kR.x} ay={kR.y} text="DİZ ÖNE GEÇMESİN!" p={s2} crack={crack} rot={4} />
+      <RuleSign x={230 + shake} y={kL.y - 120} ax={kL.x} ay={kL.y} text="KOŞMA!" p={s1} crack={crack} rot={-4} />
+      <RuleSign x={850 + shake} y={kR.y - 120} ax={kR.x} ay={kR.y} text="DİZ ÖNE GEÇMESİN!" p={s2} crack={crack} rot={4} />
     </CamK>
   );
 };
@@ -6053,7 +6053,7 @@ const Crowd: React.FC<{ ox: number; oy: number; runner: boolean; nRed: number; p
 const Diz2Kosu: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const rule = pop(f, 0, 12) * (1 - tw(f, w(4) - 2, w(4) + 6));
-  const left = pop(f, w(7) - 2, 12);
+  const left = pop(f, w(4), 12);
   const right = pop(f, w(11) - 2, 12);
   const redL = tw(f, w(9), w(10) + 4);
   const redR = tw(f, w(14), w(16) + 4);
