@@ -13,17 +13,17 @@
   "padding": 0.15,
   "scenes": [
     {
-      "visual": "diz3-pist",
-      "voice": "Sabah koşusu. Turuncu pistte üçüncü turdasın ve dizine bir sızı giriyor. Duruyorsun, eğilip dizini tutuyorsun.",
-      "say": "Sabah koşusu. Turuncu pistte üçüncü turdasın, ve dizine bir sızı giriyor. Duruyorsun, eğilip dizini tutuyorsun."
+      "visual": "diz4-pist",
+      "voice": "Sabah koşusu, üçüncü tur. Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "say": "Sabah koşusu, üçüncü tur. Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
     },
     {
-      "visual": "diz3-anne",
+      "visual": "diz4-anne",
       "voice": "Kulağında annenin sesi:",
       "say": "Kulağında annenin sesi:"
     },
     {
-      "visual": "diz3-annesoz",
+      "visual": "diz4-annesoz",
       "voice": "Koşma, dizin biter! Çok çömelme, dizine yazık! Benim gibi mi olmak istiyorsun?",
       "say": "Koşma, dizin biter! Çok çömelme, dizine yazık! [sighs] Benim gibi mi olmak istiyorsun?",
       "voiceId": "qLdPxFtPuffoxx5gieBJ"
@@ -44,12 +44,12 @@
       "say": "Derin squatın sağlıklı dizi bozduğu da hiç kanıtlanmadı."
     },
     {
-      "visual": "diz3-doz",
+      "visual": "diz4-doz",
       "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir. Dizin bitmiyor, dozunu bekliyor.",
       "say": "O sızı çoğu zaman yükü birden artırmaktan gelir. Dizin bitmiyor, dozunu bekliyor."
     },
     {
-      "visual": "diz3-soru",
+      "visual": "diz4-soru",
       "voice": "Peki sen yarın o piste dönecek misin?",
       "say": "Peki sen yarın o piste dönecek misin?"
     }

@@ -397,6 +397,11 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "diz4-pist": (w) => [[0, "adim", 0.25], [w(6), "cizik", 0.45], [w(6) + 2, "sonme", 0.25], [w(13), "agir-dusme", 0.2]],
+  "diz4-anne": (w) => [[w(0), "pop", 0.3]],
+  "diz4-annesoz": (w) => [[w(1), "cizik", 0.3], [w(5), "cizik", 0.3]],
+  "diz4-doz": (w) => [[w(3), "pop", 0.25], [w(5) - 2, "boom", 0.18], [w(5), "cizik", 0.35], [w(9), "pop", 0.25], [w(10), "pirilti", 0.35]],
+  "diz4-soru": (w) => [[w(5) - 2, "pop", 0.3]],
   "diz3-pist": (w) => [[0, "adim", 0.25], [w(9) - 2, "cizik", 0.45], [w(11), "sonme", 0.3]],
   "diz3-anne": (w) => [[w(0), "pop", 0.3]],
   "diz3-annesoz": (w) => [[w(1), "cizik", 0.3], [w(5), "cizik", 0.3], [w(7), "sonme", 0.25]],
@@ -612,6 +617,11 @@ const ZOOM: Record<string, Zoom> = {
   "kosu-hook": { to: 1.0, x: 540, y: 960 },
   "diz-hook": { to: 1.0, x: 540, y: 960 },
   "diz3-pist": { to: 1.0, x: 540, y: 960 },
+  "diz4-pist": { to: 1.0, x: 540, y: 960 },
+  "diz4-anne": { to: 1.0, x: 540, y: 960 },
+  "diz4-annesoz": { to: 1.0, x: 540, y: 960 },
+  "diz4-doz": { to: 1.0, x: 540, y: 960 },
+  "diz4-soru": { to: 1.0, x: 540, y: 960 },
   "diz3-anne": { to: 1.0, x: 540, y: 960 },
   "diz3-annesoz": { to: 1.0, x: 540, y: 960 },
   "diz3-stanford": { to: 1.03, x: 540, y: 900 },
@@ -6591,14 +6601,14 @@ const Diz3Stanford: React.FC<SceneProps> = ({ w }) => {
         </g>
       ) : null}
       {yrsT > 0 ? (
-        <text x={540} y={900} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.red} transform="rotate(-3 540 900)">
+        <text x={800} y={900} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.red} transform="rotate(-3 800 900)">
           {YEARS[yi]}
         </text>
       ) : null}
       <Doctor x={260} y={PY + 240} s={0.75} arm={[150, -40]} />
       <Doctor x={480} y={PY + 260} s={0.72} />
       {file > 0 ? (
-        <g transform={`translate(330 1040) rotate(-5) scale(${file})`}>
+        <g transform={`translate(330 880) rotate(-5) scale(${file})`}>
           <rect x={-170} y={-60} width={340} height={120} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={7} />
           <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.red}>
             dizleri bitecek
@@ -6630,7 +6640,7 @@ const Diz3Sonuc: React.FC<SceneProps> = ({ w }) => {
             <path d="M-26 0 L-6 22 L28 -20" stroke="#fff" strokeWidth={12} fill="none" strokeLinecap="round" strokeLinejoin="round" />
           </g>
         ) : null}
-        <g transform="translate(330 1040) rotate(-5)">
+        <g transform="translate(330 880) rotate(-5)">
           <rect x={-170} y={-60} width={340} height={120} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={7} />
           <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.red}>
             dizleri bitecek
@@ -6739,7 +6749,350 @@ const Diz3Soru: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- Yandan (profil) avatar: koşu, eğilip dizini tutma, yere oturma ---------- */
+
+type P2 = { x: number; y: number };
+const deg = (a: number) => (a * Math.PI) / 180;
+const add = (p: P2, len: number, a: number): P2 => ({ x: p.x + Math.sin(deg(a)) * len, y: p.y + Math.cos(deg(a)) * len }); // a: aşağı dikeyden, + = ileri (sağa)
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+// İki kemikli ters kinematik: omuzdan hedefe, dirsek aşağı-arkaya bükülür
+const ik2 = (S: P2, T: P2, l1: number, l2: number): [P2, P2] => {
+  const dx = T.x - S.x;
+  const dy = T.y - S.y;
+  const d = Math.min(Math.hypot(dx, dy), l1 + l2 - 1);
+  const base = Math.atan2(dy, dx);
+  const a = Math.acos(Math.max(-1, Math.min(1, (l1 * l1 + d * d - l2 * l2) / (2 * l1 * d))));
+  const ang = base + a;
+  const E = { x: S.x + Math.cos(ang) * l1, y: S.y + Math.sin(ang) * l1 };
+  const H = { x: S.x + Math.cos(base) * d, y: S.y + Math.sin(base) * d };
+  return [E, H];
+};
+
+type LegPose = { a: number; k: number }; // a: uyluk açısı, k: diz bükümü
+type SidePose = { hipY: number; lean: number; back: LegPose; front: LegPose; armB: [number, number]; armF: [number, number] };
+const L_T = 175;
+const L_S = 175;
+const T_LEN = 240;
+
+const runPose = (t: number, amp: number): SidePose => {
+  const leg = (ph: number): LegPose => ({ a: 32 * Math.sin(ph) * amp, k: (25 + 55 * Math.max(0, Math.sin(ph - 1.4))) * amp + 6 });
+  const bob = Math.abs(Math.cos(t)) * 18 * amp;
+  return {
+    hipY: -362 + 14 * amp - bob,
+    lean: 12 * amp,
+    front: leg(t),
+    back: leg(t + Math.PI),
+    armF: [-40 * Math.sin(t) * amp, 105 * amp + 10],
+    armB: [40 * Math.sin(t) * amp, 105 * amp + 10],
+  };
+};
+const bendPose: SidePose = { hipY: -300, lean: 58, front: { a: 22, k: 48 }, back: { a: -8, k: 30 }, armF: [0, 0], armB: [0, 0] };
+const sitPose: SidePose = { hipY: -58, lean: 14, front: { a: 150, k: 142 }, back: { a: 88, k: 4 }, armF: [0, 0], armB: [0, 0] };
+const mixPose = (p: SidePose, q: SidePose, t: number): SidePose => ({
+  hipY: lerp(p.hipY, q.hipY, t),
+  lean: lerp(p.lean, q.lean, t),
+  front: { a: lerp(p.front.a, q.front.a, t), k: lerp(p.front.k, q.front.k, t) },
+  back: { a: lerp(p.back.a, q.back.a, t), k: lerp(p.back.k, q.back.k, t) },
+  armF: [lerp(p.armF[0], q.armF[0], t), lerp(p.armF[1], q.armF[1], t)],
+  armB: [lerp(p.armB[0], q.armB[0], t), lerp(p.armB[1], q.armB[1], t)],
+});
+
+// face: "smile" | "pain" | "worry" | "grin"; reach: 0..1 eller ön dize gider (eğilme/oturma)
+const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; reach?: number; face?: "smile" | "pain" | "worry" | "grin"; painGlow?: number; f: number; look?: number }> = ({
+  x,
+  y,
+  s,
+  pose,
+  reach = 0,
+  face = "smile",
+  painGlow = 0,
+  f,
+  look = 0,
+}) => {
+  const H: P2 = { x: 0, y: pose.hipY };
+  const legPts = (lp: LegPose) => {
+    const K = add(H, L_T, lp.a);
+    const A = add(K, L_S, lp.a - lp.k);
+    return { K, A };
+  };
+  const fl = legPts(pose.front);
+  const bl = legPts(pose.back);
+  const up = { x: Math.sin(deg(pose.lean)), y: -Math.cos(deg(pose.lean)) };
+  const S: P2 = { x: H.x + up.x * T_LEN, y: H.y + up.y * T_LEN };
+  const Hd: P2 = { x: S.x + up.x * 92 + 6, y: S.y + up.y * 92 };
+  const armPts = (ar: [number, number], side: number): [P2, P2] => {
+    if (reach > 0.02) {
+      const target = { x: fl.K.x + 10 * side, y: fl.K.y - 10 };
+      const [E, Hn] = ik2({ x: S.x + 4 * side, y: S.y + 10 }, target, 140, 135);
+      const E0 = add(S, 140, ar[0]);
+      const H0 = add(E0, 135, ar[0] + ar[1]);
+      return [
+        { x: lerp(E0.x, E.x, reach), y: lerp(E0.y, E.y, reach) },
+        { x: lerp(H0.x, Hn.x, reach), y: lerp(H0.y, Hn.y, reach) },
+      ];
+    }
+    const E = add(S, 140, ar[0]);
+    return [E, add(E, 135, ar[0] + ar[1])];
+  };
+  const [eB, hB] = armPts(pose.armB, -1);
+  const [eF, hF] = armPts(pose.armF, 1);
+  const seg = (a: P2, b: P2, w: number, col: string) => (
+    <>
+      <path d={`M${a.x} ${a.y} L${b.x} ${b.y}`} stroke={C.ink} strokeWidth={w + 11} strokeLinecap="round" />
+      <path d={`M${a.x} ${a.y} L${b.x} ${b.y}`} stroke={col} strokeWidth={w} strokeLinecap="round" />
+    </>
+  );
+  const leg = (l: { K: P2; A: P2 }, shade: number) => {
+    const footAng = Math.atan2(l.A.y - l.K.y, l.A.x - l.K.x) - Math.PI / 2;
+    const toe = { x: l.A.x + Math.cos(footAng) * 62, y: l.A.y + Math.sin(footAng) * 62 };
+    return (
+      <g opacity={shade}>
+        {seg(H, l.K, 50, C.shorts)}
+        {seg(l.K, l.A, 32, C.skin)}
+        {seg(l.A, toe, 26, "#e8e3d8")}
+      </g>
+    );
+  };
+  const arm = (e: P2, h: P2, shade: number) => (
+    <g opacity={shade}>
+      {seg(S, e, 34, C.shirt)}
+      {seg(e, h, 24, C.skin)}
+    </g>
+  );
+  const torso = (() => {
+    const n = { x: -up.y, y: up.x }; // ileri normal
+    const mid = { x: (H.x + S.x) / 2, y: (H.y + S.y) / 2 };
+    const belly = { x: mid.x + n.x * 78, y: mid.y + n.y * 78 };
+    const backP = { x: mid.x - n.x * 58, y: mid.y - n.y * 58 };
+    const p = (q: P2) => `${q.x.toFixed(1)} ${q.y.toFixed(1)}`;
+    const sF = { x: S.x + n.x * 40, y: S.y + n.y * 40 };
+    const sB = { x: S.x - n.x * 44, y: S.y - n.y * 44 };
+    const hF = { x: H.x + n.x * 52, y: H.y + n.y * 52 };
+    const hB = { x: H.x - n.x * 50, y: H.y - n.y * 50 };
+    return `M${p(sB)} Q${p(backP)} ${p(hB)} L${p(hF)} Q${p(belly)} ${p(sF)} Z`;
+  })();
+  const pain = face === "pain";
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <ellipse cx={20} cy={4} rx={150} ry={18} fill={C.ink} opacity={0.12} />
+      {leg(bl, 1)}
+      {arm(eB, hB, 1)}
+      <path d={torso} fill={C.shirt} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      {/* baş: profil, sağa bakar */}
+      <g transform={`rotate(${pose.lean * 0.4 + look} ${Hd.x} ${Hd.y})`}>
+        <circle cx={Hd.x} cy={Hd.y} r={66} fill={C.skin} stroke={C.ink} strokeWidth={8} />
+        <path d={`M${Hd.x - 66} ${Hd.y + 6} Q${Hd.x - 72} ${Hd.y - 70} ${Hd.x + 6} ${Hd.y - 70} Q${Hd.x + 56} ${Hd.y - 66} ${Hd.x + 58} ${Hd.y - 34} Q${Hd.x + 10} ${Hd.y - 44} ${Hd.x - 14} ${Hd.y - 20} Q${Hd.x - 30} ${Hd.y + 10} ${Hd.x - 66} ${Hd.y + 6} Z`} fill={C.hair} stroke={C.ink} strokeWidth={6} />
+        <ellipse cx={Hd.x - 14} cy={Hd.y + 4} rx={14} ry={18} fill={C.skin} stroke={C.ink} strokeWidth={5} />
+        <path d={`M${Hd.x + 64} ${Hd.y - 4} Q${Hd.x + 82} ${Hd.y + 10} ${Hd.x + 62} ${Hd.y + 18}`} fill={C.skin} stroke={C.ink} strokeWidth={6} />
+        {pain ? (
+          <>
+            <path d={`M${Hd.x + 24} ${Hd.y - 12} L${Hd.x + 42} ${Hd.y - 4} L${Hd.x + 24} ${Hd.y + 2}`} stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
+            <path d={`M${Hd.x + 18} ${Hd.y - 28} L${Hd.x + 46} ${Hd.y - 20}`} stroke={C.ink} strokeWidth={6} strokeLinecap="round" />
+            <path d={`M${Hd.x + 26} ${Hd.y + 34} L${Hd.x + 36} ${Hd.y + 28} L${Hd.x + 46} ${Hd.y + 36} L${Hd.x + 56} ${Hd.y + 30}`} stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          </>
+        ) : (
+          <>
+            <circle cx={Hd.x + 34} cy={Hd.y - 6} r={7} fill={C.ink} />
+            <path d={`M${Hd.x + 20} ${Hd.y - 26} Q${Hd.x + 34} ${Hd.y - (face === "worry" ? 20 : 32)} ${Hd.x + 48} ${Hd.y - 26}`} stroke={C.ink} strokeWidth={5} fill="none" strokeLinecap="round" />
+            {face === "worry" ? (
+              <path d={`M${Hd.x + 30} ${Hd.y + 36} Q${Hd.x + 42} ${Hd.y + 28} ${Hd.x + 54} ${Hd.y + 36}`} stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
+            ) : (
+              <path d={`M${Hd.x + 28} ${Hd.y + 28} Q${Hd.x + 44} ${Hd.y + (face === "grin" ? 46 : 40)} ${Hd.x + 58} ${Hd.y + 26}`} stroke={C.ink} strokeWidth={6} fill={face === "grin" ? "#fff" : "none"} strokeLinecap="round" />
+            )}
+          </>
+        )}
+        <circle cx={Hd.x + 30} cy={Hd.y + 18} r={13} fill="#e98a7a" opacity={0.45} />
+      </g>
+      {painGlow > 0 ? <circle cx={fl.K.x + 6} cy={fl.K.y} r={40 + 22 * Math.sin(f / 3)} fill={C.red} opacity={0.28 * painGlow} /> : null}
+      {leg(fl, 1)}
+      {arm(eF, hF, 1)}
+      {/* ter damlaları: ağrıda */}
+      {pain ? [0, 1].map((i) => <Drop key={i} x={Hd.x - 40 - i * 30} y={Hd.y - 50 + ((f * 3 + i * 40) % 80)} s={0.7} o={0.8} />) : null}
+    </g>
+  );
+};
+
+// Yandan koşu pisti: gökyüzü, güneş, ağaçlar, turuncu pist; off: kaydırma (koşu hissi)
+const SideTrack: React.FC<{ off: number }> = ({ off }) => {
+  const g = 1440; // pistin üst kenarı
+  const trees = (k: number) => ((k * 180 - off * 0.35) % 2160 + 2160) % 2160 - 300;
+  const dash = (k: number) => ((k * 220 - off) % 1320 + 1320) % 1320 - 200;
+  return (
+    <g>
+      <rect x={0} y={0} width={1080} height={g} fill="#f6dcb6" />
+      <rect x={0} y={g - 520} width={1080} height={520} fill="#f3c9a0" opacity={0.6} />
+      <circle cx={780} cy={g - 520} r={110} fill="#ffd27a" />
+      {Array.from({ length: 12 }, (_, k) => (
+        <g key={k} transform={`translate(${trees(k)} ${g - 90})`}>
+          <rect x={-14} y={-40} width={28} height={130} fill="#8a5c35" stroke={C.ink} strokeWidth={5} />
+          <ellipse cx={0} cy={-120} rx={95} ry={110} fill={k % 2 ? "#7f9a5c" : "#6e8a50"} stroke={C.ink} strokeWidth={6} />
+        </g>
+      ))}
+      <rect x={0} y={g - 20} width={1080} height={60} fill="#9fbf74" />
+      <rect x={0} y={g + 30} width={1080} height={380} fill="#d9693a" stroke={C.ink} strokeWidth={6} />
+      {[0, 1, 2].map((i) => (
+        <path key={i} d={`M0 ${g + 120 + i * 110} L1080 ${g + 120 + i * 110}`} stroke="#fbf3e2" strokeWidth={6} opacity={0.8} />
+      ))}
+      {Array.from({ length: 6 }, (_, k) => (
+        <path key={k} d={`M${dash(k)} ${g + 70} l60 0`} stroke="#fbf3e2" strokeWidth={8} opacity={0.6} />
+      ))}
+      <rect x={0} y={g + 410} width={1080} height={200} fill="#9fbf74" />
+    </g>
+  );
+};
+const TRACK_Y = 1640; // koşucunun ayak hizası
+
+// Koşu hızına göre (0..1) birikmiş adım fazı ve kaydırma (kareden kareye toplanır: hız değişse de akış kesintisiz)
+const runIntegral = (f: number, speedAt: (i: number) => number) => {
+  let off = 0;
+  let ph = 0;
+  for (let i = 0; i < f; i++) {
+    const v = speedAt(i);
+    off += 17 * v;
+    ph += 0.36 * Math.max(0.35, v) * (v > 0.02 ? 1 : 0);
+  }
+  return { off, ph };
+};
+
+// "Sabah koşusu, üçüncü tur. Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const hitAt = w(6);
+  const speedAt = (i: number) => (i < hitAt ? 1 : interpolate(i, [hitAt, w(9)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  const { off, ph } = runIntegral(f, speedAt);
+  const amp = speedAt(f);
+  const limp = f >= hitAt && f < w(10) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
+  const bend = tw(f, w(10) - 4, w(11) + 4);
+  const sit = tw(f, w(13) - 4, w(14) + 8);
+  const pose = mixPose(mixPose(runPose(ph, amp), bendPose, bend), sitPose, sit);
+  pose.lean += limp * 12;
+  const pain = f >= hitAt;
+  const glow = tw(f, hitAt, hitAt + 6);
+  const lap = pop(f, w(2) - 2, 12) * (1 - tw(f, w(4), w(5)));
+  return (
+    <CamK
+      k={[
+        [0, 1, 540, 1200],
+        [hitAt, 1, 540, 1200],
+        [hitAt + 10, 1.12, 520, 1300],
+        [w(12), 1.12, 520, 1300],
+        [w(14) + 10, 1.22, 520, 1420],
+      ]}
+      shake={hit(f, Math.round(hitAt), 10) * 0.6}
+    >
+      <SideTrack off={off} />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={Math.max(bend, sit)} face={pain ? "pain" : "smile"} painGlow={glow} />
+      {lap > 0 ? <HandText x={800} y={520} text="3. tur" size={110} p={lap} rotate={-6} /> : null}
+    </CamK>
+  );
+};
+
+// Pistte oturup dizini tutan avatar (anne sahneleri ve kapanış için)
+const SittingOnTrack: React.FC<{ f: number; face?: "pain" | "worry" | "smile" | "grin"; glow?: number }> = ({ f, face = "worry", glow = 0.4 }) => (
+  <>
+    <SideTrack off={0} />
+    <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={sitPose} reach={1} face={face} painGlow={glow} />
+  </>
+);
+
+// Anlatıcı: "Kulağında annenin sesi:"
+const Diz4Anne: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bubble = pop(f, w(0) - 2, 14);
+  return (
+    <CamK k={[[0, 1.22, 520, 1420], [w(2) + 6, 1.0, 540, 1000]]}>
+      <SittingOnTrack f={f} face="pain" />
+      <Bubble x={560} y={560} rx={330} ry={250} p={bubble} tail={[560, 1060]}>
+        <Mom f={f} x={560} y={760} s={0.5} wag={0} />
+      </Bubble>
+    </CamK>
+  );
+};
+
+// Annenin sesi: "Koşma, dizin biter! Çok çömelme, dizine yazık! Benim gibi mi olmak istiyorsun?"
+const Diz4AnneSoz: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const i1 = pop(f, w(0) - 2, 12);
+  const c1 = tw(f, w(1), w(2) + 4);
+  const i2 = pop(f, w(3) - 2, 12);
+  const c2 = tw(f, w(5), w(6) + 4);
+  const own = tw(f, w(7) - 2, w(8) + 6);
+  const zoom = tw(f, w(7) - 2, w(9) + 4);
+  return (
+    <CamK k={[[0, 1, 540, 1000], [w(7) - 2, 1, 540, 1000], [w(9) + 4, 1.3, 560, 680]]}>
+      <SittingOnTrack f={f} face="worry" />
+      <Bubble x={560} y={560} rx={330} ry={250} p={1} tail={[560, 1060]}>
+        {own > 0.05 ? (
+          <g>
+            <Person x={560} y={760} s={0.5} female belly={0.6} shirt="#9a7bb0" legL={{ lift: 0.5 }} legR={{ lift: 0.5 }} armL={[10, -5]} armR={[10, -5]} mouth="worry" eyes="closed" lookY={8} />
+            <circle cx={582} cy={706} r={16 + 6 * Math.sin(f / 3)} fill={C.red} opacity={0.3 * own} />
+          </g>
+        ) : (
+          <Mom f={f} x={560} y={760} s={0.5} wag={1} />
+        )}
+      </Bubble>
+      <g opacity={1 - zoom}>
+        <BanIcon x={170} y={1000} p={i1} cross={c1} f={f} />
+        <BanIcon x={910} y={1000} p={i2} cross={c2} squat f={f} />
+      </g>
+    </CamK>
+  );
+};
+
+// "O sızı çoğu zaman yükü birden artırmaktan gelir. Dizin bitmiyor, dozunu bekliyor."
+const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const row1 = [2, 2, 2, 10];
+  const row2 = [2, 3, 4, 5];
+  const spike = tw(f, w(5) - 2, w(6) + 4);
+  const r2on = tw(f, w(9) - 2, w(9) + 6);
+  const painT = spike * (1 - tw(f, w(8), w(9)));
+  const speedAt = (i: number) => 1 - 0.55 * (tw(i, w(5) - 2, w(6) + 4) * (1 - tw(i, w(8), w(9))));
+  const { off, ph } = runIntegral(f, speedAt);
+  const pose = runPose(ph, speedAt(f));
+  const card = (x: number, y: number, v: number, p: number, red: boolean) =>
+    p > 0 ? (
+      <g key={`${x}${y}`} transform={`translate(${x} ${y}) scale(${p * (red ? 1 + 0.25 * spike : 1)})`}>
+        <rect x={-85} y={-55} width={170} height={110} rx={14} fill={red ? C.red : C.cream} stroke={C.ink} strokeWidth={6} />
+        <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={red ? C.cream : C.ink}>
+          {v} km
+        </text>
+      </g>
+    ) : null;
+  return (
+    <>
+      <SideTrack off={off} />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} />
+      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(165 + i * 250, 300, v, pop(f, w(3) + i * 5, 10), i === 3))}</g>
+      <g opacity={r2on}>
+        {row2.map((v, i) => card(165 + i * 250, 470, v, pop(f, w(9) + i * 4, 10), false))}
+        <HandText x={540} y={640} text="dozunda" size={100} p={tw(f, w(10), w(11) + 6)} color="#3f7d4f" rotate={-3} />
+      </g>
+    </>
+  );
+};
+
+// "Peki sen yarın o piste dönecek misin?" — pistte oturan avatar; soru; sonda kalkıp koşmaya başlar (= açılış karesi)
+const Diz4Soru: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, w(5) - 2, 12) * (1 - tw(f, d - 22, d - 12));
+  const up = tw(f, d - 22, d - 2);
+  const pose = mixPose(sitPose, runPose(0, 1), up);
+  return (
+    <CamK k={[[0, 1.15, 520, 1300], [w(4), 1.15, 520, 1300], [d - 4, 1, 540, 1200]]}>
+      <SideTrack off={0} />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={1 - up} face={up > 0.5 ? "smile" : "worry"} painGlow={0} />
+      {q > 0 ? <HandText x={760} y={760} text="?" size={240} p={q} color={C.red} rotate={8} /> : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "diz4-pist": Diz4Pist,
+  "diz4-anne": Diz4Anne,
+  "diz4-annesoz": Diz4AnneSoz,
+  "diz4-doz": Diz4Doz,
+  "diz4-soru": Diz4Soru,
   "diz3-pist": Diz3Pist,
   "diz3-anne": Diz3Anne,
   "diz3-annesoz": Diz3AnneSoz,
