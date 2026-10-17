@@ -10,7 +10,7 @@
   "maxPause": 0.3,
   "music": "music/merak-gerilim.mp3",
   "loop": true,
-  "padding": 0.15,
+  "padding": 0.1,
   "scenes": [
     {
       "visual": "diz4-pist",
@@ -25,8 +25,8 @@
     },
     {
       "visual": "diz4-annesoz",
-      "voice": "Koşma, dizin biter! Benim gibi mi olmak istiyorsun?",
-      "say": "Koşma, dizin biter! [sighs] Benim gibi mi olmak istiyorsun?",
+      "voice": "Koşma, dizlerin aşınır! Benim gibi mi olmak istiyorsun?",
+      "say": "Koşma, dizlerin aşınır! [sighs] Benim gibi mi olmak istiyorsun?",
       "voiceId": "qLdPxFtPuffoxx5gieBJ"
     },
     {
@@ -41,8 +41,8 @@
     },
     {
       "visual": "diz4-doz",
-      "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir: haftalarca iki kilometre, sonra bir günde on. Dizin bitmiyor, dozunu bekliyor.",
-      "say": "O sızı çoğu zaman yükü birden artırmaktan gelir: haftalarca iki kilometre, sonra bir günde on. Dizin bitmiyor, dozunu bekliyor."
+      "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır.",
+      "say": "O sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır."
     },
     {
       "visual": "diz4-soru",

@@ -37,7 +37,10 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   "birden"den önce ağır çekim + ekran kararır, dizde röntgen merceği (`KneeLens`) kızarır; `diz4-stanford`/`diz4-sonuc`
   aynı pistte üç koşucu (`StanfordRunners`, saçları yıllarla ağarır `grayHair`), yıl sayacı 1984→2002, röntgen panosu
   (`XrayBoard`, hepsi temiz + yeşil tik), "dizleri bitecek" tabelası çizilir; doz kartları büyüdü. 7 sahne.
-  Yeni sessiz önizleme → **onay → seslendirme** (Yunus + Sibel; Sibel artık ~50 karakter).
+  (g) Kullanıcı "seslendir" dedi, iki değişiklikle: anne "Koşma, dizlerin aşınır! Benim gibi mi olmak istiyorsun?"
+  ("bitmek" yüklemi olmasın; tabela "dizleri aşınacak"); doz "…gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta
+  biraz artırırsan, dizin yüke alışır." (kırmızı 10 km kartı kalsın, kullanıcı sevdi). SESLENDİRİLDİ (ses 43,0 sn,
+  `padding` 0.1 → video ~44,8 sn), müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4`.
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi

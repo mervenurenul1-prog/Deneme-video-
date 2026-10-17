@@ -407,7 +407,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "diz4-pist": (w) => [[0, "adim", 0.25], [2, "pop", 0.2], [w(0) - 2, "pop", 0.25], [w(3), "boom", 0.2], [w(3) + 1, "cizik", 0.45], [w(3) + 3, "sonme", 0.25], [w(11), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
-  "diz4-doz": (w) => [[w(9), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(17), "pop", 0.25], [w(18), "pirilti", 0.35]],
+  "diz4-doz": (w) => [[w(8), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(16), "pop", 0.25], [w(20), "pirilti", 0.35]],
   "diz4-stanford": (w, d) => [[2, "kalem", 0.3], [w(6) - 2, "pop", 0.3], [w(12), "whoosh", 0.25], [d - 14, "kagit", 0.3]],
   "diz4-sonuc": (w) => [[w(1) - 2, "ding", 0.35], [w(4), "cizik", 0.35], [w(9), "pop", 0.3], [w(13), "pirilti", 0.35]],
   "diz4-soru": (w) => [[w(5) - 2, "pop", 0.3]],
@@ -6766,7 +6766,7 @@ const BiteSign: React.FC<{ p: number; strike?: number }> = ({ p, strike = 0 }) =
     <g transform={`translate(540 960) rotate(-4) scale(${p})`}>
       <rect x={-230} y={-66} width={460} height={132} rx={12} fill={C.cream} stroke={C.ink} strokeWidth={7} />
       <text x={0} y={20} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>
-        dizleri bitecek
+        dizleri aşınacak
       </text>
       {strike > 0 ? <path d="M-210 0 L210 0" stroke={C.ink} strokeWidth={12} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - strike} /> : null}
     </g>
@@ -7264,9 +7264,9 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const row1 = [2, 2, 2, 10];
   const row2 = [2, 3, 4, 5];
-  // "haftalarca iki kilometre" → 2·2·2, "sonra bir günde on" → dev 10 km ve sızı; "dozunu bekliyor" → 2·3·4·5
+  // "iki, iki, iki" → 2·2·2, "sonra bir günde on" → dev 10 km ve sızı; "her hafta biraz artırırsan" → 2·3·4·5
   const spike = tw(f, w(13) - 2, w(14) + 4);
-  const r2on = tw(f, w(17) - 2, w(17) + 6);
+  const r2on = tw(f, w(16) - 2, w(16) + 6);
   const painT = Math.max(spike * (1 - tw(f, w(15), w(16))), 0.5 * tw(f, w(1) - 2, w(1) + 4) * (1 - tw(f, w(3), w(4))));
   const speedAt = (i: number) => 1 - 0.55 * (tw(i, w(13) - 2, w(14) + 4) * (1 - tw(i, w(15), w(16))));
   const { off, ph } = runIntegral(f, speedAt);
@@ -7284,10 +7284,10 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
     <>
       <SideTrack off={off} />
       <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} bandage />
-      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 330, v, pop(f, i < 3 ? w(9) + i * 5 : w(13) - 2, 10), i === 3))}</g>
+      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 330, v, pop(f, i < 3 ? w(8 + i) : w(13) - 2, 10), i === 3))}</g>
       <g opacity={r2on}>
-        {row2.map((v, i) => card(150 + i * 260, 560, v, pop(f, w(17) + i * 4, 10), false))}
-        <HandText x={540} y={760} text="dozunda" size={100} p={tw(f, w(18), w(18) + 8)} color="#3f7d4f" rotate={-3} />
+        {row2.map((v, i) => card(150 + i * 260, 560, v, pop(f, w(16) + i * 5, 10), false))}
+        <HandText x={540} y={760} text="dizin alışır" size={100} p={tw(f, w(20), w(20) + 8)} color="#3f7d4f" rotate={-3} />
       </g>
     </>
   );

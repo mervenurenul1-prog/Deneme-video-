@@ -1,0 +1,511 @@
+{
+  "scenes": [
+    {
+      "voice": "Üçüncü tur… ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "say": "Üçüncü tur... ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-06-diz/1-mvcegtn4.mp3",
+      "durationInSeconds": 6.164898,
+      "words": [
+        {
+          "word": "Üçüncü",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "tur…",
+          "start": 0.48,
+          "end": 1.105033
+        },
+        {
+          "word": "ve",
+          "start": 1.185033,
+          "end": 1.265033
+        },
+        {
+          "word": "birden",
+          "start": 1.345033,
+          "end": 1.825033
+        },
+        {
+          "word": "dizine",
+          "start": 2.065033,
+          "end": 2.385033
+        },
+        {
+          "word": "bir",
+          "start": 2.465033,
+          "end": 2.545033
+        },
+        {
+          "word": "sızı",
+          "start": 2.6650329999999998,
+          "end": 2.825033
+        },
+        {
+          "word": "giriyor.",
+          "start": 2.865033,
+          "end": 3.345033
+        },
+        {
+          "word": "Eğilip",
+          "start": 3.6275329999999997,
+          "end": 3.947533
+        },
+        {
+          "word": "dizini",
+          "start": 3.987533,
+          "end": 4.267532999999999
+        },
+        {
+          "word": "tutuyor,",
+          "start": 4.307532999999999,
+          "end": 5.067533
+        },
+        {
+          "word": "yere",
+          "start": 5.107533,
+          "end": 5.307532999999999
+        },
+        {
+          "word": "oturuyorsun.",
+          "start": 5.3875329999999995,
+          "end": 6.187533
+        }
+      ]
+    },
+    {
+      "voice": "Kulağında annenin sesi:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-06-diz/2-mvceguip.mp3",
+      "durationInSeconds": 1.933061,
+      "words": [
+        {
+          "word": "Kulağında",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "word": "annenin",
+          "start": 0.72,
+          "end": 1.12
+        },
+        {
+          "word": "sesi:",
+          "start": 1.2,
+          "end": 1.8844899999999998
+        }
+      ]
+    },
+    {
+      "voice": "Koşma, dizlerin aşınır! Benim gibi mi olmak istiyorsun?",
+      "say": "Koşma, dizlerin aşınır! [sighs] Benim gibi mi olmak istiyorsun?",
+      "voiceId": "qLdPxFtPuffoxx5gieBJ",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-06-diz/3-mvcegw3r.mp3",
+      "durationInSeconds": 4.702041,
+      "words": [
+        {
+          "word": "Koşma,",
+          "start": 0,
+          "end": 0.8
+        },
+        {
+          "word": "dizlerin",
+          "start": 0.84,
+          "end": 1.28
+        },
+        {
+          "word": "aşınır!",
+          "start": 1.36,
+          "end": 2.12
+        },
+        {
+          "word": "Benim",
+          "start": 2.9080999999999992,
+          "end": 3.1480999999999995
+        },
+        {
+          "word": "gibi",
+          "start": 3.1880999999999995,
+          "end": 3.3880999999999992
+        },
+        {
+          "word": "mi",
+          "start": 3.4280999999999993,
+          "end": 3.4680999999999993
+        },
+        {
+          "word": "olmak",
+          "start": 3.5480999999999994,
+          "end": 3.7880999999999996
+        },
+        {
+          "word": "istiyorsun?",
+          "start": 3.8680999999999996,
+          "end": 4.748099999999999
+        }
+      ]
+    },
+    {
+      "voice": "Bin dokuz yüz seksen dörtte Stanford'daki doktorlar da bundan emindi. Kanıtlamak için koşucuların dizlerini on sekiz yıl röntgenlediler.",
+      "say": "Bin dokuz yüz seksen dörtte, Stanford'daki doktorlar da bundan emindi. [curious] Kanıtlamak için koşucuların dizlerini, on sekiz yıl röntgenlediler.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-06-diz/4-mvcegy7k.mp3",
+      "durationInSeconds": 8.385306,
+      "words": [
+        {
+          "word": "Bin",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "dokuz",
+          "start": 0.2,
+          "end": 0.4
+        },
+        {
+          "word": "yüz",
+          "start": 0.48,
+          "end": 0.56
+        },
+        {
+          "word": "seksen",
+          "start": 0.64,
+          "end": 0.96
+        },
+        {
+          "word": "dörtte",
+          "start": 1.04,
+          "end": 1.6
+        },
+        {
+          "word": "Stanford'daki",
+          "start": 1.68,
+          "end": 2.32
+        },
+        {
+          "word": "doktorlar",
+          "start": 2.36,
+          "end": 2.88
+        },
+        {
+          "word": "da",
+          "start": 2.92,
+          "end": 2.96
+        },
+        {
+          "word": "bundan",
+          "start": 3.04,
+          "end": 3.28
+        },
+        {
+          "word": "emindi.",
+          "start": 3.36,
+          "end": 3.94567
+        },
+        {
+          "word": "Kanıtlamak",
+          "start": 4.139740000000001,
+          "end": 4.56674
+        },
+        {
+          "word": "için",
+          "start": 4.64674,
+          "end": 4.8867400000000005
+        },
+        {
+          "word": "koşucuların",
+          "start": 4.966740000000001,
+          "end": 5.52674
+        },
+        {
+          "word": "dizlerini",
+          "start": 5.60674,
+          "end": 6.406740000000001
+        },
+        {
+          "word": "on",
+          "start": 6.48674,
+          "end": 6.56674
+        },
+        {
+          "word": "sekiz",
+          "start": 6.64674,
+          "end": 6.966740000000001
+        },
+        {
+          "word": "yıl",
+          "start": 7.046740000000001,
+          "end": 7.206740000000001
+        },
+        {
+          "word": "röntgenlediler.",
+          "start": 7.286740000000001,
+          "end": 8.406740000000001
+        }
+      ]
+    },
+    {
+      "voice": "Sonuç: koşucuların dizleri daha kötü çıkmadı. Kireçlenme, evde oturanlarda yüzde on, hobi koşucularında yüzde üç buçuk.",
+      "say": "Sonuç: ... koşucuların dizleri daha kötü çıkmadı. Kireçlenme, evde oturanlarda yüzde on, hobi koşucularında yüzde üç buçuk.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-06-diz/5-mvceh0c7.mp3",
+      "durationInSeconds": 8.620408,
+      "words": [
+        {
+          "word": "Sonuç:",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "word": "koşucuların",
+          "start": 0.940835,
+          "end": 1.4738349999999998
+        },
+        {
+          "word": "dizleri",
+          "start": 1.5538349999999999,
+          "end": 1.9538350000000002
+        },
+        {
+          "word": "daha",
+          "start": 2.0338350000000003,
+          "end": 2.193835
+        },
+        {
+          "word": "kötü",
+          "start": 2.273835,
+          "end": 2.4738350000000002
+        },
+        {
+          "word": "çıkmadı.",
+          "start": 2.5138350000000003,
+          "end": 3.073835
+        },
+        {
+          "word": "Kireçlenme,",
+          "start": 3.288795,
+          "end": 4.088795
+        },
+        {
+          "word": "evde",
+          "start": 4.329524999999999,
+          "end": 4.569525
+        },
+        {
+          "word": "oturanlarda",
+          "start": 4.649525,
+          "end": 5.289524999999999
+        },
+        {
+          "word": "yüzde",
+          "start": 5.369524999999999,
+          "end": 5.689525
+        },
+        {
+          "word": "on,",
+          "start": 5.769525,
+          "end": 6.009525
+        },
+        {
+          "word": "hobi",
+          "start": 6.249524999999999,
+          "end": 6.4895249999999995
+        },
+        {
+          "word": "koşucularında",
+          "start": 6.569525,
+          "end": 7.369524999999999
+        },
+        {
+          "word": "yüzde",
+          "start": 7.529525,
+          "end": 7.849525
+        },
+        {
+          "word": "üç",
+          "start": 7.889524999999999,
+          "end": 7.969524999999999
+        },
+        {
+          "word": "buçuk.",
+          "start": 8.009525,
+          "end": 8.649524999999999
+        }
+      ]
+    },
+    {
+      "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-06-diz/6-mvceh2ws.mp3",
+      "durationInSeconds": 10.657959,
+      "words": [
+        {
+          "word": "O",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "sızı",
+          "start": 0.28,
+          "end": 0.56
+        },
+        {
+          "word": "çoğu",
+          "start": 0.72,
+          "end": 0.88
+        },
+        {
+          "word": "zaman",
+          "start": 0.96,
+          "end": 1.28
+        },
+        {
+          "word": "yükü",
+          "start": 1.36,
+          "end": 1.6
+        },
+        {
+          "word": "birden",
+          "start": 1.68,
+          "end": 2
+        },
+        {
+          "word": "artırmaktan",
+          "start": 2.08,
+          "end": 2.72
+        },
+        {
+          "word": "gelir:",
+          "start": 2.8,
+          "end": 3.4358199999999997
+        },
+        {
+          "word": "iki,",
+          "start": 3.59582,
+          "end": 4.07582
+        },
+        {
+          "word": "iki,",
+          "start": 4.23582,
+          "end": 4.635819999999999
+        },
+        {
+          "word": "iki,",
+          "start": 4.795819999999999,
+          "end": 5.35582
+        },
+        {
+          "word": "sonra",
+          "start": 5.475819999999999,
+          "end": 5.75582
+        },
+        {
+          "word": "bir",
+          "start": 5.91582,
+          "end": 5.99582
+        },
+        {
+          "word": "günde",
+          "start": 6.07582,
+          "end": 6.31582
+        },
+        {
+          "word": "on.",
+          "start": 6.3958200000000005,
+          "end": 6.715819999999999
+        },
+        {
+          "word": "Oysa",
+          "start": 7.115819999999999,
+          "end": 7.51582
+        },
+        {
+          "word": "her",
+          "start": 7.67582,
+          "end": 7.83582
+        },
+        {
+          "word": "hafta",
+          "start": 7.955819999999999,
+          "end": 8.15582
+        },
+        {
+          "word": "biraz",
+          "start": 8.23582,
+          "end": 8.47582
+        },
+        {
+          "word": "artırırsan,",
+          "start": 8.59582,
+          "end": 9.35582
+        },
+        {
+          "word": "dizin",
+          "start": 9.39582,
+          "end": 9.67582
+        },
+        {
+          "word": "yüke",
+          "start": 9.75582,
+          "end": 9.91582
+        },
+        {
+          "word": "alışır.",
+          "start": 9.99582,
+          "end": 10.71582
+        }
+      ]
+    },
+    {
+      "voice": "Peki sen yarın o piste dönecek misin?",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-06-diz/7-mvceh3u3.mp3",
+      "durationInSeconds": 2.586122,
+      "words": [
+        {
+          "word": "Peki",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "sen",
+          "start": 0.64,
+          "end": 0.88
+        },
+        {
+          "word": "yarın",
+          "start": 0.96,
+          "end": 1.2
+        },
+        {
+          "word": "o",
+          "start": 1.24,
+          "end": 1.28
+        },
+        {
+          "word": "piste",
+          "start": 1.36,
+          "end": 1.6
+        },
+        {
+          "word": "dönecek",
+          "start": 1.64,
+          "end": 2
+        },
+        {
+          "word": "misin?",
+          "start": 2.08,
+          "end": 2.64
+        }
+      ]
+    }
+  ]
+}
