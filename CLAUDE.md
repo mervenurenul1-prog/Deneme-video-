@@ -89,8 +89,8 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   dambıl/sinir) ÇIKTI; yerine yaş bantları `yas-bant1..4` (5-7 oyun: koşmak/zıplamak/tırmanmak; 8-12 kendi vücut ağırlığı +
   teknik, hücreler büyümez ama güç ↑; 13-15 ergenlik, hücreler büyür, lastik bant + hafif ağırlık, bilen biri; 16+ ağırlık
   yavaş yavaş, TEKNİK ÖNCE). Üstte `AgeRuler` (etkin bant kırmızı). Rapordaki basamaklar 4 yaş grubu. Hook/rapor/terazi/
-  güvenlik/bugün sesleri hazır; 4 bant yeni seslendirilecek (~330 karakter). Eski 12 sahnelik JSON yedek: v3 manifest index'e
-  bağlı — seslendirmeden önce manifestteki sahne sırasını yeni sıraya göre düzenle (yeniden seslendirme yapma).
+  güvenlik/bugün sesleri hazır; 4 bant yeni seslendirilecek (~330 karakter). Seslendirme betiği önbelleği metne göre bulur
+  (sıra değişse de hazır sesler yeniden üretilmez; güvenlik sahnesinin 1,6 sn boşluklu sesi korunur).
   Sauna (08) bekliyor. Kullanıcı: "videoları stoklayalım" (günde 3, aralık 12 saat değil) — CEFF'e sordu.
 **08 SAUNA EŞOFMANI (`cizim1-08-sauna`, 17 Ekim gece, DENEME — kullanıcı konudan emin değil, metne bakıp karar verecek):**
   "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. Peki o kilo yağ mıydı? Hayır. Sadece su." → 1997 üç güreşçi bir ay
