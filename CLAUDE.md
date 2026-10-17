@@ -66,6 +66,23 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   yere oturursun." (sızı tekrarı yok). Üstte kırmızı "DİZİN HİÇ SIZLADI MI?" tabelası → kanca bitince "3. TUR"; ağrı
   `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
   müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
+**>>> EN SON DURUM (17 Ekim ~21:00, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+- **07 yaş (`cizim1-07-yas`):** son sessiz önizleme `07-yas-sessiz.mp4` (v6, ~68 sn): kanca → rapor → yaş bantları 5-7 /
+  8-12 / 13-15 / 16+ → terazi → "Bir de önemli bir not…" ev kazası → "spor sadece salondan ibaret değil" (basketbol,
+  voleybol, hentbol, tenis; 5/25/50 yaş panoları) → bugün. **CEFF/kullanıcı HİKÂYEYİ BEĞENMEDİ → alternatif hikâye
+  bulunacak** (seslendirme YAPILMADI; yeni bant/spor/güvenlik metinleri seslendirilmedi). Önerilecek fikirler (henüz
+  sunulmadı, DOĞRULANMADI): (A) gerçek tarihçe — ünlü bir sporcunun çocukken birçok spor denemesi (ör. Federer; doğrula),
+  AAP 2016 "erken tek spora uzmanlaşma" ile bağla; (B) aynı evde üç kuşak (6, 15, 45 yaş) — "hangisi yanlış yapıyor?"
+  ters köşe: hiçbiri, her yaşın sporu farklı; (C) avatarın kendi hikâyesi (yanlış başlangıç → doğru yol). Önce metni
+  onaylat, sonra sessiz önizleme. Mevcut bileşenler kullanılabilir: `AgeRuler`, `SportIcon/SportCard`, `CellLens`, `Forest`,
+  ev kazası balonu (`YasGuvenlik`), terazi. Hazır sesler (manifest, metne göre önbellek): hook, rapor, terazi, eski güvenlik
+  ("Ve yanında bilen biri olsun…", 1,6 sn boşluklu), bugün, eski hareket sahneleri.
+- **08 sauna (`cizim1-08-sauna`):** v2 sessiz önizleme gönderildi, kullanıcı "bu bi kalsın" dedi (BEKLEMEDE, seslendirilmedi).
+- Kalan ElevenLabs kredisi ≈ 13.700. Çalışma dalı `claude/claude-md-continuation-e39del` + `main` (ikisine push).
+- Kullanıcı CEFF'e "videoları stoklayalım mı" diye sordu (günde 3, aralar 12 saatten kısa olunca keşfete çıkmıyor).
+- **DERSLER:** kullanıcının örnek cümlelerini birebir metne koyma, kendin doğal yaz; önce metni onaylat; renkler: doğru =
+  lacivert, yanlış = kırmızı; hareket gösterirken doğru form (sporcu kullanıcı).
+
 **YENİ KONU (17 Ekim gece): 07 "Spora kaç yaşında başlanır?" (`cizim1-07-yas`)** — takipçi soruları (13, 16 yaş;
   "11 yaş çok erken mi?"). Kaynak: AAP 2020 raporu (Pediatrics 145(6):e20201011; başlama yaşı yok, 5 yaşında vücut ağırlığıyla
   oyun, boy/büyüme plağına zarar yok, ergenlik öncesi güç sinirden, sakatlıkların çoğu evde gözetimsiz, haftada 2-3 gün).
