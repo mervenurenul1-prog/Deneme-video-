@@ -66,6 +66,14 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   yere oturursun." (sızı tekrarı yok). Üstte kırmızı "DİZİN HİÇ SIZLADI MI?" tabelası → kanca bitince "3. TUR"; ağrı
   `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
   müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
+**YENİ KONU (17 Ekim gece): 07 "Spora kaç yaşında başlanır?" (`cizim1-07-yas`)** — takipçi soruları (13, 16 yaş;
+  "11 yaş çok erken mi?"). Kaynak: AAP 2020 raporu (Pediatrics 145(6):e20201011; başlama yaşı yok, 5 yaşında vücut ağırlığıyla
+  oyun, boy/büyüme plağına zarar yok, ergenlik öncesi güç sinirden, sakatlıkların çoğu evde gözetimsiz, haftada 2-3 gün).
+  Kullanıcı: "boyum kısa mı kalır" AYRI videoda; 13 yaşa özel değil, GENEL konu; yorumu suçlama. Onaylanan metin 9 sahne
+  (`yas-*`): yaş sayacı 18→5 → rapor "YOK" damgası + basamaklar → parkta oyun (kurbağa/ayı/tek ayak) → squat/şınav/plank →
+  dambıl/lastik bant/haftalık şerit → beyin→kas kabloları → terazi (10 yaş 3 yıl / 14 yaş ilk gün) → antrenör + evde yalnız
+  balon → "BUGÜN". Yandan poz yardımcıları: `pushPose`, `bearPose`, `armTo`, `SideAt`. Sessiz önizleme
+  `07-yas-sessiz.mp4` → onay → seslendirme (Yunus, ~800 karakter).
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi

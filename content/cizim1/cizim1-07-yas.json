@@ -1,0 +1,63 @@
+{
+  "id": "cizim1-07-yas",
+  "title": "Spora kaç yaşında başlanır?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "caption": "",
+  "hashtags": ["fitness", "çocuk", "spor", "ağırlık", "voom"],
+  "scenes": [
+    {
+      "visual": "yas-hook",
+      "voice": "Spora kaç yaşında başlanır? On sekiz mi? On altı mı? Çocuk doktorlarının cevabı seni şaşırtacak: zıplayabildiğin yaşta.",
+      "say": "Spora kaç yaşında başlanır? On sekiz mi? On altı mı? [curious] Çocuk doktorlarının cevabı seni şaşırtacak: ... zıplayabildiğin yaşta."
+    },
+    {
+      "visual": "yas-rapor",
+      "voice": "Amerikan çocuk doktorları iki bin yirmide raporlarına açıkça yazdı: belli bir başlama yaşı yok. Ama bir sıra var.",
+      "say": "Amerikan çocuk doktorları, iki bin yirmide raporlarına açıkça yazdı: belli bir başlama yaşı yok. [serious] Ama bir sıra var."
+    },
+    {
+      "visual": "yas-oyun",
+      "voice": "Önce oyun: kurbağa gibi zıplamak, ayı gibi yürümek, tek ayakla sekmek. Bunlar da antrenman.",
+      "say": "Önce oyun: kurbağa gibi zıplamak, ayı gibi yürümek, tek ayakla sekmek. [chuckles] Bunlar da antrenman."
+    },
+    {
+      "visual": "yas-vucut",
+      "voice": "Söyleneni dinleyip doğru yapabildiğin gün, kendi ağırlığınla: squat, şınav, plank.",
+      "say": "Söyleneni dinleyip doğru yapabildiğin gün, kendi ağırlığınla: squat, şınav, plank."
+    },
+    {
+      "visual": "yas-dambil",
+      "voice": "Teknik oturunca hafif dambıl, lastik bant. Haftada iki üç gün.",
+      "say": "Teknik oturunca, hafif dambıl, lastik bant. Haftada iki üç gün."
+    },
+    {
+      "visual": "yas-sinir",
+      "voice": "Ergenlikten önce kasların pek büyümez ama güçlenirsin: beynin kaslarını kullanmayı öğrenir. Kaslar asıl ergenlikte büyür.",
+      "say": "Ergenlikten önce kasların pek büyümez, ama güçlenirsin: [curious] beynin, kaslarını kullanmayı öğrenir. Kaslar asıl ergenlikte büyür."
+    },
+    {
+      "visual": "yas-terazi",
+      "voice": "Yani önemli olan kaç yaşında olduğun değil, kaç yıldır doğru yaptığın.",
+      "say": "Yani önemli olan, kaç yaşında olduğun değil... kaç yıldır doğru yaptığın."
+    },
+    {
+      "visual": "yas-guvenlik",
+      "voice": "Ve yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur.",
+      "say": "Ve yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur."
+    },
+    {
+      "visual": "yas-bugun",
+      "voice": "O yüzden spora başlamak için en doğru yaş: bugün.",
+      "say": "O yüzden spora başlamak için en doğru yaş: ... bugün."
+    }
+  ]
+}
