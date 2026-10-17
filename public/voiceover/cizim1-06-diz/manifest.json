@@ -1,87 +1,67 @@
 {
   "scenes": [
     {
-      "voice": "Hadi… yapabilirsin… son tur! Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
-      "say": "[out of breath] Hah... hah... Hadi... yapabilirsin... hah... son tur! [serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "voice": "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "say": "[serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
       "file": "voiceover/cizim1-06-diz/1-mvcgctfn.mp3",
-      "durationInSeconds": 9.195102,
+      "durationInSeconds": 4.884898,
       "words": [
         {
-          "word": "Hadi…",
-          "start": 0.897,
-          "end": 1.51
-        },
-        {
-          "word": "yapabilirsin…",
-          "start": 1.55,
-          "end": 2.63
-        },
-        {
-          "word": "son",
-          "start": 3.39,
-          "end": 3.51
-        },
-        {
-          "word": "tur!",
-          "start": 3.63,
-          "end": 3.99
-        },
-        {
           "word": "Ve",
-          "start": 4.357,
-          "end": 4.373
+          "start": 0.05,
+          "end": 0.066
         },
         {
           "word": "birden",
-          "start": 4.453,
-          "end": 5.013
+          "start": 0.146,
+          "end": 0.706
         },
         {
           "word": "dizine",
-          "start": 5.173,
-          "end": 5.493
+          "start": 0.866,
+          "end": 1.186
         },
         {
           "word": "bir",
-          "start": 5.573,
-          "end": 5.653
+          "start": 1.266,
+          "end": 1.346
         },
         {
           "word": "sızı",
-          "start": 5.773,
-          "end": 5.933
+          "start": 1.466,
+          "end": 1.626
         },
         {
           "word": "giriyor.",
-          "start": 5.973,
-          "end": 6.483
+          "start": 1.666,
+          "end": 2.176
         },
         {
           "word": "Eğilip",
-          "start": 6.673,
-          "end": 6.993
+          "start": 2.366,
+          "end": 2.686
         },
         {
           "word": "dizini",
-          "start": 7.033,
-          "end": 7.313
+          "start": 2.726,
+          "end": 3.006
         },
         {
           "word": "tutuyor,",
-          "start": 7.393,
-          "end": 8.108
+          "start": 3.086,
+          "end": 3.801
         },
         {
           "word": "yere",
-          "start": 8.148,
-          "end": 8.348
+          "start": 3.841,
+          "end": 4.041
         },
         {
           "word": "oturuyorsun.",
-          "start": 8.428,
-          "end": 9.228
+          "start": 4.121,
+          "end": 4.921
         }
       ]
     },

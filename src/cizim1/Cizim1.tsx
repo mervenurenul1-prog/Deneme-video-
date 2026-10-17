@@ -413,7 +413,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "diz6-son": (w) => [[0, "pop", 0.25], [w(2), "pirilti", 0.35]],
   "diz5-hook": (w) => [[0, "adim", 0.25], [w(6), "cizik", 0.35], [w(7) - 2, "pop", 0.3]],
   "diz5-pist": (w) => [[w(3), "boom", 0.2], [w(3) + 1, "cizik", 0.45], [w(3) + 3, "sonme", 0.25], [w(7), "agir-dusme", 0.2], [w(9) - 2, "pop", 0.3]],
-  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [Math.max(20, w(0) - 16), "pop", 0.3], [w(5), "boom", 0.2], [w(5) + 1, "cizik", 0.45], [w(5) + 3, "sonme", 0.25], [w(13), "agir-dusme", 0.2]],
+  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [Math.max(15, w(1) - 40), "pop", 0.3], [w(1), "boom", 0.2], [w(1) + 1, "cizik", 0.45], [w(1) + 3, "sonme", 0.25], [w(9), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
   "diz4-doz": (w) => [[w(8), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(16), "pop", 0.25], [w(20), "pirilti", 0.35]],
@@ -4904,14 +4904,16 @@ const Boyun2Kapanis: React.FC<SceneProps> = ({ w, d }) => {
 /* ---------- 05 v3: samimi anlatım, ölçülü kamera hareketi ---------- */
 
 // Ölçülü kamera: anahtar karelerde [kare, ölçek, odak x, odak y] arasında yumuşak geçiş; shake = kısa sarsıntı
-const CamK: React.FC<{ k: [number, number, number, number][]; shake?: number; children: React.ReactNode }> = ({ k, shake = 0, children }) => {
-  const f = useCurrentFrame();
+// CamK'nın f karesindeki kamerası [ölçek, merkez x, merkez y] (sahne dışı katmanları kameraya göre yerleştirmek için)
+const camAt = (k: [number, number, number, number][], f: number): [number, number, number] => {
   // kelime zamanları yakın düşerse anahtar kareler artan sırada kalsın
   const fr = k.map((x) => x[0]).reduce<number[]>((acc, t, i) => [...acc, i ? Math.max(t, acc[i - 1] + 1) : t], []);
   const at = (j: number) => (k.length === 1 ? k[0][j] : interpolate(f, fr, k.map((x) => x[j]), { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease }));
-  const s = at(1);
-  const cx = at(2);
-  const cy = at(3);
+  return [at(1), at(2), at(3)];
+};
+const CamK: React.FC<{ k: [number, number, number, number][]; shake?: number; children: React.ReactNode }> = ({ k, shake = 0, children }) => {
+  const f = useCurrentFrame();
+  const [s, cx, cy] = camAt(k, f);
   const sx = shake > 0 ? Math.sin(f * 2.3) * 14 * shake : 0;
   const sy = shake > 0 ? Math.cos(f * 1.9) * 10 * shake : 0;
   return <g transform={`translate(${cx + sx} ${cy + sy}) scale(${s}) translate(${-cx} ${-cy})`}>{children}</g>;
@@ -7151,87 +7153,91 @@ const runIntegral = (f: number, speedAt: (i: number) => number) => {
   return { off, ph };
 };
 
-// (nefes nefese) "Hadi… yapabilirsin… son tur!" — "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
-// Sessiz açılışta (lead) zorlanarak koşu, bitiş çizgisi geçilince "2. TUR" → "3. TUR", "birden"de ani ağrı → eğilip dizini tutar → yere oturur.
+// Kanca (intro sesi): "Bu adamın dizi… birazdan kilitlenecek." → "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+// Uzak planda zorlanarak koşu; dizin içi küçük röntgen merceğinde canlı görünür (her adımda kıkırdak ezilir, giderek kızarır);
+// bitiş çizgisi geçilince "2. TUR" → "3. TUR"; "birden"de ağır çekim, parlama, dize yakınlaşma + büyük röntgen → eğilir, oturur.
 const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const hitAt = w(5);
+  const hitAt = w(1);
   const speedAt = (i: number) =>
-    i < hitAt - 12 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(9)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    i < hitAt - 12 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(5)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const { off, ph } = runIntegral(f, speedAt);
   const amp = Math.min(1, speedAt(f));
-  const limp = f >= hitAt && f < w(10) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
-  const bend = tw(f, w(10) - 4, w(11) + 4);
-  const sit = tw(f, w(13) - 4, w(14) + 8);
+  const limp = f >= hitAt && f < w(6) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
+  const bend = tw(f, w(6) - 4, w(7) + 4);
+  const sit = tw(f, w(9) - 4, w(10) + 8);
   const pose = mixPose(mixPose(runPose(ph, amp), bendPose, bend), sitPose, sit);
   pose.lean += limp * 12;
   const pain = f >= hitAt;
-  // "birden": ağır çekimden sonra dizin içi bir anlığına röntgende görünür, kıkırdak kızarır
   const xr = pop(f, hitAt, 8) * (1 - tw(f, hitAt + 30, hitAt + 38));
   const kneeAt = (p: SidePose) => ({ x: 420 + Math.sin(deg(p.front.a)) * L_T * 1.45, y: TRACK_Y + (p.hipY + Math.cos(deg(p.front.a)) * L_T) * 1.45 });
-  // "birden"de (ağrı girince) dize pat diye yakınlaşma
   const hitK = kneeAt(runPose(runIntegral(hitAt, speedAt).ph, speedAt(hitAt)));
   const flash = hit(f, hitAt, 6);
   const glow = tw(f, hitAt, hitAt + 6);
-  // 2. tur biter: koşucu bitiş çizgisini geçer, üstteki tabela "2. TUR"dan kırmızı "3. TUR"a döner
-  const crossF = Math.max(20, w(0) - 16);
-  const lineX = 420 + 17 * (crossF - f);
+  const crossF = Math.max(15, hitAt - 40);
   const lapN = f < crossF ? 2 : 3;
-  const lapP = (lapN === 2 ? 1 : pop(f, crossF, 10)) * (1 - tw(f, w(5) + 4, w(6) + 4));
-  // kanca: "Bu adamın dizi yedi saniye sonra kilitlenecek." — sızıya kadar geri sayan sayaç
-  const left = Math.max(0, Math.round((hitAt - f) / 30));
-  const timer = 1 - tw(f, hitAt + 14, hitAt + 22);
+  const lapP = (lapN === 2 ? 1 : pop(f, crossF, 10)) * (1 - tw(f, w(1) + 4, w(2) + 4));
+  const lineX = 420 + 17 * (crossF - f);
+  const cam: [number, number, number, number][] = [
+    // uzak plan (pist + orman + dağlar) → sızıdan az önce bir kademe yakın → "birden"de dize
+    [0, 0.58, 540, 1000],
+    [hitAt - 30, 0.64, 540, 1030],
+    [hitAt - 22, 0.9, 520, 1250],
+    [hitAt - 1, 0.95, 520, 1260],
+    [hitAt + 2, 1.75, hitK.x, hitK.y],
+    [hitAt + 32, 1.75, hitK.x, hitK.y],
+    [hitAt + 46, 1.12, 520, 1300],
+    [w(8), 1.12, 520, 1300],
+    [w(10) + 10, 1.22, 520, 1420],
+  ];
+  // canlı röntgen: dizi ekranda izler; her adım vuruşunda kıkırdak ezilir, sızıya yaklaştıkça kızarır
+  const [cs, ccx, ccy] = camAt(cam, f);
+  const k = kneeAt(pose);
+  const ks = { x: ccx + (k.x - ccx) * cs, y: ccy + (k.y - ccy) * cs };
+  const strike = Math.pow(Math.max(0, Math.sin(ph * 2)), 6) * amp;
+  const heat = tw(f, 0, hitAt);
+  const live = 1 - tw(f, hitAt - 2, hitAt + 2);
+  const lx = Math.min(925, ks.x + 380);
+  const ly = Math.max(560, ks.y - 230);
   return (
     <>
-    <CamK
-      k={[
-        // uzak plan (pist + orman + dağlar) → "yapabilirsin"de bir kademe yakın → "birden"de dize
-        [0, 0.58, 540, 1000],
-        [w(1) - 2, 0.62, 540, 1020],
-        [w(1) + 4, 0.9, 520, 1250],
-        [hitAt - 1, 0.95, 520, 1260],
-        [hitAt + 2, 1.75, hitK.x, hitK.y],
-        [hitAt + 32, 1.75, hitK.x, hitK.y],
-        [hitAt + 46, 1.12, 520, 1300],
-        [w(12), 1.12, 520, 1300],
-        [w(14) + 10, 1.22, 520, 1420],
-      ]}
-      shake={hit(f, Math.round(hitAt), 10) * 0.6}
-    >
-      <SideTrack off={off} wide />
-      {lineX > -1400 && lineX < 2400 ? (
-        <g>
-          {Array.from({ length: 19 }, (_, r) =>
-            [0, 1].map((c) => <rect key={`${r}${c}`} x={lineX - 20 + c * 20} y={1470 + r * 20} width={20} height={20} fill={(r + c) % 2 ? C.ink : C.cream} />),
-          )}
+      <CamK k={cam} shake={hit(f, Math.round(hitAt), 10) * 0.6}>
+        <SideTrack off={off} wide />
+        {lineX > -1400 && lineX < 2400 ? (
+          <g>
+            {Array.from({ length: 19 }, (_, r) =>
+              [0, 1].map((c) => <rect key={`${r}${c}`} x={lineX - 20 + c * 20} y={1470 + r * 20} width={20} height={20} fill={(r + c) % 2 ? C.ink : C.cream} />),
+            )}
+          </g>
+        ) : null}
+        <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={Math.max(bend, sit)} face={pain ? "pain" : "worry"} painGlow={Math.max(glow, 0.5 * heat * strike)} sweat />
+      </CamK>
+      {live > 0 ? (
+        <g opacity={live}>
+          <path d={`M${ks.x} ${ks.y} L${lx} ${ly}`} stroke={C.ink} strokeWidth={7} strokeDasharray="16 12" />
+          <circle cx={ks.x} cy={ks.y} r={40 * cs} fill="none" stroke={C.ink} strokeWidth={7} />
+          <g transform={`translate(${lx} ${ly}) scale(${0.62 * (1 + 0.04 * strike)}) translate(${-lx} ${-ly})`}>
+            <KneeLens x={lx} y={ly} r={230} press={0.2 + 0.8 * strike} wet={1 - 0.5 * heat} crack={heat * heat} />
+            <circle cx={lx} cy={ly} r={60 + 70 * strike} fill={C.red} opacity={(0.1 + 0.35 * strike) * heat} />
+          </g>
         </g>
       ) : null}
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={Math.max(bend, sit)} face={pain ? "pain" : "worry"} painGlow={glow} sweat />
-    </CamK>
       {xr > 0 ? (
         <g>
           <rect x={-200} y={-200} width={1480} height={2400} fill={C.ink} opacity={0.4 * xr} />
           <path d={`M${hitK.x} ${hitK.y} L760 1000`} stroke={C.cream} strokeWidth={8} strokeDasharray="18 14" opacity={xr} />
           <circle cx={hitK.x} cy={hitK.y} r={90} fill="none" stroke={C.cream} strokeWidth={8} opacity={xr} />
           <g transform={`translate(760 780) scale(${xr}) translate(-760 -780)`}>
-            <KneeLens x={760} y={780} r={220} press={1} crack={tw(f, hitAt + 2, hitAt + 14)} />
+            <KneeLens x={760} y={780} r={220} press={1} crack={1} />
             <circle cx={760} cy={780} r={(90 + 20 * Math.sin(f / 2)) * xr} fill={C.red} opacity={0.35} />
           </g>
         </g>
       ) : null}
       {lapP > 0 ? (
-        <g transform={`translate(540 470) scale(${lapP}) rotate(-5)`}>
+        <g transform={`translate(540 300) scale(${lapP}) rotate(-5)`}>
           <rect x={-200} y={-80} width={400} height={150} rx={20} fill={lapN === 3 ? C.red : C.cream} stroke={C.ink} strokeWidth={8} />
           <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={100} fill={lapN === 3 ? C.cream : C.ink}>
             {lapN}. TUR
-          </text>
-        </g>
-      ) : null}
-      {timer > 0 ? (
-        <g transform={`translate(540 250) scale(${left === 0 ? 1 + 0.15 * hit(f, hitAt, 10) : 1})`} opacity={timer}>
-          <rect x={-230} y={-95} width={460} height={170} rx={24} fill={left === 0 ? C.red : C.ink} stroke={C.ink} strokeWidth={8} />
-          <text x={0} y={42} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={130} fill={left === 0 ? C.cream : "#ff5a4a"}>
-            {`00:0${left}`}
           </text>
         </g>
       ) : null}
