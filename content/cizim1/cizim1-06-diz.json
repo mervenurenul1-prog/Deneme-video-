@@ -25,29 +25,24 @@
     },
     {
       "visual": "diz4-annesoz",
-      "voice": "Koşma, dizin biter! Çok çömelme, dizine yazık! Benim gibi mi olmak istiyorsun?",
-      "say": "Koşma, dizin biter! Çok çömelme, dizine yazık! [sighs] Benim gibi mi olmak istiyorsun?",
+      "voice": "Koşma, dizin biter! Benim gibi mi olmak istiyorsun?",
+      "say": "Koşma, dizin biter! [sighs] Benim gibi mi olmak istiyorsun?",
       "voiceId": "qLdPxFtPuffoxx5gieBJ"
     },
     {
-      "visual": "diz3-stanford",
+      "visual": "diz4-stanford",
       "voice": "Bin dokuz yüz seksen dörtte Stanford'daki doktorlar da bundan emindi. Kanıtlamak için koşucuların dizlerini on sekiz yıl röntgenlediler.",
       "say": "Bin dokuz yüz seksen dörtte, Stanford'daki doktorlar da bundan emindi. [curious] Kanıtlamak için koşucuların dizlerini, on sekiz yıl röntgenlediler."
     },
     {
-      "visual": "diz3-sonuc",
+      "visual": "diz4-sonuc",
       "voice": "Sonuç: koşucuların dizleri daha kötü çıkmadı. Kireçlenme, evde oturanlarda yüzde on, hobi koşucularında yüzde üç buçuk.",
       "say": "Sonuç: ... koşucuların dizleri daha kötü çıkmadı. Kireçlenme, evde oturanlarda yüzde on, hobi koşucularında yüzde üç buçuk."
     },
     {
-      "visual": "diz4-squat",
-      "voice": "Derin squatın sağlıklı dizi bozduğu da hiç kanıtlanmadı.",
-      "say": "Derin squatın sağlıklı dizi bozduğu da hiç kanıtlanmadı."
-    },
-    {
       "visual": "diz4-doz",
-      "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir. Dizin bitmiyor, dozunu bekliyor.",
-      "say": "O sızı çoğu zaman yükü birden artırmaktan gelir. Dizin bitmiyor, dozunu bekliyor."
+      "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir: haftalarca iki kilometre, sonra bir günde on. Dizin bitmiyor, dozunu bekliyor.",
+      "say": "O sızı çoğu zaman yükü birden artırmaktan gelir: haftalarca iki kilometre, sonra bir günde on. Dizin bitmiyor, dozunu bekliyor."
     },
     {
       "visual": "diz4-soru",
