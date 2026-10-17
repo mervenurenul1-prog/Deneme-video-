@@ -74,6 +74,11 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   dambıl/lastik bant/haftalık şerit → beyin→kas kabloları → terazi (10 yaş 3 yıl / 14 yaş ilk gün) → antrenör + evde yalnız
   balon → "BUGÜN". Yandan poz yardımcıları: `pushPose`, `bearPose`, `armTo`, `SideAt`. Sessiz önizleme
   `07-yas-sessiz.mp4` → onay → seslendirme (Yunus, ~800 karakter).
+  **v2 (kullanıcı: "hareketleri düzgün yap, ben sporcuyum"):** metin 12 sahne (A seçildi, ~50-53 sn kabul): hareket başına
+  talimat (`yas-squat` kalça geri/sandalye/diz→ayak ucu, `yas-sinav` dümdüz/göğüs yere/diz üstü, `yas-plank` DİRSEK plankı,
+  kalça düşer/kalkar kırmızı çarpı), önce LASTİK BANT sonra dambıl. Orman fonu (`Forest`: karlı dağ, çam ormanı, ağaçlar
+  avatardan büyük), `YAS_FLOOR` 1300 (figür altyazının üstünde). Sahne sonu `hold` desteği (types/shared). **Avatarın
+  tişörtü bu videoda KIRMIZI** (`YAS_SHIRT`, kullanıcı isteği).
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi

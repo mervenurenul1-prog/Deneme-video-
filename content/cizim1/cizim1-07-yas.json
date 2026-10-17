@@ -12,7 +12,13 @@
   "loop": true,
   "padding": 0.1,
   "caption": "",
-  "hashtags": ["fitness", "çocuk", "spor", "ağırlık", "voom"],
+  "hashtags": [
+    "fitness",
+    "çocuk",
+    "spor",
+    "ağırlık",
+    "voom"
+  ],
   "scenes": [
     {
       "visual": "yas-hook",
@@ -21,28 +27,47 @@
     },
     {
       "visual": "yas-rapor",
-      "voice": "Amerikan çocuk doktorları iki bin yirmide raporlarına açıkça yazdı: belli bir başlama yaşı yok. Ama bir sıra var.",
-      "say": "Amerikan çocuk doktorları, iki bin yirmide raporlarına açıkça yazdı: belli bir başlama yaşı yok. [serious] Ama bir sıra var."
+      "voice": "Amerikan çocuk doktorları iki bin yirmide yazdı: belli bir başlama yaşı yok. Ama bir sıra var.",
+      "say": "Amerikan çocuk doktorları, iki bin yirmide yazdı: belli bir başlama yaşı yok. [serious] Ama bir sıra var."
     },
     {
       "visual": "yas-oyun",
-      "voice": "Önce oyun: kurbağa gibi zıplamak, ayı gibi yürümek, tek ayakla sekmek. Bunlar da antrenman.",
-      "say": "Önce oyun: kurbağa gibi zıplamak, ayı gibi yürümek, tek ayakla sekmek. [chuckles] Bunlar da antrenman."
+      "voice": "Önce oyun: kurbağa zıplaması, ayı yürüyüşü, tek ayakla sekmek.",
+      "say": "Önce oyun: kurbağa zıplaması, ayı yürüyüşü, tek ayakla sekmek.",
+      "hold": 0.8
     },
     {
-      "visual": "yas-vucut",
-      "voice": "Söyleneni dinleyip doğru yapabildiğin gün, kendi ağırlığınla: squat, şınav, plank.",
-      "say": "Söyleneni dinleyip doğru yapabildiğin gün, kendi ağırlığınla: squat, şınav, plank."
+      "visual": "yas-hazir",
+      "voice": "Söyleneni doğru yapabildiğin gün, kendi ağırlığınla:",
+      "say": "Söyleneni doğru yapabildiğin gün, kendi ağırlığınla:"
+    },
+    {
+      "visual": "yas-squat",
+      "voice": "Squat: kalçanı geriye ver, sandalyeye oturur gibi in. Dizlerin ayak uçlarına baksın.",
+      "say": "Squat: kalçanı geriye ver, sandalyeye oturur gibi in. Dizlerin, ayak uçlarına baksın.",
+      "hold": 0.4
+    },
+    {
+      "visual": "yas-sinav",
+      "voice": "Şınav: vücudun dümdüz, göğsün yere yaklaşsın. Zorsa dizlerinin üstünde.",
+      "say": "Şınav: vücudun dümdüz, göğsün yere yaklaşsın. Zorsa, dizlerinin üstünde.",
+      "hold": 0.6
+    },
+    {
+      "visual": "yas-plank",
+      "voice": "Plank: dirseklerin omuzlarının altında, kalçan ne düşsün ne kalksın.",
+      "say": "Plank: dirseklerin omuzlarının altında, kalçan ne düşsün, ne kalksın.",
+      "hold": 0.6
     },
     {
       "visual": "yas-dambil",
-      "voice": "Teknik oturunca hafif dambıl, lastik bant. Haftada iki üç gün.",
-      "say": "Teknik oturunca, hafif dambıl, lastik bant. Haftada iki üç gün."
+      "voice": "Teknik oturunca önce lastik bant, sonra hafif dambıl. Haftada iki üç gün.",
+      "say": "Teknik oturunca, önce lastik bant, sonra hafif dambıl. Haftada iki üç gün."
     },
     {
       "visual": "yas-sinir",
-      "voice": "Ergenlikten önce kasların pek büyümez ama güçlenirsin: beynin kaslarını kullanmayı öğrenir. Kaslar asıl ergenlikte büyür.",
-      "say": "Ergenlikten önce kasların pek büyümez, ama güçlenirsin: [curious] beynin, kaslarını kullanmayı öğrenir. Kaslar asıl ergenlikte büyür."
+      "voice": "Ergenlikten önce kasların pek büyümez ama güçlenirsin: beynin kaslarını kullanmayı öğrenir. Kaslar ergenlikte büyür.",
+      "say": "Ergenlikten önce kasların pek büyümez, ama güçlenirsin: [curious] beynin, kaslarını kullanmayı öğrenir. Kaslar ergenlikte büyür."
     },
     {
       "visual": "yas-terazi",
@@ -56,8 +81,9 @@
     },
     {
       "visual": "yas-bugun",
-      "voice": "O yüzden spora başlamak için en doğru yaş: bugün.",
-      "say": "O yüzden spora başlamak için en doğru yaş: ... bugün."
+      "voice": "O yüzden en doğru yaş: bugün.",
+      "say": "O yüzden en doğru yaş: ... bugün.",
+      "hold": 0.3
     }
   ]
 }

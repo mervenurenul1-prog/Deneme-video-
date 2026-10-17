@@ -410,14 +410,17 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
   // 07 spora kaç yaşında: yalnız önemli anlar
   "yas-hook": (w) => [[w(7), "cizik", 0.3], [w(10), "cizik", 0.3], [w(10) + 4, "yuksel", 0.25], [w(15), "pop", 0.3]],
-  "yas-rapor": (w) => [[2, "kagit", 0.3], [w(13) - 2, "boom", 0.18], [w(15), "kalem", 0.3]],
-  "yas-oyun": (w) => [[w(2) - 4, "pop", 0.25], [w(5) - 4, "pop", 0.25], [w(8) - 4, "pop", 0.25], [w(11) - 2, "pirilti", 0.35]],
-  "yas-vucut": (w) => [[w(2) - 2, "ding", 0.3], [w(7) - 2, "pop", 0.25], [w(8) - 2, "pop", 0.25], [w(9) - 2, "pop", 0.25]],
-  "yas-dambil": (w) => [[w(2) - 2, "pop", 0.25], [w(4) - 2, "pop", 0.25], [w(7), "kalem", 0.3]],
+  "yas-rapor": (w) => [[2, "kagit", 0.3], [w(11) - 2, "boom", 0.18], [w(13), "kalem", 0.3]],
+  "yas-oyun": (w) => [[w(2) - 6, "pop", 0.25], [w(4) - 4, "pop", 0.25], [w(6) - 4, "pop", 0.25]],
+  "yas-hazir": (w) => [[0, "pop", 0.25], [w(2), "ding", 0.3], [w(4), "cizik", 0.3]],
+  "yas-squat": () => [[0, "pop", 0.25]],
+  "yas-sinav": (w) => [[0, "pop", 0.25], [w(6) - 2, "pop", 0.25]],
+  "yas-plank": (w) => [[0, "pop", 0.25], [w(5), "cizik", 0.3], [w(7), "cizik", 0.3], [w(8) + 14, "ding", 0.3]],
+  "yas-dambil": (w) => [[w(2) - 2, "pop", 0.25], [w(5) - 2, "pop", 0.25], [w(9), "kalem", 0.3]],
   "yas-sinir": (w) => [[w(7) - 2, "yuksel", 0.3], [w(11), "kagit", 0.25]],
   "yas-terazi": (w) => [[w(3), "tak", 0.3], [w(6) - 2, "cizik", 0.3], [w(7) - 2, "whoosh", 0.25], [w(8), "ding", 0.35]],
   "yas-guvenlik": (w) => [[w(1) - 4, "adim", 0.25], [w(5) - 2, "pop", 0.25], [w(9) - 2, "agir-dusme", 0.2]],
-  "yas-bugun": (w) => [[w(7) - 2, "pop", 0.3], [w(8) - 2, "pirilti", 0.35]],
+  "yas-bugun": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 2, "pirilti", 0.35]],
   "diz7-hook": (w) => [[0, "adim", 0.25], [w(2) - 2, "ding", 0.35], [w(5) - 2, "kalem", 0.3]],
   "diz7-anne": (w) => [[w(1) - 2, "pop", 0.3]],
   "diz7-annesoz": (w) => [[w(1), "cizik", 0.3]],
@@ -7735,7 +7738,9 @@ const Diz7AnneSoz: React.FC<SceneProps> = ({ w }) => {
 // Avatar her sahnede bir basamak büyür: 5 yaşında oyun → kendi ağırlığı → hafif dambıl → ergenlik.
 // Kaynak: AAP 2020 "Resistance Training for Children and Adolescents" (Pediatrics 145(6):e20201011).
 
-const YAS_FLOOR = 1640;
+const YAS_FLOOR = 1300;
+// Bu videoda avatarın tişörtü kırmızı (kullanıcı isteği)
+const YAS_SHIRT = "#c94a3d";
 // Yaşa göre avatar ölçeği (ön görünüş Person): 5 yaş küçük, 18 yaş tam boy
 const yasScale = (age: number) => 0.5 + ((Math.max(5, Math.min(18, age)) - 5) / 13) * 0.45;
 
@@ -7774,49 +7779,322 @@ const bearPose = (ph: number): SidePose => {
 const ARMS_UP: [number, number] = [150, 0];
 
 // Sabit ayakla yandan çizim: pozun ön bileği X'e oturur
-const SideAt: React.FC<{ f: number; X: number; floor: number; s: number; pose: SidePose; lift?: number; face?: "smile" | "pain" | "worry" | "grin"; shirt?: string; female?: boolean; anchor?: "front" | "back" }> = ({ f, X, floor, s, pose, lift = 0, face = "smile", shirt, female, anchor = "front" }) => {
+const SideAt: React.FC<{ f: number; X: number; floor: number; s: number; pose: SidePose; lift?: number; face?: "smile" | "pain" | "worry" | "grin"; shirt?: string; female?: boolean; anchor?: "front" | "back" }> = ({ f, X, floor, s, pose, lift = 0, face = "smile", shirt = YAS_SHIRT, female, anchor = "front" }) => {
   const a = ankleOf(pose, anchor === "front" ? pose.front : pose.back);
   return <SideRunner f={f} x={X - a.x * s} y={floor - lift} s={s} pose={pose} face={face} shirt={shirt} female={female} />;
 };
 
-// Spor salonu (yandan): açık duvar, duvar barı, ahşap zemin
-const Salon: React.FC = () => (
-  <g stroke={C.ink} strokeLinejoin="round">
-    <rect x={-200} y={-200} width={1480} height={YAS_FLOOR + 200} fill="#efe1c2" strokeWidth={0} />
-    <rect x={640} y={380} width={300} height={420} rx={10} fill="#f6efdc" strokeWidth={7} />
-    <path d="M790 380 L790 800 M640 590 L940 590" strokeWidth={6} />
-    <path d="M690 450 L740 400 M690 520 L800 410" stroke="#fff" strokeWidth={10} opacity={0.7} />
-    {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-      <rect key={i} x={60} y={700 + i * 120} width={250} height={14} rx={7} fill="#b88a55" strokeWidth={4} />
-    ))}
-    <path d="M70 680 L70 1640 M300 680 L300 1640" strokeWidth={8} />
-    <rect x={-200} y={YAS_FLOOR} width={1480} height={500} fill="#c9a06c" strokeWidth={0} />
-    <path d={`M-200 ${YAS_FLOOR} L1280 ${YAS_FLOOR}`} strokeWidth={7} />
-    {[0, 1, 2].map((i) => (
-      <path key={i} d={`M-200 ${YAS_FLOOR + 70 + i * 90} L1280 ${YAS_FLOOR + 70 + i * 90}`} strokeWidth={3} opacity={0.35} />
-    ))}
-    <rect x={380} y={YAS_FLOOR - 6} width={560} height={14} rx={6} fill="#6e8fb3" strokeWidth={4} opacity={0.8} />
-  </g>
-);
+// Uçlu ok: from → to, p ile çizilir
+const Pointer: React.FC<{ x1: number; y1: number; x2: number; y2: number; p: number; color?: string; w?: number }> = ({ x1, y1, x2, y2, p, color = C.ink, w = 12 }) => {
+  if (p <= 0) return null;
+  const x = lerp(x1, x2, p);
+  const y = lerp(y1, y2, p);
+  const a = Math.atan2(y2 - y1, x2 - x1);
+  const h = w * 3.2;
+  return (
+    <g stroke={color} strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" fill="none">
+      <path d={`M${x1} ${y1} L${x} ${y}`} />
+      <path d={`M${x - Math.cos(a - 0.5) * h} ${y - Math.sin(a - 0.5) * h} L${x} ${y} L${x - Math.cos(a + 0.5) * h} ${y - Math.sin(a + 0.5) * h}`} />
+    </g>
+  );
+};
 
-// Park (yandan): gökyüzü, güneş, ağaçlar, çimen
-const Park: React.FC = () => (
-  <g stroke={C.ink} strokeLinejoin="round">
-    <rect x={-200} y={-200} width={1480} height={YAS_FLOOR + 200} fill="#f6dcb6" strokeWidth={0} />
-    <circle cx={820} cy={520} r={110} fill="#ffd27a" strokeWidth={0} />
-    {[90, 330, 980].map((x, k) => (
-      <g key={k} transform={`translate(${x} ${YAS_FLOOR - 60})`}>
-        <rect x={-16} y={-60} width={32} height={120} fill="#8a5c35" strokeWidth={5} />
-        <ellipse cx={0} cy={-150} rx={110} ry={120} fill={k % 2 ? "#7f9a5c" : "#6e8a50"} strokeWidth={6} />
-      </g>
-    ))}
-    <rect x={-200} y={YAS_FLOOR - 20} width={1480} height={520} fill="#9fbf74" strokeWidth={0} />
-    <path d={`M-200 ${YAS_FLOOR - 20} L1280 ${YAS_FLOOR - 20}`} strokeWidth={6} />
-    {Array.from({ length: 14 }, (_, k) => (
-      <path key={k} d={`M${k * 80 + 20} ${YAS_FLOOR + 60 + (k % 3) * 40} l10 -24 l10 24`} stroke="#5e7f45" strokeWidth={5} fill="none" />
-    ))}
-  </g>
-);
+// Diz üstü şınav: dizler yerde, dizden omza düz çizgi; t = 0 yukarı, 1 aşağı
+const kneePushPose = (t: number): SidePose => {
+  const BODY = L_T + T_LEN;
+  const sh = lerp(255, 120, t);
+  const lean = (Math.acos(sh / BODY) * 180) / Math.PI;
+  const topLean = (Math.acos(255 / BODY) * 180) / Math.PI;
+  const p: SidePose = { hipY: -L_T * Math.cos(deg(lean)), lean, front: { a: -lean, k: 90 - lean }, back: { a: -lean + 2, k: 92 - lean }, armF: [0, 0], armB: [0, 0] };
+  const kneeX = -L_T * Math.sin(deg(lean));
+  const handX = kneeX + BODY * Math.sin(deg(topLean));
+  const arm = armTo(shoulderOf(p), { x: handX, y: -6 });
+  return { ...p, armF: arm, armB: arm };
+};
+// Dirsek plankı: dirsekler omuz altında, ön kollar yerde; dh > 0 kalça düşer, dh < 0 kalça kalkar
+const PLANK_LEAN = 90 - (Math.asin(150 / (L_T + L_S + T_LEN)) * 180) / Math.PI;
+const plankPose = (dh: number): SidePose => {
+  const S0 = { x: T_LEN * Math.sin(deg(PLANK_LEAN)), y: -(L_T + L_S + T_LEN) * Math.cos(deg(PLANK_LEAN)) };
+  const A0 = { x: -(L_T + L_S) * Math.sin(deg(PLANK_LEAN)), y: 0 };
+  const hy = -(L_T + L_S) * Math.cos(deg(PLANK_LEAN)) + dh;
+  const lean = (Math.atan2(S0.x, -(S0.y - hy)) * 180) / Math.PI;
+  const legA = (Math.atan2(A0.x, A0.y - hy) * 180) / Math.PI;
+  const p: SidePose = { hipY: hy, lean, front: { a: legA, k: 0 }, back: { a: legA + 2, k: 2 }, armF: [0, 0], armB: [0, 0] };
+  const S = shoulderOf(p);
+  const a1 = (Math.atan2(S0.x - S.x, -10 - S.y) * 180) / Math.PI;
+  return { ...p, armF: [a1, 90 - a1], armB: [a1 - 4, 94 - a1] };
+};
+// Yandan pozun dünya koordinatları (SideAt ile aynı yerleşim): omuz, kalça, diz, ayak bileği, ayak ucu
+const sidePts = (pose: SidePose, X: number, floor: number, s: number, lift = 0) => {
+  const an = ankleOf(pose);
+  const ox = X - an.x * s;
+  const W = (q: P2) => ({ x: ox + q.x * s, y: floor - lift + q.y * s });
+  const H = { x: 0, y: pose.hipY };
+  const K = { x: Math.sin(deg(pose.front.a)) * L_T, y: pose.hipY + Math.cos(deg(pose.front.a)) * L_T };
+  return { S: W(shoulderOf(pose)), H: W(H), K: W(K), A: W(an), T: W({ x: an.x + 62, y: an.y }) };
+};
+
+// Orman (yandan): uzakta karlı dağlar, çam ormanı, kocaman ağaçlar, çimen, patika; mat: egzersiz minderi
+const Forest: React.FC<{ mat?: boolean }> = ({ mat = false }) => {
+  const g = YAS_FLOOR - 40;
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      <rect x={-200} y={-200} width={1480} height={g + 200} fill="#f6dcb6" strokeWidth={0} />
+      <rect x={-200} y={g - 700} width={1480} height={700} fill="#f3c9a0" opacity={0.55} strokeWidth={0} />
+      <circle cx={760} cy={430} r={95} fill="#ffd27a" strokeWidth={0} />
+      {[
+        [-120, 640], [330, 820], [760, 700], [1180, 760],
+      ].map(([x, h], i) => (
+        <g key={i}>
+          <path d={`M${x - h * 0.85} ${g - 300} L${x} ${g - 300 - h} L${x + h * 0.85} ${g - 300} Z`} fill={i % 2 ? "#8f9fb0" : "#a3b1bf"} strokeWidth={6} />
+          <path d={`M${x - h * 0.2} ${g - 300 - h * 0.76} L${x} ${g - 300 - h} L${x + h * 0.2} ${g - 300 - h * 0.76} L${x + h * 0.06} ${g - 300 - h * 0.7} L${x - h * 0.06} ${g - 300 - h * 0.8} Z`} fill="#fbf7ef" strokeWidth={5} />
+        </g>
+      ))}
+      {/* uzak çam ormanı */}
+      {Array.from({ length: 26 }, (_, k) => {
+        const x = -160 + k * 54 + ((k * 37) % 30);
+        const h = 230 + ((k * 53) % 120);
+        return <path key={k} d={`M${x - h * 0.3} ${g - 120} L${x} ${g - 120 - h} L${x + h * 0.3} ${g - 120} Z`} fill={k % 3 ? "#4f6b45" : "#5d7a4f"} strokeWidth={4} />;
+      })}
+      <rect x={-200} y={g - 130} width={1480} height={140} fill="#6f8c55" strokeWidth={0} />
+      {/* yakın çamlar: kocaman, çerçeveyi sarar */}
+      {[
+        [-10, 980], [1070, 1060],
+      ].map(([x, h], k) => (
+        <g key={k}>
+          <rect x={x - 22} y={g - 160} width={44} height={170} fill="#7a4f2c" strokeWidth={6} />
+          {[0, 1, 2, 3].map((j) => {
+            const w = h * (0.42 - j * 0.08);
+            const y0 = g - 120 - j * h * 0.22;
+            return <path key={j} d={`M${x - w} ${y0} L${x} ${y0 - h * 0.36} L${x + w} ${y0} Z`} fill={j % 2 ? "#4f6b45" : "#3f5a38"} strokeWidth={6} />;
+          })}
+        </g>
+      ))}
+      {/* çimen, patika, çalılar, çiçekler */}
+      <rect x={-200} y={g} width={1480} height={900} fill="#9fbf74" strokeWidth={0} />
+      <path d={`M-200 ${g} L1280 ${g}`} strokeWidth={6} />
+      <path d={`M-200 ${g + 150} Q540 ${g + 60} 1280 ${g + 170} L1280 ${g + 260} Q540 ${g + 150} -200 ${g + 250} Z`} fill="#d9b98a" strokeWidth={4} opacity={0.9} />
+      {[[180, g + 10], [700, g + 6]].map(([x, y], k) => (
+        <g key={k}>
+          <ellipse cx={x} cy={y - 20} rx={90} ry={50} fill="#5e7f45" strokeWidth={5} />
+          <ellipse cx={x + 60} cy={y - 10} rx={60} ry={36} fill="#6f8c55" strokeWidth={5} />
+        </g>
+      ))}
+      {Array.from({ length: 10 }, (_, k) => (
+        <circle key={k} cx={60 + k * 110 + ((k * 31) % 40)} cy={g + 330 + ((k * 47) % 140)} r={10} fill={[C.yellow, "#fbf3e2", "#e58f8f"][k % 3]} strokeWidth={3} />
+      ))}
+      {mat ? <rect x={150} y={YAS_FLOOR - 8} width={820} height={18} rx={8} fill="#6e8fb3" strokeWidth={4} /> : null}
+    </g>
+  );
+};
+
+// "Önce oyun: kurbağa zıplaması, ayı yürüyüşü, tek ayakla sekmek."
+// Ormanda küçük avatar: kurbağa gibi derin çömelip öne sıçrar → ayı gibi dört ayak (dizler havada) → tek ayak sekme.
+const YasOyun: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const s = 0.85;
+  const a = w(2) - 6;
+  const b = w(4) - 4;
+  const c = w(6) - 4;
+  let pose: SidePose = squatUp;
+  let X = 230;
+  let lift = 0;
+  let face: "smile" | "grin" = "smile";
+  if (f >= a && f < b) {
+    // kurbağa: derin çömel, kollar geride → kollar öne savrulur, sıçra → yumuşak in, yine çömel
+    const P = 26;
+    const q = ((f - a) % P) / P;
+    const crouch = q < 0.25 ? 0.4 + 0.6 * (q / 0.25) : q < 0.35 ? 1 - (q - 0.25) / 0.1 : q > 0.85 ? (q - 0.85) / 0.15 : 0;
+    const air = q >= 0.35 && q <= 0.85 ? Math.sin(((q - 0.35) / 0.5) * Math.PI) : 0;
+    pose = mixPose(squatUp, { ...squatDown, armF: [-30, 10], armB: [-34, 10] }, crouch);
+    if (air > 0) pose = { ...mixPose(squatUp, squatDown, 0.15 * (1 - air)), armF: [150, 0], armB: [146, 0], front: { a: 26, k: 40 }, back: { a: 8, k: 50 } };
+    lift = air * 170;
+    X = 150 + Math.min(620, Math.floor((f - a) / P) * 150 + (q > 0.35 ? Math.min(1, (q - 0.35) / 0.5) * 150 : 0));
+    face = "grin";
+  } else if (f >= b && f < c) {
+    pose = bearPose((f - b) / 3.2);
+    X = 220 + Math.min(520, (f - b) * 6.5);
+  } else if (f >= c) {
+    // tek ayak: arka ayak dizden bükülü havada, kollar dengede, ritmik küçük sekmeler
+    const hop = Math.abs(Math.sin(((f - c) / 11) * Math.PI));
+    pose = { ...mixPose(squatUp, squatDown, 0.18 * (1 - hop)), back: { a: -14, k: 105 }, armF: [55, 25], armB: [-40, 20] };
+    lift = hop * 60;
+    X = 250 + Math.min(420, (f - c) * 4);
+    face = "grin";
+  }
+  const label = f < a ? "" : f < b ? "kurbağa zıplaması" : f < c ? "ayı yürüyüşü" : "tek ayakla sekme";
+  const lp = f < a ? 0 : pop(f, f < b ? a : f < c ? b : c, 10);
+  return (
+    <>
+      <Forest />
+      <HandText x={540} y={300} text="önce oyun" size={110} p={tw(f, 0, w(1) + 6) * (1 - tw(f, a - 6, a))} rotate={-3} />
+      {label ? <HandText x={540} y={300} text={label} size={label.length > 12 ? 90 : 110} p={lp} color={C.red} rotate={-3} /> : null}
+      <SideAt f={f} X={X} floor={YAS_FLOOR - 40} s={s} pose={pose} lift={lift} face={face} anchor={f >= b && f < c ? "back" : "front"} />
+    </>
+  );
+};
+
+// "Söyleneni doğru yapabildiğin gün, kendi ağırlığınla:"
+// Ormanda minderde avatar çömelir, sırtı kambur → balon "sırtın düz!" → düzeltir, yeşil tik; "kendi ağırlığınla"da dambıl çizilir, avatar parlar.
+const YasHazir: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const s = 1.15;
+  const tip = pop(f, 0, 12) * (1 - tw(f, w(4) - 6, w(4)));
+  const fix = tw(f, w(1) - 2, w(2) + 4);
+  const ok = pop(f, w(2), 10) * (1 - tw(f, w(4) - 6, w(4)));
+  const stand = tw(f, w(3), w(4) + 4);
+  const bad = { ...mixPose(squatUp, squatDown, 0.7), lean: 66 };
+  const good = mixPose(squatUp, squatDown, 0.7);
+  const pose = mixPose(mixPose(bad, good, fix), squatUp, stand);
+  const own = tw(f, w(4) - 2, w(5) + 6);
+  return (
+    <>
+      <Forest mat />
+      <SideAt f={f} X={560} floor={YAS_FLOOR} s={s} pose={pose} face={fix > 0.8 ? "grin" : "worry"} />
+      {tip > 0 ? (
+        <Bubble x={330} y={520} rx={240} ry={120} p={tip} tail={[470, 780]}>
+          <text x={330} y={545} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink}>
+            sırtın düz!
+          </text>
+        </Bubble>
+      ) : null}
+      {ok > 0 ? <HandText x={830} y={640} text="✓ doğru" size={100} p={ok} color="#3f7d4f" rotate={-6} /> : null}
+      {own > 0 ? (
+        <g>
+          <circle cx={560} cy={YAS_FLOOR - 330} r={330} fill={C.yellow} opacity={0.18 * own} />
+          <g opacity={own} transform="translate(820 520)">
+            <Dumbbell x={0} y={0} s={0.7} />
+            <Cross x={0} y={0} size={90} p={tw(f, w(4), w(5))} />
+          </g>
+          <HandText x={540} y={330} text="kendi ağırlığın" size={100} p={own} color={C.red} rotate={-3} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Squat: kalçanı geriye ver, sandalyeye oturur gibi in. Dizlerin ayak uçlarına baksın."
+// Yavaş, tam tekrarlar; kalçadan geriye yeşil ok, arkada kesikli hayalî sandalye, dizden ayak ucuna yardımcı çizgi.
+const YasSquat: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const s = 1.2;
+  const X = 600;
+  const P = 56;
+  const rep = (1 - Math.cos((Math.max(0, f - 6) / P) * Math.PI * 2)) / 2;
+  const t = f < 6 ? 0 : rep * (1 - tw(f, d - 10, d - 2));
+  const pose = mixPose(squatUp, squatDown, t);
+  const pt0 = sidePts(pose, X, YAS_FLOOR, s);
+  const hipArrow = tw(f, w(1) - 2, w(3) + 4) * (1 - tw(f, w(4), w(4) + 8));
+  const chair = tw(f, w(4) - 2, w(6)) * (1 - tw(f, w(8) - 2, w(8) + 6));
+  const knee = tw(f, w(8) - 2, w(10) + 4);
+  const seatY = YAS_FLOOR - 175 * s;
+  const reps = Math.min(9, Math.floor(Math.max(0, f - 6 + P / 2) / P));
+  return (
+    <>
+      <Forest mat />
+      {chair > 0 ? (
+        <g opacity={chair} stroke="#3f7d4f" strokeWidth={8} strokeDasharray="22 14" fill="none" strokeLinecap="round">
+          <path d={`M${X - 300} ${seatY} L${X - 70} ${seatY} M${X - 280} ${seatY} L${X - 280} ${YAS_FLOOR} M${X - 90} ${seatY} L${X - 90} ${YAS_FLOOR} M${X - 290} ${seatY} L${X - 310} ${seatY - 300}`} />
+        </g>
+      ) : null}
+      <SideAt f={f} X={X} floor={YAS_FLOOR} s={s} pose={pose} face="smile" />
+      {hipArrow > 0 ? (
+        <g opacity={hipArrow}>
+          <Pointer x1={pt0.H.x + 30} y1={pt0.H.y} x2={pt0.H.x - 200} y2={pt0.H.y + 20} p={hipArrow} color="#3f7d4f" />
+          <HandText x={pt0.H.x - 120} y={pt0.H.y - 70} text="kalça geri" size={70} p={hipArrow} color="#3f7d4f" rotate={-4} />
+        </g>
+      ) : null}
+      {knee > 0 ? (
+        <g opacity={knee}>
+          <path d={`M${pt0.K.x} ${pt0.K.y} L${pt0.T.x + 20} ${pt0.T.y}`} stroke="#3f7d4f" strokeWidth={8} strokeDasharray="18 12" />
+          <circle cx={pt0.K.x} cy={pt0.K.y} r={34} fill="none" stroke="#3f7d4f" strokeWidth={7} />
+          <HandText x={860} y={760} text="diz → ayak ucu" size={68} p={knee} color="#3f7d4f" rotate={-4} />
+        </g>
+      ) : null}
+      <HandText x={540} y={300} text="squat" size={140} p={pop(f, 0, 10)} color={C.red} rotate={-3} />
+      <text x={880} y={520} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90} fill={C.ink} opacity={tw(f, 20, 30)}>
+        {`${reps}`}
+      </text>
+    </>
+  );
+};
+
+// "Şınav: vücudun dümdüz, göğsün yere yaklaşsın. Zorsa dizlerinin üstünde."
+// Tam şınav tekrarları; topuktan omza yeşil cetvel, göğüs inince ok; "Zorsa"da diz üstü şınava geçer.
+const YasSinav: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const s = 1.2;
+  const knees = f >= w(6) - 2;
+  const start = knees ? w(6) - 2 : 0;
+  const P = 44;
+  const t = ((1 - Math.cos((Math.max(0, f - start - 4) / P) * Math.PI * 2)) / 2) * (1 - tw(f, d - 8, d));
+  const pose = knees ? kneePushPose(t) : pushPose(t);
+  const X = knees ? 300 : 150;
+  const pts = sidePts(pose, X, YAS_FLOOR, s);
+  const ruler = tw(f, w(1) - 2, w(2) + 6) * (1 - tw(f, w(3), w(3) + 8));
+  const chest = tw(f, w(3) - 2, w(5) + 4) * (1 - tw(f, w(6) - 6, w(6)));
+  const from = knees ? pts.K : pts.A;
+  return (
+    <>
+      <Forest mat />
+      <SideAt f={f} X={X} floor={YAS_FLOOR} s={s} pose={pose} face={t > 0.6 ? "worry" : "smile"} />
+      {ruler > 0 ? (
+        <g opacity={ruler}>
+          <path d={`M${from.x - 20} ${from.y - 50} L${pts.S.x + 30} ${pts.S.y - 60}`} stroke="#3f7d4f" strokeWidth={10} strokeDasharray="26 12" strokeLinecap="round" />
+          <HandText x={540} y={760} text="dümdüz" size={90} p={ruler} color="#3f7d4f" rotate={-4} />
+        </g>
+      ) : null}
+      {chest > 0 ? (
+        <g opacity={chest}>
+          <Pointer x1={pts.S.x + 40} y1={pts.S.y - 170} x2={pts.S.x + 40} y2={YAS_FLOOR - 70} p={chest} color="#3f7d4f" />
+          <HandText x={pts.S.x + 150} y={760} text="göğüs yere" size={70} p={chest} color="#3f7d4f" rotate={-4} />
+        </g>
+      ) : null}
+      <HandText x={540} y={300} text={knees ? "diz üstü şınav" : "şınav"} size={knees ? 110 : 140} p={pop(f, start, 10)} color={C.red} rotate={-3} />
+    </>
+  );
+};
+
+// "Plank: dirseklerin omuzlarının altında, kalçan ne düşsün ne kalksın."
+// Dirsek plankı; omuzdan dirseğe dikey çizgi; "düşsün"de kalça sarkar (kırmızı çarpı), "kalksın"da kalkar, sonra düz + yeşil tik.
+const YasPlank: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const s = 1.2;
+  const X = 170;
+  const sag = tw(f, w(5) - 4, w(6) + 2) * (1 - tw(f, w(7) - 6, w(7)));
+  const pike = tw(f, w(7) - 2, w(8) + 2) * (1 - tw(f, w(8) + 10, w(8) + 20));
+  const dh = 85 * sag - 120 * pike;
+  const pose = plankPose(dh);
+  const pts = sidePts(pose, X, YAS_FLOOR, s);
+  const elbow = tw(f, w(1) - 2, w(3) + 4) * (1 - tw(f, w(4) - 4, w(4) + 4));
+  const good = tw(f, w(8) + 14, w(8) + 24);
+  const secs = Math.min(59, Math.floor(f / 30) * 1 + 10);
+  const elbowX = pts.S.x;
+  return (
+    <>
+      <Forest mat />
+      <SideAt f={f} X={X} floor={YAS_FLOOR} s={s} pose={pose} face={sag > 0.5 || pike > 0.5 ? "worry" : "smile"} />
+      {elbow > 0 ? (
+        <g opacity={elbow}>
+          <path d={`M${elbowX} ${pts.S.y - 40} L${elbowX} ${YAS_FLOOR + 20}`} stroke="#3f7d4f" strokeWidth={9} strokeDasharray="18 12" />
+          <HandText x={540} y={760} text="dirsek omuz altında" size={64} p={elbow} color="#3f7d4f" rotate={-4} />
+        </g>
+      ) : null}
+      {sag > 0.3 ? <Cross x={pts.H.x} y={pts.H.y - 10} size={60} p={tw(sag, 0.3, 1)} /> : null}
+      {pike > 0.3 ? <Cross x={pts.H.x} y={pts.H.y - 30} size={60} p={tw(pike, 0.3, 1)} /> : null}
+      {good > 0 ? (
+        <g opacity={good}>
+          <path d={`M${pts.A.x - 20} ${pts.A.y - 50} L${pts.S.x + 30} ${pts.S.y - 60}`} stroke="#3f7d4f" strokeWidth={10} strokeDasharray="26 12" strokeLinecap="round" />
+          <HandText x={540} y={760} text="✓ düz çizgi" size={90} p={good} color="#3f7d4f" rotate={-4} />
+        </g>
+      ) : null}
+      <HandText x={540} y={300} text="plank" size={140} p={pop(f, 0, 10)} color={C.red} rotate={-3} />
+      <text x={880} y={520} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90} fill={C.ink} opacity={tw(f, 6, 14) * (1 - tw(f, d - 6, d))}>
+        {`0:${String(secs).padStart(2, "0")}`}
+      </text>
+    </>
+  );
+};
 
 // Büyük yaş rakamı (el yazısı), üstü çizilebilir
 const AgeTag: React.FC<{ x: number; y: number; text: string; p: number; size?: number; strike?: number; color?: string }> = ({ x, y, text, p, size = 220, strike = 0, color = C.ink }) =>
@@ -7850,7 +8128,7 @@ const YasHook: React.FC<SceneProps> = ({ w }) => {
       {f >= w(4) ? <AgeTag x={600} y={430} text={`${age}`} p={pop(f, w(4), 12)} size={260} color={happy ? "#3f7d4f" : C.ink} /> : null}
       {f >= w(4) ? <HandText x={850} y={430} text="yaş" size={90} p={1} rotate={-4} /> : null}
       {q > 0 ? <HandText x={560} y={420} text="?" size={300} p={q} color={C.red} rotate={8} /> : null}
-      <Person x={PX} y={PY - jump} s={sc} belly={0.3} armL={happy ? ARMS_UP : [12, 0]} armR={happy ? ARMS_UP : [12, 0]} legL={jump > 20 ? { lift: 0.3, spread: 12 } : {}} legR={jump > 20 ? { lift: 0.3, spread: 12 } : {}} mouth={happy ? "grin" : roll > 0.05 ? "o" : "smile"} eyes={roll > 0.05 && !happy ? "wide" : "open"} lookY={-6} />
+      <Person x={PX} y={PY - jump} s={sc} shirt={YAS_SHIRT} belly={0.3} armL={happy ? ARMS_UP : [12, 0]} armR={happy ? ARMS_UP : [12, 0]} legL={jump > 20 ? { lift: 0.3, spread: 12 } : {}} legR={jump > 20 ? { lift: 0.3, spread: 12 } : {}} mouth={happy ? "grin" : roll > 0.05 ? "o" : "smile"} eyes={roll > 0.05 && !happy ? "wide" : "open"} lookY={-6} />
       {happy ? <HandText x={PX + 260} y={PY - 420} text="zıpla!" size={110} p={tw(f, w(15), w(15) + 10)} color={C.red} rotate={-3} /> : null}
     </>
   );
@@ -7875,20 +8153,20 @@ const Stairs: React.FC<{ p: number; f: number }> = ({ p, f }) => {
           </g>
         );
       })}
-      {p > 0.3 ? <Person x={265} y={1450 - Math.abs(Math.sin(f / 8)) * 30} s={0.28} belly={0.3} mouth="grin" armL={[40, 0]} armR={[40, 0]} /> : null}
+      {p > 0.3 ? <Person x={265} shirt={YAS_SHIRT} y={1450 - Math.abs(Math.sin(f / 8)) * 30} s={0.28} belly={0.3} mouth="grin" armL={[40, 0]} armR={[40, 0]} /> : null}
     </g>
   );
 };
 
-// "Amerikan çocuk doktorları iki bin yirmide raporlarına açıkça yazdı: belli bir başlama yaşı yok. Ama bir sıra var."
+// "Amerikan çocuk doktorları iki bin yirmide yazdı: belli bir başlama yaşı yok. Ama bir sıra var."
 // Rapor açılır, "BAŞLAMA YAŞI" satırına kırmızı "YOK" damgası; rapor yukarı çekilir, yerine üç basamak çizilir.
 const YasRapor: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const doc = pop(f, 0, 14);
-  const up = tw(f, w(14) - 4, w(15) + 6);
-  const line = tw(f, w(9) - 2, w(12) + 4);
-  const stamp = pop(f, w(13) - 2, 10);
-  const stairs = tw(f, w(15), w(17) + 12);
+  const up = tw(f, w(12) - 4, w(13) + 6);
+  const line = tw(f, w(7) - 2, w(10) + 4);
+  const stamp = pop(f, w(11) - 2, 10);
+  const stairs = tw(f, w(13), w(15) + 12);
   return (
     <>
       <g transform={`translate(540 ${lerp(820, 470, up)}) scale(${doc * lerp(1, 0.62, up)}) rotate(-2)`}>
@@ -7918,109 +8196,7 @@ const YasRapor: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// "Önce oyun: kurbağa gibi zıplamak, ayı gibi yürümek, tek ayakla sekmek. Bunlar da antrenman."
-// Parkta minik avatar: kurbağa zıplaması → ayı yürüyüşü → tek ayak sekme; sonunda "ANTRENMAN!" tabelası.
-const YasOyun: React.FC<SceneProps> = ({ w, d }) => {
-  const f = useCurrentFrame();
-  const s = 0.9;
-  const a = w(2) - 4;
-  const b = w(5) - 4;
-  const c = w(8) - 4;
-  let pose: SidePose = squatUp;
-  let X = 220;
-  let lift = 0;
-  let face: "smile" | "grin" = "smile";
-  if (f >= a && f < b) {
-    // kurbağa: çömel → sıçra → yumuşak in
-    const P = 22;
-    const q = ((f - a) % P) / P;
-    const crouch = q < 0.3 ? q / 0.3 : q < 0.4 ? 1 - (q - 0.3) / 0.1 : q > 0.9 ? (q - 0.9) / 0.1 : 0;
-    const air = q >= 0.4 && q <= 0.9 ? Math.sin(((q - 0.4) / 0.5) * Math.PI) : 0;
-    pose = mixPose(squatUp, squatDown, crouch);
-    if (air > 0) pose = { ...pose, armF: ARMS_UP, armB: ARMS_UP, front: { a: 20, k: 30 }, back: { a: 10, k: 40 } };
-    lift = air * 150;
-    X = 160 + Math.min(560, ((f - a) / P) * 120);
-    face = "grin";
-  } else if (f >= b && f < c) {
-    pose = bearPose((f - b) / 3.5);
-    X = 200 + Math.min(500, (f - b) * 7);
-  } else if (f >= c) {
-    // tek ayak: arka ayak kalkık, küçük sekmeler
-    pose = { ...squatUp, back: { a: -12, k: 100 }, armF: [40, 30], armB: [-30, 20] };
-    lift = f < w(11) ? Math.abs(Math.sin(((f - c) / 10) * Math.PI)) * 50 : 0;
-    X = 260 + Math.min(360, f < w(11) ? (f - c) * 4 : (w(11) - c) * 4);
-    face = "grin";
-  }
-  const label = f < a ? "" : f < b ? "kurbağa" : f < c ? "ayı" : "tek ayak";
-  const lp = f < a ? 0 : pop(f, f < b ? a : f < c ? b : c, 10);
-  const sign = pop(f, w(11) - 2, 12);
-  return (
-    <>
-      <Park />
-      <HandText x={540} y={300} text="önce oyun" size={110} p={tw(f, w(0) - 2, w(1) + 6) * (1 - tw(f, a - 6, a))} rotate={-3} />
-      {label && sign <= 0 ? <HandText x={540} y={300} text={label} size={120} p={lp} color={C.red} rotate={-3} /> : null}
-      <SideAt f={f} X={X} floor={YAS_FLOOR - 20} s={s} pose={pose} lift={lift} face={face} anchor={f >= b && f < c ? "back" : "front"} />
-      {sign > 0 ? (
-        <g transform={`translate(540 360) rotate(-5) scale(${sign})`}>
-          <rect x={-330} y={-90} width={660} height={160} rx={20} fill={C.red} stroke={C.ink} strokeWidth={10} />
-          <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={92} fill={C.cream}>
-            ANTRENMAN!
-          </text>
-        </g>
-      ) : null}
-      {sign > 0.9 ? <Confetti start={w(11)} n={20} /> : null}
-    </>
-  );
-};
 
-// "Söyleneni dinleyip doğru yapabildiğin gün, kendi ağırlığınla: squat, şınav, plank."
-// Antrenör balonu "sırt düz!" der, avatar düzeltir, yeşil tik; sonra squat → şınav → plank (süre sayacı).
-const YasVucut: React.FC<SceneProps> = ({ w, d }) => {
-  const f = useCurrentFrame();
-  const s = 1.15;
-  const sq = w(7) - 2;
-  const pu = w(8) - 2;
-  const pl = w(9) - 2;
-  const tip = pop(f, 2, 12) * (1 - tw(f, sq - 8, sq - 2));
-  const ok = pop(f, w(2) - 2, 10) * (1 - tw(f, sq - 8, sq - 2));
-  let el: React.ReactNode;
-  if (f < sq) {
-    const fix = tw(f, w(1), w(2) + 2);
-    const pose = mixPose(mixPose(squatUp, squatDown, 0.75), { ...mixPose(squatUp, squatDown, 0.75), lean: 30 }, fix);
-    el = <SideAt f={f} X={560} floor={YAS_FLOOR} s={s} pose={{ ...pose, lean: lerp(62, 34, fix) }} face={fix > 0.8 ? "grin" : "worry"} />;
-  } else if (f < pu) {
-    const t = (1 - Math.cos(((f - sq) / 16) * Math.PI * 2)) / 2;
-    el = <SideAt f={f} X={560} floor={YAS_FLOOR} s={s} pose={mixPose(squatUp, squatDown, t)} />;
-  } else if (f < pl) {
-    const t = (1 - Math.cos(((f - pu) / 14) * Math.PI * 2)) / 2;
-    el = <SideAt f={f} X={200} floor={YAS_FLOOR} s={s} pose={pushPose(t)} />;
-  } else {
-    el = <SideAt f={f} X={200} floor={YAS_FLOOR} s={s} pose={pushPose(0)} face="grin" />;
-  }
-  const label = f < sq ? "" : f < pu ? "squat" : f < pl ? "şınav" : "plank";
-  const lp = pop(f, f < pu ? sq : f < pl ? pu : pl, 10);
-  const secs = f >= pl ? Math.min(30, Math.floor((f - pl) / 3)) : 0;
-  return (
-    <>
-      <Salon />
-      {el}
-      {tip > 0 ? (
-        <Bubble x={380} y={520} rx={250} ry={130} p={tip} tail={[520, 900]}>
-          <text x={380} y={545} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={84} fill={C.ink}>
-            sırtın düz!
-          </text>
-        </Bubble>
-      ) : null}
-      {ok > 0 ? <HandText x={820} y={980} text="✓ doğru" size={100} p={ok} color="#3f7d4f" rotate={-6} /> : null}
-      {label ? <HandText x={540} y={330} text={label} size={140} p={lp} color={C.red} rotate={-3} /> : null}
-      {f >= pl ? (
-        <text x={880} y={560} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.ink} opacity={tw(f, pl, pl + 8)}>
-          {`0:${String(secs).padStart(2, "0")}`}
-        </text>
-      ) : null}
-    </>
-  );
-};
 
 const WEEK = ["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"];
 // Haftalık şerit: işaretlenen günler (aralıklı)
@@ -8044,29 +8220,29 @@ const WeekStrip: React.FC<{ x: number; y: number; p: number; marks: number[] }> 
     </g>
   ) : null;
 
-// "Teknik oturunca hafif dambıl, lastik bant. Haftada iki üç gün."
-// Biraz büyümüş avatar küçük dambılla çalışır → lastik bandı gerer → haftalık şeritte Pt, Ça, (Cu) işaretlenir.
+// "Teknik oturunca önce lastik bant, sonra hafif dambıl. Haftada iki üç gün."
+// Biraz büyümüş avatar önce lastik bandı gerer → sonra küçük dambılla çalışır → haftalık şeritte Pt, Ça, (Cu) işaretlenir.
 const YasDambil: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const s = yasScale(13);
-  const band = f >= w(4) - 2;
+  const band = f >= w(2) - 2 && f < w(5) - 2;
   const c = (1 - Math.cos(f / 6)) / 2;
-  const armR: Arm = band ? [lerp(55, 80, c), -10] : curlArm(f >= w(2) - 2 ? c : 0);
+  const armR: Arm = band ? [lerp(55, 80, c), -10] : curlArm(f >= w(5) - 2 ? c : 0);
   const armL: Arm = band ? [lerp(55, 80, c), -10] : [12, 0];
   const hand = armPoints(1, armR)[2];
   const handL = armPoints(-1, armL)[2];
   const X = 540;
   const Y = PY + 60;
-  const week = pop(f, w(6) - 2, 12);
-  const label = f < w(2) - 2 ? "" : band ? "lastik bant" : "hafif dambıl";
+  const week = pop(f, w(8) - 2, 12);
+  const label = f < w(2) - 2 ? "" : band ? "1. lastik bant" : "2. hafif dambıl";
   return (
     <>
       <rect x={-200} y={-200} width={1480} height={PY + 260} fill="#efe1c2" />
       <rect x={-200} y={PY + 60} width={1480} height={700} fill="#c9a06c" />
       <path d={`M-200 ${PY + 60} L1280 ${PY + 60}`} stroke={C.ink} strokeWidth={7} />
       <HandText x={540} y={300} text="teknik ✓" size={110} p={tw(f, 0, w(1) + 4) * (1 - tw(f, w(2) - 6, w(2) - 2))} color="#3f7d4f" rotate={-3} />
-      {label ? <HandText x={540} y={300} text={label} size={120} p={pop(f, band ? w(4) - 2 : w(2) - 2, 10)} color={C.red} rotate={-3} /> : null}
-      <Person x={X} y={Y} s={s} belly={0.3} armL={armL} armR={armR} mouth="smile" lookY={4}>
+      {label ? <HandText x={540} y={300} text={label} size={120} p={pop(f, band ? w(2) - 2 : w(5) - 2, 10)} color={C.red} rotate={-3} /> : null}
+      <Person x={X} y={Y} s={s} shirt={YAS_SHIRT} belly={0.3} armL={armL} armR={armR} mouth="smile" lookY={4}>
         {!band ? (
           <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${-20 + 60 * c})`}>
             <Dumbbell x={0} y={0} s={0.42} rot={90} />
@@ -8075,18 +8251,18 @@ const YasDambil: React.FC<SceneProps> = ({ w }) => {
           <path d={`M${handL[0]} ${handL[1]} Q0 ${handL[1] + 30 - 40 * c} ${hand[0]} ${hand[1]}`} stroke="#d9705f" strokeWidth={22} fill="none" strokeLinecap="round" />
         )}
       </Person>
-      <WeekStrip x={540} y={520} p={week} marks={[tw(f, w(7) - 2, w(7) + 6), tw(f, w(8) - 2, w(8) + 6), tw(f, w(9) - 2, w(9) + 8)]} />
+      <WeekStrip x={540} y={520} p={week} marks={[tw(f, w(9) - 2, w(9) + 6), tw(f, w(10) - 2, w(10) + 6), tw(f, w(11) - 2, w(11) + 8)]} />
     </>
   );
 };
 
-// "Ergenlikten önce kasların pek büyümez ama güçlenirsin: beynin kaslarını kullanmayı öğrenir. Kaslar asıl ergenlikte büyür."
+// "Ergenlikten önce kasların pek büyümez ama güçlenirsin: beynin kaslarını kullanmayı öğrenir. Kaslar ergenlikte büyür."
 // Kas merceği aynı kalır; beyinden kola giden kablolar yanar, dambıl kolaylaşır; takvim yaprakları uçar, kol dolgunlaşır.
 const YasSinir: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const s = yasScale(12);
   const wire = tw(f, w(7) - 2, w(10) + 4);
-  const grow = tw(f, w(11), w(14) + 6);
+  const grow = tw(f, w(11), w(13) + 6);
   const easy = wire;
   const c = (1 - Math.cos(f / (8 - 3 * easy))) / 2;
   const arm = curlArm(c);
@@ -8100,8 +8276,8 @@ const YasSinir: React.FC<SceneProps> = ({ w }) => {
     <>
       <rect x={-200} y={Y} width={1480} height={700} fill="#d9c6a0" opacity={0.55} />
       <path d={`M-200 ${Y} L1280 ${Y}`} stroke={C.ink} strokeWidth={6} />
-      <FlyingPages start={w(11)} end={w(14)} y={420} />
-      <Person x={X} y={Y} s={lerp(s, yasScale(16), grow)} belly={0.3} limbW={1 + 0.32 * grow} armR={arm} armL={[12, 0]} mouth={easy > 0.5 ? "grin" : "flat"} lookY={6}>
+      <FlyingPages start={w(11)} end={w(13)} y={420} />
+      <Person shirt={YAS_SHIRT} x={X} y={Y} s={lerp(s, yasScale(16), grow)} belly={0.3} limbW={1 + 0.32 * grow} armR={arm} armL={[12, 0]} mouth={easy > 0.5 ? "grin" : "flat"} lookY={6}>
         {wire > 0 ? (
           <g>
             <path d={path} stroke={C.yellow} strokeWidth={34} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={0.35 * wire} />
@@ -8182,7 +8358,7 @@ const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
       <rect x={-200} y={-200} width={1480} height={PY + 260} fill="#efe1c2" />
       <rect x={-200} y={PY + 60} width={1480} height={700} fill="#c9a06c" />
       <path d={`M-200 ${PY + 60} L1280 ${PY + 60}`} stroke={C.ink} strokeWidth={7} />
-      <Person x={X} y={PY + 60} s={s} belly={0.3} armR={curlArm(c)} armL={[12, 0]} tilt={lerp(-8, 0, fix)} mouth={fix > 0.5 ? "grin" : "flat"}>
+      <Person x={X} y={PY + 60} s={s} shirt={YAS_SHIRT} belly={0.3} armR={curlArm(c)} armL={[12, 0]} tilt={lerp(-8, 0, fix)} mouth={fix > 0.5 ? "grin" : "flat"}>
         <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${-20 + 60 * c})`}>
           <Dumbbell x={0} y={0} s={0.42} rot={90} />
         </g>
@@ -8196,7 +8372,7 @@ const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
         <Bubble x={560} y={470} rx={360} ry={260} p={bub} tail={[420, 860]}>
           <rect x={300} y={300} width={110} height={130} rx={6} fill="#cfe0ea" stroke={C.ink} strokeWidth={5} />
           <path d="M240 560 L880 560" stroke={C.ink} strokeWidth={6} />
-          <Person x={480} y={560} s={0.32} belly={0.3} armL={[160 - wob, 0]} armR={[160 + wob, 0]} mouth="worry" eyes="wide" />
+          <Person x={480} y={560} s={0.32} shirt={YAS_SHIRT} belly={0.3} armL={[160 - wob, 0]} armR={[160 + wob, 0]} mouth="worry" eyes="wide" />
           <g transform={`translate(${480 + wob * 3 + fall * 120} ${300 + fall * 250}) rotate(${wob * 2 + fall * 70})`}>
             <Barbell x={0} y={0} s={0.5} />
           </g>
@@ -8213,17 +8389,17 @@ const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// "O yüzden spora başlamak için en doğru yaş: bugün."
+// "O yüzden en doğru yaş: bugün."
 // Takvim yaprakları uçar, kocaman "BUGÜN" sayfası belirir; avatar kollarını kaldırır, konfeti → döngü (açılıştaki "?").
 const YasBugun: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const page = pop(f, w(7) - 2, 14);
-  const yay = f > w(8) - 2;
+  const page = pop(f, w(2) - 2, 14);
+  const yay = f > w(5) - 2;
   return (
     <>
       <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
       <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
-      <FlyingPages start={0} end={w(7)} y={430} />
+      <FlyingPages start={0} end={w(2)} y={430} />
       {page > 0 ? (
         <g transform={`translate(540 430) scale(${page}) rotate(-4)`}>
           <rect x={-260} y={-190} width={520} height={330} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={9} />
@@ -8233,8 +8409,8 @@ const YasBugun: React.FC<SceneProps> = ({ w }) => {
           </text>
         </g>
       ) : null}
-      <Person x={PX} y={PY} s={yasScale(18)} belly={0.3} armL={yay ? ARMS_UP : [12, 0]} armR={yay ? ARMS_UP : [12, 0]} mouth={yay ? "grin" : "smile"} lookY={-6} />
-      {yay ? <Confetti start={w(8) - 2} n={24} /> : null}
+      <Person x={PX} y={PY} s={yasScale(18)} shirt={YAS_SHIRT} belly={0.3} armL={yay ? ARMS_UP : [12, 0]} armR={yay ? ARMS_UP : [12, 0]} mouth={yay ? "grin" : "smile"} lookY={-6} />
+      {yay ? <Confetti start={w(5) - 2} n={24} /> : null}
     </>
   );
 };
@@ -8243,7 +8419,10 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   "yas-hook": YasHook,
   "yas-rapor": YasRapor,
   "yas-oyun": YasOyun,
-  "yas-vucut": YasVucut,
+  "yas-hazir": YasHazir,
+  "yas-squat": YasSquat,
+  "yas-sinav": YasSinav,
+  "yas-plank": YasPlank,
   "yas-dambil": YasDambil,
   "yas-sinir": YasSinir,
   "yas-terazi": YasTerazi,

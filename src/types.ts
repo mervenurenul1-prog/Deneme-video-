@@ -91,8 +91,9 @@ export type Explainer = {
 // Çizimli video: her sahne, söylenen şeyi birebir gösteren kodla çizilmiş bir animasyon (visual)
 // voice: altyazı metni; say: (isteğe bağlı) seslendirilen metin, ton etiketleriyle, ör. "[whispers] ..."
 // lead: ses başlamadan önce sahnenin sessiz açılış süresi (saniye), ör. konuşmadan önce koşu
+// hold: ses bittikten sonra sahnenin kısa süre daha devam etmesi (saniye), ör. hareketin son tekrarı
 // intro: sahnenin başında, asıl sesten önce çalan ayrı kısa seslendirme (ör. kanca cümlesi); asıl ses onun ardından başlar
-export type CizimScene = { visual: string; voice: string; say?: string; lead?: number; intro?: { voice: string; say?: string }; data?: Record<string, unknown> };
+export type CizimScene = { visual: string; voice: string; say?: string; lead?: number; hold?: number; intro?: { voice: string; say?: string }; data?: Record<string, unknown> };
 
 export type Cizim = {
   id: string;

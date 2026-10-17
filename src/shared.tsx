@@ -2,7 +2,7 @@ import { useCurrentFrame, useVideoConfig } from "remotion";
 import { VIDEO } from "./brand";
 import type { PostVoiceover, SceneAudio, WordTiming } from "./types";
 
-type Voiced = { scenes: { voice: string; lead?: number; intro?: { voice: string } }[]; padding?: number };
+type Voiced = { scenes: { voice: string; lead?: number; hold?: number; intro?: { voice: string } }[]; padding?: number };
 
 // Instagram arayüzünün (alt açıklama, sağ butonlar) kapattığı alanlar
 export const SAFE = { top: 220, bottom: 420, side: 90 };
@@ -36,7 +36,7 @@ export const introWords = (item: Voiced, vo: PostVoiceover | null, i: number): W
 export const sceneDurations = (item: Voiced, vo: PostVoiceover | null, fps: number) =>
   item.scenes.map((s, i) => {
     const seconds = audioFor(item, vo, i)?.durationInSeconds ?? estimateSeconds(s.voice);
-    return Math.ceil((leadSeconds(item, vo, i) + seconds + (item.padding ?? VIDEO.paddingSeconds)) * fps);
+    return Math.ceil((leadSeconds(item, vo, i) + seconds + (s.hold ?? 0) + (item.padding ?? VIDEO.paddingSeconds)) * fps);
   });
 
 // Ses yokken kelime zamanlamalarını kelime uzunluğuna göre tahmin eder (sessiz önizleme için)
