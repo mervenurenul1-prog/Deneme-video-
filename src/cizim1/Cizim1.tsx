@@ -404,7 +404,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
-  "diz4-pist": (w) => [[0, "adim", 0.25], [w(0), "pop", 0.25], [w(3), "cizik", 0.45], [w(3) + 2, "sonme", 0.25], [w(11), "agir-dusme", 0.2]],
+  "diz4-pist": (w) => [[0, "adim", 0.25], [2, "pop", 0.2], [w(0) - 2, "pop", 0.25], [w(3), "cizik", 0.45], [w(3) + 2, "sonme", 0.25], [w(11), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3], [w(5), "cizik", 0.3]],
   "diz4-doz": (w) => [[w(3), "pop", 0.25], [w(5) - 2, "boom", 0.18], [w(5), "cizik", 0.35], [w(9), "pop", 0.25], [w(10), "pirilti", 0.35]],
@@ -6816,7 +6816,7 @@ const mixPose = (p: SidePose, q: SidePose, t: number): SidePose => ({
 });
 
 // face: "smile" | "pain" | "worry" | "grin"; reach: 0..1 eller ön dize gider (eğilme/oturma)
-const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; reach?: number; face?: "smile" | "pain" | "worry" | "grin"; painGlow?: number; f: number; look?: number; bandage?: boolean }> = ({
+const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; reach?: number; face?: "smile" | "pain" | "worry" | "grin"; painGlow?: number; f: number; look?: number; bandage?: boolean; shirt?: string; female?: boolean }> = ({
   x,
   y,
   s,
@@ -6827,6 +6827,8 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
   f,
   look = 0,
   bandage = false,
+  shirt = C.shirt,
+  female = false,
 }) => {
   const H: P2 = { x: 0, y: pose.hipY };
   const legPts = (lp: LegPose) => {
@@ -6874,7 +6876,7 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
   };
   const arm = (e: P2, h: P2, shade: number) => (
     <g opacity={shade}>
-      {seg(S, e, 34, C.shirt)}
+      {seg(S, e, 34, shirt)}
       {seg(e, h, 24, C.skin)}
     </g>
   );
@@ -6896,9 +6898,16 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
       <ellipse cx={20} cy={4} rx={150} ry={18} fill={C.ink} opacity={0.12} />
       {leg(bl, 1)}
       {arm(eB, hB, 1)}
-      <path d={torso} fill={C.shirt} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      <path d={torso} fill={shirt} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
       {/* baş: profil, sağa bakar */}
       <g transform={`rotate(${pose.lean * 0.4 + look} ${Hd.x} ${Hd.y})`}>
+        {female ? (
+          // at kuyruğu: başın arkasında
+          <g transform={`rotate(${Math.sin(f / 9) * 6} ${Hd.x - 50} ${Hd.y - 40})`}>
+            <path d={`M${Hd.x - 50} ${Hd.y - 52} C${Hd.x - 120} ${Hd.y - 44} ${Hd.x - 130} ${Hd.y + 30} ${Hd.x - 104} ${Hd.y + 80} C${Hd.x - 96} ${Hd.y + 40} ${Hd.x - 80} ${Hd.y} ${Hd.x - 44} ${Hd.y - 18} Z`} fill={C.hair} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+            <circle cx={Hd.x - 56} cy={Hd.y - 42} r={11} fill={C.red} stroke={C.ink} strokeWidth={4} />
+          </g>
+        ) : null}
         <circle cx={Hd.x} cy={Hd.y} r={66} fill={C.skin} stroke={C.ink} strokeWidth={8} />
         <path d={`M${Hd.x - 66} ${Hd.y + 6} Q${Hd.x - 72} ${Hd.y - 70} ${Hd.x + 6} ${Hd.y - 70} Q${Hd.x + 56} ${Hd.y - 66} ${Hd.x + 58} ${Hd.y - 34} Q${Hd.x + 10} ${Hd.y - 44} ${Hd.x - 14} ${Hd.y - 20} Q${Hd.x - 30} ${Hd.y + 10} ${Hd.x - 66} ${Hd.y + 6} Z`} fill={C.hair} stroke={C.ink} strokeWidth={6} />
         <ellipse cx={Hd.x - 14} cy={Hd.y + 4} rx={14} ry={18} fill={C.skin} stroke={C.ink} strokeWidth={5} />
@@ -6990,7 +6999,9 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   pose.lean += limp * 12;
   const pain = f >= hitAt;
   const glow = tw(f, hitAt, hitAt + 6);
-  const lapP = pop(f, w(0) - 2, 10) * (1 - tw(f, w(3) + 4, w(4) + 4));
+  // önce "2. TUR", ses "Üçüncü tur" derken "3. TUR"
+  const lapN = f < w(0) - 2 ? 2 : 3;
+  const lapP = pop(f, lapN === 2 ? 2 : w(0) - 2, 10) * (1 - tw(f, w(3) + 4, w(4) + 4));
   return (
     <CamK
       k={[
@@ -7006,9 +7017,9 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
       <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={Math.max(bend, sit)} face={pain ? "pain" : "smile"} painGlow={glow} />
       {lapP > 0 ? (
         <g transform={`translate(540 380) scale(${lapP}) rotate(-5)`}>
-          <rect x={-200} y={-80} width={400} height={150} rx={20} fill={C.red} stroke={C.ink} strokeWidth={8} />
+          <rect x={-200} y={-80} width={400} height={150} rx={20} fill={lapN === 3 ? C.red : C.cream} stroke={C.ink} strokeWidth={8} />
           <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={100} fill={C.cream}>
-            3. TUR
+            {lapN}. TUR
           </text>
         </g>
       ) : null}
@@ -7052,10 +7063,8 @@ const Diz4AnneSoz: React.FC<SceneProps> = ({ w }) => {
       <SittingOnTrack f={f} face="worry" />
       <Bubble x={560} y={560} rx={330} ry={250} p={1} tail={[560, 1060]}>
         {own > 0.05 ? (
-          <g>
-            <Person x={560} y={760} s={0.5} female belly={0.6} shirt="#9a7bb0" legL={{ lift: 0.5 }} legR={{ lift: 0.5 }} armL={[10, -5]} armR={[10, -5]} mouth="worry" eyes="closed" lookY={8} />
-            <circle cx={582} cy={706} r={16 + 6 * Math.sin(f / 3)} fill={C.red} opacity={0.3 * own} />
-          </g>
+          // yandan: eğilip iki eliyle dizini tutar, dizi kızarır
+          <SideRunner f={f} x={530} y={770} s={0.5} pose={bendPose} reach={1} face="pain" painGlow={own} shirt="#9a7bb0" female />
         ) : (
           <Mom f={f} x={560} y={760} s={0.5} wag={1} />
         )}
