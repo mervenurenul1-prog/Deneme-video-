@@ -404,7 +404,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
-  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [20, "pop", 0.3], [w(4), "boom", 0.2], [w(4) + 1, "cizik", 0.45], [w(4) + 3, "sonme", 0.25], [w(12), "agir-dusme", 0.2]],
+  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [20, "pop", 0.3], [w(5), "boom", 0.2], [w(5) + 1, "cizik", 0.45], [w(5) + 3, "sonme", 0.25], [w(13), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
   "diz4-doz": (w) => [[w(8), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(16), "pop", 0.25], [w(20), "pirilti", 0.35]],
@@ -7112,18 +7112,18 @@ const runIntegral = (f: number, speedAt: (i: number) => number) => {
   return { off, ph };
 };
 
-// (nefes nefese) "Son tur… hadi!" — "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
-// Sessiz açılışta (lead) zorlanarak koşu + "SON TUR" etiketi, "birden"de ani ağrı → eğilip dizini tutar → yere oturur.
+// (nefes nefese) "Hadi… yapabilirsin… son tur!" — "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+// Sessiz açılışta (lead) zorlanarak koşu, bitiş çizgisi geçilince "2. TUR" → "3. TUR", "birden"de ani ağrı → eğilip dizini tutar → yere oturur.
 const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const hitAt = w(4);
+  const hitAt = w(5);
   const speedAt = (i: number) =>
-    i < hitAt - 12 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(8)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    i < hitAt - 12 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(9)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const { off, ph } = runIntegral(f, speedAt);
   const amp = Math.min(1, speedAt(f));
-  const limp = f >= hitAt && f < w(9) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
-  const bend = tw(f, w(9) - 4, w(10) + 4);
-  const sit = tw(f, w(12) - 4, w(13) + 8);
+  const limp = f >= hitAt && f < w(10) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
+  const bend = tw(f, w(10) - 4, w(11) + 4);
+  const sit = tw(f, w(13) - 4, w(14) + 8);
   const pose = mixPose(mixPose(runPose(ph, amp), bendPose, bend), sitPose, sit);
   pose.lean += limp * 12;
   const pain = f >= hitAt;
@@ -7135,15 +7135,15 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const crossF = 20;
   const lineX = 420 + 17 * (crossF - f);
   const lapN = f < crossF ? 2 : 3;
-  const lapP = (lapN === 2 ? 1 : pop(f, crossF, 10)) * (1 - tw(f, w(4) + 4, w(5) + 4));
+  const lapP = (lapN === 2 ? 1 : pop(f, crossF, 10)) * (1 - tw(f, w(5) + 4, w(6) + 4));
   return (
     <CamK
       k={[
         [0, 1, 540, 1200],
         [hitAt, 1, 540, 1200],
         [hitAt + 10, 1.12, 520, 1300],
-        [w(11), 1.12, 520, 1300],
-        [w(13) + 10, 1.22, 520, 1420],
+        [w(12), 1.12, 520, 1300],
+        [w(14) + 10, 1.22, 520, 1420],
       ]}
       shake={hit(f, Math.round(hitAt), 10) * 0.6}
     >
