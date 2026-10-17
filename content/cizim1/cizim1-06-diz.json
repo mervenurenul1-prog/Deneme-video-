@@ -16,16 +16,16 @@
       "visual": "diz4-pist",
       "lead": 1,
       "intro": {
-        "voice": "Bu adamın dizi birazdan kilitlenecek.",
-        "say": "[serious] Bu adamın dizi... birazdan kilitlenecek."
+        "voice": "Koşmak dizini aşındırmıyor. Bunu kanıtlamak on sekiz yıl sürdü.",
+        "say": "Koşmak dizini aşındırmıyor. [serious] Bunu kanıtlamak... on sekiz yıl sürdü."
       },
-      "voice": "Ve birden bir sızı. Eğiliyor, yere çöküyor.",
-      "say": "[serious] Ve birden... bir sızı. Eğiliyor, yere çöküyor."
+      "voice": "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "say": "[serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
     },
     {
       "visual": "diz4-anne",
-      "voice": "Kulağında annesinin sesi:",
-      "say": "Kulağında annesinin sesi:"
+      "voice": "Kulağında annenin sesi:",
+      "say": "Kulağında annenin sesi:"
     },
     {
       "visual": "diz4-annesoz",
