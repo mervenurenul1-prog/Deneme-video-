@@ -420,6 +420,10 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   // 07 spora kaç yaşında: yalnız önemli anlar
   "yas-hook": (w) => [[w(7), "cizik", 0.3], [w(10), "cizik", 0.3], [w(10) + 4, "yuksel", 0.25], [w(15), "pop", 0.3]],
   "yas-rapor": (w) => [[2, "kagit", 0.3], [w(11) - 2, "boom", 0.18], [w(13), "kalem", 0.3]],
+  "yas-bant1": (w) => [[0, "pop", 0.25], [w(7) - 2, "pop", 0.25], [w(10) - 2, "pirilti", 0.3]],
+  "yas-bant2": (w) => [[0, "pop", 0.25], [w(5), "cizik", 0.3], [w(13), "yuksel", 0.25]],
+  "yas-bant3": (w) => [[0, "pop", 0.25], [w(6), "yuksel", 0.25], [w(9) - 2, "pop", 0.25], [w(14) - 4, "adim", 0.25]],
+  "yas-bant4": (w) => [[0, "pop", 0.25], [w(3), "kalem", 0.25], [w(8) - 2, "ding", 0.3]],
   "yas-oyun": (w) => [[w(2) - 6, "pop", 0.25], [w(4) - 4, "pop", 0.25], [w(6) - 4, "pop", 0.25]],
   "yas-hazir": (w) => [[0, "pop", 0.25], [w(2), "ding", 0.3], [w(4), "cizik", 0.3]],
   "yas-squat": () => [[0, "pop", 0.25]],
@@ -8150,26 +8154,26 @@ const YasHook: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// Basamak: oyun → kendi ağırlığın → hafif ağırlık
+// Basamak: yaş grupları 5-7 → 8-12 → 13-15 → 16+
 const Stairs: React.FC<{ p: number; f: number }> = ({ p, f }) => {
-  const labels = ["oyun", "kendi ağırlığın", "hafif ağırlık"];
+  const labels = ["5-7", "8-12", "13-15", "16+"];
   return (
     <g>
       {labels.map((t, i) => {
-        const q = tw(p, i / 3, (i + 1) / 3);
+        const q = tw(p, i / 4, (i + 1) / 4);
         if (q <= 0) return null;
-        const x = 120 + i * 290;
-        const y = 1580 - (i + 1) * 130;
+        const x = 100 + i * 220;
+        const y = 1580 - (i + 1) * 110;
         return (
           <g key={i} opacity={q} transform={`translate(0 ${(1 - q) * 60})`}>
-            <rect x={x} y={y} width={290} height={(i + 1) * 130} fill={["#e9d3a8", "#dcc08e", "#cfae78"][i]} stroke={C.ink} strokeWidth={7} />
-            <text x={x + 145} y={y - 24} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={i === 1 ? 52 : 60} fill={C.ink}>
+            <rect x={x} y={y} width={220} height={(i + 1) * 110} fill={["#e9d3a8", "#dcc08e", "#cfae78", "#c29c62"][i]} stroke={C.ink} strokeWidth={7} />
+            <text x={x + 110} y={y - 24} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
               {t}
             </text>
           </g>
         );
       })}
-      {p > 0.3 ? <Person x={265} shirt={YAS_SHIRT} y={1450 - Math.abs(Math.sin(f / 8)) * 30} s={0.28} belly={0.3} mouth="grin" armL={[40, 0]} armR={[40, 0]} /> : null}
+      {p > 0.3 ? <Person x={210} shirt={YAS_SHIRT} y={1450 - Math.abs(Math.sin(f / 8)) * 30} s={0.28} belly={0.3} mouth="grin" armL={[40, 0]} armR={[40, 0]} /> : null}
     </g>
   );
 };
@@ -8538,6 +8542,186 @@ const YasBugun: React.FC<SceneProps> = ({ w }) => {
       ) : null}
       <Person x={PX} y={PY} s={yasScale(18)} shirt={YAS_SHIRT} belly={0.3} armL={yay ? ARMS_UP : [12, 0]} armR={yay ? ARMS_UP : [12, 0]} mouth={yay ? "grin" : "smile"} lookY={-6} />
       {yay ? <Confetti start={w(5) - 2} n={24} /> : null}
+    </>
+  );
+};
+
+// Yaş şeridi: dört basamak (5-7, 8-12, 13-15, 16+); etkin olan kırmızı, geçilenler lacivert
+const AGE_BANDS = ["5-7", "8-12", "13-15", "16+"];
+const AgeRuler: React.FC<{ active: number; p: number }> = ({ active, p }) =>
+  p > 0 ? (
+    <g opacity={p}>
+      {AGE_BANDS.map((t, i) => {
+        const x = 150 + i * 260;
+        const on = i === active;
+        return (
+          <g key={i} transform={`translate(${x} 250) scale(${on ? 1.15 : 0.9})`}>
+            <rect x={-110} y={-60} width={220} height={110} rx={18} fill={on ? C.red : i < active ? YAS_OK : C.cream} stroke={C.ink} strokeWidth={7} />
+            <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={on || i < active ? C.cream : C.ink}>
+              {t}
+            </text>
+          </g>
+        );
+      })}
+    </g>
+  ) : null;
+
+// Küçük bilgi kartı: başlık + simge (çizim fonksiyonu)
+const TipCard: React.FC<{ x: number; y: number; p: number; text: string; color?: string; children?: React.ReactNode }> = ({ x, y, p, text, color = YAS_OK, children }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`}>
+      <rect x={-170} y={-150} width={340} height={300} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+      <g transform="translate(0 -30)">{children}</g>
+      <text x={0} y={120} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={text.length > 12 ? 48 : 60} fill={color}>
+        {text}
+      </text>
+    </g>
+  ) : null;
+
+const Ball: React.FC<{ x: number; y: number; r?: number }> = ({ x, y, r = 50 }) => (
+  <g>
+    <circle cx={x} cy={y} r={r} fill="#f2a33a" stroke={C.ink} strokeWidth={7} />
+    <path d={`M${x - r} ${y} Q${x} ${y - r * 0.5} ${x + r} ${y} M${x} ${y - r} Q${x + r * 0.4} ${y} ${x} ${y + r}`} stroke={C.ink} strokeWidth={5} fill="none" />
+  </g>
+);
+
+// "Beş ile yedi yaş arası: oyun zamanı. Koşmak, zıplamak, tırmanmak; hepsi antrenman."
+// Ormanda küçük avatar top oynar, zıplar; kartlar: koşmak, zıplamak, tırmanmak (oyun parkı); "hepsi antrenman" yıldızı.
+const YasBant1: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const hop = Math.abs(Math.sin(f / 8)) * 50;
+  const ballX = 700 + Math.sin(f / 14) * 160;
+  const ballY = YAS_FLOOR - 50 - Math.abs(Math.sin(f / 7)) * 220;
+  const all = pop(f, w(10) - 2, 12);
+  return (
+    <>
+      <Forest />
+      <AgeRuler active={0} p={pop(f, 0, 10)} />
+      <HandText x={540} y={410} text="oyun zamanı" size={120} p={tw(f, w(5) - 2, w(6) + 6)} color={C.red} rotate={-3} />
+      <Person x={180} y={YAS_FLOOR - 40 - hop} s={yasScale(6)} shirt={YAS_SHIRT} belly={0.3} armL={ARMS_UP} armR={[60, -20]} legL={hop > 20 ? { lift: 0.3, spread: 10 } : {}} legR={hop > 20 ? { lift: 0.3, spread: 10 } : {}} mouth="grin" />
+      <Ball x={ballX} y={ballY} r={46} />
+      <TipCard x={190} y={610} p={pop(f, w(7) - 2, 10)} text="koşmak">
+        <Footprint x={-40} y={10} s={1.4} rot={-20} />
+        <Footprint x={40} y={-30} s={1.4} rot={-20} />
+      </TipCard>
+      <TipCard x={540} y={610} p={pop(f, w(8) - 2, 10)} text="zıplamak">
+        <path d="M-60 40 Q0 -110 60 40" stroke={YAS_OK} strokeWidth={10} fill="none" strokeDasharray="18 12" />
+        <circle cx={0} cy={-40} r={22} fill={YAS_SHIRT} stroke={C.ink} strokeWidth={5} />
+      </TipCard>
+      <TipCard x={890} y={610} p={pop(f, w(9) - 2, 10)} text="tırmanmak">
+        <path d="M-50 60 L-50 -80 M50 60 L50 -80 M-50 30 L50 30 M-50 -10 L50 -10 M-50 -50 L50 -50" stroke={C.ink} strokeWidth={9} />
+      </TipCard>
+      {all > 0 ? (
+        <g transform={`translate(640 900) scale(${all}) rotate(-3)`}>
+          <rect x={-300} y={-70} width={600} height={120} rx={20} fill={YAS_OK} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.cream}>
+            hepsi antrenman ✓
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Sekiz ile on iki: kendi vücut ağırlığıyla çalışır, tekniği öğrenir. Kaslar pek büyümez ama güç artar."
+// Biraz büyümüş avatar; kartlar "kendi ağırlığın" (dambıl üstü çizili) ve "teknik" (lacivert tik); kas hücresi merceği:
+// hücreler büyümez ama tek tek yanar → "güç ↑".
+const YasBant2: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const act = 0.15 + 0.85 * tw(f, w(13), w(15) + 8);
+  const lens = pop(f, w(10) - 2, 12);
+  return (
+    <>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      <AgeRuler active={1} p={1} />
+      <Person x={260} y={PY} s={yasScale(10)} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth="smile" />
+      <TipCard x={620} y={560} p={pop(f, w(4) - 2, 10) * (1 - tw(f, w(10) - 6, w(10)))} text="kendi ağırlığın">
+        <Dumbbell x={0} y={0} s={0.6} />
+        <Cross x={0} y={0} size={70} p={tw(f, w(5), w(6) + 4)} />
+      </TipCard>
+      <TipCard x={900} y={560} p={pop(f, w(8) - 2, 10) * (1 - tw(f, w(10) - 6, w(10)))} text="teknik">
+        <path d="M-60 0 L-15 45 L65 -55" stroke={YAS_OK} strokeWidth={18} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </TipCard>
+      <CellLens x={760} y={720} r={230} p={lens} act={act} grow={0} pulse={f / 4} />
+      {lens > 0 ? <HandText x={760} y={440} text="kas hücreleri" size={76} p={lens} rotate={-3} /> : null}
+      {lens > 0 ? <HandText x={760} y={1020} text={f >= w(13) ? "büyümez · güç ↑" : "boyları aynı"} size={70} p={tw(f, w(11), w(12) + 6)} color={YAS_OK} rotate={-4} /> : null}
+    </>
+  );
+};
+
+// "On üç on beş: ergenlik başlar, kaslar büyümeye başlar. Lastik bant ve hafif ağırlıklar, bilen birinin yanında."
+// Ergen avatar; kas hücreleri büyür; masada lastik bant + küçük dambıl; yanına antrenör gelir.
+const YasBant3: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const grow = tw(f, w(6) - 2, w(8) + 8);
+  const lensOut = tw(f, w(9) - 6, w(9));
+  const gear = pop(f, w(9) - 2, 12);
+  const coach = tw(f, w(14) - 4, w(16) + 4);
+  return (
+    <>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      <AgeRuler active={2} p={1} />
+      <Person x={260} y={PY} s={yasScale(14)} shirt={YAS_SHIRT} belly={0.3} limbW={1 + 0.2 * grow} mouth="smile" />
+      <g opacity={1 - lensOut}>
+        <CellLens x={760} y={700} r={230} p={pop(f, 0, 12)} act={1} grow={grow} pulse={f / 4} />
+        <HandText x={760} y={420} text="ergenlik: hücreler büyür" size={60} p={tw(f, w(4) - 2, w(5) + 6)} color={YAS_OK} rotate={-3} />
+      </g>
+      {gear > 0 ? (
+        <g transform={`translate(760 ${PY}) scale(${gear})`}>
+          <path d="M-220 -220 L220 -220 M-190 -220 L-190 0 M190 -220 L190 0" stroke={C.ink} strokeWidth={12} strokeLinecap="round" />
+          <ellipse cx={-90} cy={-250} rx={80} ry={26} fill="none" stroke="#f28c28" strokeWidth={18} />
+          <Dumbbell x={90} y={-256} s={0.45} />
+          <text x={-90} y={-300} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.ink}>
+            bant
+          </text>
+          <text x={90} y={-320} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.ink}>
+            hafif
+          </text>
+        </g>
+      ) : null}
+      {coach > 0 ? (
+        <Person x={lerp(1250, 560, coach)} y={PY} s={0.9} belly={0.45} shirt="#c98f3c" armL={[lerp(10, 60, coach), lerp(0, -30, coach)]} armR={[12, 0]} mouth="smile" lookY={4}>
+          <circle cx={0} cy={-540} r={14} fill="#c0c0c0" stroke={C.ink} strokeWidth={4} />
+        </Person>
+      ) : null}
+      {coach > 0.8 ? <HandText x={560} y={520} text="bilen biri ✓" size={90} p={tw(coach, 0.8, 1)} color={YAS_OK} rotate={-4} /> : null}
+    </>
+  );
+};
+
+// "On altıdan sonra: ağırlık yavaş yavaş artırılır; yine teknik önce gelir."
+// Genç avatar; yanında dambıllar küçükten büyüğe sırayla belirir (yavaş yavaş), merdiven ok; "teknik önce" lacivert damga.
+const YasBant4: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const steps = tw(f, w(3) - 2, w(6) + 8);
+  const tech = pop(f, w(8) - 2, 12);
+  return (
+    <>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      <AgeRuler active={3} p={1} />
+      <Person x={260} y={PY} s={yasScale(17)} shirt={YAS_SHIRT} belly={0.3} limbW={1.2} mouth="smile" />
+      {[0, 1, 2, 3].map((i) => {
+        const q = tw(steps, i / 4, (i + 1) / 4);
+        return q > 0 ? (
+          <g key={i} transform={`translate(${560 + i * 140} ${PY - 40 - i * 90}) scale(${q})`}>
+            <rect x={-60} y={0} width={120} height={40 + i * 90} fill="#cfae78" stroke={C.ink} strokeWidth={6} />
+            <Dumbbell x={0} y={-30} s={0.3 + i * 0.1} />
+          </g>
+        ) : null;
+      })}
+      {steps > 0.3 ? <Pointer x1={540} y1={PY - 180} x2={1000} y2={PY - 560} p={steps} color={YAS_OK} w={10} /> : null}
+      {steps > 0.3 ? <HandText x={760} y={640} text="yavaş yavaş" size={90} p={steps} color={YAS_OK} rotate={-8} /> : null}
+      {tech > 0 ? (
+        <g transform={`translate(540 430) rotate(-6) scale(${tech})`}>
+          <rect x={-260} y={-70} width={520} height={130} rx={18} fill="none" stroke={YAS_OK} strokeWidth={14} />
+          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90} fill={YAS_OK}>
+            TEKNİK ÖNCE
+          </text>
+        </g>
+      ) : null}
     </>
   );
 };
@@ -8976,6 +9160,10 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   "sauna-tehlike": SaunaTehlike,
   "sauna-dongu": SaunaDongu,
   "yas-hook": YasHook,
+  "yas-bant1": YasBant1,
+  "yas-bant2": YasBant2,
+  "yas-bant3": YasBant3,
+  "yas-bant4": YasBant4,
   "yas-rapor": YasRapor,
   "yas-oyun": YasOyun,
   "yas-hazir": YasHazir,

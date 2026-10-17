@@ -31,43 +31,24 @@
       "say": "Amerikan çocuk doktorları, iki bin yirmide yazdı: belli bir başlama yaşı yok. [serious] Ama bir sıra var."
     },
     {
-      "visual": "yas-oyun",
-      "voice": "Önce oyun: kurbağa zıplaması, ayı yürüyüşü, tek ayakla sekmek.",
-      "say": "Önce oyun: kurbağa zıplaması, ayı yürüyüşü, tek ayakla sekmek.",
-      "hold": 0.8
+      "visual": "yas-bant1",
+      "voice": "Beş ile yedi yaş arası: oyun zamanı. Koşmak, zıplamak, tırmanmak; hepsi antrenman.",
+      "say": "Beş ile yedi yaş arası: oyun zamanı. Koşmak, zıplamak, tırmanmak; [chuckles] hepsi antrenman."
     },
     {
-      "visual": "yas-hazir",
-      "voice": "Söyleneni doğru yapabildiğin gün, kendi ağırlığınla:",
-      "say": "Söyleneni doğru yapabildiğin gün, kendi ağırlığınla:"
+      "visual": "yas-bant2",
+      "voice": "Sekiz ile on iki: kendi vücut ağırlığıyla çalışır, tekniği öğrenir. Kaslar pek büyümez ama güç artar.",
+      "say": "Sekiz ile on iki: kendi vücut ağırlığıyla çalışır, tekniği öğrenir. Kaslar pek büyümez, ama güç artar."
     },
     {
-      "visual": "yas-squat",
-      "voice": "Squat: kalçanı geriye ver, sandalyeye oturur gibi in. Dizlerin ayak uçlarına baksın.",
-      "say": "Squat: kalçanı geriye ver, sandalyeye oturur gibi in. Dizlerin, ayak uçlarına baksın.",
-      "hold": 0.4
+      "visual": "yas-bant3",
+      "voice": "On üç on beş: ergenlik başlar, kaslar büyümeye başlar. Lastik bant ve hafif ağırlıklar, bilen birinin yanında.",
+      "say": "On üç, on beş: ergenlik başlar, kaslar büyümeye başlar. Lastik bant ve hafif ağırlıklar, bilen birinin yanında."
     },
     {
-      "visual": "yas-sinav",
-      "voice": "Şınav: vücudun dümdüz, göğsün yere yaklaşsın. Zorsa dizlerinin üstünde.",
-      "say": "Şınav: vücudun dümdüz, göğsün yere yaklaşsın. Zorsa, dizlerinin üstünde.",
-      "hold": 0.6
-    },
-    {
-      "visual": "yas-plank",
-      "voice": "Plank: dirseklerin omuzlarının altında, kalçan ne düşsün ne kalksın.",
-      "say": "Plank: dirseklerin omuzlarının altında, kalçan ne düşsün, ne kalksın.",
-      "hold": 0.6
-    },
-    {
-      "visual": "yas-dambil",
-      "voice": "Teknik oturunca önce lastik bant, sonra hafif dambıl. Haftada iki üç gün.",
-      "say": "Teknik oturunca, önce lastik bant, sonra hafif dambıl. Haftada iki üç gün."
-    },
-    {
-      "visual": "yas-sinir",
-      "voice": "Ergenlikten önce kasların pek büyümez ama güçlenirsin: beynin kaslarını kullanmayı öğrenir. Kaslar ergenlikte büyür.",
-      "say": "Ergenlikten önce kasların pek büyümez, ama güçlenirsin: [curious] beynin, kaslarını kullanmayı öğrenir. Kaslar ergenlikte büyür."
+      "visual": "yas-bant4",
+      "voice": "On altıdan sonra: ağırlık yavaş yavaş artırılır; yine teknik önce gelir.",
+      "say": "On altıdan sonra: ağırlık yavaş yavaş artırılır; [serious] yine teknik önce gelir."
     },
     {
       "visual": "yas-terazi",

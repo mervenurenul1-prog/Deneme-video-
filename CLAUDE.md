@@ -84,6 +84,14 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   lastik bant = dizlerin üstünde turuncu mini bant, yana adım; sakatlık balonu (kullanıcı: "evde halter saçma"): evde tek
   başına 20 kg dambılı kaldırmaya çalışır, sendeler, dambıl AYAĞINA düşer, ayağını tutup tek ayakla seker, "ah!", kırmızı çarpı.
   Kaza cümlenin ORTASINDA (kullanıcı): "olsun"dan sonra sese 1,6 sn sessizlik eklendi (manifest kelime zamanları kaydırıldı), kaza + "ah!" orada; SESLENDİRİLDİ (956 karakter, kalan ≈ 13.700), müzikle render → `ornek-videolar/cizim1-pilot/07-yas.mp4` (72,1 sn — 45 sınırının çok üstünde; kullanıcıya kısaltma seçenekleri sunuldu: sesi ~%12 hızlandır ≈64 sn veya kas sahnesini çıkar). "ah!" sesi `public/sfx/ah.mp3` (Yunus TTS "[pained] Aah!", ~10 karakter).
+**07 v4 (17 Ekim gece, CEFF geri bildirimi):** "Hareket göstermek olmamış; soru kaç yaşında spora başlanır, nasıl spor
+  yapılır değil; her yaşın sporu ayrı gibi bir anlatım beklerdim." → hareket sahneleri (oyun/hazır/squat/şınav/plank/
+  dambıl/sinir) ÇIKTI; yerine yaş bantları `yas-bant1..4` (5-7 oyun: koşmak/zıplamak/tırmanmak; 8-12 kendi vücut ağırlığı +
+  teknik, hücreler büyümez ama güç ↑; 13-15 ergenlik, hücreler büyür, lastik bant + hafif ağırlık, bilen biri; 16+ ağırlık
+  yavaş yavaş, TEKNİK ÖNCE). Üstte `AgeRuler` (etkin bant kırmızı). Rapordaki basamaklar 4 yaş grubu. Hook/rapor/terazi/
+  güvenlik/bugün sesleri hazır; 4 bant yeni seslendirilecek (~330 karakter). Eski 12 sahnelik JSON yedek: v3 manifest index'e
+  bağlı — seslendirmeden önce manifestteki sahne sırasını yeni sıraya göre düzenle (yeniden seslendirme yapma).
+  Sauna (08) bekliyor. Kullanıcı: "videoları stoklayalım" (günde 3, aralık 12 saat değil) — CEFF'e sordu.
 **08 SAUNA EŞOFMANI (`cizim1-08-sauna`, 17 Ekim gece, DENEME — kullanıcı konudan emin değil, metne bakıp karar verecek):**
   "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. Peki o kilo yağ mıydı? Hayır. Sadece su." → 1997 üç güreşçi bir ay
   içinde hayatını kaybetti, 1998 NCAA ter eşofmanını yasakladı (kullanıcı: "yumuşatma, kalsın") → terle giden su, şişe →
