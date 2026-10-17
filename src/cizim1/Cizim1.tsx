@@ -404,6 +404,9 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "diz6-hook": (w) => [[0, "adim", 0.2], [w(7), "whoosh", 0.25], [w(15) - 2, "pop", 0.3], [w(17), "cizik", 0.3]],
+  "diz6-annesoz": (w) => [[0, "pop", 0.25], [w(1), "cizik", 0.3]],
+  "diz6-son": (w) => [[0, "pop", 0.25], [w(2), "pirilti", 0.35]],
   "diz5-hook": (w) => [[0, "adim", 0.25], [w(6), "cizik", 0.35], [w(7) - 2, "pop", 0.3]],
   "diz5-pist": (w) => [[w(3), "boom", 0.2], [w(3) + 1, "cizik", 0.45], [w(3) + 3, "sonme", 0.25], [w(7), "agir-dusme", 0.2], [w(9) - 2, "pop", 0.3]],
   "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [20, "pop", 0.3], [w(5), "boom", 0.2], [w(5) + 1, "cizik", 0.45], [w(5) + 3, "sonme", 0.25], [w(13), "agir-dusme", 0.2]],
@@ -631,6 +634,9 @@ const ZOOM: Record<string, Zoom> = {
   "diz3-pist": { to: 1.0, x: 540, y: 960 },
   "diz4-pist": { to: 1.0, x: 540, y: 960 },
   "diz5-hook": { to: 1.0, x: 540, y: 960 },
+  "diz6-hook": { to: 1.0, x: 540, y: 960 },
+  "diz6-annesoz": { to: 1.0, x: 540, y: 960 },
+  "diz6-son": { to: 1.0, x: 540, y: 960 },
   "diz5-pist": { to: 1.0, x: 540, y: 960 },
   "diz4-anne": { to: 1.0, x: 540, y: 960 },
   "diz4-annesoz": { to: 1.0, x: 540, y: 960 },
@@ -7425,7 +7431,7 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <SideTrack off={off} />
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} bandage />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} />
       <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 250, v, pop(f, i < 3 ? w(8 + i) : w(13) - 2, 10), i === 3))}</g>
       <g opacity={r2on}>
         {row2.map((v, i) => card(150 + i * 260, 430, v, pop(f, w(16) + i * 5, 10), false))}
@@ -7450,7 +7456,139 @@ const Diz4Soru: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ---------- 06 diz v6: ters köşe kanca — "hangisinin dizi daha yıpranmış?" ----------
+// Bölünmüş ekran: üstte her sabah koşan 70 yaşında amca (pist), altta hiç koşmayan 45 yaşında adam (kanepe).
+// lens: dizler röntgende açılır (0 = kapalı, 1 = "?" ile gizli); reveal: cevap (üst temiz + tik, alt yıpranmış).
+const SplitKnees: React.FC<{ f: number; top: number; bot: number; lens: number; reveal: number }> = ({ f, top, bot, lens, reveal }) => {
+  const id = svgId(useId());
+  const { off, ph } = runIntegral(f, () => 0.8);
+  const pose = runPose(ph, 0.8);
+  const TOPY = 790; // üst panelde gösterilen dünya kaydırması
+  const BOTY = 450;
+  const kTop = { x: 540 + Math.sin(deg(pose.front.a)) * L_T, y: TRACK_Y + pose.hipY + Math.cos(deg(pose.front.a)) * L_T - TOPY };
+  const kBot = { x: SOFA.x + 60, y: sitY - 240 + BOTY };
+  const lensAt = (x: number, y: number, k: { x: number; y: number }, good: boolean) =>
+    lens > 0 ? (
+      <g>
+        <path d={`M${k.x} ${k.y} L${x} ${y}`} stroke={C.ink} strokeWidth={7} strokeDasharray="16 12" opacity={lens} />
+        <circle cx={k.x} cy={k.y} r={42} fill="none" stroke={C.ink} strokeWidth={7} opacity={lens} />
+        <g transform={`translate(${x} ${y}) scale(${lens * 0.55}) translate(${-x} ${-y})`}>
+          <KneeLens x={x} y={y} r={230} press={good ? 0.2 : 0.7 * reveal} wet={good ? 1 : 1 - 0.6 * reveal} crack={good ? 0 : 0.7 * reveal} />
+          {reveal < 1 ? (
+            <g opacity={1 - reveal}>
+              <circle cx={x} cy={y} r={222} fill="#24333f" />
+              <text x={x} y={y + 80} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={260} fill={C.cream}>
+                ?
+              </text>
+            </g>
+          ) : null}
+          {reveal > 0 && good ? (
+            <g transform={`translate(${x + 180} ${y - 180}) scale(${reveal})`}>
+              <circle r={64} fill="#3f7d4f" stroke={C.ink} strokeWidth={6} />
+              <path d="M-28 0 L-6 24 L30 -22" stroke="#fff" strokeWidth={12} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+          ) : null}
+          {reveal > 0 && !good ? <circle cx={x} cy={y} r={120} fill={C.red} opacity={0.3 * reveal} /> : null}
+        </g>
+      </g>
+    ) : null;
+  const badge = (x: number, y: number, t: string) => (
+    <g transform={`translate(${x} ${y}) rotate(-4)`}>
+      <rect x={-130} y={-62} width={260} height={110} rx={16} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+      <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.ink}>
+        {t}
+      </text>
+    </g>
+  );
+  return (
+    <g>
+      <clipPath id={`st${id}`}>
+        <rect x={0} y={0} width={1080} height={955} />
+      </clipPath>
+      <clipPath id={`sb${id}`}>
+        <rect x={0} y={965} width={1080} height={955} />
+      </clipPath>
+      <g clipPath={`url(#st${id})`}>
+        <g transform={`translate(0 ${-TOPY})`}>
+          <SideTrack off={off} />
+          <SideRunner f={f} x={540} y={TRACK_Y} s={1} pose={pose} face="smile" hair={grayHair(1)} />
+        </g>
+        <rect x={0} y={0} width={1080} height={955} fill={C.ink} opacity={0.45 * (1 - top)} />
+      </g>
+      <g clipPath={`url(#sb${id})`}>
+        <rect x={0} y={965} width={1080} height={955} fill="#efe0c4" />
+        <g transform={`translate(0 ${BOTY})`}>
+          <LivingRoom f={f} runner={false} />
+          <SofaBack />
+          <Person x={SOFA.x} y={sitY} s={SITS} belly={0.8} legL={{ lift: 1, spread: 10 }} legR={{ lift: 1, spread: 10 }} armL={[20, -60]} armR={[20, -60]} mouth="flat" eyes="open" />
+          <SofaFront />
+        </g>
+        <rect x={0} y={965} width={1080} height={955} fill={C.ink} opacity={0.45 * (1 - bot)} />
+      </g>
+      <path d="M0 960 L1080 960" stroke={C.ink} strokeWidth={12} />
+      {badge(190, 110, "70 yaş")}
+      {badge(190, 1080, "45 yaş")}
+      {lensAt(840, 330, kTop, true)}
+      {lensAt(250, 1360, kBot, false)}
+    </g>
+  );
+};
+
+// KANCA: "Biri yetmiş yaşında ve her sabah koşuyor. Diğeri kırk beş yaşında, hiç koşmuyor.
+// Sence hangisinin dizi daha yıpranmış?"
+const Diz6Hook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const both = tw(f, w(13) - 2, w(13) + 6);
+  const top = Math.max(1 - tw(f, w(7) - 4, w(7) + 4), both);
+  const bot = Math.max(tw(f, w(7) - 4, w(7) + 4), both);
+  const lens = pop(f, w(15) - 2, 12);
+  const q = pop(f, w(17), 12);
+  return (
+    <>
+      <SplitKnees f={f} top={f < 2 ? 1 : top} bot={f < 2 ? 1 : bot} lens={lens} reveal={0} />
+      {q > 0 ? <HandText x={540} y={960} text="?" size={300} p={q} color={C.red} rotate={8} /> : null}
+    </>
+  );
+};
+
+// Kapanış: "Şimdi tekrar bak: hangisinin dizi daha yıpranmış?" — bölünmüş ekran döner, röntgenler açılır
+const Diz6Son: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const lens = pop(f, 0, 12) * (1 - tw(f, d - 18, d - 8));
+  const reveal = tw(f, w(2), w(4) + 6);
+  return <SplitKnees f={f + 200} top={1} bot={1} lens={lens} reveal={reveal} />;
+};
+
+// Annenin sesi (v6): avatar pistte koşmaya hazırlanırken balonda anne
+const Diz6AnneSoz: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bubble = pop(f, 0, 12);
+  const i1 = pop(f, w(0) - 2, 12);
+  const c1 = tw(f, w(1), w(2) + 4);
+  const own = tw(f, w(3) - 2, w(4) + 6);
+  const zoom = tw(f, w(3) - 2, w(5) + 4);
+  return (
+    <CamK k={[[0, 1, 540, 1000], [w(3) - 2, 1, 540, 1000], [w(5) + 4, 1.3, 600, 560]]}>
+      <SideTrack off={0} />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.1} pose={squatUp} face="worry" />
+      <Bubble x={600} y={430} rx={330} ry={250} p={bubble} tail={[520, 820]}>
+        {own > 0.05 ? (
+          <SideRunner f={f} x={570} y={640} s={0.5} pose={bendPose} reach={1} face="pain" painGlow={own} shirt="#9a7bb0" female />
+        ) : (
+          <Mom f={f} x={600} y={630} s={0.5} wag={1} />
+        )}
+      </Bubble>
+      <g opacity={1 - zoom}>
+        <BanIcon x={170} y={1000} p={i1} cross={c1} f={f} />
+      </g>
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "diz6-hook": Diz6Hook,
+  "diz6-annesoz": Diz6AnneSoz,
+  "diz6-son": Diz6Son,
   "diz5-hook": Diz5Hook,
   "diz5-pist": Diz5Pist,
   "diz4-pist": Diz4Pist,

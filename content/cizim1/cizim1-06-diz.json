@@ -13,17 +13,12 @@
   "padding": 0.05,
   "scenes": [
     {
-      "visual": "diz5-hook",
-      "voice": "Koşarken dizin her adımda biraz daha aşınıyor mu?",
-      "say": "[curious] Koşarken dizin, her adımda biraz daha aşınıyor mu?"
+      "visual": "diz6-hook",
+      "voice": "Biri yetmiş yaşında ve her sabah koşuyor. Diğeri kırk beş yaşında, hiç koşmuyor. Sence hangisinin dizi daha yıpranmış?",
+      "say": "Biri yetmiş yaşında ve her sabah koşuyor. Diğeri kırk beş yaşında, hiç koşmuyor. [curious] Sence hangisinin dizi daha yıpranmış?"
     },
     {
-      "visual": "diz5-pist",
-      "voice": "Bir gün pistte dizine bir sızı giriyor ve kulağında annenin sesi:",
-      "say": "Bir gün pistte, dizine bir sızı giriyor... ve kulağında annenin sesi:"
-    },
-    {
-      "visual": "diz4-annesoz",
+      "visual": "diz6-annesoz",
       "voice": "Koşma, dizlerin aşınır! Benim gibi mi olmak istiyorsun?",
       "say": "Koşma, dizlerin aşınır! [sighs] Benim gibi mi olmak istiyorsun?",
       "voiceId": "qLdPxFtPuffoxx5gieBJ"
@@ -40,13 +35,13 @@
     },
     {
       "visual": "diz4-doz",
-      "voice": "O sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır.",
-      "say": "O sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır."
+      "voice": "Dizdeki sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır.",
+      "say": "Dizdeki sızı çoğu zaman yükü birden artırmaktan gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz artırırsan, dizin yüke alışır."
     },
     {
-      "visual": "diz4-soru",
-      "voice": "Peki sen yarın o piste dönecek misin?",
-      "say": "Peki sen yarın o piste dönecek misin?"
+      "visual": "diz6-son",
+      "voice": "Şimdi tekrar bak: hangisinin dizi daha yıpranmış?",
+      "say": "Şimdi tekrar bak: hangisinin dizi daha yıpranmış?"
     }
   ],
   "caption": "",
