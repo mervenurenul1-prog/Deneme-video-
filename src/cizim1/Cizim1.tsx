@@ -419,7 +419,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "yas-dambil": (w) => [[w(2) - 2, "pop", 0.25], [w(5) - 2, "pop", 0.25], [w(9), "kalem", 0.3]],
   "yas-sinir": (w) => [[w(7) - 2, "yuksel", 0.3], [w(11), "kagit", 0.25]],
   "yas-terazi": (w) => [[w(3), "tak", 0.3], [w(6) - 2, "cizik", 0.3], [w(7) - 2, "whoosh", 0.25], [w(8), "ding", 0.35]],
-  "yas-guvenlik": (w) => [[w(1) - 4, "adim", 0.25], [w(5) - 2, "pop", 0.25], [w(9) + 2, "agir-dusme", 0.3]],
+  "yas-guvenlik": (w, d) => [[w(1) - 4, "adim", 0.25], [w(5) - 2, "pop", 0.25], [d - 30, "agir-dusme", 0.3], [d - 28, "ah", 0.9]],
   "yas-bugun": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 2, "pirilti", 0.35]],
   "diz7-hook": (w) => [[0, "adim", 0.25], [w(2) - 2, "ding", 0.35], [w(5) - 2, "kalem", 0.3]],
   "diz7-anne": (w) => [[w(1) - 2, "pop", 0.3]],
@@ -8410,26 +8410,28 @@ const YasTerazi: React.FC<SceneProps> = ({ w }) => {
 // "Ve yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur."
 // Antrenör yanına gelip duruşunu düzeltir; düşünce balonunda evde tek başına 20 kg dambılı kaldırmaya çalışır, sendeler,
 // dambıl elinden kayıp ayağına düşer (yıldız), ayağını tutup tek ayakla seker, ayağı kızarır → kırmızı çarpı.
-const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
+const YasGuvenlik: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const inn = tw(f, w(1) - 4, w(3) + 4);
   const fix = tw(f, w(3), w(4) + 6);
   const bub = pop(f, w(5) - 2, 14);
-  const wob = Math.sin(f / 2.6) * 16 * tw(f, w(5) + 4, w(7)) * (1 - tw(f, w(9) - 4, w(9)));
-  const drop = tw(f, w(8) - 2, w(9) + 2);
-  const bam = pop(f, w(9) + 2, 10) * (1 - tw(f, w(10) + 6, w(10) + 14));
-  const hurtT = f >= w(9) + 2 ? 1 : 0;
+  const wob = Math.sin(f / 2.6) * 16 * tw(f, w(5) + 4, w(7)) * (1 - tw(f, d - 46, d - 42));
+  // kaza, anlatıcının cümlesi bittikten sonra (sahne sonundaki hold'da): "ah!" sesi konuşmayla çakışmasın
+  const I = d - 30;
+  const drop = tw(f, I - 12, I);
+  const bam = pop(f, I, 10);
+  const hurtT = f >= I ? 1 : 0;
   // balondaki çocuk (balon koordinatlarında)
   const KS = 0.44;
   const kidX = 470;
-  const hopY = hurtT > 0 ? Math.abs(Math.sin((f - w(9)) / 6)) * 40 : 0;
+  const hopY = hurtT > 0 ? Math.abs(Math.sin((f - I) / 6)) * 40 : 0;
   const lift = tw(f, w(5) + 4, w(7));
   const kidArm: Arm = hurtT > 0 ? [60, -70] : [lerp(12, 34, lift) + wob * 0.6, lerp(0, -40, lift)];
   const kh = armPoints(1, kidArm)[2];
   const handW = { x: kidX + kh[0] * KS, y: 740 + kh[1] * KS };
   const footW = { x: kidX + 50 * KS, y: 740 };
   const footR = { x: kidX + legPoints(1, { lift: 0.75, spread: 18 })[2][0] * KS, y: 740 - hopY + legPoints(1, { lift: 0.75, spread: 18 })[2][1] * KS };
-  const hurt = tw(f, w(10), w(10) + 10);
+  const hurt = tw(f, d - 22, d - 12);
   const c = (1 - Math.cos(f / 7)) / 2;
   const s = yasScale(15);
   const X = 380;

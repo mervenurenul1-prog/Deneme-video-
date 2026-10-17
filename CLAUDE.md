@@ -83,6 +83,7 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   sahnesi hücre merceği (`CellLens`: önce aynı boy hücreler sinyalle tek tek yanar = güç, ergenlikte hücreler büyür);
   lastik bant = dizlerin üstünde turuncu mini bant, yana adım; sakatlık balonu (kullanıcı: "evde halter saçma"): evde tek
   başına 20 kg dambılı kaldırmaya çalışır, sendeler, dambıl AYAĞINA düşer, ayağını tutup tek ayakla seker, "ah!", kırmızı çarpı.
+  Kaza anlatıcının cümlesinden SONRA (`hold` 1.1, `d - 30`); "ah!" sesi `public/sfx/ah.mp3` (Yunus TTS "[pained] Aah!", ~10 karakter).
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi
