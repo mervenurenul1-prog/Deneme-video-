@@ -46,11 +46,6 @@
       "say": "On üç, on beş: ergenlik başlar, kaslar büyümeye başlar. Sporunun yanına, bilen birinin eşliğinde hafif ağırlık eklenebilir."
     },
     {
-      "visual": "yas-sporlar",
-      "voice": "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. Üstelik sana bir takım ve arkadaşlar kazandırır.",
-      "say": "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. [warm] Üstelik sana bir takım ve arkadaşlar kazandırır."
-    },
-    {
       "visual": "yas-bant4",
       "voice": "On altıdan sonra: ağırlık yavaş yavaş artırılır; yine teknik önce gelir.",
       "say": "On altıdan sonra: ağırlık yavaş yavaş artırılır; [serious] yine teknik önce gelir."
@@ -62,8 +57,13 @@
     },
     {
       "visual": "yas-guvenlik",
-      "voice": "Ve yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur.",
-      "say": "Ve yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur."
+      "voice": "Bir de önemli bir not: yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur.",
+      "say": "Bir de önemli bir not: [serious] yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur."
+    },
+    {
+      "visual": "yas-sporlar",
+      "voice": "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. Üstelik sana bir takım ve arkadaşlar kazandırır.",
+      "say": "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. [warm] Üstelik sana bir takım ve arkadaşlar kazandırır."
     },
     {
       "visual": "yas-bugun",

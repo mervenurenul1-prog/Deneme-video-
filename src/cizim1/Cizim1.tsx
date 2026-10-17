@@ -433,7 +433,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "yas-dambil": (w) => [[w(2) - 2, "pop", 0.25], [w(5) - 2, "pop", 0.25], [w(9), "kalem", 0.3]],
   "yas-sinir": (w) => [[w(7) - 2, "yuksel", 0.3], [w(11), "kagit", 0.25]],
   "yas-terazi": (w) => [[w(3), "tak", 0.3], [w(6) - 2, "cizik", 0.3], [w(7) - 2, "whoosh", 0.25], [w(8), "ding", 0.35]],
-  "yas-guvenlik": (w) => [[w(1) - 4, "adim", 0.25], [w(5) - 48, "pop", 0.25], [w(5) - 16, "agir-dusme", 0.3], [w(5) - 14, "ah", 0.9]],
+  "yas-guvenlik": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 4, "adim", 0.25], [w(9) - 48, "pop", 0.25], [w(9) - 16, "agir-dusme", 0.3], [w(9) - 14, "ah", 0.9]],
   "yas-bugun": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 2, "pirilti", 0.35]],
   "diz7-hook": (w) => [[0, "adim", 0.25], [w(2) - 2, "ding", 0.35], [w(5) - 2, "kalem", 0.3]],
   "diz7-anne": (w) => [[w(1) - 2, "pop", 0.3]],
@@ -8426,16 +8426,17 @@ const YasTerazi: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// "Ve yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur."
+// "Bir de önemli bir not: yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur."
 // Antrenör yanına gelip duruşunu düzeltir; düşünce balonunda evde tek başına 20 kg dambılı kaldırmaya çalışır, sendeler,
 // dambıl elinden kayıp ayağına düşer (yıldız), ayağını tutup tek ayakla seker, ayağı kızarır → kırmızı çarpı.
 const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
+  const note = pop(f, w(2) - 2, 12) * (1 - tw(f, w(5) - 4, w(5) + 4));
   // kaza cümlenin ortasında: "olsun"dan sonraki ~1,6 sn sessizlikte balon açılır, dambıl ayağa düşer, "ah!"; sonra cümle sürer
-  const B = w(5) - 48;
+  const B = w(9) - 48;
   const I = B + 32;
-  const inn = tw(f, w(1) - 4, w(3) + 4);
-  const fix = tw(f, w(3), w(4) + 6);
+  const inn = tw(f, w(5) - 4, w(7) + 4);
+  const fix = tw(f, w(7), w(8) + 6);
   const bub = pop(f, B, 12);
   const wob = Math.sin(f / 2.6) * 16 * tw(f, B + 4, B + 14) * (1 - tw(f, I - 12, I - 8));
   const drop = tw(f, I - 10, I);
@@ -8451,7 +8452,7 @@ const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
   const handW = { x: kidX + kh[0] * KS, y: 740 + kh[1] * KS };
   const footW = { x: kidX + 50 * KS, y: 740 };
   const footR = { x: kidX + legPoints(1, { lift: 0.75, spread: 18 })[2][0] * KS, y: 740 - hopY + legPoints(1, { lift: 0.75, spread: 18 })[2][1] * KS };
-  const hurt = tw(f, w(10) - 2, w(10) + 8);
+  const hurt = tw(f, w(14) - 2, w(14) + 8);
   const c = (1 - Math.cos(f / 7)) / 2;
   const s = yasScale(15);
   const X = 380;
@@ -8461,6 +8462,14 @@ const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
       <rect x={-200} y={-200} width={1480} height={PY + 260} fill="#efe1c2" />
       <rect x={-200} y={PY + 60} width={1480} height={700} fill="#c9a06c" />
       <path d={`M-200 ${PY + 60} L1280 ${PY + 60}`} stroke={C.ink} strokeWidth={7} />
+      {note > 0 ? (
+        <g transform={`translate(540 420) rotate(-4) scale(${note})`}>
+          <rect x={-280} y={-80} width={560} height={140} rx={20} fill={C.red} stroke={C.ink} strokeWidth={9} />
+          <text x={0} y={28} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={96} fill={C.cream}>
+            ÖNEMLİ NOT
+          </text>
+        </g>
+      ) : null}
       <Person x={X} y={PY + 60} s={s} shirt={YAS_SHIRT} belly={0.3} armR={curlArm(c)} armL={[12, 0]} tilt={lerp(-8, 0, fix)} mouth={fix > 0.5 ? "grin" : "flat"}>
         <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${-20 + 60 * c})`}>
           <Dumbbell x={0} y={0} s={0.42} rot={90} />
@@ -8470,7 +8479,7 @@ const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
         <path d="M-40 -600 Q0 -540 40 -600" stroke={C.ink} strokeWidth={5} fill="none" />
         <circle cx={0} cy={-540} r={14} fill="#c0c0c0" stroke={C.ink} strokeWidth={4} />
       </Person>
-      {fix > 0.6 ? <HandText x={560} y={420} text="✓ böyle" size={100} p={tw(f, w(3) - 2, w(3) + 8) * (1 - bub)} color={YAS_OK} rotate={-5} /> : null}
+      {fix > 0.6 ? <HandText x={560} y={420} text="✓ böyle" size={100} p={tw(f, w(7) - 2, w(7) + 8) * (1 - bub)} color={YAS_OK} rotate={-5} /> : null}
       {bub > 0 ? (
         <Bubble x={540} y={520} rx={430} ry={300} p={bub} tail={[400, 880]}>
           {/* ev: pencere, kanepe, lamba */}

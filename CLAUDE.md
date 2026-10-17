@@ -95,7 +95,9 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   (13-15: "…Sporunun yanına, bilen birinin eşliğinde hafif ağırlık eklenebilir.") ve 13-15'ten SONRA tek GENEL sahne
   `yas-sporlar`: "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. Üstelik
   sana bir takım ve arkadaşlar kazandırır." (5/25/50 yaş yalnız görselde). **DERS: kullanıcının örneklerini birebir metne
-  koyma, kendi cümlenle doğal yaz.** İSTİSNA: ekip kuralı "spor
+  koyma, kendi cümlenle doğal yaz.** **Sıra (kullanıcı):** bantlar → terazi → güvenlik ("Bir de önemli bir not: yanında bilen
+  biri olsun; sakatlıkların çoğu evde, tek başına olur." + "ÖNEMLİ NOT" etiketi; YENİDEN seslendirilecek, sonra "olsun"dan sonra
+  1,6 sn boşluk tekrar eklenecek) → `yas-sporlar` → bugün. İSTİSNA: ekip kuralı "spor
   dalları yok" bu videoda kullanıcı isteğiyle esnetildi. AAP 2016 (Pediatrics 138(3):e20162148) erken tek spora
   uzmanlaşmayı geciktir — doğrulandı. `SportIcon`/`SportCard`/`Heart`.
   Sauna (08) bekliyor. Kullanıcı: "videoları stoklayalım" (günde 3, aralık 12 saat değil) — CEFF'e sordu.
