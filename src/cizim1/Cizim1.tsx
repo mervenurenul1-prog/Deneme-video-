@@ -409,6 +409,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kosu-sunger": (w) => [[w(3), "cizik", 0.3], [w(7), "damla", 0.3], [w(10), "sihir", 0.3], [w(13), "adim", 0.3], [w(18), "sonme", 0.35]],
   "kosu-doz": (w) => [[w(1), "adim", 0.3], [w(6), "ding", 0.3], [w(9), "whoosh", 0.3], [w(13), "pirilti", 0.4]],
   "kosu-kapanis": (w) => [[w(8), "pop", 0.3]],
+  "boyun5-sen": (w) => [[w(10) - 2, "pop", 0.3], [w(12), "pirilti", 0.25], [w(19) - 2, "kagit", 0.45]],
+  "boyun5-gonder": (w) => [[w(2), "kacing", 0.3], [w(11), "havalanma", 0.3], [w(13), "pop", 0.35]],
   "boyun4-alarm": (w) => [[0, "alarm", 0.35], [w(4) - 2, "boom", 0.25], [w(8) - 3, "cizik", 0.7], [w(9), "whoosh", 0.25], [w(16) - 2, "pop", 0.3], [w(18) - 2, "kagit", 0.5]],
   "boyun4-viral": (w) => [[2, "kalem", 0.3], [w(12) - 2, "boom", 0.18], [w(12), "pop", 0.4], [w(17), "kalem", 0.35], [w(21), "pop", 0.3], [w(22), "pirilti", 0.3]],
   "boyun4-isim": (w) => [[2, "kalem", 0.3], [w(6) - 2, "pirilti", 0.3], [w(12) - 2, "boom", 0.18], [w(12), "pop", 0.4]],
@@ -597,6 +599,8 @@ const ZOOM: Record<string, Zoom> = {
   "boyun2-kapanis": { to: 1.0, x: 540, y: 960 },
   "boyun3-sen": { to: 1.0, x: 540, y: 960 },
   "boyun4-alarm": { to: 1.0, x: 540, y: 960 },
+  "boyun5-sen": { to: 1.0, x: 540, y: 960 },
+  "boyun5-gonder": { to: 1.0, x: 540, y: 960 },
   "kosu-hook": { to: 1.0, x: 540, y: 960 },
   "diz-hook": { to: 1.0, x: 540, y: 960 },
   "diz-kosu": { to: 1.03, x: 540, y: 900 },
@@ -6282,7 +6286,110 @@ const Diz6Kapanis: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- 05 boyun, Giriş B: sakin, izleyiciye hitap ---------- */
+
+const B5A = { x: 540, y: PY, s: 0.95 }; // açılış ve kapanış karesi: avatar telefona bakar
+
+// "Şu an bu videoyu başın öne eğik izliyorsun, değil mi? Bunun için dünyaya yayılmış bir hesap var. Ama hikâyenin yarısı eksik."
+const Boyun5Sen: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const id = svgId(useId());
+  const A = B5A;
+  const up = tw(f, w(0) - 2, w(1) + 4) * (1 - tw(f, w(4), w(6)));
+  const wink = f >= w(8) && f < w(9) + 4;
+  const disp = pop(f, w(10) - 2, 12);
+  const tear = tw(f, w(19) - 2, w(19) + 12);
+  const D = { x: A.x, y: A.y - 900 * A.s };
+  const face = { x: A.x, y: A.y - 700 * A.s };
+  const ring = [
+    [170, 560],
+    [910, 560],
+    [120, 900],
+    [960, 900],
+    [190, 1240],
+    [890, 1240],
+  ];
+  const half = (side: number) => (
+    <g key={side}>
+      <clipPath id={`hf${id}${side}`}>
+        <rect x={side < 0 ? D.x - 260 : D.x} y={D.y - 160} width={260} height={320} />
+      </clipPath>
+      <g transform={side > 0 ? `translate(${60 * tear} ${260 * tear * tear}) rotate(${28 * tear} ${D.x} ${D.y})` : ""} opacity={side > 0 ? 1 - 0.6 * tear : 1}>
+        <g clipPath={`url(#hf${id}${side})`}>
+          <KgDisplay x={D.x} y={D.y} p={disp} value="?? kg" />
+        </g>
+      </g>
+    </g>
+  );
+  return (
+    <CamK k={[[0, 1, 540, 960], [w(1) + 4, 1.15, face.x, face.y], [w(6), 1.15, face.x, face.y], [w(9) + 4, 1, 540, 960]]}>
+      <Gym />
+      <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={[12, 0]} armR={PHONE_ARM} mouth={up > 0.5 ? "grin" : "smile"} eyes={wink ? "closed" : "open"} lookY={12 * (1 - up)}>
+        <PhoneInHand arm={PHONE_ARM} />
+      </Person>
+      {disp > 0 ? (tear > 0 ? [-1, 1].map(half) : <KgDisplay x={D.x} y={D.y} p={disp} value="?? kg" />) : null}
+      {/* hesap dünyaya yayılır: etrafta "27!" yazan telefonlar belirir */}
+      {ring.map(([x, y], i) => {
+        const on = pop(f, w(12) + i * 3, 10) * (1 - tw(f, w(17), w(18) + 4));
+        return on > 0 ? (
+          <g key={i} transform={`translate(${x} ${y}) scale(${on}) rotate(${i % 2 ? 8 : -8})`}>
+            <rect x={-46} y={-80} width={92} height={160} rx={14} fill="#2f2f36" stroke={C.ink} strokeWidth={5} />
+            <rect x={-36} y={-66} width={72} height={132} rx={6} fill="#d1271b" />
+            <text x={0} y={16} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={44} fill="#ffcf3f">
+              27!
+            </text>
+          </g>
+        ) : null;
+      })}
+    </CamK>
+  );
+};
+
+// "Yani boynunu suçlama, hareket ettir. Ve biri sana o yirmi yedi kiloyu anlatırsa, bu videoyu gönder."
+// Kâğıt uçakla gönderir; arkadaş telefonuna bakıp çıkar; avatar ortaya gelip yine telefonuna bakar = açılış karesi.
+const Boyun5Gonder: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const back = tw(f, w(14), d - 12);
+  const A = { x: interpolate(back, [0, 1], [300, B5A.x]), y: PY, s: interpolate(back, [0, 1], [0.9, B5A.s]) };
+  const move = tw(f, w(2), w(4) + 6) * (1 - tw(f, w(5) - 2, w(5) + 6));
+  const roll = Math.sin(f / 5) * 12 * move;
+  const armUp: Arm = [interpolate(move, [0, 1], [12, 165]), interpolate(move, [0, 1], [0, -10])];
+  const send = tw(f, w(11), w(13));
+  const armR: Arm = move > 0.05 ? armUp : PHONE_ARM;
+  const friendIn = tw(f, w(5) - 4, w(7) + 4);
+  const friendOut = tw(f, w(14), d - 14);
+  const fw = walk(f, (friendIn > 0 && friendIn < 1) || (friendOut > 0 && friendOut < 1) ? 1 : 0, 4.5);
+  const F = { x: interpolate(friendIn, [0, 1], [1250, 800]) + 500 * friendOut, y: PY - fw.bob, s: 0.9 };
+  const FP = { x: F.x - 200, y: F.y - 430 };
+  const ah = armPoints(1, PHONE_ARM)[2];
+  const AP = { x: A.x + ah[0] * A.s, y: A.y + ah[1] * A.s - 40 };
+  const plane = { x: interpolate(send, [0, 1], [AP.x, FP.x]), y: interpolate(send, [0, 1], [AP.y, FP.y]) - Math.sin(send * Math.PI) * 260 };
+  const lit = pop(f, w(13), 10);
+  return (
+    <>
+      <Gym />
+      <Person x={A.x} y={A.y} s={A.s} belly={0.4} armL={move > 0.05 ? armUp : [12, 0]} armR={armR} mouth={move > 0.5 ? "grin" : "smile"} eyes={move > 0.5 ? "closed" : "open"} lookY={move > 0.05 ? -6 : 6 + 6 * back} tilt={roll}>
+        {move <= 0.05 ? <PhoneInHand arm={PHONE_ARM} /> : null}
+      </Person>
+      <Person x={F.x} y={F.y} s={F.s} belly={0.25} shirt="#c9566b" legL={fw.legL} legR={fw.legR} armL={friendIn < 1 || friendOut > 0 ? fw.armL : [45, -70]} armR={[12, 0]} mouth={lit > 0.5 ? "o" : "flat"} lookY={10} />
+      {friendOut < 0.3 ? (
+        <BigPhone cx={FP.x} cy={FP.y}>
+          <rect x={0} y={0} width={1080} height={1920} fill={lit > 0 ? "#cfe6f2" : "#26332b"} />
+          {lit > 0 ? <path d="M300 900 L800 960 L300 1040 L380 960 Z" fill={C.cream} stroke={C.ink} strokeWidth={30} strokeLinejoin="round" /> : null}
+        </BigPhone>
+      ) : null}
+      {send > 0 && send < 1 ? (
+        <g transform={`translate(${plane.x} ${plane.y}) rotate(${-20 + 40 * send})`}>
+          <path d="M-40 -10 L40 0 L-40 14 L-24 0 Z" fill={C.cream} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "boyun5-sen": Boyun5Sen,
+  "boyun5-gonder": Boyun5Gonder,
   "diz-hook": Diz1Hook,
   "diz-kosu": Diz2Kosu,
   "diz-sunger": Diz3Sunger,

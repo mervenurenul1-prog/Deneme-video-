@@ -1,0 +1,55 @@
+{
+  "id": "cizim1-05-boyun-b",
+  "title": "27 kilo korkusu",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "scenes": [
+    {
+      "visual": "boyun5-sen",
+      "voice": "Şu an bu videoyu başın öne eğik izliyorsun, değil mi? Bunun için dünyaya yayılmış bir hesap var. Ama hikâyenin yarısı eksik.",
+      "say": "Şu an bu videoyu, başın öne eğik izliyorsun, değil mi? [curious] Bunun için dünyaya yayılmış bir hesap var. Ama hikâyenin yarısı eksik."
+    },
+    {
+      "visual": "boyun4-isim",
+      "voice": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck.",
+      "say": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck."
+    },
+    {
+      "visual": "boyun4-hesap",
+      "voice": "Sonra bir cerrah hesapladı: başın beş kilo, ama öne eğildikçe ensen onu düşürmemek için daha çok çeker. Telefona bakarken bu yük yirmi yedi kiloyu bulur. Haber dünyayı dolaştı.",
+      "say": "Sonra bir cerrah hesapladı: başın beş kilo, ama öne eğildikçe, ensen onu düşürmemek için daha çok çeker. Telefona bakarken bu yük, yirmi yedi kiloyu bulur. Haber dünyayı dolaştı."
+    },
+    {
+      "visual": "boyun4-arastirma",
+      "voice": "Ama araştırmacılar gerçek insanlara baktı. Başı eğik olanlarla dik duranlar arasında, boyun ağrısında net bir fark bulamadılar.",
+      "say": "Ama araştırmacılar gerçek insanlara baktı. Başı eğik olanlarla dik duranlar arasında, boyun ağrısında, net bir fark bulamadılar."
+    },
+    {
+      "visual": "boyun4-heykel",
+      "voice": "Çünkü asıl yorgunluk duruştan değil, kıpırdamamaktan. Saatlerce donup kalan boyun, dik de dursa yorulur.",
+      "say": "Çünkü asıl yorgunluk duruştan değil, kıpırdamamaktan. Saatlerce donup kalan boyun, dik de dursa yorulur."
+    },
+    {
+      "visual": "boyun5-gonder",
+      "voice": "Yani boynunu suçlama, hareket ettir. Ve biri sana o yirmi yedi kiloyu anlatırsa, bu videoyu gönder.",
+      "say": "Yani boynunu suçlama, hareket ettir. Ve biri sana o yirmi yedi kiloyu anlatırsa, bu videoyu gönder."
+    }
+  ],
+  "caption": "Telefona bakarken boynun kaç kilo taşıyor? 📱\n\nBaşın yaklaşık 5 kilo. Ama öne eğildikçe yer çekimi kaldıraç gibi çalışır: 15 derecede boyna binen yük yaklaşık 12 kiloya, 60 derecede yaklaşık 27 kiloya çıkar (Hansraj, Surgical Technology International, 2014; bilgisayar modeli tahmini).\n\nİlginç olan şu: Araştırmalar bu duruşun tek başına boyun ağrısına yol açtığını net olarak göstermedi. Asıl yorucu olan, saatlerce aynı pozisyonda kalmak.\n\nTelefonu biraz yukarı kaldır, ara ara başını çevir, boynunu esnet.\n\n📌 Kaydet, gün boyu telefona gömülü arkadaşına gönder.",
+  "hashtags": [
+    "fitness",
+    "sağlıklıyaşam",
+    "duruş",
+    "boyunağrısı",
+    "bunubiliyormuydun",
+    "voom"
+  ],
+  "padding": 0.15
+}
