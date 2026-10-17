@@ -15,8 +15,8 @@
     {
       "visual": "diz4-pist",
       "lead": 1,
-      "voice": "Üçüncü tur… ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
-      "say": "Üçüncü tur... ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+      "voice": "Son tur… hadi! Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
+      "say": "[out of breath] Hah... hah... Son tur... hah... hadi! [serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
     },
     {
       "visual": "diz4-anne",

@@ -4,7 +4,7 @@ import type { WordTiming } from "../src/types";
 // Seslendirmeyi Instagram temposuna uydurur ve altyazıyı metinle eşler.
 
 // Dolgu sesleri ("ıı", "hmm"...) konuşmada kalır ama altyazıya girmez
-export const FILLERS = new Set(["ı", "ıı", "ııı", "ıııı", "e", "ee", "eee", "eeee", "hmm", "hımm", "hım", "hmmm", "mm", "hani", "şey", "yani"]);
+export const FILLERS = new Set(["ı", "ıı", "ııı", "ıııı", "e", "ee", "eee", "eeee", "hmm", "hımm", "hım", "hmmm", "mm", "hani", "şey", "yani", "hah", "hıh", "hhh"]);
 
 const norm = (w: string) =>
   w

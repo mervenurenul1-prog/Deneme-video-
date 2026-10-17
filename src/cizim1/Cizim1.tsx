@@ -404,7 +404,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
-  "diz4-pist": (w) => [[0, "adim", 0.25], [2, "pop", 0.2], [w(0) - 2, "pop", 0.25], [w(3), "boom", 0.2], [w(3) + 1, "cizik", 0.45], [w(3) + 3, "sonme", 0.25], [w(11), "agir-dusme", 0.2]],
+  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [20, "pop", 0.3], [w(4), "boom", 0.2], [w(4) + 1, "cizik", 0.45], [w(4) + 3, "sonme", 0.25], [w(12), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
   "diz4-doz": (w) => [[w(8), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(16), "pop", 0.25], [w(20), "pirilti", 0.35]],
@@ -6943,7 +6943,7 @@ const mixPose = (p: SidePose, q: SidePose, t: number): SidePose => ({
 });
 
 // face: "smile" | "pain" | "worry" | "grin"; reach: 0..1 eller ön dize gider (eğilme/oturma)
-const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; reach?: number; face?: "smile" | "pain" | "worry" | "grin"; painGlow?: number; f: number; look?: number; bandage?: boolean; shirt?: string; female?: boolean; hair?: string }> = ({
+const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; reach?: number; face?: "smile" | "pain" | "worry" | "grin"; painGlow?: number; f: number; look?: number; bandage?: boolean; shirt?: string; female?: boolean; hair?: string; sweat?: boolean }> = ({
   x,
   y,
   s,
@@ -6957,6 +6957,7 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
   shirt = C.shirt,
   female = false,
   hair = C.hair,
+  sweat = false,
 }) => {
   const H: P2 = { x: 0, y: pose.hipY };
   const legPts = (lp: LegPose) => {
@@ -7064,7 +7065,7 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
       {bandage ? <KneeBandage x={fl.K.x} y={fl.K.y} a={(Math.atan2(fl.A.y - fl.K.y, fl.A.x - fl.K.x) * 180) / Math.PI} w={40} /> : null}
       {arm(eF, hF, 1)}
       {/* ter damlaları: ağrıda */}
-      {pain ? [0, 1].map((i) => <Drop key={i} x={Hd.x - 40 - i * 30} y={Hd.y - 50 + ((f * 3 + i * 40) % 80)} s={0.7} o={0.8} />) : null}
+      {pain || sweat ? [0, 1].map((i) => <Drop key={i} x={Hd.x - 40 - i * 30} y={Hd.y - 50 + ((f * 3 + i * 40) % 80)} s={0.7} o={0.8} />) : null}
     </g>
   );
 };
@@ -7111,18 +7112,18 @@ const runIntegral = (f: number, speedAt: (i: number) => number) => {
   return { off, ph };
 };
 
-// "Üçüncü tur… ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
-// Sessiz açılışta (lead) normal koşu, "Üçüncü tur"da etiket, "birden"de ani ağrı → eğilip dizini tutar → yere oturur.
+// (nefes nefese) "Son tur… hadi!" — "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+// Sessiz açılışta (lead) zorlanarak koşu + "SON TUR" etiketi, "birden"de ani ağrı → eğilip dizini tutar → yere oturur.
 const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const hitAt = w(3);
+  const hitAt = w(4);
   const speedAt = (i: number) =>
-    i < hitAt - 12 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(7)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    i < hitAt - 12 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(8)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const { off, ph } = runIntegral(f, speedAt);
   const amp = Math.min(1, speedAt(f));
-  const limp = f >= hitAt && f < w(8) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
-  const bend = tw(f, w(8) - 4, w(9) + 4);
-  const sit = tw(f, w(11) - 4, w(12) + 8);
+  const limp = f >= hitAt && f < w(9) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
+  const bend = tw(f, w(9) - 4, w(10) + 4);
+  const sit = tw(f, w(12) - 4, w(13) + 8);
   const pose = mixPose(mixPose(runPose(ph, amp), bendPose, bend), sitPose, sit);
   pose.lean += limp * 12;
   const pain = f >= hitAt;
@@ -7130,22 +7131,31 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const xr = pop(f, hitAt, 8) * (1 - tw(f, hitAt + 30, hitAt + 38));
   const knee = { x: 420 + Math.sin(deg(pose.front.a)) * L_T * 1.45, y: TRACK_Y + (pose.hipY + Math.cos(deg(pose.front.a)) * L_T) * 1.45 };
   const glow = tw(f, hitAt, hitAt + 6);
-  // önce "2. TUR", ses "Üçüncü tur" derken "3. TUR"
-  const lapN = f < w(0) - 2 ? 2 : 3;
-  const lapP = pop(f, lapN === 2 ? 2 : w(0) - 2, 10) * (1 - tw(f, w(3) + 4, w(4) + 4));
+  // 2. tur biter: koşucu bitiş çizgisini geçer, üstteki tabela "2. TUR"dan kırmızı "3. TUR"a döner
+  const crossF = 20;
+  const lineX = 420 + 17 * (crossF - f);
+  const lapN = f < crossF ? 2 : 3;
+  const lapP = (lapN === 2 ? 1 : pop(f, crossF, 10)) * (1 - tw(f, w(4) + 4, w(5) + 4));
   return (
     <CamK
       k={[
         [0, 1, 540, 1200],
         [hitAt, 1, 540, 1200],
         [hitAt + 10, 1.12, 520, 1300],
-        [w(10), 1.12, 520, 1300],
-        [w(12) + 10, 1.22, 520, 1420],
+        [w(11), 1.12, 520, 1300],
+        [w(13) + 10, 1.22, 520, 1420],
       ]}
       shake={hit(f, Math.round(hitAt), 10) * 0.6}
     >
       <SideTrack off={off} />
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={Math.max(bend, sit)} face={pain ? "pain" : "smile"} painGlow={glow} />
+      {lineX > -60 && lineX < 1140 ? (
+        <g>
+          {Array.from({ length: 19 }, (_, r) =>
+            [0, 1].map((c) => <rect key={`${r}${c}`} x={lineX - 20 + c * 20} y={1470 + r * 20} width={20} height={20} fill={(r + c) % 2 ? C.ink : C.cream} />),
+          )}
+        </g>
+      ) : null}
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={Math.max(bend, sit)} face={pain ? "pain" : "worry"} painGlow={glow} sweat />
       {xr > 0 ? (
         <g>
           <rect x={-200} y={-200} width={1480} height={2400} fill={C.ink} opacity={0.4 * xr} />
