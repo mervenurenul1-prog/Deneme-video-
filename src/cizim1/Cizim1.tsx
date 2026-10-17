@@ -419,7 +419,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "yas-dambil": (w) => [[w(2) - 2, "pop", 0.25], [w(5) - 2, "pop", 0.25], [w(9), "kalem", 0.3]],
   "yas-sinir": (w) => [[w(7) - 2, "yuksel", 0.3], [w(11), "kagit", 0.25]],
   "yas-terazi": (w) => [[w(3), "tak", 0.3], [w(6) - 2, "cizik", 0.3], [w(7) - 2, "whoosh", 0.25], [w(8), "ding", 0.35]],
-  "yas-guvenlik": (w) => [[w(1) - 4, "adim", 0.25], [w(5) - 2, "pop", 0.25], [w(9) - 2, "agir-dusme", 0.2]],
+  "yas-guvenlik": (w) => [[w(1) - 4, "adim", 0.25], [w(5) - 2, "pop", 0.25], [w(9) + 2, "agir-dusme", 0.3]],
   "yas-bugun": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 2, "pirilti", 0.35]],
   "diz7-hook": (w) => [[0, "adim", 0.25], [w(2) - 2, "ding", 0.35], [w(5) - 2, "kalem", 0.3]],
   "diz7-anne": (w) => [[w(1) - 2, "pop", 0.3]],
@@ -7741,6 +7741,8 @@ const Diz7AnneSoz: React.FC<SceneProps> = ({ w }) => {
 const YAS_FLOOR = 1300;
 // Bu videoda avatarın tişörtü kırmızı (kullanıcı isteği)
 const YAS_SHIRT = "#c94a3d";
+// Doğru/yardımcı işaretler lacivert (yeşil zeminde seçilsin), yanlışlar kırmızı
+const YAS_OK = "#1f4e8c";
 // Yaşa göre avatar ölçeği (ön görünüş Person): 5 yaş küçük, 18 yaş tam boy
 const yasScale = (age: number) => 0.5 + ((Math.max(5, Math.min(18, age)) - 5) / 13) * 0.45;
 
@@ -7958,7 +7960,7 @@ const YasHazir: React.FC<SceneProps> = ({ w }) => {
           </text>
         </Bubble>
       ) : null}
-      {ok > 0 ? <HandText x={830} y={640} text="✓ doğru" size={100} p={ok} color="#3f7d4f" rotate={-6} /> : null}
+      {ok > 0 ? <HandText x={830} y={640} text="✓ doğru" size={100} p={ok} color={YAS_OK} rotate={-6} /> : null}
       {own > 0 ? (
         <g>
           <circle cx={560} cy={YAS_FLOOR - 330} r={330} fill={C.yellow} opacity={0.18 * own} />
@@ -7993,22 +7995,22 @@ const YasSquat: React.FC<SceneProps> = ({ w, d }) => {
     <>
       <Forest mat />
       {chair > 0 ? (
-        <g opacity={chair} stroke="#3f7d4f" strokeWidth={8} strokeDasharray="22 14" fill="none" strokeLinecap="round">
+        <g opacity={chair} stroke={YAS_OK} strokeWidth={8} strokeDasharray="22 14" fill="none" strokeLinecap="round">
           <path d={`M${X - 300} ${seatY} L${X - 70} ${seatY} M${X - 280} ${seatY} L${X - 280} ${YAS_FLOOR} M${X - 90} ${seatY} L${X - 90} ${YAS_FLOOR} M${X - 290} ${seatY} L${X - 310} ${seatY - 300}`} />
         </g>
       ) : null}
       <SideAt f={f} X={X} floor={YAS_FLOOR} s={s} pose={pose} face="smile" />
       {hipArrow > 0 ? (
         <g opacity={hipArrow}>
-          <Pointer x1={pt0.H.x + 30} y1={pt0.H.y} x2={pt0.H.x - 200} y2={pt0.H.y + 20} p={hipArrow} color="#3f7d4f" />
-          <HandText x={pt0.H.x - 120} y={pt0.H.y - 70} text="kalça geri" size={70} p={hipArrow} color="#3f7d4f" rotate={-4} />
+          <Pointer x1={pt0.H.x + 30} y1={pt0.H.y} x2={pt0.H.x - 200} y2={pt0.H.y + 20} p={hipArrow} color={YAS_OK} />
+          <HandText x={pt0.H.x - 120} y={pt0.H.y - 70} text="kalça geri" size={70} p={hipArrow} color={YAS_OK} rotate={-4} />
         </g>
       ) : null}
       {knee > 0 ? (
         <g opacity={knee}>
-          <path d={`M${pt0.K.x} ${pt0.K.y} L${pt0.T.x + 20} ${pt0.T.y}`} stroke="#3f7d4f" strokeWidth={8} strokeDasharray="18 12" />
-          <circle cx={pt0.K.x} cy={pt0.K.y} r={34} fill="none" stroke="#3f7d4f" strokeWidth={7} />
-          <HandText x={860} y={760} text="diz → ayak ucu" size={68} p={knee} color="#3f7d4f" rotate={-4} />
+          <path d={`M${pt0.K.x} ${pt0.K.y} L${pt0.T.x + 20} ${pt0.T.y}`} stroke={YAS_OK} strokeWidth={8} strokeDasharray="18 12" />
+          <circle cx={pt0.K.x} cy={pt0.K.y} r={34} fill="none" stroke={YAS_OK} strokeWidth={7} />
+          <HandText x={860} y={760} text="diz → ayak ucu" size={68} p={knee} color={YAS_OK} rotate={-4} />
         </g>
       ) : null}
       <HandText x={540} y={300} text="squat" size={140} p={pop(f, 0, 10)} color={C.red} rotate={-3} />
@@ -8040,14 +8042,14 @@ const YasSinav: React.FC<SceneProps> = ({ w, d }) => {
       <SideAt f={f} X={X} floor={YAS_FLOOR} s={s} pose={pose} face={t > 0.6 ? "worry" : "smile"} />
       {ruler > 0 ? (
         <g opacity={ruler}>
-          <path d={`M${from.x - 20} ${from.y - 50} L${pts.S.x + 30} ${pts.S.y - 60}`} stroke="#3f7d4f" strokeWidth={10} strokeDasharray="26 12" strokeLinecap="round" />
-          <HandText x={540} y={760} text="dümdüz" size={90} p={ruler} color="#3f7d4f" rotate={-4} />
+          <path d={`M${from.x - 20} ${from.y - 50} L${pts.S.x + 30} ${pts.S.y - 60}`} stroke={YAS_OK} strokeWidth={10} strokeDasharray="26 12" strokeLinecap="round" />
+          <HandText x={540} y={760} text="dümdüz" size={90} p={ruler} color={YAS_OK} rotate={-4} />
         </g>
       ) : null}
       {chest > 0 ? (
         <g opacity={chest}>
-          <Pointer x1={pts.S.x + 40} y1={pts.S.y - 170} x2={pts.S.x + 40} y2={YAS_FLOOR - 70} p={chest} color="#3f7d4f" />
-          <HandText x={pts.S.x + 150} y={760} text="göğüs yere" size={70} p={chest} color="#3f7d4f" rotate={-4} />
+          <Pointer x1={pts.S.x + 40} y1={pts.S.y - 170} x2={pts.S.x + 40} y2={YAS_FLOOR - 70} p={chest} color={YAS_OK} />
+          <HandText x={pts.S.x + 150} y={760} text="göğüs yere" size={70} p={chest} color={YAS_OK} rotate={-4} />
         </g>
       ) : null}
       <HandText x={540} y={300} text={knees ? "diz üstü şınav" : "şınav"} size={knees ? 110 : 140} p={pop(f, start, 10)} color={C.red} rotate={-3} />
@@ -8076,16 +8078,16 @@ const YasPlank: React.FC<SceneProps> = ({ w, d }) => {
       <SideAt f={f} X={X} floor={YAS_FLOOR} s={s} pose={pose} face={sag > 0.5 || pike > 0.5 ? "worry" : "smile"} />
       {elbow > 0 ? (
         <g opacity={elbow}>
-          <path d={`M${elbowX} ${pts.S.y - 40} L${elbowX} ${YAS_FLOOR + 20}`} stroke="#3f7d4f" strokeWidth={9} strokeDasharray="18 12" />
-          <HandText x={540} y={760} text="dirsek omuz altında" size={64} p={elbow} color="#3f7d4f" rotate={-4} />
+          <path d={`M${elbowX} ${pts.S.y - 40} L${elbowX} ${YAS_FLOOR + 20}`} stroke={YAS_OK} strokeWidth={9} strokeDasharray="18 12" />
+          <HandText x={540} y={760} text="dirsek omuz altında" size={64} p={elbow} color={YAS_OK} rotate={-4} />
         </g>
       ) : null}
       {sag > 0.3 ? <Cross x={pts.H.x} y={pts.H.y - 10} size={60} p={tw(sag, 0.3, 1)} /> : null}
       {pike > 0.3 ? <Cross x={pts.H.x} y={pts.H.y - 30} size={60} p={tw(pike, 0.3, 1)} /> : null}
       {good > 0 ? (
         <g opacity={good}>
-          <path d={`M${pts.A.x - 20} ${pts.A.y - 50} L${pts.S.x + 30} ${pts.S.y - 60}`} stroke="#3f7d4f" strokeWidth={10} strokeDasharray="26 12" strokeLinecap="round" />
-          <HandText x={540} y={760} text="✓ düz çizgi" size={90} p={good} color="#3f7d4f" rotate={-4} />
+          <path d={`M${pts.A.x - 20} ${pts.A.y - 50} L${pts.S.x + 30} ${pts.S.y - 60}`} stroke={YAS_OK} strokeWidth={10} strokeDasharray="26 12" strokeLinecap="round" />
+          <HandText x={540} y={760} text="✓ düz çizgi" size={90} p={good} color={YAS_OK} rotate={-4} />
         </g>
       ) : null}
       <HandText x={540} y={300} text="plank" size={140} p={pop(f, 0, 10)} color={C.red} rotate={-3} />
@@ -8125,7 +8127,7 @@ const YasHook: React.FC<SceneProps> = ({ w }) => {
       <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
       <AgeTag x={180} y={330} text="18" p={pop(f, w(7), 10)} size={110} strike={tw(f, w(7) + 4, w(7) + 12)} />
       <AgeTag x={180} y={470} text="16" p={pop(f, w(10), 10)} size={110} strike={tw(f, w(10) + 4, w(10) + 12)} />
-      {f >= w(4) ? <AgeTag x={600} y={430} text={`${age}`} p={pop(f, w(4), 12)} size={260} color={happy ? "#3f7d4f" : C.ink} /> : null}
+      {f >= w(4) ? <AgeTag x={600} y={430} text={`${age}`} p={pop(f, w(4), 12)} size={260} color={happy ? YAS_OK : C.ink} /> : null}
       {f >= w(4) ? <HandText x={850} y={430} text="yaş" size={90} p={1} rotate={-4} /> : null}
       {q > 0 ? <HandText x={560} y={420} text="?" size={300} p={q} color={C.red} rotate={8} /> : null}
       <Person x={PX} y={PY - jump} s={sc} shirt={YAS_SHIRT} belly={0.3} armL={happy ? ARMS_UP : [12, 0]} armR={happy ? ARMS_UP : [12, 0]} legL={jump > 20 ? { lift: 0.3, spread: 12 } : {}} legR={jump > 20 ? { lift: 0.3, spread: 12 } : {}} mouth={happy ? "grin" : roll > 0.05 ? "o" : "smile"} eyes={roll > 0.05 && !happy ? "wide" : "open"} lookY={-6} />
@@ -8212,8 +8214,8 @@ const WeekStrip: React.FC<{ x: number; y: number; p: number; marks: number[] }> 
             <text x={cx} y={-12} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={46} fill={C.ink}>
               {t}
             </text>
-            {m > 0 ? <circle cx={cx} cy={10} r={44} fill="none" stroke={i === 4 ? "#3f7d4f" : C.red} strokeWidth={8} pathLength={1} strokeDasharray={i === 4 ? "0.08 0.05" : "1"} strokeDashoffset={1 - m} /> : null}
-            {m > 0.9 ? <path d={`M${cx - 18} 26 l14 14 l26 -30`} stroke={i === 4 ? "#3f7d4f" : C.red} strokeWidth={8} fill="none" strokeLinecap="round" /> : null}
+            {m > 0 ? <circle cx={cx} cy={10} r={44} fill="none" stroke={i === 4 ? YAS_OK : C.red} strokeWidth={8} pathLength={1} strokeDasharray={i === 4 ? "0.08 0.05" : "1"} strokeDashoffset={1 - m} /> : null}
+            {m > 0.9 ? <path d={`M${cx - 18} 26 l14 14 l26 -30`} stroke={i === 4 ? YAS_OK : C.red} strokeWidth={8} fill="none" strokeLinecap="round" /> : null}
           </g>
         );
       })}
@@ -8221,63 +8223,124 @@ const WeekStrip: React.FC<{ x: number; y: number; p: number; marks: number[] }> 
   ) : null;
 
 // "Teknik oturunca önce lastik bant, sonra hafif dambıl. Haftada iki üç gün."
-// Biraz büyümüş avatar önce lastik bandı gerer → sonra küçük dambılla çalışır → haftalık şeritte Pt, Ça, (Cu) işaretlenir.
+// Önce dizlerin üstünde turuncu mini bantla yana adımlar (bant gerilir) → sonra küçük dambılla çalışır → haftalık şerit.
 const YasDambil: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const s = yasScale(13);
-  const band = f >= w(2) - 2 && f < w(5) - 2;
+  const band = f < w(5) - 2;
+  const st = (1 - Math.cos(f / 7)) / 2; // yana adım: bacaklar açılır-kapanır, bant gerilir
+  const spread = band ? lerp(5, 19, st) : 4;
   const c = (1 - Math.cos(f / 6)) / 2;
-  const armR: Arm = band ? [lerp(55, 80, c), -10] : curlArm(f >= w(5) - 2 ? c : 0);
-  const armL: Arm = band ? [lerp(55, 80, c), -10] : [12, 0];
+  const armR: Arm = band ? [28, -95] : curlArm(c);
+  const armL: Arm = band ? [28, -95] : [12, 0];
   const hand = armPoints(1, armR)[2];
-  const handL = armPoints(-1, armL)[2];
-  const X = 540;
+  const legL = { spread };
+  const legR = { spread };
+  const kL = legPoints(-1, legL);
+  const kR = legPoints(1, legR);
+  // bant: uyluğun alt kısmında, dizin hemen üstünde
+  const at = (q: number[][]) => [q[0][0] + (q[1][0] - q[0][0]) * 0.82, q[0][1] + (q[1][1] - q[0][1]) * 0.82];
+  const bl = at(kL);
+  const br = at(kR);
+  const X = 540 + (band ? Math.sin(f / 14) * 60 : 0);
   const Y = PY + 60;
   const week = pop(f, w(8) - 2, 12);
+  const showBand = band && f >= w(2) - 6;
   const label = f < w(2) - 2 ? "" : band ? "1. lastik bant" : "2. hafif dambıl";
   return (
     <>
       <rect x={-200} y={-200} width={1480} height={PY + 260} fill="#efe1c2" />
       <rect x={-200} y={PY + 60} width={1480} height={700} fill="#c9a06c" />
       <path d={`M-200 ${PY + 60} L1280 ${PY + 60}`} stroke={C.ink} strokeWidth={7} />
-      <HandText x={540} y={300} text="teknik ✓" size={110} p={tw(f, 0, w(1) + 4) * (1 - tw(f, w(2) - 6, w(2) - 2))} color="#3f7d4f" rotate={-3} />
+      <HandText x={540} y={300} text="teknik ✓" size={110} p={tw(f, 0, w(1) + 4) * (1 - tw(f, w(2) - 6, w(2) - 2))} color={YAS_OK} rotate={-3} />
       {label ? <HandText x={540} y={300} text={label} size={120} p={pop(f, band ? w(2) - 2 : w(5) - 2, 10)} color={C.red} rotate={-3} /> : null}
-      <Person x={X} y={Y} s={s} shirt={YAS_SHIRT} belly={0.3} armL={armL} armR={armR} mouth="smile" lookY={4}>
+      <Person x={X} y={Y} s={s} shirt={YAS_SHIRT} belly={0.3} armL={armL} armR={armR} legL={legL} legR={legR} mouth="smile" lookY={4}>
+        {showBand ? (
+          <g strokeLinecap="round">
+            <path d={`M${bl[0] - 34} ${bl[1] - 10} L${br[0] + 34} ${br[1] - 10} M${bl[0] - 34} ${bl[1] + 16} L${br[0] + 34} ${br[1] + 16}`} stroke={C.ink} strokeWidth={30} />
+            <path d={`M${bl[0] - 34} ${bl[1] - 10} L${br[0] + 34} ${br[1] - 10} M${bl[0] - 34} ${bl[1] + 16} L${br[0] + 34} ${br[1] + 16}`} stroke="#f28c28" strokeWidth={18} />
+          </g>
+        ) : null}
         {!band ? (
           <g transform={`translate(${hand[0]} ${hand[1]}) rotate(${-20 + 60 * c})`}>
             <Dumbbell x={0} y={0} s={0.42} rot={90} />
           </g>
-        ) : (
-          <path d={`M${handL[0]} ${handL[1]} Q0 ${handL[1] + 30 - 40 * c} ${hand[0]} ${hand[1]}`} stroke="#d9705f" strokeWidth={22} fill="none" strokeLinecap="round" />
-        )}
+        ) : null}
       </Person>
+      {showBand ? <HandText x={860} y={Y - 260} text="dizin üstüne" size={70} p={tw(f, w(3), w(4) + 6)} color={YAS_OK} rotate={-4} /> : null}
+      {showBand ? <Pointer x1={760} y1={Y - 240} x2={X + 120} y2={Y - 200} p={tw(f, w(3), w(4) + 6)} color={YAS_OK} w={9} /> : null}
       <WeekStrip x={540} y={520} p={week} marks={[tw(f, w(9) - 2, w(9) + 6), tw(f, w(10) - 2, w(10) + 6), tw(f, w(11) - 2, w(11) + 8)]} />
     </>
   );
 };
 
+
+// Kas hücreleri merceği: act = sinir sinyaliyle çalışan hücre oranı (yanar), grow = hücrelerin büyümesi (ergenlik)
+const CellLens: React.FC<{ x: number; y: number; r: number; p: number; act: number; grow: number; pulse: number }> = ({ x, y, r, p, act, grow, pulse }) => {
+  const id = svgId(useId());
+  if (p <= 0) return null;
+  const rc = 30 * (1 + 0.75 * grow);
+  const dx = rc * 2.12;
+  const dy = dx * 0.87;
+  const cells: { cx: number; cy: number; k: number }[] = [];
+  for (let j = -6; j <= 6; j++) {
+    for (let i = -6; i <= 6; i++) {
+      const cx = x + i * dx + (j % 2 ? dx / 2 : 0);
+      const cy = y + j * dy;
+      if (Math.hypot(cx - x, cy - y) < r + rc) cells.push({ cx, cy, k: random(`cell${i}_${j}`) });
+    }
+  }
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p}) translate(${-x} ${-y})`}>
+      <clipPath id={`cl${id}`}>
+        <circle cx={x} cy={y} r={r} />
+      </clipPath>
+      <circle cx={x} cy={y} r={r} fill="#3a2430" />
+      <g clipPath={`url(#cl${id})`}>
+        {cells.map(({ cx, cy, k }, n) => {
+          const on = k < act;
+          return (
+            <g key={n}>
+              {on ? <circle cx={cx} cy={cy} r={rc * 1.15} fill={C.yellow} opacity={0.45 + 0.25 * Math.sin(pulse + n)} /> : null}
+              <circle cx={cx} cy={cy} r={rc} fill={on ? "#f2a33a" : "#c9566b"} stroke={C.ink} strokeWidth={4} />
+              <circle cx={cx - rc * 0.3} cy={cy - rc * 0.25} r={rc * 0.18} fill={C.ink} opacity={0.55} />
+            </g>
+          );
+        })}
+      </g>
+      <circle cx={x} cy={y} r={r} fill="none" stroke={C.ink} strokeWidth={14} />
+    </g>
+  );
+};
+
 // "Ergenlikten önce kasların pek büyümez ama güçlenirsin: beynin kaslarını kullanmayı öğrenir. Kaslar ergenlikte büyür."
-// Kas merceği aynı kalır; beyinden kola giden kablolar yanar, dambıl kolaylaşır; takvim yaprakları uçar, kol dolgunlaşır.
+// Kas hücreleri merceği: önce hücreler aynı boyda, sinyal geldikçe tek tek yanar (güç); ergenlikte hücreler büyür, kol dolgunlaşır.
 const YasSinir: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const s = yasScale(12);
   const wire = tw(f, w(7) - 2, w(10) + 4);
   const grow = tw(f, w(11), w(13) + 6);
-  const easy = wire;
-  const c = (1 - Math.cos(f / (8 - 3 * easy))) / 2;
+  const act = 0.15 + 0.85 * tw(f, w(8), w(10) + 6);
+  const c = (1 - Math.cos(f / (8 - 3 * wire))) / 2;
   const arm = curlArm(c);
   const pts = armPoints(1, arm);
-  const X = 380;
+  const X = 260;
   const Y = PY + 40;
   const lens = pop(f, w(1), 12);
-  const power = pop(f, w(5) - 2, 10);
+  const same = tw(f, w(3) - 2, w(4) + 6) * (1 - tw(f, w(5) - 4, w(5) + 2));
+  const power = pop(f, w(5) - 2, 10) * (1 - tw(f, w(11) - 6, w(11)));
+  const sc = lerp(s, yasScale(16), grow);
   const path = `M0 -700 C60 -700 90 -640 ${pts[0][0]} ${pts[0][1]} L${pts[1][0]} ${pts[1][1]} L${pts[2][0]} ${pts[2][1]}`;
+  // kolun ortası (dünya) → merceğe giden kesikli çizgi
+  const mid = { x: X + ((pts[0][0] + pts[1][0]) / 2) * sc, y: Y + ((pts[0][1] + pts[1][1]) / 2) * sc };
+  const LX = 760;
+  const LY = 720;
   return (
     <>
       <rect x={-200} y={Y} width={1480} height={700} fill="#d9c6a0" opacity={0.55} />
       <path d={`M-200 ${Y} L1280 ${Y}`} stroke={C.ink} strokeWidth={6} />
-      <FlyingPages start={w(11)} end={w(13)} y={420} />
-      <Person shirt={YAS_SHIRT} x={X} y={Y} s={lerp(s, yasScale(16), grow)} belly={0.3} limbW={1 + 0.32 * grow} armR={arm} armL={[12, 0]} mouth={easy > 0.5 ? "grin" : "flat"} lookY={6}>
+      <FlyingPages start={w(11)} end={w(13)} y={380} />
+      <Person shirt={YAS_SHIRT} x={X} y={Y} s={sc} belly={0.3} limbW={1 + 0.45 * grow} armR={arm} armL={[12, 0]} mouth={wire > 0.5 ? "grin" : "flat"} lookY={6}>
         {wire > 0 ? (
           <g>
             <path d={path} stroke={C.yellow} strokeWidth={34} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={0.35 * wire} />
@@ -8289,12 +8352,16 @@ const YasSinir: React.FC<SceneProps> = ({ w }) => {
           <Dumbbell x={0} y={0} s={0.42} rot={90} />
         </g>
       </Person>
-      <MuscleLens x={820} y={760} r={170} p={lens} thick={1 + 0.7 * grow} glow={wire} label={grow > 0.3 ? "ergenlik" : "kas"} />
-      {power > 0 ? <HandText x={820} y={1080} text={grow > 0.3 ? "kas büyür" : "güç ↑"} size={100} p={power} color={grow > 0.3 ? C.red : "#3f7d4f"} rotate={-4} /> : null}
-      {wire > 0.2 ? <HandText x={360} y={330} text="beyin → kas" size={96} p={tw(f, w(7), w(8) + 6) * (1 - grow)} color={C.glow} rotate={-3} /> : null}
+      {lens > 0 ? <path d={`M${mid.x} ${mid.y} L${LX - 230} ${LY + 80}`} stroke={C.ink} strokeWidth={6} strokeDasharray="16 12" opacity={lens} /> : null}
+      <CellLens x={LX} y={LY} r={240} p={lens} act={act} grow={grow} pulse={f / 4} />
+      <HandText x={LX} y={LY - 280} text={grow > 0.3 ? "ergenlik: hücreler büyür" : "kas hücreleri"} size={grow > 0.3 ? 64 : 76} p={lens} color={grow > 0.3 ? YAS_OK : C.ink} rotate={-3} />
+      {same > 0 ? <HandText x={LX} y={LY + 330} text="boyları aynı" size={80} p={same} color={YAS_OK} rotate={-4} /> : null}
+      {power > 0 ? <HandText x={LX} y={LY + 330} text={wire > 0.3 ? "daha çok hücre çalışır = güç ↑" : "güç ↑"} size={wire > 0.3 ? 56 : 90} p={power} color={YAS_OK} rotate={-4} /> : null}
+      {wire > 0.2 ? <HandText x={540} y={300} text="beyin → kas" size={96} p={tw(f, w(7), w(8) + 6) * (1 - grow)} color={C.glow} rotate={-3} /> : null}
     </>
   );
 };
+
 
 // "Yani önemli olan kaç yaşında olduğun değil, kaç yıldır doğru yaptığın."
 // Terazi: 10 yaşındaki kız / 14 yaşındaki çocuk; önce yaş ağır basar, sonra kartlar "3 yıl" / "0 yıl"a döner, terazi kıza eğilir.
@@ -8318,7 +8385,7 @@ const YasTerazi: React.FC<SceneProps> = ({ w }) => {
         <path d={`M${e.x - 160} ${py} Q${e.x} ${py + 70} ${e.x + 160} ${py} Z`} fill="#c9a24a" stroke={C.ink} strokeWidth={7} />
         <Person x={e.x} y={py} s={female ? 0.25 : 0.3} belly={0.25} female={female} mouth={flip > 0.5 && female ? "grin" : "smile"} armL={[12, 0]} armR={[12, 0]} />
         <g transform={`translate(${e.x} ${py + 170}) scale(${sx} 1)`}>
-          <rect x={-150} y={-70} width={300} height={120} rx={14} fill={flip < 0.5 ? C.cream : female ? "#3f7d4f" : C.cream} stroke={C.ink} strokeWidth={7} />
+          <rect x={-150} y={-70} width={300} height={120} rx={14} fill={flip < 0.5 ? C.cream : female ? YAS_OK : C.cream} stroke={C.ink} strokeWidth={7} />
           <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={flip >= 0.5 && female ? C.cream : C.ink}>
             {txt}
           </text>
@@ -8335,20 +8402,24 @@ const YasTerazi: React.FC<SceneProps> = ({ w }) => {
       <circle cx={cx} cy={cy} r={22} fill={C.yellow} stroke={C.ink} strokeWidth={6} />
       {pan(-1, "10 yaş", "3 yıl", true)}
       {pan(1, "14 yaş", "ilk gün", false)}
-      <HandText x={540} y={330} text={flip > 0.5 ? "kaç yıldır?" : "kaç yaşında?"} size={110} p={pop(f, flip > 0.5 ? w(7) - 2 : w(3) - 2, 12)} color={flip > 0.5 ? "#3f7d4f" : C.ink} rotate={-3} />
+      <HandText x={540} y={330} text={flip > 0.5 ? "kaç yıldır?" : "kaç yaşında?"} size={110} p={pop(f, flip > 0.5 ? w(7) - 2 : w(3) - 2, 12)} color={flip > 0.5 ? YAS_OK : C.ink} rotate={-3} />
     </>
   );
 };
 
 // "Ve yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur."
-// Antrenör yanına gelip duruşunu düzeltir; düşünce balonunda evde yalnız, sallanan halter ve kırmızı çarpı.
+// Antrenör yanına gelip duruşunu düzeltir; düşünce balonunda evde tek başına çok ağır halteri kaldırmaya çalışır, sendeler,
+// halter kayıp yere çarpar (BAM), kendisi de düşer, bileği kızarır → kırmızı çarpı.
 const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const inn = tw(f, w(1) - 4, w(3) + 4);
   const fix = tw(f, w(3), w(4) + 6);
   const bub = pop(f, w(5) - 2, 14);
-  const wob = Math.sin(f / 3) * 14 * tw(f, w(6), w(7));
-  const fall = tw(f, w(9) - 2, w(10) + 4);
+  const wob = Math.sin(f / 2.6) * 16 * tw(f, w(5) + 4, w(7)) * (1 - tw(f, w(9) - 4, w(9)));
+  const drop = tw(f, w(8) - 2, w(9) + 2);
+  const down = tw(f, w(9) - 2, w(9) + 10);
+  const bam = pop(f, w(9) + 2, 10) * (1 - tw(f, w(10) + 6, w(10) + 14));
+  const hurt = tw(f, w(10), w(10) + 10);
   const c = (1 - Math.cos(f / 7)) / 2;
   const s = yasScale(15);
   const X = 380;
@@ -8367,22 +8438,56 @@ const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
         <path d="M-40 -600 Q0 -540 40 -600" stroke={C.ink} strokeWidth={5} fill="none" />
         <circle cx={0} cy={-540} r={14} fill="#c0c0c0" stroke={C.ink} strokeWidth={4} />
       </Person>
-      {fix > 0.6 ? <HandText x={560} y={420} text="✓ böyle" size={100} p={tw(f, w(4) - 2, w(4) + 8) * (1 - bub)} color="#3f7d4f" rotate={-5} /> : null}
+      {fix > 0.6 ? <HandText x={560} y={420} text="✓ böyle" size={100} p={tw(f, w(4) - 2, w(4) + 8) * (1 - bub)} color={YAS_OK} rotate={-5} /> : null}
       {bub > 0 ? (
-        <Bubble x={560} y={470} rx={360} ry={260} p={bub} tail={[420, 860]}>
-          <rect x={300} y={300} width={110} height={130} rx={6} fill="#cfe0ea" stroke={C.ink} strokeWidth={5} />
-          <path d="M240 560 L880 560" stroke={C.ink} strokeWidth={6} />
-          <Person x={480} y={560} s={0.32} shirt={YAS_SHIRT} belly={0.3} armL={[160 - wob, 0]} armR={[160 + wob, 0]} mouth="worry" eyes="wide" />
-          <g transform={`translate(${480 + wob * 3 + fall * 120} ${300 + fall * 250}) rotate(${wob * 2 + fall * 70})`}>
-            <Barbell x={0} y={0} s={0.5} />
+        <Bubble x={540} y={520} rx={430} ry={300} p={bub} tail={[400, 880]}>
+          {/* ev: pencere, kanepe, lamba */}
+          <rect x={200} y={360} width={120} height={140} rx={6} fill="#cfe0ea" stroke={C.ink} strokeWidth={5} />
+          <path d="M260 360 L260 500 M200 430 L320 430" stroke={C.ink} strokeWidth={4} />
+          <rect x={720} y={640} width={170} height={70} rx={14} fill="#9a7bb0" stroke={C.ink} strokeWidth={5} />
+          <rect x={720} y={600} width={40} height={110} rx={10} fill="#9a7bb0" stroke={C.ink} strokeWidth={5} />
+          <path d="M840 470 L840 640 M815 470 L865 470 L850 430 L830 430 Z" stroke={C.ink} strokeWidth={5} fill={C.yellow} />
+          <path d="M160 740 L920 740" stroke={C.ink} strokeWidth={6} />
+          <text x={540} y={300} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>
+            evde · tek başına
+          </text>
+          {/* çok ağır halteri başının üstüne kaldırmaya çalışır, sendeler → halter kayar, düşer */}
+          <g transform={`rotate(${-78 * down} 500 740)`}>
+            <Person x={500} y={740} s={0.44} shirt={YAS_SHIRT} belly={0.3} armL={down > 0 ? [lerp(165, 40, down), 0] : [165 - wob, 0]} armR={down > 0 ? [lerp(165, 60, down), lerp(0, -90, down)] : [165 + wob, 0]} legL={{ spread: 6 + Math.abs(wob) * 0.6 }} legR={{ spread: 6 + Math.abs(wob) * 0.4 }} mouth={down > 0.5 ? "open" : "worry"} eyes={down > 0.5 ? "dizzy" : "wide"}>
+              {drop <= 0 ? (
+                <g transform={`translate(0 -870) rotate(${wob * 1.6})`}>
+                  <Barbell x={0} y={0} s={0.95} />
+                </g>
+              ) : null}
+            </Person>
           </g>
-          <text x={700} y={420} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.red}>
-            evde
-          </text>
-          <text x={700} y={490} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={60} fill={C.red}>
-            tek başına
-          </text>
-          {fall > 0 ? <Cross x={480} y={430} size={120} p={fall} /> : null}
+          {drop > 0 ? (
+            <g transform={`translate(${lerp(500 + wob, 650, drop)} ${lerp(357, 712, drop * drop)}) rotate(${lerp(wob * 1.6, 24, drop)})`}>
+              <Barbell x={0} y={0} s={0.42} />
+            </g>
+          ) : null}
+          {wob !== 0 && drop <= 0 ? (
+            <text x={680} y={440} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.red} transform={`rotate(${wob * 0.4} 680 440)`}>
+              çok ağır!
+            </text>
+          ) : null}
+          {bam > 0 ? (
+            <g transform={`translate(680 690) scale(${bam})`}>
+              <Star x={0} y={0} r={70} rot={f * 3} />
+              <text x={0} y={-90} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={60} fill={C.red}>
+                BAM!
+              </text>
+            </g>
+          ) : null}
+          {down > 0.6 ? (
+            <g>
+              <circle cx={340} cy={700} r={34 + 10 * Math.sin(f / 3)} fill={C.red} opacity={0.45} />
+              <text x={260} y={610} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={60} fill={C.red}>
+                ah!
+              </text>
+            </g>
+          ) : null}
+          {hurt > 0 ? <Cross x={540} y={560} size={170} p={hurt} /> : null}
         </Bubble>
       ) : null}
     </>

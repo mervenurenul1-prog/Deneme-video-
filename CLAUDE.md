@@ -79,6 +79,10 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   kalça düşer/kalkar kırmızı çarpı), önce LASTİK BANT sonra dambıl. Orman fonu (`Forest`: karlı dağ, çam ormanı, ağaçlar
   avatardan büyük), `YAS_FLOOR` 1300 (figür altyazının üstünde). Sahne sonu `hold` desteği (types/shared). **Avatarın
   tişörtü bu videoda KIRMIZI** (`YAS_SHIRT`, kullanıcı isteği).
+  **v3 (kullanıcı):** doğru/yardımcı işaretler LACİVERT (`YAS_OK`, yeşil zeminde seçilsin; yanlışlar kırmızı); kas
+  sahnesi hücre merceği (`CellLens`: önce aynı boy hücreler sinyalle tek tek yanar = güç, ergenlikte hücreler büyür);
+  lastik bant = dizlerin üstünde turuncu mini bant, yana adım; sakatlık balonu: evde tek başına çok ağır halter → sendeler,
+  halter düşer (BAM), kendisi düşer, "ah!", kırmızı çarpı.
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi
