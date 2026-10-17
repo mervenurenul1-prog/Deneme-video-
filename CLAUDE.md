@@ -12,6 +12,12 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.250 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
+- **!!! DERS (17 Ekim, ekip geri bildirimi 05 için): "videodan hiçbir şey anlamadım."** Video "27 kilo"yu herkes
+  duymuş gibi anlattı; Türkiye'de kimse duymamış. KURAL: efsane çürüten video yalnız izleyicinin ZATEN İNANDIĞI bir
+  şey için yapılır (ör. "koşu dizi bitirir"). Bilinmeyen bir iddiayı önce kendisi anlatmalı; "bunu sen de duydun"
+  gibi varsayım yok. Az kavram: bir videoda tek ana fikir. Kredi: bu oturumda 05'e ~436, önceki sürümlere ~700
+  karakter gitti → büyük yeniden yazımlarda önce metni onaylat, seslendirmeyi en sona bırak. Süre üst sınırı 40 sn.
+  Kalan kredi ≈ 15.149.
 - **05 boyun v4 (EN GÜNCEL, v2/v3'ün yerine):** Kullanıcı v3 ve nesne benzetmelerini (bowling, karpuz, bidon, bagaj,
   dambıl) BEĞENMEDİ: "daha yaratıcı ol, fark yarat, insansı düşün, ALGIYI YANILT; bu hook'ta durup izler misin?"
   Fikir: video bir KORKU VİDEOSU gibi açılır (kırmızı UYARI ekranı, "Dikkat! … 27 kilo!"), cızırt + donma, kamera geri
