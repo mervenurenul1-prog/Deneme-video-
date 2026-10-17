@@ -397,6 +397,12 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "kosu-hook": (w) => [[w(6) - 2, "pop", 0.3], [w(11), "pirilti", 0.3], [w(12), "cizik", 0.4]],
+  "kosu-arastirma": (w) => [[2, "kalem", 0.3], [w(5), "kagit", 0.35], [w(9), "whoosh", 0.25]],
+  "kosu-oran": (w) => [[w(2), "pop", 0.3], [w(8) - 2, "pop", 0.3], [w(9), "ding", 0.35]],
+  "kosu-sunger": (w) => [[w(3), "cizik", 0.3], [w(7), "damla", 0.3], [w(10), "sihir", 0.3], [w(13), "adim", 0.3], [w(18), "sonme", 0.35]],
+  "kosu-doz": (w) => [[w(1), "adim", 0.3], [w(6), "ding", 0.3], [w(9), "whoosh", 0.3], [w(13), "pirilti", 0.4]],
+  "kosu-kapanis": (w) => [[w(8), "pop", 0.3]],
   "boyun4-alarm": (w) => [[0, "alarm", 0.35], [w(4) - 2, "boom", 0.25], [w(8) - 3, "cizik", 0.7], [w(9), "whoosh", 0.25], [w(16) - 2, "pop", 0.3], [w(18) - 2, "kagit", 0.5]],
   "boyun4-viral": (w) => [[2, "kalem", 0.3], [w(12) - 2, "boom", 0.18], [w(12), "pop", 0.4], [w(17), "kalem", 0.35], [w(21), "pop", 0.3], [w(22), "pirilti", 0.3]],
   "boyun4-isim": (w) => [[2, "kalem", 0.3], [w(6) - 2, "pirilti", 0.3], [w(12) - 2, "boom", 0.18], [w(12), "pop", 0.4]],
@@ -585,6 +591,12 @@ const ZOOM: Record<string, Zoom> = {
   "boyun2-kapanis": { to: 1.0, x: 540, y: 960 },
   "boyun3-sen": { to: 1.0, x: 540, y: 960 },
   "boyun4-alarm": { to: 1.0, x: 540, y: 960 },
+  "kosu-hook": { to: 1.0, x: 540, y: 960 },
+  "kosu-arastirma": { to: 1.04, x: 540, y: 900 },
+  "kosu-oran": { to: 1.03, x: 540, y: 900 },
+  "kosu-sunger": { to: 1.03, x: 540, y: 800 },
+  "kosu-doz": { to: 1.03, x: 540, y: 900 },
+  "kosu-kapanis": { to: 1.0, x: 540, y: 960 },
   "boyun4-viral": { to: 1.03, x: 540, y: 900 },
   "boyun4-isim": { to: 1.03, x: 540, y: 900 },
   "boyun4-hesap": { to: 1.02, x: 540, y: 900 },
@@ -5585,7 +5597,392 @@ const Boyun4Hesap: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 06 koşu: "komşun koşuyor, peki ya biten seninkiyse?" ---------- */
+
+const ROOM_FLOOR = 1300;
+// Oturma odası: duvar, büyük pencere (dışarıda koşan komşu), koltuk
+const LivingRoom: React.FC<{ f: number; runner?: boolean; o?: number }> = ({ f, runner = true, o = 1 }) => {
+  const id = svgId(useId());
+  const W = { x: 90, y: 330, w: 560, h: 520 };
+  const rx = W.x - 120 + ((f * 5 + 260) % (W.w + 240));
+  const rw = walk(f, 1, 3.2);
+  return (
+    <g opacity={o}>
+      <rect x={-20} y={ROOM_FLOOR} width={1120} height={700} fill="#d9c6a0" opacity={0.6} />
+      <path d={`M-20 ${ROOM_FLOOR} L1100 ${ROOM_FLOOR}`} stroke={C.ink} strokeWidth={6} opacity={0.6} />
+      <clipPath id={`win${id}`}>
+        <rect x={W.x} y={W.y} width={W.w} height={W.h} />
+      </clipPath>
+      <rect x={W.x} y={W.y} width={W.w} height={W.h} fill="#cfe6f2" />
+      <g clipPath={`url(#win${id})`}>
+        <rect x={W.x} y={W.y + W.h - 110} width={W.w} height={110} fill="#b9c99a" />
+        <circle cx={W.x + 450} cy={W.y + 110} r={50} fill="#ffe28a" opacity={0.9} />
+        {runner ? (
+          <Person x={rx} y={W.y + W.h - 30 - rw.bob} s={0.5} belly={0.2} female shirt="#d9705f" legL={rw.legL} legR={rw.legR} armL={[30 + 30 * Math.sin(f / 3.2), -80]} armR={[30 - 30 * Math.sin(f / 3.2), -80]} mouth="smile" />
+        ) : null}
+      </g>
+      <rect x={W.x} y={W.y} width={W.w} height={W.h} fill="none" stroke={C.ink} strokeWidth={10} />
+      <path d={`M${W.x + W.w / 2} ${W.y} L${W.x + W.w / 2} ${W.y + W.h} M${W.x} ${W.y + W.h / 2} L${W.x + W.w} ${W.y + W.h / 2}`} stroke={C.ink} strokeWidth={7} opacity={0.8} />
+    </g>
+  );
+};
+
+// Koltuk (önden): arkalık + kolçaklar; oturan kişi bunun önüne çizilir, ön minder kişiden sonra
+const SOFA = { x: 700, w: 620, seat: 1090 };
+const SofaBack: React.FC = () => (
+  <g stroke={C.ink} strokeWidth={8} strokeLinejoin="round">
+    <rect x={SOFA.x - SOFA.w / 2} y={SOFA.seat - 300} width={SOFA.w} height={320} rx={40} fill="#8a6d9e" />
+    <rect x={SOFA.x - SOFA.w / 2 - 50} y={SOFA.seat - 120} width={110} height={300} rx={30} fill="#7a5d8e" />
+    <rect x={SOFA.x + SOFA.w / 2 - 60} y={SOFA.seat - 120} width={110} height={300} rx={30} fill="#7a5d8e" />
+  </g>
+);
+const SofaFront: React.FC = () => (
+  <g stroke={C.ink} strokeWidth={8} strokeLinejoin="round">
+    <rect x={SOFA.x - SOFA.w / 2 + 50} y={SOFA.seat + 20} width={SOFA.w - 100} height={90} rx={18} fill="#9a7dae" />
+    <rect x={SOFA.x - SOFA.w / 2 + 20} y={SOFA.seat + 100} width={24} height={ROOM_FLOOR - SOFA.seat - 100} fill="#5a4030" />
+    <rect x={SOFA.x + SOFA.w / 2 - 44} y={SOFA.seat + 100} width={24} height={ROOM_FLOOR - SOFA.seat - 100} fill="#5a4030" />
+  </g>
+);
+// Koltukta oturan avatar: kalça oturağa, ayaklar yere (diz bükük, uyluk öne doğru kısalır)
+const SITS = 0.9;
+const sitY = SOFA.seat + 345 * SITS - 10;
+
+// Diz kesiti: üstte uyluk kemiği, altta kaval kemiği, aralarında süngerimsi kıkırdak
+// press: 0..1 (sıkışma), wet: 1 sağlıklı/nemli, 0 kuru; crack: 0..1 çatlaklar
+const KneeLens: React.FC<{ x: number; y: number; r: number; press?: number; wet?: number; crack?: number }> = ({ x, y, r, press = 0, wet = 1, crack = 0 }) => {
+  const id = svgId(useId());
+  const gap = 70 - 34 * press;
+  const cart = `rgb(${Math.round(150 + 100 * wet)} ${Math.round(130 + 100 * wet)} ${Math.round(100 + 80 * wet)})`;
+  const th = 34 * (0.75 + 0.25 * wet) * (1 - 0.15 * press);
+  const fy = y - gap / 2; // uyluk kemiği alt ucu
+  const ty = y + gap / 2; // kaval kemiği üst yüzü
+  const pores = Array.from({ length: 22 }, (_, i) => ({ px: x - 230 + ((i * 97) % 460), top: i % 2 === 0, rr: 5 + (i % 3) * 2 }));
+  return (
+    <g>
+      <clipPath id={`kn${id}`}>
+        <circle cx={x} cy={y} r={r} />
+      </clipPath>
+      <circle cx={x} cy={y} r={r} fill="#24333f" />
+      <g clipPath={`url(#kn${id})`}>
+        {/* uyluk kemiği: yuvarlak alt uç */}
+        <path d={`M${x - 150} ${y - r - 20} L${x - 150} ${fy - 90} Q${x - 260} ${fy - 30} ${x - 200} ${fy} L${x + 200} ${fy} Q${x + 260} ${fy - 30} ${x + 150} ${fy - 90} L${x + 150} ${y - r - 20} Z`} fill="#f4efe2" stroke="#9fb6c4" strokeWidth={4} />
+        {/* kaval kemiği: düz üst yüz */}
+        <path d={`M${x - 240} ${ty} L${x + 240} ${ty} Q${x + 250} ${ty + 70} ${x + 140} ${ty + 110} L${x + 140} ${y + r + 20} L${x - 140} ${y + r + 20} L${x - 140} ${ty + 110} Q${x - 250} ${ty + 70} ${x - 240} ${ty} Z`} fill="#f4efe2" stroke="#9fb6c4" strokeWidth={4} />
+        {/* kıkırdak katmanları (sünger) */}
+        <rect x={x - 215} y={fy - th} width={430} height={th} rx={th / 2} fill={cart} stroke={C.ink} strokeWidth={3} />
+        <rect x={x - 225} y={ty} width={450} height={th} rx={th / 2} fill={cart} stroke={C.ink} strokeWidth={3} />
+        {pores.map((p, i) => (
+          <circle key={i} cx={p.px} cy={p.top ? fy - th / 2 : ty + th / 2} r={p.rr * (0.6 + 0.4 * wet)} fill="#b8a36a" opacity={0.6} />
+        ))}
+        {crack > 0
+          ? [-150, -40, 90, 180].map((cx, i) => (
+              <path key={i} d={`M${x + cx} ${(i % 2 ? ty : fy - th) + (i % 2 ? 0 : 0)} l12 ${th * 0.5} l-10 ${th * 0.3} l14 ${th * 0.4}`} stroke={C.red} strokeWidth={5} fill="none" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - crack} />
+            ))
+          : null}
+      </g>
+      <circle cx={x} cy={y} r={r} fill="none" stroke={C.ink} strokeWidth={16} />
+      <circle cx={x} cy={y} r={r - 14} fill="none" stroke="#9fd0e8" strokeWidth={4} opacity={0.5} />
+    </g>
+  );
+};
+
+// "Komşun her sabah koşuyor, sen de koltuktan dizleri bitecek diyorsun. Peki ya biten seninkiyse?"
+const Kosu1Hook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const talk = pop(f, w(6) - 2, 12) * (1 - tw(f, w(10) - 2, w(10) + 6));
+  const point = tw(f, w(6) - 2, w(7) + 2) * (1 - tw(f, w(10), w(11)));
+  const lens = pop(f, w(11), 14);
+  const crack = tw(f, w(12), w(13) + 8);
+  const knee = { x: SOFA.x - 30, y: SOFA.seat + 40 };
+  return (
+    <CamK k={[[0, 1, 540, 960], [w(10), 1, 540, 960], [w(12), 1.12, knee.x, knee.y - 100], [w(13) + 20, 1.12, knee.x, knee.y - 100]]}>
+      <LivingRoom f={f} />
+      <SofaBack />
+      <Person x={SOFA.x} y={sitY} s={SITS} belly={0.5} legL={{ lift: 1, spread: 10 }} legR={{ lift: 1, spread: 10 }} armL={[point * 70, -point * 60]} armR={[20, -60]} mouth={lens > 0.5 ? "worry" : talk > 0.5 ? "grin" : "smile"} eyes={lens > 0.5 ? "wide" : "open"} lookY={lens > 0.5 ? 10 : 0} />
+      <SofaFront />
+      {talk > 0 ? (
+        <g transform={`translate(330 1000) scale(${talk})`}>
+          <rect x={-200} y={-70} width={400} height={120} rx={30} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+          <path d="M120 45 L190 110 L60 48 Z" fill={C.cream} stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+          <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
+            dizleri bitecek!
+          </text>
+        </g>
+      ) : null}
+      {lens > 0 ? (
+        <g transform={`translate(${knee.x + 190} ${knee.y - 330}) scale(${lens * 0.55})`}>
+          <KneeLens x={0} y={0} r={300} wet={1 - crack * 0.7} crack={crack} />
+          <HandText x={0} y={-350} text="senin dizin" size={90} p={1} color={C.red} rotate={-3} />
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
+// "İki bin on yedide araştırmacılar yirmiye yakın çalışmayı birleştirip diz ve kalçalara baktı."
+const Kosu2Arastirma: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const pile = tw(f, w(5) - 2, w(8) + 6);
+  const n = Math.floor(18 * pile);
+  const scan = tw(f, w(9), w(12) + 6);
+  return (
+    <>
+      <Gym o={0.35} />
+      <HandText x={540} y={260} text="2017" size={170} p={tw(f, 0, w(3) + 4)} rotate={-4} />
+      {/* yığılan araştırmalar */}
+      {Array.from({ length: n }, (_, k) => (
+        <g key={k} transform={`translate(${300 + ((k * 37) % 24) - 12} ${1150 - k * 26}) rotate(${((k * 53) % 12) - 6})`}>
+          <rect x={-150} y={-20} width={300} height={40} rx={6} fill={C.cream} stroke={C.ink} strokeWidth={5} />
+          <path d="M-120 -4 L80 -4 M-120 8 L40 8" stroke="#9fb6c4" strokeWidth={4} />
+        </g>
+      ))}
+      {/* diz ve kalça röntgenleri: büyüteçle taranır */}
+      <g opacity={tw(f, w(8), w(9) + 4)}>
+        <g transform="translate(780 640) scale(0.5)">
+          <KneeLens x={0} y={0} r={300} />
+        </g>
+        <g transform="translate(780 1030)">
+          <circle r={150} fill="#24333f" stroke={C.ink} strokeWidth={10} />
+          <circle cx={-20} cy={-20} r={60} fill="#f4efe2" stroke="#9fb6c4" strokeWidth={4} />
+          <path d="M-60 40 Q-40 -10 -80 -60 M10 30 L60 120" stroke="#f4efe2" strokeWidth={34} strokeLinecap="round" fill="none" />
+        </g>
+        <text x={780} y={410} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink}>
+          diz
+        </text>
+        <text x={780} y={1230} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink}>
+          kalça
+        </text>
+      </g>
+      <Person x={interpolate(scan, [0, 1], [430, 560])} y={PY + 380} s={0.6} belly={0.4} armL={[12, 0]} armR={[150, -40]} mouth="flat" lookY={-8}>
+        <g transform={`translate(${armPoints(1, [150, -40])[2][0]} ${armPoints(1, [150, -40])[2][1] - 60}) rotate(-20)`}>
+          <circle r={70} fill="#cfe6f2" fillOpacity={0.35} stroke={C.ink} strokeWidth={12} />
+          <path d="M50 50 L120 120" stroke={C.ink} strokeWidth={20} strokeLinecap="round" />
+        </g>
+      </Person>
+    </>
+  );
+};
+
+// Küçük insan simgesi (100'lük kalabalık için): sitting=koltukta, runner=koşucu
+const Mini2: React.FC<{ x: number; y: number; red: number; runner?: boolean }> = ({ x, y, red, runner }) => (
+  <g transform={`translate(${x} ${y})`}>
+    <circle cx={0} cy={-26} r={9} fill={C.skin} stroke={C.ink} strokeWidth={2.5} />
+    <rect x={-9} y={-16} width={18} height={20} rx={5} fill={runner ? "#d9705f" : "#8a6d9e"} stroke={C.ink} strokeWidth={2.5} />
+    <path d={runner ? "M-4 4 L-10 16 M4 4 L10 14" : "M-5 4 L-5 14 M5 4 L5 14"} stroke={C.ink} strokeWidth={4} strokeLinecap="round" />
+    {red > 0 ? <circle cx={0} cy={-6} r={16 * red} fill={C.red} opacity={0.75} /> : null}
+  </g>
+);
+
+// "Hiç koşmayanların yüzde onunda kireçlenme vardı. Hobi olarak koşanlarda? Yüzde üç buçuk."
+const Kosu3Oran: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const left = pop(f, 0, 12);
+  const right = pop(f, w(6) - 2, 12);
+  const redL = tw(f, w(2), w(4) + 4);
+  const redR = tw(f, w(9), w(11) + 4);
+  const ask = pop(f, w(8) - 2, 10) * (1 - tw(f, w(9) - 2, w(9) + 4));
+  const grid = (ox: number, oy: number, runner: boolean, nRed: number, p: number) =>
+    Array.from({ length: 100 }, (_, i) => {
+      const cx = ox + (i % 10) * 42;
+      const cy = oy + Math.floor(i / 10) * 52;
+      const idx = [12, 27, 35, 41, 58, 63, 76, 84, 90, 99];
+      const k = idx.indexOf(i);
+      const red = k >= 0 && k < Math.ceil(nRed) ? Math.min(1, Math.max(0, p * nRed - k)) * (k === Math.floor(nRed) ? nRed - Math.floor(nRed) : 1) : 0;
+      return <Mini2 key={i} x={cx} y={cy} red={red} runner={runner} />;
+    });
+  return (
+    <>
+      <Gym o={0.3} />
+      {/* sol: hiç koşmayanlar (koltuk) */}
+      <g opacity={left}>
+        <text x={290} y={430} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={66} fill={C.ink}>
+          koltuk
+        </text>
+        {grid(100, 520, false, 10, redL)}
+        <Counter x={290} y={1170} to={10} prefix="%" p={redL} size={130} color={C.red} rotate={-4} />
+      </g>
+      {/* sağ: hobi koşucuları */}
+      <g opacity={right}>
+        <text x={790} y={430} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={66} fill={C.ink}>
+          koşu
+        </text>
+        {grid(600, 520, true, 3.5, redR)}
+        {redR > 0 ? (
+          <text x={790} y={1170} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill="#3f7d4f" transform="rotate(-4 790 1170)" opacity={Math.min(1, redR * 3)}>
+            %3,5
+          </text>
+        ) : null}
+        {ask > 0 ? <HandText x={790} y={780} text="?" size={260} p={ask} color={C.red} rotate={8} /> : null}
+      </g>
+      <Person x={540} y={PY + 400} s={0.55} belly={0.4} armL={[12, 0]} armR={redR > 0.5 ? [150, -30] : [12, 0]} mouth={redR > 0.5 ? "o" : "flat"} eyes={redR > 0.5 ? "wide" : "open"} lookY={-8} />
+    </>
+  );
+};
+
+// "Çünkü kıkırdağın kan damarı yok. Sünger gibi: basınca sıvı çıkar, bırakınca besin dolar. Her adım onu besler; koltukta duran sünger kurur."
+const Kosu4Sunger: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const L = { x: 540, y: 720, r: 360 };
+  const vessel = pop(f, w(1) - 2, 12) * (1 - tw(f, w(5) - 2, w(5) + 6));
+  const pump = f >= w(5) - 2 && f < w(17) ? 1 : 0;
+  const period = 22;
+  const ph = ((f - w(5)) / period) * Math.PI * 2;
+  const pressRaw = pump ? (1 - Math.cos(ph)) / 2 : 0;
+  // anlatım: "basınca" sıkıştır, "bırakınca" bırak
+  const press = f >= w(7) - 2 && f < w(10) - 2 ? Math.max(pressRaw, tw(f, w(7) - 2, w(7) + 6)) : f >= w(10) - 2 && f < w(13) ? pressRaw * 0.3 : pressRaw;
+  const dry = tw(f, w(18), w(20) + 8);
+  const out = f >= w(7) && f < w(13) + 30;
+  const inflow = f >= w(10) - 2 && f < w(17);
+  const runner = tw(f, w(13) - 4, w(13) + 6) * (1 - tw(f, w(17) - 4, w(17) + 4));
+  const couch = tw(f, w(17) - 2, w(17) + 6);
+  const rw = walk(f, 1, period / (2 * Math.PI));
+  return (
+    <>
+      <Gym o={0.3} />
+      <KneeLens x={L.x} y={L.y} r={L.r} press={press * (1 - dry)} wet={1 - dry * 0.85} crack={dry} />
+      {/* kan damarı yok: kırmızı damar + çarpı */}
+      {vessel > 0 ? (
+        <g opacity={vessel}>
+          <path d={`M${L.x + 260} ${L.y - 300} Q${L.x + 320} ${L.y - 120} ${L.x + 230} ${L.y}`} stroke={C.red} strokeWidth={22} fill="none" strokeLinecap="round" />
+          <Cross x={L.x + 260} y={L.y - 150} size={120} p={tw(f, w(3) - 2, w(4) + 4)} />
+        </g>
+      ) : null}
+      <HandText x={540} y={240} text="kıkırdak = sünger" size={90} p={tw(f, w(5) - 2, w(6) + 6)} rotate={-3} />
+      {/* basınca: sıvı dışarı (mavi damlalar) */}
+      {out && press > 0.4
+        ? [-1, 1].map((k) =>
+            [0, 1, 2].map((j) => (
+              <circle key={`${k}${j}`} cx={L.x + k * (250 + 50 * j * press)} cy={L.y - 10 + j * 14} r={14 - j * 3} fill={C.water} stroke={C.ink} strokeWidth={3} opacity={press} />
+            )),
+          )
+        : null}
+      {/* bırakınca: besin içeri (yeşil noktalar) */}
+      {inflow && press < 0.5
+        ? cycles(f, w(10) - 2, 5, 20).map(({ k, p }) => (
+            <circle key={k} cx={L.x + (k % 2 ? 1 : -1) * interpolate(p, [0, 1], [330, 120 + (k % 3) * 40])} cy={L.y + ((k * 13) % 30) - 15} r={11} fill="#6fd08c" stroke={C.ink} strokeWidth={3} opacity={1 - p * 0.5} />
+          ))
+        : null}
+      {/* her adım: koşan avatar (her basışta bir adım) */}
+      {runner > 0 ? (
+        <g opacity={runner}>
+          <Person x={540} y={PY + 420 - rw.bob} s={0.55} belly={0.4} legL={rw.legL} legR={rw.legR} armL={[30 + 30 * Math.sin(ph), -80]} armR={[30 - 30 * Math.sin(ph), -80]} mouth="grin" />
+        </g>
+      ) : null}
+      {couch > 0 ? (
+        <g opacity={couch} transform="translate(-160 400) scale(0.75) translate(0 0)">
+          <SofaBack />
+          <Person x={SOFA.x} y={sitY} s={SITS} belly={0.5} legL={{ lift: 1, spread: 10 }} legR={{ lift: 1, spread: 10 }} armL={[20, -60]} armR={[20, -60]} mouth="flat" eyes={dry > 0.5 ? "closed" : "open"} />
+          <SofaFront />
+        </g>
+      ) : null}
+      {dry > 0.3 ? <HandText x={540} y={1150} text="kurur" size={110} p={tw(f, w(19), w(20) + 6)} color={C.red} rotate={-4} /> : null}
+    </>
+  );
+};
+
+// Doz göstergesi: sol kırmızı (koltuk), orta yeşil (dozunda), sağ kırmızı (aşırı)
+const DoseMeter: React.FC<{ x: number; y: number; p: number; v: number }> = ({ x, y, p, v }) => {
+  if (p <= 0) return null;
+  const R = 220;
+  const arc = (a0: number, a1: number) => {
+    const P = (a: number) => [x + Math.cos(((180 + a) * Math.PI) / 180) * R, y + Math.sin(((180 + a) * Math.PI) / 180) * R];
+    const [x1, y1] = P(a0);
+    const [x2, y2] = P(a1);
+    return `M${x1} ${y1} A${R} ${R} 0 0 1 ${x2} ${y2}`;
+  };
+  const ang = ((180 + v * 180) * Math.PI) / 180;
+  return (
+    <g opacity={p} transform={`translate(${x} ${y}) scale(${p}) translate(${-x} ${-y})`}>
+      <path d={arc(0, 60)} stroke={C.red} strokeWidth={46} fill="none" />
+      <path d={arc(60, 120)} stroke="#3f7d4f" strokeWidth={46} fill="none" />
+      <path d={arc(120, 180)} stroke={C.red} strokeWidth={46} fill="none" />
+      <path d={`M${x} ${y} L${x + Math.cos(ang) * (R - 30)} ${y + Math.sin(ang) * (R - 30)}`} stroke={C.ink} strokeWidth={14} strokeLinecap="round" />
+      <circle cx={x} cy={y} r={22} fill={C.ink} />
+      <text x={x - R} y={y + 70} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={48} fill={C.ink}>
+        koltuk
+      </text>
+      <text x={x} y={y - R - 40} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill="#3f7d4f">
+        dozunda
+      </text>
+      <text x={x + R} y={y + 70} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={48} fill={C.ink}>
+        yarış
+      </text>
+    </g>
+  );
+};
+
+// "Ama yarış yarış koşan profesyonellerde oran yüzde on üç. Yani mesele koşmak değil, dozunda koşmak."
+const Kosu5Doz: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const race = 1 - tw(f, w(9) - 2, w(9) + 8);
+  const meter = pop(f, w(9) - 2, 14);
+  const v = interpolate(f, [w(9), w(11), w(12), w(13), w(14) + 6], [0.05, 0.05, 0.95, 0.95, 0.5], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  const rw = walk(f, 1, 2.2);
+  const jw = walk(f, 1, 4);
+  return (
+    <>
+      <rect x={-20} y={1080} width={1120} height={900} fill="#c9775a" opacity={0.35 * race + 0.1} />
+      {[0, 1, 2, 3].map((i) => (
+        <path key={i} d={`M-20 ${1120 + i * 90} L1100 ${1120 + i * 90}`} stroke="#fbf3e2" strokeWidth={6} opacity={0.7 * race} />
+      ))}
+      {/* yarışan profesyoneller: hızlı, terli, numaralı */}
+      <g opacity={race}>
+        {[0, 1, 2].map((i) => {
+          const x = ((f * 9 + i * 360) % 1500) - 200;
+          return (
+            <Person key={i} x={x} y={1240 + i * 60 - rw.bob} s={0.62} belly={0.15} shirt={["#4f97c2", "#d1271b", "#3f7d4f"][i]} legL={rw.legL} legR={rw.legR} armL={[40 + 40 * Math.sin(f / 2.2), -90]} armR={[40 - 40 * Math.sin(f / 2.2), -90]} mouth="open" eyes="closed" blush={0.9}>
+              <rect x={-40} y={-470} width={80} height={56} rx={6} fill="#fff" stroke={C.ink} strokeWidth={4} />
+              <text x={0} y={-430} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={36} fill={C.ink}>
+                {7 + i * 31}
+              </text>
+            </Person>
+          );
+        })}
+        <Counter x={540} y={500} to={13} prefix="%" p={tw(f, w(6) - 2, w(8) + 4)} size={210} color={C.red} rotate={-4} />
+      </g>
+      <DoseMeter x={540} y={760} p={meter} v={v} />
+      {/* avatar sakin tempoda koşar */}
+      <g opacity={meter}>
+        <Person x={540} y={PY + 330 - jw.bob} s={0.7} belly={0.4} legL={jw.legL} legR={jw.legR} armL={[30 + 25 * Math.sin(f / 4), -80]} armR={[30 - 25 * Math.sin(f / 4), -80]} mouth="grin" />
+      </g>
+    </>
+  );
+};
+
+// "Şimdi pencereden bak: komşun yine koşuyor. Sen hâlâ dizleri bitecek mi diyorsun?"
+// Avatar koltukta; pencereye bakar, sonra izleyiciye; yanında koşu ayakkabıları belirir; son kare = açılış karesi
+const Kosu6Kapanis: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const look = tw(f, w(0), w(2) + 4) * (1 - tw(f, w(6) - 2, w(6) + 6));
+  const shoes = pop(f, w(8), 12) * (1 - tw(f, d - 18, d - 8));
+  const smirk = f >= w(9) && f < d - 16;
+  return (
+    <CamK k={[[0, 1, 540, 960], [w(2), 1.06, 380, 600], [w(5), 1.06, 380, 600], [w(7), 1, 540, 960]]}>
+      <LivingRoom f={f} />
+      <SofaBack />
+      <Person x={SOFA.x} y={sitY} s={SITS} belly={0.5} legL={{ lift: 1, spread: 10 }} legR={{ lift: 1, spread: 10 }} armL={[look * 70, -look * 60]} armR={[20, -60]} mouth={smirk ? "grin" : "smile"} lookY={0} />
+      <SofaFront />
+      {shoes > 0 ? (
+        <g transform={`translate(${SOFA.x - 330} ${ROOM_FLOOR - 10}) scale(${shoes})`} stroke={C.ink} strokeWidth={6} strokeLinejoin="round">
+          {[0, 1].map((k) => (
+            <g key={k} transform={`translate(${k * 120} 0)`}>
+              <path d="M-50 0 L-50 -40 Q-30 -60 0 -50 L40 -30 Q60 -20 60 0 Z" fill="#d1271b" />
+              <path d="M-50 0 L60 0" stroke="#fbf3e2" strokeWidth={10} />
+            </g>
+          ))}
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kosu-hook": Kosu1Hook,
+  "kosu-arastirma": Kosu2Arastirma,
+  "kosu-oran": Kosu3Oran,
+  "kosu-sunger": Kosu4Sunger,
+  "kosu-doz": Kosu5Doz,
+  "kosu-kapanis": Kosu6Kapanis,
   "boyun4-isim": Boyun4Isim,
   "boyun4-hesap": Boyun4Hesap,
   "boyun4-alarm": Boyun4Alarm,

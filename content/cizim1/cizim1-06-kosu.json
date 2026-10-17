@@ -1,0 +1,53 @@
+{
+  "id": "cizim1-06-kosu",
+  "title": "Koşu dizini bitirir mi?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.15,
+  "scenes": [
+    {
+      "visual": "kosu-hook",
+      "voice": "Komşun her sabah koşuyor, sen de koltuktan dizleri bitecek diyorsun. Peki ya biten seninkiyse?",
+      "say": "Komşun her sabah koşuyor, sen de koltuktan, \"dizleri bitecek\" diyorsun. [curious] Peki ya biten, seninkiyse?"
+    },
+    {
+      "visual": "kosu-arastirma",
+      "voice": "İki bin on yedide araştırmacılar yirmiye yakın çalışmayı birleştirip diz ve kalçalara baktı.",
+      "say": "İki bin on yedide araştırmacılar yirmiye yakın çalışmayı birleştirip diz ve kalçalara baktı."
+    },
+    {
+      "visual": "kosu-oran",
+      "voice": "Hiç koşmayanların yüzde onunda kireçlenme vardı. Hobi olarak koşanlarda? Yüzde üç buçuk.",
+      "say": "Hiç koşmayanların yüzde onunda kireçlenme vardı. Hobi olarak koşanlarda? [curious] ... Yüzde üç buçuk."
+    },
+    {
+      "visual": "kosu-sunger",
+      "voice": "Çünkü kıkırdağın kan damarı yok. Sünger gibi: basınca sıvı çıkar, bırakınca besin dolar. Her adım onu besler; koltukta duran sünger kurur.",
+      "say": "Çünkü kıkırdağın kan damarı yok. Sünger gibi: basınca sıvı çıkar, bırakınca besin dolar. Her adım onu besler; koltukta duran sünger kurur."
+    },
+    {
+      "visual": "kosu-doz",
+      "voice": "Ama yarış yarış koşan profesyonellerde oran yüzde on üç. Yani mesele koşmak değil, dozunda koşmak.",
+      "say": "Ama yarış yarış koşan profesyonellerde oran yüzde on üç. Yani mesele koşmak değil, dozunda koşmak."
+    },
+    {
+      "visual": "kosu-kapanis",
+      "voice": "Şimdi pencereden bak: komşun yine koşuyor. Sen hâlâ dizleri bitecek mi diyorsun?",
+      "say": "Şimdi pencereden bak: komşun yine koşuyor. Sen hâlâ \"dizleri bitecek\" mi diyorsun?"
+    }
+  ],
+  "caption": "",
+  "hashtags": [
+    "fitness",
+    "koşu",
+    "dizsağlığı",
+    "voom"
+  ]
+}
