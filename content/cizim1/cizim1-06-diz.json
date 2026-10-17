@@ -1,6 +1,6 @@
 {
   "id": "cizim1-06-diz",
-  "title": "Koşu dizini bitirir mi?",
+  "title": "Koşu dizi aşındırır mı?",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -13,15 +13,14 @@
   "padding": 0.05,
   "scenes": [
     {
-      "visual": "diz4-pist",
-      "lead": 0.5,
-      "voice": "Hadi… yapabilirsin… son tur! Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
-      "say": "[out of breath] Hah... hah... Hadi... yapabilirsin... hah... son tur! [serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+      "visual": "diz5-hook",
+      "voice": "Koşarken dizin her adımda biraz daha aşınıyor mu?",
+      "say": "[curious] Koşarken dizin, her adımda biraz daha aşınıyor mu?"
     },
     {
-      "visual": "diz4-anne",
-      "voice": "Kulağında annenin sesi:",
-      "say": "Kulağında annenin sesi:"
+      "visual": "diz5-pist",
+      "voice": "Bir gün pistte dizine bir sızı giriyor ve kulağında annenin sesi:",
+      "say": "Bir gün pistte, dizine bir sızı giriyor... ve kulağında annenin sesi:"
     },
     {
       "visual": "diz4-annesoz",

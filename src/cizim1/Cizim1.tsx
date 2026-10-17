@@ -404,6 +404,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
+  "diz5-hook": (w) => [[0, "adim", 0.25], [w(6), "cizik", 0.35], [w(7) - 2, "pop", 0.3]],
+  "diz5-pist": (w) => [[w(3), "boom", 0.2], [w(3) + 1, "cizik", 0.45], [w(3) + 3, "sonme", 0.25], [w(7), "agir-dusme", 0.2], [w(9) - 2, "pop", 0.3]],
   "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [20, "pop", 0.3], [w(5), "boom", 0.2], [w(5) + 1, "cizik", 0.45], [w(5) + 3, "sonme", 0.25], [w(13), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
@@ -628,6 +630,8 @@ const ZOOM: Record<string, Zoom> = {
   "diz-hook": { to: 1.0, x: 540, y: 960 },
   "diz3-pist": { to: 1.0, x: 540, y: 960 },
   "diz4-pist": { to: 1.0, x: 540, y: 960 },
+  "diz5-hook": { to: 1.0, x: 540, y: 960 },
+  "diz5-pist": { to: 1.0, x: 540, y: 960 },
   "diz4-anne": { to: 1.0, x: 540, y: 960 },
   "diz4-annesoz": { to: 1.0, x: 540, y: 960 },
   "diz4-doz": { to: 1.0, x: 540, y: 960 },
@@ -7215,6 +7219,98 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+// KANCA (ilk kare): "Koşarken dizin her adımda biraz daha aşınıyor mu?"
+// Pistte koşan avatarın dizi röntgen merceğinde; her adım vuruşunda kıkırdak ezilir, incelir, kızarır; üstte başlık.
+const Diz5Hook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const { off, ph } = runIntegral(f, () => 1);
+  const pose = runPose(ph, 1);
+  const knee = { x: 420 + Math.sin(deg(pose.front.a)) * L_T * 1.45, y: TRACK_Y + (pose.hipY + Math.cos(deg(pose.front.a)) * L_T) * 1.45 };
+  const strike = Math.pow(Math.max(0, Math.sin(ph * 2)), 6);
+  const wear = tw(f, 0, w(6) + 6);
+  const q = pop(f, w(7) - 2, 12);
+  const steps = 1200 + Math.floor(f * 47);
+  return (
+    <>
+      <CamK k={[[0, 1.08, 520, 1300], [w(7), 1.14, 520, 1340]]}>
+        <SideTrack off={off} />
+        <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face="worry" painGlow={0.25 + 0.6 * strike * wear} sweat />
+      </CamK>
+      <path d={`M${knee.x} ${knee.y} L700 1000`} stroke={C.ink} strokeWidth={8} strokeDasharray="18 14" />
+      <circle cx={knee.x} cy={knee.y} r={60} fill="none" stroke={C.ink} strokeWidth={8} />
+      <g transform={`translate(700 780) scale(${1 + 0.03 * strike}) translate(-700 -780)`}>
+        <KneeLens x={700} y={780} r={240} press={0.3 + 0.7 * strike} wet={1 - 0.75 * wear} crack={wear} />
+        <circle cx={700} cy={780} r={70 + 60 * strike} fill={C.red} opacity={(0.15 + 0.3 * strike) * wear} />
+      </g>
+      <text x={700} y={1090} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
+        {`${steps.toLocaleString("tr-TR")} adım`}
+      </text>
+      <g transform="translate(540 250) rotate(-3)">
+        <rect x={-470} y={-95} width={940} height={170} rx={22} fill={C.red} stroke={C.ink} strokeWidth={9} />
+        <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={92} fill={C.cream}>
+          KOŞU DİZİ AŞINDIRIR MI?
+        </text>
+      </g>
+      {q > 0 ? <HandText x={960} y={560} text="?" size={260} p={q} color={C.red} rotate={10} /> : null}
+    </>
+  );
+};
+
+// "Bir gün pistte dizine bir sızı giriyor ve kulağında annenin sesi:"
+// Koşu → "dizine"de ağır çekim, parlama, dize yakınlaşma + röntgen → eğilir, oturur → annenin balonu belirir.
+const Diz5Pist: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const hitAt = w(3);
+  const speedAt = (i: number) =>
+    i < hitAt - 10 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(6)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const { off, ph } = runIntegral(f, speedAt);
+  const amp = Math.min(1, speedAt(f));
+  const bend = tw(f, w(5) - 4, w(6) + 4);
+  const sit = tw(f, w(7) - 4, w(8) + 6);
+  const pose = mixPose(mixPose(runPose(ph, amp), bendPose, bend), sitPose, sit);
+  const pain = f >= hitAt;
+  const xr = pop(f, hitAt, 8) * (1 - tw(f, hitAt + 24, hitAt + 32));
+  const kneeAt = (p: SidePose) => ({ x: 420 + Math.sin(deg(p.front.a)) * L_T * 1.45, y: TRACK_Y + (p.hipY + Math.cos(deg(p.front.a)) * L_T) * 1.45 });
+  const hitK = kneeAt(runPose(runIntegral(hitAt, speedAt).ph, speedAt(hitAt)));
+  const flash = hit(f, hitAt, 6);
+  const glow = tw(f, hitAt, hitAt + 6);
+  const bubble = pop(f, w(9) - 2, 14);
+  return (
+    <>
+      <CamK
+        k={[
+          [0, 1.14, 520, 1340],
+          [hitAt - 1, 1.0, 540, 1200],
+          [hitAt + 2, 1.75, hitK.x, hitK.y],
+          [hitAt + 26, 1.75, hitK.x, hitK.y],
+          [hitAt + 40, 1.12, 520, 1300],
+          [w(8), 1.12, 520, 1300],
+          [w(9) + 8, 1.0, 540, 1000],
+        ]}
+        shake={hit(f, Math.round(hitAt), 10) * 0.6}
+      >
+        <SideTrack off={off} />
+        <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={Math.max(bend, sit)} face={pain ? "pain" : "worry"} painGlow={glow} sweat />
+        <Bubble x={560} y={560} rx={330} ry={250} p={bubble} tail={[560, 1060]}>
+          <Mom f={f} x={560} y={760} s={0.5} wag={0} />
+        </Bubble>
+      </CamK>
+      {xr > 0 ? (
+        <g>
+          <rect x={-200} y={-200} width={1480} height={2400} fill={C.ink} opacity={0.4 * xr} />
+          <path d={`M${hitK.x} ${hitK.y} L760 1000`} stroke={C.cream} strokeWidth={8} strokeDasharray="18 14" opacity={xr} />
+          <circle cx={hitK.x} cy={hitK.y} r={90} fill="none" stroke={C.cream} strokeWidth={8} opacity={xr} />
+          <g transform={`translate(760 780) scale(${xr}) translate(-760 -780)`}>
+            <KneeLens x={760} y={780} r={220} press={1} wet={0.3} crack={1} />
+            <circle cx={760} cy={780} r={(90 + 20 * Math.sin(f / 2)) * xr} fill={C.red} opacity={0.35} />
+          </g>
+        </g>
+      ) : null}
+      {flash > 0 ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={0.7 * flash} /> : null}
+    </>
+  );
+};
+
 // Pistte oturup dizini tutan avatar (anne sahneleri ve kapanış için)
 const SittingOnTrack: React.FC<{ f: number; face?: "pain" | "worry" | "smile" | "grin"; glow?: number }> = ({ f, face = "worry", glow = 0.15 }) => (
   <>
@@ -7355,6 +7451,8 @@ const Diz4Soru: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "diz5-hook": Diz5Hook,
+  "diz5-pist": Diz5Pist,
   "diz4-pist": Diz4Pist,
   "diz4-anne": Diz4Anne,
   "diz4-annesoz": Diz4AnneSoz,
