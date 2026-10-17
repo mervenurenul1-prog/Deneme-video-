@@ -91,6 +91,10 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   hatırla:". Avatar gümüş eşofmanlı (`Person`/`SideRunner` yeni `suit` prop). Bileşenler `sauna-*`. Sessiz önizleme
   `08-sauna-sessiz.mp4` → onay → seslendirme. Diğer konu adayları: mekik/göbek (1971 tenis kolu), 8 bardak su (1945),
   laktik asit (1922 Nobel), kas yağa dönüşür, boy kısalır (takipçi isteği).
+  **v2 (kullanıcı: "teri içmek iğrenç", "bir ay içinde öldüler ne demek"):** ter ÖLÇÜ KABINDA kalır, avatar masadaki temiz
+  şişeyi içer; tarihçe 3 sahne (`sauna-tarih1/2/3`): 1997 üniversiteli güreşçi maç için 8 kg vermek zorunda → eşofmanın
+  altına plastik giysi, 2 saat kondisyon bisikleti, yere yığılır, susuz kalmıştı, kurtarılamadı (Michigan Daily: Jeff Reese,
+  böbrek yetmezliği + kalp; 17 lb) → 33 günde aynı yolla ölen 3. güreşçi, ertesi ay yasak. Metin onaylandı ("olur").
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi
