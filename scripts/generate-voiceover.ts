@@ -66,7 +66,9 @@ for (const post of videos) {
   const scenes: SceneAudio[] = [];
 
   for (const [i, scene] of post.scenes.entries()) {
-    const vId = ("voiceId" in post && post.voiceId) || voiceId;
+    // Sahneye özel ses (ör. annenin repliği başka seslendirmenle): sahnedeki voiceId/voiceSettings videonunkini ezer
+    const sv = scene as { voiceId?: string; voiceSettings?: Record<string, number | boolean> };
+    const vId = sv.voiceId || ("voiceId" in post && post.voiceId) || voiceId;
     const mId = ("modelId" in post && post.modelId) || modelId;
     // Seslendirilen metin: varsa ton etiketli `say`, yoksa altyazı metni `voice`
     const say: string = ("say" in scene && typeof scene.say === "string" && scene.say) || scene.voice;
@@ -82,7 +84,7 @@ for (const post of videos) {
       // v3 modeli dili metinden tahmin etmeye çalışır; Türkçe olduğunu açıkça söyle
       ...(mId === "eleven_v3" || mId.startsWith("eleven_v4") ? { languageCode: "tr" } : {}),
       // İsteğe bağlı videoya özel ses ayarları (doğallık için: düşük stability, biraz style)
-      ...("voiceSettings" in post && post.voiceSettings ? { voiceSettings: post.voiceSettings } : {}),
+      ...(sv.voiceSettings ? { voiceSettings: sv.voiceSettings } : "voiceSettings" in post && post.voiceSettings ? { voiceSettings: post.voiceSettings } : {}),
       outputFormat: "mp3_44100_128",
     });
     // Dosya adı benzersiz olsun ki tarayıcı önbelleği eski sesi çalmasın

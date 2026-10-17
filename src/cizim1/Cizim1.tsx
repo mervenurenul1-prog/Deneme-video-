@@ -398,7 +398,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
   "diz3-pist": (w) => [[0, "adim", 0.25], [w(9) - 2, "cizik", 0.45], [w(11), "sonme", 0.3]],
-  "diz3-anne": (w) => [[w(0), "pop", 0.3], [w(4), "cizik", 0.3], [w(8), "cizik", 0.3]],
+  "diz3-anne": (w) => [[w(0), "pop", 0.3]],
+  "diz3-annesoz": (w) => [[w(1), "cizik", 0.3], [w(5), "cizik", 0.3], [w(7), "sonme", 0.25]],
   "diz3-stanford": (w) => [[2, "kalem", 0.3], [w(8) - 2, "pop", 0.3], [w(10), "pop", 0.25], [w(14), "kagit", 0.3], [w(17), "kagit", 0.3]],
   "diz3-sonuc": (w) => [[w(1) - 2, "ding", 0.35], [w(4), "cizik", 0.35], [w(9), "pop", 0.3], [w(13), "pirilti", 0.35]],
   "diz3-squat": (w) => [[w(2), "sihir", 0.35], [w(6), "sonme", 0.3]],
@@ -612,6 +613,7 @@ const ZOOM: Record<string, Zoom> = {
   "diz-hook": { to: 1.0, x: 540, y: 960 },
   "diz3-pist": { to: 1.0, x: 540, y: 960 },
   "diz3-anne": { to: 1.0, x: 540, y: 960 },
+  "diz3-annesoz": { to: 1.0, x: 540, y: 960 },
   "diz3-stanford": { to: 1.03, x: 540, y: 900 },
   "diz3-sonuc": { to: 1.03, x: 540, y: 900 },
   "diz3-squat": { to: 1.03, x: 540, y: 1000 },
@@ -6493,23 +6495,51 @@ const BanIcon: React.FC<{ x: number; y: number; p: number; cross: number; squat?
     </g>
   ) : null;
 
-// "Kulağında annenin sesi: koşma, dizin biter. Çok çömelme, dizine yazık."
+// Anlatıcı: "Kulağında annenin sesi:" — düşünce balonunda anne belirir
 const Diz3Anne: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const bubble = pop(f, w(0) - 2, 14);
-  const i1 = pop(f, w(3) - 2, 12);
-  const c1 = tw(f, w(4), w(5) + 4);
-  const i2 = pop(f, w(6) - 2, 12);
-  const c2 = tw(f, w(8), w(9) + 4);
   return (
-    <CamK k={[[0, 1.25, 560, 1350], [w(1), 1.0, 540, 1000]]}>
+    <CamK k={[[0, 1.25, 560, 1350], [w(2) + 6, 1.0, 540, 1000]]}>
       <RunTrack f={0} speed={0} />
       <Runner f={f} x={540} y={1720} s={1.0} run={0} hold={1} pain={0.5} lookY={0} mouth="worry" eyes="open" />
       <Bubble x={540} y={520} rx={330} ry={250} p={bubble} tail={[600, 980]}>
-        <Mom f={f} x={540} y={720} s={0.5} wag={1} />
+        <Mom f={f} x={540} y={720} s={0.5} wag={0} />
       </Bubble>
-      <BanIcon x={200} y={980} p={i1} cross={c1} f={f} />
-      <BanIcon x={880} y={980} p={i2} cross={c2} squat f={f} />
+    </CamK>
+  );
+};
+
+// Annenin kendi sesi: "Koşma, dizin biter! Çok çömelme, dizine yazık! Benim gibi mi olmak istiyorsun?"
+// Parmak sallar, koşu ve çömelme simgelerinin üstü çizilir; "Benim gibi"de kendi dizini ovuşturur.
+const Diz3AnneSoz: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const i1 = pop(f, w(0) - 2, 12);
+  const c1 = tw(f, w(1), w(2) + 4);
+  const i2 = pop(f, w(3) - 2, 12);
+  const c2 = tw(f, w(5), w(6) + 4);
+  const own = tw(f, w(7) - 2, w(8) + 6);
+  const zoom = tw(f, w(7) - 2, w(9) + 4);
+  return (
+    <CamK k={[[0, 1, 540, 1000], [w(7) - 2, 1, 540, 1000], [w(9) + 4, 1.3, 540, 640]]}>
+      <RunTrack f={0} speed={0} />
+      <Runner f={f} x={540} y={1720} s={1.0} run={0} hold={1} pain={0.3} lookY={0} mouth="worry" eyes={zoom > 0.5 ? "wide" : "open"} />
+      <Bubble x={540} y={520} rx={330} ry={250} p={1} tail={[600, 980]}>
+        {own > 0.05 ? (
+          <g>
+            <Person x={540} y={720} s={0.5} female belly={0.6} shirt="#9a7bb0" legL={{ lift: 0.5 }} legR={{ lift: 0.5 }} armL={[10, -5]} armR={[10, -5]} mouth="worry" eyes="closed" lookY={8} />
+            {[0, 1, 2].map((i) => (
+              <path key={i} d={`M${560 + i * 4} ${640 + i * 12} l18 -9 l-9 13 l18 -9`} stroke={C.red} strokeWidth={5} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={own * (0.6 + 0.4 * Math.sin(f / 2 + i))} />
+            ))}
+          </g>
+        ) : (
+          <Mom f={f} x={540} y={720} s={0.5} wag={1} />
+        )}
+      </Bubble>
+      <g opacity={1 - zoom}>
+        <BanIcon x={200} y={980} p={i1} cross={c1} f={f} />
+        <BanIcon x={880} y={980} p={i2} cross={c2} squat f={f} />
+      </g>
     </CamK>
   );
 };
@@ -6712,6 +6742,7 @@ const Diz3Soru: React.FC<SceneProps> = ({ w, d }) => {
 const SCENES: Record<string, React.FC<SceneProps>> = {
   "diz3-pist": Diz3Pist,
   "diz3-anne": Diz3Anne,
+  "diz3-annesoz": Diz3AnneSoz,
   "diz3-stanford": Diz3Stanford,
   "diz3-sonuc": Diz3Sonuc,
   "diz3-squat": Diz3Squat,

@@ -19,13 +19,19 @@
     },
     {
       "visual": "diz3-anne",
-      "voice": "Kulağında annenin sesi: koşma, dizin biter. Çok çömelme, dizine yazık.",
-      "say": "Kulağında annenin sesi: \"Koşma, dizin biter. Çok çömelme, dizine yazık.\""
+      "voice": "Kulağında annenin sesi:",
+      "say": "Kulağında annenin sesi:"
+    },
+    {
+      "visual": "diz3-annesoz",
+      "voice": "Koşma, dizin biter! Çok çömelme, dizine yazık! Benim gibi mi olmak istiyorsun?",
+      "say": "Koşma, dizin biter! Çok çömelme, dizine yazık! [sighs] Benim gibi mi olmak istiyorsun?",
+      "voiceId": "ANNE_SECILECEK"
     },
     {
       "visual": "diz3-stanford",
-      "voice": "Bin dokuz yüz seksen dörtte Stanford'daki doktorlar da bundan emindi. Kanıtlamak için koşucuların dizlerini on sekiz yıl boyunca röntgenlediler.",
-      "say": "Bin dokuz yüz seksen dörtte, Stanford'daki doktorlar da bundan emindi. [curious] Kanıtlamak için koşucuların dizlerini, on sekiz yıl boyunca röntgenlediler."
+      "voice": "Bin dokuz yüz seksen dörtte Stanford'daki doktorlar da bundan emindi. Kanıtlamak için koşucuların dizlerini on sekiz yıl röntgenlediler.",
+      "say": "Bin dokuz yüz seksen dörtte, Stanford'daki doktorlar da bundan emindi. [curious] Kanıtlamak için koşucuların dizlerini, on sekiz yıl röntgenlediler."
     },
     {
       "visual": "diz3-sonuc",
