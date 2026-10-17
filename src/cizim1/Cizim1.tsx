@@ -7273,7 +7273,7 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   const pose = runPose(ph, speedAt(f));
   const card = (x: number, y: number, v: number, p: number, red: boolean) =>
     p > 0 ? (
-      <g key={`${x}${y}`} transform={`translate(${x} ${y}) scale(${p * (red ? 1 + 0.25 * spike : 1)})`}>
+      <g key={`${x}${y}`} transform={`translate(${x} ${y}) scale(${p * 1.35 * (red ? 1 + 0.35 * spike : 1)})`}>
         <rect x={-85} y={-55} width={170} height={110} rx={14} fill={red ? C.red : C.cream} stroke={C.ink} strokeWidth={6} />
         <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={red ? C.cream : C.ink}>
           {v} km
@@ -7284,10 +7284,10 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
     <>
       <SideTrack off={off} />
       <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} bandage />
-      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(165 + i * 250, 300, v, pop(f, i < 3 ? w(9) + i * 5 : w(13) - 2, 10), i === 3))}</g>
+      <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(150 + i * 260, 330, v, pop(f, i < 3 ? w(9) + i * 5 : w(13) - 2, 10), i === 3))}</g>
       <g opacity={r2on}>
-        {row2.map((v, i) => card(165 + i * 250, 470, v, pop(f, w(17) + i * 4, 10), false))}
-        <HandText x={540} y={640} text="dozunda" size={100} p={tw(f, w(18), w(18) + 8)} color="#3f7d4f" rotate={-3} />
+        {row2.map((v, i) => card(150 + i * 260, 560, v, pop(f, w(17) + i * 4, 10), false))}
+        <HandText x={540} y={760} text="dozunda" size={100} p={tw(f, w(18), w(18) + 8)} color="#3f7d4f" rotate={-3} />
       </g>
     </>
   );

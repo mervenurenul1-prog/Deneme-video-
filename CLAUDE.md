@@ -30,7 +30,14 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   (d) Anne "benim gibi mi" derken dizini değil ayağını tutuyor gibiydi → anne balonda YANDAN (`SideRunner` `female`
   `shirt`) eğilip iki eliyle dizini tutar, dizi kızarır. (e) Squat "araya atılmış gibi" (spor salonu, farklı çöp adam)
   → yeni `diz4-squat` (`Diz5Squat`): aynı pist + aynı avatar, bandajlı derin squat, "sağlıklı diz" yeşil parıltı,
-  annenin "dizine yazık!" balonu "hiç kanıtlanmadı"da çizilip söner. Yeni sessiz önizleme → **onay → seslendirme**.
+  annenin "dizine yazık!" balonu "hiç kanıtlanmadı"da çizilip söner.
+  (f) Kullanıcı: "squatı gerekirse çıkar, koşu olayını daha iyi betimle, dikkat çekici yap" → metin onaylandı ("yap
+  bakalım"): squat sahnesi ve annenin "Çok çömelme, dizine yazık!" cümlesi ÇIKTI; doz: "O sızı çoğu zaman yükü birden
+  artırmaktan gelir: haftalarca iki kilometre, sonra bir günde on. Dizin bitmiyor, dozunu bekliyor." Görsel: açılışta
+  "birden"den önce ağır çekim + ekran kararır, dizde röntgen merceği (`KneeLens`) kızarır; `diz4-stanford`/`diz4-sonuc`
+  aynı pistte üç koşucu (`StanfordRunners`, saçları yıllarla ağarır `grayHair`), yıl sayacı 1984→2002, röntgen panosu
+  (`XrayBoard`, hepsi temiz + yeşil tik), "dizleri bitecek" tabelası çizilir; doz kartları büyüdü. 7 sahne.
+  Yeni sessiz önizleme → **onay → seslendirme** (Yunus + Sibel; Sibel artık ~50 karakter).
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi
