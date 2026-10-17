@@ -8,7 +8,29 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
-## >>> YENİ SOHBET: ÖNCE BUNU OKU (16 Ekim akşam devir notu) <<<
+## >>> YENİ SOHBET: ÖNCE BUNU OKU (17 Ekim devir notu — EN GÜNCEL) <<<
+Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; her işten sonra ikisine de push). `npm ci` → işe başla.
+Kalan ElevenLabs kredisi ≈ 15.095 karakter. Ses kitaplığı: Yunus (anlatıcı) + **Sibel** (`qLdPxFtPuffoxx5gieBJ`, anne sesi).
+**ŞU ANKİ İŞ: 06 diz (`cizim1-06-diz`)** — sessiz önizleme gönderildi, **kullanıcı onayı → seslendirme** (Yunus ~520 +
+Sibel ~85 karakter, tek seferde). Max 45 sn (gerçek sesle ~45; aşarsa `padding`'i kısalt, cümle kesmeden önce SOR).
+Metin (kullanıcı onayladı, sahneler):
+1. `diz4-pist`: "Sabah koşusu, üçüncü tur. Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+   (YAN PROFİL koşu `SideRunner`/`SideTrack`, kısa koşu → ani ağrı → eğilip dizini tutar → yere oturur; kırmızı karalama YOK)
+2. `diz4-anne`: "Kulağında annenin sesi:" (Yunus) 3. `diz4-annesoz` (**Sibel**, sahne `voiceId`): "Koşma, dizin biter! Çok
+   çömelme, dizine yazık! Benim gibi mi olmak istiyorsun?" (anne düşünce balonunda, sonda kendi dizini ovuşturur)
+4. `diz3-stanford`: 1984 Stanford, koşucuların dizlerini 18 yıl röntgenlediler 5. `diz3-sonuc`: dizleri daha kötü çıkmadı;
+   kireçlenme evde oturan %10, hobi koşucu %3,5 6. `diz3-squat`: "Derin squatın sağlıklı dizi bozduğu da hiç kanıtlanmadı."
+7. `diz4-doz`: sızı çoğu zaman yükü birden artırmaktan (2,2,2,10 km → 2,3,4,5) 8. `diz4-soru`: "Peki sen yarın o piste
+   dönecek misin?" (kalkıp koşar = açılış karesi). Ağrıdan sonraki tüm sahnelerde avatarın dizi **bandajlı** (`KneeBandage`).
+Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor (`scripts/generate-voiceover.ts`).
+**05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
+**Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
+pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi
+"yer vermek için" değil anlamlı harmanla; bilinmeyen iddiayı varsayma; teknik terim yok; max 40-45 sn; önce METNİ onaylat,
+sonra sessiz önizleme, sonra tek seferde seslendirme (kredi!). Render ~10-15 dk; `pkill` kendi kabuğunu da öldürebilir →
+PID ile durdur (`ps -eo pid,args | awk ...`). Hızlı kontrol: `npx remotion render src/index.ts <id> out.mp4 --frames=0-250 --scale=0.4`.
+
+## (eski) 16 Ekim akşam devir notu
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.250 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**

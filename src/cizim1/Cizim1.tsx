@@ -6174,7 +6174,17 @@ const Diz3Sunger: React.FC<SceneProps> = ({ w }) => {
 };
 
 // Yandan squat yapan avatar (sade, aynı renkler). d: derinlik 0..1, lock: diz duvara takılır (geride kalır)
-const SideSquat: React.FC<{ x: number; floor: number; d: number; lock: number; kneeLoad: number; hipLoad: number }> = ({ x, floor, d, lock, kneeLoad, hipLoad }) => {
+// Diz bandajı: K dizde, a: bacak doğrultusu (derece, x eksenine göre), w: kalınlık
+const KneeBandage: React.FC<{ x: number; y: number; a: number; w: number }> = ({ x, y, a, w }) => (
+  <g transform={`translate(${x} ${y}) rotate(${a})`}>
+    <rect x={-48} y={-w / 2 - 6} width={96} height={w + 12} rx={12} fill="#fbf7ee" stroke={C.ink} strokeWidth={5} />
+    {[-30, -10, 10, 30].map((d) => (
+      <path key={d} d={`M${d - 8} ${-w / 2 - 6} L${d + 8} ${w / 2 + 6}`} stroke="#d8cfbd" strokeWidth={4} />
+    ))}
+  </g>
+);
+
+const SideSquat: React.FC<{ x: number; floor: number; d: number; lock: number; kneeLoad: number; hipLoad: number; bandage?: boolean }> = ({ x, floor, d, lock, kneeLoad, hipLoad, bandage }) => {
   const rad = (deg: number) => (deg * Math.PI) / 180;
   const A = { x, y: floor - 24 }; // ayak bileği
   const shin = interpolate(lock, [0, 1], [38, 8]) * d; // kaval öne eğimi
@@ -6202,6 +6212,7 @@ const SideSquat: React.FC<{ x: number; floor: number; d: number; lock: number; k
       {line(H, S, 58, C.shirt)}
       {line(S, hand, 26, C.skin)}
       <path d={`M${A.x - 20} ${A.y + 10} L${A.x + 75} ${A.y + 10}`} stroke={C.ink} strokeWidth={22} strokeLinecap="round" />
+      {bandage ? <KneeBandage x={K.x} y={K.y} a={(Math.atan2(K.y - A.y, K.x - A.x) * 180) / Math.PI} w={34} /> : null}
       <circle cx={Hd.x} cy={Hd.y} r={52} fill={C.skin} stroke={C.ink} strokeWidth={7} />
       <path d={`M${Hd.x - 50} ${Hd.y - 12} Q${Hd.x - 20} ${Hd.y - 70} ${Hd.x + 40} ${Hd.y - 30}`} fill={C.hair} stroke={C.ink} strokeWidth={5} />
       <circle cx={Hd.x + 28} cy={Hd.y - 6} r={6} fill={C.ink} />
@@ -6688,7 +6699,7 @@ const Diz3Squat: React.FC<SceneProps> = ({ w }) => {
     <>
       <Gym o={0.4} />
       {glow > 0 ? <circle cx={K.x} cy={K.y} r={60 + 20 * Math.sin(f / 4)} fill="#6fd08c" opacity={0.35 * glow} stroke="#3f7d4f" strokeWidth={6} /> : null}
-      <SideSquat x={X} floor={floor} d={d} lock={0} kneeLoad={0} hipLoad={0} />
+      <SideSquat x={X} floor={floor} d={d} lock={0} kneeLoad={0} hipLoad={0} bandage />
       <path d={`M60 ${floor} L1020 ${floor}`} stroke={C.ink} strokeWidth={6} />
       {/* annenin yasağı: "çok çömelme!" — silinir */}
       <g opacity={ban * (1 - unban)}>
@@ -6798,7 +6809,7 @@ const mixPose = (p: SidePose, q: SidePose, t: number): SidePose => ({
 });
 
 // face: "smile" | "pain" | "worry" | "grin"; reach: 0..1 eller ön dize gider (eğilme/oturma)
-const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; reach?: number; face?: "smile" | "pain" | "worry" | "grin"; painGlow?: number; f: number; look?: number }> = ({
+const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; reach?: number; face?: "smile" | "pain" | "worry" | "grin"; painGlow?: number; f: number; look?: number; bandage?: boolean }> = ({
   x,
   y,
   s,
@@ -6808,6 +6819,7 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
   painGlow = 0,
   f,
   look = 0,
+  bandage = false,
 }) => {
   const H: P2 = { x: 0, y: pose.hipY };
   const legPts = (lp: LegPose) => {
@@ -6905,6 +6917,7 @@ const SideRunner: React.FC<{ x: number; y: number; s: number; pose: SidePose; re
       </g>
       {painGlow > 0 ? <circle cx={fl.K.x + 6} cy={fl.K.y} r={40 + 22 * Math.sin(f / 3)} fill={C.red} opacity={0.28 * painGlow} /> : null}
       {leg(fl, 1)}
+      {bandage ? <KneeBandage x={fl.K.x} y={fl.K.y} a={(Math.atan2(fl.A.y - fl.K.y, fl.A.x - fl.K.x) * 180) / Math.PI} w={40} /> : null}
       {arm(eF, hF, 1)}
       {/* ter damlaları: ağrıda */}
       {pain ? [0, 1].map((i) => <Drop key={i} x={Hd.x - 40 - i * 30} y={Hd.y - 50 + ((f * 3 + i * 40) % 80)} s={0.7} o={0.8} />) : null}
@@ -6988,10 +7001,10 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
 };
 
 // Pistte oturup dizini tutan avatar (anne sahneleri ve kapanış için)
-const SittingOnTrack: React.FC<{ f: number; face?: "pain" | "worry" | "smile" | "grin"; glow?: number }> = ({ f, face = "worry", glow = 0.4 }) => (
+const SittingOnTrack: React.FC<{ f: number; face?: "pain" | "worry" | "smile" | "grin"; glow?: number }> = ({ f, face = "worry", glow = 0.15 }) => (
   <>
     <SideTrack off={0} />
-    <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={sitPose} reach={1} face={face} painGlow={glow} />
+    <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={sitPose} reach={1} face={face} painGlow={glow} bandage />
   </>
 );
 
@@ -7062,7 +7075,7 @@ const Diz4Doz: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <SideTrack off={off} />
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} face={painT > 0.3 ? "pain" : "smile"} painGlow={painT} bandage />
       <g opacity={1 - r2on * 0.75}>{row1.map((v, i) => card(165 + i * 250, 300, v, pop(f, w(3) + i * 5, 10), i === 3))}</g>
       <g opacity={r2on}>
         {row2.map((v, i) => card(165 + i * 250, 470, v, pop(f, w(9) + i * 4, 10), false))}
@@ -7081,7 +7094,7 @@ const Diz4Soru: React.FC<SceneProps> = ({ w, d }) => {
   return (
     <CamK k={[[0, 1.15, 520, 1300], [w(4), 1.15, 520, 1300], [d - 4, 1, 540, 1200]]}>
       <SideTrack off={0} />
-      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={1 - up} face={up > 0.5 ? "smile" : "worry"} painGlow={0} />
+      <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={1 - up} face={up > 0.5 ? "smile" : "worry"} painGlow={0} bandage />
       {q > 0 ? <HandText x={760} y={760} text="?" size={240} p={q} color={C.red} rotate={8} /> : null}
     </CamK>
   );
