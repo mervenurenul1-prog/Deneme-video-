@@ -32,23 +32,23 @@
     },
     {
       "visual": "yas-bant1",
-      "voice": "Beş ile yedi yaş arası: oyun zamanı. Koşmak, zıplamak, tırmanmak; hepsi antrenman.",
-      "say": "Beş ile yedi yaş arası: oyun zamanı. Koşmak, zıplamak, tırmanmak; [chuckles] hepsi antrenman."
+      "voice": "Beş ile yedi yaş arası: oyun zamanı. Koşmak, zıplamak, top oynamak; hepsi antrenman.",
+      "say": "Beş ile yedi yaş arası: oyun zamanı. Koşmak, zıplamak, top oynamak; [chuckles] hepsi antrenman."
     },
     {
       "visual": "yas-bant2",
-      "voice": "Sekiz ile on iki: kendi vücut ağırlığıyla çalışır, tekniği öğrenir. Kaslar pek büyümez ama güç artar.",
-      "say": "Sekiz ile on iki: kendi vücut ağırlığıyla çalışır, tekniği öğrenir. Kaslar pek büyümez, ama güç artar."
+      "voice": "Sekiz ile on iki: tek spora takılma. Basketbol, voleybol, hentbol, tenis; hepsini dene. Takım sporu sana arkadaş da kazandırır.",
+      "say": "Sekiz ile on iki: tek spora takılma. Basketbol, voleybol, hentbol, tenis; hepsini dene. [warm] Takım sporu sana arkadaş da kazandırır."
     },
     {
       "visual": "yas-bant3",
-      "voice": "On üç on beş: ergenlik başlar, kaslar büyümeye başlar. Lastik bant ve hafif ağırlıklar, bilen birinin yanında.",
-      "say": "On üç, on beş: ergenlik başlar, kaslar büyümeye başlar. Lastik bant ve hafif ağırlıklar, bilen birinin yanında."
+      "voice": "On üç on beş: ergenlik başlar, kaslar büyür. Takımında oynamaya devam et; bir koç eşliğinde hafif ağırlık da ekleyebilirsin.",
+      "say": "On üç, on beş: ergenlik başlar, kaslar büyür. Takımında oynamaya devam et; bir koç eşliğinde, hafif ağırlık da ekleyebilirsin."
     },
     {
       "visual": "yas-bant4",
-      "voice": "On altıdan sonra: ağırlık yavaş yavaş artırılır; yine teknik önce gelir.",
-      "say": "On altıdan sonra: ağırlık yavaş yavaş artırılır; [serious] yine teknik önce gelir."
+      "voice": "On altıdan sonra istersen bir spora odaklan. Ağırlık yavaş yavaş artırılır, ama teknik hep önce gelir.",
+      "say": "On altıdan sonra, istersen bir spora odaklan. Ağırlık yavaş yavaş artırılır, [serious] ama teknik hep önce gelir."
     },
     {
       "visual": "yas-terazi",

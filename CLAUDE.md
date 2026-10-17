@@ -91,6 +91,12 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   yavaş yavaş, TEKNİK ÖNCE). Üstte `AgeRuler` (etkin bant kırmızı). Rapordaki basamaklar 4 yaş grubu. Hook/rapor/terazi/
   güvenlik/bugün sesleri hazır; 4 bant yeni seslendirilecek (~330 karakter). Seslendirme betiği önbelleği metne göre bulur
   (sıra değişse de hazır sesler yeniden üretilmez; güvenlik sahnesinin 1,6 sn boşluklu sesi korunur).
+  **v5 (kullanıcı):** spor sadece gym değil → HER yaş bandında spor dalları (basketbol, voleybol, hentbol, tenis; takım =
+  sosyal/arkadaş). İSTİSNA: ekip kuralı "spor dalları yok" bu videoda kullanıcı isteğiyle esnetildi (tavsiye olarak, konu
+  değil). Metin: 5-7 "…top oynamak; hepsi antrenman", 8-12 "tek spora takılma… hepsini dene. Takım sporu arkadaş da
+  kazandırır", 13-15 "…takımında oynamaya devam et; bir koç eşliğinde hafif ağırlık da ekleyebilirsin", 16+ "istersen bir
+  spora odaklan… teknik hep önce gelir". (AAP 2016: erken tek spora uzmanlaşmayı geciktir — seslendirmeden önce doğrula.)
+  `SportIcon`/`SportCard`/`Heart`.
   Sauna (08) bekliyor. Kullanıcı: "videoları stoklayalım" (günde 3, aralık 12 saat değil) — CEFF'e sordu.
 **08 SAUNA EŞOFMANI (`cizim1-08-sauna`, 17 Ekim gece, DENEME — kullanıcı konudan emin değil, metne bakıp karar verecek):**
   "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. Peki o kilo yağ mıydı? Hayır. Sadece su." → 1997 üç güreşçi bir ay
