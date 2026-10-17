@@ -12,6 +12,12 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.250 karakter (yalnız Yunus seslendirmesi için kullan).
 **Videoların durumu (ornek-videolar/cizim1-pilot/):**
+- **05 boyun TEKRAR AKTİF (17 Ekim):** ekipten CEFF videoyu beğendi ("çok güzel, paylaşalım"); yalnız "Dikkat!" girişi
+  "çok bağırıyor, insanları kaçırabilir" → Reels'te 2 giriş test edilecek. Kullanıcı **Giriş B**'yi seçti:
+  `cizim1-05-boyun-b` ("Şu an bu videoyu başın öne eğik izliyorsun, değil mi? Bunun için dünyaya yayılmış bir hesap var.
+  Ama hikâyenin yarısı eksik."; `boyun5-sen`, kapanış `boyun5-gonder` = telefona dalış yok, avatar ortaya gelir).
+  Seslendirildi, son video `05-boyun-b.mp4` (48,9 sn). Diğer sahne sesleri `cizim1-05-boyun` manifestinden kopyalandı
+  (yeni id için ses dizinini/manifesti kopyala → yalnız değişen sahne seslendirilir). Kalan kredi ≈ 15.095.
 - **05 boyun İPTAL (kullanıcı, 17 Ekim).** Üzerinde çalışma, kredi harcama.
 - **06 diz (ŞU AN):** `cizim1-06-diz` — iki yanlış kural harmanı: "koşu dizi bitirir" (2017 meta-analiz: koşmayan %10,
   hobi koşucu %3,5; kıkırdak sünger) + "squatta diz parmak ucunu geçmesin" (Fry 2003, küçük deney: diz geride → kalça
