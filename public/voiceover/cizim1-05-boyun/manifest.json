@@ -116,16 +116,16 @@
       ]
     },
     {
-      "voice": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck. Sonra bir cerrah hesapladı: yirmi yedi kilo. Haber dünyayı dolaştı.",
+      "voice": "İki bin sekizde bir terapist, bir gencin röntgenine bakıp buna isim verdi: text neck.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-05-boyun/2-mvbhp9u7.mp3",
-      "durationInSeconds": 10.187755,
+      "file": "voiceover/cizim1-05-boyun/2-mvc3j8bc.mp3",
+      "durationInSeconds": 5.746939,
       "words": [
         {
           "word": "İki",
           "start": 0,
-          "end": 0.16
+          "end": 0.2
         },
         {
           "word": "bin",
@@ -135,112 +135,212 @@
         {
           "word": "sekizde",
           "start": 0.4,
-          "end": 0.88
+          "end": 0.96
         },
         {
           "word": "bir",
           "start": 1.04,
-          "end": 1.12
+          "end": 1.2
         },
         {
           "word": "terapist,",
-          "start": 1.2,
-          "end": 1.92
+          "start": 1.28,
+          "end": 2
         },
         {
           "word": "bir",
-          "start": 2,
-          "end": 2.08
+          "start": 2.08,
+          "end": 2.16
         },
         {
           "word": "gencin",
-          "start": 2.12,
-          "end": 2.4
+          "start": 2.2,
+          "end": 2.56
         },
         {
           "word": "röntgenine",
-          "start": 2.48,
-          "end": 2.96
+          "start": 2.64,
+          "end": 3.12
         },
         {
           "word": "bakıp",
-          "start": 3.04,
-          "end": 3.36
+          "start": 3.2,
+          "end": 3.52
         },
         {
           "word": "buna",
-          "start": 3.44,
-          "end": 3.6
+          "start": 3.6,
+          "end": 3.84
         },
         {
           "word": "isim",
-          "start": 3.68,
-          "end": 3.92
+          "start": 3.92,
+          "end": 4.16
         },
         {
           "word": "verdi:",
-          "start": 4.04,
-          "end": 4.72
+          "start": 4.28,
+          "end": 4.814700000000001
         },
         {
           "word": "text",
-          "start": 4.88,
-          "end": 5.04
+          "start": 4.894700000000001,
+          "end": 5.2147000000000014
         },
         {
           "word": "neck.",
-          "start": 5.2,
-          "end": 5.44
-        },
+          "start": 5.374700000000001,
+          "end": 5.774700000000001
+        }
+      ]
+    },
+    {
+      "voice": "Sonra bir cerrah hesapladı: başın beş kilo, ama öne eğildikçe ensen onu düşürmemek için daha çok çeker. Telefona bakarken bu yük yirmi yedi kiloyu bulur. Haber dünyayı dolaştı.",
+      "say": "Sonra bir cerrah hesapladı: başın beş kilo, ama öne eğildikçe, ensen onu düşürmemek için daha çok çeker. Telefona bakarken bu yük, yirmi yedi kiloyu bulur. Haber dünyayı dolaştı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-05-boyun/3-mvc3javu.mp3",
+      "durationInSeconds": 12.094694,
+      "words": [
         {
           "word": "Sonra",
-          "start": 5.835260000000001,
-          "end": 6.075260000000001
+          "start": 0,
+          "end": 0.4
         },
         {
           "word": "bir",
-          "start": 6.115260000000001,
-          "end": 6.155260000000001
+          "start": 0.56,
+          "end": 0.64
         },
         {
           "word": "cerrah",
-          "start": 6.235260000000001,
-          "end": 6.5552600000000005
+          "start": 0.8,
+          "end": 1.04
         },
         {
           "word": "hesapladı:",
-          "start": 6.635260000000001,
-          "end": 7.4665300000000006
+          "start": 1.16,
+          "end": 1.76
+        },
+        {
+          "word": "başın",
+          "start": 2.06553,
+          "end": 2.38553
+        },
+        {
+          "word": "beş",
+          "start": 2.46553,
+          "end": 2.6255300000000004
+        },
+        {
+          "word": "kilo,",
+          "start": 2.7055299999999995,
+          "end": 3.02553
+        },
+        {
+          "word": "ama",
+          "start": 3.34553,
+          "end": 3.5855300000000003
+        },
+        {
+          "word": "öne",
+          "start": 3.7455299999999996,
+          "end": 3.98553
+        },
+        {
+          "word": "eğildikçe",
+          "start": 4.06553,
+          "end": 4.86553
+        },
+        {
+          "word": "ensen",
+          "start": 5.06553,
+          "end": 5.26553
+        },
+        {
+          "word": "onu",
+          "start": 5.34553,
+          "end": 5.505529999999999
+        },
+        {
+          "word": "düşürmemek",
+          "start": 5.558529999999999,
+          "end": 6.06553
+        },
+        {
+          "word": "için",
+          "start": 6.10553,
+          "end": 6.30553
+        },
+        {
+          "word": "daha",
+          "start": 6.38553,
+          "end": 6.545529999999999
+        },
+        {
+          "word": "çok",
+          "start": 6.6255299999999995,
+          "end": 6.7055299999999995
+        },
+        {
+          "word": "çeker.",
+          "start": 6.78553,
+          "end": 7.26553
+        },
+        {
+          "word": "Telefona",
+          "start": 7.46423,
+          "end": 7.78423
+        },
+        {
+          "word": "bakarken",
+          "start": 7.86423,
+          "end": 8.424230000000001
+        },
+        {
+          "word": "bu",
+          "start": 8.504230000000002,
+          "end": 8.584230000000002
+        },
+        {
+          "word": "yük",
+          "start": 8.70423,
+          "end": 8.98423
         },
         {
           "word": "yirmi",
-          "start": 7.546530000000001,
-          "end": 7.786530000000001
+          "start": 9.06423,
+          "end": 9.264230000000001
         },
         {
           "word": "yedi",
-          "start": 7.866530000000001,
-          "end": 7.946530000000001
+          "start": 9.30423,
+          "end": 9.38423
         },
         {
-          "word": "kilo.",
-          "start": 8.026530000000001,
-          "end": 8.346530000000001
+          "word": "kiloyu",
+          "start": 9.54423,
+          "end": 9.82423
+        },
+        {
+          "word": "bulur.",
+          "start": 9.864230000000001,
+          "end": 10.336630000000001
         },
         {
           "word": "Haber",
-          "start": 8.599660000000002,
-          "end": 8.91966
+          "start": 10.468630000000001,
+          "end": 10.788630000000001
         },
         {
           "word": "dünyayı",
-          "start": 8.99966,
-          "end": 9.39966
+          "start": 10.868630000000001,
+          "end": 11.268630000000002
         },
         {
           "word": "dolaştı.",
-          "start": 9.439660000000002,
-          "end": 10.119660000000001
+          "start": 11.348630000000002,
+          "end": 12.148630000000002
         }
       ]
     },
