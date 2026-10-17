@@ -421,7 +421,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "yas-hook": (w) => [[w(7), "cizik", 0.3], [w(10), "cizik", 0.3], [w(10) + 4, "yuksel", 0.25], [w(15), "pop", 0.3]],
   "yas-rapor": (w) => [[2, "kagit", 0.3], [w(11) - 2, "boom", 0.18], [w(13), "kalem", 0.3]],
   "yas-bant1": (w) => [[0, "pop", 0.25], [w(7) - 2, "pop", 0.25], [w(10) - 2, "pirilti", 0.3]],
-  "yas-sporlar": (w) => [[w(2) - 2, "pop", 0.25], [w(4), "cizik", 0.3], [w(6) - 2, "pop", 0.25], [w(10) - 2, "pop", 0.25], [w(19), "pirilti", 0.35]],
+  "yas-sporlar": (w) => [[w(1) - 2, "pop", 0.25], [w(4), "cizik", 0.3], [w(6) - 2, "pop", 0.25], [w(10) - 2, "pop", 0.25], [w(13), "pirilti", 0.35]],
   "yas-bant2": (w) => [[0, "pop", 0.25], [w(5), "cizik", 0.3], [w(13), "yuksel", 0.25]],
   "yas-bant3": (w) => [[w(6), "yuksel", 0.25], [w(11) - 4, "adim", 0.25], [w(14) - 2, "pop", 0.25]],
   "yas-bant4": (w) => [[0, "pop", 0.25], [w(3), "kalem", 0.25], [w(8) - 2, "ding", 0.3]],
@@ -8779,16 +8779,16 @@ const YasBant4: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// "Ve unutma: spor sadece salon değil. Basketbol, voleybol, hentbol, tenis; beş yaşında da oynanır, yirmi beşinde de,
-// ellisinde de. Üstelik arkadaş da kazandırır."
-// Dambıl "sadece salon?" → çizilir; dört spor kartı açılır; üç pano: 5 yaş (basket), 25 yaş (voleybol), 50 yaş (tenis);
+// "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. Üstelik sana bir takım ve
+// arkadaşlar kazandırır."
+// Dambıl "sadece salon?" → çizilir; dört spor kartı açılır; "yaşı yok": üç pano 5 yaş (basket), 25 yaş (voleybol), 50 yaş (tenis);
 // sonunda hepsi el sallar, kalpler.
 const YasSporlar: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const gym = pop(f, w(2) - 2, 10) * (1 - tw(f, w(6) - 6, w(6)));
+  const gym = pop(f, w(1) - 2, 10) * (1 - tw(f, w(6) - 6, w(6)));
   const cards = (i: number) => pop(f, w(6 + i) - 2, 10);
-  const panel = (i: number) => pop(f, [w(10), w(14), w(17)][i] - 2, 12);
-  const friends = tw(f, w(19) - 2, w(20) + 6);
+  const panel = (i: number) => pop(f, [w(10), w(11), w(12)][i] - 2, 12);
+  const friends = tw(f, w(13) - 2, w(16) + 6);
   const bounce = (k: number) => Math.abs(Math.sin(f / 7 + k)) * 40;
   const P = [
     { x: 190, age: "5 yaş", s: yasScale(6), belly: 0.3, k: "basket" as SportKind },
@@ -8827,7 +8827,7 @@ const YasSporlar: React.FC<SceneProps> = ({ w }) => {
         );
       })}
       {friends > 0 ? [0, 1, 2, 3, 4].map((i) => <Heart key={i} x={160 + i * 190} y={PY - 700 - ((f * 3 + i * 37) % 140)} s={1.5} o={friends} />) : null}
-      {friends > 0.5 ? <HandText x={540} y={500} text="+ arkadaş" size={110} p={tw(friends, 0.5, 1)} color={YAS_OK} rotate={-3} /> : null}
+      {friends > 0.5 ? <HandText x={540} y={500} text="+ takım + arkadaş" size={110} p={tw(friends, 0.5, 1)} color={YAS_OK} rotate={-3} /> : null}
     </>
   );
 };

@@ -47,8 +47,8 @@
     },
     {
       "visual": "yas-sporlar",
-      "voice": "Ve unutma: spor sadece salon değil. Basketbol, voleybol, hentbol, tenis; beş yaşında da oynanır, yirmi beşinde de, ellisinde de. Üstelik arkadaş da kazandırır.",
-      "say": "Ve unutma: spor sadece salon değil. Basketbol, voleybol, hentbol, tenis; beş yaşında da oynanır, yirmi beşinde de, ellisinde de. [warm] Üstelik arkadaş da kazandırır."
+      "voice": "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. Üstelik sana bir takım ve arkadaşlar kazandırır.",
+      "say": "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. [warm] Üstelik sana bir takım ve arkadaşlar kazandırır."
     },
     {
       "visual": "yas-bant4",

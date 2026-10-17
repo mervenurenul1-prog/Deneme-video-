@@ -93,8 +93,9 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   (sıra değişse de hazır sesler yeniden üretilmez; güvenlik sahnesinin 1,6 sn boşluklu sesi korunur).
   **v5 → v6 (kullanıcı: "karman çorman oldu"):** spor dalları her banda serpiştirilmez; yaş bantları v4 hâline döndü
   (13-15: "…Sporunun yanına, bilen birinin eşliğinde hafif ağırlık eklenebilir.") ve 13-15'ten SONRA tek GENEL sahne
-  `yas-sporlar`: "Ve unutma: spor sadece salon değil. Basketbol, voleybol, hentbol, tenis; beş yaşında da oynanır, yirmi
-  beşinde de, ellisinde de. Üstelik arkadaş da kazandırır." (5/25/50 yaş panoları, kalpler). İSTİSNA: ekip kuralı "spor
+  `yas-sporlar`: "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. Üstelik
+  sana bir takım ve arkadaşlar kazandırır." (5/25/50 yaş yalnız görselde). **DERS: kullanıcının örneklerini birebir metne
+  koyma, kendi cümlenle doğal yaz.** İSTİSNA: ekip kuralı "spor
   dalları yok" bu videoda kullanıcı isteğiyle esnetildi. AAP 2016 (Pediatrics 138(3):e20162148) erken tek spora
   uzmanlaşmayı geciktir — doğrulandı. `SportIcon`/`SportCard`/`Heart`.
   Sauna (08) bekliyor. Kullanıcı: "videoları stoklayalım" (günde 3, aralık 12 saat değil) — CEFF'e sordu.
