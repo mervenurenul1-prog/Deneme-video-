@@ -14,7 +14,7 @@ Kalan ElevenLabs kredisi ≈ 15.095 karakter. Ses kitaplığı: Yunus (anlatıc�
 **ŞU ANKİ İŞ: 06 diz (`cizim1-06-diz`)** — sessiz önizleme gönderildi, **kullanıcı onayı → seslendirme** (Yunus ~520 +
 Sibel ~85 karakter, tek seferde). Max 45 sn (gerçek sesle ~45; aşarsa `padding`'i kısalt, cümle kesmeden önce SOR).
 Metin (kullanıcı onayladı, sahneler):
-1. `diz4-pist`: "Sabah koşusu, üçüncü tur. Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+1. `diz4-pist`: "Üçüncü tur… ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun." (ilk ~0,6 sn hızlı sarma 1-2-3. TUR; kullanıcı: "3 tur koşmasını beklemem")
    (YAN PROFİL koşu `SideRunner`/`SideTrack`, kısa koşu → ani ağrı → eğilip dizini tutar → yere oturur; kırmızı karalama YOK)
 2. `diz4-anne`: "Kulağında annenin sesi:" (Yunus) 3. `diz4-annesoz` (**Sibel**, sahne `voiceId`): "Koşma, dizin biter! Çok
    çömelme, dizine yazık! Benim gibi mi olmak istiyorsun?" (anne düşünce balonunda, sonda kendi dizini ovuşturur)
