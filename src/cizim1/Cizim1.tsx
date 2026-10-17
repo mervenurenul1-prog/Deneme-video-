@@ -53,7 +53,10 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
   const loop = cizim.loop === true;
   const last = cizim.scenes.length - 1;
   let from = 0;
-  const wordsAt = (i: number) => wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i));
+  // Sahnenin sessiz açılışı (lead): kelimeler ve ses o kadar kaydırılır
+  const leadOf = (i: number) => cizim.scenes[i].lead ?? 0;
+  const wordsAt = (i: number) =>
+    wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i)).map((x) => ({ ...x, start: x.start + leadOf(i), end: x.end + leadOf(i) }));
   const wOf = (i: number) => {
     const words = wordsAt(i);
     return (k: number) => Math.round((words[Math.min(k, words.length - 1)]?.start ?? 0) * fps);
@@ -76,7 +79,11 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
               <Visual d={durations[i]} w={w} />
             </Shot>
             <Captions words={words} hideFrom={loop && i === last ? durations[i] - LOOP_FRAMES : undefined} />
-            {audio ? <Audio src={staticFile(audio.file)} /> : null}
+            {audio ? (
+              <Sequence from={Math.round(leadOf(i) * fps)} layout="none">
+                <Audio src={staticFile(audio.file)} />
+              </Sequence>
+            ) : null}
             {/* sahne geçişi + o sahnedeki olayların efekt sesleri */}
             {i > 0 ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
             {tidySfx(SFX[scene.visual]?.(w, durations[i]) ?? []).map(([at, file, vol], k) =>
@@ -397,7 +404,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kadin-mesaj": (w) => [[w(6), "kagit", 0.45], [w(8) + 4, "havalanma", 0.35], [w(8) + 12, "sihir", 0.35]],
   "kadin-dongu": (w) => [[w(1) - 2, "kagit", 0.4], [w(4), "havalanma", 0.35]],
   // 05 boyun — her olayın kendi sesi (anahtar anlar ElevenLabs ile üretilmiş gerçekçi efektler: public/sfx/*.mp3)
-  "diz4-pist": (w) => [[0, "whoosh", 0.35], [6, "pop", 0.25], [12, "pop", 0.3], [w(3), "cizik", 0.45], [w(3) + 2, "sonme", 0.25], [w(11), "agir-dusme", 0.2]],
+  "diz4-pist": (w) => [[0, "adim", 0.25], [w(0), "pop", 0.25], [w(3), "cizik", 0.45], [w(3) + 2, "sonme", 0.25], [w(11), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3], [w(5), "cizik", 0.3]],
   "diz4-doz": (w) => [[w(3), "pop", 0.25], [w(5) - 2, "boom", 0.18], [w(5), "cizik", 0.35], [w(9), "pop", 0.25], [w(10), "pirilti", 0.35]],
@@ -6968,13 +6975,12 @@ const runIntegral = (f: number, speedAt: (i: number) => number) => {
 };
 
 // "Üçüncü tur… ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
-// İlk saniye hızlı sarılmış koşu (1. → 2. → 3. tur), "birden"de ani ağrı → eğilip dizini tutar → yere oturur.
-const FF = 18; // hızlı sarma süresi (kare)
+// Sessiz açılışta (lead) normal koşu, "Üçüncü tur"da etiket, "birden"de ani ağrı → eğilip dizini tutar → yere oturur.
 const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const hitAt = w(3);
   const speedAt = (i: number) =>
-    i < FF ? 2.6 : i < hitAt ? 1 : interpolate(i, [hitAt, w(7)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    i < hitAt ? 1 : interpolate(i, [hitAt, w(7)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const { off, ph } = runIntegral(f, speedAt);
   const amp = Math.min(1, speedAt(f));
   const limp = f >= hitAt && f < w(8) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
@@ -6984,10 +6990,7 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   pose.lean += limp * 12;
   const pain = f >= hitAt;
   const glow = tw(f, hitAt, hitAt + 6);
-  const lapN = f < 6 ? 1 : f < 12 ? 2 : 3;
-  const lapStart = lapN === 1 ? 0 : lapN === 2 ? 6 : 12;
-  const lapP = pop(f, lapStart, 6) * (1 - tw(f, w(3) + 4, w(4) + 4));
-  const streaks = f < FF ? 1 - f / FF : 0;
+  const lapP = pop(f, w(0) - 2, 10) * (1 - tw(f, w(3) + 4, w(4) + 4));
   return (
     <CamK
       k={[
@@ -7000,17 +7003,12 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
       shake={hit(f, Math.round(hitAt), 10) * 0.6}
     >
       <SideTrack off={off} />
-      {streaks > 0
-        ? Array.from({ length: 8 }, (_, i) => (
-            <path key={i} d={`M${((i * 173 + f * 90) % 1300) - 150} ${700 + i * 95} l-220 0`} stroke="#fbf3e2" strokeWidth={10} strokeLinecap="round" opacity={0.6 * streaks} />
-          ))
-        : null}
       <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={pose} reach={Math.max(bend, sit)} face={pain ? "pain" : "smile"} painGlow={glow} />
       {lapP > 0 ? (
         <g transform={`translate(540 380) scale(${lapP}) rotate(-5)`}>
-          <rect x={-200} y={-80} width={400} height={150} rx={20} fill={lapN === 3 ? C.red : C.cream} stroke={C.ink} strokeWidth={8} />
-          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={100} fill={lapN === 3 ? C.cream : C.ink}>
-            {lapN}. TUR
+          <rect x={-200} y={-80} width={400} height={150} rx={20} fill={C.red} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={100} fill={C.cream}>
+            3. TUR
           </text>
         </g>
       ) : null}
@@ -7022,7 +7020,7 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
 const SittingOnTrack: React.FC<{ f: number; face?: "pain" | "worry" | "smile" | "grin"; glow?: number }> = ({ f, face = "worry", glow = 0.15 }) => (
   <>
     <SideTrack off={0} />
-    <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={sitPose} reach={1} face={face} painGlow={glow} bandage />
+    <SideRunner f={f} x={420} y={TRACK_Y} s={1.45} pose={sitPose} reach={1} face={face} painGlow={glow} />
   </>
 );
 

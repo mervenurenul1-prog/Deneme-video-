@@ -23,13 +23,10 @@ Metin (kullanıcı onayladı, sahneler):
 7. `diz4-doz`: sızı çoğu zaman yükü birden artırmaktan (2,2,2,10 km → 2,3,4,5) 8. `diz4-soru`: "Peki sen yarın o piste
    dönecek misin?" (kalkıp koşar = açılış karesi). Ağrıdan sonraki tüm sahnelerde avatarın dizi **bandajlı** (`KneeBandage`).
 Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor (`scripts/generate-voiceover.ts`).
-**YAPILACAK (kullanıcı, 17 Ekim son mesaj — seslendirmeden ÖNCE bunları yap, sonra sessiz önizleme gönder):**
-  (a) İlk koşu sahnesi çok kısa kaldı (hızlı sarma `FF`=18 kare + ağrı w(3)): biraz uzat; kullanıcı "önceki daha iyiydi"
-      dedi (önceki: ~2-3 sn normal koşu, "3. tur" etiketi). Arada bir uzunluk: hızlı sarmayı kaldır/kısalt, normal koşuyu
-      ~2 sn yap, sonra ani sızı. Metin "Üçüncü tur… ve birden…" kalabilir (değiştirmeden önce sor).
-  (b) Bandaj YANLIŞ yerde: düşer düşmez sarılı olmamalı. Bandaj yalnız TARİHÇEDEN SONRA (Stanford + sonuç sahnelerinden
-      sonra): `diz3-squat`, `diz4-doz`, `diz4-soru`'da bandaj VAR; `diz4-pist`, `diz4-anne`, `diz4-annesoz`'da YOK
-      (`SittingOnTrack` içindeki `bandage` kaldırılacak).
+**YAPILDI (17 Ekim, sonraki oturum):** (a) hızlı sarma kaldırıldı; sahneye JSON `"lead": 1` (ses başlamadan 1 sn
+  sessiz normal koşu; `CizimScene.lead`, `sceneDurations` + Cizim1'de kelime/ses kaydırma) → "birden"e kadar ~2,4 sn koşu,
+  "Üçüncü tur"da kırmızı "3. TUR" etiketi. (b) `SittingOnTrack`'ten bandaj kaldırıldı; bandaj yalnız `diz3-squat`,
+  `diz4-doz`, `diz4-soru`'da. Yeni sessiz önizleme gönderildi → **onay → seslendirme** (Yunus + Sibel, tek seferde).
 **05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
 **Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
 pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi

@@ -14,6 +14,7 @@
   "scenes": [
     {
       "visual": "diz4-pist",
+      "lead": 1,
       "voice": "Üçüncü tur… ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
       "say": "Üçüncü tur... ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
     },

@@ -17,7 +17,7 @@ const loadVoiceover = async (id: string): Promise<PostVoiceover | null> => {
   return res?.ok ? ((await res.json()) as PostVoiceover) : null;
 };
 
-const total = (item: { scenes: { voice: string }[] }, vo: PostVoiceover | null) =>
+const total = (item: { scenes: { voice: string; lead?: number }[] }, vo: PostVoiceover | null) =>
   sceneDurations(item, vo, VIDEO.fps).reduce((a, b) => a + b, 0);
 
 export const RemotionRoot: React.FC = () => {
