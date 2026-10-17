@@ -413,7 +413,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "diz6-son": (w) => [[0, "pop", 0.25], [w(2), "pirilti", 0.35]],
   "diz5-hook": (w) => [[0, "adim", 0.25], [w(6), "cizik", 0.35], [w(7) - 2, "pop", 0.3]],
   "diz5-pist": (w) => [[w(3), "boom", 0.2], [w(3) + 1, "cizik", 0.45], [w(3) + 3, "sonme", 0.25], [w(7), "agir-dusme", 0.2], [w(9) - 2, "pop", 0.3]],
-  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [Math.max(15, w(1) - 40), "pop", 0.3], [w(1), "boom", 0.2], [w(1) + 1, "cizik", 0.45], [w(1) + 3, "sonme", 0.25], [w(9), "agir-dusme", 0.2]],
+  "diz4-pist": (w) => [[0, "adim", 0.25], [4, "nefes", 0.3], [Math.max(15, w(1) - 40), "pop", 0.3], [w(1), "boom", 0.2], [w(1) + 1, "cizik", 0.45], [w(1) + 3, "sonme", 0.25], [w(5), "agir-dusme", 0.2]],
   "diz4-anne": (w) => [[w(0), "pop", 0.3]],
   "diz4-annesoz": (w) => [[w(1), "cizik", 0.3]],
   "diz4-doz": (w) => [[w(8), "pop", 0.25], [w(13) - 2, "boom", 0.18], [w(14), "cizik", 0.35], [w(16), "pop", 0.25], [w(20), "pirilti", 0.35]],
@@ -7153,19 +7153,19 @@ const runIntegral = (f: number, speedAt: (i: number) => number) => {
   return { off, ph };
 };
 
-// Kanca (intro sesi): "Bu adamın dizi… birazdan kilitlenecek." → "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+// Kanca (intro sesi): "Bu adamın dizi… birazdan kilitlenecek." → "Ve birden bir sızı. Eğiliyor, yere çöküyor."
 // Uzak planda zorlanarak koşu; dizin içi küçük röntgen merceğinde canlı görünür (her adımda kıkırdak ezilir, giderek kızarır);
 // bitiş çizgisi geçilince "2. TUR" → "3. TUR"; "birden"de ağır çekim, parlama, dize yakınlaşma + büyük röntgen → eğilir, oturur.
 const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const hitAt = w(1);
   const speedAt = (i: number) =>
-    i < hitAt - 12 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(5)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    i < hitAt - 12 ? 1 : i < hitAt ? 0.4 : interpolate(i, [hitAt, w(4)], [0.45, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const { off, ph } = runIntegral(f, speedAt);
   const amp = Math.min(1, speedAt(f));
-  const limp = f >= hitAt && f < w(6) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
-  const bend = tw(f, w(6) - 4, w(7) + 4);
-  const sit = tw(f, w(9) - 4, w(10) + 8);
+  const limp = f >= hitAt && f < w(4) ? Math.max(0, Math.sin(ph * 2)) * 0.5 * amp : 0;
+  const bend = tw(f, w(4) - 4, w(4) + 12);
+  const sit = tw(f, w(5) - 4, w(6) + 8);
   const pose = mixPose(mixPose(runPose(ph, amp), bendPose, bend), sitPose, sit);
   pose.lean += limp * 12;
   const pain = f >= hitAt;
@@ -7187,8 +7187,8 @@ const Diz4Pist: React.FC<SceneProps> = ({ w }) => {
     [hitAt + 2, 1.75, hitK.x, hitK.y],
     [hitAt + 32, 1.75, hitK.x, hitK.y],
     [hitAt + 46, 1.12, 520, 1300],
-    [w(8), 1.12, 520, 1300],
-    [w(10) + 10, 1.22, 520, 1420],
+    [w(5), 1.12, 520, 1300],
+    [w(6) + 10, 1.22, 520, 1420],
   ];
   // canlı röntgen: dizi ekranda izler; her adım vuruşunda kıkırdak ezilir, sızıya yaklaştıkça kızarır
   const [cs, ccx, ccy] = camAt(cam, f);

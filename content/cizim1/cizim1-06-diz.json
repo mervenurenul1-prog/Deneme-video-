@@ -19,13 +19,13 @@
         "voice": "Bu adamın dizi birazdan kilitlenecek.",
         "say": "[serious] Bu adamın dizi... birazdan kilitlenecek."
       },
-      "voice": "Ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun.",
-      "say": "[serious] Ve birden, dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun."
+      "voice": "Ve birden bir sızı. Eğiliyor, yere çöküyor.",
+      "say": "[serious] Ve birden... bir sızı. Eğiliyor, yere çöküyor."
     },
     {
       "visual": "diz4-anne",
-      "voice": "Kulağında annenin sesi:",
-      "say": "Kulağında annenin sesi:"
+      "voice": "Kulağında annesinin sesi:",
+      "say": "Kulağında annesinin sesi:"
     },
     {
       "visual": "diz4-annesoz",
