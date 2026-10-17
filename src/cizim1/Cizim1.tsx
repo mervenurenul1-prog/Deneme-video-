@@ -8408,8 +8408,8 @@ const YasTerazi: React.FC<SceneProps> = ({ w }) => {
 };
 
 // "Ve yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur."
-// Antrenör yanına gelip duruşunu düzeltir; düşünce balonunda evde tek başına çok ağır halteri kaldırmaya çalışır, sendeler,
-// halter kayıp yere çarpar (BAM), kendisi de düşer, bileği kızarır → kırmızı çarpı.
+// Antrenör yanına gelip duruşunu düzeltir; düşünce balonunda evde tek başına 20 kg dambılı kaldırmaya çalışır, sendeler,
+// dambıl elinden kayıp ayağına düşer (yıldız), ayağını tutup tek ayakla seker, ayağı kızarır → kırmızı çarpı.
 const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const inn = tw(f, w(1) - 4, w(3) + 4);
@@ -8417,8 +8417,18 @@ const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
   const bub = pop(f, w(5) - 2, 14);
   const wob = Math.sin(f / 2.6) * 16 * tw(f, w(5) + 4, w(7)) * (1 - tw(f, w(9) - 4, w(9)));
   const drop = tw(f, w(8) - 2, w(9) + 2);
-  const down = tw(f, w(9) - 2, w(9) + 10);
   const bam = pop(f, w(9) + 2, 10) * (1 - tw(f, w(10) + 6, w(10) + 14));
+  const hurtT = f >= w(9) + 2 ? 1 : 0;
+  // balondaki çocuk (balon koordinatlarında)
+  const KS = 0.44;
+  const kidX = 470;
+  const hopY = hurtT > 0 ? Math.abs(Math.sin((f - w(9)) / 6)) * 40 : 0;
+  const lift = tw(f, w(5) + 4, w(7));
+  const kidArm: Arm = hurtT > 0 ? [60, -70] : [lerp(12, 34, lift) + wob * 0.6, lerp(0, -40, lift)];
+  const kh = armPoints(1, kidArm)[2];
+  const handW = { x: kidX + kh[0] * KS, y: 740 + kh[1] * KS };
+  const footW = { x: kidX + 50 * KS, y: 740 };
+  const footR = { x: kidX + legPoints(1, { lift: 0.75, spread: 18 })[2][0] * KS, y: 740 - hopY + legPoints(1, { lift: 0.75, spread: 18 })[2][1] * KS };
   const hurt = tw(f, w(10), w(10) + 10);
   const c = (1 - Math.cos(f / 7)) / 2;
   const s = yasScale(15);
@@ -8451,38 +8461,33 @@ const YasGuvenlik: React.FC<SceneProps> = ({ w }) => {
           <text x={540} y={300} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>
             evde · tek başına
           </text>
-          {/* çok ağır halteri başının üstüne kaldırmaya çalışır, sendeler → halter kayar, düşer */}
-          <g transform={`rotate(${-78 * down} 500 740)`}>
-            <Person x={500} y={740} s={0.44} shirt={YAS_SHIRT} belly={0.3} armL={down > 0 ? [lerp(165, 40, down), 0] : [165 - wob, 0]} armR={down > 0 ? [lerp(165, 60, down), lerp(0, -90, down)] : [165 + wob, 0]} legL={{ spread: 6 + Math.abs(wob) * 0.6 }} legR={{ spread: 6 + Math.abs(wob) * 0.4 }} mouth={down > 0.5 ? "open" : "worry"} eyes={down > 0.5 ? "dizzy" : "wide"}>
-              {drop <= 0 ? (
-                <g transform={`translate(0 -870) rotate(${wob * 1.6})`}>
-                  <Barbell x={0} y={0} s={0.95} />
-                </g>
-              ) : null}
-            </Person>
-          </g>
+          {/* çok ağır dambılı kaldırmaya çalışır, sendeler → dambıl elinden kayıp ayağına düşer → ayağını tutup tek ayakla seker */}
+          <Person x={kidX} y={740 - hopY} s={KS} shirt={YAS_SHIRT} belly={0.3} tilt={hurtT > 0 ? 6 : wob * 0.5} armL={hurtT > 0 ? [60, -70] : [12, 0]} armR={kidArm} legL={hurtT > 0 ? { spread: 6 } : { spread: 8 + Math.abs(wob) * 0.5 }} legR={hurtT > 0 ? { lift: 0.75, spread: 18 } : { spread: 8 }} mouth={hurtT > 0 ? "open" : "worry"} eyes={hurtT > 0 ? "closed" : "wide"}>
+            {drop <= 0 ? (
+              <g transform={`translate(${kh[0]} ${kh[1] + 30}) rotate(${90 + wob * 2})`}>
+                <Dumbbell x={0} y={0} s={1.1} />
+              </g>
+            ) : null}
+          </Person>
           {drop > 0 ? (
-            <g transform={`translate(${lerp(500 + wob, 650, drop)} ${lerp(357, 712, drop * drop)}) rotate(${lerp(wob * 1.6, 24, drop)})`}>
-              <Barbell x={0} y={0} s={0.42} />
+            <g transform={`translate(${lerp(handW.x, footW.x + 40, drop)} ${lerp(handW.y + 14, 712, drop * drop)}) rotate(${lerp(90, 160, drop)})`}>
+              <Dumbbell x={0} y={0} s={0.48} />
             </g>
           ) : null}
-          {wob !== 0 && drop <= 0 ? (
-            <text x={680} y={440} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.red} transform={`rotate(${wob * 0.4} 680 440)`}>
-              çok ağır!
+          {(drop > 0 ? drop < 1 : true) && wob !== 0 ? (
+            <text x={720} y={470} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.red} transform={`rotate(${wob * 0.4} 720 470)`}>
+              20 kg!
             </text>
           ) : null}
           {bam > 0 ? (
-            <g transform={`translate(680 690) scale(${bam})`}>
-              <Star x={0} y={0} r={70} rot={f * 3} />
-              <text x={0} y={-90} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={60} fill={C.red}>
-                BAM!
-              </text>
+            <g transform={`translate(${footW.x + 40} 700) scale(${bam})`}>
+              <Star x={0} y={0} r={56} rot={f * 3} />
             </g>
           ) : null}
-          {down > 0.6 ? (
+          {hurtT > 0 ? (
             <g>
-              <circle cx={340} cy={700} r={34 + 10 * Math.sin(f / 3)} fill={C.red} opacity={0.45} />
-              <text x={260} y={610} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={60} fill={C.red}>
+              <circle cx={footR.x} cy={footR.y} r={30 + 10 * Math.sin(f / 3)} fill={C.red} opacity={0.5} />
+              <text x={kidX + 180} y={480} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.red}>
                 ah!
               </text>
             </g>
