@@ -66,7 +66,15 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   yere oturursun." (sızı tekrarı yok). Üstte kırmızı "DİZİN HİÇ SIZLADI MI?" tabelası → kanca bitince "3. TUR"; ağrı
   `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
   müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
-**>>> EN SON DURUM (17 Ekim ~21:00, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+**>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+- **07 v7 (`cizim1-07-yas`, 18 Ekim):** kullanıcı "hareket göstermek değil konumuz" dedi; üç kuşak (B) fikri reddedildi.
+  Gelen kutusu + pasta harmanı, kullanıcının fikriyle 13. yaş günü: bildirimler ("13 erken mi? 16'yı mı bekleyeyim?") →
+  13. yaş günü, mum üflerken aklına salon gelir "Bugün mü başlasam?" → dev halter/iri adamlar, "Ben daha küçüğüm", her yıl
+  bir mum + "seneye…" notu (13→16) → AAP 2020 "YOK" damgası → "o salon da şart değil", oyun → hafif → biraz daha basamakları
+  → "asıl soru: kaç senedir bekliyorum?" → "O yüzden en doğru yaş: bugün." (pastada BUGÜN; sesi hazır). Kullanıcı son
+  cümleyi ("Yine de her hafta aynı soru geliyor") ATTIRDI. Bileşenler `yas7-*` (`BdayRoom`, `BigCake`, `LaterNote`,
+  `ScaryGym`, `PartyHat`). Sessiz önizleme `07-yas-sessiz.mp4` gönderildi → onay → seslendirme (~550 karakter).
+  Eski v6 sahneleri (`yas-*`) kodda duruyor ama JSON'dan çıktı.
 - **07 yaş (`cizim1-07-yas`):** son sessiz önizleme `07-yas-sessiz.mp4` (v6, ~68 sn): kanca → rapor → yaş bantları 5-7 /
   8-12 / 13-15 / 16+ → terazi → "Bir de önemli bir not…" ev kazası → "spor sadece salondan ibaret değil" (basketbol,
   voleybol, hentbol, tenis; 5/25/50 yaş panoları) → bugün. **CEFF/kullanıcı HİKÂYEYİ BEĞENMEDİ → alternatif hikâye
