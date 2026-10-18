@@ -66,7 +66,19 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   yere oturursun." (sızı tekrarı yok). Üstte kırmızı "DİZİN HİÇ SIZLADI MI?" tabelası → kanca bitince "3. TUR"; ağrı
   `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
   müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
-**>>> EN SON DURUM (17 Ekim ~21:00, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+**>>> 18 Ekim — ŞU ANKİ İŞ: 08 SAUNA v3 (Habib kancası) <<<**
+- Kullanıcı saunaya döndü, "ilgi çekici hikâyeler bul" dedi. Doğrulanmış adaylar: Heinola 2010 sauna şampiyonası
+  (110 °C, Ladyzhensky öldü, yarışma kaldırıldı), Habib UFC 209 (2017, kilo düşürürken hastaneye, maç iptal), Yang Jian
+  Bing (2015, ONE susuz kilo düşürmeyi yasakladı), jokey "hotbox" saunaları (İrlanda 2022'de kapattı). **Kullanıcı Habib'i
+  seçti.** Kanca (kullanıcının cümlesi, AYNEN): "Dünyanın en güçlü dövüşçülerinden biri bir maçı yumrukla değil, terle
+  kaybetti." Güreşçi tarihçesi çıktı. Sahneler: `sauna-habib-hook` (ring) → `sauna-habib-tv` / `sauna-habib-hastane`
+  (avatar gümüş eşofmanla TV'de izler; ambulans, "dövüşemez", İPTAL) → `sauna-sevin` → `sauna-su2` / `sauna-yag2` (KISA
+  eşlemesi) → `sauna-tehlike` → `sauna-habib-dongu` ("Habib bunu en zor yoldan öğrendi… hatırla:"). Habib birebir
+  çizilmez (`Fighter`: sakallı, koyu kapüşon). Doğruluk için 2. cümle "unvan maçı için son kilolarını atmaya çalışıyor",
+  3. "Ama sabah tartıya değil, hastaneye gidiyor" (kaynaklar: tartı sabahı/önceki gece hastane). Sauna eşofmanı giydiği
+  DOĞRULANMADI, metinde denmez. Sessiz önizleme `08-sauna-sessiz.mp4` (~44 sn) → onay → seslendirme (~560 karakter).
+
+**>>> EN SON DURUM (17 Ekim ~21:00) <<<**
 - **07 yaş (`cizim1-07-yas`):** son sessiz önizleme `07-yas-sessiz.mp4` (v6, ~68 sn): kanca → rapor → yaş bantları 5-7 /
   8-12 / 13-15 / 16+ → terazi → "Bir de önemli bir not…" ev kazası → "spor sadece salondan ibaret değil" (basketbol,
   voleybol, hentbol, tenis; 5/25/50 yaş panoları) → bugün. **CEFF/kullanıcı HİKÂYEYİ BEĞENMEDİ → alternatif hikâye

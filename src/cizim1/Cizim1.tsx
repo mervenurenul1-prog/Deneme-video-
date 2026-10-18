@@ -417,6 +417,11 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "sauna-yag": (w) => [[w(5), "tik", 0.25], [w(12) - 2, "cizik", 0.3]],
   "sauna-tehlike": (w) => [[w(3), "sihir", 0.25], [w(6), "agir-dusme", 0.25]],
   "sauna-dongu": (w) => [[0, "bip", 0.25], [w(4), "pop", 0.25]],
+  "sauna-habib-hook": (w) => [[w(7) - 3, "whoosh", 0.3], [w(8), "cizik", 0.3], [w(9), "damla", 0.4], [w(10), "boom", 0.2]],
+  "sauna-habib-tv": (w) => [[0, "bip", 0.25], [w(6) - 4, "whoosh", 0.2], [w(8), "pirilti", 0.25]],
+  "sauna-habib-hastane": (w) => [[w(3), "cizik", 0.3], [w(4) - 3, "alarm", 0.18], [w(9), "boom", 0.2]],
+  "sauna-sevin": (w) => [[0, "adim", 0.25], [w(5) - 4, "whoosh", 0.25], [w(7), "bip", 0.3], [w(11) - 2, "pop", 0.3]],
+  "sauna-habib-dongu": (w) => [[w(6), "bip", 0.25], [w(7), "pop", 0.25]],
   // 07 spora kaç yaşında: yalnız önemli anlar
   "yas-hook": (w) => [[w(7), "cizik", 0.3], [w(10), "cizik", 0.3], [w(10) + 4, "yuksel", 0.25], [w(15), "pop", 0.3]],
   "yas-rapor": (w) => [[2, "kagit", 0.3], [w(11) - 2, "boom", 0.18], [w(13), "kalem", 0.3]],
@@ -9265,6 +9270,313 @@ const SaunaDongu: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 08 sauna v3: Habib kancası (UFC 209, 2017) ---------- */
+// Gerçek kişi birebir çizilmez: sakallı, koyu kapüşonlu bir dövüşçü. Avatar olayı televizyonda izler.
+
+const GUARD_L: Arm = [30, -190];
+const GUARD_R: Arm = [30, -190];
+
+// Sakallı dövüşçü (Person + sakal/bıyık, isteğe bağlı eldiven)
+const Fighter: React.FC<{ x: number; y: number; s: number; armL?: Arm; armR?: Arm; gloves?: boolean; shirt?: string; mouth?: Mouth; eyes?: Eyes; blush?: number; lookY?: number; tilt?: number }> = ({ x, y, s, armL = [12, 0], armR = [12, 0], gloves = false, shirt = "#2b2b33", mouth = "flat", eyes = "open", blush = 0.4, lookY = 0, tilt = 0 }) => (
+  <Person x={x} y={y} s={s} belly={0.1} shirt={shirt} armL={armL} armR={armR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
+    <g transform={`rotate(${tilt} 0 -630)`}>
+      <path d="M-80 -700 C-84 -630 -40 -598 0 -596 C40 -598 84 -630 80 -700 C72 -660 40 -640 0 -640 C-40 -640 -72 -660 -80 -700 Z" fill={C.hair} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+      <path d="M-28 -671 Q0 -684 28 -671 Q0 -662 -28 -671 Z" fill={C.hair} stroke={C.ink} strokeWidth={4} />
+    </g>
+    {gloves
+      ? [armPoints(-1, armL)[2], armPoints(1, armR)[2]].map((h, i) => (
+          <circle key={i} cx={h[0]} cy={h[1]} r={44} fill={C.red} stroke={C.ink} strokeWidth={7} />
+        ))
+      : null}
+  </Person>
+);
+
+// Kırmızı damga (İPTAL vb.)
+const RedStamp: React.FC<{ x: number; y: number; p: number; text: string; rot?: number; size?: number }> = ({ x, y, p, text, rot = -12, size = 140 }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${p})`}>
+      <rect x={-text.length * size * 0.33 - 40} y={-size * 0.7} width={text.length * size * 0.66 + 80} height={size * 1.25} rx={16} fill="none" stroke={C.red} strokeWidth={16} />
+      <text x={0} y={size * 0.3} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={size} fill={C.red}>
+        {text}
+      </text>
+    </g>
+  ) : null;
+
+// Dövüş ringi: halat, köşe direkleri, spot ışıkları (dim 0..1 ışıklar söner)
+const Ring: React.FC<{ dim: number }> = ({ dim }) => (
+  <g>
+    <rect x={-200} y={-200} width={1480} height={PY + 200} fill="#2a2430" />
+    {[260, 820].map((x, i) => (
+      <path key={i} d={`M${x} -100 L${x - 260} ${PY} L${x + 260} ${PY} Z`} fill="#fff6d8" opacity={0.18 * (1 - dim)} />
+    ))}
+    <rect x={-200} y={PY} width={1480} height={800} fill="#c9d3dc" />
+    <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+    {[70, 1010].map((x) => (
+      <rect key={x} x={x - 18} y={PY - 600} width={36} height={600} rx={10} fill="#6b6b78" stroke={C.ink} strokeWidth={6} />
+    ))}
+    {[180, 340, 500].map((h, i) => (
+      <path key={h} d={`M70 ${PY - h} L1010 ${PY - h}`} stroke={i === 1 ? C.cream : C.red} strokeWidth={12} strokeLinecap="round" />
+    ))}
+  </g>
+);
+
+// "Dünyanın en güçlü dövüşçülerinden biri bir maçı yumrukla değil, terle kaybetti."
+// Spot ışıkları altında gardda sekip duran sakallı dövüşçü → "yumrukla"da yumruk atar, "değil"de eldiven çizilir →
+// "terle"de ter boşalır, omuzları düşer → "kaybetti"de ışıklar söner, kırmızı "İPTAL" damgası.
+const SaunaHabibHook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const punch = tw(f, w(7) - 3, w(7) + 3) * (1 - tw(f, w(8) + 4, w(8) + 12));
+  const no = tw(f, w(8) - 2, w(8) + 8);
+  const sweat = tw(f, w(9) - 2, w(9) + 8);
+  const lose = tw(f, w(10) - 2, w(10) + 10);
+  const bob = Math.sin(f / 6) * 10 * (1 - sweat);
+  const X = 540;
+  const armR: Arm = [lerp(30, 95, punch), lerp(-190, -5, punch)];
+  const drop = (a: Arm, b: Arm, t: number): Arm => [lerp(a[0], b[0], t), lerp(a[1], b[1], t)];
+  const L = drop(GUARD_L, [14, 0], sweat);
+  const R = drop(armR, [14, 0], sweat);
+  const glove = armPoints(1, armR)[2];
+  return (
+    <>
+      <Ring dim={lose} />
+      <Fighter x={X} y={PY + bob} s={0.95} armL={L} armR={R} gloves mouth={sweat > 0.5 ? "worry" : "flat"} eyes={lose > 0.5 ? "closed" : "open"} blush={0.4 + 0.5 * sweat} tilt={6 * sweat} lookY={10 * sweat} />
+      {no > 0 ? <Cross x={X + glove[0] * 0.95} y={PY + glove[1] * 0.95} size={70} p={no} /> : null}
+      {sweat > 0 ? <Sweat f={f} x={X} y={PY - 760} w={300} h={700} n={18} o={sweat} /> : null}
+      {sweat > 0 ? <HandText x={820} y={420} text="ter" size={120} p={sweat} color={C.water} rotate={-5} /> : null}
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#120c08" opacity={0.45 * lose} />
+      <RedStamp x={540} y={560} p={pop(f, w(10), 12)} text="İPTAL" />
+    </>
+  );
+};
+
+// Televizyon: (x, y) sol üst köşe; içerik ekran koordinatlarında (0..W, 0..H) çizilir
+const TV_X = 90;
+const TV_Y = 230;
+const TV_W = 900;
+const TV_H = 560;
+const Tv: React.FC<{ children?: React.ReactNode; flash?: string; o?: number }> = ({ children, flash, o = 0 }) => {
+  const id = svgId(useId());
+  return (
+    <g>
+      <rect x={TV_X - 30} y={TV_Y - 30} width={TV_W + 60} height={TV_H + 60} rx={26} fill="#2f2f36" stroke={C.ink} strokeWidth={9} />
+      <path d={`M540 ${TV_Y + TV_H + 30} L540 ${TV_Y + TV_H + 90} M420 ${TV_Y + TV_H + 90} L660 ${TV_Y + TV_H + 90}`} stroke={C.ink} strokeWidth={12} strokeLinecap="round" />
+      <clipPath id={`tv${id}`}>
+        <rect x={TV_X} y={TV_Y} width={TV_W} height={TV_H} />
+      </clipPath>
+      <g clipPath={`url(#tv${id})`}>
+        <rect x={TV_X} y={TV_Y} width={TV_W} height={TV_H} fill="#e9dcc4" />
+        <g transform={`translate(${TV_X} ${TV_Y})`}>{children}</g>
+        {flash ? <rect x={TV_X} y={TV_Y} width={TV_W} height={TV_H} fill={flash} opacity={o} /> : null}
+      </g>
+    </g>
+  );
+};
+
+// Haber bandı (ekran içinde, altta)
+const NewsBand: React.FC<{ p: number; text: string }> = ({ p, text }) =>
+  p > 0 ? (
+    <g transform={`translate(${lerp(-TV_W, 0, Easing.out(Easing.cubic)(p))} 0)`}>
+      <rect x={0} y={TV_H - 110} width={TV_W} height={84} fill={C.red} />
+      <text x={30} y={TV_H - 48} fontFamily={handFamily} fontWeight={700} fontSize={60} fill={C.cream}>
+        {text}
+      </text>
+    </g>
+  ) : null;
+
+// Oda: duvar + zemin; avatar solda TV'yi izler
+const TvRoom: React.FC<{ children: React.ReactNode; mouth?: Mouth; eyes?: Eyes; tint?: string; tintO?: number }> = ({ children, mouth = "flat", eyes = "open", tint, tintO = 0 }) => (
+  <>
+    <rect x={-200} y={-200} width={1480} height={PY + 200} fill="#e4d2b0" />
+    <rect x={-200} y={PY} width={1480} height={800} fill="#c9a06c" />
+    <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+    {children}
+    <Person x={210} y={PY + 20} s={0.62} suit={SUIT} belly={0.4} mouth={mouth} eyes={eyes} lookY={-6} tilt={-4} />
+    {tint ? <rect x={-200} y={-200} width={1480} height={2400} fill={tint} opacity={tintO} /> : null}
+  </>
+);
+
+// "İki bin on yedi, Las Vegas. Habib Nurmagomedov, unvan maçı için son kilolarını atmaya çalışıyor."
+// TV açılır: koyu kapüşonlu dövüşçü tartıda, ter içinde; ekran "??.? kg" titrer, yanında "sınır 70,3 kg" ve altın kemer;
+// alt bantta isim. Avatar (gümüş eşofmanla) solda izler.
+const SaunaHabibTv: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const on = tw(f, 0, 8);
+  const band = tw(f, w(6) - 4, w(6) + 8);
+  const belt = pop(f, w(8) - 2, 12);
+  const cut = tw(f, w(11) - 4, w(14) + 6);
+  const flick = random(`hk${Math.floor(f / 3)}`);
+  const bob = Math.sin(f / 4) * 8 * cut;
+  return (
+    <TvRoom eyes={band > 0.5 ? "wide" : "open"}>
+      <Tv flash="#fff" o={1 - on}>
+        <rect x={0} y={420} width={TV_W} height={200} fill="#b99a74" />
+        <Bathroom x={300} y={440} value={cut > 0.05 ? `${(70 + flick * 3).toFixed(1)} kg` : "--.- kg"} />
+        <Fighter x={300} y={402 + bob} s={0.5} armL={[20, 0]} armR={[20, 0]} mouth={cut > 0.5 ? "worry" : "flat"} blush={0.4 + 0.5 * cut} lookY={10} />
+        {cut > 0 ? <Sweat f={f} x={300} y={40} w={180} h={340} n={14} o={cut} /> : null}
+        {belt > 0 ? (
+          <g transform={`translate(680 120) scale(${belt})`}>
+            <rect x={-150} y={-40} width={300} height={80} rx={20} fill="#b8862b" stroke={C.ink} strokeWidth={7} />
+            <ellipse cx={0} cy={0} rx={70} ry={58} fill={C.yellow} stroke={C.ink} strokeWidth={7} />
+            <text x={0} y={120} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink}>
+              unvan maçı
+            </text>
+          </g>
+        ) : null}
+        {cut > 0.1 ? <HandText x={680} y={330} text="sınır 70,3 kg" size={62} p={tw(cut, 0.1, 0.5)} color={C.red} rotate={-3} /> : null}
+        <NewsBand p={band} text="HABİB NURMAGOMEDOV" />
+      </Tv>
+      <HandText x={760} y={1000} text="2017 · Las Vegas" size={90} p={tw(f, 0, w(5) + 4)} rotate={-4} />
+    </TvRoom>
+  );
+};
+
+// Ambulans (yandan): (x, y) teker hizası; ışık çubuğu yanıp söner
+const Ambulance: React.FC<{ x: number; y: number; s?: number; f: number }> = ({ x, y, s = 1, f }) => {
+  const blink = Math.floor(f / 5) % 2;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={7} strokeLinejoin="round">
+      <rect x={-220} y={-230} width={300} height={200} rx={14} fill="#f7f4ee" />
+      <path d="M80 -170 L170 -170 L220 -100 L220 -30 L80 -30 Z" fill="#f7f4ee" />
+      <path d="M100 -155 L160 -155 L195 -105 L100 -105 Z" fill="#9fd0e8" />
+      <path d="M-220 -100 L220 -100" stroke={C.red} strokeWidth={16} />
+      <path d="M-70 -200 L-70 -130 M-105 -165 L-35 -165" stroke={C.red} strokeWidth={20} />
+      <rect x={-120} y={-262} width={60} height={32} rx={8} fill={blink ? C.red : "#7a2b23"} />
+      <rect x={-50} y={-262} width={60} height={32} rx={8} fill={blink ? "#2a4f9c" : "#4f8cff"} />
+      {[-130, 140].map((cx) => (
+        <circle key={cx} cx={cx} cy={-20} r={42} fill="#3b3b44" />
+      ))}
+    </g>
+  );
+};
+
+// "Ama sabah tartıya değil, hastaneye gidiyor. Doktorlar 'dövüşemez' diyor; maç iptal."
+// TV'de tartı sahnesi: spot altında boş tartı + "?" → çarpı → ambulans, oda kırmızı-mavi yanıp söner →
+// beyaz önlüklü doktor "dövüşemez" → TV'nin üstüne kırmızı "İPTAL".
+const SaunaHabibHastane: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, w(1) - 2, 12);
+  const no = tw(f, w(3) - 2, w(3) + 8);
+  const amb = f >= w(4) - 3;
+  const doc = tw(f, w(6) - 3, w(6) + 6);
+  const siren = amb ? 0.12 + 0.06 * Math.sin(f / 2) : 0;
+  const tint = Math.floor(f / 5) % 2 ? C.red : "#2a4f9c";
+  return (
+    <TvRoom mouth={amb ? "o" : "flat"} eyes={amb ? "wide" : "open"} tint={amb ? tint : undefined} tintO={siren}>
+      <Tv>
+        {!amb ? (
+          <>
+            <rect x={0} y={0} width={TV_W} height={TV_H} fill="#3a3340" />
+            <path d="M450 -20 L280 470 L620 470 Z" fill="#fff6d8" opacity={0.3} />
+            <rect x={0} y={460} width={TV_W} height={120} fill="#6b6b78" />
+            <Bathroom x={450} y={470} value="--.- kg" />
+            {q > 0 ? (
+              <text x={450} y={330} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={300 * q} fill={C.cream}>
+                ?
+              </text>
+            ) : null}
+            {no > 0 ? <Cross x={450} y={300} size={90} p={no} /> : null}
+          </>
+        ) : (
+          <>
+            <rect x={0} y={0} width={TV_W} height={TV_H} fill="#d9e3ea" />
+            <rect x={0} y={450} width={TV_W} height={140} fill="#9aa3ab" />
+            <Ambulance x={lerp(1100, 330, tw(f, w(4) - 3, w(5) + 4))} y={470} s={0.95} f={f} />
+            {doc > 0 ? (
+              <g opacity={doc}>
+                <Person x={720} y={470} s={0.4} shirt="#f4f4f4" belly={0.2} armL={[12, 0]} armR={[60, -80]} mouth="flat" lookY={4} />
+              </g>
+            ) : null}
+          </>
+        )}
+      </Tv>
+      {doc > 0 ? <HandText x={760} y={1000} text="“dövüşemez”" size={100} p={doc} color={C.red} rotate={-4} /> : null}
+      <RedStamp x={540} y={520} p={pop(f, w(9), 12)} text="İPTAL" />
+    </TvRoom>
+  );
+};
+
+// "Sen de sauna eşofmanıyla koşup tartıda bir kilo eksik görünce sevinirsin, değil mi?"
+// Gümüş eşofmanla terleyerek koşu → tartıda 72,0 → 71,0, sırıtır, "−1 kg" → "değil mi?"de kocaman "?".
+const SaunaSevin: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const cut = w(5) - 4;
+  if (f < cut) {
+    const { off, ph } = runIntegral(f, () => 1);
+    const pose = runPose(ph, 1);
+    return (
+      <>
+        <SideTrack off={off} />
+        <SideRunner f={f} x={430} y={TRACK_Y} s={1.4} pose={pose} suit={SUIT} face="worry" sweat />
+        <Sweat f={f} x={470} y={1050} w={260} h={560} n={12} />
+        <HandText x={540} y={330} text="sauna eşofmanı" size={110} p={tw(f, w(2) - 4, w(3) + 6)} color={C.red} rotate={-3} />
+      </>
+    );
+  }
+  const drop = tw(f, w(7) - 2, w(8) + 6);
+  const kg = lerp(72, 71, drop);
+  const q = pop(f, w(11) - 2, 12);
+  return (
+    <>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      <Bathroom x={PX} y={PY + 6} value={`${kg.toFixed(1)} kg`} />
+      <Person x={PX} y={PY - 48} s={0.82} suit={SUIT} belly={0.4} mouth={f >= w(10) - 2 ? "grin" : "o"} eyes={drop > 0.2 && drop < 0.8 ? "wide" : "open"} lookY={10} armL={f >= w(10) - 2 ? [150, -30] : [12, 0]} armR={f >= w(10) - 2 ? [150, -30] : [12, 0]} />
+      <Sweat f={f} x={PX} y={780} w={240} h={500} n={8} />
+      <KgDisplay x={540} y={330} p={pop(f, cut, 12)} value={`${kg.toFixed(1)}`} color={drop > 0.95 ? "#9fe0a8" : "#e8f3d8"} />
+      {drop > 0.95 ? <HandText x={850} y={520} text="−1 kg" size={100} p={tw(f, w(8), w(8) + 8)} color="#3f7d4f" rotate={-6} /> : null}
+      {q > 0 ? (
+        <text x={220} y={640} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={260 * q} fill={C.red}>
+          ?
+        </text>
+      ) : null}
+    </>
+  );
+};
+
+// "Habib bunu en zor yoldan öğrendi. Tartıdaki o bir kiloya bakarken hatırla:"
+// Duvarda küçük TV'de "İPTAL" damgalı dövüşçü → avatar tartıda, ekran −1 kg, "su −1" / "yağ 0" etiketleri →
+// avatar tartıya bakar, kamera yaklaşır → döngü (ring).
+const SaunaHabibDongu: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const tvO = 1 - tw(f, w(5) - 6, w(6) - 2);
+  const tags = tw(f, w(7) - 2, w(9) + 6);
+  const look = tw(f, w(10) - 2, w(11) + 10);
+  return (
+    <CamK k={[[0, 1, 540, 1000], [w(10), 1, 540, 1000], [w(11) + 20, 1.12, 540, 900]]}>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      {tvO > 0 ? (
+        <g opacity={tvO} transform="translate(540 380) scale(0.55) translate(-540 -510)">
+          <Tv>
+            <rect x={0} y={0} width={TV_W} height={TV_H} fill="#2a2430" />
+            <Fighter x={450} y={560} s={0.6} mouth="worry" eyes="closed" lookY={10} tilt={6} />
+          </Tv>
+          <RedStamp x={540} y={510} p={1} text="İPTAL" size={170} />
+        </g>
+      ) : null}
+      <Bathroom x={PX} y={PY + 6} value="71.0 kg" />
+      <Person x={PX} y={PY - 48} s={0.82} suit={SUIT} belly={0.4} mouth="flat" lookY={lerp(0, 14, look)} tilt={lerp(0, 6, look)} />
+      <KgDisplay x={540} y={330} p={pop(f, w(6) - 2, 12)} value="−1 kg" color="#e8f3d8" />
+      {tags > 0 ? (
+        <g opacity={tags}>
+          <g transform={`translate(330 560) scale(${tw(tags, 0, 0.5)})`}>
+            <rect x={-140} y={-60} width={280} height={110} rx={16} fill={C.water} stroke={C.ink} strokeWidth={7} />
+            <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.cream}>
+              su −1
+            </text>
+          </g>
+          <g transform={`translate(750 560) scale(${tw(tags, 0.5, 1)})`}>
+            <rect x={-140} y={-60} width={280} height={110} rx={16} fill={C.fat} stroke={C.ink} strokeWidth={7} />
+            <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.ink}>
+              yağ 0
+            </text>
+          </g>
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
   "sauna-hook": SaunaHook,
   "sauna-tarih1": SaunaTarih1,
@@ -9274,6 +9586,11 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   "sauna-yag": SaunaYag,
   "sauna-tehlike": SaunaTehlike,
   "sauna-dongu": SaunaDongu,
+  "sauna-habib-hook": SaunaHabibHook,
+  "sauna-habib-tv": SaunaHabibTv,
+  "sauna-habib-hastane": SaunaHabibHastane,
+  "sauna-sevin": SaunaSevin,
+  "sauna-habib-dongu": SaunaHabibDongu,
   "yas-hook": YasHook,
   "yas-bant1": YasBant1,
   "yas-bant2": YasBant2,
@@ -9426,6 +9743,10 @@ const KISA: Record<string, [string, Record<number, number>]> = {
   "kadin-kemik-k": ["kadin-kemik2", { 1: 2, 5: 2, 12: 6, 13: 7, 14: 8, 15: 9 }],
   // "Ve biri sana bunu bir daha sorarsa, cevabı artık biliyorsun."
   "kadin-dongu-k": ["kadin-dongu2", { 4: 3, 6: 6 }],
+  // "Ama giden yağ değil, su. Bir şişe su içince o kilo geri gelir."
+  "sauna-su2": ["sauna-su", { 3: 2, 4: 3, 5: 4, 6: 5, 8: 7, 9: 8, 11: 10, 13: 12 }],
+  // "Bir kilo yağı eritmek saatler ister. Eşofman bunu hızlandırmaz."
+  "sauna-yag2": ["sauna-yag", { 5: 4, 8: 5, 9: 6, 12: 8 }],
 };
 for (const [id, [base, map]] of Object.entries(KISA)) {
   const remap = (w: (i: number) => number) => (i: number) => w(map[i] ?? i);

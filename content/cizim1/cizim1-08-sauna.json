@@ -1,6 +1,6 @@
 {
   "id": "cizim1-08-sauna",
-  "title": "Sauna eşofmanı yağ yakar mı?",
+  "title": "Habib bir maçı terle kaybetti",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -21,34 +21,34 @@
   ],
   "scenes": [
     {
-      "visual": "sauna-hook",
-      "voice": "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. Peki o kilo yağ mıydı? Hayır. Sadece su.",
-      "say": "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. [curious] Peki o kilo yağ mıydı? ... Hayır. Sadece su."
+      "visual": "sauna-habib-hook",
+      "voice": "Dünyanın en güçlü dövüşçülerinden biri bir maçı yumrukla değil, terle kaybetti.",
+      "say": "Dünyanın en güçlü dövüşçülerinden biri, bir maçı yumrukla değil... terle kaybetti."
     },
     {
-      "visual": "sauna-tarih1",
-      "voice": "Bin dokuz yüz doksan yedi, Amerika. Üniversiteli bir güreşçi, maçtan önce sekiz kilo vermek zorunda.",
-      "say": "Bin dokuz yüz doksan yedi, Amerika. [serious] Üniversiteli bir güreşçi, maçtan önce sekiz kilo vermek zorunda."
+      "visual": "sauna-habib-tv",
+      "voice": "İki bin on yedi, Las Vegas. Habib Nurmagomedov, unvan maçı için son kilolarını atmaya çalışıyor.",
+      "say": "İki bin on yedi, Las Vegas. [serious] Habib Nurmagomedov, unvan maçı için son kilolarını atmaya çalışıyor."
     },
     {
-      "visual": "sauna-tarih2",
-      "voice": "Eşofmanının altına plastik bir giysi giyiyor ve iki saat bisiklet çeviriyor. Sonra yere yığılıyor. Vücudu susuz kalmıştı; kurtarılamadı.",
-      "say": "Eşofmanının altına plastik bir giysi giyiyor ve iki saat bisiklet çeviriyor. ... Sonra yere yığılıyor. Vücudu susuz kalmıştı; kurtarılamadı."
+      "visual": "sauna-habib-hastane",
+      "voice": "Ama sabah tartıya değil, hastaneye gidiyor. Doktorlar 'dövüşemez' diyor; maç iptal.",
+      "say": "Ama sabah tartıya değil... hastaneye gidiyor. Doktorlar 'dövüşemez' diyor; maç iptal."
     },
     {
-      "visual": "sauna-tarih3",
-      "voice": "O, otuz üç gün içinde aynı yolla ölen üçüncü güreşçiydi. Ertesi ay bu giysiler yasaklandı.",
-      "say": "O, otuz üç gün içinde aynı yolla ölen üçüncü güreşçiydi. [serious] Ertesi ay bu giysiler yasaklandı."
+      "visual": "sauna-sevin",
+      "voice": "Sen de sauna eşofmanıyla koşup tartıda bir kilo eksik görünce sevinirsin, değil mi?",
+      "say": "Sen de sauna eşofmanıyla koşup, tartıda bir kilo eksik görünce sevinirsin, [curious] değil mi?"
     },
     {
-      "visual": "sauna-su",
-      "voice": "Çünkü terle giden yağ değil, su. Bir şişe su içince o kilo geri gelir.",
-      "say": "Çünkü terle giden yağ değil, su. Bir şişe su içince, o kilo geri gelir."
+      "visual": "sauna-su2",
+      "voice": "Ama giden yağ değil, su. Bir şişe su içince o kilo geri gelir.",
+      "say": "Ama giden yağ değil, su. Bir şişe su içince, o kilo geri gelir."
     },
     {
-      "visual": "sauna-yag",
-      "voice": "Bir kilo yağı eritmek için saatlerce hareket etmen gerekir. Ter eşofmanı bunu hızlandırmaz.",
-      "say": "Bir kilo yağı eritmek için, saatlerce hareket etmen gerekir. Ter eşofmanı bunu hızlandırmaz."
+      "visual": "sauna-yag2",
+      "voice": "Bir kilo yağı eritmek saatler ister. Eşofman bunu hızlandırmaz.",
+      "say": "Bir kilo yağı eritmek saatler ister. Eşofman bunu hızlandırmaz."
     },
     {
       "visual": "sauna-tehlike",
@@ -56,9 +56,9 @@
       "say": "Üstelik vücudun ısınır; baş dönmesi, hatta bayılma yapabilir."
     },
     {
-      "visual": "sauna-dongu",
-      "voice": "Yani tartı yalan söylemez, ama her şeyi de söylemez. Bir dahaki sefere o bir kiloya bakarken hatırla:",
-      "say": "Yani tartı yalan söylemez, ama her şeyi de söylemez. Bir dahaki sefere o bir kiloya bakarken, hatırla:"
+      "visual": "sauna-habib-dongu",
+      "voice": "Habib bunu en zor yoldan öğrendi. Tartıdaki o bir kiloya bakarken hatırla:",
+      "say": "Habib bunu en zor yoldan öğrendi. Tartıdaki o bir kiloya bakarken, hatırla:"
     }
   ]
 }
