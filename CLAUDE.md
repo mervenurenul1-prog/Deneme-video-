@@ -77,7 +77,8 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
 2. **07 yaş (v9) BİTTİ (18 Ekim): KULLANICI KISA HÂLİ SEÇTİ** → SON HÂLİ `ornek-videolar/cizim1-pilot/07-yas-kisa.mp4`
    (`cizim1-07-yas-kisa`, ~50 sn; tarihçe tek cümle, hobiler kısa, "koçla ağırlık"). Uzun hâl `07-yas.mp4` (55,9 sn)
    yedek. İkisinin sesi de `public/voiceover/cizim1-07-yas/` içinde. Kalan kredi ≈ 13.997.
-3. Sonra kadın konuları sırayla: **4 kadın zor kilo verir → 6 selülit → 5 metabolizma yavaş** (ayrıntı aşağıda).
+3. Sonra kadın konuları sırayla (YENİ SOHBETTE yapılacak; 18 Ekim sohbeti 07 ile kapandı): **4 kadın zor kilo verir →
+   6 selülit → 5 metabolizma yavaş** (ayrıntı aşağıda). Her konu: önce kaynakları doğrula → hikâye fikirleri → metin onayı.
 
 **>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
 - **!!! TERİM (kullanıcı): bizim dilimizde "antrenör" DEĞİL "KOÇ".** Metinlerde ve ekran yazılarında hep "koç" kullan.
@@ -94,7 +95,7 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   devamı varsayıldı: 4 = kadın zor kilo verir, 5 = metabolizma yavaş, 6 = selülit → SIRA: 4 kilo → 6 selülit → 5
   metabolizma (kullanıcıya teyit için soruldu). 07 v9 bitince başlanacak; hepsi DOĞRULANACAK.
 - **08 sauna (`cizim1-08-sauna`): v2 hikâyesi de BEĞENİLMEDİ (18 Ekim). Yeni hikâyesi BAŞKA BİR SOHBETTE paralel
-  düşünülecek** — o sohbet buradan devam etsin; 07 ve kadın konuları bu sohbette.
+  düşünülecek** — o sohbet buradan devam etsin. 07 bitti; kadın konuları da yeni sohbette.
 - **07 v9 (`cizim1-07-yas`, 18 Ekim) — GÜNCEL:** a/b/c seçenekleri beğenilmedi. Kullanıcı: "Konu NE ZAMAN SPORA BAŞLANIR,
   sürekli sapıyorsun. Çocuğun sorusu: 13'te başlayabilir miyim, sorun olur mu? 16'da? Ne tür sporlar? Hareket göstermeden,
   hobisinden yola çıkıp spor dalı öner." + "tarihçeyi ekle ama konudan sapma". 04 (kadın-ağırlık) iyi izlendi çünkü
