@@ -1,0 +1,532 @@
+{
+  "scenes": [
+    {
+      "voice": "Dünyanın en güçlü dövüşçülerinden biri bir maçı yumrukla değil, terle kaybetti.",
+      "say": "Dünyanın en güçlü dövüşçülerinden biri, bir maçı yumrukla değil... terle kaybetti.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-08-sauna/1-mvebzuys.mp3",
+      "durationInSeconds": 5.459592,
+      "words": [
+        {
+          "word": "Dünyanın",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "word": "en",
+          "start": 0.72,
+          "end": 0.8
+        },
+        {
+          "word": "güçlü",
+          "start": 0.88,
+          "end": 1.12
+        },
+        {
+          "word": "dövüşçülerinden",
+          "start": 1.2,
+          "end": 2
+        },
+        {
+          "word": "biri",
+          "start": 2.08,
+          "end": 2.56
+        },
+        {
+          "word": "bir",
+          "start": 2.64,
+          "end": 2.72
+        },
+        {
+          "word": "maçı",
+          "start": 2.8,
+          "end": 3.04
+        },
+        {
+          "word": "yumrukla",
+          "start": 3.16,
+          "end": 3.52
+        },
+        {
+          "word": "değil,",
+          "start": 3.6,
+          "end": 4.224650000000001
+        },
+        {
+          "word": "terle",
+          "start": 4.344650000000001,
+          "end": 4.544650000000001
+        },
+        {
+          "word": "kaybetti.",
+          "start": 4.624650000000001,
+          "end": 5.504650000000001
+        }
+      ]
+    },
+    {
+      "voice": "İki bin on yedi, Las Vegas. Habib Nurmagomedov, unvan maçı için son kilolarını atmaya çalışıyor.",
+      "say": "İki bin on yedi, Las Vegas. [serious] Habib Nurmagomedov, unvan maçı için son kilolarını atmaya çalışıyor.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-08-sauna/2-mvebzx5d.mp3",
+      "durationInSeconds": 6.60898,
+      "words": [
+        {
+          "word": "İki",
+          "start": 0,
+          "end": 0.2
+        },
+        {
+          "word": "bin",
+          "start": 0.24,
+          "end": 0.32
+        },
+        {
+          "word": "on",
+          "start": 0.4,
+          "end": 0.48
+        },
+        {
+          "word": "yedi,",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "word": "Las",
+          "start": 1.2,
+          "end": 1.36
+        },
+        {
+          "word": "Vegas.",
+          "start": 1.44,
+          "end": 2.06501
+        },
+        {
+          "word": "Habib",
+          "start": 2.22113,
+          "end": 2.4611300000000003
+        },
+        {
+          "word": "Nurmagomedov,",
+          "start": 2.5411300000000003,
+          "end": 3.5011300000000003
+        },
+        {
+          "word": "unvan",
+          "start": 3.66113,
+          "end": 3.9811300000000003
+        },
+        {
+          "word": "maçı",
+          "start": 4.06113,
+          "end": 4.2211300000000005
+        },
+        {
+          "word": "için",
+          "start": 4.301130000000001,
+          "end": 4.54113
+        },
+        {
+          "word": "son",
+          "start": 4.70113,
+          "end": 4.86113
+        },
+        {
+          "word": "kilolarını",
+          "start": 4.94113,
+          "end": 5.42113
+        },
+        {
+          "word": "atmaya",
+          "start": 5.50113,
+          "end": 5.82113
+        },
+        {
+          "word": "çalışıyor.",
+          "start": 5.86113,
+          "end": 6.62113
+        }
+      ]
+    },
+    {
+      "voice": "Ama sabah tartıya değil, hastaneye gidiyor. Doktorlar 'dövüşemez' diyor; maç iptal.",
+      "say": "Ama sabah tartıya değil... hastaneye gidiyor. Doktorlar 'dövüşemez' diyor; maç iptal.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-08-sauna/3-mvebzyr2.mp3",
+      "durationInSeconds": 6.164898,
+      "words": [
+        {
+          "word": "Ama",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "sabah",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "word": "tartıya",
+          "start": 0.88,
+          "end": 1.28
+        },
+        {
+          "word": "değil,",
+          "start": 1.36,
+          "end": 2.08
+        },
+        {
+          "word": "hastaneye",
+          "start": 2.16,
+          "end": 2.56
+        },
+        {
+          "word": "gidiyor.",
+          "start": 2.64,
+          "end": 3.04
+        },
+        {
+          "word": "Doktorlar",
+          "start": 3.3286199999999995,
+          "end": 3.8886199999999995
+        },
+        {
+          "word": "'dövüşemez'",
+          "start": 4.04862,
+          "end": 4.741619999999999
+        },
+        {
+          "word": "diyor;",
+          "start": 4.7956199999999995,
+          "end": 5.08862
+        },
+        {
+          "word": "maç",
+          "start": 5.32862,
+          "end": 5.488619999999999
+        },
+        {
+          "word": "iptal.",
+          "start": 5.608619999999999,
+          "end": 6.20862
+        }
+      ]
+    },
+    {
+      "voice": "Habib'in terle atmaya çalıştığı kilolar yağ değildi. Senin sauna eşofmanıyla verdiğin o bir kilo da değil.",
+      "say": "Habib'in terle atmaya çalıştığı kilolar yağ değildi. [serious] Senin sauna eşofmanıyla verdiğin o bir kilo da değil.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-08-sauna/4-mvec00im.mp3",
+      "durationInSeconds": 6.582857,
+      "words": [
+        {
+          "word": "Habib'in",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "terle",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "word": "atmaya",
+          "start": 0.88,
+          "end": 1.2
+        },
+        {
+          "word": "çalıştığı",
+          "start": 1.24,
+          "end": 1.68
+        },
+        {
+          "word": "kilolar",
+          "start": 1.76,
+          "end": 2.16
+        },
+        {
+          "word": "yağ",
+          "start": 2.24,
+          "end": 2.4
+        },
+        {
+          "word": "değildi.",
+          "start": 2.48,
+          "end": 3.14317
+        },
+        {
+          "word": "Senin",
+          "start": 3.46258,
+          "end": 3.5745799999999996
+        },
+        {
+          "word": "sauna",
+          "start": 3.73458,
+          "end": 3.97458
+        },
+        {
+          "word": "eşofmanıyla",
+          "start": 4.05458,
+          "end": 4.69458
+        },
+        {
+          "word": "verdiğin",
+          "start": 4.814579999999999,
+          "end": 5.174580000000001
+        },
+        {
+          "word": "o",
+          "start": 5.29458,
+          "end": 5.414579999999999
+        },
+        {
+          "word": "bir",
+          "start": 5.45458,
+          "end": 5.494579999999999
+        },
+        {
+          "word": "kilo",
+          "start": 5.654579999999999,
+          "end": 5.8945799999999995
+        },
+        {
+          "word": "da",
+          "start": 5.97458,
+          "end": 6.05458
+        },
+        {
+          "word": "değil.",
+          "start": 6.13458,
+          "end": 6.61458
+        }
+      ]
+    },
+    {
+      "voice": "Sadece su. Bir şişe su içince geri gelir.",
+      "say": "Sadece su. Bir şişe su içince, geri gelir.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-08-sauna/5-mvec01r6.mp3",
+      "durationInSeconds": 3.552653,
+      "words": [
+        {
+          "word": "Sadece",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "word": "su.",
+          "start": 0.64,
+          "end": 0.96
+        },
+        {
+          "word": "Bir",
+          "start": 1.183784,
+          "end": 1.3437839999999999
+        },
+        {
+          "word": "şişe",
+          "start": 1.423784,
+          "end": 1.663784
+        },
+        {
+          "word": "su",
+          "start": 1.7437839999999998,
+          "end": 1.8237839999999998
+        },
+        {
+          "word": "içince",
+          "start": 1.903784,
+          "end": 2.463784
+        },
+        {
+          "word": "geri",
+          "start": 2.7037839999999997,
+          "end": 2.903784
+        },
+        {
+          "word": "gelir.",
+          "start": 2.943784,
+          "end": 3.5837839999999996
+        }
+      ]
+    },
+    {
+      "voice": "Bir kilo yağı eritmek saatler ister. Eşofman bunu hızlandırmaz.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-08-sauna/6-mvec02zn.mp3",
+      "durationInSeconds": 4.362449,
+      "words": [
+        {
+          "word": "Bir",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "kilo",
+          "start": 0.24,
+          "end": 0.48
+        },
+        {
+          "word": "yağı",
+          "start": 0.56,
+          "end": 0.72
+        },
+        {
+          "word": "eritmek",
+          "start": 0.8,
+          "end": 1.2
+        },
+        {
+          "word": "saatler",
+          "start": 1.28,
+          "end": 1.68
+        },
+        {
+          "word": "ister.",
+          "start": 1.76,
+          "end": 2.24
+        },
+        {
+          "word": "Eşofman",
+          "start": 2.56,
+          "end": 3.04
+        },
+        {
+          "word": "bunu",
+          "start": 3.12,
+          "end": 3.28
+        },
+        {
+          "word": "hızlandırmaz.",
+          "start": 3.32,
+          "end": 4.4
+        }
+      ]
+    },
+    {
+      "voice": "Üstelik vücudun ısınır; baş dönmesi, hatta bayılma yapabilir.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-08-sauna/7-mvec048t.mp3",
+      "durationInSeconds": 4.675918,
+      "words": [
+        {
+          "word": "Üstelik",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "vücudun",
+          "start": 0.56,
+          "end": 1.04
+        },
+        {
+          "word": "ısınır;",
+          "start": 1.12,
+          "end": 1.6
+        },
+        {
+          "word": "baş",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "word": "dönmesi,",
+          "start": 2.16,
+          "end": 2.88
+        },
+        {
+          "word": "hatta",
+          "start": 3,
+          "end": 3.28
+        },
+        {
+          "word": "bayılma",
+          "start": 3.44,
+          "end": 3.84
+        },
+        {
+          "word": "yapabilir.",
+          "start": 3.88,
+          "end": 4.72
+        }
+      ]
+    },
+    {
+      "voice": "Habib bunu en zor yoldan öğrendi. Tartıdaki o bir kiloya bakarken hatırla:",
+      "say": "Habib bunu en zor yoldan öğrendi. Tartıdaki o bir kiloya bakarken, hatırla:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-08-sauna/8-mvec05lu.mp3",
+      "durationInSeconds": 5.32898,
+      "words": [
+        {
+          "word": "Habib",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "bunu",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "word": "en",
+          "start": 0.88,
+          "end": 1.04
+        },
+        {
+          "word": "zor",
+          "start": 1.12,
+          "end": 1.28
+        },
+        {
+          "word": "yoldan",
+          "start": 1.36,
+          "end": 1.68
+        },
+        {
+          "word": "öğrendi.",
+          "start": 1.76,
+          "end": 2.24
+        },
+        {
+          "word": "Tartıdaki",
+          "start": 2.4902699999999998,
+          "end": 3.0502699999999994
+        },
+        {
+          "word": "o",
+          "start": 3.1302699999999994,
+          "end": 3.2102699999999995
+        },
+        {
+          "word": "bir",
+          "start": 3.2902699999999996,
+          "end": 3.3702699999999997
+        },
+        {
+          "word": "kiloya",
+          "start": 3.4502699999999997,
+          "end": 3.7702699999999996
+        },
+        {
+          "word": "bakarken",
+          "start": 3.8902699999999997,
+          "end": 4.650269999999999
+        },
+        {
+          "word": "hatırla:",
+          "start": 4.730269999999999,
+          "end": 5.37027
+        }
+      ]
+    }
+  ]
+}

@@ -90,6 +90,8 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   **Kanca görseli v5 (kullanıcı: "ringte dövüşsün, hemen sonra kötüleşip hastaneye kaldırıldığı an; gerçekten
   sapmayalım"):** `lead` 0.8 sn sessiz yumruk alışverişi (rakip: papakhasız, mavi şort) → yorulur → yumruk boşa → çift
   görme → yığılır → siren + ambulans gelir (`hold` 1.0). İPTAL damgası kancadan çıktı (3. sahnede var).
+  Habib'in açık ağzı kırmızı leke gibiydi → sakal içinde küçük koyu aralık. **SESLENDİRİLDİ (18 Ekim, kullanıcı
+  "seslendir"; ses 42,7 sn, kalan kredi ≈ 13.300)** → müzikle render → `ornek-videolar/cizim1-pilot/08-sauna.mp4`.
 
 **>>> EN SON DURUM (17 Ekim ~21:00) <<<**
 - **07 yaş (`cizim1-07-yas`):** son sessiz önizleme `07-yas-sessiz.mp4` (v6, ~68 sn): kanca → rapor → yaş bantları 5-7 /
