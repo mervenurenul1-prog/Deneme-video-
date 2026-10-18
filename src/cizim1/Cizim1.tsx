@@ -849,6 +849,7 @@ type PersonProps = {
   female?: boolean; // kadın karakter: at kuyruğu saç, kirpik, mercan tişört
   limbW?: number; // kol/bacak kalınlığı çarpanı (1 = normal; "iri vücut" korkusu için >1)
   suit?: string; // baştan ayağa tek parça giysi (ör. sauna eşofmanı): kollar, bacaklar ve gövde bu renkte
+  shorts?: string; // şort rengi (varsayılan C.shorts)
   children?: React.ReactNode; // karakterin koordinatlarında ek çizimler
 };
 
@@ -911,6 +912,7 @@ const Person: React.FC<PersonProps> = ({
   female = false,
   limbW = 1,
   suit,
+  shorts,
   children,
 }) => {
   const top = suit ?? shirt ?? (female ? "#d9705f" : C.shirt);
@@ -970,7 +972,7 @@ const Person: React.FC<PersonProps> = ({
       {/* şort */}
       <path
         d={`M${-hipW - 4} -392 L${hipW + 4} -392 L${pt(tRo)} L${pt(tRi)} L0 -300 L${pt(tLi)} L${pt(tLo)} Z`}
-        fill={suit ?? C.shorts}
+        fill={suit ?? shorts ?? C.shorts}
         stroke={C.ink}
         strokeWidth={7}
         strokeLinejoin="round"
@@ -9276,16 +9278,45 @@ const SaunaDongu: React.FC<SceneProps> = ({ w }) => {
 const GUARD_L: Arm = [30, -190];
 const GUARD_R: Arm = [30, -190];
 
-// Sakallı dövüşçü (Person + sakal/bıyık, isteğe bağlı eldiven)
-const Fighter: React.FC<{ x: number; y: number; s: number; armL?: Arm; armR?: Arm; gloves?: boolean; shirt?: string; mouth?: Mouth; eyes?: Eyes; blush?: number; lookY?: number; tilt?: number; legL?: Leg; legR?: Leg }> = ({ x, y, s, armL = [12, 0], armR = [12, 0], legL = {}, legR = {}, gloves = false, shirt = "#2b2b33", mouth = "flat", eyes = "open", blush = 0.4, lookY = 0, tilt = 0 }) => (
-  <Person x={x} y={y} s={s} belly={0.1} shirt={shirt} armL={armL} armR={armR} legL={legL} legR={legR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
+// Papakha kenarındaki yün kabarcıkları (baş koordinatlarında)
+const PAPAKHA_EDGE: [number, number][] = [
+  ...Array.from({ length: 9 }, (_, i): [number, number] => [-96 + i * 24, -868 - Math.sin((i / 8) * Math.PI) * 14]),
+  ...Array.from({ length: 4 }, (_, i): [number, number] => [-98 + i * 2, -840 + i * 28]),
+  ...Array.from({ length: 4 }, (_, i): [number, number] => [98 - i * 2, -840 + i * 28]),
+  ...Array.from({ length: 8 }, (_, i): [number, number] => [-84 + i * 24, -748 + Math.sin((i / 7) * Math.PI) * 6]),
+];
+
+// Kaslı dövüşçü: çıplak gövde (göğüs/karın hatları, geniş omuz), kalın kollar, siyah MMA şortu, gür sakal ve
+// başında gri kuzu postu şapka (papakha). Gerçek kişi birebir çizilmez; şapka tanınmayı sağlar.
+const Fighter: React.FC<{ x: number; y: number; s: number; armL?: Arm; armR?: Arm; gloves?: boolean; shirt?: string; mouth?: Mouth; eyes?: Eyes; blush?: number; lookY?: number; tilt?: number; legL?: Leg; legR?: Leg }> = ({ x, y, s, armL = [12, 0], armR = [12, 0], legL = {}, legR = {}, gloves = false, shirt = C.skin, mouth = "flat", eyes = "open", blush = 0.4, lookY = 0, tilt = 0 }) => (
+  <Person x={x} y={y} s={s} belly={0} shirt={shirt} shorts="#1e1e24" limbW={1.35} armL={armL} armR={armR} legL={legL} legR={legR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
+    {shirt === C.skin ? (
+      <g stroke={C.ink} fill="none" strokeLinecap="round" strokeWidth={5} opacity={0.7}>
+        <path d="M-138 -582 Q-110 -618 -40 -606 L40 -606 Q110 -618 138 -582 Q128 -536 96 -520 L-96 -520 Q-128 -536 -138 -582 Z" fill={C.skin} strokeWidth={7} />
+        <path d="M-84 -548 Q-44 -500 -6 -532 M84 -548 Q44 -500 6 -532" />
+        <path d="M0 -520 L0 -400" strokeWidth={4} />
+        {[-482, -452, -422].map((yy) => (
+          <path key={yy} d={`M-34 ${yy} Q-17 ${yy + 8} -4 ${yy} M34 ${yy} Q17 ${yy + 8} 4 ${yy}`} strokeWidth={4} />
+        ))}
+      </g>
+    ) : null}
     <g transform={`rotate(${tilt} 0 -630)`}>
-      <path d="M-80 -700 C-84 -630 -40 -598 0 -596 C40 -598 84 -630 80 -700 C72 -660 40 -640 0 -640 C-40 -640 -72 -660 -80 -700 Z" fill={C.hair} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+      <path d="M-82 -706 C-88 -626 -42 -590 0 -588 C42 -590 88 -626 82 -706 C72 -660 40 -640 0 -640 C-40 -640 -72 -660 -82 -706 Z" fill={C.hair} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
       <path d="M-28 -671 Q0 -684 28 -671 Q0 -662 -28 -671 Z" fill={C.hair} stroke={C.ink} strokeWidth={4} />
+      {/* papakha: kenarı kabarık yün (çevre boyunca yuvarlaklar, içi düz dolgu) */}
+      {PAPAKHA_EDGE.map(([cx, cy], i) => (
+        <circle key={i} cx={cx} cy={cy} r={24} fill="#a7a49e" stroke={C.ink} strokeWidth={6} />
+      ))}
+      <path d="M-90 -752 L-96 -862 Q0 -886 96 -862 L90 -752 Q0 -738 -90 -752 Z" fill="#a7a49e" />
+      {Array.from({ length: 12 }, (_, i) => {
+        const cx = -66 + (i % 6) * 26 + (Math.floor(i / 6) % 2) * 13;
+        const cy = -835 + Math.floor(i / 6) * 44;
+        return <path key={i} d={`M${cx - 10} ${cy} q10 -14 20 0`} stroke="#6f6c66" strokeWidth={4} fill="none" strokeLinecap="round" />;
+      })}
     </g>
     {gloves
       ? [armPoints(-1, armL)[2], armPoints(1, armR)[2]].map((h, i) => (
-          <circle key={i} cx={h[0]} cy={h[1]} r={44} fill={C.red} stroke={C.ink} strokeWidth={7} />
+          <circle key={i} cx={h[0]} cy={h[1]} r={46} fill={C.red} stroke={C.ink} strokeWidth={7} />
         ))
       : null}
   </Person>

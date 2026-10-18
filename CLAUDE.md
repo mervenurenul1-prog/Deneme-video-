@@ -84,6 +84,9 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   görseli: ringde sırılsıklam dövüşçü, ter birikintisi, seyirci + flaş, nabız gibi kırmızı kenar, çift görme, yığılıp
   düşer, siren ışığı, İPTAL (sembolik; gerçek olay 3. sahnede). TV sahnelerinde kamera TV'ye yaklaşır, bisiklet + saat;
   hastanede geri çekilip avatarın tepkisi, sonda boş ring + devrilmiş tartı.
+  **Habib karakteri (kullanıcı ilk hâlini beğenmedi, "kaslı + papakha" seçti):** `Fighter` = çıplak kaslı gövde
+  (göğüs/karın hatları, geniş omuz, `limbW` 1.35), siyah MMA şortu (`Person` yeni `shorts` prop), gür sakal, gri yünlü
+  papakha (`PAPAKHA_EDGE` kabarcıkları).
 
 **>>> EN SON DURUM (17 Ekim ~21:00) <<<**
 - **07 yaş (`cizim1-07-yas`):** son sessiz önizleme `07-yas-sessiz.mp4` (v6, ~68 sn): kanca → rapor → yaş bantları 5-7 /
