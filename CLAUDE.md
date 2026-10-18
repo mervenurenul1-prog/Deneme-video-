@@ -87,6 +87,9 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   **Habib karakteri (kullanıcı ilk hâlini beğenmedi, "kaslı + papakha" seçti):** `Fighter` = çıplak kaslı gövde
   (göğüs/karın hatları, geniş omuz, `limbW` 1.35), siyah MMA şortu (`Person` yeni `shorts` prop), gür sakal, gri yünlü
   papakha (`PAPAKHA_EDGE` kabarcıkları).
+  **Kanca görseli v5 (kullanıcı: "ringte dövüşsün, hemen sonra kötüleşip hastaneye kaldırıldığı an; gerçekten
+  sapmayalım"):** `lead` 0.8 sn sessiz yumruk alışverişi (rakip: papakhasız, mavi şort) → yorulur → yumruk boşa → çift
+  görme → yığılır → siren + ambulans gelir (`hold` 1.0). İPTAL damgası kancadan çıktı (3. sahnede var).
 
 **>>> EN SON DURUM (17 Ekim ~21:00) <<<**
 - **07 yaş (`cizim1-07-yas`):** son sessiz önizleme `07-yas-sessiz.mp4` (v6, ~68 sn): kanca → rapor → yaş bantları 5-7 /

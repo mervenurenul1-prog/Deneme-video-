@@ -417,7 +417,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "sauna-yag": (w) => [[w(5), "tik", 0.25], [w(12) - 2, "cizik", 0.3]],
   "sauna-tehlike": (w) => [[w(3), "sihir", 0.25], [w(6), "agir-dusme", 0.25]],
   "sauna-dongu": (w) => [[0, "bip", 0.25], [w(4), "pop", 0.25]],
-  "sauna-habib-hook": (w) => [[0, "nefes", 0.3], [w(7) - 3, "whoosh", 0.3], [w(8), "cizik", 0.3], [w(10) + 6, "agir-dusme", 0.3], [w(10) + 8, "alarm", 0.15]],
+  "sauna-habib-hook": (w) => [[0, "nefes", 0.3], [6, "tak", 0.25], [34, "tak", 0.2], [w(7) - 3, "whoosh", 0.3], [w(8), "cizik", 0.3], [w(10) + 6, "agir-dusme", 0.3], [w(10) + 8, "alarm", 0.18]],
   "sauna-habib-tv": (w) => [[0, "bip", 0.25], [w(6) - 4, "whoosh", 0.2], [w(8), "pirilti", 0.25]],
   "sauna-habib-hastane": (w) => [[w(3), "cizik", 0.3], [w(4) - 3, "alarm", 0.18], [w(9), "boom", 0.2]],
   "sauna-kopru": (w) => [[w(5), "pop", 0.25], [w(6), "cizik", 0.3], [w(7) - 10, "damla", 0.4], [w(10), "bip", 0.3], [w(15), "cizik", 0.3]],
@@ -9288,8 +9288,8 @@ const PAPAKHA_EDGE: [number, number][] = [
 
 // Kaslı dövüşçü: çıplak gövde (göğüs/karın hatları, geniş omuz), kalın kollar, siyah MMA şortu, gür sakal ve
 // başında gri kuzu postu şapka (papakha). Gerçek kişi birebir çizilmez; şapka tanınmayı sağlar.
-const Fighter: React.FC<{ x: number; y: number; s: number; armL?: Arm; armR?: Arm; gloves?: boolean; shirt?: string; mouth?: Mouth; eyes?: Eyes; blush?: number; lookY?: number; tilt?: number; legL?: Leg; legR?: Leg }> = ({ x, y, s, armL = [12, 0], armR = [12, 0], legL = {}, legR = {}, gloves = false, shirt = C.skin, mouth = "flat", eyes = "open", blush = 0.4, lookY = 0, tilt = 0 }) => (
-  <Person x={x} y={y} s={s} belly={0} shirt={shirt} shorts="#1e1e24" limbW={1.35} armL={armL} armR={armR} legL={legL} legR={legR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
+const Fighter: React.FC<{ x: number; y: number; s: number; armL?: Arm; armR?: Arm; gloves?: boolean; shirt?: string; mouth?: Mouth; eyes?: Eyes; blush?: number; lookY?: number; tilt?: number; legL?: Leg; legR?: Leg; hat?: boolean; shorts?: string }> = ({ x, y, s, armL = [12, 0], armR = [12, 0], legL = {}, legR = {}, gloves = false, hat = true, shorts = "#1e1e24", shirt = C.skin, mouth = "flat", eyes = "open", blush = 0.4, lookY = 0, tilt = 0 }) => (
+  <Person x={x} y={y} s={s} belly={0} shirt={shirt} shorts={shorts} limbW={1.35} armL={armL} armR={armR} legL={legL} legR={legR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
     {shirt === C.skin ? (
       <g stroke={C.ink} fill="none" strokeLinecap="round" strokeWidth={5} opacity={0.7}>
         <path d="M-138 -582 Q-110 -618 -40 -606 L40 -606 Q110 -618 138 -582 Q128 -536 96 -520 L-96 -520 Q-128 -536 -138 -582 Z" fill={C.skin} strokeWidth={7} />
@@ -9301,6 +9301,8 @@ const Fighter: React.FC<{ x: number; y: number; s: number; armL?: Arm; armR?: Ar
       </g>
     ) : null}
     <g transform={`rotate(${tilt} 0 -630)`}>
+      {hat ? (
+        <>
       <path d="M-82 -706 C-88 -626 -42 -590 0 -588 C42 -590 88 -626 82 -706 C72 -660 40 -640 0 -640 C-40 -640 -72 -660 -82 -706 Z" fill={C.hair} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
       <path d="M-28 -671 Q0 -684 28 -671 Q0 -662 -28 -671 Z" fill={C.hair} stroke={C.ink} strokeWidth={4} />
       {/* papakha: kenarı kabarık yün (çevre boyunca yuvarlaklar, içi düz dolgu) */}
@@ -9313,6 +9315,8 @@ const Fighter: React.FC<{ x: number; y: number; s: number; armL?: Arm; armR?: Ar
         const cy = -835 + Math.floor(i / 6) * 44;
         return <path key={i} d={`M${cx - 10} ${cy} q10 -14 20 0`} stroke="#6f6c66" strokeWidth={4} fill="none" strokeLinecap="round" />;
       })}
+        </>
+      ) : null}
     </g>
     {gloves
       ? [armPoints(-1, armL)[2], armPoints(1, armR)[2]].map((h, i) => (
@@ -9375,46 +9379,69 @@ const Crowd2: React.FC<{ f: number; flash: number }> = ({ f, flash }) => (
 );
 
 // "Dünyanın en güçlü dövüşçülerinden biri bir maçı yumrukla değil, terle kaybetti."
-// Açılıştan itibaren ringde sırılsıklam, nefes nefese bir dövüşçü: ayağının dibinde ter birikintisi büyür, nabız gibi
-// kırmızı kenar. "Yumrukla"da güçsüz bir yumruk boşa gider, "değil"de çarpı → "terle"de görüntü çift görür, dizleri
-// bükülür → "kaybetti"de yığılıp yere düşer; ışıklar söner, kırmızı-mavi siren ışığı, "İPTAL".
-const SaunaHabibHook: React.FC<SceneProps> = ({ w }) => {
+// Ses başlamadan (lead) ringde iki dövüşçü yumruk alışverişinde; papakhalı dövüşçü sırılsıklam, ayağının dibinde ter
+// birikir, nabız gibi kırmızı kenar. Gittikçe yavaşlar → "yumrukla"da yumruğu boşa gider, "değil"de çarpı → "terle"de
+// görüntü çift görür, dizleri bükülür, rakip durup ellerini indirir → "kaybetti"de yere yığılır; ışıklar söner, siren
+// yanar ve ambulans ringin önüne gelir (hold: sahne ambulansla biraz daha sürer). Gerçek olay (hastane) 2-3. sahnede.
+const SaunaHabibHook: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const punch = tw(f, w(7) - 3, w(7) + 4) * (1 - tw(f, w(8) + 2, w(8) + 12));
+  const tired = tw(f, w(3), w(7));
   const no = tw(f, w(8) - 2, w(8) + 8);
   const blur = tw(f, w(9) - 2, w(9) + 8);
   const faint = tw(f, w(10) - 2, w(10) + 10);
   const out = f >= w(10) + 4;
-  const sway = Math.sin(f / 7) * (5 + 6 * blur) * (1 - faint);
-  const X = 540;
-  const S = 0.95;
-  const armR: Arm = [lerp(30, 80, punch), lerp(-190, -40, punch)];
-  const lower = (a: Arm, t: number): Arm => [lerp(a[0], 14, t), lerp(a[1], 0, t)];
-  const L = lower(GUARD_L, 0.35 + 0.65 * blur);
-  const R = lower(armR, Math.max(0.35 + 0.65 * blur - punch, 0));
-  const knee = 0.15 + 0.55 * blur;
+  const fight = f < w(9) - 2;
+  // yumruk alışverişi: her 16 karede bir sıra değişir (yoruldukça yavaşlar)
+  const per = lerp(14, 22, tired);
+  const beat = (f % per) / per;
+  const turn = Math.floor(f / per) % 2;
+  const jab = fight ? Math.sin(Math.min(beat * 2, 1) * Math.PI) : 0;
+  const miss = tw(f, w(7) - 3, w(7) + 4) * (1 - tw(f, w(8) + 2, w(8) + 12));
+  const hP = fight && f < w(7) - 3 ? (turn === 0 ? jab : 0) : miss;
+  const oP = fight && f < w(7) - 3 ? (turn === 1 ? jab : 0) : 0;
+  const sway = Math.sin(f / 7) * (3 + 8 * blur + 4 * tired) * (1 - faint);
+  const X = 330;
+  const OX = 810;
+  const S = 0.8;
+  const guard = (p: number, t: number): Arm => [lerp(lerp(30, 85, p), 14, t), lerp(lerp(-190, -10, p), 0, t)];
+  const drop = Math.max(0.15 * tired, blur);
+  const L = guard(0, drop);
+  const R = guard(hP, Math.max(drop - hP, 0));
+  const oL = guard(oP, blur * 0.9);
+  const oR = guard(0, blur * 0.9);
+  const knee = 0.12 + 0.55 * blur;
   const dy = 95 * knee * S;
-  const glove = armPoints(1, armR)[2];
+  const glove = armPoints(1, R)[2];
   const pulse = 0.5 + 0.5 * Math.sin(f / 4);
   const siren = Math.floor(f / 5) % 2 ? C.red : "#2a4f9c";
+  const hitHabib = turn === 1 && beat > 0.35 && beat < 0.6 && fight ? 1 : 0;
+  const amb = tw(f, w(10) + 10, Math.min(d - 6, w(10) + 34));
   const body = (dx: number, o: number) => (
-    <g opacity={o} transform={`translate(${-330 * faint} 0) rotate(${sway + 84 * faint} ${X} ${PY})`}>
-      <Fighter x={X + dx} y={PY + dy} s={S} armL={L} armR={R} legL={{ lift: knee }} legR={{ lift: knee }} gloves mouth={faint > 0.5 ? "flat" : "open"} eyes={faint > 0.4 ? "closed" : blur > 0.3 ? "dizzy" : "open"} blush={0.6 + 0.4 * blur} lookY={8} tilt={8 * blur} />
+    <g opacity={o} transform={`translate(${330 * faint} 0) rotate(${sway - 84 * faint - 6 * hitHabib} ${X} ${PY})`}>
+      <Fighter x={X + dx} y={PY + dy} s={S} armL={L} armR={R} legL={{ lift: knee }} legR={{ lift: knee }} gloves mouth={faint > 0.5 ? "flat" : "open"} eyes={faint > 0.4 ? "closed" : blur > 0.3 ? "dizzy" : "open"} blush={0.6 + 0.4 * Math.max(tired, blur)} lookY={8} tilt={8 * blur} />
     </g>
   );
   return (
-    <CamK k={[[0, 1, 540, 1000], [w(9), 1.1, 540, 900], [w(10) + 8, 1.04, 540, 1200]]} shake={hit(f, w(10) + 6, 14)}>
+    <CamK k={[[0, 1, 580, 1000], [w(9), 1.08, 500, 950], [w(10) + 8, 0.9, 540, 1150]]} shake={hit(f, w(10) + 6, 14)}>
       <Ring dim={faint} />
-      <ellipse cx={X} cy={PY + 10} rx={lerp(90, 260, tw(f, 0, w(10) + 10))} ry={lerp(14, 34, tw(f, 0, w(10) + 10))} fill={C.water} opacity={0.55} />
-      {blur > 0 && faint < 1 ? body(40 * blur, 0.3 * (1 - faint)) : null}
+      <ellipse cx={X} cy={PY + 10} rx={lerp(80, 240, tw(f, 0, w(10) + 10))} ry={lerp(12, 32, tw(f, 0, w(10) + 10))} fill={C.water} opacity={0.55} />
+      {/* rakip: papakhasız, mavi şortlu; Habib yığılınca durur, ellerini indirir */}
+      <g transform={`translate(${-14 * oP + 70 * blur} 0)`}>
+        <Fighter x={OX} y={PY + 10} s={S} hat={false} shorts="#2f5fa8" armL={oL} armR={oR} legL={{ lift: 0.12 }} legR={{ lift: 0.12 }} gloves mouth={blur > 0.3 ? "o" : "flat"} eyes={blur > 0.3 ? "wide" : "open"} lookY={blur > 0.5 ? 12 : 0} />
+      </g>
+      {blur > 0 && faint < 1 ? body(36 * blur, 0.3 * (1 - faint)) : null}
       {body(0, 1)}
-      {no > 0 && blur < 1 ? <g opacity={1 - blur}><Cross x={X + glove[0] * S} y={PY + dy + glove[1] * S} size={70} p={no} /></g> : null}
-      <Sweat f={f} x={X} y={PY - 780} w={320} h={760} n={22} o={1 - faint} />
+      {no > 0 && blur < 1 ? (
+        <g opacity={1 - blur}>
+          <Cross x={X + glove[0] * S} y={PY + dy + glove[1] * S} size={60} p={no} />
+        </g>
+      ) : null}
+      <Sweat f={f} x={X} y={PY - 680} w={280} h={660} n={20} o={1 - faint} />
       <Crowd2 f={f} flash={1 - faint} />
-      <rect x={-200} y={-200} width={1480} height={2400} fill="none" stroke={C.red} strokeWidth={260} opacity={(0.18 + 0.2 * blur) * pulse * (1 - faint)} />
+      <rect x={-200} y={-200} width={1480} height={2400} fill="none" stroke={C.red} strokeWidth={260} opacity={(0.12 + 0.12 * tired + 0.2 * blur) * pulse * (1 - faint)} />
       <rect x={-200} y={-200} width={1480} height={2400} fill="#120c08" opacity={0.3 * faint} />
       {out ? <rect x={-200} y={-200} width={1480} height={2400} fill={siren} opacity={0.16} /> : null}
-      <RedStamp x={540} y={560} p={pop(f, w(10) + 4, 12)} text="İPTAL" />
+      {amb > 0 ? <Ambulance x={lerp(1500, 700, amb)} y={PY + 470} s={1.3} f={f} /> : null}
     </CamK>
   );
 };

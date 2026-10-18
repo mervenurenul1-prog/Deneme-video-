@@ -23,7 +23,9 @@
     {
       "visual": "sauna-habib-hook",
       "voice": "Dünyanın en güçlü dövüşçülerinden biri bir maçı yumrukla değil, terle kaybetti.",
-      "say": "Dünyanın en güçlü dövüşçülerinden biri, bir maçı yumrukla değil... terle kaybetti."
+      "say": "Dünyanın en güçlü dövüşçülerinden biri, bir maçı yumrukla değil... terle kaybetti.",
+      "lead": 0.8,
+      "hold": 1.0
     },
     {
       "visual": "sauna-habib-tv",
