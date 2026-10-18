@@ -539,6 +539,16 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "boyun-asil": (w, d) => [...every(w(5) - 2, w(7) + 8, 3, "tik", 0.18), [w(5), "whoosh", 0.25], [w(6), "nefes", 0.3], [w(7) + 8, "ding", 0.2], ...every(w(8), d - 6, 10, "bip", 0.15)],
   "boyun-cozum": (w) => [[w(0), "yuksel", 0.35], [w(4) - 2, "whoosh", 0.2], [w(4) + 14, "whoosh", 0.2], [w(8) - 2, "whoosh", 0.4], [w(9) + 6, "agir-dusme", 0.85], [w(10), "nefes", 0.4], [w(10) + 4, "pirilti", 0.35], [w(11), "ding", 0.25]],
   "boyun-kapanis": (w) => [[w(1), "whoosh", 0.25], [w(6), "pop", 0.4], ...every(w(6), w(9) - 2, 3, "tak", 0.22), [w(9) - 4, "havalanma", 0.25]],
+  "kilo-sofra1": (w) => [[w(3), "pop", 0.3], [w(7), "ding", 0.3], [w(11), "bip", 0.3]],
+  "kilo-sofra2": (w) => [[w(0) + 2, "tak", 0.45], [w(1) - 4, "pop", 0.35], [w(1) + 2, "kalem", 0.3]],
+  "kilo-lab1": (w) => [[w(3), "whoosh", 0.4], [w(5), "sihir", 0.3], [w(11), "kagit", 0.35]],
+  "kilo-lab2": (w) => [[w(1), "bip", 0.3], [w(4), "bip", 0.3], [w(6) + 6, "agir-dusme", 0.4]],
+  "kilo-lab3": () => [[4, "pop", 0.25]],
+  "kilo-lab4": (w) => [[w(2), "cizik", 0.35], [w(6), "yuksel", 0.3], [w(10), "whoosh", 0.25], [w(13), "cizik", 0.35]],
+  "kilo-lab5": (w) => [[w(0), "kalem", 0.3], [w(4), "yuksel", 0.3], [w(8), "agir-dusme", 0.4], [w(9) + 4, "pirilti", 0.35]],
+  "kilo-sofra3": () => [[4, "pop", 0.45], [8, "sonme", 0.3]],
+  "kilo-sofra4": (w) => [[w(2), "pop", 0.35]],
+  "kilo-son": (w) => [[w(0), "kalem", 0.3], [w(9), "pop", 0.3], [w(10), "ding", 0.25]],
 };
 
 /* ---------- yardımcılar ---------- */
@@ -10816,7 +10826,553 @@ const Y9HobiK: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 09 kadın zor kilo verir mi? (sofrada tartışma → düşünce bulutunda laboratuvar → sofra) ---------- */
+
+const K_TT = 1130; // masa üstü
+const K_AV = { x: 290, y: 1440, s: 1 };
+const K_WO = { x: 790, y: 1440, s: 0.84 };
+const K_BUB = { x: 700, y: 470, rx: 320, ry: 200 };
+// konuşan karakterin ağzı açılıp kapanır
+const talk = (f: number, a: number, b: number) => f >= a && f < b && Math.floor(f / 4) % 2 === 0;
+// çatalla yemek: el tabaktan ağza doğru yavaşça gidip gelir
+const eatArm = (f: number, k = 1): Arm => [20, -70 - 18 * k * (0.5 + 0.5 * Math.sin(f / 9))];
+const mixArm = (a: Arm, b: Arm, t: number): Arm => [lerp(a[0], b[0], t), lerp(a[1], b[1], t)];
+
+const Fork: React.FC<{ side: number; arm: Arm }> = ({ side, arm }) => {
+  const h = armPoints(side, arm)[2];
+  return (
+    <g transform={`translate(${h[0]} ${h[1]}) rotate(${side * -18})`} stroke={C.ink} strokeLinecap="round" fill="none">
+      <path d="M0 10 L0 -60" strokeWidth={13} />
+      <path d="M0 10 L0 -60" stroke="#cfcfcf" strokeWidth={6} />
+      <path d="M-13 -60 L13 -60 M-13 -60 L-13 -92 M0 -60 L0 -94 M13 -60 L13 -92" strokeWidth={6} />
+    </g>
+  );
+};
+
+type Diner = { f: number; mouth?: Mouth; eyes?: Eyes; armL?: Arm; armR?: Arm; lookY?: number; blush?: number; tilt?: number; fork?: boolean; children?: React.ReactNode };
+const KAvatar: React.FC<Diner> = ({ f, mouth = "smile", eyes = "open", armL = [10, 0], armR, lookY = 0, blush = 0.4, tilt = 0, fork = true, children }) => {
+  const r = armR ?? eatArm(f);
+  return (
+    <Person x={K_AV.x} y={K_AV.y} s={K_AV.s} belly={0.55} armL={armL} armR={r} mouth={mouth} eyes={eyes} lookY={lookY} blush={blush} tilt={tilt}>
+      {fork ? <Fork side={1} arm={r} /> : null}
+      {children}
+    </Person>
+  );
+};
+const KWoman: React.FC<Diner> = ({ f, mouth = "smile", eyes = "open", armL, armR = [10, 0], lookY = 0, blush = 0.4, tilt = 0, fork = true, children }) => {
+  const l = armL ?? eatArm(f + 30);
+  return (
+    <Person x={K_WO.x} y={K_WO.y} s={K_WO.s} female belly={0.2} armL={l} armR={armR} mouth={mouth} eyes={eyes} lookY={lookY} blush={blush} tilt={tilt}>
+      {fork ? <Fork side={-1} arm={l} /> : null}
+      {children}
+    </Person>
+  );
+};
+
+// Akşam yemeği odası: sıcak lamba, gece penceresi, duvarda tablo
+const KiloRoom: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <ellipse cx={540} cy={760} rx={520} ry={480} fill="#ffe2a0" opacity={0.22} stroke="none" />
+    <rect x={650} y={230} width={300} height={330} rx={10} fill="#2f3f5c" strokeWidth={8} />
+    <circle cx={885} cy={295} r={26} fill="#f6efc8" stroke="none" />
+    {[[700, 330], [760, 470], [905, 420]].map(([x, y], i) => (
+      <circle key={i} cx={x} cy={y} r={4} fill="#f6efc8" stroke="none" />
+    ))}
+    <path d="M800 230 L800 560 M650 395 L950 395" strokeWidth={8} fill="none" />
+    <g transform="rotate(-3 220 360)">
+      <rect x={110} y={280} width={220} height={160} fill={C.cream} strokeWidth={7} />
+      <path d="M130 420 L190 340 L230 390 L260 350 L310 420 Z" fill="#8fb08a" strokeWidth={5} />
+      <circle cx={280} cy={320} r={16} fill={C.yellow} strokeWidth={4} />
+    </g>
+    <path d="M540 0 L540 290" strokeWidth={6} fill="none" />
+    <path d="M455 380 L625 380 L585 290 L495 290 Z" fill={C.yellow} strokeWidth={7} />
+    <rect x={0} y={1500} width={1080} height={420} fill="#c9a77a" opacity={0.45} stroke="none" />
+    <path d="M0 1500 L1080 1500" strokeWidth={6} fill="none" />
+  </g>
+);
+
+// Masa: örtü, iki aynı tabak (tavuk + salata), su bardakları. glow: "aynı yemek" vurgusu
+const DinnerTable: React.FC<{ glow?: number }> = ({ glow = 0 }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    {[1600, 1600].map((_, i) => (
+      <rect key={i} x={i ? 920 : 120} y={1500} width={34} height={150} fill="#7a5233" strokeWidth={7} />
+    ))}
+    <path d={`M60 ${K_TT} L1020 ${K_TT} L1045 ${K_TT + 70} L35 ${K_TT + 70} Z`} fill="#f6eedd" strokeWidth={8} />
+    <path d={`M35 ${K_TT + 70} L1045 ${K_TT + 70} L1045 1520 Q990 1550 935 1520 Q880 1550 825 1520 Q770 1550 715 1520 Q660 1550 605 1520 Q550 1550 495 1520 Q440 1550 385 1520 Q330 1550 275 1520 Q220 1550 165 1520 Q110 1550 35 1520 Z`} fill="#f6eedd" strokeWidth={8} />
+    <path d={`M35 ${K_TT + 110} L1045 ${K_TT + 110}`} stroke={C.red} strokeWidth={14} opacity={0.75} />
+    {[K_AV.x + 40, K_WO.x - 40].map((x, i) => (
+      <g key={i}>
+        {glow > 0 ? <ellipse cx={x} cy={K_TT + 30} rx={150} ry={46} fill={C.yellow} opacity={0.55 * glow} stroke="none" filter="url(#glow)" /> : null}
+        <ellipse cx={x} cy={K_TT + 30} rx={118} ry={30} fill="#fffdf6" strokeWidth={6} />
+        <ellipse cx={x - 30} cy={K_TT + 24} rx={42} ry={16} fill="#c98a4b" strokeWidth={5} />
+        {[0, 1, 2].map((k) => (
+          <circle key={k} cx={x + 28 + k * 22} cy={K_TT + 22 + (k % 2) * 8} r={13} fill="#7fb069" strokeWidth={4} />
+        ))}
+      </g>
+    ))}
+    {[470, 610].map((x) => (
+      <g key={x}>
+        <path d={`M${x - 24} ${K_TT - 70} L${x + 24} ${K_TT - 70} L${x + 18} ${K_TT + 20} L${x - 18} ${K_TT + 20} Z`} fill="#dbeef5" strokeWidth={6} opacity={0.9} />
+        <path d={`M${x - 21} ${K_TT - 30} L${x + 21} ${K_TT - 30}`} stroke={C.water} strokeWidth={5} />
+      </g>
+    ))}
+  </g>
+);
+
+const BubbleText: React.FC<{ p: number }> = ({ p }) => (
+  <>
+    <HandText x={K_BUB.x} y={K_BUB.y - 30} text="KADINLAR" size={86} color={C.red} p={tw(p, 0, 0.45)} />
+    <HandText x={K_BUB.x} y={K_BUB.y + 70} text="ZOR KİLO VERİR" size={80} color={C.red} p={tw(p, 0.45, 1)} />
+  </>
+);
+
+// Sofra sahnesinin tamamı (kamera ve bulut dışında): karakterler, masa, bulut + yazı
+const KiloSofra: React.FC<{ f: number; av?: Partial<Diner>; wo?: Partial<Diner>; glow?: number; bubble?: number; bubbleText?: number }> = ({ f, av = {}, wo = {}, glow = 0, bubble = 0, bubbleText = 0 }) => (
+  <>
+    <KiloRoom />
+    <KWoman f={f} {...wo} />
+    <KAvatar f={f} {...av} />
+    <DinnerTable glow={glow} />
+    <Bubble x={K_BUB.x} y={K_BUB.y} rx={K_BUB.rx} ry={K_BUB.ry} p={bubble} tail={[K_WO.x, K_WO.y - K_WO.s * 830]}>
+      <BubbleText p={bubbleText} />
+    </Bubble>
+  </>
+);
+
+// Küçük etiket: "−5 kg" gibi kısa sonuç
+const KTag: React.FC<{ x: number; y: number; p: number; text: string; color: string; rot?: number }> = ({ x, y, p, text, color, rot = -5 }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p}) rotate(${rot})`}>
+      <rect x={-text.length * 22 - 30} y={-62} width={text.length * 44 + 60} height={100} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+      <text x={0} y={12} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={78} fill={color}>
+        {text}
+      </text>
+    </g>
+  ) : null;
+
+// "Aynı yemeği yiyoruz, aynı sporu yapıyoruz. Ben beş kilo verdim, sen niye veremiyorsun?"
+// Akşam yemeği. Aynı tabaklar parlar, iki başın üstünde aynı dambıl; avatarın üstünde "−5 kg", çatalını kadına doğrultur, kadının üstünde kırmızı "0 kg".
+const KiloSofra1: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const glow = tw(f, w(0) - 2, w(1) + 6) * (1 - tw(f, w(3), w(4)));
+  const db = pop(f, w(3) - 2, 12) * (1 - tw(f, w(6) - 6, w(6)));
+  const kg = pop(f, w(7) - 2, 12);
+  const point = tw(f, w(10) - 6, w(10) + 4);
+  const zero = pop(f, w(11) - 2, 12);
+  const armR = mixArm(eatArm(f), [72, 12], point);
+  return (
+    <CamK k={[[0, 1.06, 540, 1000], [w(6), 1.06, 540, 1000], [w(10), 1.12, 580, 960]]}>
+      <KiloSofra
+        f={f}
+        glow={glow}
+        av={{ armR, mouth: talk(f, w(0) - 2, w(12) + 8) ? "open" : point > 0.5 ? "smile" : "smile" }}
+        wo={{ mouth: zero > 0 ? "worry" : "smile", blush: 0.4 + 0.5 * zero, eyes: point > 0.5 ? "wide" : "open", armL: mixArm(eatArm(f + 30), [12, 0], point) }}
+      />
+      {db > 0 ? [K_AV.x, K_WO.x].map((x) => <Dumbbell key={x} x={x} y={x === K_AV.x ? 520 : 640} s={0.85 * db} rot={-8} />) : null}
+      {db > 0 ? <text x={540} y={640} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={180 * db} fill={YAS_OK}>=</text> : null}
+      <KTag x={K_AV.x} y={540} p={kg} text="−5 kg" color={YAS_OK} />
+      <KTag x={K_WO.x} y={670} p={zero} text="0 kg" color={C.red} rot={5} />
+    </CamK>
+  );
+};
+
+// "Çünkü kadınlar zor kilo verir, bunu herkes bilir." (kadın sesi)
+// Kadın kaşığını masaya vurur; başının üstünde düşünce bulutu açılır, içine kırmızıyla "KADINLAR ZOR KİLO VERİR" yazılır.
+const KiloSofra2: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bang = hit(f, w(0) + 2, 10);
+  const bub = pop(f, w(1) - 4, 14);
+  const txt = tw(f, w(1), w(4) + 8);
+  return (
+    <CamK k={[[0, 1, 540, 960]]} shake={bang * 0.5}>
+      <KiloSofra
+        f={f}
+        bubble={bub}
+        bubbleText={txt}
+        av={{ mouth: f >= w(1) ? "flat" : "o", eyes: f < w(3) ? "wide" : "open", armR: [20, -70] }}
+        wo={{ mouth: talk(f, 0, w(7) + 8) ? "open" : "flat", armL: f < w(0) + 6 ? [40, -60] : [20, -76], blush: 0.7 }}
+      />
+      <KTag x={K_AV.x} y={540} p={1 - tw(f, w(0), w(1))} text="−5 kg" color={YAS_OK} />
+    </CamK>
+  );
+};
+
+// Düşünce bulutunun içi: kenarları bulut gibi kabaran çerçeve (içi boş; laboratuvar bunun içinde görünür)
+const CLOUD = (() => {
+  const out: [number, number, number][] = [];
+  const m = 50;
+  const r = (k: string) => 70 + 36 * random(k);
+  for (let x = m; x <= 1080 - m + 1; x += 122) out.push([x, m, r(`ct${x}`)], [x, 1920 - m, r(`cb${x}`)]);
+  for (let y = m + 128; y < 1920 - m - 60; y += 128) out.push([m, y, r(`cl${y}`)], [1080 - m, y, r(`cr${y}`)]);
+  return out;
+})();
+const CloudFrame: React.FC = () => (
+  <g>
+    {CLOUD.map(([x, y, r], i) => (
+      <circle key={i} cx={x} cy={y} r={r} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+    ))}
+    {CLOUD.map(([x, y, r], i) => (
+      <circle key={`f${i}`} cx={x} cy={y} r={r - 4.5} fill={C.cream} />
+    ))}
+    <path d={`M-200 -200 H1280 V2120 H-200 Z M50 50 V1870 H1030 V50 Z`} fill={C.cream} fillRule="evenodd" />
+  </g>
+);
+
+// Koşu bandı: yandan; koşucu sağa bakar, konsol önde (sağda). Bant çizgileri geriye akar.
+const Treadmill: React.FC<{ x: number; y: number; f: number }> = ({ x, y, f }) => {
+  const off = (f * 7) % 70;
+  return (
+    <g stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+      <path d={`M${x + 215} ${y + 10} L${x + 262} ${y - 300}`} strokeWidth={22} fill="none" />
+      <path d={`M${x + 215} ${y + 10} L${x + 262} ${y - 300}`} stroke="#6b737d" strokeWidth={10} fill="none" />
+      <g transform={`rotate(-14 ${x + 262} ${y - 330})`}>
+        <rect x={x + 205} y={y - 370} width={130} height={78} rx={14} fill="#3b4a55" strokeWidth={7} />
+        <rect x={x + 220} y={y - 358} width={100} height={42} rx={6} fill="#26332b" strokeWidth={4} />
+      </g>
+      <path d={`M${x + 160} ${y - 250} L${x + 255} ${y - 262}`} strokeWidth={12} fill="none" />
+      <rect x={x - 250} y={y + 4} width={500} height={70} rx={32} fill="#4a4f57" strokeWidth={8} />
+      <rect x={x - 238} y={y - 6} width={476} height={20} rx={10} fill="#2a2d33" strokeWidth={5} />
+      {Array.from({ length: 7 }, (_, i) => {
+        const xx = x + 230 - ((i * 70 + off) % 476);
+        return <path key={i} d={`M${xx} ${y + 4} L${xx - 22} ${y + 4}`} stroke="#8a8f96" strokeWidth={4} />;
+      })}
+    </g>
+  );
+};
+
+// Kalori göstergesi: alev + sayı
+const Kcal: React.FC<{ x: number; y: number; p: number; n: number; f: number; color?: string }> = ({ x, y, p, n, f, color = C.ink }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`}>
+      <path
+        d={`M-70 40 C-110 0 -90 -50 -60 -80 C-60 -50 -46 -40 -40 -36 C-40 -80 -10 -110 0 -140 C10 -100 40 -70 30 -20 C44 -30 50 -50 48 -70 C80 -30 70 20 40 40 Z`}
+        transform={`translate(-110 0) scale(${0.62 + 0.04 * Math.sin(f / 3)})`}
+        fill={C.glow}
+        stroke={C.ink}
+        strokeWidth={7}
+      />
+      <text x={40} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={104} fill={color}>
+        {n}
+      </text>
+      <text x={40} y={70} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={30} fill={C.ink} opacity={0.7}>
+        kcal / antrenman
+      </text>
+    </g>
+  ) : null;
+
+// Kırmızı damga "KADIN ZOR VERİR": iner, çatlar, ikiye ayrılıp düşer
+const KiloStamp: React.FC<{ p: number; crack?: number; fall?: number }> = ({ p, crack = 0, fall = 0 }) => {
+  const id = svgId(useId());
+  if (p <= 0 || fall >= 1) return null;
+  const x = 640;
+  const y = 196;
+  const body = (
+    <g transform={`rotate(-6 ${x} ${y})`}>
+      <rect x={x - 270} y={y - 58} width={540} height={116} rx={14} fill={C.cream} stroke={C.red} strokeWidth={12} opacity={0.95} />
+      <text x={x} y={y + 24} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={68} fill={C.red}>
+        KADIN ZOR VERİR
+      </text>
+    </g>
+  );
+  const s = interpolate(p, [0, 0.6, 1], [2.2, 0.92, 1]);
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s}) translate(${-x} ${-y})`} opacity={Math.min(1, p * 3) * (1 - fall)}>
+      <clipPath id={`l${id}`}>
+        <path d={`M0 0 L${x + 20} 0 L${x - 30} ${y - 20} L${x + 30} ${y + 10} L${x - 10} 2000 L0 2000 Z`} />
+      </clipPath>
+      <clipPath id={`r${id}`}>
+        <path d={`M1080 0 L${x + 20} 0 L${x - 30} ${y - 20} L${x + 30} ${y + 10} L${x - 10} 2000 L1080 2000 Z`} />
+      </clipPath>
+      <g clipPath={`url(#l${id})`} transform={`translate(${-60 * fall} ${300 * fall * fall}) rotate(${-14 * fall} ${x} ${y})`}>
+        {body}
+      </g>
+      <g clipPath={`url(#r${id})`} transform={`translate(${60 * fall} ${340 * fall * fall}) rotate(${16 * fall} ${x} ${y})`}>
+        {body}
+      </g>
+      {crack > 0 ? (
+        <path d={`M${x + 20} ${y - 80} L${x - 30} ${y - 20} L${x + 30} ${y + 10} L${x - 10} ${y + 80}`} stroke={C.ink} strokeWidth={7} fill="none" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - crack} opacity={1 - fall} />
+      ) : null}
+    </g>
+  );
+};
+
+const LAB = { x: 330, men: 790, women: 1330, s: 0.6, panel: 770 };
+const LabLabel: React.FC<{ y: number; text: string }> = ({ y, text }) => (
+  <g transform={`translate(${LAB.panel + 10} ${y}) rotate(-3)`}>
+    <rect x={-130} y={-38} width={260} height={70} rx={14} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+    <text x={0} y={12} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={38} fill={C.ink} letterSpacing={1}>
+      {text}
+    </text>
+  </g>
+);
+type LabProps = {
+  f: number;
+  year?: number; // "2003" yazılır
+  year2?: number; // 2003 çizilir, 2013 yazılır
+  months?: number;
+  kgM?: [number, string];
+  kgW?: [number, string];
+  kcalM?: [number, number];
+  kcalW?: [number, number];
+  eq?: number;
+  faceM?: "smile" | "grin" | "worry";
+  faceW?: "smile" | "grin" | "worry";
+  lookM?: number;
+  slimM?: number;
+  slimW?: number;
+  big?: number;
+  stamp?: [number, number, number];
+};
+// Laboratuvar (bulutun içinde): üstte erkekler, altta kadınlar koşu bandında; sağda sonuç panelleri
+const Lab: React.FC<LabProps> = ({ f, year = 1, year2 = 0, months = 0, kgM, kgW, kcalM, kcalW, eq = 0, faceM = "smile", faceW = "smile", lookM = 0, slimM = 0, slimW = 0, big = 0, stamp }) => {
+  const ph = f * 0.32;
+  const runner = (y: number, female: boolean, face: LabProps["faceM"], slim: number, look: number, k: number) => (
+    <g transform={`translate(${LAB.x} 0) scale(${1 - 0.1 * slim} 1) translate(${-LAB.x} 0)`}>
+      <SideRunner f={f} x={LAB.x} y={y} s={LAB.s + 0.05 * k} pose={runPose(ph + (female ? 1.3 : 0), 0.9)} face={face} female={female} shirt={female ? "#d9705f" : C.shirt} look={look} sweat />
+    </g>
+  );
+  return (
+    <g>
+      <rect x={0} y={0} width={1080} height={1920} fill="#dfe3dc" />
+      {Array.from({ length: 12 }, (_, i) => (
+        <path key={i} d={`M0 ${120 + i * 150} H1080`} stroke={C.ink} strokeWidth={2} opacity={0.12} />
+      ))}
+      <g transform="rotate(-3 225 240)" stroke={C.ink} strokeLinejoin="round">
+        <rect x={120} y={160} width={230} height={150} rx={12} fill="#2f4a3a" strokeWidth={8} />
+        <text x={235} y={200} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={22} fill={C.cream} stroke="none" letterSpacing={2}>
+          LABORATUVAR
+        </text>
+        <HandText x={235} y={284} text="2003" size={78} color={C.cream} p={year} rotate={0} />
+        {year2 > 0 ? (
+          <>
+            <path d="M160 258 L310 258" stroke={C.red} strokeWidth={12} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(year2, 0, 0.4)} />
+            <HandText x={235} y={370} text="2013" size={84} color={YAS_OK} p={tw(year2, 0.4, 1)} rotate={-4} />
+          </>
+        ) : null}
+      </g>
+      <Counter x={800} y={290} to={16} p={months} suffix=" ay" size={130} color={C.red} />
+      <Treadmill x={LAB.x + 10} y={LAB.men} f={f} />
+      <LabLabel y={LAB.men - 200} text="ERKEKLER" />
+      {runner(LAB.men, false, faceM, slimM, lookM, big)}
+      <Treadmill x={LAB.x + 10} y={LAB.women} f={f} />
+      <LabLabel y={LAB.women - 200} text="KADINLAR" />
+      {runner(LAB.women, true, faceW, slimW, 0, 0)}
+      {big > 0 ? (
+        <g opacity={big}>
+          <HandText x={LAB.x - 150} y={LAB.men - 330} text="iri" size={110} color={YAS_OK} p={big} />
+        </g>
+      ) : null}
+      {kgM ? <KgDisplay x={LAB.panel} y={LAB.men - 420} p={kgM[0] * 0.55} value={kgM[1]} /> : null}
+      {kgW ? <KgDisplay x={LAB.panel} y={LAB.women - 420} p={kgW[0] * 0.55} value={kgW[1]} color={kgW[1].startsWith("−") ? "#9fe0a8" : "#ff8b7a"} /> : null}
+      {kcalM ? <Kcal x={LAB.panel} y={LAB.men - 440} p={kcalM[0] * 0.8 * (1 + 0.15 * eq)} n={kcalM[1]} f={f} color={eq > 0.5 ? YAS_OK : C.ink} /> : null}
+      {kcalW ? <Kcal x={LAB.panel} y={LAB.women - 440} p={kcalW[0] * 0.8 * (1 + 0.15 * eq)} n={kcalW[1]} f={f} color={eq > 0.5 ? YAS_OK : C.ink} /> : null}
+      {stamp ? <KiloStamp p={stamp[0]} crack={stamp[1]} fall={stamp[2]} /> : null}
+    </g>
+  );
+};
+// Bulutun içi: laboratuvar + bulut çerçevesi; t: bulut merkezinden tam ekrana açılma (0..1)
+const InCloud: React.FC<{ t?: number; o?: number; children: React.ReactNode }> = ({ t = 1, o = 1, children }) =>
+  o > 0 ? (
+    <g opacity={o} transform={`translate(${lerp(K_BUB.x, 540, t)} ${lerp(K_BUB.y, 960, t)}) scale(${lerp(0.25, 1, t)}) translate(-540 -960)`}>
+      {children}
+      <CloudFrame />
+    </g>
+  ) : null;
+
+// "Bu tartışma iki bin üçte bir laboratuvara taşındı. Kadınlar ve erkekler on altı ay boyunca aynı programla spor yaptı."
+// Kamera kadının bulutuna dalar; bulutun içi laboratuvara dönüşür: tahtada 2003, iki koşu bandı, 16 ay sayacı, takvim yaprakları.
+const KiloLab1: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const open = tw(f, w(3), w(6) + 4);
+  return (
+    <>
+      <g opacity={1 - tw(f, w(5), w(6) + 4)}>
+        <CamK k={[[0, 1, 540, 960], [w(1), 1, K_BUB.x, K_BUB.y], [w(6) + 4, 3.2, K_BUB.x, K_BUB.y]]}>
+          <KiloSofra f={f} bubble={1} bubbleText={1 - tw(f, w(3), w(5))} av={{ mouth: "flat", armR: [20, -70] }} wo={{ mouth: "flat", blush: 0.7, armL: [20, -76] }} />
+        </CamK>
+      </g>
+      <InCloud t={open} o={tw(f, w(3), w(4) + 2)}>
+        <Lab f={f} year={tw(f, w(2), w(4) + 4)} months={tw(f, w(11), w(13) + 6)} />
+        <FlyingPages start={w(11)} end={d} y={240} />
+      </InCloud>
+    </>
+  );
+};
+
+// "Erkekler beş kilo verdi. Kadınlar neredeyse hiç."
+// Erkek panelinde sayaç −5 kg'a iner, erkek koşucu incelir; kadın panelinde kırmızı "≈0 kg"; tepeye kırmızı "KADIN ZOR VERİR" damgası iner.
+const KiloLab2: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const m = tw(f, w(1), w(3) + 6);
+  return (
+    <InCloud>
+      <Lab
+        f={f}
+        kgM={[pop(f, w(0) - 2, 12), `−${Math.round(5 * m)} kg`]}
+        kgW={f >= w(4) - 2 ? [pop(f, w(4) - 2, 12), f >= w(5) ? "≈0 kg" : "0 kg"] : undefined}
+        slimM={m}
+        faceM={m > 0.6 ? "grin" : "smile"}
+        faceW={f >= w(5) ? "worry" : "smile"}
+        stamp={[tw(f, w(6) + 2, w(6) + 12), 0, 0]}
+      />
+    </InCloud>
+  );
+};
+
+// "Gördün mü?" — banttaki avatar sırıtarak aşağıdaki kadına bakar; kamera ona yaklaşır.
+const KiloLab3: React.FC<SceneProps> = () => {
+  const f = useCurrentFrame();
+  return (
+    <CamK k={[[0, 1, 540, 960], [16, 1.18, LAB.x, LAB.men - 300]]}>
+      <InCloud>
+        <Lab f={f} kgM={[1, "−5 kg"]} kgW={[1, "≈0 kg"]} slimM={1} faceM="grin" lookM={14} faceW="worry" stamp={[1, 0, 0]} />
+      </InCloud>
+    </CamK>
+  );
+};
+
+// "Ama bir ayrıntı vardı: erkekler daha iri olduğu için her antrenmanda çok daha fazla kalori yakıyordu."
+// Damga çatlar; erkek koşucu büyür ("iri"), kilo panelleri gider, alevli kalori sayaçları gelir: 667 / 439. Avatarın sırıtışı söner.
+const KiloLab4: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const out = tw(f, w(9) - 4, w(10));
+  const kc = tw(f, w(10), w(15) + 8);
+  return (
+    <InCloud>
+      <Lab
+        f={f}
+        kgM={out < 1 ? [1 - out, "−5 kg"] : undefined}
+        kgW={out < 1 ? [1 - out, "≈0 kg"] : undefined}
+        kcalM={f >= w(10) ? [pop(f, w(10), 12), Math.round(667 * kc)] : undefined}
+        kcalW={f >= w(10) ? [pop(f, w(10), 12), Math.round(439 * kc)] : undefined}
+        slimM={1}
+        big={tw(f, w(5) - 2, w(7))}
+        faceM={f >= w(13) ? "worry" : "grin"}
+        faceW={f >= w(13) ? "smile" : "worry"}
+        stamp={[1, tw(f, w(1), w(3)) * 0.5 + tw(f, w(13), w(15)) * 0.5, 0]}
+      />
+    </InCloud>
+  );
+};
+
+// "On yıl sonra herkese aynı kaloriyi yaktırdılar. Ve fark kayboldu."
+// Tahtada 2003 çizilir, 2013 yazılır; iki sayaç da 600'e gelir, aralarında lacivert "="; iki koşucu da incelir; damga ikiye bölünüp düşer.
+const KiloLab5: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const eqT = tw(f, w(3), w(6) + 6);
+  const gone = tw(f, w(8), w(9) + 10);
+  return (
+    <InCloud>
+      <Lab
+        f={f}
+        year2={tw(f, w(0) - 2, w(2) + 8)}
+        kcalM={[1, Math.round(lerp(667, 600, eqT))]}
+        kcalW={[1, Math.round(lerp(439, 600, eqT))]}
+        eq={pop(f, w(6) - 2, 12)}
+        slimM={1}
+        slimW={gone}
+        big={1 - tw(f, w(0), w(2))}
+        faceM="smile"
+        faceW={gone > 0.5 ? "grin" : "smile"}
+        stamp={[1, 1, gone]}
+      />
+    </InCloud>
+  );
+};
+
+// "Yani sen daha hızlı vermedin…" (kadın sesi)
+// Bulut "pof" diye patlar, sofraya dönülür; kadın kollarını kavuşturmuş, keyifli.
+const KiloSofra3: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const pf = tw(f, 0, 12);
+  return (
+    <>
+      <KiloSofra
+        f={f}
+        av={{ mouth: "o", eyes: "wide", armR: [20, -70] }}
+        wo={{ mouth: talk(f, w(0) - 2, w(4) + 10) ? "open" : "smile", eyes: f > w(2) ? "closed" : "open", armL: [20, -100], armR: [20, -100], fork: false, tilt: -4 }}
+      />
+      <InCloud t={1 - pf} o={1 - pf}>
+        <Lab f={f} kcalM={[1, 600]} kcalW={[1, 600]} eq={1} slimM={1} slimW={1} faceW="grin" />
+      </InCloud>
+      {f < 40
+        ? Array.from({ length: 7 }, (_, i) => {
+            const a = (i / 7) * Math.PI * 2;
+            return <Puff key={i} x={K_BUB.x} y={K_BUB.y} p={tw(f, 6, 36)} dx={Math.cos(a) * 280} dy={Math.sin(a) * 200} s={1.6} />;
+          })
+        : null}
+    </>
+  );
+};
+
+// "Sadece daha büyüğüm."
+// Avatar mahcup başını kaşır, kızarır; tişörtlerine beden etiketleri: onda "XL", kadında "S".
+const KiloSofra4: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const tag = pop(f, w(2) - 2, 12);
+  return (
+    <CamK k={[[0, 1, 540, 960], [d, 1.06, 450, 950]]}>
+      <KiloSofra
+        f={f}
+        av={{ mouth: talk(f, w(0) - 2, w(2) + 12) ? "open" : "worry", lookY: 10, blush: 1, armL: [150, 87 + 8 * Math.sin(f / 2)], armR: [20, -70] }}
+        wo={{ mouth: "grin", eyes: "closed", armL: [20, -100], armR: [20, -100], fork: false, tilt: -4 }}
+      />
+      <KTag x={K_AV.x} y={980} p={tag} text="XL" color={YAS_OK} rot={-8} />
+      <KTag x={K_WO.x} y={1060} p={pop(f, w(2) + 4, 12) * 0.8} text="S" color={YAS_OK} rot={6} />
+    </CamK>
+  );
+};
+
+// "Kilo farkı, emek farkı değil. Peki sizin sofranızda bu tartışmayı kim kazanırdı?"
+// Üstte el yazısı replik; sonra iki başın üstünde "?" ve sırayla parlarlar; sonda ikisi yeniden yemeğe döner (açılış karesi).
+const KiloSon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const card = pop(f, w(0) - 4, 12) * (1 - tw(f, w(5) - 2, w(5) + 6));
+  const q = pop(f, w(9) - 2, 12) * (1 - tw(f, d - 26, d - 16));
+  const back = tw(f, d - 30, d - 14);
+  const blink = f >= w(10) ? Math.floor((f - w(10)) / 10) % 2 : -1;
+  return (
+    <CamK k={[[0, 1, 540, 1000], [d - 30, 1.03, 540, 1000], [d - 1, 1.06, 540, 1000]]}>
+      <KiloSofra
+        f={f}
+        av={{ armR: back > 0 ? mixArm([20, -70], eatArm(f), back) : [20, -70], mouth: "smile" }}
+        wo={{ armL: back > 0 ? mixArm([20, -100], eatArm(f + 30), back) : [20, -100], armR: mixArm([20, -100], [10, 0], back), fork: back > 0.5, mouth: "smile" }}
+      />
+      {card > 0 ? (
+        <g transform={`translate(540 330) scale(${card}) rotate(-2)`}>
+          <rect x={-440} y={-170} width={880} height={300} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+          <HandText x={0} y={-50} text="Kilo farkı," size={104} color={C.ink} p={tw(f, w(0), w(1) + 6)} rotate={0} />
+          <HandText x={0} y={80} text="emek farkı değil." size={104} color={YAS_OK} p={tw(f, w(2), w(4) + 6)} rotate={0} />
+        </g>
+      ) : null}
+      {q > 0
+        ? [
+            [K_AV.x, 530, 0],
+            [K_WO.x, 650, 1],
+          ].map(([x, y, k]) => (
+            <g key={k} transform={`translate(${x} ${y}) scale(${q * (blink === k ? 1.2 : 1)})`}>
+              <circle r={62} fill={blink === k ? C.yellow : C.cream} stroke={C.ink} strokeWidth={8} />
+              <text y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={96} fill={C.red}>
+                ?
+              </text>
+            </g>
+          ))
+        : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kilo-sofra1": KiloSofra1,
+  "kilo-sofra2": KiloSofra2,
+  "kilo-lab1": KiloLab1,
+  "kilo-lab2": KiloLab2,
+  "kilo-lab3": KiloLab3,
+  "kilo-lab4": KiloLab4,
+  "kilo-lab5": KiloLab5,
+  "kilo-sofra3": KiloSofra3,
+  "kilo-sofra4": KiloSofra4,
+  "kilo-son": KiloSon,
   "y9k-kapi": Y9KapiK,
   "y9k-hobi": Y9HobiK,
   "y9-soru": Y9Soru,

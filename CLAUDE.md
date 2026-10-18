@@ -93,6 +93,21 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
    kişi) vücut büyüklüğü hesaba katılınca kadın-erkek farkı yok (DOĞRULA).
 
 **>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+- **KADIN 4 → `cizim1-09-kilo` "Kadınlar zor mu kilo verir?" (18 Ekim, kadın konuları sohbeti):** reddedilenler: v1 "Aynı
+  program" (anlatıcı), v2 "Ben beş kilo verdim" (kullanıcının gönderdiği "Neden izlesin / yorum yapsın / paylaşsın"
+  tablosuna — hook, merak, tempo, his; taraf tutturan an, tartışma payı, söylenecek bir şey, kendini görmek; "bunu ona
+  atmalıyım", akılda kalan replik, "tam ben", kısa-net — HER MADDEYE tik atabilmeli); A/B/C fikirleri sunuldu. **Kullanıcı
+  fikri: tartışma YEMEKTE geçsin + tartışma DÜŞÜNCE BULUTUNUN İÇİNE dönüşsün.** Metin (v3, kullanıcı "yap bakalım"):
+  sofra: avatar "Aynı yemeği yiyoruz… Ben beş kilo verdim, sen niye veremiyorsun?" → kadın (Sibel sesi) "Çünkü kadınlar
+  zor kilo verir, bunu herkes bilir." (bulutta kırmızı yazı) → kamera buluta dalar, bulutun içi laboratuvar: 2003 Midwest
+  Exercise Trial (16 ay aynı program, erkek −5 kg, kadın ≈0; damga "KADIN ZOR VERİR") → avatar "Gördün mü?" → erkekler
+  iri, kalori 667/439 (damga çatlar) → 2013 MET-2 aynı kalori, fark kayboldu (damga düşer) → bulut patlar, sofra: kadın
+  "Yani sen daha hızlı vermedin…" / avatar "Sadece daha büyüğüm." (XL/S beden etiketleri) → "Kilo farkı, emek farkı
+  değil. Peki sizin sofranızda bu tartışmayı kim kazanırdı?" (döngü: yemeğe dönerler). Bileşenler `kilo-*` (`KiloSofra`,
+  `DinnerTable`, `CloudFrame`, `InCloud`, `Lab`, `Treadmill`, `KiloStamp`, `Kcal`). Sessiz önizleme
+  `ornek-videolar/cizim1-pilot/09-kilo-sessiz.mp4` → onay → seslendirme (Yunus ~520 + Sibel ~80 karakter). Kaynaklar
+  doğrulandı: Donnelly 2003 (PMID 12796071), MET-2 Obesity 2013 (PMID 23592678, "no significant difference between men
+  and women"), Tarnopolsky 1990 (kadın egzersizde daha çok yağ yakar; metne girmedi).
 - **!!! TERİM (kullanıcı): bizim dilimizde "antrenör" DEĞİL "KOÇ".** Metinlerde ve ekran yazılarında hep "koç" kullan.
 - **!!! KONU SEÇİMİ (kullanıcı, 18 Ekim): sonraki konular KADINLARIN GÜNDEMİNDE olan, kadınların bir kısmını rahatsız eden,
   KADIN-ERKEK ÇATIŞMASI çıkaracak konular olsun** (04 kadın-ağırlık bu yüzden iyi izlendi). Kalıp: kadınlara bir şey
