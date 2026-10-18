@@ -66,6 +66,18 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   yere oturursun." (sızı tekrarı yok). Üstte kırmızı "DİZİN HİÇ SIZLADI MI?" tabelası → kanca bitince "3. TUR"; ağrı
   `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
   müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
+**>>> YENİ SOHBET: İLK İŞ (18 Ekim öğlen devir notu — EN GÜNCEL) <<<**
+1. **ÖNCE 08 SAUNA EŞOFMANI (`cizim1-08-sauna`) HİKÂYESİNİ YENİDEN OLUŞTUR.** v1 ve v2 beğenilmedi (ayrıntılar aşağıda
+   "08 SAUNA EŞOFMANI"). Konu aynı kalıyor: sauna eşofmanıyla verilen kilo yağ değil su; gerçek tarihçe hazır ve
+   doğrulandı (1997'de üç üniversiteli güreşçi kilo düşürürken 33 gün içinde öldü, Jeff Reese; ertesi yıl NCAA ter
+   eşofmanını yasakladı). Yöntem: önce 2-3 farklı hikâye fikri sun → kullanıcı seçer → METNİ onaylat → sessiz önizleme.
+   Bu oturumdan çıkan dersleri uygula: **tek kahraman + tek zaman çizgisi, her cümle bir öncekinin sonucu; ÇATIŞMA
+   olsun (04 kadın-erkek çatışması yüzünden iyi izlendi); gerçek tarihçe ama konudan sapma; ilk cümle tarihle
+   başlamaz; "antrenör" değil "koç"; max 40-45 sn (karakter sayısını hesapla: Yunus ≈ 13-14 karakter/sn).**
+2. **07 yaş (v9) BEKLEMEDE — ekip geri bildirimi gelene kadar dokunma.** Sessiz önizleme gönderildi (57,5 sn; kısaltma
+   önerisi: hobi soruları kısalt + tarihçe tek cümle → ~45 sn). Seslendirilmedi.
+3. Sonra kadın konuları sırayla: **4 kadın zor kilo verir → 6 selülit → 5 metabolizma yavaş** (ayrıntı aşağıda).
+
 **>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
 - **!!! TERİM (kullanıcı): bizim dilimizde "antrenör" DEĞİL "KOÇ".** Metinlerde ve ekran yazılarında hep "koç" kullan.
 - **!!! KONU SEÇİMİ (kullanıcı, 18 Ekim): sonraki konular KADINLARIN GÜNDEMİNDE olan, kadınların bir kısmını rahatsız eden,
