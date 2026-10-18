@@ -68,6 +68,13 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
 **>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
 - **!!! TERİM (kullanıcı): bizim dilimizde "antrenör" DEĞİL "KOÇ".** Metinlerde ve ekran yazılarında hep "koç" kullan.
+- **!!! KONU SEÇİMİ (kullanıcı, 18 Ekim): sonraki konular KADINLARIN GÜNDEMİNDE olan, kadınların bir kısmını rahatsız eden,
+  KADIN-ERKEK ÇATIŞMASI çıkaracak konular olsun** (04 kadın-ağırlık bu yüzden iyi izlendi). Kalıp: kadınlara bir şey
+  yasaklanmış/"yapamazsın" denmiş → gerçek tarih → bilim tersini gösterir; tartışma izleyicide doğar, aşağılayıcı değil.
+  Avatar yine ana karakter. Önerilen adaylar (18 Ekim, DOĞRULANMADI, seçince doğrula): 1) kadınlar uzun mesafe koşamaz
+  (1928 800 m "yığıldılar" → 1960'a kadar yasak; 1967 Boston, Kathrine Switzer), 2) regl döneminde spor yapılmaz (Rio 2016
+  Fu Yuanhui), 3) hamileyken spor yapılmaz (1985 ACOG katı sınırlar → bugün haftada 150 dk), 4) kadın zor kilo verir
+  (egzersizde kadın daha çok yağ yakar). Kullanıcının seçimi bekleniyor.
 - **07 v9 (`cizim1-07-yas`, 18 Ekim) — GÜNCEL:** a/b/c seçenekleri beğenilmedi. Kullanıcı: "Konu NE ZAMAN SPORA BAŞLANIR,
   sürekli sapıyorsun. Çocuğun sorusu: 13'te başlayabilir miyim, sorun olur mu? 16'da? Ne tür sporlar? Hareket göstermeden,
   hobisinden yola çıkıp spor dalı öner." + "tarihçeyi ekle ama konudan sapma". 04 (kadın-ağırlık) iyi izlendi çünkü
