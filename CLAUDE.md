@@ -74,7 +74,10 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   Avatar yine ana karakter. Önerilen adaylar (18 Ekim, DOĞRULANMADI, seçince doğrula): 1) kadınlar uzun mesafe koşamaz
   (1928 800 m "yığıldılar" → 1960'a kadar yasak; 1967 Boston, Kathrine Switzer), 2) regl döneminde spor yapılmaz (Rio 2016
   Fu Yuanhui), 3) hamileyken spor yapılmaz (1985 ACOG katı sınırlar → bugün haftada 150 dk), 4) kadın zor kilo verir
-  (egzersizde kadın daha çok yağ yakar). Kullanıcının seçimi bekleniyor.
+  (egzersizde kadın daha çok yağ yakar). **Kullanıcı 4'ü seçti: "diğerlerine göre çok daha iyi, bunun gibi konular bul"**
+  (kadın bedeni hakkında, erkekle kıyaslayan, ters köşe bilimsel bilgi).
+- **08 sauna (`cizim1-08-sauna`): v2 hikâyesi de BEĞENİLMEDİ (18 Ekim). Yeni hikâyesi BAŞKA BİR SOHBETTE paralel
+  düşünülecek** — o sohbet buradan devam etsin; 07 ve kadın konuları bu sohbette.
 - **07 v9 (`cizim1-07-yas`, 18 Ekim) — GÜNCEL:** a/b/c seçenekleri beğenilmedi. Kullanıcı: "Konu NE ZAMAN SPORA BAŞLANIR,
   sürekli sapıyorsun. Çocuğun sorusu: 13'te başlayabilir miyim, sorun olur mu? 16'da? Ne tür sporlar? Hareket göstermeden,
   hobisinden yola çıkıp spor dalı öner." + "tarihçeyi ekle ama konudan sapma". 04 (kadın-ağırlık) iyi izlendi çünkü
