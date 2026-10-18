@@ -74,9 +74,9 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
    Bu oturumdan çıkan dersleri uygula: **tek kahraman + tek zaman çizgisi, her cümle bir öncekinin sonucu; ÇATIŞMA
    olsun (04 kadın-erkek çatışması yüzünden iyi izlendi); gerçek tarihçe ama konudan sapma; ilk cümle tarihle
    başlamaz; "antrenör" değil "koç"; max 40-45 sn (karakter sayısını hesapla: Yunus ≈ 13-14 karakter/sn).**
-2. **07 yaş (v9) SESLENDİRİLDİ (18 Ekim, kullanıcı "seslendirebilirsin")** — kısaltıldı: tarihçe tek cümle ("Doktorlar
-   çocuk güçlenemez sanıyordu; çocuklar salonun kapısında bekletildi."), hobiler kısa ("Müzik mi seviyorsun? Dans. …
-   Rekor kırmayı mı? Koçla ağırlık."), 675 karakter, ses 48,8 sn → `ornek-videolar/cizim1-pilot/07-yas.mp4` (~50 sn).
+2. **07 yaş (v9) SESLENDİRİLDİ (18 Ekim)** — önizlemedeki metin BİREBİR (794 karakter; kullanıcı: "videoyu aynen
+   seslendir, o hali beğenildi" — kısaltma YAPMA). Ses 55,1 sn → `ornek-videolar/cizim1-pilot/07-yas.mp4` (~57 sn).
+   Kalan kredi ≈ 13.997.
 3. Sonra kadın konuları sırayla: **4 kadın zor kilo verir → 6 selülit → 5 metabolizma yavaş** (ayrıntı aşağıda).
 
 **>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**

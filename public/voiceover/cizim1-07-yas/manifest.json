@@ -96,52 +96,82 @@
       ]
     },
     {
-      "voice": "Doktorlar çocuk güçlenemez sanıyordu; çocuklar salonun kapısında bekletildi.",
-      "say": "Doktorlar çocuk güçlenemez sanıyordu; [serious] çocuklar, salonun kapısında bekletildi.",
+      "voice": "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar salonun kapısında bekletildi.",
+      "say": "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar, salonun kapısında bekletildi.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-07-yas/2-mvdufujp.mp3",
-      "durationInSeconds": 5.381224,
+      "file": "voiceover/cizim1-07-yas/2-mvduj5cr.mp3",
+      "durationInSeconds": 7.810612,
       "words": [
         {
           "word": "Doktorlar",
           "start": 0,
-          "end": 0.64
+          "end": 0.56
+        },
+        {
+          "word": "şöyle",
+          "start": 0.6,
+          "end": 0.88
+        },
+        {
+          "word": "düşünüyordu:",
+          "start": 0.933,
+          "end": 1.6
         },
         {
           "word": "çocuk",
-          "start": 0.8,
-          "end": 1.12
+          "start": 1.8775699999999997,
+          "end": 2.19757
         },
         {
-          "word": "güçlenemez",
-          "start": 1.2,
-          "end": 1.76
+          "word": "güçlenemez,",
+          "start": 2.27757,
+          "end": 3.2707699999999997
         },
         {
-          "word": "sanıyordu;",
-          "start": 1.88,
-          "end": 2.60603
+          "word": "ağırlık",
+          "start": 3.35077,
+          "end": 3.670769999999999
+        },
+        {
+          "word": "da",
+          "start": 3.7507699999999993,
+          "end": 3.8307699999999993
+        },
+        {
+          "word": "kemiklerini",
+          "start": 3.9107699999999994,
+          "end": 4.470769999999999
+        },
+        {
+          "word": "bozar.",
+          "start": 4.550769999999999,
+          "end": 4.9507699999999994
+        },
+        {
+          "word": "Ve",
+          "start": 5.1316299999999995,
+          "end": 5.2116299999999995
         },
         {
           "word": "çocuklar",
-          "start": 2.7732,
-          "end": 3.4692000000000003
+          "start": 5.29163,
+          "end": 5.97163
         },
         {
           "word": "salonun",
-          "start": 3.6692,
-          "end": 3.9892000000000003
+          "start": 6.09163,
+          "end": 6.41163
         },
         {
           "word": "kapısında",
-          "start": 4.0692,
-          "end": 4.5492
+          "start": 6.49163,
+          "end": 6.89163
         },
         {
           "word": "bekletildi.",
-          "start": 4.6292,
-          "end": 5.4292
+          "start": 6.97163,
+          "end": 7.85163
         }
       ]
     },
@@ -416,11 +446,11 @@
       ]
     },
     {
-      "voice": "Müzik mi seviyorsun? Dans. Arkadaşlarını mı? Basketbol, voleybol. Doğayı mı? Bisiklet, koşu. Rekor kırmayı mı? Koçla ağırlık.",
+      "voice": "Müzik açılınca yerinde duramıyor musun? Dans. Arkadaşsız yapamıyor musun? Basketbol, voleybol. Hafta sonu hep dışarıda mısın? Bisiklet, koşu. Kendi rekorunu kırmayı mı seviyorsun? Bilen biriyle ağırlık.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-07-yas/6-mvdug1tc.mp3",
-      "durationInSeconds": 9.822041,
+      "file": "voiceover/cizim1-07-yas/6-mvduj7xi.mp3",
+      "durationInSeconds": 13.635918,
       "words": [
         {
           "word": "Müzik",
@@ -428,84 +458,129 @@
           "end": 0.32
         },
         {
-          "word": "mi",
+          "word": "açılınca",
           "start": 0.36,
-          "end": 0.4
+          "end": 0.88
         },
         {
-          "word": "seviyorsun?",
-          "start": 0.48,
-          "end": 1.04
+          "word": "yerinde",
+          "start": 1.04,
+          "end": 1.36
+        },
+        {
+          "word": "duramıyor",
+          "start": 1.44,
+          "end": 1.76
+        },
+        {
+          "word": "musun?",
+          "start": 1.88,
+          "end": 2.24
         },
         {
           "word": "Dans.",
-          "start": 1.3318409999999998,
-          "end": 1.971181
+          "start": 2.48966,
+          "end": 3.1246
         },
         {
-          "word": "Arkadaşlarını",
-          "start": 2.0658109999999996,
-          "end": 2.785811
+          "word": "Arkadaşsız",
+          "start": 3.23728,
+          "end": 3.8772800000000003
         },
         {
-          "word": "mı?",
-          "start": 2.905811,
-          "end": 3.175861
+          "word": "yapamıyor",
+          "start": 3.9172800000000003,
+          "end": 4.277279999999999
+        },
+        {
+          "word": "musun?",
+          "start": 4.357279999999999,
+          "end": 4.814970000000001
         },
         {
           "word": "Basketbol,",
-          "start": 3.286991,
-          "end": 4.166991
+          "start": 4.97048,
+          "end": 5.850480000000001
         },
         {
           "word": "voleybol.",
-          "start": 4.2469909999999995,
-          "end": 4.886831
+          "start": 5.89048,
+          "end": 6.49048
         },
         {
-          "word": "Doğayı",
-          "start": 5.047991,
-          "end": 5.447991
+          "word": "Hafta",
+          "start": 6.659230000000001,
+          "end": 6.939230000000002
         },
         {
-          "word": "mı?",
-          "start": 5.527991,
-          "end": 5.687991
+          "word": "sonu",
+          "start": 6.979230000000001,
+          "end": 7.219230000000001
+        },
+        {
+          "word": "hep",
+          "start": 7.299230000000001,
+          "end": 7.459230000000002
+        },
+        {
+          "word": "dışarıda",
+          "start": 7.539230000000002,
+          "end": 7.939230000000002
+        },
+        {
+          "word": "mısın?",
+          "start": 7.979230000000001,
+          "end": 8.339230000000002
         },
         {
           "word": "Bisiklet,",
-          "start": 5.967771000000001,
-          "end": 6.6077710000000005
+          "start": 8.576640000000001,
+          "end": 9.336640000000003
         },
         {
           "word": "koşu.",
-          "start": 6.687771000000001,
-          "end": 7.207021000000001
+          "start": 9.456640000000002,
+          "end": 9.856640000000002
         },
         {
-          "word": "Rekor",
-          "start": 7.344961000000001,
-          "end": 7.664961000000002
+          "word": "Kendi",
+          "start": 10.080040000000002,
+          "end": 10.32004
+        },
+        {
+          "word": "rekorunu",
+          "start": 10.40004,
+          "end": 10.800040000000001
         },
         {
           "word": "kırmayı",
-          "start": 7.744961000000002,
-          "end": 8.064961000000002
+          "start": 10.840040000000002,
+          "end": 11.120040000000001
         },
         {
-          "word": "mı?",
-          "start": 8.144961000000002,
-          "end": 8.304961000000002
+          "word": "mı",
+          "start": 11.200040000000001,
+          "end": 11.280040000000001
         },
         {
-          "word": "Koçla",
-          "start": 8.552311000000001,
-          "end": 8.952311000000002
+          "word": "seviyorsun?",
+          "start": 11.360040000000001,
+          "end": 11.920040000000002
+        },
+        {
+          "word": "Bilen",
+          "start": 12.145240000000003,
+          "end": 12.465240000000001
+        },
+        {
+          "word": "biriyle",
+          "start": 12.545240000000002,
+          "end": 12.865240000000002
         },
         {
           "word": "ağırlık.",
-          "start": 9.032311000000002,
-          "end": 9.832311000000002
+          "start": 12.945240000000002,
+          "end": 13.665240000000002
         }
       ]
     },

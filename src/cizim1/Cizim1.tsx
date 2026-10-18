@@ -436,11 +436,11 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "yas-guvenlik": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 4, "adim", 0.25], [w(9) - 48, "pop", 0.25], [w(9) - 16, "agir-dusme", 0.3], [w(9) - 14, "ah", 0.9]],
   "yas-bugun": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 2, "pirilti", 0.35]],
   "y9-soru": (w) => [[2, "bip", 0.3], [w(11) - 2, "ding", 0.3], [w(15) - 4, "whoosh", 0.3], [w(15) + 6, "agir-dusme", 0.25]],
-  "y9-kapi": (w) => [[w(0), "pop", 0.25], [w(4) - 2, "zincir", 0.4], [w(5) - 2, "pop", 0.3]],
+  "y9-kapi": (w) => [[w(0), "pop", 0.25], [w(7) - 2, "cizik", 0.25], [w(9) - 2, "zincir", 0.4], [w(10) - 2, "pop", 0.3]],
   "y9-degisim": (w) => [[w(3) - 2, "adim", 0.25], [w(5), "zincir", 0.4], [w(5) + 10, "agir-dusme", 0.3], [w(9) - 2, "yuksel", 0.3], [w(10) - 2, "ding", 0.3]],
   "y9-rapor": (w) => [[2, "kagit", 0.3], [w(12) - 2, "boom", 0.18], [w(13) - 2, "pop", 0.25], [w(17) - 2, "pop", 0.25], [w(20) - 2, "pop", 0.25]],
   "y9-hangi": (w) => [[w(1) - 2, "pop", 0.3], [w(5) - 2, "cizik", 0.3], [w(6) - 2, "pirilti", 0.3]],
-  "y9-hobi": (w) => [[w(0) - 2, "pop", 0.25], [w(3) - 4, "whoosh", 0.25], [w(4) - 2, "pop", 0.25], [w(6) - 4, "whoosh", 0.25], [w(8) - 2, "pop", 0.25], [w(10) - 4, "whoosh", 0.25], [w(12) - 2, "pop", 0.25], [w(15) - 4, "whoosh", 0.25]],
+  "y9-hobi": (w) => [[w(0) - 2, "pop", 0.25], [w(5) - 4, "whoosh", 0.25], [w(6) - 2, "pop", 0.25], [w(9) - 4, "whoosh", 0.25], [w(11) - 2, "pop", 0.25], [w(16) - 4, "whoosh", 0.25], [w(18) - 2, "pop", 0.25], [w(23) - 4, "whoosh", 0.25]],
   "y9-yorum": (w) => [[w(3) - 2, "pop", 0.3], [w(4), "klavye", 0.25], [w(7), "bip", 0.3]],
   "a-istek": (w) => [[w(8), "adim", 0.25], [w(12) - 2, "pop", 0.3], [w(14) + 10, "agir-dusme", 0.25]],
   "a-bekle": (w) => [[w(3) - 2, "pop", 0.25], [w(5) - 2, "pop", 0.25], [w(7) - 2, "pop", 0.25], [w(12) - 2, "sonme", 0.25]],
@@ -10487,13 +10487,13 @@ const Y9Soru: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// "Doktorlar çocuk güçlenemez sanıyordu; çocuklar salonun kapısında bekletildi."
-// Sepya (eskiden) salon; doktorun düşünce balonu: "çocuk güçlenemez"; sonra kapıya ip, "ÇOCUKLAR GİREMEZ";
+// "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar salonun kapısında bekletildi."
+// Sepya (eskiden) salon; doktorun düşünce balonu: "çocuk güçlenemez", çatlak kemik; sonra kapıya ip, "ÇOCUKLAR GİREMEZ";
 // avatar elinde çantayla kapıda bekler, içeride büyükler çalışır.
 const Y9Kapi: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const bub = pop(f, w(0), 12) * (1 - tw(f, w(4) - 6, w(4)));
-  const shut = tw(f, w(4) - 2, w(5) + 6);
+  const bub = pop(f, w(0), 12) * (1 - tw(f, w(9) - 6, w(9)));
+  const shut = tw(f, w(9) - 2, w(10) + 6);
   return (
     <>
       <GymBg />
@@ -10503,11 +10503,15 @@ const Y9Kapi: React.FC<SceneProps> = ({ w }) => {
         <BagInHand arm={[12, 0]} />
       </Person>
       <DoorRope p={shut} />
-      <NoKidsSign p={pop(f, w(5) - 2, 12)} />
+      <NoKidsSign p={pop(f, w(10) - 2, 12)} />
       {shut < 1 ? <Doctor x={lerp(1250, 600, tw(f, 0, 14))} y={PY} s={0.88} mouth="flat" arm={[40, -60]} /> : null}
       <Bubble x={560} y={460} rx={360} ry={190} p={bub} tail={[600, PY - 0.88 * 820]}>
-        <text x={560} y={480} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.red} opacity={tw(f, w(1) - 2, w(2) + 4)}>
+        <text x={560} y={420} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.red} opacity={tw(f, w(3) - 2, w(4))}>
           çocuk güçlenemez
+        </text>
+        {f >= w(5) - 2 ? <BoneIcon x={470} y={530} s={0.8} crack={tw(f, w(7) - 2, w(8))} /> : null}
+        <text x={640} y={550} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.red} opacity={tw(f, w(7) - 2, w(8))}>
+          bozulur?
         </text>
       </Bubble>
       <rect x={-200} y={-200} width={1480} height={2400} fill="#a77d4a" opacity={0.22} />
@@ -10676,15 +10680,16 @@ const Y9Hangi: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// "Müzik mi seviyorsun? Dans. Arkadaşlarını mı? Basketbol, voleybol. Doğayı mı? Bisiklet, koşu. Rekor kırmayı mı? Koçla ağırlık."
+// "Müzik açılınca yerinde duramıyor musun? Dans. Arkadaşsız yapamıyor musun? Basketbol, voleybol. Hafta sonu hep dışarıda
+// mısın? Bisiklet, koşu. Kendi rekorunu kırmayı mı seviyorsun? Bilen biriyle ağırlık."
 // 2x2 kart: her soruda hobi simgesi belirir, cevap kelimesinde kart döner ve sporun simgesi + adı çıkar.
 const Y9Hobi: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const cards: { k: HobbyKind; a: number; b: number; hobby: string; sport: string }[] = [
-    { k: "muzik", a: w(0) - 2, b: w(3) - 4, hobby: "müzik", sport: "dans" },
-    { k: "arkadas", a: w(4) - 2, b: w(6) - 4, hobby: "arkadaşlar", sport: "basketbol · voleybol" },
-    { k: "doga", a: w(8) - 2, b: w(10) - 4, hobby: "doğa", sport: "bisiklet · koşu" },
-    { k: "rekor", a: w(12) - 2, b: w(15) - 4, hobby: "rekor", sport: "koçla ağırlık" },
+    { k: "muzik", a: w(0) - 2, b: w(5) - 4, hobby: "müzik", sport: "dans" },
+    { k: "arkadas", a: w(6) - 2, b: w(9) - 4, hobby: "arkadaşlar", sport: "basketbol · voleybol" },
+    { k: "doga", a: w(11) - 2, b: w(16) - 4, hobby: "dışarısı", sport: "bisiklet · koşu" },
+    { k: "rekor", a: w(18) - 2, b: w(23) - 4, hobby: "rekor", sport: "koçla ağırlık" },
   ];
   return (
     <>
