@@ -77,6 +77,13 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   çizilmez (`Fighter`: sakallı, koyu kapüşon). Doğruluk için 2. cümle "unvan maçı için son kilolarını atmaya çalışıyor",
   3. "Ama sabah tartıya değil, hastaneye gidiyor" (kaynaklar: tartı sabahı/önceki gece hastane). Sauna eşofmanı giydiği
   DOĞRULANMADI, metinde denmez. Sessiz önizleme `08-sauna-sessiz.mp4` (~44 sn) → onay → seslendirme (~560 karakter).
+  **v4 (kullanıcı: "daha güzel görselleştir", "sevinirsin değil mi olmamış", "giriş daha çarpıcı: ringde bayılma,
+  ambulans; kanca aynı"):** köprü C seçildi → `sauna-kopru`: "Habib'in terle atmaya çalıştığı kilolar yağ değildi. Senin
+  sauna eşofmanıyla verdiğin o bir kilo da değil." (bisikletteki dövüşçüye yakın plan → alnından düşen ter damlası ekranı
+  kaplar → koşan avatar → tartı −1 kg, "yağ?" çarpı) + `sauna-su3` "Sadece su. Bir şişe su içince geri gelir." Kanca
+  görseli: ringde sırılsıklam dövüşçü, ter birikintisi, seyirci + flaş, nabız gibi kırmızı kenar, çift görme, yığılıp
+  düşer, siren ışığı, İPTAL (sembolik; gerçek olay 3. sahnede). TV sahnelerinde kamera TV'ye yaklaşır, bisiklet + saat;
+  hastanede geri çekilip avatarın tepkisi, sonda boş ring + devrilmiş tartı.
 
 **>>> EN SON DURUM (17 Ekim ~21:00) <<<**
 - **07 yaş (`cizim1-07-yas`):** son sessiz önizleme `07-yas-sessiz.mp4` (v6, ~68 sn): kanca → rapor → yaş bantları 5-7 /

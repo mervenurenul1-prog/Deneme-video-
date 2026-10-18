@@ -36,14 +36,14 @@
       "say": "Ama sabah tartıya değil... hastaneye gidiyor. Doktorlar 'dövüşemez' diyor; maç iptal."
     },
     {
-      "visual": "sauna-sevin",
-      "voice": "Sen de sauna eşofmanıyla koşup tartıda bir kilo eksik görünce sevinirsin, değil mi?",
-      "say": "Sen de sauna eşofmanıyla koşup, tartıda bir kilo eksik görünce sevinirsin, [curious] değil mi?"
+      "visual": "sauna-kopru",
+      "voice": "Habib'in terle atmaya çalıştığı kilolar yağ değildi. Senin sauna eşofmanıyla verdiğin o bir kilo da değil.",
+      "say": "Habib'in terle atmaya çalıştığı kilolar yağ değildi. [serious] Senin sauna eşofmanıyla verdiğin o bir kilo da değil."
     },
     {
-      "visual": "sauna-su2",
-      "voice": "Ama giden yağ değil, su. Bir şişe su içince o kilo geri gelir.",
-      "say": "Ama giden yağ değil, su. Bir şişe su içince, o kilo geri gelir."
+      "visual": "sauna-su3",
+      "voice": "Sadece su. Bir şişe su içince geri gelir.",
+      "say": "Sadece su. Bir şişe su içince, geri gelir."
     },
     {
       "visual": "sauna-yag2",
