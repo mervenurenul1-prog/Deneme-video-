@@ -27,8 +27,8 @@
     },
     {
       "visual": "y9-kapi",
-      "voice": "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar salonun kapısında bekletildi.",
-      "say": "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar, salonun kapısında bekletildi."
+      "voice": "Doktorlar çocuk güçlenemez sanıyordu; çocuklar salonun kapısında bekletildi.",
+      "say": "Doktorlar çocuk güçlenemez sanıyordu; [serious] çocuklar, salonun kapısında bekletildi."
     },
     {
       "visual": "y9-degisim",
@@ -47,8 +47,8 @@
     },
     {
       "visual": "y9-hobi",
-      "voice": "Müzik açılınca yerinde duramıyor musun? Dans. Arkadaşsız yapamıyor musun? Basketbol, voleybol. Hafta sonu hep dışarıda mısın? Bisiklet, koşu. Kendi rekorunu kırmayı mı seviyorsun? Bilen biriyle ağırlık.",
-      "say": "Müzik açılınca yerinde duramıyor musun? Dans. Arkadaşsız yapamıyor musun? Basketbol, voleybol. Hafta sonu hep dışarıda mısın? Bisiklet, koşu. Kendi rekorunu kırmayı mı seviyorsun? Bilen biriyle ağırlık."
+      "voice": "Müzik mi seviyorsun? Dans. Arkadaşlarını mı? Basketbol, voleybol. Doğayı mı? Bisiklet, koşu. Rekor kırmayı mı? Koçla ağırlık.",
+      "say": "Müzik mi seviyorsun? Dans. Arkadaşlarını mı? Basketbol, voleybol. Doğayı mı? Bisiklet, koşu. Rekor kırmayı mı? Koçla ağırlık."
     },
     {
       "visual": "y9-yorum",
