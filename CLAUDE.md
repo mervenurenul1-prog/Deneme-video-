@@ -77,8 +77,20 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
 2. **07 yaş (v9) BİTTİ (18 Ekim): KULLANICI KISA HÂLİ SEÇTİ** → SON HÂLİ `ornek-videolar/cizim1-pilot/07-yas-kisa.mp4`
    (`cizim1-07-yas-kisa`, ~50 sn; tarihçe tek cümle, hobiler kısa, "koçla ağırlık"). Uzun hâl `07-yas.mp4` (55,9 sn)
    yedek. İkisinin sesi de `public/voiceover/cizim1-07-yas/` içinde. Kalan kredi ≈ 13.997.
-3. Sonra kadın konuları sırayla (YENİ SOHBETTE yapılacak; 18 Ekim sohbeti 07 ile kapandı): **4 kadın zor kilo verir →
-   6 selülit → 5 metabolizma yavaş** (ayrıntı aşağıda). Her konu: önce kaynakları doğrula → hikâye fikirleri → metin onayı.
+3. **KADIN KONULARI (ayrı yeni sohbette; kullanıcı numaraları TEYİT ETTİ: "önce dört, evet"):** sıra
+   **4 "kadın erkekten zor kilo verir" (İLK İŞ) → 6 selülit → 5 metabolizma yavaş**. Not: iki paralel sohbet var —
+   biri 08 sauna yeni hikâyesi, diğeri kadın konuları; hangi sohbette olduğunu kullanıcının ilk mesajından anla, emin
+   değilsen sor.
+   **4 için başlangıç notu:** kalıp = kadın bedeni hakkında, erkekle kıyaslayan, ters köşe bilimsel bilgi + kadın-erkek
+   çatışması (04 kadın-ağırlık gibi; aşağılayıcı değil, tartışma izleyicide doğsun). Ters köşe adayı: egzersiz sırasında
+   kadınlar yakıt olarak erkeklerden daha fazla YAĞ kullanır (doğrula: Tarnopolsky, Devries vb. derlemeler). Çatışma
+   adayı: "erkek arkadaşın/eşin aynı diyete başladı, o 5 kilo verdi sen 2" gündelik kıskançlığı. Gerçek tarihçe
+   bul (örn. kadınların spor/beslenme araştırmalarından uzun yıllar dışlanması; DOĞRULA). Akış: kaynakları doğrula →
+   2-3 hikâye fikri sun → kullanıcı seçer → metni onaylat (karakter sayısı; max ~45 sn ≈ 600 karakter) → sessiz
+   önizleme → onay → seslendirme. Avatar (erkek) ana karakter, kadın yan karakter; "koç" terimi.
+   6 selülit: kadınların büyük çoğunluğunda var, erkekte nadir; sebep bağ dokusunun dizilişi (hastalık/tembellik
+   değil); "selülit" kelimesi 1968 moda dergisiyle yayıldı (DOĞRULA). 5 metabolizma: Science 2021 (Pontzer, 6.000+
+   kişi) vücut büyüklüğü hesaba katılınca kadın-erkek farkı yok (DOĞRULA).
 
 **>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
 - **!!! TERİM (kullanıcı): bizim dilimizde "antrenör" DEĞİL "KOÇ".** Metinlerde ve ekran yazılarında hep "koç" kullan.
@@ -93,7 +105,7 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   (Science 2021, Pontzer), selülit egzersizle gider mi (bağ dokusu farkı; "selülit" 1968 moda dergisi), kalça yağı en son
   gider (sağlıklı yağ), kadınlar kolay yorulur mu. **Kullanıcı: "4-5-6 güzel, sırayla 4-6-5"** — numaralar iki listenin
   devamı varsayıldı: 4 = kadın zor kilo verir, 5 = metabolizma yavaş, 6 = selülit → SIRA: 4 kilo → 6 selülit → 5
-  metabolizma (kullanıcıya teyit için soruldu). 07 v9 bitince başlanacak; hepsi DOĞRULANACAK.
+  metabolizma (kullanıcı TEYİT ETTİ). Hepsi DOĞRULANACAK. Ayrıntı yukarıda "YENİ SOHBET: İLK İŞ" madde 3.
 - **08 sauna (`cizim1-08-sauna`): v2 hikâyesi de BEĞENİLMEDİ (18 Ekim). Yeni hikâyesi BAŞKA BİR SOHBETTE paralel
   düşünülecek** — o sohbet buradan devam etsin. 07 bitti; kadın konuları da yeni sohbette.
 - **07 v9 (`cizim1-07-yas`, 18 Ekim) — GÜNCEL:** a/b/c seçenekleri beğenilmedi. Kullanıcı: "Konu NE ZAMAN SPORA BAŞLANIR,
