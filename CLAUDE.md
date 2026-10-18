@@ -69,8 +69,8 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
 **>>> YENİ SOHBET: İLK İŞ (18 Ekim öğlen devir notu — EN GÜNCEL) <<<**
 1. **ÖNCE 08 SAUNA EŞOFMANI (`cizim1-08-sauna`) HİKÂYESİNİ YENİDEN OLUŞTUR.** v1 ve v2 beğenilmedi (ayrıntılar aşağıda
    "08 SAUNA EŞOFMANI"). Konu aynı kalıyor: sauna eşofmanıyla verilen kilo yağ değil su; gerçek tarihçe hazır ve
-   doğrulandı (1997'de üç üniversiteli güreşçi kilo düşürürken 33 gün içinde öldü, Jeff Reese; ertesi yıl NCAA ter
-   eşofmanını yasakladı). Yöntem: önce 2-3 farklı hikâye fikri sun → kullanıcı seçer → METNİ onaylat → sessiz önizleme.
+   doğrulandı (1997'de üç üniversiteli güreşçi kilo düşürürken 33 gün içinde öldü, Jeff Reese; hemen ardından, 1998'de
+   NCAA ter eşofmanını yasakladı). Yöntem: önce 2-3 farklı hikâye fikri sun → kullanıcı seçer → METNİ onaylat → sessiz önizleme.
    Bu oturumdan çıkan dersleri uygula: **tek kahraman + tek zaman çizgisi, her cümle bir öncekinin sonucu; ÇATIŞMA
    olsun (04 kadın-erkek çatışması yüzünden iyi izlendi); gerçek tarihçe ama konudan sapma; ilk cümle tarihle
    başlamaz; "antrenör" değil "koç"; max 40-45 sn (karakter sayısını hesapla: Yunus ≈ 13-14 karakter/sn).**
