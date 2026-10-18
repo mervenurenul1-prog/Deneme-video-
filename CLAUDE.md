@@ -67,6 +67,18 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
   müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
 **>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+- **!!! TERİM (kullanıcı): bizim dilimizde "antrenör" DEĞİL "KOÇ".** Metinlerde ve ekran yazılarında hep "koç" kullan.
+- **07 v9 (`cizim1-07-yas`, 18 Ekim) — GÜNCEL:** a/b/c seçenekleri beğenilmedi. Kullanıcı: "Konu NE ZAMAN SPORA BAŞLANIR,
+  sürekli sapıyorsun. Çocuğun sorusu: 13'te başlayabilir miyim, sorun olur mu? 16'da? Ne tür sporlar? Hareket göstermeden,
+  hobisinden yola çıkıp spor dalı öner." + "tarihçeyi ekle ama konudan sapma". 04 (kadın-ağırlık) iyi izlendi çünkü
+  ÇATIŞMA var (kadın-erkek) → 07'de çatışma: çocuklara "bekle" denmesi. Metin (kullanıcı "güzel" dedi), sahneler `y9-*`:
+  soru + "Kısa cevap: olmaz. Ama yıllarca çocuklara 'bekle' dendi." → eskiden doktorlar "çocuk güçlenemez, ağırlık
+  kemiklerini bozar", çocuklar salonun kapısında bekletildi (sepya, ip, "ÇOCUKLAR GİREMEZ") → araştırmacılar bilen biriyle
+  çalıştırdı, güçlendiler, zarar görülmedi (koç gelir, ip kopar) → AAP 2020 başlama yaşı yok, 13 de 16 da, yük yavaş
+  yavaş → "hangi spor? yaşın değil neyi sevdiğin seçer" → hobi kartları (müzik→dans, arkadaş→basketbol/voleybol,
+  dışarısı→bisiklet/koşu, rekor→koçla ağırlık) → "Yorumlara yaz, sana uyan sporu söyleyelim." Kaynaklar: Matos &
+  Winsley 2007 JSSM (eskiden kontrendike sayılırdı, Vrijens 1978), AAP 2001 (sinirsel güç, sakatlık nadir), AAP 2020.
+  Metin 794 karakter → ~57 sn (45 sınırını aşıyor; kullanıcıya kısaltma önerilecek). Sessiz önizleme `07-yas-sessiz.mp4`.
 - **07 v8 — ÜÇ SEÇENEK (18 Ekim):** v7 (bildirim + pasta) için CEFF: "konu güzel, hikâye akmıyor" (sahneler arası
   atlama, tek kahraman/zaman çizgisi yok). **DERS: tek kahraman, tek zaman çizgisi, her cümle bir öncekinin sonucu.**
   Kullanıcı "farklı akan 3 video hazırla, ben seçeyim" dedi → üç sessiz önizleme (seslendirilmedi):

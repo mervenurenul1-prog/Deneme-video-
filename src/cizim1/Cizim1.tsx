@@ -435,6 +435,13 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "yas-terazi": (w) => [[w(3), "tak", 0.3], [w(6) - 2, "cizik", 0.3], [w(7) - 2, "whoosh", 0.25], [w(8), "ding", 0.35]],
   "yas-guvenlik": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 4, "adim", 0.25], [w(9) - 48, "pop", 0.25], [w(9) - 16, "agir-dusme", 0.3], [w(9) - 14, "ah", 0.9]],
   "yas-bugun": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 2, "pirilti", 0.35]],
+  "y9-soru": (w) => [[2, "bip", 0.3], [w(11) - 2, "ding", 0.3], [w(15) - 4, "whoosh", 0.3], [w(15) + 6, "agir-dusme", 0.25]],
+  "y9-kapi": (w) => [[w(0), "pop", 0.25], [w(7) - 2, "cizik", 0.25], [w(9) - 2, "zincir", 0.4], [w(10) - 2, "pop", 0.3]],
+  "y9-degisim": (w) => [[w(3) - 2, "adim", 0.25], [w(5), "zincir", 0.4], [w(5) + 10, "agir-dusme", 0.3], [w(9) - 2, "yuksel", 0.3], [w(10) - 2, "ding", 0.3]],
+  "y9-rapor": (w) => [[2, "kagit", 0.3], [w(12) - 2, "boom", 0.18], [w(13) - 2, "pop", 0.25], [w(17) - 2, "pop", 0.25], [w(20) - 2, "pop", 0.25]],
+  "y9-hangi": (w) => [[w(1) - 2, "pop", 0.3], [w(5) - 2, "cizik", 0.3], [w(6) - 2, "pirilti", 0.3]],
+  "y9-hobi": (w) => [[w(0) - 2, "pop", 0.25], [w(5) - 4, "whoosh", 0.25], [w(6) - 2, "pop", 0.25], [w(9) - 4, "whoosh", 0.25], [w(11) - 2, "pop", 0.25], [w(16) - 4, "whoosh", 0.25], [w(18) - 2, "pop", 0.25], [w(23) - 4, "whoosh", 0.25]],
+  "y9-yorum": (w) => [[w(3) - 2, "pop", 0.3], [w(4), "klavye", 0.25], [w(7), "bip", 0.3]],
   "a-istek": (w) => [[w(8), "adim", 0.25], [w(12) - 2, "pop", 0.3], [w(14) + 10, "agir-dusme", 0.25]],
   "a-bekle": (w) => [[w(3) - 2, "pop", 0.25], [w(5) - 2, "pop", 0.25], [w(7) - 2, "pop", 0.25], [w(12) - 2, "sonme", 0.25]],
   "a-salon": (w) => [...steps(0, w(4), 5.5, 0.2), [w(7) - 2, "pop", 0.25], [w(10) - 2, "ding", 0.3]],
@@ -10361,7 +10368,393 @@ const C7Gonder: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- 07 v9: "On üç yaşındayım, başlayabilir miyim?" (takipçinin sorusu + kısa tarihçe + hobiye göre spor) ---------- */
+// Kullanıcı: konu "ne zaman spora başlanır"; hareket gösterme, hobisinden yola çıkıp spor öner. Dilimizde "antrenör" değil "koç".
+// Kaynaklar: eskiden çocuklara ağırlık önerilmezdi (Matos & Winsley 2007, JSSM), bilen biriyle güçlenirler ve sakatlık
+// nadirdir (AAP 2001), başlama yaşı yok (AAP 2020).
+
+const COACH_SHIRT = "#c98f3c";
+// Koç: düdüklü, turuncu tişört
+const Coach: React.FC<{ x: number; s?: number; arm?: Arm; mouth?: Mouth }> = ({ x, s = 0.9, arm = [12, 0], mouth = "smile" }) => (
+  <Person x={x} y={PY} s={s} belly={0.45} shirt={COACH_SHIRT} armL={arm} armR={[12, 0]} mouth={mouth} lookY={4}>
+    <path d="M-40 -600 Q0 -540 40 -600" stroke={C.ink} strokeWidth={5} fill="none" />
+    <circle cx={0} cy={-540} r={14} fill="#c0c0c0" stroke={C.ink} strokeWidth={4} />
+  </Person>
+);
+// Küçük kemik simgesi; crack: kırık çizgisi
+const BoneIcon: React.FC<{ x: number; y: number; s?: number; crack?: number }> = ({ x, y, s = 1, crack = 0 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s}) rotate(-20)`} stroke={C.ink} strokeWidth={5} strokeLinejoin="round">
+    <path d="M-70 -10 L70 -10 A22 22 0 1 1 82 -30 A22 22 0 1 1 82 30 A22 22 0 1 1 70 10 L-70 10 A22 22 0 1 1 -82 30 A22 22 0 1 1 -82 -30 A22 22 0 1 1 -70 -10 Z" fill="#f4efe2" />
+    {crack > 0 ? <path d="M-6 -14 L8 -2 L-4 4 L10 16" stroke={C.red} strokeWidth={6} fill="none" opacity={crack} /> : null}
+  </g>
+);
+// Salon kapısı (önden): çerçeve, üstte tabela yeri; içeride salon görünür
+const GymDoor = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={60} y={560} width={360} height={PY - 560} fill="none" strokeWidth={22} />
+    <rect x={60} y={560} width={360} height={PY - 560} fill="none" stroke="#8a5c35" strokeWidth={12} />
+  </g>
+);
+// İçeride çalışan büyükler (salonun sağı)
+const GymAdults: React.FC<{ f: number }> = ({ f }) => {
+  const c = (1 - Math.cos(f / 8)) / 2;
+  return (
+    <>
+      <Person x={830} y={PY} s={0.7} belly={0.35} shirt="#8c8c94" armL={[lerp(150, 120, c), 0]} armR={[lerp(150, 120, c), 0]} mouth="flat" />
+      <Barbell x={830} y={PY - 0.7 * lerp(880, 820, c)} s={0.48} />
+      <Person x={1010} y={PY} s={0.66} belly={0.5} shirt="#6b7f62" armL={[12, 0]} armR={curlArm(1 - c)} mouth="flat" />
+    </>
+  );
+};
+const NoKidsSign: React.FC<{ p: number; fall?: number }> = ({ p, fall = 0 }) =>
+  p > 0 ? (
+    <g transform={`translate(${240 + fall * 60} ${470 + fall * 760}) rotate(${-4 + fall * 70}) scale(${p})`} opacity={1 - tw(fall, 0.8, 1)}>
+      <rect x={-210} y={-80} width={420} height={150} rx={18} fill={C.red} stroke={C.ink} strokeWidth={9} />
+      <text x={0} y={-12} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.cream}>
+        ÇOCUKLAR
+      </text>
+      <text x={0} y={52} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.cream}>
+        GİREMEZ
+      </text>
+    </g>
+  ) : null;
+// Kapıdaki ip; snap > 0: ortadan kopar, iki yarısı direklere sarkar
+const DoorRope: React.FC<{ p: number; snap?: number }> = ({ p, snap = 0 }) => {
+  if (p <= 0) return null;
+  const y = PY;
+  const x1 = 80;
+  const x2 = 400;
+  return (
+    <g stroke={C.ink} strokeWidth={6} opacity={p}>
+      {[x1, x2].map((x) => (
+        <g key={x}>
+          <rect x={x - 10} y={y - 120} width={20} height={150} rx={6} fill="#c9a74a" />
+          <circle cx={x} cy={y - 126} r={16} fill="#c9a74a" />
+        </g>
+      ))}
+      {snap <= 0 ? (
+        <path d={`M${x1} ${y - 100} Q240 ${y - 40} ${x2} ${y - 100}`} stroke={C.red} strokeWidth={14} fill="none" />
+      ) : (
+        <>
+          <path d={`M${x1} ${y - 100} Q${x1 + 60} ${y - 70 + 40 * snap} ${x1 + 150 - 120 * snap} ${y - 70 + 70 * snap}`} stroke={C.red} strokeWidth={14} fill="none" />
+          <path d={`M${x2} ${y - 100} Q${x2 - 60} ${y - 70 + 40 * snap} ${x2 - 150 + 120 * snap} ${y - 70 + 70 * snap}`} stroke={C.red} strokeWidth={14} fill="none" />
+        </>
+      )}
+    </g>
+  );
+};
+const KID_S = yasScale(13);
+
+// Mesaj kartı (telefon bildirimi gibi, ekranın üstünde)
+const MsgCard: React.FC<{ p: number; lines: string[] }> = ({ p, lines }) =>
+  p > 0 ? (
+    <g transform={`translate(540 ${330 - (1 - Math.min(1, p)) * 120})`} opacity={Math.min(1, p)}>
+      <rect x={-420} y={-90} width={840} height={70 + 64 * lines.length} rx={28} fill="#fff" stroke={C.ink} strokeWidth={7} />
+      <circle cx={-350} cy={-20} r={36} fill="#9a7bb0" stroke={C.ink} strokeWidth={5} />
+      {lines.map((t, i) => (
+        <text key={i} x={-295} y={-6 + i * 64} fontFamily={fontFamily} fontWeight={700} fontSize={42} fill={C.ink}>
+          {t}
+        </text>
+      ))}
+    </g>
+  ) : null;
+
+// "On üç yaşındayım, spora başlasam bir sorun olur mu? Kısa cevap: olmaz. Ama yıllarca çocuklara “bekle” dendi."
+// Avatar (13) elinde telefon; üstte mesaj kartı; "olmaz"da lacivert tik; "bekle"de kırmızı BEKLE tabelası iner.
+const Y9Soru: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const msg = tw(f, 0, 10);
+  const ok = pop(f, w(11) - 2, 12) * (1 - tw(f, w(15) - 8, w(15) - 2));
+  const wait = tw(f, w(15) - 4, w(15) + 6);
+  return (
+    <>
+      <BdayRoom party={false} />
+      <MsgCard p={msg} lines={["On üç yaşındayım,", "spora başlasam sorun olur mu?"]} />
+      <Person x={540} y={PY} s={KID_S} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={PHONE_ARM} mouth={wait > 0.5 ? "worry" : ok > 0 ? "grin" : "smile"} eyes={wait > 0.5 ? "wide" : "open"} lookY={10}>
+        <PhoneInHand arm={PHONE_ARM} />
+      </Person>
+      {ok > 0 ? <HandText x={820} y={640} text="olmaz ✓" size={110} p={ok} color={YAS_OK} rotate={-6} /> : null}
+      {wait > 0 ? (
+        <g transform={`translate(800 ${lerp(-150, 800, wait)}) rotate(-6)`}>
+          <path d="M-60 -200 L-60 -80 M60 -200 L60 -80" stroke={C.ink} strokeWidth={6} />
+          <rect x={-200} y={-90} width={400} height={150} rx={18} fill={C.red} stroke={C.ink} strokeWidth={9} />
+          <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={100} fill={C.cream}>
+            BEKLE
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar salonun kapısında bekletildi."
+// Sepya (eskiden) salon; doktorun düşünce balonu: "çocuk güçlenemez", çatlak kemik; sonra kapıya ip, "ÇOCUKLAR GİREMEZ";
+// avatar elinde çantayla kapıda bekler, içeride büyükler çalışır.
+const Y9Kapi: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bub = pop(f, w(0), 12) * (1 - tw(f, w(9) - 6, w(9)));
+  const shut = tw(f, w(9) - 2, w(10) + 6);
+  return (
+    <>
+      <GymBg />
+      <GymAdults f={f} />
+      <GymDoor />
+      <Person x={240} y={PY} s={KID_S} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth={shut > 0.5 ? "worry" : "smile"} lookY={-4}>
+        <BagInHand arm={[12, 0]} />
+      </Person>
+      <DoorRope p={shut} />
+      <NoKidsSign p={pop(f, w(10) - 2, 12)} />
+      {shut < 1 ? <Doctor x={lerp(1250, 600, tw(f, 0, 14))} y={PY} s={0.88} mouth="flat" arm={[40, -60]} /> : null}
+      <Bubble x={560} y={460} rx={360} ry={190} p={bub} tail={[600, PY - 0.88 * 820]}>
+        <text x={560} y={420} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.red} opacity={tw(f, w(3) - 2, w(4))}>
+          çocuk güçlenemez
+        </text>
+        {f >= w(5) - 2 ? <BoneIcon x={470} y={530} s={0.8} crack={tw(f, w(7) - 2, w(8))} /> : null}
+        <text x={640} y={550} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.red} opacity={tw(f, w(7) - 2, w(8))}>
+          bozulur?
+        </text>
+      </Bubble>
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#a77d4a" opacity={0.22} />
+      <HandText x={180} y={250} text="eskiden" size={90} p={tw(f, 0, 12)} rotate={-4} />
+    </>
+  );
+};
+
+// "Sonra araştırmacılar çocukları bilen biriyle çalıştırdı. Sonuç tam tersiydi: güçlendiler, zarar da görülmedi."
+// Sepya kalkar; koç gelir, ip kopar, tabela düşer, avatar içeri girer; "güç ↑" ve kemik + lacivert tik.
+const Y9Degisim: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const past = 1 - tw(f, 0, w(1));
+  const coach = tw(f, w(3) - 2, w(5));
+  const snap = tw(f, w(5), w(5) + 8);
+  const fall = tw(f, w(5) + 2, w(6) + 6);
+  const inn = tw(f, w(6), w(8) + 6);
+  const wk = walk(f, inn > 0 && inn < 1 ? 1 : 0);
+  const strong = pop(f, w(9) - 2, 12);
+  const safe = pop(f, w(10) - 2, 12);
+  return (
+    <>
+      <GymBg />
+      <GymAdults f={f} />
+      <GymDoor />
+      <Coach x={lerp(1250, 640, coach)} arm={coach > 0.9 ? [70, -40] : [12, 0]} />
+      <Person x={lerp(240, 470, inn)} y={PY} s={KID_S} shirt={YAS_SHIRT} belly={0.3} legL={wk.legL} legR={wk.legR} armL={strong > 0 ? curlArm(1) : wk.armL} armR={[12, 0]} mouth={coach > 0.5 ? "grin" : "worry"}>
+        <BagInHand arm={[12, 0]} />
+      </Person>
+      <DoorRope p={1 - tw(f, w(8), w(9))} snap={snap} />
+      <NoKidsSign p={1} fall={fall} />
+      {strong > 0 ? <HandText x={300} y={560} text="güç ↑" size={120} p={strong} color={YAS_OK} rotate={-6} /> : null}
+      {safe > 0 ? (
+        <g transform={`translate(800 470) scale(${safe})`}>
+          <BoneIcon x={0} y={0} s={0.9} />
+          <path d="M60 40 l30 30 l60 -70" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      ) : null}
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#a77d4a" opacity={0.22 * past} />
+    </>
+  );
+};
+
+// "Ve iki bin yirmide çocuk doktorları yazdı: spora başlamanın belli bir yaşı yok. On üç de olur, on altı da. Tek şart: yük yavaş yavaş artsın."
+// Rapor + "YOK" damgası → rapor küçülüp yukarı çekilir; 13 ve 16 etiketleri lacivert tikle; "tek şart": küçükten büyüğe dambıllar.
+const Y9Rapor: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const up = tw(f, w(13) - 6, w(13) + 4);
+  const steps = tw(f, w(20) - 2, w(25) + 4);
+  return (
+    <>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      <Rapor2020 x={540} y={lerp(800, 470, up)} p={pop(f, 0, 14)} s={lerp(1, 0.55, up)} line={tw(f, w(7) - 2, w(10) + 4)} stamp={pop(f, w(12) - 2, 10)} />
+      {[
+        { t: w(13) - 2, x: 300, txt: "13" },
+        { t: w(17) - 2, x: 780, txt: "16" },
+      ].map((a, i) =>
+        f >= a.t ? (
+          <g key={i} opacity={1 - steps}>
+            <AgeTag x={a.x} y={900} text={a.txt} p={pop(f, a.t, 12)} size={220} color={YAS_OK} />
+            <path d={`M${a.x - 60} 980 l40 40 l90 -100`} stroke={YAS_OK} strokeWidth={18} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(f, a.t + 6, a.t + 16)} />
+          </g>
+        ) : null,
+      )}
+      {steps > 0
+        ? [0, 1, 2].map((i) => {
+            const q = tw(steps, i / 3, (i + 1) / 3);
+            return q > 0 ? (
+              <g key={i} transform={`translate(${280 + i * 260} ${PY - 60 - i * 130}) scale(${q})`}>
+                <rect x={-110} y={30} width={220} height={60 + i * 130} fill="#cfae78" stroke={C.ink} strokeWidth={6} />
+                <Dumbbell x={0} y={0} s={0.45 + i * 0.2} />
+              </g>
+            ) : null;
+          })
+        : null}
+      {steps > 0.3 ? <HandText x={540} y={880} text="yavaş yavaş" size={100} p={tw(steps, 0.3, 0.8)} color={YAS_OK} rotate={-6} /> : null}
+    </>
+  );
+};
+
+// Hobi ve spor simgeleri (kart içinde, merkez 0,0)
+type HobbyKind = "muzik" | "arkadas" | "doga" | "rekor";
+const HobbyIcon: React.FC<{ k: HobbyKind }> = ({ k }) => (
+  <g stroke={C.ink} strokeWidth={6} strokeLinejoin="round" strokeLinecap="round">
+    {k === "muzik" ? (
+      <g>
+        <path d="M-60 10 Q-60 -70 0 -70 Q60 -70 60 10" fill="none" strokeWidth={12} />
+        <rect x={-80} y={0} width={36} height={60} rx={14} fill={C.red} />
+        <rect x={44} y={0} width={36} height={60} rx={14} fill={C.red} />
+      </g>
+    ) : k === "arkadas" ? (
+      <g>
+        {[-60, 0, 60].map((x, i) => (
+          <g key={i}>
+            <circle cx={x} cy={-30 + (i === 1 ? -10 : 0)} r={24} fill={C.skin} />
+            <path d={`M${x - 32} 60 Q${x - 32} 0 ${x} 0 Q${x + 32} 0 ${x + 32} 60 Z`} fill={[OTHER_SHIRT, YAS_SHIRT, DAD_SHIRT][i]} />
+          </g>
+        ))}
+      </g>
+    ) : k === "doga" ? (
+      <g>
+        <circle cx={40} cy={-40} r={26} fill={C.yellow} />
+        <path d="M-90 60 L-30 -30 L10 20 L40 -10 L90 60 Z" fill="#7aa35a" />
+      </g>
+    ) : (
+      <g>
+        <circle cx={0} cy={10} r={58} fill={C.cream} />
+        <rect x={-12} y={-70} width={24} height={20} fill="#9a9a9a" />
+        <path d="M0 10 L0 -30 M0 10 L28 24" strokeWidth={7} />
+      </g>
+    )}
+  </g>
+);
+const SportIcon2: React.FC<{ k: HobbyKind }> = ({ k }) => (
+  <g stroke={C.ink} strokeWidth={6} strokeLinejoin="round" strokeLinecap="round">
+    {k === "muzik" ? (
+      <g>
+        <Person x={0} y={70} s={0.17} shirt={YAS_SHIRT} belly={0.3} armL={[150, 20]} armR={[60, -40]} legL={{ spread: 22 }} legR={{ lift: 0.4, spread: 10 }} mouth="grin" />
+        <path d="M60 -60 L60 -10 M60 -60 L84 -66 L84 -20" fill="none" strokeWidth={5} />
+        <circle cx={54} cy={-10} r={9} fill={C.ink} />
+        <circle cx={78} cy={-20} r={9} fill={C.ink} />
+      </g>
+    ) : k === "arkadas" ? (
+      <SportIcon k="basket" x={0} y={0} s={0.95} />
+    ) : k === "doga" ? (
+      <g fill="none">
+        <circle cx={-50} cy={30} r={34} strokeWidth={7} />
+        <circle cx={50} cy={30} r={34} strokeWidth={7} />
+        <path d="M-50 30 L-10 -20 L40 -20 L50 30 M-10 -20 L0 30 L-50 30 M30 -40 L50 -40 M-20 -34 L0 -34" strokeWidth={7} />
+      </g>
+    ) : (
+      <Dumbbell x={0} y={0} s={0.55} />
+    )}
+  </g>
+);
+
+// "Peki hangi spor? Onu yaşın değil, neyi sevdiğin seçer."
+// Avatar düşünür; kocaman "?"; "13" etiketi çizilir; başının üstünde kalp ve dört hobi balonu açılır.
+const Y9Hangi: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, w(1) - 2, 12) * (1 - tw(f, w(3) - 6, w(3)));
+  const age = pop(f, w(3) - 2, 12) * (1 - tw(f, w(6) - 6, w(6)));
+  const heart = pop(f, w(6) - 2, 12);
+  const kinds: HobbyKind[] = ["muzik", "arkadas", "doga", "rekor"];
+  return (
+    <>
+      <BdayRoom party={false} />
+      <Person x={540} y={PY} s={KID_S} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[40, -150]} mouth={heart > 0 ? "grin" : "flat"} lookY={-10} />
+      <HandText x={540} y={480} text="?" size={260} p={q} color={C.red} rotate={8} />
+      <AgeTag x={540} y={470} text="13" p={age} size={220} strike={tw(f, w(5) - 2, w(5) + 8)} />
+      {heart > 0 ? <Heart x={540} y={420} s={3 * heart} /> : null}
+      {kinds.map((k, i) => {
+        const p = pop(f, w(7) + i * 5, 10);
+        if (p <= 0) return null;
+        const x = [190, 400, 680, 890][i];
+        const y = [700, 560, 560, 700][i];
+        return (
+          <g key={k} transform={`translate(${x} ${y}) scale(${p * 0.75})`}>
+            <circle r={105} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+            <HobbyIcon k={k} />
+          </g>
+        );
+      })}
+    </>
+  );
+};
+
+// "Müzik açılınca yerinde duramıyor musun? Dans. Arkadaşsız yapamıyor musun? Basketbol, voleybol. Hafta sonu hep dışarıda
+// mısın? Bisiklet, koşu. Kendi rekorunu kırmayı mı seviyorsun? Bilen biriyle ağırlık."
+// 2x2 kart: her soruda hobi simgesi belirir, cevap kelimesinde kart döner ve sporun simgesi + adı çıkar.
+const Y9Hobi: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const cards: { k: HobbyKind; a: number; b: number; hobby: string; sport: string }[] = [
+    { k: "muzik", a: w(0) - 2, b: w(5) - 4, hobby: "müzik", sport: "dans" },
+    { k: "arkadas", a: w(6) - 2, b: w(9) - 4, hobby: "arkadaşlar", sport: "basketbol · voleybol" },
+    { k: "doga", a: w(11) - 2, b: w(16) - 4, hobby: "dışarısı", sport: "bisiklet · koşu" },
+    { k: "rekor", a: w(18) - 2, b: w(23) - 4, hobby: "rekor", sport: "koçla ağırlık" },
+  ];
+  return (
+    <>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      {cards.map((c, i) => {
+        const p = pop(f, c.a, 12);
+        if (p <= 0) return null;
+        const flip = tw(f, c.b, c.b + 10);
+        const sx = Math.abs(Math.cos(Math.PI * flip));
+        const back = flip >= 0.5;
+        const x = i % 2 ? 790 : 290;
+        const y = i < 2 ? 470 : 930;
+        return (
+          <g key={c.k} transform={`translate(${x} ${y}) scale(${p * sx} ${p})`}>
+            <rect x={-220} y={-190} width={440} height={380} rx={26} fill={back ? "#e3ecf5" : C.cream} stroke={back ? YAS_OK : C.ink} strokeWidth={back ? 10 : 8} />
+            <g transform="translate(0 -30)">{back ? <SportIcon2 k={c.k} /> : <HobbyIcon k={c.k} />}</g>
+            <text x={0} y={140} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={back && c.sport.length > 12 ? 46 : 60} fill={back ? YAS_OK : C.ink}>
+              {back ? c.sport : c.hobby}
+            </text>
+          </g>
+        );
+      })}
+      <Person x={540} y={PY + 40} s={0.32} shirt={YAS_SHIRT} belly={0.3} armL={ARMS_UP} armR={ARMS_UP} mouth="grin" />
+    </>
+  );
+};
+
+// "Sen neyi seviyorsun? Yorumlara yaz, sana uyan sporu söyleyelim."
+// Avatar izleyiciye döner; yorum kutusu belirir, içine "müzik ♪" yazılır, kalp; sonunda telefonu kaldırır → açılış karesi.
+const Y9Yorum: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const box = pop(f, w(3) - 2, 12);
+  const typed = "müzik, arkadaşlar…";
+  const n = Math.floor(tw(f, w(4), w(7)) * typed.length);
+  const phone = f >= w(7);
+  return (
+    <>
+      <BdayRoom party={false} />
+      <Person x={540} y={PY} s={KID_S} shirt={YAS_SHIRT} belly={0.3} armL={phone ? [12, 0] : [60, -30]} armR={phone ? PHONE_ARM : [12, 0]} mouth="grin" lookY={phone ? 10 : 0}>
+        {phone ? <PhoneInHand arm={PHONE_ARM} /> : null}
+      </Person>
+      <HandText x={540} y={300} text="sen neyi seviyorsun?" size={86} p={tw(f, 0, w(2) + 4)} color={C.red} rotate={-3} />
+      {box > 0 ? (
+        <g transform={`translate(540 520) scale(${box})`}>
+          <rect x={-400} y={-70} width={800} height={130} rx={65} fill="#fff" stroke={C.ink} strokeWidth={7} />
+          <circle cx={-330} cy={-5} r={36} fill={YAS_SHIRT} stroke={C.ink} strokeWidth={5} />
+          <text x={-270} y={10} fontFamily={fontFamily} fontWeight={700} fontSize={42} fill={n > 0 ? C.ink : "#9a9a9a"}>
+            {n > 0 ? typed.slice(0, n) : "Yorum ekle…"}
+          </text>
+          <Heart x={340} y={-6} s={1.4} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "y9-soru": Y9Soru,
+  "y9-kapi": Y9Kapi,
+  "y9-degisim": Y9Degisim,
+  "y9-rapor": Y9Rapor,
+  "y9-hangi": Y9Hangi,
+  "y9-hobi": Y9Hobi,
+  "y9-yorum": Y9Yorum,
   "a-istek": A1Istek,
   "a-bekle": A2Bekle,
   "a-salon": A3Salon,

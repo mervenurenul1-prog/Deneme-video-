@@ -21,40 +21,39 @@
   ],
   "scenes": [
     {
-      "visual": "yas7-soru",
-      "voice": "Bu hafta en çok gelen soru: Spora kaç yaşında başlamalıyım? On üç erken mi? On altıyı mı bekleyeyim?",
-      "say": "Bu hafta en çok gelen soru: ... Spora kaç yaşında başlamalıyım? On üç erken mi? [curious] On altıyı mı bekleyeyim?"
+      "visual": "y9-soru",
+      "voice": "On üç yaşındayım, spora başlasam bir sorun olur mu? Kısa cevap: olmaz. Ama yıllarca çocuklara “bekle” dendi.",
+      "say": "On üç yaşındayım, spora başlasam bir sorun olur mu? ... Kısa cevap: olmaz. [serious] Ama yıllarca çocuklara “bekle” dendi."
     },
     {
-      "visual": "yas7-pasta",
-      "voice": "On üçüncü yaş günün. Mumları üflerken aklına spor salonu gelir: “Bugün mü başlasam?”",
-      "say": "On üçüncü yaş günün. Mumları üflerken, aklına spor salonu gelir: [curious] “Bugün mü başlasam?”"
+      "visual": "y9-kapi",
+      "voice": "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar salonun kapısında bekletildi.",
+      "say": "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar, salonun kapısında bekletildi."
     },
     {
-      "visual": "yas7-korku",
-      "voice": "Sonra kocaman ağırlıklar, iri adamlar… “Ben daha küçüğüm” dersin. Ve her yıl pastaya bir mum daha eklenir.",
-      "say": "Sonra... kocaman ağırlıklar, iri adamlar... [sighs] “Ben daha küçüğüm” dersin. Ve her yıl, pastaya bir mum daha eklenir."
+      "visual": "y9-degisim",
+      "voice": "Sonra araştırmacılar çocukları bilen biriyle çalıştırdı. Sonuç tam tersiydi: güçlendiler, zarar da görülmedi.",
+      "say": "Sonra araştırmacılar, çocukları bilen biriyle çalıştırdı. [curious] Sonuç tam tersiydi: güçlendiler, zarar da görülmedi."
     },
     {
-      "visual": "yas7-rapor",
-      "voice": "Oysa Amerikan çocuk doktorları iki bin yirmide yazdı: spora başlamanın belli bir yaşı yok.",
-      "say": "Oysa Amerikan çocuk doktorları, iki bin yirmide yazdı: spora başlamanın belli bir yaşı yok."
+      "visual": "y9-rapor",
+      "voice": "Ve iki bin yirmide çocuk doktorları yazdı: spora başlamanın belli bir yaşı yok. On üç de olur, on altı da. Tek şart: yük yavaş yavaş artsın.",
+      "say": "Ve iki bin yirmide çocuk doktorları yazdı: spora başlamanın belli bir yaşı yok. On üç de olur, on altı da. Tek şart: yük, yavaş yavaş artsın."
     },
     {
-      "visual": "yas7-salon",
-      "voice": "Üstelik başlamak için o salon da şart değil. Küçükken oyunla başlanır, büyüdükçe yük yavaş yavaş artar.",
-      "say": "Üstelik başlamak için o salon da şart değil. Küçükken oyunla başlanır, büyüdükçe yük, yavaş yavaş artar."
+      "visual": "y9-hangi",
+      "voice": "Peki hangi spor? Onu yaşın değil, neyi sevdiğin seçer.",
+      "say": "Peki hangi spor? ... Onu yaşın değil, neyi sevdiğin seçer."
     },
     {
-      "visual": "yas7-bekle",
-      "voice": "Yani asıl soru “kaç yaşındayım” değil. “Kaç senedir bekliyorum?”",
-      "say": "Yani asıl soru “kaç yaşındayım” değil. [serious] “Kaç senedir bekliyorum?”"
+      "visual": "y9-hobi",
+      "voice": "Müzik açılınca yerinde duramıyor musun? Dans. Arkadaşsız yapamıyor musun? Basketbol, voleybol. Hafta sonu hep dışarıda mısın? Bisiklet, koşu. Kendi rekorunu kırmayı mı seviyorsun? Bilen biriyle ağırlık.",
+      "say": "Müzik açılınca yerinde duramıyor musun? Dans. Arkadaşsız yapamıyor musun? Basketbol, voleybol. Hafta sonu hep dışarıda mısın? Bisiklet, koşu. Kendi rekorunu kırmayı mı seviyorsun? Bilen biriyle ağırlık."
     },
     {
-      "visual": "yas7-bugun",
-      "voice": "O yüzden en doğru yaş: bugün.",
-      "say": "O yüzden en doğru yaş: ... bugün.",
-      "hold": 0.3
+      "visual": "y9-yorum",
+      "voice": "Sen neyi seviyorsun? Yorumlara yaz, sana uyan sporu söyleyelim.",
+      "say": "Sen neyi seviyorsun? Yorumlara yaz, [chuckles] sana uyan sporu söyleyelim."
     }
   ]
 }
