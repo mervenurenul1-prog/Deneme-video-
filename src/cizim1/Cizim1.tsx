@@ -435,6 +435,27 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "yas-terazi": (w) => [[w(3), "tak", 0.3], [w(6) - 2, "cizik", 0.3], [w(7) - 2, "whoosh", 0.25], [w(8), "ding", 0.35]],
   "yas-guvenlik": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 4, "adim", 0.25], [w(9) - 48, "pop", 0.25], [w(9) - 16, "agir-dusme", 0.3], [w(9) - 14, "ah", 0.9]],
   "yas-bugun": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 2, "pirilti", 0.35]],
+  "a-istek": (w) => [[w(8), "adim", 0.25], [w(12) - 2, "pop", 0.3], [w(14) + 10, "agir-dusme", 0.25]],
+  "a-bekle": (w) => [[w(3) - 2, "pop", 0.25], [w(5) - 2, "pop", 0.25], [w(7) - 2, "pop", 0.25], [w(12) - 2, "sonme", 0.25]],
+  "a-salon": (w) => [...steps(0, w(4), 5.5, 0.2), [w(7) - 2, "pop", 0.25], [w(10) - 2, "ding", 0.3]],
+  "a-rapor": (w) => [[w(2) - 2, "cizik", 0.25], [w(5) - 2, "kagit", 0.3], [w(18) - 2, "boom", 0.18]],
+  "a-yollar": (w) => [[w(1) - 2, "pop", 0.25], [w(4) - 2, "pop", 0.25], [w(6) - 2, "pop", 0.25], [w(12), "ding", 0.3]],
+  "a-cumle": (w) => [[w(4) - 2, "cizik", 0.3], [w(8) - 2, "pop", 0.3], [w(10) + 8, "cizik", 0.3]],
+  "a-soru": (w) => [...steps(w(1), w(4) + 6, 5.5, 0.2), [w(6) - 2, "pop", 0.3]],
+  "b-soru": (w) => [[w(6) - 2, "pop", 0.3], [w(14) - 2, "pop", 0.3]],
+  "b-baba": (w) => [[w(3) - 2, "pop", 0.25], [w(6) - 2, "ding", 0.3]],
+  "b-ikisi": (w) => [[w(5) - 2, "pop", 0.25], [w(8) - 2, "pop", 0.25]],
+  "b-rapor": (w) => [[2, "kagit", 0.3], [w(13) - 2, "boom", 0.18]],
+  "b-program": (w) => [[w(2) - 2, "pop", 0.25], [w(4) - 2, "pop", 0.25], [w(8) - 2, "pop", 0.25], [w(10) - 2, "pop", 0.25], [w(12) - 2, "ding", 0.3]],
+  "b-sabah": (w, d) => [[w(2) - 4, "whoosh", 0.25], ...steps(w(3), d - 4, 5.5, 0.2)],
+  "b-dongu": (w) => [[w(6) - 2, "pop", 0.3], [w(9), "pirilti", 0.3]],
+  "c-mektup": (w, d) => [[2, "kalem", 0.25], [w(2) - 2, "pop", 0.25], [w(9) - 2, "pop", 0.25], [d - 30, "kalem", 0.2]],
+  "c-cumle": (w) => [[w(3) - 2, "kalem", 0.3], [w(4), "kalem", 0.3]],
+  "c-gecmis": (w) => [[w(7) - 2, "pop", 0.25], [w(11) - 2, "whoosh", 0.3]],
+  "c-rapor": (w) => [[2, "kagit", 0.3], [w(13) - 2, "boom", 0.18]],
+  "c-not": (w) => [[w(1) - 2, "kalem", 0.25], [w(4) - 2, "kalem", 0.25], [w(6) - 2, "kalem", 0.25]],
+  "c-zarf": (w) => [[w(1) - 4, "kagit", 0.35], [w(9) - 2, "boom", 0.2]],
+  "c-gonder": (w) => [[w(2) - 4, "kagit", 0.3], [w(8) - 2, "whoosh", 0.4]],
   "yas7-soru": (w) => [[w(1) - 2, "bip", 0.3], [w(6) - 2, "bip", 0.35], [w(10) - 2, "bip", 0.35], [w(14) - 2, "bip", 0.35]],
   "yas7-pasta": (w) => [[w(4) + 2, "nefes", 0.35], [w(6) - 2, "pop", 0.3], [w(10) - 2, "pirilti", 0.25]],
   "yas7-korku": (w) => [[w(1) - 2, "agir-dusme", 0.4], [w(8) - 4, "sonme", 0.3], ...y7Years(w).map((t): Sfx => [t, "pop", 0.25])],
@@ -8198,7 +8219,7 @@ const YasRapor: React.FC<SceneProps> = ({ w }) => {
   return (
     <>
       <g transform={`translate(540 ${lerp(820, 470, up)}) scale(${doc * lerp(1, 0.62, up)}) rotate(-2)`}>
-        <rect x={-360} y={-420} width={720} height={840} rx={16} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+      <rect x={-360} y={-420} width={720} height={840} rx={16} fill={C.cream} stroke={C.ink} strokeWidth={9} />
         <rect x={-360} y={-420} width={720} height={150} rx={16} fill="#6e8fb3" stroke={C.ink} strokeWidth={9} />
         <text x={0} y={-345} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.cream}>
           ÇOCUK DOKTORLARI
@@ -9280,22 +9301,37 @@ const Y7_TABLE = 1130;
 const Y7_CAKE_X = 640;
 
 // Doğum günü odası: duvar, bayrak süsü, pencere, zemin, masa
-const BdayRoom: React.FC = () => (
+// party = bayrak süsü + masa; door = pencere yerine kapı (open: 0 kapalı … 1 açık)
+const BdayRoom: React.FC<{ party?: boolean; door?: boolean; open?: number }> = ({ party = true, door = false, open = 0 }) => (
   <g stroke={C.ink} strokeLinejoin="round">
     <rect x={-200} y={-200} width={1480} height={PY + 200} fill="#efe1c2" strokeWidth={0} />
     <rect x={-200} y={PY} width={1480} height={800} fill="#c9a06c" strokeWidth={0} />
     <path d={`M-200 ${PY} L1280 ${PY}`} strokeWidth={7} />
-    <rect x={800} y={480} width={200} height={240} rx={8} fill="#cfe0ea" strokeWidth={7} />
-    <path d="M900 480 L900 720 M800 600 L1000 600" strokeWidth={5} />
-    <path d="M-20 300 Q540 420 1100 300" fill="none" strokeWidth={5} />
-    {Array.from({ length: 11 }, (_, k) => {
-      const t = (k + 0.5) / 11;
-      const x = -20 + t * 1120;
-      const y = 300 + 240 * t * (1 - t);
-      return <path key={k} d={`M${x - 36} ${y} L${x + 36} ${y} L${x} ${y + 84} Z`} fill={[C.red, C.yellow, "#6e8fb3", "#7aa35a"][k % 4]} strokeWidth={5} />;
-    })}
-    <rect x={400} y={Y7_TABLE} width={480} height={26} rx={6} fill="#8a5c35" strokeWidth={6} />
-    <path d={`M440 ${Y7_TABLE + 26} L440 ${PY} M840 ${Y7_TABLE + 26} L840 ${PY}`} strokeWidth={14} strokeLinecap="round" />
+    {door ? (
+      <g>
+        <rect x={820} y={500} width={200} height={PY - 500} fill="#fbe9a8" strokeWidth={8} />
+        <rect x={820} y={500} width={200 * (1 - 0.85 * open)} height={PY - 500} fill="#8a5c35" strokeWidth={7} />
+        <circle cx={820 + 200 * (1 - 0.85 * open) - 28} cy={930} r={11} fill={C.yellow} strokeWidth={4} />
+      </g>
+    ) : (
+      <g>
+        <rect x={800} y={480} width={200} height={240} rx={8} fill="#cfe0ea" strokeWidth={7} />
+        <path d="M900 480 L900 720 M800 600 L1000 600" strokeWidth={5} />
+      </g>
+    )}
+    {party ? (
+      <g>
+        <path d="M-20 300 Q540 420 1100 300" fill="none" strokeWidth={5} />
+        {Array.from({ length: 11 }, (_, k) => {
+          const t = (k + 0.5) / 11;
+          const x = -20 + t * 1120;
+          const y = 300 + 240 * t * (1 - t);
+          return <path key={k} d={`M${x - 36} ${y} L${x + 36} ${y} L${x} ${y + 84} Z`} fill={[C.red, C.yellow, "#6e8fb3", "#7aa35a"][k % 4]} strokeWidth={5} />;
+        })}
+        <rect x={400} y={Y7_TABLE} width={480} height={26} rx={6} fill="#8a5c35" strokeWidth={6} />
+        <path d={`M440 ${Y7_TABLE + 26} L440 ${PY} M840 ${Y7_TABLE + 26} L840 ${PY}`} strokeWidth={14} strokeLinecap="round" />
+      </g>
+    ) : null}
   </g>
 );
 
@@ -9512,6 +9548,36 @@ const Y7Korku: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+// Çocuk doktorlarının 2020 raporu: "BAŞLAMA YAŞI:" satırı (line) ve kırmızı "YOK" damgası (stamp)
+const Rapor2020: React.FC<{ x: number; y: number; p: number; line: number; stamp: number; s?: number }> = ({ x, y, p, line, stamp, s = 1 }) => {
+  const f = useCurrentFrame();
+  if (p <= 0) return null;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p * s}) rotate(-2)`}>
+        <rect x={-360} y={-420} width={720} height={840} rx={16} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+      <rect x={-360} y={-420} width={720} height={150} rx={16} fill="#6e8fb3" stroke={C.ink} strokeWidth={9} />
+      <text x={0} y={-345} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.cream}>
+        ÇOCUK DOKTORLARI
+      </text>
+      <text x={0} y={-290} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={52} fill={C.cream}>
+        rapor · 2020
+      </text>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <rect key={i} x={-300} y={-220 + i * 60} width={[600, 520, 580, 460, 540][i] * tw(f, 6 + i * 4, 18 + i * 4)} height={18} rx={9} fill="#d8c8a6" />
+      ))}
+      <HandText x={-300} y={120} text="BAŞLAMA YAŞI:" size={76} p={line} anchor="start" rotate={0} />
+      {stamp > 0 ? (
+        <g transform={`translate(140 280) rotate(-12) scale(${stamp})`}>
+          <rect x={-150} y={-80} width={300} height={140} rx={14} fill="none" stroke={C.red} strokeWidth={12} />
+          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.red}>
+            YOK
+          </text>
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
 // "Oysa Amerikan çocuk doktorları iki bin yirmide yazdı: spora başlamanın belli bir yaşı yok."
 // Oda soluklaşır, rapor açılır; "BAŞLAMA YAŞI:" satırına kırmızı "YOK" damgası.
 const Y7Rapor: React.FC<SceneProps> = ({ w }) => {
@@ -9527,28 +9593,7 @@ const Y7Rapor: React.FC<SceneProps> = ({ w }) => {
       ))}
       <BigCake x={Y7_CAKE_X} y={Y7_TABLE} n={16} lit={1} top="16" />
       <rect x={-200} y={-200} width={1480} height={2400} fill={C.paper} opacity={0.72} />
-      <g transform={`translate(540 800) scale(${doc}) rotate(-2)`}>
-        <rect x={-360} y={-420} width={720} height={840} rx={16} fill={C.cream} stroke={C.ink} strokeWidth={9} />
-        <rect x={-360} y={-420} width={720} height={150} rx={16} fill="#6e8fb3" stroke={C.ink} strokeWidth={9} />
-        <text x={0} y={-345} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.cream}>
-          ÇOCUK DOKTORLARI
-        </text>
-        <text x={0} y={-290} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={52} fill={C.cream}>
-          rapor · 2020
-        </text>
-        {[0, 1, 2, 3, 4].map((i) => (
-          <rect key={i} x={-300} y={-220 + i * 60} width={[600, 520, 580, 460, 540][i] * tw(f, 6 + i * 4, 18 + i * 4)} height={18} rx={9} fill="#d8c8a6" />
-        ))}
-        <HandText x={-300} y={120} text="BAŞLAMA YAŞI:" size={76} p={line} anchor="start" rotate={0} />
-        {stamp > 0 ? (
-          <g transform={`translate(140 280) rotate(-12) scale(${stamp})`}>
-            <rect x={-150} y={-80} width={300} height={140} rx={14} fill="none" stroke={C.red} strokeWidth={12} />
-            <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.red}>
-              YOK
-            </text>
-          </g>
-        ) : null}
-      </g>
+      <Rapor2020 x={540} y={800} p={doc} line={line} stamp={stamp} />
     </>
   );
 };
@@ -9671,7 +9716,673 @@ const Y7Bugun: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 07 v8: üç akan hikâye, kullanıcı seçecek ---------- */
+// A "Önce biraz büyü" (yıllarca bekleyen avatar), B baba-oğul, C on üç yaşındaki kendine mektup.
+// Hepsinin bilgisi aynı: AAP 2020, spora başlamanın belli bir yaşı yok.
+
+// Spor çantası (tutamağın tepesi 0, -100); dust: üstündeki toz
+const SportBag: React.FC<{ x: number; y: number; s?: number; dust?: number }> = ({ x, y, s = 1, dust = 0 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+    <path d="M-55 -60 Q0 -130 55 -60" fill="none" strokeWidth={10} />
+    <rect x={-110} y={-70} width={220} height={110} rx={40} fill="#2f5fa8" strokeWidth={7} />
+    <path d="M-80 -30 L80 -30" stroke={C.cream} strokeWidth={6} />
+    {dust > 0 ? <rect x={-110} y={-70} width={220} height={110} rx={40} fill="#bfb5a0" opacity={0.75 * dust} strokeWidth={0} /> : null}
+    {dust > 0.5 ? <path d="M-70 -76 q8 -10 16 0 M10 -78 q8 -10 16 0 M50 -60 q8 -10 16 0" stroke="#8d8270" strokeWidth={4} fill="none" opacity={dust} /> : null}
+  </g>
+);
+// Karakterin sağ elindeki çanta (Person koordinatlarında, children olarak)
+const BagInHand: React.FC<{ arm: Arm; dust?: number }> = ({ arm, dust = 0 }) => {
+  const h = armPoints(1, arm)[2];
+  return <SportBag x={h[0]} y={h[1] + 100} s={1} dust={dust} />;
+};
+
+// Konuşma balonu: yuvarlak kutu + kuyruk
+const SayBubble: React.FC<{ x: number; y: number; p: number; text: string; tail: [number, number]; size?: number; color?: string }> = ({ x, y, p, text, tail, size = 60, color = C.ink }) => {
+  if (p <= 0) return null;
+  const W = text.length * size * 0.5 + 90;
+  const H = size * 1.8;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p}) translate(${-x} ${-y})`}>
+      <path d={`M${x - 40} ${y + H / 2 - 6} L${tail[0]} ${tail[1]} L${x + 30} ${y + H / 2 - 6} Z`} fill={C.cream} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+      <rect x={x - W / 2} y={y - H / 2} width={W} height={H} rx={H / 2.2} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+      <path d={`M${x - 34} ${y + H / 2 - 8} L${x + 24} ${y + H / 2 - 8}`} stroke={C.cream} strokeWidth={12} />
+      <text x={x} y={y + size * 0.35} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={size} fill={color}>
+        {text}
+      </text>
+    </g>
+  );
+};
+
+// Baba: göbekli, bıyıklı, mavi tişört
+const DAD_SHIRT = "#6e8fb3";
+const Mustache = () => <path d="M-42 -672 Q-20 -686 0 -674 Q20 -686 42 -672 Q20 -660 0 -666 Q-20 -660 -42 -672 Z" fill={C.hair} stroke={C.ink} strokeWidth={4} />;
+
+// Spor salonu fonu (zemin PY): ayna, dambıl rafı
+const GymBg: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-200} y={-200} width={1480} height={PY + 200} fill="#e6d6b4" strokeWidth={0} />
+    <rect x={-200} y={PY} width={1480} height={800} fill="#a19a90" strokeWidth={0} />
+    <path d={`M-200 ${PY} L1280 ${PY}`} strokeWidth={7} />
+    <rect x={90} y={400} width={420} height={480} rx={10} fill="#cfe0ea" opacity={0.85} strokeWidth={7} />
+    <path d="M150 460 L240 420 M170 560 L320 490" stroke="#fff" strokeWidth={10} opacity={0.7} />
+    <rect x={620} y={1000} width={400} height={20} fill="#6b6b6b" strokeWidth={5} />
+    <path d={`M650 1020 L650 ${PY} M990 1020 L990 ${PY}`} strokeWidth={10} />
+    {[0, 1, 2, 3].map((i) => (
+      <Dumbbell key={i} x={680 + i * 95} y={975} s={0.28 + i * 0.05} />
+    ))}
+  </g>
+);
+
+const KID_SHIRT = "#e0b030";
+const OTHER_SHIRT = "#5e9a3c";
+
+// A1 "On üç yaşındasın ve spora başlamak istiyorsun. Ama herkes aynı şeyi söylüyor: “Önce biraz büyü.”"
+// Avatar (13) elinde spor çantasıyla hevesli; annesi ve babası iki yandan gelir, ikisi de "Önce biraz büyü." der; çanta yere iner.
+const A1Istek: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const s = yasScale(13);
+  const come = tw(f, w(7) - 4, w(9) + 6);
+  const say = pop(f, w(12) - 2, 12);
+  const drop = tw(f, w(14) + 2, w(14) + 14);
+  const arm: Arm = [12, 0];
+  const h = armPoints(1, arm)[2];
+  const bx = 540 + h[0] * s;
+  const by = lerp(PY + (h[1] + 100) * s, PY - 40 * s, drop);
+  return (
+    <>
+      <BdayRoom party={false} />
+      <HandText x={540} y={330} text="13 yaş" size={110} p={tw(f, w(0), w(2) + 6)} color={C.red} rotate={-3} />
+      <Person x={lerp(-260, 170, come)} y={PY} s={0.88} female belly={0.4} mouth="smile" armL={[12, 0]} armR={[30, -40]} />
+      <Person x={lerp(1340, 910, come)} y={PY} s={0.93} belly={0.75} shirt={DAD_SHIRT} mouth="smile" armL={[30, -40]} armR={[12, 0]}>
+        <Mustache />
+      </Person>
+      <Person x={540} y={PY} s={s} shirt={YAS_SHIRT} belly={0.3} armL={f < w(7) ? [40, -20] : [12, 0]} armR={arm} mouth={drop > 0.3 ? "worry" : say > 0 ? "flat" : "grin"} eyes={say > 0 && drop < 0.3 ? "wide" : "open"} />
+      <SportBag x={bx} y={by} s={s} />
+      <SayBubble x={290} y={560} p={say} text="Önce biraz büyü." size={52} tail={[190, PY - 0.88 * 760]} />
+      <SayBubble x={780} y={420} p={pop(f, w(12) + 4, 12)} text="Önce biraz büyü." size={52} tail={[880, PY - 0.93 * 800]} />
+    </>
+  );
+};
+
+// A2 "Sen de bekliyorsun. On dört… on beş… on altı. Her doğum gününde “seneye” diyorsun."
+// Doğum günleri art arda: pastadaki yaş 14 → 15 → 16, avatar her yılda biraz büyür; köşedeki çanta tozlanır; "seneye…".
+const A2Bekle: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const yrs = [w(3) - 2, w(5) - 2, w(7) - 2];
+  const k = yrs.filter((t) => f >= t).length;
+  const age = 13 + k;
+  const s = lerp(yasScale(13), yasScale(16), tw(f, yrs[0], yrs[2] + 10));
+  return (
+    <>
+      <BdayRoom />
+      <SportBag x={960} y={PY - 40} s={0.8} dust={tw(f, 0, d)} />
+      <Person x={260} y={PY} s={s} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth={f >= w(12) - 2 ? "flat" : "smile"}>
+        <PartyHat />
+      </Person>
+      <BigCake x={Y7_CAKE_X} y={Y7_TABLE} n={age} lit={1} top={`${age}`} topP={k > 0 ? pop(f, yrs[k - 1], 10) : 1} newest={k > 0 ? pop(f, yrs[k - 1], 10) : 1} />
+      <SayBubble x={330} y={480} p={pop(f, w(12) - 2, 12)} text="seneye…" size={70} tail={[280, PY - s * 830]} />
+    </>
+  );
+};
+
+// A3 "On sekizinde sonunda salona gidiyorsun. Ve orada, on üç yaşında başlamış biriyle tanışıyorsun."
+// Avatar (18) tozlu çantasıyla salona yürür; salonda aynı yaşta, rahat ve güçlü biri; üstünde "13 yaşında başladı" → "5 yıl".
+const A3Salon: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const inn = tw(f, 0, w(4) + 4);
+  const wk = walk(f, 1 - inn);
+  const tag = pop(f, w(7) - 2, 12);
+  const yrs = pop(f, w(10) - 2, 12);
+  return (
+    <>
+      <GymBg />
+      <HandText x={540} y={290} text="18 yaş" size={100} p={tw(f, w(0), w(1) + 6)} color={C.red} rotate={-3} />
+      <Person x={780} y={PY} s={0.86} shirt={OTHER_SHIRT} belly={0.15} limbW={1.25} mouth="grin" armL={[40, -60]} armR={[12, 0]} />
+      <Person x={lerp(-180, 300, inn)} y={PY} s={0.86} shirt={YAS_SHIRT} belly={0.3} legL={wk.legL} legR={wk.legR} armL={wk.armL} armR={[12, 0]} mouth={yrs > 0 ? "o" : "smile"} eyes={yrs > 0 ? "wide" : "open"}>
+        <BagInHand arm={[12, 0]} dust={1} />
+      </Person>
+      {tag > 0 ? (
+        <g transform={`translate(780 ${PY - 860}) scale(${tag}) rotate(-4)`}>
+          <rect x={-230} y={-60} width={460} height={110} rx={18} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+          <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={54} fill={C.ink}>
+            13 yaşında başladı
+          </text>
+        </g>
+      ) : null}
+      {yrs > 0 ? <HandText x={800} y={PY - 1010} text="5 yıl" size={130} p={yrs} color={YAS_OK} rotate={-6} /> : null}
+    </>
+  );
+};
+
+// A4 "Peki o erken mi başlamıştı? Amerikan çocuk doktorları iki bin yirmide cevap verdi: spora başlamanın belli bir yaşı yok."
+// İkisinin arasında kırmızı "erken mi?"; rapor açılır, "YOK" damgası.
+const A4Rapor: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const doc = pop(f, w(5) - 2, 14);
+  return (
+    <>
+      <GymBg />
+      <Person x={780} y={PY} s={0.86} shirt={OTHER_SHIRT} belly={0.15} limbW={1.25} mouth="smile" armL={[12, 0]} armR={[12, 0]} />
+      <Person x={300} y={PY} s={0.86} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth="flat" lookY={-4}>
+        <BagInHand arm={[12, 0]} dust={1} />
+      </Person>
+      <HandText x={540} y={420} text="erken mi?" size={120} p={tw(f, w(2) - 2, w(4) + 4) * (1 - doc)} color={C.red} rotate={-4} />
+      {doc > 0 ? <rect x={-200} y={-200} width={1480} height={2400} fill={C.paper} opacity={0.7 * Math.min(1, doc)} /> : null}
+      <Rapor2020 x={540} y={800} p={doc} line={tw(f, w(13) - 2, w(16) + 4)} stamp={pop(f, w(18) - 2, 10)} />
+    </>
+  );
+};
+
+// Yaş satırı: beş hücre (13-17), her hücrede bir içerik
+const YearRow: React.FC<{ y: number; label: string; shirt: string; cells: { p: number; node: React.ReactNode }[]; ok?: number }> = ({ y, label, shirt, cells, ok = 0 }) => (
+  <g>
+    <Person x={100} y={y + 120} s={0.3} shirt={shirt} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth="smile" />
+    <text x={100} y={y - 150} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink}>
+      {label}
+    </text>
+    {cells.map((c, i) => {
+      const x = 270 + i * 165;
+      return (
+        <g key={i}>
+          <rect x={x - 72} y={y - 72} width={144} height={144} rx={16} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+          <text x={x} y={y + 120} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={46} fill={C.ink}>
+            {13 + i}
+          </text>
+          {c.p > 0 ? <g transform={`translate(${x} ${y}) scale(${c.p})`}>{c.node}</g> : null}
+        </g>
+      );
+    })}
+    {ok > 0 ? <path d={`M920 ${y - 20} l40 40 l80 -100`} stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - ok} transform="translate(60 0)" /> : null}
+  </g>
+);
+const SeneyeMini = () => (
+  <g transform="rotate(-6)">
+    <rect x={-58} y={-50} width={116} height={100} fill="#f7e27a" stroke={C.ink} strokeWidth={4} />
+    <text x={0} y={10} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={30} fill={C.ink}>
+      seneye…
+    </text>
+  </g>
+);
+
+// A5 "Küçükken oyunla başlanır, büyüdükçe yük yavaş yavaş artar. Her yaşın kendine göre bir sporu var."
+// İki yaş şeridi: "sen" satırı 13-17 "seneye…" notlarıyla dolu; "o" satırı: top (oyun) → hafif dambıl → daha ağır; lacivert tik.
+const A5Yollar: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const mine = (i: number) => pop(f, 4 + i * 6, 10);
+  const his = [w(1) - 2, w(1) + 4, w(4) - 2, w(6) - 2, w(6) + 4].map((t) => pop(f, t, 10));
+  const nodes = [<Ball key={0} x={0} y={0} r={46} />, <Ball key={1} x={0} y={0} r={46} />, <Dumbbell key={2} x={0} y={0} s={0.45} />, <Dumbbell key={3} x={0} y={0} s={0.6} />, <Dumbbell key={4} x={0} y={0} s={0.7} />];
+  return (
+    <>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <YearRow y={560} label="sen" shirt={YAS_SHIRT} cells={[0, 1, 2, 3, 4].map((i) => ({ p: mine(i), node: <SeneyeMini /> }))} />
+      <YearRow y={1060} label="o" shirt={OTHER_SHIRT} cells={his.map((p, i) => ({ p, node: nodes[i] }))} ok={tw(f, w(12) - 2, w(14) + 4)} />
+      <HandText x={640} y={330} text="yavaş yavaş" size={84} p={tw(f, w(5) - 2, w(7) + 4)} color={YAS_OK} rotate={-4} />
+    </>
+  );
+};
+
+// A6 "Yani seni bekleten yaşın değildi. O tek cümleydi: “Önce biraz büyü.”"
+// Odada avatar (18), tozlu çanta; "13" yaş etiketi çizilir; yerine baştaki "Önce biraz büyü." balonu gelir ve çarpılır.
+const A6Cumle: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const age = pop(f, w(2) - 2, 12) * (1 - tw(f, w(6) - 6, w(6)));
+  const bub = pop(f, w(8) - 2, 12);
+  return (
+    <>
+      <BdayRoom party={false} />
+      <SportBag x={760} y={PY - 40} s={0.8} dust={1} />
+      <Person x={460} y={PY} s={yasScale(18)} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth={bub > 0 ? "flat" : "smile"} lookY={-6} />
+      <AgeTag x={540} y={420} text="13" p={age} size={220} strike={tw(f, w(4) - 2, w(4) + 8)} />
+      <SayBubble x={540} y={400} p={bub} text="Önce biraz büyü." size={70} tail={[300, 560]} />
+      {bub > 0 ? <Cross x={540} y={400} size={150} p={tw(f, Math.min(w(10) + 8, d - 20), Math.min(w(10) + 20, d - 6))} /> : null}
+    </>
+  );
+};
+
+// A7 "Şimdi on üç yaşında biri sana aynı soruyu sorarsa, ne diyeceksin?"
+// Kapıdan on üç yaşında bir çocuk girer, elinde spor çantası; başının üstünde "?"; avatar (18) ona döner → açılış karesi.
+const A7Soru: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const inn = tw(f, w(1), w(4) + 6);
+  const wk = walk(f, 1 - inn);
+  return (
+    <>
+      <BdayRoom party={false} />
+      <Person x={800} y={PY} s={yasScale(18)} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth="smile" />
+      <Person x={lerp(-200, 330, inn)} y={PY} s={yasScale(13)} shirt={KID_SHIRT} belly={0.3} legL={wk.legL} legR={wk.legR} armL={wk.armL} armR={[12, 0]} mouth="smile" eyes="wide">
+        <BagInHand arm={[12, 0]} />
+      </Person>
+      <HandText x={330} y={PY - yasScale(13) * 900} text="?" size={160} p={pop(f, w(6) - 2, 12)} color={C.red} rotate={8} />
+      <HandText x={540} y={330} text="13 yaş" size={100} p={tw(f, w(2) - 2, w(5) + 4)} color={C.red} rotate={-3} />
+    </>
+  );
+};
+
+// B1 "On üç yaşındaki oğul babasına soruyor: “Ben de seninle spora gelebilir miyim?” Babası gülüyor: “Sen daha küçüksün.”"
+// Kapının önünde baba elinde spor çantasıyla çıkmak üzere; oğul (avatar, 13) sorar; baba güler.
+const B1Soru: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, w(6) - 2, 12) * (1 - tw(f, w(13) - 6, w(13)));
+  const laugh = f >= w(12) - 2;
+  const a = pop(f, w(14) - 2, 12);
+  return (
+    <>
+      <BdayRoom party={false} door />
+      <Person x={740} y={PY} s={0.95} belly={0.75} shirt={DAD_SHIRT} mouth={laugh ? "grin" : "smile"} armL={laugh ? [40, -70] : [12, 0]} armR={[12, 0]} tilt={laugh ? Math.sin(f / 3) * 4 : 0}>
+        <Mustache />
+        <BagInHand arm={[12, 0]} />
+      </Person>
+      <Person x={280} y={PY} s={yasScale(13)} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth={a > 0.5 ? "worry" : "smile"} eyes={q > 0 ? "wide" : "open"} lookY={-6} />
+      <SayBubble x={400} y={540} p={q} text="Ben de gelebilir miyim?" size={50} tail={[300, PY - yasScale(13) * 780]} />
+      <SayBubble x={640} y={420} p={a} text="Sen daha küçüksün." size={54} tail={[730, PY - 0.95 * 790]} />
+    </>
+  );
+};
+
+// B2 "Oysa babası da spora yeni başlamış. Kırk beş yaşında."
+// Babanın çantasında "1. hafta" etiketi; üstünde kırmızı kocaman "45"; oğul şaşırır.
+const B2Baba: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  return (
+    <>
+      <BdayRoom party={false} door />
+      <Person x={740} y={PY} s={0.95} belly={0.75} shirt={DAD_SHIRT} mouth="smile" armL={[12, 0]} armR={[12, 0]}>
+        <Mustache />
+        <BagInHand arm={[12, 0]} />
+      </Person>
+      {f >= w(3) - 2 ? (
+        <g transform={`translate(${740 + armPoints(1, [12, 0])[2][0] * 0.95} ${PY - 190}) scale(${pop(f, w(3) - 2, 12)}) rotate(-8)`}>
+          <rect x={-110} y={-40} width={220} height={80} rx={12} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+          <text x={0} y={18} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={YAS_OK}>
+            1. hafta
+          </text>
+        </g>
+      ) : null}
+      <AgeTag x={740} y={330} text="45" p={pop(f, w(6) - 2, 12)} size={240} color={C.red} />
+      <Person x={280} y={PY} s={yasScale(13)} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth={f >= w(6) ? "o" : "worry"} eyes={f >= w(6) ? "wide" : "open"} />
+    </>
+  );
+};
+
+// B3 "İkisi de aynı şeyi düşünüyor: biri çok erken, öteki çok geç."
+// İki düşünce balonu: oğulda "13 · erken mi?", babada "45 · geç mi?"; ikisi de kaygılı.
+const B3Ikisi: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const b1 = pop(f, w(5) - 2, 12);
+  const b2 = pop(f, w(8) - 2, 12);
+  return (
+    <>
+      <BdayRoom party={false} door />
+      <Person x={740} y={PY} s={0.95} belly={0.75} shirt={DAD_SHIRT} mouth={b2 > 0 ? "worry" : "smile"} armL={[12, 0]} armR={[12, 0]}>
+        <Mustache />
+        <BagInHand arm={[12, 0]} />
+      </Person>
+      <Person x={280} y={PY} s={yasScale(13)} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth={b1 > 0 ? "worry" : "smile"} />
+      <Bubble x={300} y={560} rx={230} ry={150} p={b1} tail={[280, PY - yasScale(13) * 830]}>
+        <text x={300} y={540} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.ink}>
+          13
+        </text>
+        <text x={300} y={620} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>
+          çok erken?
+        </text>
+      </Bubble>
+      <Bubble x={780} y={330} rx={230} ry={150} p={b2} tail={[740, PY - 0.95 * 830]}>
+        <text x={780} y={310} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.ink}>
+          45
+        </text>
+        <text x={780} y={390} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>
+          çok geç?
+        </text>
+      </Bubble>
+    </>
+  );
+};
+
+// B4 "Ama Amerikan çocuk doktorları iki bin yirmide yazdı: spora başlamanın belli bir yaşı yok."
+const B4Rapor: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  return (
+    <>
+      <BdayRoom party={false} door />
+      <Person x={740} y={PY} s={0.95} belly={0.75} shirt={DAD_SHIRT} mouth="flat" armL={[12, 0]} armR={[12, 0]}>
+        <Mustache />
+      </Person>
+      <Person x={280} y={PY} s={yasScale(13)} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth="flat" />
+      <rect x={-200} y={-200} width={1480} height={2400} fill={C.paper} opacity={0.7} />
+      <Rapor2020 x={540} y={800} p={pop(f, 0, 14)} line={tw(f, w(8) - 2, w(11) + 4)} stamp={pop(f, w(13) - 2, 10)} />
+    </>
+  );
+};
+
+// Program kartı (pano): başlık + satırlar
+const ProgramCard: React.FC<{ x: number; y: number; title: string; rows: { p: number; icon: React.ReactNode; text: string }[] }> = ({ x, y, title, rows }) => (
+  <g transform={`translate(${x} ${y})`}>
+    <rect x={-200} y={-230} width={400} height={470} rx={18} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+    <rect x={-70} y={-252} width={140} height={44} rx={10} fill="#9a9a9a" stroke={C.ink} strokeWidth={6} />
+    <text x={0} y={-150} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>
+      {title}
+    </text>
+    {rows.map((r, i) =>
+      r.p > 0 ? (
+        <g key={i} transform={`translate(0 ${-50 + i * 140}) scale(${r.p})`}>
+          <g transform="translate(-120 0)">{r.icon}</g>
+          <text x={-50} y={16} fontFamily={handFamily} fontWeight={700} fontSize={46} fill={YAS_OK}>
+            {r.text}
+          </text>
+        </g>
+      ) : null,
+    )}
+  </g>
+);
+
+// B5 "Oğul için oyun ve kendi ağırlığı, baba için yavaş yavaş artan yük. Aynı salon, farklı program."
+// Salonda iki program panosu: oğul (oyun, kendi ağırlığı), baba (hafif → biraz daha); üstte "AYNI SALON", altta "farklı program".
+const B5Program: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  return (
+    <>
+      <GymBg />
+      <ProgramCard
+        x={290}
+        y={560}
+        title="oğul"
+        rows={[
+          { p: pop(f, w(2) - 2, 10), icon: <Ball x={0} y={0} r={40} />, text: "oyun" },
+          { p: pop(f, w(4) - 2, 10), icon: <Person x={0} y={50} s={0.13} shirt={YAS_SHIRT} belly={0.3} armL={[90, 0]} armR={[90, 0]} />, text: "kendi ağırlığı" },
+        ]}
+      />
+      <ProgramCard
+        x={790}
+        y={560}
+        title="baba"
+        rows={[
+          { p: pop(f, w(8) - 2, 10), icon: <Dumbbell x={0} y={0} s={0.35} />, text: "hafif" },
+          { p: pop(f, w(10) - 2, 10), icon: <Dumbbell x={0} y={0} s={0.5} />, text: "yavaş yavaş" },
+        ]}
+      />
+      <Person x={290} y={PY} s={yasScale(13) * 0.7} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth="grin" />
+      <Person x={790} y={PY} s={0.66} belly={0.75} shirt={DAD_SHIRT} armL={[12, 0]} armR={[12, 0]} mouth="grin">
+        <Mustache />
+      </Person>
+      {f >= w(12) - 2 ? (
+        <g transform={`translate(540 250) scale(${pop(f, w(12) - 2, 12)}) rotate(-3)`}>
+          <rect x={-260} y={-64} width={520} height={120} rx={18} fill={C.red} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.cream}>
+            AYNI SALON
+          </text>
+        </g>
+      ) : null}
+      <HandText x={540} y={880} text="farklı program" size={84} p={tw(f, w(14) - 2, w(15) + 8)} color={YAS_OK} rotate={-3} />
+    </>
+  );
+};
+
+// B6 "Ertesi sabah, kapıdan iki kişi çıkıyor."
+// Sabah ışığı; kapı açılır; baba ve oğul (ikisinin de elinde çanta) yürüyüp kapıdan çıkar.
+const B6Sabah: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const open = tw(f, w(2) - 4, w(2) + 8);
+  const go = tw(f, w(3), d - 4);
+  const wk = walk(f, go > 0 && go < 1 ? 1 : 0);
+  const dx = (x0: number, delay: number) => lerp(x0, 1000, tw(go, delay, delay + 0.7));
+  const out = (x: number) => 1 - tw(x, 880, 960);
+  return (
+    <>
+      <BdayRoom party={false} door open={open} />
+      <rect x={-200} y={-200} width={1480} height={PY + 200} fill="#ffe7a3" opacity={0.25} />
+      <HandText x={540} y={330} text="ertesi sabah" size={100} p={tw(f, 0, w(1) + 6)} rotate={-3} />
+      <g opacity={out(dx(560, 0))}>
+        <Person x={dx(560, 0)} y={PY} s={0.95} belly={0.75} shirt={DAD_SHIRT} legL={wk.legL} legR={wk.legR} armL={wk.armL} armR={[12, 0]} mouth="smile">
+          <Mustache />
+          <BagInHand arm={[12, 0]} />
+        </Person>
+      </g>
+      <g opacity={out(dx(260, 0.25))}>
+        <Person x={dx(260, 0.25)} y={PY} s={yasScale(13)} shirt={YAS_SHIRT} belly={0.3} legL={wk.legL} legR={wk.legR} armL={wk.armL} armR={[12, 0]} mouth="grin">
+          <BagInHand arm={[12, 0]} />
+        </Person>
+      </g>
+      <HandText x={540} y={480} text="2 kişi" size={110} p={tw(f, w(3) - 2, w(4) + 6)} color={YAS_OK} rotate={-3} />
+    </>
+  );
+};
+
+// B7 "Ve bu sefer soruyu baba soruyor: “Yarın da gelir misin?”"
+// Salon dönüşü kapının önü; baba oğluna sorar; oğul kollarını kaldırır → açılış (oğulun sorusu).
+const B7Dongu: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const a = pop(f, w(6) - 2, 12);
+  const yay = f >= w(9);
+  return (
+    <>
+      <BdayRoom party={false} door />
+      <Person x={740} y={PY} s={0.95} belly={0.75} shirt={DAD_SHIRT} mouth="grin" armL={[12, 0]} armR={[12, 0]}>
+        <Mustache />
+        <BagInHand arm={[12, 0]} />
+      </Person>
+      <Person x={280} y={PY} s={yasScale(13)} shirt={YAS_SHIRT} belly={0.3} armL={yay ? ARMS_UP : [12, 0]} armR={yay ? ARMS_UP : [12, 0]} mouth={yay ? "grin" : "smile"} />
+      <SayBubble x={640} y={420} p={a} text="Yarın da gelir misin?" size={54} tail={[730, PY - 0.95 * 790]} />
+    </>
+  );
+};
+
+// Masa (önden): üstü + ön paneli (arkadaki karakterin bacaklarını örter), lamba
+const Desk: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={180} y={1060} width={720} height={30} rx={8} fill="#8a5c35" strokeWidth={7} />
+    <rect x={210} y={1090} width={660} height={PY - 1090} fill="#a8744a" strokeWidth={7} />
+    <path d="M800 1060 L800 900 L740 840" stroke={C.ink} strokeWidth={10} fill="none" />
+    <path d="M700 820 L790 800 L770 870 Z" fill={C.yellow} strokeWidth={6} />
+  </g>
+);
+// Çerçeveli fotoğraf: on üç yaşındaki avatar
+const KidPhoto: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p}) rotate(-6)`}>
+      <rect x={-80} y={-100} width={160} height={190} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+      <Person x={0} y={70} s={0.18} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth="grin" />
+      <text x={0} y={-60} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={36} fill={C.red}>
+        13
+      </text>
+    </g>
+  ) : null;
+
+// C1 "On üç yaşındaki kendine tek bir cümle yazabilsen, ne yazardın?"
+// Avatar (yetişkin) masada mektup yazar; masada on üç yaşındaki hâlinin fotoğrafı; "?".
+const C1Mektup: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const pen = Math.sin(f / 3) * 6;
+  return (
+    <>
+      <BdayRoom party={false} />
+      <Person x={540} y={PY} s={yasScale(18)} shirt={YAS_SHIRT} belly={0.3} armL={[24, -30]} armR={[30 + pen, -60]} mouth="smile" lookY={14} />
+      <Desk />
+      <rect x={500} y={1036} width={160} height={30} fill={C.cream} stroke={C.ink} strokeWidth={5} transform="skewX(-20)" />
+      <KidPhoto x={320} y={970} p={pop(f, w(2) - 2, 12)} />
+      <HandText x={540} y={360} text="13 yaşındaki bana" size={84} p={tw(f, w(2), w(6) + 6)} color={C.red} rotate={-3} />
+      <HandText x={860} y={560} text="?" size={200} p={pop(f, w(9) - 2, 12)} color={C.red} rotate={8} />
+    </>
+  );
+};
+
+// Büyük mektup kâğıdı
+const BigLetter: React.FC<{ p?: number; fold?: number; children?: React.ReactNode }> = ({ p = 1, fold = 0, children }) => (
+  <g transform={`translate(540 760) scale(${p} ${p * (1 - 0.85 * fold)}) translate(-540 -760)`}>
+    <rect x={160} y={260} width={760} height={1000} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+    {Array.from({ length: 12 }, (_, i) => (
+      <path key={i} d={`M220 ${380 + i * 72} L860 ${380 + i * 72}`} stroke="#c9d6e0" strokeWidth={4} />
+    ))}
+    {children}
+  </g>
+);
+
+// C2 "Ben şunu yazardım: “Beklemene gerek yok.”"
+const C2Cumle: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  return (
+    <>
+      <BigLetter p={pop(f, 0, 14)}>
+        <HandText x={230} y={360} text="13 yaşındaki bana," size={60} p={tw(f, 4, w(2))} anchor="start" rotate={0} />
+        <HandText x={540} y={680} text="Beklemene" size={130} p={tw(f, w(3) - 2, w(4))} rotate={-3} />
+        <HandText x={540} y={850} text="gerek yok." size={130} p={tw(f, w(4), w(5) + 10)} color={C.red} rotate={-3} />
+      </BigLetter>
+      <Person x={930} y={PY + 60} s={0.5} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[40, -60]} mouth="smile" />
+    </>
+  );
+};
+
+// C3 "Çünkü o yaşta hep aynı şeyi duydum: “Spor için daha küçüksün.” Ve on yıl bekledim."
+// Sepya anı karesi: on üç yaşında avatar spor çantasıyla; büyükler "Spor için daha küçüksün."; takvim yaprakları uçar, yaş 13 → 23.
+const C3Gecmis: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const yr = tw(f, w(11) - 2, w(14) + 8);
+  const age = Math.round(lerp(13, 23, yr));
+  return (
+    <>
+      <BdayRoom party={false} />
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#c9a06c" opacity={0.28} />
+      <Person x={830} y={PY} s={0.9} belly={0.55} shirt="#8c8c94" mouth="flat" armL={[12, 0]} armR={[40, -40]} />
+      <Person x={330} y={PY} s={yasScale(13)} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth={f >= w(9) ? "worry" : "smile"}>
+        <BagInHand arm={[12, 0]} dust={yr} />
+      </Person>
+      <SayBubble x={640} y={480} p={pop(f, w(7) - 2, 12) * (1 - tw(f, w(11) - 6, w(11)))} text="Spor için daha küçüksün." size={46} tail={[800, PY - 0.9 * 780]} />
+      {yr > 0 ? <FlyingPages start={w(11) - 2} end={w(14) + 4} y={470} /> : null}
+      {yr > 0 ? <AgeTag x={540} y={470} text={`${age}`} p={pop(f, w(11) - 2, 10)} size={240} color={C.red} /> : null}
+      <rect x={30} y={180} width={1020} height={PY - 120} rx={20} fill="none" stroke={C.ink} strokeWidth={8} strokeDasharray="30 18" opacity={0.6} />
+    </>
+  );
+};
+
+// C4 "Oysa Amerikan çocuk doktorları iki bin yirmide yazdı: spora başlamanın belli bir yaşı yok."
+const C4Rapor: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  return (
+    <>
+      <BdayRoom party={false} />
+      <Person x={540} y={PY} s={yasScale(18)} shirt={YAS_SHIRT} belly={0.3} armL={[24, -30]} armR={[30, -60]} mouth="flat" lookY={14} />
+      <Desk />
+      <rect x={-200} y={-200} width={1480} height={2400} fill={C.paper} opacity={0.7} />
+      <Rapor2020 x={540} y={800} p={pop(f, 0, 14)} line={tw(f, w(8) - 2, w(11) + 4)} stamp={pop(f, w(13) - 2, 10)} />
+    </>
+  );
+};
+
+// C5 "Küçükken oyunla başlanır, büyüdükçe yük yavaş yavaş artar."
+// Mektuba eklenen not: top (oyun) → hafif dambıl → daha ağır, "yavaş yavaş".
+const C5Not: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const rows = [
+    { t: w(1) - 2, icon: <Ball x={0} y={0} r={46} />, text: "önce oyun" },
+    { t: w(4) - 2, icon: <Dumbbell x={0} y={0} s={0.4} />, text: "sonra hafif" },
+    { t: w(6) - 2, icon: <Dumbbell x={0} y={0} s={0.55} />, text: "yavaş yavaş" },
+  ];
+  return (
+    <>
+      <BigLetter>
+        <HandText x={230} y={360} text="13 yaşındaki bana," size={60} p={1} anchor="start" rotate={0} />
+        <HandText x={540} y={500} text="Beklemene gerek yok." size={70} p={1} color={C.red} rotate={-3} />
+        <HandText x={230} y={640} text="Not:" size={70} p={pop(f, 0, 10)} anchor="start" rotate={0} />
+        {rows.map((r, i) =>
+          f >= r.t ? (
+            <g key={i} transform={`translate(330 ${760 + i * 160}) scale(${pop(f, r.t, 10)})`}>
+              {r.icon}
+              <text x={110} y={18} fontFamily={handFamily} fontWeight={700} fontSize={64} fill={YAS_OK}>
+                {r.text}
+              </text>
+            </g>
+          ) : null,
+        )}
+      </BigLetter>
+    </>
+  );
+};
+
+// Zarf: üstünde adres
+const Envelope: React.FC<{ x: number; y: number; p: number; s?: number; rot?: number }> = ({ x, y, p, s = 1, rot = 0 }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${p * s})`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-300} y={-180} width={600} height={360} rx={14} fill="#f3e3c3" strokeWidth={8} />
+      <path d="M-300 -180 L0 40 L300 -180" fill="none" strokeWidth={7} />
+      <text x={0} y={130} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={52} fill={C.ink} stroke="none">
+        13 yaşındaki bana
+      </text>
+    </g>
+  ) : null;
+
+// C6 "Mektubu katlayıp zarfa koyuyorum. Ama o zarf hiçbir zaman ulaşmayacak."
+// Mektup katlanır, zarf belirir; "ulaşmayacak"ta kırmızı "ADRES BULUNAMADI" damgası.
+const C6Zarf: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const fold = tw(f, w(1) - 4, w(2) + 4);
+  const env = pop(f, w(2) + 2, 12);
+  const stamp = pop(f, w(9) - 2, 10);
+  return (
+    <>
+      {fold < 1 ? <BigLetter p={1 - 0.6 * fold} fold={fold} /> : null}
+      <Envelope x={540} y={760} p={env} />
+      {stamp > 0 ? (
+        <g transform={`translate(560 720) rotate(-14) scale(${stamp})`}>
+          <rect x={-300} y={-80} width={600} height={140} rx={14} fill="none" stroke={C.red} strokeWidth={12} />
+          <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.red}>
+            ADRES BULUNAMADI
+          </text>
+        </g>
+      ) : null}
+      <Person x={930} y={PY + 60} s={0.5} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth={stamp > 0 ? "worry" : "smile"} />
+    </>
+  );
+};
+
+// C7 "O yüzden bu videoyu, on üç yaşında birine gönder."
+// Avatar zarfı kâğıt uçağa çevirir, "gönder"de fırlatır; uçak ekrandan çıkar → açılış (masada mektup).
+const C7Gonder: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const plane = tw(f, w(2) - 4, w(4));
+  const fly = tw(f, w(8) - 2, d - 4);
+  const s = yasScale(18);
+  const hand = armPoints(1, fly > 0 ? [150, 0] : [60, -60])[2];
+  const hx = 540 + hand[0] * s;
+  const hy = PY + hand[1] * s;
+  const px = lerp(hx, 1250, fly);
+  const py = lerp(hy, 150, fly) - Math.sin(fly * Math.PI) * 120;
+  return (
+    <>
+      <BdayRoom party={false} />
+      <Person x={540} y={PY} s={s} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={fly > 0 ? [150, 0] : [60, -60]} mouth="grin" lookY={-8} />
+      {plane < 1 ? <Envelope x={hx} y={hy} p={1 - plane} s={0.3} rot={-10} /> : null}
+      {plane > 0 ? (
+        <g transform={`translate(${px} ${py}) rotate(${-20 + fly * -10}) scale(${plane * 1.4})`}>
+          <path d="M-70 10 L80 -30 L-20 40 Z" fill={C.cream} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+          <path d="M-20 40 L80 -30 L-10 10 Z" fill="#e6d6b4" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      <HandText x={540} y={360} text="13 yaşında birine" size={84} p={tw(f, w(4) - 2, w(7) + 6)} color={C.red} rotate={-3} />
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "a-istek": A1Istek,
+  "a-bekle": A2Bekle,
+  "a-salon": A3Salon,
+  "a-rapor": A4Rapor,
+  "a-yollar": A5Yollar,
+  "a-cumle": A6Cumle,
+  "a-soru": A7Soru,
+  "b-soru": B1Soru,
+  "b-baba": B2Baba,
+  "b-ikisi": B3Ikisi,
+  "b-rapor": B4Rapor,
+  "b-program": B5Program,
+  "b-sabah": B6Sabah,
+  "b-dongu": B7Dongu,
+  "c-mektup": C1Mektup,
+  "c-cumle": C2Cumle,
+  "c-gecmis": C3Gecmis,
+  "c-rapor": C4Rapor,
+  "c-not": C5Not,
+  "c-zarf": C6Zarf,
+  "c-gonder": C7Gonder,
   "yas7-soru": Y7Soru,
   "yas7-pasta": Y7Pasta,
   "yas7-korku": Y7Korku,

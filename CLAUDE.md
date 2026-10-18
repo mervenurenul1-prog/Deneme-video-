@@ -67,6 +67,17 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
   müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
 **>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+- **07 v8 — ÜÇ SEÇENEK (18 Ekim):** v7 (bildirim + pasta) için CEFF: "konu güzel, hikâye akmıyor" (sahneler arası
+  atlama, tek kahraman/zaman çizgisi yok). **DERS: tek kahraman, tek zaman çizgisi, her cümle bir öncekinin sonucu.**
+  Kullanıcı "farklı akan 3 video hazırla, ben seçeyim" dedi → üç sessiz önizleme (seslendirilmedi):
+  `cizim1-07-yas-a` "Önce biraz büyü" (13'te "önce biraz büyü" denir, 14-15-16 bekler, 18'de salonda 13'ünde başlamış
+  biri "5 yıl" → rapor → iki yaş şeridi → "seni bekleten o cümleydi" → "13 yaşında biri sorarsa ne diyeceksin?"; 45 sn),
+  `cizim1-07-yas-b` baba-oğul ("Ben de gelebilir miyim?" / "Sen daha küçüksün" → baba da 45'inde yeni başlamış →
+  "biri çok erken öteki çok geç" → rapor → aynı salon farklı program → ertesi sabah iki kişi → baba sorar "Yarın da
+  gelir misin?"; 37 sn), `cizim1-07-yas-c` mektup (13 yaşındaki kendine tek cümle: "Beklemene gerek yok" → "daha
+  küçüksün" denip 10 yıl beklemiş → rapor → not → zarf "ADRES BULUNAMADI" → "bu videoyu 13 yaşında birine gönder";
+  33 sn). Videolar `ornek-videolar/cizim1-pilot/07-yas-{a,b,c}-sessiz.mp4`. Kullanıcı seçecek → seçilen seslendirilir.
+  Bileşenler `a-*`, `b-*`, `c-*` (+ `SportBag`, `SayBubble`, `Mustache`, `GymBg`, `Rapor2020`, `BigLetter`, `Envelope`).
 - **07 v7 (`cizim1-07-yas`, 18 Ekim):** kullanıcı "hareket göstermek değil konumuz" dedi; üç kuşak (B) fikri reddedildi.
   Gelen kutusu + pasta harmanı, kullanıcının fikriyle 13. yaş günü: bildirimler ("13 erken mi? 16'yı mı bekleyeyim?") →
   13. yaş günü, mum üflerken aklına salon gelir "Bugün mü başlasam?" → dev halter/iri adamlar, "Ben daha küçüğüm", her yıl
