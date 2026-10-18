@@ -9289,7 +9289,7 @@ const PAPAKHA_EDGE: [number, number][] = [
 // Kaslı dövüşçü: çıplak gövde (göğüs/karın hatları, geniş omuz), kalın kollar, siyah MMA şortu, gür sakal ve
 // başında gri kuzu postu şapka (papakha). Gerçek kişi birebir çizilmez; şapka tanınmayı sağlar.
 const Fighter: React.FC<{ x: number; y: number; s: number; armL?: Arm; armR?: Arm; gloves?: boolean; shirt?: string; mouth?: Mouth; eyes?: Eyes; blush?: number; lookY?: number; tilt?: number; legL?: Leg; legR?: Leg; hat?: boolean; shorts?: string }> = ({ x, y, s, armL = [12, 0], armR = [12, 0], legL = {}, legR = {}, gloves = false, hat = true, shorts = "#1e1e24", shirt = C.skin, mouth = "flat", eyes = "open", blush = 0.4, lookY = 0, tilt = 0 }) => (
-  <Person x={x} y={y} s={s} belly={0} shirt={shirt} shorts={shorts} limbW={1.35} armL={armL} armR={armR} legL={legL} legR={legR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
+  <Person x={x} y={y} s={s} belly={0} shirt={shirt} shorts={shorts} limbW={1.35} armL={armL} armR={armR} legL={legL} legR={legR} mouth={mouth === "open" || mouth === "o" ? "flat" : mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
     {shirt === C.skin ? (
       <g stroke={C.ink} fill="none" strokeLinecap="round" strokeWidth={5} opacity={0.7}>
         <path d="M-138 -582 Q-110 -618 -40 -606 L40 -606 Q110 -618 138 -582 Q128 -536 96 -520 L-96 -520 Q-128 -536 -138 -582 Z" fill={C.skin} strokeWidth={7} />
@@ -9305,6 +9305,8 @@ const Fighter: React.FC<{ x: number; y: number; s: number; armL?: Arm; armR?: Ar
         <>
       <path d="M-82 -706 C-88 -626 -42 -590 0 -588 C42 -590 88 -626 82 -706 C72 -660 40 -640 0 -640 C-40 -640 -72 -660 -82 -706 Z" fill={C.hair} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
       <path d="M-28 -671 Q0 -684 28 -671 Q0 -662 -28 -671 Z" fill={C.hair} stroke={C.ink} strokeWidth={4} />
+      {/* nefes nefese ağız: sakalın içinde küçük koyu aralık (kırmızı leke gibi durmasın) */}
+      {mouth === "open" || mouth === "o" ? <ellipse cx={0} cy={-654} rx={mouth === "open" ? 15 : 10} ry={mouth === "open" ? 9 : 7} fill="#2a1712" /> : null}
       {/* papakha: kenarı kabarık yün (çevre boyunca yuvarlaklar, içi düz dolgu) */}
       {PAPAKHA_EDGE.map(([cx, cy], i) => (
         <circle key={i} cx={cx} cy={cy} r={24} fill="#a7a49e" stroke={C.ink} strokeWidth={6} />
