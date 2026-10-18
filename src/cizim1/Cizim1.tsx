@@ -435,6 +435,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "yas-terazi": (w) => [[w(3), "tak", 0.3], [w(6) - 2, "cizik", 0.3], [w(7) - 2, "whoosh", 0.25], [w(8), "ding", 0.35]],
   "yas-guvenlik": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 4, "adim", 0.25], [w(9) - 48, "pop", 0.25], [w(9) - 16, "agir-dusme", 0.3], [w(9) - 14, "ah", 0.9]],
   "yas-bugun": (w) => [[w(2) - 2, "pop", 0.3], [w(5) - 2, "pirilti", 0.35]],
+  "y9k-kapi": (w) => [[w(0), "pop", 0.25], [w(4) - 2, "zincir", 0.4], [w(5) - 2, "pop", 0.3]],
+  "y9k-hobi": (w) => [[w(0) - 2, "pop", 0.25], [w(3) - 4, "whoosh", 0.25], [w(4) - 2, "pop", 0.25], [w(6) - 4, "whoosh", 0.25], [w(8) - 2, "pop", 0.25], [w(10) - 4, "whoosh", 0.25], [w(12) - 2, "pop", 0.25], [w(15) - 4, "whoosh", 0.25]],
   "y9-soru": (w) => [[2, "bip", 0.3], [w(11) - 2, "ding", 0.3], [w(15) - 4, "whoosh", 0.3], [w(15) + 6, "agir-dusme", 0.25]],
   "y9-kapi": (w) => [[w(0), "pop", 0.25], [w(7) - 2, "cizik", 0.25], [w(9) - 2, "zincir", 0.4], [w(10) - 2, "pop", 0.3]],
   "y9-degisim": (w) => [[w(3) - 2, "adim", 0.25], [w(5), "zincir", 0.4], [w(5) + 10, "agir-dusme", 0.3], [w(9) - 2, "yuksel", 0.3], [w(10) - 2, "ding", 0.3]],
@@ -10747,7 +10749,76 @@ const Y9Yorum: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+// 07 v9 kısa sürüm (karşılaştırma için): tarihçe tek cümle, hobiler kısa
+// "Doktorlar çocuk güçlenemez sanıyordu; çocuklar salonun kapısında bekletildi."
+// Sepya (eskiden) salon; doktorun düşünce balonu: "çocuk güçlenemez"; sonra kapıya ip, "ÇOCUKLAR GİREMEZ";
+// avatar elinde çantayla kapıda bekler, içeride büyükler çalışır.
+const Y9KapiK: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bub = pop(f, w(0), 12) * (1 - tw(f, w(4) - 6, w(4)));
+  const shut = tw(f, w(4) - 2, w(5) + 6);
+  return (
+    <>
+      <GymBg />
+      <GymAdults f={f} />
+      <GymDoor />
+      <Person x={240} y={PY} s={KID_S} shirt={YAS_SHIRT} belly={0.3} armL={[12, 0]} armR={[12, 0]} mouth={shut > 0.5 ? "worry" : "smile"} lookY={-4}>
+        <BagInHand arm={[12, 0]} />
+      </Person>
+      <DoorRope p={shut} />
+      <NoKidsSign p={pop(f, w(5) - 2, 12)} />
+      {shut < 1 ? <Doctor x={lerp(1250, 600, tw(f, 0, 14))} y={PY} s={0.88} mouth="flat" arm={[40, -60]} /> : null}
+      <Bubble x={560} y={460} rx={360} ry={190} p={bub} tail={[600, PY - 0.88 * 820]}>
+        <text x={560} y={480} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.red} opacity={tw(f, w(1) - 2, w(2) + 4)}>
+          çocuk güçlenemez
+        </text>
+      </Bubble>
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#a77d4a" opacity={0.22} />
+      <HandText x={180} y={250} text="eskiden" size={90} p={tw(f, 0, 12)} rotate={-4} />
+    </>
+  );
+};
+
+// "Müzik mi seviyorsun? Dans. Arkadaşlarını mı? Basketbol, voleybol. Doğayı mı? Bisiklet, koşu. Rekor kırmayı mı? Koçla ağırlık."
+// 2x2 kart: her soruda hobi simgesi belirir, cevap kelimesinde kart döner ve sporun simgesi + adı çıkar.
+const Y9HobiK: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const cards: { k: HobbyKind; a: number; b: number; hobby: string; sport: string }[] = [
+    { k: "muzik", a: w(0) - 2, b: w(3) - 4, hobby: "müzik", sport: "dans" },
+    { k: "arkadas", a: w(4) - 2, b: w(6) - 4, hobby: "arkadaşlar", sport: "basketbol · voleybol" },
+    { k: "doga", a: w(8) - 2, b: w(10) - 4, hobby: "doğa", sport: "bisiklet · koşu" },
+    { k: "rekor", a: w(12) - 2, b: w(15) - 4, hobby: "rekor", sport: "koçla ağırlık" },
+  ];
+  return (
+    <>
+      <rect x={-200} y={PY} width={1480} height={800} fill="#d9c6a0" opacity={0.55} />
+      <path d={`M-200 ${PY} L1280 ${PY}`} stroke={C.ink} strokeWidth={6} />
+      {cards.map((c, i) => {
+        const p = pop(f, c.a, 12);
+        if (p <= 0) return null;
+        const flip = tw(f, c.b, c.b + 10);
+        const sx = Math.abs(Math.cos(Math.PI * flip));
+        const back = flip >= 0.5;
+        const x = i % 2 ? 790 : 290;
+        const y = i < 2 ? 470 : 930;
+        return (
+          <g key={c.k} transform={`translate(${x} ${y}) scale(${p * sx} ${p})`}>
+            <rect x={-220} y={-190} width={440} height={380} rx={26} fill={back ? "#e3ecf5" : C.cream} stroke={back ? YAS_OK : C.ink} strokeWidth={back ? 10 : 8} />
+            <g transform="translate(0 -30)">{back ? <SportIcon2 k={c.k} /> : <HobbyIcon k={c.k} />}</g>
+            <text x={0} y={140} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={back && c.sport.length > 12 ? 46 : 60} fill={back ? YAS_OK : C.ink}>
+              {back ? c.sport : c.hobby}
+            </text>
+          </g>
+        );
+      })}
+      <Person x={540} y={PY + 40} s={0.32} shirt={YAS_SHIRT} belly={0.3} armL={ARMS_UP} armR={ARMS_UP} mouth="grin" />
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "y9k-kapi": Y9KapiK,
+  "y9k-hobi": Y9HobiK,
   "y9-soru": Y9Soru,
   "y9-kapi": Y9Kapi,
   "y9-degisim": Y9Degisim,
