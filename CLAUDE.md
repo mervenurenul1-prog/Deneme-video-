@@ -27,6 +27,7 @@ Kullanıcı kendi sesini yeniden klonlatacak; klon **Yunus'un yerine değil, vid
 için** kullanılacak. Okuma metni `notlar/ses-klon-metni.md`. Eski tek örnekli klon: "VOOM Kullanıcı (kendi sesi)"
 `MalkCL6Ms3mHRGDVY6vZ`. Plan Starter: yalnız Anında Klon (IVC). Kayıt gelince: `POST /v1/voices/add` (multipart) →
 Yunus'la aynı cümlenin yan yana denemesi. Kalan kredi ≈ 13.370 (19 Ekim gece).
+**YENİ KLON KURULDU (19 Ekim gece):** "VOOM - kendi sesim (kadın karakterler)" `x98shFqnDG0A3Ve4CtFL` (2 dk kayıt, sessizlikler kısaltıldı, gürültü azaltıldı). Deneme: `ses-ornekleri/kullanici-sesi/klon2-v4.mp3`, `klon2-multilingual.mp3` → kullanıcı model seçecek.
 
 ## >>> 10 SELÜLİT C (`cizim1-10-selulit-c`, 19 Ekim gece — EN GÜNCEL) <<<
 CEFF/ekip eski selülit hikâyesini BEĞENMEDİ ("hikâyeyi geliştirmek lazım"). Kullanıcı C'yi seçti + "güzellik algısına bağla,
