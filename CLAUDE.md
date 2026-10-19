@@ -98,6 +98,12 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   1 Gözde `rtnDjO8siSxeTEeTVczO`, 2 Zeynep `ZaoBgxgzPhoCm533Pb7B`, 3 Damla `A2XgcJ6lQVEFeIaIUyrc`, 4 Elif Özder
   `i50A6Mcx7A7vVwCVZVeZ`, 5 İrem `R0D8QjgVyRju4HRoCrIC`, 6 Aslı `HZh2tWL1clJO95e2qMt2`. **SEÇİLDİ: 6 Aslı `HZh2tWL1clJO95e2qMt2` (kitaplıkta "VOOM genc-kadin-asli") = genç kadın sesi.** Ekleme:
   (`POST /v1/voices/add/{public_owner_id}/{voice_id}`) → JSON'da kadın sahnelerinin `voiceId`'si. Kalan kredi ≈ 13.617.
+- **09 KİLO v5 (EN GÜNCEL, 19 Ekim): "Hangimiz daha önce kilo verecek?"** (`cizim1-09-kilo-hangimiz`, kullanıcı: "hook
+  bu olsun, iddia güzel ama cezayı/kaybetme anını görelim"; metin onaylandı "yap önizleme"). Kadın (Aslı) soruyu sorar →
+  avatar "Kaybeden bir ay bulaşık yıkar!" (buzdolabı notu + kulpta eldiven) → tartı −5/−1, eldivenler uçup kadının eline
+  geçer → lavaboda tabak kulesi + "Sence neden?" → "Hayır. O sadece senden daha iri." (beden kutuları) → laboratuvar 2003 →
+  kasın içinde fırın mercekleri (667/439) → eşit kalori 600/600, damga düşer → avatar "Yani… bulaşık bende mi?" → `bul-son`.
+  Sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-hangimiz-sessiz.mp4` → onay → seslendirme (Yunus + Aslı).
 - **!!! HİKÂYE FORMÜLÜ (kullanıcı, 19 Ekim — HER VİDEODA):** 1) önce insanların YARISINA DOKUN (yaygın, "tam ben"
   dert); 2) sonra SEBEBİNİ ONLARA SOR ("Sence neden?"); 3) sonra AÇIKLA (kısa, basit cevap); 4) sonra TARİHÇESİ + VÜCUTTAKİ
   YERİNİ GÖSTER (gerekirse hücre, gerekirse kasın içi); 5) en sonunda toplam hikâyeyi BAĞLA. BASİT tut.
