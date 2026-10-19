@@ -113,7 +113,11 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   "daha dün başladı" ("2. gün", o/sen büyüteç) → iç ses → `sel-haklisin` "Haklısın. Sorun derinin altında." (uyluğa dalış) →
   kesit "ipler" (bağ dokusu) → erkek çapraz → 8-9/10 → "Peki bu kusur fikri nereden çıktı? 1968 moda dergisi" → 29 kadın →
   "Selülit tembellik değil, yapı. Peki sana bunun kusur olduğunu ilk kim söyledi?" → kamera telefona dalar = reklam (döngü).
-  KURAL: soru sorulunca cevap hemen gelsin; tarihçe mekanizmadan SONRA (ters köşe); "bant" yerine anlaşılır "ip". `KiloStamp` artık `text/x/y/half` alıyor.
+  KURAL: soru sorulunca cevap hemen gelsin; tarihçe mekanizmadan SONRA (ters köşe); "bant" yerine anlaşılır "ip".
+  **v4 (kullanıcı: "reklamı gören kaçar, televizyonda göreni yap"):** telefon/"Sponsorlu" tam ekran reklam KALKTI → reklam
+  duvardaki TELEVİZYONDA (`AdTV` 1600×900, "REKLAM" etiketi + kanal logosu + küçük yazı; `TVAd`, `TVZoom`). İlk kare: TV yakın
+  plan, önünde kadının başı (TV izleyen biri); kapanışta kamera TV'ye yaklaşır = açılış (döngü). DERS: video asla gerçek bir
+  Instagram reklamı gibi açılmasın (izleyici kaydırır); reklam bir sahnenin İÇİNDE görünsün. `KiloStamp` artık `text/x/y/half` alıyor.
 
 **>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
 - **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →

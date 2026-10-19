@@ -11632,8 +11632,8 @@ const KiloSon2: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 /* ---------- 10 selülit (kadın konusu 6): sahte reklam + "dün başlayan" avatar ---------- */
-// Video parlak bir krem reklamıyla açılır; kamera geri çekilir: reklam, ayna karşısında dambılla squat yapan kadının
-// yerdeki telefonunda oynuyordur. Avatar (erkek) yan karakter, dün başladı ama bacağı pürüzsüz. Sebep deri altındaki
+// Video duvardaki televizyonda oynayan parlak bir krem reklamıyla açılır; kamera geri çekilir: kadın televizyonun önünde,
+// ayna karşısında dambılla squat yapıyordur. Avatar (erkek) yan karakter, dün başladı ama bacağı pürüzsüz. Sebep deri altındaki
 // bağ dokusu; "KUSUR" damgası 1968 dergisinde iner, sonda düşer; kamera yine telefondaki reklama dalar (döngü).
 
 const SEL_FL = 1330; // zemin
@@ -11745,7 +11745,7 @@ const SelScene: React.FC<{ wo?: SelWoProps; reflDimples?: number; shine?: number
       <SelWoman {...wo} legGlow={0} x={SEL_RF.x} y={SEL_RF.y} s={SEL_RF.s} back dimples={reflDimples} mouth="smile" />
       {mirrorExtra}
     </SelMirror>
-    <PhoneAd adF={adF} glitch={glitch} />
+    <TVAd adF={adF} glitch={glitch} />
     {avatar}
     <SelWoman {...wo} />
   </>
@@ -12035,14 +12035,14 @@ const MiniW: React.FC<{ x: number; y: number; s: number; c: string; badge?: numb
   </g>
 );
 
-// Sahte krem reklamı (dikey video gibi, 1080×1920): pembe zemin, dönen ışınlar, parlayan bacak, krem kavanozu, "%50".
-// hi: söylenen kelimede başlık satırlarının vurgusu; glitch: reklam cızırdayıp kesilir. Gerçek bir marka değil.
-const AdScreen: React.FC<{ f: number; hi?: [number, number, number, number]; glitch?: number }> = ({ f, hi = [0, 0, 0, 0], glitch = 0 }) => {
+// Sahte krem reklamı, televizyonda (yatay, 1600×900): pembe zemin, dönen ışınlar, parlayan bacak, krem kavanozu, "%50",
+// köşede "REKLAM" ve kanal logosu, altta küçük yazı. hi: söylenen kelimede vurgu; glitch: yayın parazitlenir. Gerçek bir marka değil.
+const AdTV: React.FC<{ f: number; hi?: [number, number, number, number]; glitch?: number }> = ({ f, hi = [0, 0, 0, 0], glitch = 0 }) => {
   const id = svgId(useId());
-  const jx = glitch > 0 ? Math.sin(f * 7.3) * 40 * glitch : 0;
+  const jx = glitch > 0 ? Math.sin(f * 7.3) * 34 * glitch : 0;
   const line = (text: string, y: number, size: number, color: string, k: number) => (
-    <g transform={`translate(540 ${y}) scale(${1 + 0.18 * k}) translate(-540 ${-y})`}>
-      <text x={540} y={y} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={size} fill={color} stroke={C.ink} strokeWidth={10} paintOrder="stroke fill" letterSpacing={2}>
+    <g transform={`translate(660 ${y}) scale(${1 + 0.18 * k}) translate(-660 ${-y})`}>
+      <text x={660} y={y} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={size} fill={color} stroke={C.ink} strokeWidth={10} paintOrder="stroke fill" letterSpacing={2}>
         {text}
       </text>
     </g>
@@ -12051,41 +12051,45 @@ const AdScreen: React.FC<{ f: number; hi?: [number, number, number, number]; gli
     <g>
       <defs>
         <clipPath id={`ad${id}`}>
-          <rect x={0} y={0} width={1080} height={1920} />
+          <rect x={0} y={0} width={1600} height={900} />
         </clipPath>
-        <linearGradient id={`adg${id}`} x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={`adg${id}`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#ff4f9a" />
           <stop offset="100%" stopColor="#ffb25c" />
         </linearGradient>
       </defs>
       <g clipPath={`url(#ad${id})`}>
         <g transform={`translate(${jx} 0)`}>
-          <rect x={-60} y={0} width={1200} height={1920} fill={`url(#adg${id})`} />
+          <rect x={-60} y={0} width={1720} height={900} fill={`url(#adg${id})`} />
           {Array.from({ length: 12 }, (_, i) => (
-            <path key={i} d="M540 1000 L-400 -600 L200 -900 Z" fill="#fff" opacity={0.12} transform={`rotate(${i * 30 + f * 0.8} 540 1000)`} />
+            <path key={i} d="M800 450 L-300 -700 L400 -900 Z" fill="#fff" opacity={0.12} transform={`rotate(${i * 30 + f * 0.8} 800 450)`} />
           ))}
-          <rect x={60} y={230} width={250} height={64} rx={32} fill="#fff" opacity={0.85} />
-          <text x={185} y={274} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={34} fill={C.ink}>
-            Sponsorlu
+          <rect x={40} y={36} width={190} height={56} rx={10} fill={C.red} />
+          <text x={135} y={77} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={36} fill="#fff" letterSpacing={3}>
+            REKLAM
           </text>
-          {line("7 GÜNDE", 470, 150, "#fff", hi[0])}
-          {line("PÜRÜZSÜZ", 640, 150, C.yellow, hi[1])}
-          {line("BACAKLAR!", 800, 140, "#fff", hi[2])}
-          {/* parlayan bacak (yandan: uyluk, diz, baldır, sivri ayak) */}
-          <g stroke={C.ink} strokeLinejoin="round" transform="translate(260 1160) scale(1.05) translate(-250 -1200)">
-            <path d="M196 900 L304 900 C322 1000 316 1100 300 1180 C294 1260 302 1350 300 1428 C332 1448 382 1460 422 1474 C432 1488 424 1500 402 1500 L292 1500 C276 1494 270 1484 272 1470 C262 1420 242 1360 236 1300 C230 1250 238 1210 234 1180 C220 1090 200 1000 196 900 Z" fill={C.skin} strokeWidth={7} />
-            <path d="M282 940 C294 1020 294 1090 286 1150 M290 1220 C292 1300 294 1360 292 1410" stroke="#fff" strokeWidth={10} fill="none" opacity={0.75} strokeLinecap="round" />
+          <circle cx={1530} cy={66} r={36} fill="#fff" opacity={0.85} />
+          <text x={1530} y={80} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={36} fill={C.red}>
+            TV
+          </text>
+          {line("7 GÜNDE", 250, 130, "#fff", hi[0])}
+          {line("PÜRÜZSÜZ", 395, 135, C.yellow, hi[1])}
+          {line("BACAKLAR!", 535, 125, "#fff", hi[2])}
+          {/* parlayan bacak (yandan) */}
+          <g stroke={C.ink} strokeLinejoin="round" transform="translate(40 300) scale(0.85) translate(-196 -900)">
+            <path d="M196 900 L304 900 C322 1000 316 1100 300 1180 C294 1260 302 1350 300 1428 C332 1448 382 1460 422 1474 C432 1488 424 1500 402 1500 L292 1500 C276 1494 270 1484 272 1470 C262 1420 242 1360 236 1300 C230 1250 238 1210 234 1180 C220 1090 200 1000 196 900 Z" fill={C.skin} strokeWidth={8} />
+            <path d="M282 940 C294 1020 294 1090 286 1150 M290 1220 C292 1300 294 1360 292 1410" stroke="#fff" strokeWidth={11} fill="none" opacity={0.75} strokeLinecap="round" />
           </g>
           {[
-            [200, 980, 0],
-            [430, 1060, 9],
-            [250, 1290, 17],
-            [440, 1360, 25],
+            [70, 380, 0],
+            [300, 470, 9],
+            [110, 640, 17],
+            [330, 760, 25],
           ].map(([x, y, o], i) => (
-            <Star key={i} x={x} y={y} r={(26 + 10 * Math.sin((f + o) / 5)) * (0.7 + 0.3 * Math.sin((f + o) / 3))} rot={f * 2} />
+            <Star key={i} x={x} y={y} r={(24 + 9 * Math.sin((f + o) / 5)) * (0.7 + 0.3 * Math.sin((f + o) / 3))} rot={f * 2} />
           ))}
           {/* krem kavanozu */}
-          <g transform={`translate(780 1180) scale(${1 + 0.18 * hi[3]})`} stroke={C.ink} strokeLinejoin="round">
+          <g transform={`translate(1300 610) scale(${0.9 * (1 + 0.18 * hi[3])})`} stroke={C.ink} strokeLinejoin="round">
             <rect x={-150} y={-60} width={300} height={220} rx={40} fill="#ffe1ee" strokeWidth={8} />
             <rect x={-165} y={-120} width={330} height={80} rx={20} fill="#e9b949" strokeWidth={8} />
             <text x={0} y={30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={48} fill={C.red} stroke="none">
@@ -12097,16 +12101,19 @@ const AdScreen: React.FC<{ f: number; hi?: [number, number, number, number]; gli
             <path d="M-120 -40 Q-130 40 -110 120" stroke="#fff" strokeWidth={14} fill="none" opacity={0.7} strokeLinecap="round" />
           </g>
           {/* %50 yıldızı */}
-          <g transform={`translate(860 960) rotate(${f * 1.5}) scale(${1 + 0.06 * Math.sin(f / 3)})`}>
+          <g transform={`translate(1360 270) rotate(${f * 1.5}) scale(${1 + 0.06 * Math.sin(f / 3)})`}>
             <path d={Array.from({ length: 32 }, (_, i) => `${i ? "L" : "M"}${(Math.cos((i * Math.PI) / 16) * (i % 2 ? 92 : 125)).toFixed(1)} ${(Math.sin((i * Math.PI) / 16) * (i % 2 ? 92 : 125)).toFixed(1)}`).join(" ") + " Z"} fill={C.yellow} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
             <text x={0} y={26} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={70} fill={C.red} transform={`rotate(${-f * 1.5})`}>
               %50
             </text>
           </g>
+          <text x={660} y={860} textAnchor="middle" fontFamily={fontFamily} fontWeight={600} fontSize={30} fill="#fff" opacity={0.85}>
+            *Sonuçlar kişiden kişiye değişebilir.
+          </text>
         </g>
         {glitch > 0
-          ? [180, 520, 760, 1100, 1430, 1700].map((y, i) => (
-              <rect key={i} x={((f * 53 + i * 211) % 400) - 200} y={y + ((f * 31 + i * 77) % 90)} width={1400} height={30 + (i % 3) * 22} fill={i % 2 ? "#29e0ff" : "#ff2fd6"} opacity={0.55 * glitch} />
+          ? [80, 230, 400, 560, 720].map((y, i) => (
+              <rect key={i} x={((f * 53 + i * 211) % 400) - 200} y={y + ((f * 31 + i * 77) % 60)} width={2000} height={24 + (i % 3) * 18} fill={i % 2 ? "#29e0ff" : "#ff2fd6"} opacity={0.55 * glitch} />
             ))
           : null}
       </g>
@@ -12114,45 +12121,48 @@ const AdScreen: React.FC<{ f: number; hi?: [number, number, number, number]; gli
   );
 };
 
-// Telefon: yerde, aynaya yaslı; ekranında reklam oynuyor
-const SEL_PH = { x: 478, y: SEL_FL - 158, w: 100, h: 178 };
-const SEL_PC = { x: SEL_PH.x + SEL_PH.w / 2, y: SEL_PH.y + SEL_PH.h / 2 };
-const SEL_S0 = 1080 / SEL_PH.w;
-const PhoneAd: React.FC<{ adF: number; glitch?: number }> = ({ adF, glitch = 0 }) => (
+// Duvardaki televizyon (kadının arkasında, sol üstte); ekranında reklam oynuyor
+const SEL_TV = { x: 80, y: 400, w: 416, h: 234 };
+const SEL_TC = { x: SEL_TV.x + SEL_TV.w / 2, y: SEL_TV.y + SEL_TV.h / 2 };
+const SEL_TS = 1000 / SEL_TV.w; // açılışta ekran genişliği ~1000 px
+const SEL_TP = { x: 540, y: 820 }; // açılışta ekranın merkezi
+const TVAd: React.FC<{ adF: number; glitch?: number }> = ({ adF, glitch = 0 }) => (
   <g>
-    <rect x={SEL_PH.x - 9} y={SEL_PH.y - 16} width={SEL_PH.w + 18} height={SEL_PH.h + 34} rx={16} fill="#22252b" stroke={C.ink} strokeWidth={5} />
-    <g transform={`translate(${SEL_PH.x} ${SEL_PH.y}) scale(${SEL_PH.w / 1080} ${SEL_PH.h / 1920})`}>
-      <AdScreen f={adF} glitch={glitch} />
+    <path d={`M${SEL_TC.x - 60} ${SEL_TV.y + SEL_TV.h + 14} L${SEL_TC.x - 80} ${SEL_TV.y + SEL_TV.h + 40} M${SEL_TC.x + 60} ${SEL_TV.y + SEL_TV.h + 14} L${SEL_TC.x + 80} ${SEL_TV.y + SEL_TV.h + 40}`} stroke={C.ink} strokeWidth={8} strokeLinecap="round" />
+    <rect x={SEL_TV.x - 16} y={SEL_TV.y - 16} width={SEL_TV.w + 32} height={SEL_TV.h + 32} rx={14} fill="#1d1f24" stroke={C.ink} strokeWidth={6} />
+    <g transform={`translate(${SEL_TV.x} ${SEL_TV.y}) scale(${SEL_TV.w / 1600})`}>
+      <AdTV f={adF} glitch={glitch} />
     </g>
+    <circle cx={SEL_TV.x + SEL_TV.w + 4} cy={SEL_TV.y + SEL_TV.h + 8} r={3} fill="#ff4b3a" />
   </g>
 );
-// e = 0: telefon ekranı tam ekran (reklam), e = 1: normal oda. Telefon ekranda düz bir yolda küçülür.
-const PhoneZoom: React.FC<{ e: number; children: React.ReactNode }> = ({ e, children }) => {
-  const s = Math.pow(SEL_S0, 1 - e);
-  const px = lerp(540, SEL_PC.x, e);
-  const py = lerp(960, SEL_PC.y, e);
-  const cx = SEL_PC.x - (px - 540) / s;
-  const cy = SEL_PC.y - (py - 960) / s;
+// e = 0: kamera televizyona yakın (reklam ekranı kaplar), e = 1: normal oda
+const TVZoom: React.FC<{ e: number; children: React.ReactNode }> = ({ e, children }) => {
+  const s = Math.pow(SEL_TS, 1 - e);
+  const px = lerp(SEL_TP.x, SEL_TC.x, e);
+  const py = lerp(SEL_TP.y, SEL_TC.y, e);
+  const cx = SEL_TC.x - (px - 540) / s;
+  const cy = SEL_TC.y - (py - 960) / s;
   return <g transform={`translate(540 960) scale(${s}) translate(${-cx} ${-cy})`}>{children}</g>;
 };
 
 // 1) (reklam sesi) "Yedi günde pürüzsüz bacaklar! Mucize krem!"
-// Tam ekran parlak reklam; her kelimede başlık satırı zıplar; "krem"den sonra cızırt ve kamera geri çekilir:
-// reklam, ayna karşısında squat yapan kadının yerdeki telefonunda oynuyordu.
+// İlk kare: duvardaki televizyona yakın plan, ekranda parlak krem reklamı; her kelimede başlık satırı zıplar;
+// "krem"den sonra yayın parazitlenir, kamera geri çekilir: kadın televizyonun önünde dambılla squat yapıyor.
 const SelReklam: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const hi: [number, number, number, number] = [hit(f, w(0) - 2, 16), hit(f, w(2) - 2, 16), hit(f, w(3) - 2, 16), hit(f, w(4) - 2, 18)];
   const glitch = tw(f, w(5) + 2, w(5) + 6) * (1 - tw(f, w(5) + 14, w(5) + 20));
   const e = tw(f, w(5) + 8, d - 1);
   return (
-    <PhoneZoom e={e}>
+    <TVZoom e={e}>
       <SelScene adF={f} glitch={glitch} wo={{ k: e > 0 ? repK(f) : 0, mouth: "flat" }} />
       {e < 0.02 ? (
-        <g transform={`translate(${SEL_PH.x} ${SEL_PH.y}) scale(${SEL_PH.w / 1080} ${SEL_PH.h / 1920})`}>
-          <AdScreen f={f} hi={hi} glitch={glitch} />
+        <g transform={`translate(${SEL_TV.x} ${SEL_TV.y}) scale(${SEL_TV.w / 1600})`}>
+          <AdTV f={f} hi={hi} glitch={glitch} />
         </g>
       ) : null}
-    </PhoneZoom>
+    </TVZoom>
   );
 };
 
@@ -12444,7 +12454,7 @@ const SelDeney: React.FC<SceneProps> = ({ w, d }) => {
 
 // 11) "Selülit tembellik değil, yapı. Peki sana bunun kusur olduğunu ilk kim söyledi?"
 // Aynaya dönüş: replik kartı; "yapı"da yansımanın üstüne lacivert plan çizgileri, aynadaki "KUSUR" damgası kırılıp düşer;
-// sarı soru kartı (yorum); sonda kamera yerdeki telefona dalar, reklam tam ekran olur (döngü: açılış karesi).
+// sarı soru kartı (yorum); sonda kamera duvardaki televizyona yaklaşır, reklam ekranı kaplar (döngü: açılış karesi).
 const SelSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const back = tw(f, d - 34, d - 22);
@@ -12454,7 +12464,7 @@ const SelSon: React.FC<SceneProps> = ({ w, d }) => {
   const fall = tw(f, w(3), w(3) + 14);
   const dive = tw(f, d - 24, d - 2);
   return (
-    <PhoneZoom e={1 - dive}>
+    <TVZoom e={1 - dive}>
       <CamK k={[[0, 1.06, 540, 900], [w(4), 1.06, 540, 900], [w(5) + 6, 1, 540, 960]]}>
         <SelScene
           adF={0}
@@ -12497,7 +12507,7 @@ const SelSon: React.FC<SceneProps> = ({ w, d }) => {
           </g>
         ) : null}
       </CamK>
-    </PhoneZoom>
+    </TVZoom>
   );
 };
 
