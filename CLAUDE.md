@@ -8,6 +8,13 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## !!! TEMPO VE SES KURALI (kullanıcı, 19 Ekim gece — selülit son hâli beğenildi, ARTIK HEP BÖYLE) !!!
+- **Aralıksız:** JSON `"padding": 0.02`, son sahne `"hold"` ≤ 0.6; sahneler arası boşluk yok.
+- **Dolgu YOK:** `say` metnine "ıı", "eee", "hmm", "şey", "yani" gibi dolgular EKLEME (eski "sohbet dolguları" kuralı iptal).
+  Yalnız noktalama/"..." ve gerekirse [curious] gibi ton etiketi.
+- **Hız:** Yunus sesi seslendirmeden sonra 1.2x hızlandırılır (atempo; manifestte kelime zamanları ve süreler /1.2,
+  `"speed": 1.2`). Hedef süre ~40 sn. Örnek: `cizim1-10-selulit-c` (son video `ornek-videolar/cizim1-pilot/10-selulit.mp4`, 40,5 sn).
+
 ## !!! AVATAR KIYAFETİ (kullanıcı, 19 Ekim) — HER YENİ VİDEODA !!!
 Avatar aynı kalır ama **kıyafeti videonun konusuna göre uyarlanır** (koşu → atlet/şort, salon → tişört/şort/shaker,
 yüzme → bone/gözlük, günlük konu → günlük kıyafet…). Referans görseller (CEFF'in gösterdiği ÖRNEKLER, birebir kopya değil) ve kurallar: `notlar/avatar-kiyafet/OKU.md`.
