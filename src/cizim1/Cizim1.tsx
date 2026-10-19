@@ -597,6 +597,21 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kilo-c3": (w) => [[w(5), "pop", 0.3], [w(6), "kalem", 0.3]],
 };
 
+// 10 mayışma UZUN sürüm: kısa sürüm kelime i → uzun metinde SKU_IDX[i]; efektler kısa sürümden aktarılır
+const SKU_IDX: Record<string, number[]> = {
+  "sku-agirlik": [0, 3, 4, 5, 6, 7, 8],
+  "sku-seker": [1, 2, 3, 4, 5, 6, 7],
+  "sku-soru": [0, 1, 2, 3, 4],
+  "sku-saat": [0, 1, 2, 3, 4, 8, 9, 10, 11, 12, 13],
+  "sku-mide": [0, 1, 4, 5, 6, 7, 8],
+  "sku-tabak": [0, 1, 2, 3, 4, 5, 8, 11, 12, 13, 16],
+  "sku-son": [1, 2, 4, 5, 6, 7, 8, 10, 12, 13, 14, 16],
+};
+for (const [k, m] of Object.entries(SKU_IDX)) {
+  const base = SFX[k.replace("sku-", "sk-")];
+  if (base) SFX[k] = (w, d) => base((i) => w(m[i] ?? i), d);
+}
+
 /* ---------- yardımcılar ---------- */
 
 const ease = Easing.inOut(Easing.cubic);
@@ -13627,7 +13642,25 @@ const SkSon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+
+// 10 mayışma UZUN (~45 sn): aynı sahneler, uzun metnin kelime sırasına göre (kısa sürüm kelime i → uzun sürümde MAP[i])
+const remapW = (C: React.FC<SceneProps>, map: number[]): React.FC<SceneProps> => {
+  const R: React.FC<SceneProps> = ({ w, d }) => <C d={d} w={(i) => w(map[i] ?? i)} />;
+  return R;
+};
+const SKU_MAP: Record<string, React.FC<SceneProps>> = {
+  "sku-agirlik": SkAgirlik,
+  "sku-seker": SkSeker,
+  "sku-soru": SkSoru,
+  "sku-saat": SkSaat,
+  "sku-mide": SkMide,
+  "sku-tabak": SkTabak,
+  "sku-son": SkSon,
+};
+const SKU_SCENES: Record<string, React.FC<SceneProps>> = Object.fromEntries(Object.entries(SKU_MAP).map(([k, c]) => [k, remapW(c, SKU_IDX[k])]));
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  ...SKU_SCENES,
   "sk-agirlik": SkAgirlik,
   "sk-seker": SkSeker,
   "sk-soru": SkSoru,

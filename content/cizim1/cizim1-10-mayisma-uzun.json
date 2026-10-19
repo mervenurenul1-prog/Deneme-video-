@@ -1,0 +1,58 @@
+{
+  "id": "cizim1-10-mayisma-uzun",
+  "title": "Yoksa şekerim mi var?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "scenes": [
+    {
+      "visual": "sku-agirlik",
+      "voice": "Karnını bir güzel doyurdun… ve üstüne bir ağırlık çöktü. Gözlerin kendiliğinden kapanıyor.",
+      "say": "[tired] Karnını bir güzel doyurdun... ve üstüne bir ağırlık çöktü. Gözlerin kendiliğinden kapanıyor."
+    },
+    {
+      "visual": "sku-seker",
+      "voice": "Ve aklına şu geliyor: Yoksa şekerim mi var?",
+      "say": "Ve aklına şu geliyor: [worried] Yoksa... şekerim mi var?"
+    },
+    {
+      "visual": "sku-soru",
+      "voice": "Sence bu ağırlık nereden geliyor?",
+      "say": "[curious] Sence bu ağırlık nereden geliyor?"
+    },
+    {
+      "visual": "sku-saat",
+      "voice": "Kan mideye gittiği için değil, üç sebebi var. Birincisi saatin: öğleden sonra kendiliğinden yavaşlar, yemesen bile.",
+      "say": "Kan mideye gittiği için değil, üç sebebi var. Birincisi saatin: öğleden sonra kendiliğinden yavaşlar, yemesen bile."
+    },
+    {
+      "visual": "sku-mide",
+      "voice": "İkincisi miden: yemek gelince beynine dinlen diye haber yollar.",
+      "say": "İkincisi miden: yemek gelince beynine \"dinlen\" diye haber yollar."
+    },
+    {
+      "visual": "sku-tabak",
+      "voice": "Üçüncüsü tabağın: pilav, ekmek, tatlı şekeri bir anda fırlatır ve seni uyanık tutan hücreler tek tek kısılır.",
+      "say": "Üçüncüsü tabağın: pilav, ekmek, tatlı şekeri bir anda fırlatır, ve seni uyanık tutan hücreler... tek tek kısılır."
+    },
+    {
+      "visual": "sku-son",
+      "voice": "Yani çoğu zaman suçlu hastalık değil. Ama her yemekten sonra bayılacak gibi oluyorsan, bir doktora görünmeni öneririm.",
+      "say": "Yani çoğu zaman suçlu hastalık değil. Ama her yemekten sonra bayılacak gibi oluyorsan, bir doktora görünmeni öneririm.",
+      "hold": 0.8
+    }
+  ],
+  "caption": "Yemekten sonra çöken ağırlığın üç sebebi.",
+  "hashtags": [
+    "voom",
+    "uyku",
+    "saglik"
+  ]
+}
