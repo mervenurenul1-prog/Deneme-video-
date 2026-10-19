@@ -923,6 +923,12 @@ type PersonProps = {
   female?: boolean; // kadın karakter: at kuyruğu saç, kirpik, mercan tişört
   limbW?: number; // kol/bacak kalınlığı çarpanı (1 = normal; "iri vücut" korkusu için >1)
   suit?: string; // baştan ayağa tek parça giysi (ör. sauna eşofmanı): kollar, bacaklar ve gövde bu renkte
+  shorts?: string; // şort/tayt rengi
+  shortsLen?: number; // şortun uyluk boyunca inişi (0.55 = normal şort, ~0.3 = kısa tayt)
+  sleeveless?: boolean; // kolsuz spor atlet
+  shoe?: string; // ayakkabı rengi
+  realLegs?: boolean; // gerçekçi bacak: kalçada geniş, dizde ince, baldır kabarık, gölgeli ten
+  cellulite?: number; // (arkadan görünüş, realLegs) uyluğun arkasında selülit 0..1
   children?: React.ReactNode; // karakterin koordinatlarında ek çizimler
 };
 
@@ -946,6 +952,107 @@ const legPoints = (side: number, { lift = 0, spread = 4 }: Leg) => {
   const k = [h[0] + k1[0] * 165 * (1 - 0.5 * lift), h[1] + k1[1] * 165 * (1 - 0.5 * lift)];
   return [h, k, [k[0] + side * 4, k[1] + 165 * (1 - 0.08 * lift)]];
 };
+
+// Gerçekçi bacak dış hattı: kalça → uyluk → diz (ince) → baldır (kabarık) → bilek
+const avg2 = (a: number[], b: number[]) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+const legOutline = (p: number[][]) => {
+  const at = (a: number[], b: number[], t: number) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t)];
+  const nrm = (a: number[], b: number[]) => {
+    const dx = b[0] - a[0];
+    const dy = b[1] - a[1];
+    const l = Math.hypot(dx, dy) || 1;
+    return [-dy / l, dx / l];
+  };
+  const n1 = nrm(p[0], p[1]);
+  const n2 = nrm(p[1], p[2]);
+  const st: [number[], number[], number, number][] = [
+    [at(p[0], p[1], -0.12), n1, 40, 36],
+    [at(p[0], p[1], 0.3), n1, 39, 33],
+    [at(p[0], p[1], 0.72), n1, 30, 27],
+    [p[1], avg2(n1, n2), 24, 23],
+    [at(p[1], p[2], 0.3), n2, 28, 23],
+    [at(p[1], p[2], 0.72), n2, 18, 16],
+    [p[2], n2, 14, 13],
+  ];
+  const A = st.map(([c, n, w]) => [c[0] + n[0] * w, c[1] + n[1] * w]);
+  const B = st.map(([c, n, , w]) => [c[0] - n[0] * w, c[1] - n[1] * w]).reverse();
+  const P = [...A, ...B];
+  let d = `M${pt(avg2(P[0], P[1]))}`;
+  for (let i = 1; i <= P.length; i++) d += ` Q${pt(P[i % P.length])} ${pt(avg2(P[i % P.length], P[(i + 1) % P.length]))}`;
+  return d + " Z";
+};
+
+// Selülit çukurları (uyluk boyunca, kalçaya yakın sık, dize doğru seyrek): koyu yumuşak gölge + üstünde ışık alan kabarık
+const CELL_PTS = Array.from({ length: 46 }, (_, i) => ({
+  t: 0.02 + 0.75 * Math.pow(random(`ct${i}`), 1.2),
+  u: (random(`cu${i}`) * 2 - 1) * 28,
+  r: 4 + 3.5 * random(`cr${i}`),
+  a: -20 + 40 * random(`ca${i}`),
+}));
+
+const RealLegs: React.FC<{ legs: number[][][]; id: string; cellulite: number; from: number }> = ({ legs, id, cellulite, from }) => (
+  <g>
+    <defs>
+      <linearGradient id={`lg${id}`} x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stopColor="#c98c66" />
+        <stop offset="0.22" stopColor={C.skin} />
+        <stop offset="0.5" stopColor="#f5cfab" />
+        <stop offset="0.78" stopColor={C.skin} />
+        <stop offset="1" stopColor="#c48562" />
+      </linearGradient>
+      <filter id={`cb${id}`} x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="1.8" />
+      </filter>
+    </defs>
+    {legs.map((p, side) => {
+      const d = legOutline(p);
+      const sd = side ? 1 : -1;
+      const hipY = p[0][1];
+      const kneeY = p[1][1];
+      const at = (t: number, u: number) => [lerp(p[0][0], p[1][0], t) + u * sd, lerp(p[0][1], p[1][1], t)];
+      const t0 = from + 0.04;
+      return (
+        <g key={side}>
+          <clipPath id={`lc${id}${side}`}>
+            <path d={d} />
+          </clipPath>
+          <path d={d} fill={`url(#lg${id})`} />
+          <g clipPath={`url(#lc${id}${side})`}>
+            {/* diz kapağı ve baldır gölgesi */}
+            <ellipse cx={p[1][0]} cy={p[1][1] + 8} rx={16} ry={10} fill="#d39a74" opacity={0.45} filter={`url(#cb${id})`} />
+            {cellulite > 0 ? (
+              <g opacity={cellulite}>
+                {/* uyluk arkası biraz daha mat */}
+                <rect x={p[0][0] - 60} y={hipY} width={120} height={(kneeY - hipY) * 0.95} fill="#e2a780" opacity={0.25} />
+                {/* kalça kıvrımı */}
+                <path d={`M${pt(at(t0 - 0.02, -40))} Q${pt(at(t0 + 0.07, 0))} ${pt(at(t0 - 0.02, 40))}`} stroke="#9e5e42" strokeWidth={5} fill="none" opacity={0.7} filter={`url(#cb${id})`} />
+                {CELL_PTS.map((c, i) => {
+                  const [x, y] = at(t0 + c.t * (0.95 - t0), c.u);
+                  return (
+                    <g key={i} transform={`rotate(${c.a} ${x} ${y})`} filter={`url(#cb${id})`}>
+                      <ellipse cx={x} cy={y + c.r * 0.3} rx={c.r * 1.1} ry={c.r * 0.5} fill="#b07052" opacity={0.42} />
+                      <ellipse cx={x} cy={y - c.r * 0.6} rx={c.r} ry={c.r * 0.38} fill="#fde6cf" opacity={0.85} />
+                    </g>
+                  );
+                })}
+              </g>
+            ) : null}
+          </g>
+          <path d={d} fill="none" stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+          {cellulite > 0 ? (
+            // dış hatta hafif dalgalanma
+            <g opacity={cellulite} stroke={C.ink} strokeWidth={3.5} fill="none" strokeLinecap="round">
+              {[0.45, 0.58, 0.7].map((t, i) => {
+                const [x, y] = at(t, 38 - 9 * t);
+                return <path key={i} d={`M${x} ${y - 10} q${sd * 6} 10 0 20`} />;
+              })}
+            </g>
+          ) : null}
+        </g>
+      );
+    })}
+  </g>
+);
 
 const Limb: React.FC<{ p: number[][]; w: number; color: string; sleeve?: string }> = ({ p, w, color, sleeve }) => {
   const d = `M${pt(p[0])} L${pt(p[1])} L${pt(p[2])}`;
@@ -985,19 +1092,27 @@ const Person: React.FC<PersonProps> = ({
   female = false,
   limbW = 1,
   suit,
+  shorts,
+  shortsLen = 0.55,
+  sleeveless = false,
+  shoe,
+  realLegs = false,
+  cellulite = 0,
   children,
 }) => {
+  const pid = svgId(useId());
   const top = suit ?? shirt ?? (female ? "#d9705f" : C.shirt);
   const frame = useCurrentFrame();
-  const waist = 88 + 70 * belly;
-  const hipW = 84 + 32 * belly;
+  // realLegs (kadın): ince bel, geniş kalça
+  const waist = realLegs ? 70 + 60 * belly : 88 + 70 * belly;
+  const hipW = realLegs ? 100 + 20 * belly : 84 + 32 * belly;
   const hem = -350 + 28 * belly;
   const lL = legPoints(-1, legL);
   const lR = legPoints(1, legR);
   const aL = armPoints(-1, armL);
   const aR = armPoints(1, armR);
   const thigh = (p: number[][], side: number) => {
-    const m = [p[0][0] + (p[1][0] - p[0][0]) * 0.55, p[0][1] + (p[1][1] - p[0][1]) * 0.55];
+    const m = [p[0][0] + (p[1][0] - p[0][0]) * shortsLen, p[0][1] + (p[1][1] - p[0][1]) * shortsLen];
     return [
       [m[0] + side * 44, m[1]],
       [m[0] - side * 38, m[1]],
@@ -1020,8 +1135,14 @@ const Person: React.FC<PersonProps> = ({
           ))}
         </g>
       ) : null}
-      <Limb p={lL} w={52 * limbW} color={suit ?? C.skin} />
-      <Limb p={lR} w={52 * limbW} color={suit ?? C.skin} />
+      {realLegs ? (
+        <RealLegs legs={[lL, lR]} id={pid} cellulite={cellulite} from={shortsLen} />
+      ) : (
+        <>
+          <Limb p={lL} w={52 * limbW} color={suit ?? C.skin} />
+          <Limb p={lR} w={52 * limbW} color={suit ?? C.skin} />
+        </>
+      )}
       {legGlow > 0 ? (
         <g opacity={legGlow * 0.55}>
           {[lL, lR].map((p, i) => (
@@ -1036,7 +1157,7 @@ const Person: React.FC<PersonProps> = ({
           cy={p[2][1] + 10}
           rx={40}
           ry={19}
-          fill={C.shoe}
+          fill={shoe ?? C.shoe}
           stroke={C.ink}
           strokeWidth={6}
         />
@@ -1044,7 +1165,7 @@ const Person: React.FC<PersonProps> = ({
       {/* şort */}
       <path
         d={`M${-hipW - 4} -392 L${hipW + 4} -392 L${pt(tRo)} L${pt(tRi)} L0 -300 L${pt(tLi)} L${pt(tLo)} Z`}
-        fill={suit ?? C.shorts}
+        fill={suit ?? shorts ?? C.shorts}
         stroke={C.ink}
         strokeWidth={7}
         strokeLinejoin="round"
@@ -1062,11 +1183,15 @@ const Person: React.FC<PersonProps> = ({
           strokeLinecap="round"
         />
       ) : null}
-      <path d="M-34 -603 Q0 -566 34 -603" stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
+      {sleeveless ? (
+        <path d="M-99 -592 Q-80 -606 -52 -604 Q-58 -560 -96 -536 Z M99 -592 Q80 -606 52 -604 Q58 -560 96 -536 Z M-52 -604 Q0 -540 52 -604 Q0 -616 -52 -604 Z" fill={C.skin} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+      ) : (
+        <path d="M-34 -603 Q0 -566 34 -603" stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
+      )}
       {lungs > 0 ? <Lungs o={lungs} breath={breath} /> : null}
       {/* kollar */}
-      <Limb p={aL} w={44 * limbW} color={suit ?? C.skin} sleeve={suit ? undefined : top} />
-      <Limb p={aR} w={44 * limbW} color={suit ?? C.skin} sleeve={suit ? undefined : top} />
+      <Limb p={aL} w={44 * limbW} color={suit ?? C.skin} sleeve={suit || sleeveless ? undefined : top} />
+      <Limb p={aR} w={44 * limbW} color={suit ?? C.skin} sleeve={suit || sleeveless ? undefined : top} />
       {suit ? <path d="M-60 -560 Q-40 -500 -50 -430 M50 -575 Q66 -520 58 -470" stroke="#fff" strokeWidth={10} fill="none" opacity={0.55} strokeLinecap="round" /> : null}
       {[aL, aR].map((p, i) => (
         <circle key={i} cx={p[2][0]} cy={p[2][1]} r={27} fill={C.skin} stroke={C.ink} strokeWidth={6} />
@@ -11639,6 +11764,9 @@ const KiloSon2: React.FC<SceneProps> = ({ w, d }) => {
 // bağ dokusu; "KUSUR" damgası 1968 dergisinde iner, sonda düşer; kamera yine telefondaki reklama dalar (döngü).
 
 const SEL_FL = 1330; // zemin
+const SEL_TOP = "#3f8f8a"; // kadının kolsuz spor atleti
+const SEL_TIGHTS = "#2c2a38"; // kısa siyah tayt
+const SEL_AV_TOP = "#2b2b30"; // avatar: salon kıyafeti (siyah tişört, gri şort)
 const SEL_WO = { x: 300, y: SEL_FL, s: 0.9 };
 const SEL_MR = { x1: 590, x2: 1000, y1: 330, y2: SEL_FL + 40 };
 const SEL_RF = { x: 795, y: SEL_FL - 20, s: 0.74 };
@@ -11652,22 +11780,6 @@ const selSquat = (k: number) => {
 };
 // saniyede bir tekrar
 const repK = (f: number) => 0.5 - 0.5 * Math.cos((f * 2 * Math.PI) / 30);
-
-// Uyluğun arkasındaki küçük çukurlar (yalnız arkadan görünüşte)
-const DIMPLE_PTS: [number, number][] = [[0.62, -12], [0.66, 10], [0.73, -2], [0.79, 13], [0.84, -13], [0.9, 4], [0.7, -16], [0.94, -6]];
-const Dimples: React.FC<{ leg: Leg; o: number }> = ({ leg, o }) =>
-  o > 0 ? (
-    <g opacity={o} stroke="#a0614a" strokeWidth={4.5} fill="none" strokeLinecap="round">
-      {[-1, 1].map((side) => {
-        const p = legPoints(side, leg);
-        return DIMPLE_PTS.map(([t, u], i) => {
-          const x = lerp(p[0][0], p[1][0], t) + u * side;
-          const y = lerp(p[0][1], p[1][1], t);
-          return <path key={`${side}${i}`} d={`M${x - 8} ${y} q8 7 16 0`} />;
-        });
-      })}
-    </g>
-  ) : null;
 
 // Arkadan görünüş: yüzün üstünü saç kapatır, at kuyruğu önde
 const BackHead: React.FC = () => (
@@ -11683,9 +11795,8 @@ type SelWoProps = { legGlow?: number; k?: number; x?: number; y?: number; s?: nu
 const SelWoman: React.FC<SelWoProps> = ({ legGlow = 0, k = 0, x = SEL_WO.x, y = SEL_WO.y, s = SEL_WO.s, back = false, dimples = 0, bells = true, mouth = "smile", eyes = "open", armL = [12, 0], armR = [12, 0], blush = 0.5, lookY = 0, tilt = 0, children }) => {
   const q = selSquat(k);
   return (
-    <Person x={x} y={y + q.dy * s} s={s} female belly={0.2} legGlow={legGlow} legL={q.leg} legR={q.leg} armL={armL} armR={armR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
+    <Person x={x} y={y + q.dy * s} s={s} female belly={0} realLegs cellulite={back ? dimples : 0} shirt={SEL_TOP} sleeveless shorts={SEL_TIGHTS} shortsLen={0.3} shoe="#f4f1ea" legGlow={legGlow} legL={q.leg} legR={q.leg} armL={armL} armR={armR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
       {back ? <BackHead /> : null}
-      <Dimples leg={q.leg} o={dimples} />
       {bells
         ? [-1, 1].map((side) => {
             const h = armPoints(side, side < 0 ? armL : armR)[2];
@@ -11755,6 +11866,8 @@ const SelScene: React.FC<{ wo?: SelWoProps; reflDimples?: number; shine?: number
 
 // Büyüteç altında deri: dimple 1 = portakal kabuğu, 0 = düz
 const PEEL = Array.from({ length: 30 }, (_, i) => ({ x: random(`plx${i}`) * 2 - 1, y: random(`ply${i}`) * 2 - 1, r: 0.1 + 0.07 * random(`plr${i}`) }));
+// büyüteçteki deri dokusu: sık, küçük, yatay çukurlar
+const PEEL2 = Array.from({ length: 70 }, (_, i) => ({ x: random(`pqx${i}`) * 2.2 - 1.1, y: random(`pqy${i}`) * 2.2 - 1.1, r: 0.07 + 0.05 * random(`pqr${i}`), a: -15 + 30 * random(`pqa${i}`) }));
 const SkinLens: React.FC<{ x: number; y: number; r: number; p: number; dimple: number; ring?: string; label?: string }> = ({ x, y, r, p, dimple, ring = C.ink, label }) => {
   const id = svgId(useId());
   if (p <= 0) return null;
@@ -11763,19 +11876,22 @@ const SkinLens: React.FC<{ x: number; y: number; r: number; p: number; dimple: n
       <clipPath id={`s${id}`}>
         <circle cx={x} cy={y} r={r} />
       </clipPath>
+      <filter id={`sb${id}`} x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation={r * 0.022} />
+      </filter>
       <path d={`M${x + r * 0.72} ${y + r * 0.72} L${x + r * 1.2} ${y + r * 1.2}`} stroke={C.ink} strokeWidth={30} strokeLinecap="round" />
       <path d={`M${x + r * 0.76} ${y + r * 0.76} L${x + r * 1.16} ${y + r * 1.16}`} stroke="#7a5233" strokeWidth={18} strokeLinecap="round" />
       <circle cx={x} cy={y} r={r} fill="#efbf98" />
       <g clipPath={`url(#s${id})`}>
         <circle cx={x - r * 0.3} cy={y - r * 0.35} r={r * 0.9} fill="#f7d3b3" opacity={0.6} />
-        {PEEL.map((d, i) => {
+        {PEEL2.map((d, i) => {
           const cx = x + d.x * r;
           const cy = y + d.y * r;
           const rr = d.r * r;
           return (
-            <g key={i} opacity={dimple}>
-              <ellipse cx={cx} cy={cy} rx={rr} ry={rr * 0.8} fill="#c98a68" opacity={0.6} />
-              <path d={`M${cx - rr} ${cy + rr * 0.2} Q${cx} ${cy + rr * 1.1} ${cx + rr} ${cy + rr * 0.2}`} stroke="#fbe0c6" strokeWidth={rr * 0.28} fill="none" opacity={0.85} />
+            <g key={i} opacity={dimple} filter={`url(#sb${id})`} transform={`rotate(${d.a} ${cx} ${cy})`}>
+              <ellipse cx={cx} cy={cy + rr * 0.25} rx={rr * 1.2} ry={rr * 0.55} fill="#a8644a" opacity={0.58} />
+              <ellipse cx={cx} cy={cy - rr * 0.6} rx={rr * 1.1} ry={rr * 0.4} fill="#fde6cf" opacity={0.9} />
             </g>
           );
         })}
@@ -12216,7 +12332,7 @@ const SelEsi: React.FC<SceneProps> = ({ w }) => {
         wo={{ mouth: f >= w(4) ? "worry" : "flat", lookY: 0, blush: 0.6 }}
         reflDimples={1}
         avatar={
-          <Person x={lerp(1300, SEL_AV.x, inn)} y={SEL_AV.y - Math.abs(Math.sin(f / 3)) * 14 * (1 - inn)} s={SEL_AV.s} belly={0.45} armL={[12, 0]} armR={[lerp(12, 100, flex), lerp(0, -135, flex)]} mouth={flex > 0.5 ? "grin" : "smile"} legL={{ spread: 4 + 10 * Math.sin(f / 3) * (1 - inn) }} legR={{ spread: 4 - 10 * Math.sin(f / 3) * (1 - inn) }} />
+          <Person x={lerp(1300, SEL_AV.x, inn)} y={SEL_AV.y - Math.abs(Math.sin(f / 3)) * 14 * (1 - inn)} s={SEL_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#5a5a62" armL={[12, 0]} armR={[lerp(12, 100, flex), lerp(0, -135, flex)]} mouth={flex > 0.5 ? "grin" : "smile"} legL={{ spread: 4 + 10 * Math.sin(f / 3) * (1 - inn) }} legR={{ spread: 4 - 10 * Math.sin(f / 3) * (1 - inn) }} />
         }
       />
       <KTag x={SEL_AV.x + 10} y={SEL_AV.y - 470 * SEL_AV.s} p={pop(f, w(1) - 2, 12)} text="2. gün" color={YAS_OK} rot={4} />
@@ -12241,7 +12357,7 @@ const SelIc: React.FC<SceneProps> = ({ w }) => {
         adF={f + 300}
         wo={{ mouth: talk(f, w(0) - 2, w(3) + 10) ? "open" : "worry", eyes: "wide", blush: 0.95, tilt: -4 }}
         reflDimples={1}
-        avatar={<Person x={SEL_AV.x} y={SEL_AV.y} s={SEL_AV.s} belly={0.45} armL={[55, -70]} armR={[55, -70]} mouth="o" eyes="wide" />}
+        avatar={<Person x={SEL_AV.x} y={SEL_AV.y} s={SEL_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#5a5a62" armL={[55, -70]} armR={[55, -70]} mouth="o" eyes="wide" />}
       />
       <g opacity={lenses}>
         <SkinLens x={790} y={430} r={125} p={1} dimple={0} ring={YAS_OK} label="o" />
@@ -12268,7 +12384,7 @@ const SelHaklisin: React.FC<SceneProps> = ({ w, d }) => {
         adF={f + 400}
         wo={{ mouth: "o", eyes: "wide", blush: 0.7, lookY: -4 }}
         reflDimples={1}
-        avatar={<Person x={SEL_AV.x} y={SEL_AV.y} s={SEL_AV.s} belly={0.45} armL={[12, 0]} armR={[12, 0]} mouth="smile" />}
+        avatar={<Person x={SEL_AV.x} y={SEL_AV.y} s={SEL_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#5a5a62" armL={[12, 0]} armR={[12, 0]} mouth="smile" />}
       />
       <Bubble x={470} y={400} rx={360} ry={160} p={1 - tw(f, w(1), w(1) + 8)} tail={[SEL_WO.x + 20, SEL_WO.y - 790 * SEL_WO.s]}>
         <HandText x={470} y={370} text="Ben ondan" size={88} color={C.red} p={1} />
