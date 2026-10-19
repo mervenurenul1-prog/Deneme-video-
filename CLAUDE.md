@@ -30,6 +30,7 @@ için** kullanılacak. Okuma metni `notlar/ses-klon-metni.md`. Eski tek örnekli
 Yunus'la aynı cümlenin yan yana denemesi. Kalan kredi ≈ 13.370 (19 Ekim gece).
 **YENİ KLON KURULDU (19 Ekim gece):** "VOOM - kendi sesim (kadın karakterler)" `x98shFqnDG0A3Ve4CtFL` (2 dk kayıt, sessizlikler kısaltıldı, gürültü azaltıldı). Deneme: `ses-ornekleri/kullanici-sesi/klon2-v4.mp3`, `klon2-multilingual.mp3` → kullanıcı model seçecek.
 Kullanıcı "daha iyi klon çıkar" dedi → **klon v2** `kd6P2yodCccO2OzNoqOD` ("VOOM - kendi sesim v2 (ham kayıt)": işlenmemiş 48 kHz kayıt, 4 parça, gürültü giderme KAPALI; ayar stability 0.45, similarity 0.95, style 0, speaker boost). Deneme `klon3-*.mp3`.
+**Kullanıcı (19 Ekim gece): "Klon 1-3 arası bir şey yaparsın, şimdi seslendirmeye geçme, BEKLE."** → Klonun son hâli iki deneme arası bir ton olacak (hangi 1 ve 3 kastedildi teyit et); selülit seslendirmesi kullanıcı söyleyene kadar YAPILMAYACAK.
 
 ## >>> 10 SELÜLİT C (`cizim1-10-selulit-c`, 19 Ekim gece — EN GÜNCEL) <<<
 CEFF/ekip eski selülit hikâyesini BEĞENMEDİ ("hikâyeyi geliştirmek lazım"). Kullanıcı C'yi seçti + "güzellik algısına bağla,
