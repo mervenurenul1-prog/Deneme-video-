@@ -33,8 +33,8 @@
     },
     {
       "visual": "selc-dergi",
-      "voice": "Bin dokuz yüz altmış sekizde bir moda dergisi onlara bir isim taktı: selülit. Ve kusur ilan etti.",
-      "say": "Bin dokuz yüz altmış sekizde, bir moda dergisi onlara bir isim taktı: selülit. Ve kusur ilan etti."
+      "voice": "Bin dokuz yüz altmış sekizde bir moda dergisi onlara selülit dedi, kusur ilan etti.",
+      "say": "Bin dokuz yüz altmış sekizde, bir moda dergisi onlara selülit dedi... kusur ilan etti."
     },
     {
       "visual": "selc-bakis",
@@ -42,14 +42,9 @@
       "say": "Aynı bacaklar. [curious] Değişen sadece... bakış."
     },
     {
-      "visual": "selc-krem",
-      "voice": "Kremler satıldı, kadınlar suçu kendinde aradı.",
-      "say": "Kremler satıldı, kadınlar suçu kendinde aradı."
-    },
-    {
       "visual": "selc-bugun",
-      "voice": "Bugün sen, haftada dört gün spor yapıp yine aynaya kızıyorsun.",
-      "say": "Bugün sen... haftada dört gün spor yapıp, yine aynaya kızıyorsun."
+      "voice": "Ve sen bugün, haftada dört gün spor yapıp yine de havluyu belinden çözemiyorsun.",
+      "say": "Ve sen bugün... haftada dört gün spor yapıp, yine de havluyu belinden çözemiyorsun."
     },
     {
       "visual": "selc-ip",
@@ -63,14 +58,14 @@
     },
     {
       "visual": "sel-yaygin",
-      "voice": "Bu yüzden on kadından sekiz-dokuzunda var.",
-      "say": "Bu yüzden on kadından sekiz-dokuzunda var."
+      "voice": "Bu yüzden on kadından sekiz-dokuzunda var; zayıfında da, sporcusunda da.",
+      "say": "Bu yüzden on kadından sekiz-dokuzunda var; zayıfında da, sporcusunda da."
     },
     {
       "visual": "selc-son",
-      "voice": "Yani bacakların bozulmadı; bakış değişti. Sana bunun kusur olduğunu ilk kim söyledi?",
-      "say": "Yani bacakların bozulmadı; bakış değişti. [curious] Sana bunun kusur olduğunu... ilk kim söyledi?",
-      "hold": 1.1
+      "voice": "Yani bacakların bozulmadı, bakış değişti. Sence bu bir kusur mu, yoksa sana öyle mi öğretildi?",
+      "say": "Yani bacakların bozulmadı, bakış değişti. [curious] Sence bu bir kusur mu... yoksa sana öyle mi öğretildi?",
+      "hold": 1.6
     }
   ]
 }
