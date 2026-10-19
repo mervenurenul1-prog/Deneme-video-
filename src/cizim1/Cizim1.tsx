@@ -551,13 +551,14 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "sel-krem": (w) => [[w(0), "whoosh", 0.3], [w(1), "damla", 0.3], [w(3), "bip", 0.3], [w(4) + 4, "agir-dusme", 0.35]],
   "sel-deney": (w) => [[2, "bip", 0.3], [w(5), "pop", 0.3], [w(9), "ding", 0.3], [w(10) + 4, "agir-dusme", 0.3]],
   "selc-tablo": (w) => [[w(0), "kalem", 0.3], [w(3), "sihir", 0.4], [w(7), "pirilti", 0.35]],
-  "selc-ressam": (w) => [[w(0), "pop", 0.3], [w(3), "adim", 0.3], [w(5), "whoosh", 0.3], [w(6), "ding", 0.3], [w(10), "pirilti", 0.35]],
-  "selc-dergi": (w) => [[w(1) - 2, "whoosh", 0.35], [w(1) + 8, "kagit", 0.35], [w(13), "kalem", 0.3], [w(15), "cizik", 0.3], [w(18) + 4, "agir-dusme", 0.4]],
-  "selc-bakis": (w) => [[2, "whoosh", 0.3], [w(2), "pop", 0.3], [w(4), "sihir", 0.3], [w(7), "tak", 0.4]],
+  "selc-ressam": (w) => [[w(0), "pop", 0.3], [2, "adim", 0.3], [w(3), "sihir", 0.3], [w(4), "pirilti", 0.35]],
+  "selc-dergi": (w) => [[w(0) - 2, "whoosh", 0.35], [w(0) + 8, "kagit", 0.35], [w(12), "kalem", 0.3], [w(14) + 4, "agir-dusme", 0.4]],
+  "selc-bakis": (w) => [[2, "whoosh", 0.3], [w(1), "pop", 0.3], [w(2), "sihir", 0.3], [w(4), "tak", 0.4]],
   "selc-krem": (w) => [[0, "pop", 0.3], [8, "pop", 0.25], [w(2), "whoosh", 0.3], [w(3), "cizik", 0.3], [w(4), "pop", 0.3]],
   "selc-bugun": (w) => [[w(1), "ding", 0.3], [w(3), "tik", 0.3], [w(8), "whoosh", 0.3], [w(10), "tak", 0.45]],
   "selc-ip": (w) => [[w(4), "pop", 0.3], [w(6), "kalem", 0.3], [w(10), "yuksel", 0.3], [w(12), "cizik", 0.3]],
-  "selc-son": (w, d) => [[w(1), "kalem", 0.3], [w(3), "pop", 0.3], [w(6), "cizik", 0.3], [w(6) + 6, "agir-dusme", 0.35], [w(7), "pop", 0.3], [d - 28, "whoosh", 0.3]],
+  "selc-son": (w, d) => [[w(1), "kalem", 0.3], [w(3), "pop", 0.3], [w(4), "cizik", 0.3], [w(4) + 6, "agir-dusme", 0.35], [w(5), "pop", 0.3], [d - 28, "whoosh", 0.3]],
+  "selc-erkek": (w) => [[2, "whoosh", 0.25], [w(2), "kalem", 0.3], [w(8), "ding", 0.3]],
   "sel-son": (w, d) => [[w(0), "kalem", 0.3], [w(8), "cizik", 0.3], [w(15), "kalem", 0.3], [w(16) + 4, "agir-dusme", 0.35], [w(17), "pop", 0.3], [d - 24, "whoosh", 0.3]],
   "kilo-sofra1": (w) => [[w(3), "pop", 0.3], [w(7), "ding", 0.3], [w(11), "bip", 0.3]],
   "kilo-sofra2": (w) => [[w(0) + 2, "tak", 0.45], [w(1) - 4, "pop", 0.35], [w(1) + 2, "kalem", 0.3]],
@@ -711,6 +712,7 @@ const ZOOM: Record<string, Zoom> = {
   "selc-krem": { to: 1.0, x: 540, y: 960 },
   "selc-bugun": { to: 1.0, x: 540, y: 960 },
   "selc-ip": { to: 1.0, x: 540, y: 960 },
+  "selc-erkek": { to: 1.03, x: 540, y: 900 },
   "selc-son": { to: 1.0, x: 540, y: 960 },
   "yanlis-fikir": { to: 1.05, x: 540, y: 700 },
   "yag-hucresi": { to: 1.06, x: 700, y: 760 },
@@ -12116,6 +12118,78 @@ const SkinBand: React.FC<{ sy: (x: number) => number }> = ({ sy }) => {
     </g>
   );
 };
+// Gerçekçi deri bloğu (ders kitabı kesiti gibi): üstte perspektifte deri yüzeyi (ten rengi, ince tüyler; kadında ip
+// noktalarında çukur gölgeleri), önde katmanlar: üst deri (koyu ten), alt deri (pembe, dalgalı lifler, kıl kökü, kılcal damar).
+const SKIN_BACK = [46, -130]; // yüzeyin arka kenarı (perspektif kayması)
+const SkinReal: React.FC<{ sy: (x: number) => number; dimple?: number }> = ({ sy, dimple = 0 }) => {
+  const id = svgId(useId());
+  const front = (dy: number, rev = false) => (rev ? [...SKIN_XS].reverse() : SKIN_XS).map((x) => `${x} ${(sy(x) + dy).toFixed(1)}`).join(" L");
+  const back = [...SKIN_XS].reverse().map((x) => `${x + SKIN_BACK[0]} ${(sy(x) * 0.55 + SKIN_BACK[1]).toFixed(1)}`).join(" L");
+  return (
+    <g strokeLinejoin="round">
+      <defs>
+        <linearGradient id={`st${id}`} x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0" stopColor="#efb48f" />
+          <stop offset="1" stopColor="#f8d2b4" />
+        </linearGradient>
+        <filter id={`sb${id}`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="7" />
+        </filter>
+      </defs>
+      {/* üst yüzey */}
+      <path d={`M${front(0)} L${back} Z`} fill={`url(#st${id})`} stroke={C.ink} strokeWidth={6} />
+      {dimple > 0 ? (
+        <g opacity={dimple} filter={`url(#sb${id})`}>
+          {SEL_ROPES.flatMap((rx) =>
+            [0.18, 0.42, 0.66, 0.88].map((t, j) => {
+              const x = rx + SKIN_BACK[0] * t + (j % 2 ? 26 : -18);
+              const y = sy(rx) * (1 - 0.45 * t) + SKIN_BACK[1] * t;
+              return <ellipse key={`${rx}${j}`} cx={x} cy={y + 4} rx={34 - 10 * t} ry={12 - 4 * t} fill="#b9734f" opacity={0.75} />;
+            }),
+          )}
+          {SEL_ROPES.slice(0, 4).flatMap((rx) =>
+            [0.3, 0.6].map((t) => <ellipse key={`h${rx}${t}`} cx={rx + SEL_CH / 2 + SKIN_BACK[0] * t} cy={sy(rx + SEL_CH / 2) * (1 - 0.45 * t) + SKIN_BACK[1] * t - 4} rx={60} ry={10} fill="#fff1e2" opacity={0.8} />),
+          )}
+        </g>
+      ) : null}
+      {/* tüyler ve gözenekler */}
+      {Array.from({ length: 16 }, (_, i) => {
+        const x = 30 + i * 66 + (i % 3) * 9;
+        const t = 0.25 + 0.5 * ((i * 37) % 10) / 10;
+        const yy = sy(x) * (1 - 0.45 * t) + SKIN_BACK[1] * t;
+        const xx = x + SKIN_BACK[0] * t;
+        return (
+          <g key={i}>
+            <circle cx={xx} cy={yy} r={2.5} fill="#c98c6a" />
+            {i % 2 ? <path d={`M${xx} ${yy} q6 -14 18 -20`} stroke="#6b4a33" strokeWidth={2.5} fill="none" /> : null}
+          </g>
+        );
+      })}
+      {/* ön yüz: alt deri (pembe) */}
+      <path d={`M${front(0)} L${front(SKIN_TH, true)} Z`} fill="#f7cbb9" />
+      {[30, 48].map((dy) => (
+        <path key={dy} d={`M${SKIN_XS.map((x) => `${x} ${(sy(x) + dy + 5 * Math.sin(x / 22 + dy)).toFixed(1)}`).join(" L")}`} stroke="#eaa892" strokeWidth={3} fill="none" />
+      ))}
+      {/* kılcal damarlar */}
+      {[150, 640].map((x0) => (
+        <g key={x0} fill="none" strokeWidth={4} strokeLinecap="round">
+          <path d={`M${x0} ${sy(x0) + 62} C${x0 + 20} ${sy(x0) + 30} ${x0 + 50} ${sy(x0) + 30} ${x0 + 70} ${sy(x0) + 62}`} stroke="#d8473a" />
+          <path d={`M${x0 + 70} ${sy(x0) + 62} H${x0 + 160}`} stroke="#5a78b8" />
+        </g>
+      ))}
+      {/* kıl kökü */}
+      {[420, 900].map((x0) => (
+        <g key={x0} stroke={C.ink}>
+          <path d={`M${x0} ${sy(x0) + 58} L${x0 + 6} ${sy(x0)} L${x0 + 26} ${sy(x0) - 46}`} stroke="#6b4a33" strokeWidth={4} fill="none" />
+          <ellipse cx={x0} cy={sy(x0) + 60} rx={11} ry={8} fill="#c98c6a" strokeWidth={3} />
+        </g>
+      ))}
+      {/* üst deri (ince koyu ten tabakası) */}
+      <path d={`M${front(0)} L${front(13, true)} Z`} fill="#e39e78" />
+      <path d={`M${front(0)} L${front(SKIN_TH, true)} Z`} fill="none" stroke={C.ink} strokeWidth={7} />
+    </g>
+  );
+};
 const Muscle: React.FC<{ y: number }> = ({ y }) => (
   <g>
     <rect x={-40} y={y} width={1160} height={100} fill="#d9695a" stroke={C.ink} strokeWidth={7} />
@@ -12130,7 +12204,7 @@ const WomanSection: React.FC<{ y: number; s?: number; fat: number; bands: number
   return (
     <g transform={`translate(540 ${y}) scale(${s}) translate(-540 0)`} strokeLinejoin="round">
       <clipPath id={`ws${id}`}>
-        <rect x={-40} y={-140} width={1160} height={1000} />
+        <rect x={-40} y={-260} width={1160} height={1120} />
       </clipPath>
       <g clipPath={`url(#ws${id})`}>
         <rect x={-40} y={40} width={1160} height={600} fill="#fff3d6" />
@@ -12147,7 +12221,7 @@ const WomanSection: React.FC<{ y: number; s?: number; fat: number; bands: number
         {SEL_ROPES.map((rx) => (
           <SelRope key={rx} x1={rx} y1={sy(rx) + SKIN_TH - 8} x2={rx} y2={SEL_BOTTOM + 6} p={bands} tint={stand} red={red} />
         ))}
-        <SkinBand sy={sy} />
+        <SkinReal sy={sy} dimple={pull} />
         <Muscle y={SEL_BOTTOM} />
       </g>
     </g>
@@ -12160,7 +12234,7 @@ const ManSection: React.FC<{ y: number; s?: number; fat: number; net: number; fl
   return (
     <g transform={`translate(540 ${y}) scale(${s}) translate(-540 0)`} strokeLinejoin="round">
       <clipPath id={`ms${id}`}>
-        <rect x={-40} y={-140} width={1160} height={1000} />
+        <rect x={-40} y={-260} width={1160} height={1120} />
       </clipPath>
       <g clipPath={`url(#ms${id})`}>
         <rect x={-40} y={40} width={1160} height={600} fill="#fff3d6" />
@@ -12171,7 +12245,7 @@ const ManSection: React.FC<{ y: number; s?: number; fat: number; net: number; fl
           <SelRope key={`a${i}`} x1={x0} y1={SKIN_TH - 6} x2={x0 + 300} y2={SEL_BOTTOM + 6} p={net} />,
           <SelRope key={`b${i}`} x1={x0 + 300} y1={SKIN_TH - 6} x2={x0} y2={SEL_BOTTOM + 6} p={net} />,
         ])}
-        <SkinBand sy={() => 0} />
+        <SkinReal sy={() => 0} />
         {flat > 0 ? <path d="M60 -50 H1020" stroke={YAS_OK} strokeWidth={9} strokeDasharray="24 14" opacity={flat} /> : null}
         <Muscle y={SEL_BOTTOM} />
       </g>
@@ -12888,57 +12962,66 @@ const SelcTablo: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-// 2) "Rubens'in Üç Güzeller'i. Doktorlar ortadakinin bacağında selülit buldu. O gün güzellik buydu."
-// Künye belirir; soldan önlüklü doktor büyüteçle gelir; kamera ortadakinin uyluğuna yaklaşır, büyüteçte selülit, "selülit"
-// etiketi; geri çekilir, tablo altın gibi parlar, "GÜZEL" etiketi (lacivert).
+// 2) "Rubens onları saklamadı, özenle boyadı."
+// Künye belirir; soldan bereli, sakallı Rubens paletiyle gelir, fırçasını ortadaki kadının uyluğuna uzatır; kamera
+// yaklaşır, fırça dokundukça çukurlar altın gibi parlar; "boyadı"da geri çekilir, "GÜZEL" etiketi (lacivert), pırıltılar.
+const RUB = { x: 300, y: MUS_FL + 120, s: 0.86 };
+const RUB_ARM: Arm = [128, 22];
 const SelcRessam: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const doc = tw(f, w(3) - 6, w(3) + 10);
-  const lens = pop(f, w(5) - 2, 12) * (1 - tw(f, w(8), w(8) + 8));
-  const glow = tw(f, w(9), w(11) + 6);
-  const lx = GRACE_THIGH.x + 190;
-  const ly = GRACE_THIGH.y - 140;
+  const inn = Easing.out(Easing.cubic)(tw(f, 0, 14));
+  const paint = tw(f, w(3) - 4, w(4) + 6);
+  const glow = tw(f, w(4), w(4) + 12);
+  const hand = armPoints(1, RUB_ARM)[2];
+  const stroke = Math.sin(f / 3) * 10 * paint;
   return (
     <>
-      <CamK k={[[0, 1.03, 540, 930], [w(3), 1.08, 540, 900], [w(4) + 4, 1.9, GRACE_THIGH.x + 80, GRACE_THIGH.y - 60], [w(8), 1.9, GRACE_THIGH.x + 80, GRACE_THIGH.y - 60], [w(9) + 8, 1, 540, 960], [d, 1.02, 540, 940]]}>
+      <CamK k={[[0, 1.03, 540, 930], [w(2), 1.06, 520, 900], [w(3) + 6, 1.55, GRACE_THIGH.x, GRACE_THIGH.y + 40], [w(4) + 6, 1.55, GRACE_THIGH.x, GRACE_THIGH.y + 40], [d, 1.12, 520, 900]]}>
         <Museum glow={glow} plaque={pop(f, w(0) - 4, 12)} avatar={<MusAvatar mouth={glow > 0.3 ? "grin" : "smile"} />} />
-        {doc > 0 ? (
-          <Person x={lerp(-200, 250, doc)} y={MUS_FL + 110} s={0.62} belly={0.5} shirt="#f4f4f0" mouth="o" lookY={-8} armL={[12, 0]} armR={[110, -20]}>
-            <path d="M-40 -600 L-10 -470 M40 -600 L10 -470" stroke={C.ink} strokeWidth={6} />
-          </Person>
-        ) : null}
-        {lens > 0 ? (
-          <g>
-            <path d={`M${GRACE_THIGH.x + 20} ${GRACE_THIGH.y} L${lx} ${ly}`} stroke={C.ink} strokeWidth={4} strokeDasharray="10 8" opacity={lens} />
-            <SkinLens x={lx} y={ly} r={90} p={lens} dimple={1} ring={C.ink} />
-            <PillLabel x={lx} y={ly - 130} text="selülit" p={pop(f, w(6) - 2, 10) * lens} />
+        {paint > 0 ? (
+          <g filter="url(#glow)" opacity={0.75 * paint}>
+            {[[-14, -10], [10, 6], [-4, 22], [14, 34]].map(([dx, dy], i) => (
+              <ellipse key={i} cx={GRACE_THIGH.x + dx} cy={GRACE_THIGH.y + dy} rx={7} ry={4} fill="#ffd36b" />
+            ))}
           </g>
         ) : null}
+        <g transform={`translate(${lerp(-420, 0, inn)} 0)`}>
+          <Person x={RUB.x} y={RUB.y} s={RUB.s} belly={0.55} shirt="#6b3f24" shorts="#3d2a1e" shoe="#2b1d14" armL={[40, -60]} armR={[RUB_ARM[0], RUB_ARM[1] + stroke * 0.3]} mouth="smile" lookY={-8}>
+            {/* bere, sakal, palet, fırça */}
+            <ellipse cx={-10} cy={-786} rx={98} ry={34} fill="#2b2230" stroke={C.ink} strokeWidth={6} />
+            <path d="M-56 -650 Q0 -600 56 -650 Q46 -612 0 -604 Q-46 -612 -56 -650 Z" fill="#7a4a2a" stroke={C.ink} strokeWidth={5} />
+            <g transform="translate(-200 -420) rotate(-20)" stroke={C.ink}>
+              <ellipse rx={78} ry={52} fill="#d9b178" strokeWidth={6} />
+              {[["#c0392b", -40, -14], ["#f2c94c", -10, -24], ["#2e86c1", 22, -16], ["#f5e6d3", 40, 8]].map(([c, x, y], i) => (
+                <circle key={i} cx={x as number} cy={y as number} r={11} fill={c as string} strokeWidth={3} />
+              ))}
+            </g>
+            <path d={`M${hand[0]} ${hand[1]} l${70} ${-60}`} stroke="#5a3a1e" strokeWidth={10} strokeLinecap="round" />
+            <path d={`M${hand[0] + 70} ${hand[1] - 60} l18 -16`} stroke="#f2c94c" strokeWidth={14} strokeLinecap="round" />
+          </Person>
+        </g>
         <Sparkles p={glow} />
       </CamK>
-      <KTag x={560} y={150} p={pop(f, w(10) - 2, 12)} text="O gün: GÜZEL" color={YAS_OK} rot={-3} />
+      <KTag x={560} y={150} p={pop(f, w(4) - 2, 12)} text="O gün: GÜZEL" color={YAS_OK} rot={-3} />
     </>
   );
 };
 
-// 3) "Sonra bin dokuz yüz altmış sekizde bir moda dergisi ona bir isim taktı: selülit. Ve 'kurtulman gereken yağ' dedi."
+// 3) "Bin dokuz yüz altmış sekizde bir moda dergisi onlara bir isim taktı: selülit. Ve kusur ilan etti."
 // Müze kararır; dergi tablonun önüne düşer, yıl 1630'dan 1968'e sayar; "SELÜLİT" yazılır; altına kırmızı el yazısı
 // "kurtulman gereken yağ!"; "dedi"de tablonun üstüne "KUSUR" damgası iner.
 const SelcDergi: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const dim = 0.45 * tw(f, 0, 12);
-  const fly = tw(f, w(1) - 4, w(1) + 10);
-  const year = Math.round(lerp(1630, 1968, tw(f, w(1), w(5) + 4)));
-  const stamp = tw(f, w(18) - 4, w(18) + 6);
-  const bang = hit(f, w(18) + 4, 12);
+  const fly = tw(f, w(0) - 4, w(0) + 10);
+  const year = Math.round(lerp(1630, 1968, tw(f, w(0), w(4) + 4)));
+  const stamp = tw(f, w(14) - 4, w(14) + 6);
+  const bang = hit(f, w(14) + 4, 12);
   return (
     <CamK k={[[0, 1.02, 540, 940], [d, 1.06, 560, 900]]} shake={bang * 0.8}>
       <Museum dim={dim} avatar={<MusAvatar mouth="o" eyes="wide" />} />
       <KiloStamp p={stamp} text="KUSUR" x={440} y={640} half={190} />
-      {fly > 0 ? <Magazine x={760} y={lerp(-500, 900, Easing.out(Easing.back(1.2))(fly))} s={0.78} rot={lerp(-30, 5, fly)} year={year} title={tw(f, w(13) - 2, w(13) + 8)} /> : null}
-      <g transform="rotate(-4 700 1260)">
-        <HandText x={700} y={1260} text="kurtulman gereken yağ!" size={70} color={C.red} p={tw(f, w(15) - 2, w(17) + 8)} />
-      </g>
+      {fly > 0 ? <Magazine x={760} y={lerp(-500, 900, Easing.out(Easing.back(1.2))(fly))} s={0.78} rot={lerp(-30, 5, fly)} year={year} title={tw(f, w(12) - 2, w(12) + 8)} /> : null}
     </CamK>
   );
 };
@@ -12978,11 +13061,11 @@ const BigEye: React.FC<{ x: number; y: number; p: number; look: number; frown: n
 const SelcBakis: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const inn = Easing.out(Easing.cubic)(tw(f, 0, 14));
-  const ring = tw(f, w(2) - 2, w(3) + 6);
-  const eq = pop(f, w(2), 12) * (1 - tw(f, w(4) - 4, w(4) + 4));
-  const eye = pop(f, w(4) - 2, 14);
-  const look = f < w(5) ? 0 : f < w(6) ? -tw(f, w(5), w(5) + 6) : lerp(-1, 1, tw(f, w(6), w(6) + 8));
-  const frown = tw(f, w(7), w(7) + 8);
+  const ring = tw(f, w(0) - 2, w(1) + 6);
+  const eq = pop(f, w(1), 12) * (1 - tw(f, w(2) - 4, w(2) + 4));
+  const eye = pop(f, w(2) - 2, 14);
+  const look = f < w(2) + 6 ? 0 : f < w(3) ? -tw(f, w(2) + 6, w(2) + 12) : lerp(-1, 1, tw(f, w(3), w(3) + 8));
+  const frown = tw(f, w(4), w(4) + 8);
   const S = 0.5;
   const ty = { x: 340, y: 150 };
   const by = { x: 340, y: 1010 };
@@ -12993,13 +13076,13 @@ const SelcBakis: React.FC<SceneProps> = ({ w }) => {
       <g transform={`translate(${lerp(-900, 0, inn)} 0)`}>
         <Painting x={ty.x} y={ty.y} s={S} />
         <KTag x={170} y={440} p={1} text="1630" color={YAS_OK} rot={-4} />
-        <KTag x={170} y={540} p={pop(f, w(1), 12)} text="GÜZEL" color={YAS_OK} rot={3} />
+        <KTag x={170} y={540} p={pop(f, w(0) - 2, 12)} text="GÜZEL" color={YAS_OK} rot={3} />
         {ring > 0 ? <circle cx={ty.x + S * 370} cy={ty.y + S * (GRACE_Y - 250 * GRACE_S)} r={50} fill="none" stroke={YAS_OK} strokeWidth={8} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - ring} /> : null}
       </g>
       <g transform={`translate(${lerp(900, 0, inn)} 0)`}>
         <MagPage x={by.x} y={by.y} s={S} ring={ring} />
         <KTag x={170} y={1300} p={1} text="1968" color={C.red} rot={4} />
-        <KTag x={170} y={1400} p={pop(f, w(1) + 6, 12)} text="KUSUR" color={C.red} rot={-3} />
+        <KTag x={170} y={1400} p={pop(f, w(0) + 6, 12)} text="KUSUR" color={C.red} rot={-3} />
       </g>
       <path d="M0 960 H1080" stroke={C.ink} strokeWidth={10} />
       {eq > 0 ? (
@@ -13070,8 +13153,9 @@ const SelcKrem: React.FC<SceneProps> = ({ w }) => {
 // 6) "Ve bugün sen, haftada dört gün spor yapıp yine aynaya kızıyorsun."
 // "BUGÜN" etiketi; kız aynanın önünde dambılla squat yapıyor, gün şeridinde dört tik; "yine"de durur, aynaya döner, yansımada
 // selülit, kırmızı çember; "kızıyorsun"da yüzü kızarır, başının üstünde kırmızı öfke çizgileri.
-const SelcBugun: React.FC<SceneProps> = ({ w, d }) => {
+const SelcBugun: React.FC<SceneProps> = ({ w: w0, d }) => {
   const f = useCurrentFrame();
+  const w = (i: number) => w0(Math.max(0, i - 1)); // metin "Bugün sen, …" (baştaki "Ve" çıktı)
   const stop = w(8);
   const k = f < stop ? repK(f + 12) : repK(stop + 12) * (1 - tw(f, stop, stop + 8));
   const days = [0, 2, 4, 6];
@@ -13094,10 +13178,13 @@ const SelcBugun: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-// 7) "Oysa sebebi derinin altında. Yağı bölen ipler kadınlarda dimdik durur, yağ aralarından kabarır."
+// 7) "Oysa sebep derinin altında: kadınlarda yağı bölen ipler dimdik durur, yağ aralarından kabarır."
 // Eski kesit sahnesi (SelKadin), kelime sırası bu cümleye eşlenir.
-const SELC_IP_MAP: Record<number, number> = { 1: 2, 2: 5, 3: 6, 4: 6, 5: 7, 6: 8, 7: 9, 8: 10, 9: 11, 10: 11, 11: 12, 12: 12, 13: 12 };
+const SELC_IP_MAP: Record<number, number> = { 1: 2, 2: 6, 3: 7, 4: 7, 5: 8, 6: 8, 7: 9, 8: 10, 9: 11, 10: 11, 11: 12, 12: 12, 13: 12 };
 const SelcIp: React.FC<SceneProps> = ({ w, d }) => <SelKadin d={d} w={(i) => w(SELC_IP_MAP[i] ?? i)} />;
+// 8) "Erkeklerde ise ipler çapraz örülür; yağ kabaramaz, deri düz kalır." (SelErkek, kelime eşlemesi)
+const SELC_ERKEK_MAP: Record<number, number> = { 1: 2, 2: 4, 4: 8, 5: 9 };
+const SelcErkek: React.FC<SceneProps> = ({ w, d }) => <SelErkek d={d} w={(i) => w(SELC_ERKEK_MAP[i] ?? i)} />;
 
 // 10) "Yani bacakların bozulmadı. Birileri güzelliğin tanımını değiştirdi. Sana bunun kusur olduğunu ilk kim söyledi?"
 // Kız aynanın önünde gülümser; bacaklarına lacivert tik; üstte kart: "1630 GÜZEL" → "1968 KUSUR" (kırmızı, üstü çizilir);
@@ -13106,13 +13193,13 @@ const SelcSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const end = tw(f, d - 30, d - 4);
   const tick = tw(f, w(1) - 2, w(2) + 6) * (1 - end);
-  const card = pop(f, w(3) - 4, 12) * (1 - tw(f, w(7) - 4, w(7) + 4));
-  const strike = tw(f, w(6) - 2, w(6) + 8);
-  const chip = pop(f, w(7) - 2, 12) * (1 - end);
+  const card = pop(f, w(3) - 4, 12) * (1 - tw(f, w(5) - 4, w(5) + 4));
+  const strike = tw(f, w(4) - 2, w(4) + 8);
+  const chip = pop(f, w(5) - 2, 12) * (1 - end);
   return (
     <CamK k={[[0, 1, 540, 960], [d - 30, 1, 540, 960], [d - 4, 1.7, SEL_THIGH.x, SEL_THIGH.y], [d, 1.7, SEL_THIGH.x, SEL_THIGH.y]]}>
       <SelScene adF={f} wo={{ mouth: end > 0.5 ? "worry" : "smile", lookY: end > 0.5 ? 6 : 0, blush: 0.5 }} reflDimples={1} />
-      <KiloStamp p={1 - end} crack={tw(f, w(4), w(6))} fall={tw(f, w(6), w(6) + 14)} text="KUSUR" x={795} y={760} half={180} />
+      <KiloStamp p={1 - end} crack={tw(f, w(3), w(4))} fall={tw(f, w(4), w(4) + 14)} text="KUSUR" x={795} y={760} half={180} />
       {tick > 0 ? (
         <path d={`M${SEL_WO.x - 70} ${SEL_FL - 240} L${SEL_WO.x - 20} ${SEL_FL - 190} L${SEL_WO.x + 80} ${SEL_FL - 320}`} stroke={YAS_OK} strokeWidth={18} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tick} />
       ) : null}
@@ -13120,9 +13207,9 @@ const SelcSon: React.FC<SceneProps> = ({ w, d }) => {
         <g transform={`translate(540 330) scale(${card}) rotate(-2)`}>
           <rect x={-440} y={-150} width={880} height={270} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
           <HandText x={-200} y={-30} text="1630" size={70} color={C.ink} p={1} rotate={0} />
-          <HandText x={180} y={-30} text="GÜZEL" size={90} color={YAS_OK} p={tw(f, w(4) - 2, w(4) + 8)} rotate={0} />
+          <HandText x={180} y={-30} text="GÜZEL" size={90} color={YAS_OK} p={tw(f, w(3) - 2, w(3) + 6)} rotate={0} />
           <HandText x={-200} y={80} text="1968" size={70} color={C.ink} p={1} rotate={0} />
-          <HandText x={180} y={80} text="KUSUR" size={90} color={C.red} p={tw(f, w(5) - 2, w(5) + 8)} rotate={0} />
+          <HandText x={180} y={80} text="KUSUR" size={90} color={C.red} p={tw(f, w(3) + 4, w(3) + 12)} rotate={0} />
           {strike > 0 ? <path d="M40 60 L330 50" stroke={C.red} strokeWidth={14} strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - strike} /> : null}
         </g>
       ) : null}
@@ -13135,7 +13222,7 @@ const SelcSon: React.FC<SceneProps> = ({ w, d }) => {
           <text x={0} y={50} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={56} fill={C.red}>
             ilk kim söyledi?
           </text>
-          <text x={0} y={175} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={58} fill={C.ink} opacity={tw(f, w(12), w(13) + 4)}>
+          <text x={0} y={175} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={58} fill={C.ink} opacity={tw(f, w(10), w(11) + 4)}>
             yorumlara yaz ↓
           </text>
         </g>
@@ -13164,6 +13251,7 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   "selc-krem": SelcKrem,
   "selc-bugun": SelcBugun,
   "selc-ip": SelcIp,
+  "selc-erkek": SelcErkek,
   "selc-son": SelcSon,
   "kilo-son2": KiloSon2,
   "kilo-sofra1": KiloSofra1,
