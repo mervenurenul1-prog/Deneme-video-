@@ -92,6 +92,18 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
    değil); "selülit" kelimesi 1968 moda dergisiyle yayıldı (DOĞRULA). 5 metabolizma: Science 2021 (Pontzer, 6.000+
    kişi) vücut büyüklüğü hesaba katılınca kadın-erkek farkı yok (DOĞRULA).
 
+**>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
+- **SELÜLİT (yeni sohbet, kadın konusu 6):** arka plan HAZIR → `notlar/10-selulit.md` (doğrulanmış bilgiler, kaynaklar,
+  CEFF kanca kalıbı, 12 madde tablosu, kanca taslakları). İlk iş: dosyayı oku → 2-3 kanca/hikâye sun → metin onayı →
+  sessiz önizleme. Kullanıcı: "hâlâ bir video atmadık" — hızlı ilerle ama metin onayı kuralı geçerli.
+- **09 KİLO (bu sohbet):** v3 sessiz önizleme gönderildi; kullanıcı "güzel ama giriş beğenmedim" → CEFF'in uyku videosu
+  (50K+, "Her gece 8 saat uyuyorsun… Peki ya sorun uyku süren değilse?") örnek verildi. 3 yeni giriş sunuldu, **seçim
+  bekleniyor:** A tartı ("Aynı yemek, aynı spor. Onun tartısı her hafta düşüyor, seninki kıpırdamıyor bile. Ve aklından
+  şu geçiyor:" → kadının iç sesi bulutta "Ben kadınım, zor kilo veririm." → "Peki ya sorun sende değilse?"; önerilen),
+  B rakam şoku, C sofrada sessizlik. Ayrıca önerilen (onaylanmadı): laboratuvar canlansın (sırada 3'er koşucu, kamera),
+  kapanış "…Bunu, sofrada sana beş kiloyu söyleyen kişiye gönder." + ekranda "Sizde kim daha hızlı verdi?" + telefon
+  titrer → döngü.
+
 **>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
 - **KADIN 4 → `cizim1-09-kilo` "Kadınlar zor mu kilo verir?" (18 Ekim, kadın konuları sohbeti):** reddedilenler: v1 "Aynı
   program" (anlatıcı), v2 "Ben beş kilo verdim" (kullanıcının gönderdiği "Neden izlesin / yorum yapsın / paylaşsın"
