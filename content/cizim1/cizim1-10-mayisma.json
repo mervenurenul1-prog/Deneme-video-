@@ -10,17 +10,17 @@
   "maxPause": 0.3,
   "music": "music/merak-gerilim.mp3",
   "loop": true,
-  "padding": 0.1,
+  "padding": 0.05,
   "scenes": [
     {
       "visual": "sk-agirlik",
-      "voice": "Karnını bir güzel doyurdun… ve üstüne bir ağırlık çöktü. Gözlerin kapanıyor.",
-      "say": "[tired] Karnını bir güzel doyurdun... ve üstüne bir ağırlık çöktü. Gözlerin kapanıyor."
+      "voice": "Karnını doyurdun… ve üstüne bir ağırlık çöktü.",
+      "say": "[tired] Karnını doyurdun... ve üstüne bir ağırlık çöktü."
     },
     {
       "visual": "sk-seker",
-      "voice": "Ve aklına şu geliyor: Yoksa şekerim mi var?",
-      "say": "Ve aklına şu geliyor: [worried] Yoksa... şekerim mi var?"
+      "voice": "Aklına şu geliyor: Yoksa şekerim mi var?",
+      "say": "Aklına şu geliyor: [worried] Yoksa... şekerim mi var?"
     },
     {
       "visual": "sk-soru",
@@ -29,24 +29,24 @@
     },
     {
       "visual": "sk-saat",
-      "voice": "Kan mideye gittiği için değil, üç sebebi var. Birincisi saatin: öğleden sonra kendiliğinden yavaşlar, yemesen bile.",
-      "say": "Kan mideye gittiği için değil, üç sebebi var. Birincisi saatin: öğleden sonra kendiliğinden yavaşlar, yemesen bile."
+      "voice": "Kan mideye gittiği için değil. Birincisi saatin: öğleden sonra kendiliğinden yavaşlar.",
+      "say": "Kan mideye gittiği için değil. Birincisi saatin: öğleden sonra kendiliğinden yavaşlar."
     },
     {
       "visual": "sk-mide",
-      "voice": "İkincisi miden: yemek gelince beynine dinlen diye haber yollar.",
-      "say": "İkincisi miden: yemek gelince beynine \"dinlen\" diye haber yollar."
+      "voice": "İkincisi miden: beynine dinlen diye haber yollar.",
+      "say": "İkincisi miden: beynine \"dinlen\" diye haber yollar."
     },
     {
       "visual": "sk-tabak",
-      "voice": "Üçüncüsü tabağın: iki bin altıda farelerde görüldü ki şeker fırlayınca beyni uyanık tutan hücreler kısılıyor. Pilav, ekmek, tatlı tam da bunu yapar.",
-      "say": "Üçüncüsü tabağın: iki bin altıda farelerde görüldü ki, şeker fırlayınca beyni uyanık tutan hücreler kısılıyor. Pilav, ekmek, tatlı... tam da bunu yapar."
+      "voice": "Üçüncüsü tabağın: pilav, ekmek, tatlı şekeri fırlatır, uyanık tutan hücreler kısılır.",
+      "say": "Üçüncüsü tabağın: pilav, ekmek, tatlı şekeri fırlatır, uyanık tutan hücreler... kısılır."
     },
     {
       "visual": "sk-son",
-      "voice": "Yani çoğu zaman suçlu hastalık değil. Ama her yemekten sonra bayılacak gibi oluyorsan, bir doktora görünmeni öneririm.",
-      "say": "Yani çoğu zaman suçlu hastalık değil. Ama her yemekten sonra bayılacak gibi oluyorsan, bir doktora görünmeni öneririm.",
-      "hold": 1.0
+      "voice": "Çoğu zaman hastalık değil. Ama her seferinde bayılacak gibiysen, bir doktora görün.",
+      "say": "Çoğu zaman hastalık değil. Ama her seferinde bayılacak gibiysen, bir doktora görün.",
+      "hold": 0.6
     }
   ],
   "caption": "Yemekten sonra çöken ağırlığın üç sebebi.",

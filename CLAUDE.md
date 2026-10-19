@@ -31,6 +31,13 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
   "Sence aradaki fark ne?" → "Kan değil, beyin kanını kaptırmaz; fark tabakta: pilav, ekmek, tatlı; şeker fırlar" (kan şekeri
   grafikleri) → 1998 uyanık tutan hücreler bulundu, 2006 şeker bunları kısıyor (iki beyin merceği) → "Kan mideye inmedi, şeker
   beynine çıktı. … bu videoyu gönder." Sessiz önizleme `10-mayisma-sessiz.mp4` (45,1 sn) gönderildi → onay → seslendirme.
+- **!!! SÜRE (kullanıcı, 19 Ekim gece): YENİ BİLGİ VİDEOLARININ SINIRI 30 SN** (≈ 400-420 karakter, Yunus ~14 kar/sn).
+  "Saçmalayacaksan bahsetme": emin olunmayan/yanlış betimlenecek bilimsel ayrıntıyı (ör. 2006 fare beyin dilimi deneyini
+  "uyuyan fare" diye göstermek) koyma. "Canlı" = gerçekçi ama hareketli sahneler; abartılı karakterleştirme (esneyen saat,
+  konuşan mide) değil.
+- **10 MAYIŞMA v3 (GÜNCEL, `sk-*`, 7 sahne, ~420 karakter, ~30 sn):** "Karnını doyurdun… ağırlık çöktü" → "Yoksa şekerim mi
+  var?" → "Sence bu ağırlık nereden geliyor?" → 1 saat (öğleden sonra yavaşlar) → 2 mide (beyne "dinlen") → 3 tabak (pilav,
+  ekmek, tatlı şekeri fırlatır, uyanık tutan hücreler kısılır; fare YOK) → "Çoğu zaman hastalık değil… bir doktora görün."
 - **Uyulacaklar (19 Ekim):** HİKÂYE FORMÜLÜ (dokun → sor → açıkla → tarih + vücudun içi → bağla, basit); 12 madde
   tablosu (izlesin/yorum/paylaşsın); CEFF kanca kalıbı; "görsel sözler kadar önemli" (her hareket gerçekteki gibi, göndermeden
   önce kareleri kontrol et); Yunus ana ses, Sibel yalnız anne, genç kadın = Aslı; metin onayı → sessiz önizleme → onay →

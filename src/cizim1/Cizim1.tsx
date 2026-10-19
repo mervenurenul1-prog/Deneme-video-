@@ -557,13 +557,13 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "bul-lab4": (w) => [[w(1), "bip", 0.5], [w(3), "cizik", 0.35], [w(7), "yuksel", 0.3], [w(9), "whoosh", 0.25], [w(15), "kalem", 0.3], [w(17), "agir-dusme", 0.4], [w(18) + 4, "pirilti", 0.35]],
   "bul-bende": (w) => [[4, "pop", 0.45], [8, "sonme", 0.3], [w(2), "pop", 0.3]],
   "bul-son": (w, d) => [[w(0), "kalem", 0.3], [w(5), "pop", 0.25], [w(6), "pop", 0.3], [d - 24, "whoosh", 0.2]],
-  "sk-agirlik": (w) => [[w(3) + 10, "tak", 0.3], [w(8), "agir-dusme", 0.45], [w(9) + 4, "nefes", 0.3]],
-  "sk-seker": (w) => [[w(1) - 2, "pop", 0.3], [w(4), "alarm", 0.2], [w(5), "kalem", 0.3]],
+  "sk-agirlik": (w) => [[w(1) + 10, "tak", 0.3], [w(6), "agir-dusme", 0.45], [w(6) + 8, "nefes", 0.3]],
+  "sk-seker": (w) => [[w(0), "pop", 0.3], [w(3), "alarm", 0.2], [w(4), "kalem", 0.3]],
   "sk-soru": (w) => [[w(0), "pop", 0.35]],
-  "sk-saat": (w) => [[w(2), "cizik", 0.3], [w(5), "pop", 0.3], [w(8), "ding", 0.3], [w(9), "sihir", 0.3], [w(13), "sonme", 0.3]],
-  "sk-mide": (w) => [[w(0), "ding", 0.3], [w(1), "pop", 0.25], [w(4), "whoosh", 0.3], [w(7) + 4, "pirilti", 0.3]],
-  "sk-tabak": (w) => [[w(0), "ding", 0.3], [w(2), "kalem", 0.3], [w(5), "pop", 0.3], [w(6) - 6, "sihir", 0.3], [w(9), "sonme", 0.35], [w(15), "pop", 0.25]],
-  "sk-son": (w) => [[w(5), "cizik", 0.3], [w(13), "pop", 0.35]],
+  "sk-saat": (w) => [[w(1), "cizik", 0.3], [w(5), "ding", 0.3], [w(6), "sihir", 0.3], [w(10), "sonme", 0.3]],
+  "sk-mide": (w) => [[w(0), "ding", 0.3], [w(1), "pop", 0.25], [w(2), "whoosh", 0.3], [w(6) + 2, "pirilti", 0.3]],
+  "sk-tabak": (w) => [[w(0), "ding", 0.3], [w(2), "pop", 0.25], [w(5), "yuksel", 0.35], [w(6) - 4, "sihir", 0.3], [w(9), "sonme", 0.35]],
+  "sk-son": (w) => [[w(2), "cizik", 0.3], [w(10), "pop", 0.35]],
   "kan-agirlik": (w) => [[w(3) + 10, "tak", 0.3], [w(8), "agir-dusme", 0.45], [w(13) - 2, "nefes", 0.3]],
   "kan-internet": (w) => [[0, "pop", 0.3], [w(0), "klavye", 0.3], [w(5), "ding", 0.3]],
   "kan-arkadas": (w) => [[w(1), "whoosh", 0.25], [w(7), "ding", 0.25], [w(9), "ding", 0.25]],
@@ -13420,19 +13420,19 @@ const LabMouse: React.FC<{ x: number; y: number; p: number; f: number; sleepy: n
 // 1 "Karnını bir güzel doyurdun… ve üstüne bir ağırlık çöktü. Gözlerin kendiliğinden kapanıyor."
 const SkAgirlik: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const done = w(3) + 10;
+  const done = w(1) + 10;
   const eating = f < done;
-  const drop = tw(f, w(7) - 2, w(8) + 4);
-  const lid = tw(f, w(9), w(10) + 12) * 0.9;
-  const y = yawn(f, w(9) + 4, 24);
+  const drop = tw(f, w(5) - 2, w(6) + 4);
+  const lid = tw(f, w(6) + 4, d - 4) * 0.9;
+  const y = yawn(f, w(6) + 8, 22);
   return (
-    <CamK k={[[0, 1, 540, 960], [w(6), 1.02, 520, 960], [w(8) + 4, 1.1, 460, 900], [d, 1.16, 430, 880]]} shake={hit(f, w(8) + 2, 14) * 0.6}>
+    <CamK k={[[0, 1, 540, 960], [w(4), 1.02, 520, 960], [w(6) + 4, 1.1, 460, 900], [d, 1.16, 430, 880]]} shake={hit(f, w(6) + 2, 14) * 0.6}>
       <KanOffice
         f={f}
         solo
         foodMe={eating ? 0.6 * (1 - tw(f, 0, done)) + 0.1 : 0.1}
         forkOnPlate={!eating}
-        av={{ arm: eating ? myEat(f, done) : y ? MY_MOUTH : MY_REST, fork: eating, lid: y ? 0.9 : lid, tilt: -12 * tw(f, w(10), d), drop, mouth: y ? "open" : eating ? (Math.floor(f / 6) % 2 ? "flat" : "smile") : "flat", blush: 0.5 }}
+        av={{ arm: eating ? myEat(f, done) : y ? MY_MOUTH : MY_REST, fork: eating, lid: y ? 0.9 : lid, tilt: -12 * tw(f, w(6) + 6, d), drop, mouth: y ? "open" : eating ? (Math.floor(f / 6) % 2 ? "flat" : "smile") : "flat", blush: 0.5 }}
       >
         <SleepWeight heavy={drop} drop={drop} f={f} />
       </KanOffice>
@@ -13444,14 +13444,14 @@ const SkAgirlik: React.FC<SceneProps> = ({ w, d }) => {
 // 2 "Ve aklına şu geliyor: Yoksa şekerim mi var?" — gözleri birden açılır, balonda kırmızı "ŞEKER Mİ?"; ağırlık hafifçe kalkar.
 const SkSeker: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const scare = tw(f, w(4) - 2, w(4) + 6);
+  const scare = tw(f, w(3) - 2, w(3) + 6);
   return (
-    <CamK k={[[0, 1.14, 440, 860], [w(4), 1.06, 540, 800], [d, 1.08, 540, 780]]} shake={hit(f, w(5), 12) * 0.5}>
+    <CamK k={[[0, 1.14, 440, 860], [w(3), 1.06, 540, 800], [d, 1.08, 540, 780]]} shake={hit(f, w(4), 12) * 0.5}>
       <KanOffice f={f} solo foodMe={0.1} forkOnPlate av={{ lid: 0.85 * (1 - scare), tilt: -12 * (1 - scare), drop: 1 - 0.6 * scare, mouth: scare > 0.5 ? "o" : "flat", blush: 0.3 + 0.6 * scare, kids: scare > 0.5 ? <Lids lid={0} /> : null }}>
         <SleepWeight heavy={1 - 0.5 * scare} f={f} />
       </KanOffice>
       <Heavy o={0.6 * (1 - 0.6 * scare)} />
-      <SekerBubble p={pop(f, w(1) - 2, 14)} t={tw(f, w(4), w(7) + 6)} />
+      <SekerBubble p={pop(f, w(0), 14)} t={tw(f, w(3), w(6) + 6)} />
     </CamK>
   );
 };
@@ -13479,16 +13479,16 @@ const SkSoru: React.FC<SceneProps> = ({ w, d }) => {
 // "Kan mideye" kartı çarpıyla düşer; "1 SAAT"; göğüste iç saat; mercekte uyanıklık eğrisi 14:00 çukuruna iner; tabak boşalır, kesik çizgi de çukura düşer.
 const SkSaat: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const card = pop(f, 0, 10) * (1 - tw(f, w(5), w(6)));
-  const three = pop(f, w(5), 12) * (1 - tw(f, w(8) - 4, w(8)));
-  const badge = pop(f, w(8), 12);
-  const clock = pop(f, w(9), 14);
-  const lens = tw(f, w(9), w(10) + 8);
-  const dot = tw(f, w(10), w(13) + 6);
-  const ghost = tw(f, w(14), w(15) + 8);
+  const card = pop(f, 0, 10) * (1 - tw(f, w(4), w(5)));
+  const three = 0;
+  const badge = pop(f, w(5), 12);
+  const clock = pop(f, w(6), 14);
+  const lens = tw(f, w(6), w(7) + 8);
+  const dot = tw(f, w(7), w(10) + 6);
+  const ghost = 0;
   return (
-    <CamK k={[[0, 1.06, 540, 800], [w(8), 1.04, 560, 820], [d, 1.04, 560, 820]]}>
-      <KanOffice f={f} solo foodMe={0.1 * (1 - tw(f, w(14), w(15)))} forkOnPlate={f < w(14)} av={{ lid: 0.15 + 0.55 * tw(f, w(12), w(13) + 6), tilt: -3 * dot, lookY: -6, drop: 1 - 0.6 * tw(f, 0, w(4)), mouth: "smile" }}>
+    <CamK k={[[0, 1.06, 540, 800], [w(5), 1.04, 560, 820], [d, 1.04, 560, 820]]}>
+      <KanOffice f={f} solo foodMe={0.1} forkOnPlate av={{ lid: 0.15 + 0.55 * tw(f, w(9), w(10) + 6), tilt: -3 * dot, lookY: -6, drop: 1 - 0.6 * tw(f, 0, w(4)), mouth: "smile" }}>
         <ChestClock p={clock} f={f} slow={dot} />
         <SleepWeight heavy={0.4 + 0.45 * dot} f={f} />
       </KanOffice>
@@ -13498,7 +13498,7 @@ const SkSaat: React.FC<SceneProps> = ({ w, d }) => {
           <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90} fill={C.red}>
             Kan mideye?
           </text>
-          <Cross x={0} y={-5} size={110} p={tw(f, w(2), w(4) + 4)} />
+          <Cross x={0} y={-5} size={110} p={tw(f, w(1), w(3) + 4)} />
         </g>
       ) : null}
       {three > 0 ? (
@@ -13520,8 +13520,8 @@ const SkMide: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const badge = pop(f, w(0), 12);
   const st = pop(f, w(1), 14);
-  const line = tw(f, w(2), w(3) + 6);
-  const mail = tw(f, w(4) - 4, w(7) + 4);
+  const line = tw(f, w(1), w(2) + 6);
+  const mail = tw(f, w(2), w(6) + 2);
   const sx = MY_AV.x + 10;
   const sy = MY_AV.y - 520;
   const ex = MY_HEAD.x + 110;
@@ -13533,10 +13533,10 @@ const SkMide: React.FC<SceneProps> = ({ w, d }) => {
     return [u ** 3 * P[0][0] + 3 * u * u * t * P[1][0] + 3 * u * t * t * P[2][0] + t ** 3 * P[3][0], u ** 3 * P[0][1] + 3 * u * u * t * P[1][1] + 3 * u * t * t * P[2][1] + t ** 3 * P[3][1]];
   };
   const [mx, my] = bz(mail);
-  const lid = 0.3 + 0.6 * tw(f, w(7), d - 6);
+  const lid = 0.3 + 0.6 * tw(f, w(6), d - 2);
   return (
     <CamK k={[[0, 1.1, 480, 880], [d, 1.16, 470, 860]]}>
-      <KanOffice f={f} solo foodMe={0.1} forkOnPlate av={{ lid, tilt: -8 * tw(f, w(7), d), drop: 1, mouth: "flat" }}>
+      <KanOffice f={f} solo foodMe={0.1} forkOnPlate av={{ lid, tilt: -8 * tw(f, w(6), d), drop: 1, mouth: "flat" }}>
         <FullStomach p={st} f={f} />
         {line > 0 ? (
           <>
@@ -13544,16 +13544,16 @@ const SkMide: React.FC<SceneProps> = ({ w, d }) => {
             <path d={pth} stroke={C.yellow} strokeWidth={10} fill="none" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - line} />
           </>
         ) : null}
-        {mail > 0 && mail < 1 ? <Envelope2 x={mx} y={my} s={0.9} label={f >= w(5) ? "DİNLEN" : undefined} /> : null}
-        {f >= w(7) + 4 ? (
-          <g opacity={tw(f, w(7) + 4, w(8) + 4)}>
+        {mail > 0 && mail < 1 ? <Envelope2 x={mx} y={my} s={0.9} label={f >= w(3) ? "DİNLEN" : undefined} /> : null}
+        {f >= w(6) + 2 ? (
+          <g opacity={tw(f, w(6) + 2, w(6) + 10)}>
             <circle cx={ex} cy={ey} r={60} fill={C.yellow} opacity={0.6} filter="url(#glow)" />
             <HandText x={ex + 150} y={ey - 120} text="DİNLEN" size={80} color={YAS_OK} p={1} />
           </g>
         ) : null}
-        <SleepWeight heavy={0.5 + 0.4 * tw(f, w(7), d)} f={f} />
+        <SleepWeight heavy={0.5 + 0.4 * tw(f, w(6), d)} f={f} />
       </KanOffice>
-      <Heavy o={0.25 + 0.35 * tw(f, w(7), d)} />
+      <Heavy o={0.25 + 0.35 * tw(f, w(6), d)} />
       <NumBadge n={2} p={badge} label="mide" />
     </CamK>
   );
@@ -13563,35 +13563,35 @@ const SkMide: React.FC<SceneProps> = ({ w, d }) => {
 // "3 TABAK"; 2006; beyin merceğinde sarı hücreler; şeker küpleri gelince tek tek söner; tabakta pilav/ekmek/tatlı sırayla parlar.
 const SkTabak: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const badge = pop(f, w(0), 12) * (1 - tw(f, w(2) - 6, w(2)));
-  // laboratuvar ara karesi ("iki bin altıda" → "kısılıyor"): sade zemin, ortada fare kafesi, üstte beyin merceği
-  const lab = tw(f, w(2) - 6, w(2) + 4) * (1 - tw(f, w(15) - 8, w(15)));
-  const lens = tw(f, w(6) - 4, w(6) + 10);
-  const span = (w(14) + 8 - w(9)) / 9;
-  const dims = Array.from({ length: 9 }, (_, i) => tw(f, w(9) + i * span, w(9) + (i + 1) * span));
-  const glow = [tw(f, w(15) - 2, w(15) + 6), tw(f, w(16) - 2, w(16) + 6), tw(f, w(17) - 2, w(17) + 6)];
-  const sleepy = tw(f, w(9), w(14) + 4);
+  const badge = pop(f, w(0), 12);
+  const glow = [tw(f, w(2) - 2, w(2) + 6), tw(f, w(3) - 2, w(3) + 6), tw(f, w(4) - 2, w(4) + 6)];
+  const rise = f >= w(5) - 2;
+  const lens = tw(f, w(6) - 4, w(6) + 8);
+  const span = (w(10) + 10 - w(9)) / 9;
+  const dims = Array.from({ length: 9 }, (_, i) => tw(f, w(9) - 4 + i * span, w(9) - 4 + (i + 1) * span));
+  const lid = 0.35 + 0.6 * tw(f, w(9), d - 2);
+  const px = KN_PLATE_ME;
+  const py = MY_TT - 30;
   return (
-    <>
-      <CamK k={[[0, 1.04, 560, 900], [w(15) - 6, 1.1, 560, 960], [w(15) + 6, 1.2, 560, 1000], [d, 1.2, 560, 1000]]}>
-        <KanOffice f={f} solo foodMe={0.6} glow={glow} markMe={tw(f, w(1), w(2))} av={{ lid: 0.6 + 0.3 * tw(f, w(15), d), tilt: -6, drop: 1, mouth: "flat" }}>
-          <SleepWeight heavy={0.6 + 0.3 * tw(f, w(15), d)} f={f} />
-        </KanOffice>
-        <NumBadge n={3} p={badge} label="tabak" />
-      </CamK>
-      {lab > 0 ? (
-        <g opacity={lab}>
-          <rect x={-40} y={-40} width={1160} height={2000} fill="#efe3c6" />
-          <rect x={-40} y={1380} width={1160} height={600} fill="#d8c39b" />
-          <path d="M-40 1380 L1120 1380" stroke={C.ink} strokeWidth={7} />
-          <HandText x={540} y={220} text="2006" size={150} color={C.red} p={tw(f, w(2), w(4) + 6)} rotate={-3} />
-          <HandText x={540} y={330} text="fare deneyi" size={72} color={C.ink} p={tw(f, w(5) - 2, w(5) + 10)} rotate={-3} />
-          <LabMouse x={540} y={1230} p={2.1 * pop(f, w(5) - 4, 12)} f={f} sleepy={sleepy} />
-          {lens > 0 ? <path d="M450 1100 L520 900" stroke={C.ink} strokeWidth={7} strokeDasharray="16 12" opacity={lens} /> : null}
-          <BrainLens x={540} y={640} r={270} p={lens} dims={dims} sugar={tw(f, w(8) - 4, w(9))} f={f} />
-        </g>
-      ) : null}
-    </>
+    <CamK k={[[0, 1.25, 560, 1020], [w(5) - 2, 1.25, 560, 1020], [w(6) + 4, 1.04, 560, 860], [d, 1.06, 560, 860]]}>
+      <KanOffice f={f} solo foodMe={0.6} glow={glow} markMe={tw(f, w(1), w(2))} av={{ lid, tilt: -8 * tw(f, w(9), d), drop: 1, mouth: "flat" }}>
+        <SleepWeight heavy={0.4 + 0.5 * tw(f, w(9), d)} f={f} />
+      </KanOffice>
+      {rise
+        ? cycles(f, w(5) - 2, 5, 34).map(({ k, p: q }) => {
+            const tx = MY_HEAD.x + (random(`sc${k}`) - 0.5) * 60;
+            const ty = MY_HEAD.y - 40;
+            const x = lerp(px + (random(`sx${k}`) - 0.5) * 120, tx, q) + Math.sin(q * 6 + k) * 20;
+            const y = lerp(py, ty, q);
+            return <rect key={k} x={x - 12} y={y - 12} width={24} height={24} rx={4} fill="#fffdf6" stroke={C.ink} strokeWidth={4} transform={`rotate(${k * 37 + f * 4} ${x} ${y})`} opacity={1 - tw(q, 0.85, 1)} />;
+          })
+        : null}
+      {f >= w(5) - 2 ? <HandText x={px + 200} y={py - 120} text="şeker" size={70} color={C.red} p={tw(f, w(5) - 2, w(5) + 8)} /> : null}
+      <path d={`M${MY_HEAD.x + 60} ${MY_HEAD.y - 60} L620 600`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens} />
+      <BrainLens x={760} y={420} r={270} p={lens} dims={dims} sugar={tw(f, w(6), w(9))} f={f} />
+      <HandText x={760} y={780} text="uyanık tutan hücreler" size={52} color={C.ink} p={tw(f, w(7), w(9) + 4)} />
+      <NumBadge n={3} p={badge} label="tabak" />
+    </CamK>
   );
 };
 
@@ -13599,20 +13599,20 @@ const SkTabak: React.FC<SceneProps> = ({ w, d }) => {
 // "ŞEKER Mİ?" balonu belirir ve "değil"de söner, avatar rahatlar; "doktora"da stetoskoplu kart; sonda yeniden yemeğe döner (son kare = ilk kare).
 const SkSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const bub = pop(f, 0, 10) * (1 - tw(f, w(5), w(5) + 10));
-  const doc = pop(f, w(13), 12) * (1 - tw(f, d - 18, d - 8));
+  const bub = pop(f, 0, 10) * (1 - tw(f, w(3), w(3) + 10));
+  const doc = pop(f, w(10), 12) * (1 - tw(f, d - 18, d - 8));
   const back = tw(f, d - 16, d - 4);
   return (
-    <CamK k={[[0, 1.06, 520, 860], [w(6), 1.04, 540, 880], [d - 16, 1.02, 540, 940], [d - 4, 1, 540, 960]]}>
+    <CamK k={[[0, 1.06, 520, 860], [w(4), 1.04, 540, 880], [d - 16, 1.02, 540, 940], [d - 4, 1, 540, 960]]}>
       <KanOffice
         f={f}
         solo
         foodMe={0.1 + 0.6 * back}
         forkOnPlate={back < 0.5}
-        av={{ arm: back > 0.5 ? myEat(f, d + 100) : MY_REST, fork: back > 0.5, lid: 0, drop: 0, mouth: f >= w(5) ? "smile" : "worry", blush: 0.4 }}
+        av={{ arm: back > 0.5 ? myEat(f, d + 100) : MY_REST, fork: back > 0.5, lid: 0, drop: 0, mouth: f >= w(3) ? "smile" : "worry", blush: 0.4 }}
       />
       <SekerBubble p={bub} t={1} />
-      {f >= w(5) && f < w(5) + 12 ? <Cross x={SK_BUB.x} y={SK_BUB.y} size={140} p={tw(f, w(4), w(5) + 6)} /> : null}
+      {f >= w(2) && f < w(3) + 12 ? <Cross x={SK_BUB.x} y={SK_BUB.y} size={140} p={tw(f, w(2), w(3) + 6)} /> : null}
       {doc > 0 ? (
         <g transform={`translate(740 430) scale(${doc}) rotate(-3)`}>
           <rect x={-250} y={-190} width={500} height={330} rx={26} fill={C.cream} stroke={C.ink} strokeWidth={9} />
