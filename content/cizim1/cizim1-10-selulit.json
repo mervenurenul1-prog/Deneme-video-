@@ -14,8 +14,8 @@
   "scenes": [
     {
       "visual": "sel-hook",
-      "voice": "Haftada dört gün spor yapıyorsun, kotun bol geliyor. Ama arkanı dönünce o portakal kabuğu hâlâ orada.",
-      "say": "Haftada dört gün spor yapıyorsun, kotun bol geliyor. [quietly] Ama arkanı dönünce... o portakal kabuğu hâlâ orada."
+      "voice": "Haftada dört gün spor yapıyorsun, bacakların sıkılaştı. Ama arkanı dönünce o portakal kabuğu hâlâ orada.",
+      "say": "Haftada dört gün spor yapıyorsun, bacakların sıkılaştı. [quietly] Ama arkanı dönünce... o portakal kabuğu hâlâ orada."
     },
     {
       "visual": "sel-esi",

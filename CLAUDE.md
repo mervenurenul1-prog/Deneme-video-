@@ -103,7 +103,10 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   "KUSUR" damgası sağ üstte her sahnede çatlar, sonda kırılıp düşer. Sessiz önizleme `ornek-videolar/cizim1-pilot/10-selulit-sessiz.mp4`
   → kullanıcı onayı → seslendirme (Yunus ~640 + Sibel ~26 karakter).
   **SES NOTU (kullanıcı):** Sibel "anne sesi"; selülitteki kadın için Sibel OLMAZ → Yunus yaşında, daha GENÇ bir kadın sesi
-  seçilecek (sonra düşünülecek; seslendirmeden önce aday sesleri sun). `KiloStamp` artık `text/x/y/half` alıyor.
+  seçilecek (sonra düşünülecek; seslendirmeden önce aday sesleri sun).
+  **v2 (kullanıcı):** "kotun bol geliyor" saçma (üstünde kot yok) → "bacakların sıkılaştı" (bacak kasları parlar, "sıkı!").
+  Deri kesiti gerçek anatomiyle yeniden çizildi: üst deri hücre sırası, alt deri (kolajen lifleri, kılcal damar, kıl kökü),
+  petek gibi yağ hücreleri (`FatCell`, çekirdek kenarda), lifli bağ dokusu bantları (`Septum`); erkekte çapraz ağ. `KiloStamp` artık `text/x/y/half` alıyor.
 
 **>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
 - **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →
