@@ -563,6 +563,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "sk-saat": (w) => [[w(1), "cizik", 0.3], [w(5), "ding", 0.3], [w(6), "sihir", 0.3], [w(10), "sonme", 0.3]],
   "sk-mide": (w) => [[w(0), "ding", 0.3], [w(1), "pop", 0.25], [w(2), "whoosh", 0.3], [w(6) + 2, "pirilti", 0.3]],
   "sk-tabak": (w) => [[w(0), "ding", 0.3], [w(2), "pop", 0.25], [w(5), "yuksel", 0.35], [w(6) - 4, "sihir", 0.3], [w(9), "sonme", 0.35]],
+  "sk-tabak2": (w) => [[w(2), "pop", 0.3], [w(3), "pop", 0.2], [w(6) - 4, "yuksel", 0.4], [w(10), "boom", 0.35]],
+  "sk-beyin2": (w) => [[0, "sihir", 0.3], [w(7), "sonme", 0.35], [w(9) + 10, "agir-dusme", 0.35]],
   "sk-son": (w) => [[w(2), "cizik", 0.3], [w(10), "pop", 0.35]],
   "kan-agirlik": (w) => [[w(3) + 10, "tak", 0.3], [w(8), "agir-dusme", 0.45], [w(13) - 2, "nefes", 0.3]],
   "kan-internet": (w) => [[0, "pop", 0.3], [w(0), "klavye", 0.3], [w(5), "ding", 0.3]],
@@ -599,6 +601,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
 
 // 10 mayışma UZUN sürüm: kısa sürüm kelime i → uzun metinde SKU_IDX[i]; efektler kısa sürümden aktarılır
 const SKU_IDX: Record<string, number[]> = {
+  "skk-agirlik": [0, 3, 4, 5, 6, 7, 8],
+  "skk-son": [1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14],
   "sku-agirlik": [0, 3, 4, 5, 6, 7, 8],
   "sku-seker": [1, 2, 3, 4, 5, 6, 7],
   "sku-soru": [0, 1, 2, 3, 4],
@@ -608,7 +612,7 @@ const SKU_IDX: Record<string, number[]> = {
   "sku-son": [1, 2, 4, 5, 6, 7, 8, 10, 12, 13, 14, 16],
 };
 for (const [k, m] of Object.entries(SKU_IDX)) {
-  const base = SFX[k.replace("sku-", "sk-")];
+  const base = SFX[k.replace(/^sk[uk]-/, "sk-")];
   if (base) SFX[k] = (w, d) => base((i) => w(m[i] ?? i), d);
 }
 
@@ -13643,12 +13647,88 @@ const SkSon: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 
+// 10 mayışma KISA v2 (tek fikir: tabak → şeker → beyin). 4 "Çoğu zaman tabağından. Pilav, ekmek, tatlı kandaki şekeri bir anda fırlatır."
+// Kamera tabağa dalar; yiyecekler sırayla parlar; şeker küpleri tabaktan fışkırır; dev kan şekeri çizgisi roket gibi tavana fırlar, kart sarsılır.
+const SkTabak2: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const glow = [tw(f, w(3) - 2, w(3) + 6), tw(f, w(4) - 2, w(4) + 6), tw(f, w(5) - 2, w(5) + 6)];
+  const chart = pop(f, w(6) - 4, 12);
+  const rise = tw(f, w(7), w(10) + 4);
+  const px = KN_PLATE_ME;
+  const py = MY_TT - 30;
+  return (
+    <CamK k={[[0, 1.1, 520, 900], [w(2), 1.32, 560, 1030], [w(6) - 4, 1.32, 560, 1030], [w(6) + 6, 1.0, 560, 860], [d, 1.02, 560, 860]]} shake={hit(f, w(10), 16) * 0.8}>
+      <KanOffice f={f} solo foodMe={0.6} glow={glow} markMe={tw(f, w(1), w(2) + 6)} av={{ lid: 0.5, tilt: -4, drop: 1, mouth: f >= w(10) ? "o" : "flat" }}>
+        <SleepWeight heavy={0.5} f={f} />
+      </KanOffice>
+      {f >= w(6) - 4
+        ? cycles(f, w(6) - 4, 4, 30).map(({ k, p: q }) => {
+            const x = px + (random(`tk${k}`) - 0.5) * 160 + Math.sin(q * 5 + k) * 30;
+            const y = lerp(py, py - 700, q);
+            return <rect key={k} x={x - 13} y={y - 13} width={26} height={26} rx={4} fill="#fffdf6" stroke={C.ink} strokeWidth={4} transform={`rotate(${k * 41 + f * 5} ${x} ${y})`} opacity={1 - tw(q, 0.7, 1)} />;
+          })
+        : null}
+      {chart > 0 ? (
+        <g transform={`translate(560 470) scale(${chart})`}>
+          <rect x={-300} y={-200} width={600} height={360} rx={26} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+          <text x={0} y={-140} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={50} fill={C.ink}>
+            KAN ŞEKERİ
+          </text>
+          <path d="M-260 120 L260 120" stroke={C.ink} strokeWidth={6} />
+          {(() => {
+            // roket gibi: önce yavaş, sonra dik; tepede kartın dışına taşar
+            const n = Math.max(2, Math.round(40 * rise));
+            const pts = Array.from({ length: n }, (_, i) => {
+              const t = (i / 39) * 1;
+              return [-250 + t * 470, 110 - 30 * t - 420 * t ** 4];
+            });
+            const last = pts[pts.length - 1];
+            return (
+              <>
+                <path d={pts.map((q, i) => `${i ? "L" : "M"}${q[0].toFixed(1)} ${q[1].toFixed(1)}`).join(" ")} stroke={C.red} strokeWidth={14} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                {rise > 0.05 ? <circle cx={last[0]} cy={last[1]} r={16} fill={C.red} stroke={C.ink} strokeWidth={5} /> : null}
+              </>
+            );
+          })()}
+        </g>
+      ) : null}
+      <HandText x={560} y={190} text="FIRLADI!" size={110} color={C.red} p={tw(f, w(10), w(10) + 10)} rotate={-4} />
+    </CamK>
+  );
+};
+
+// 5 "Şeker yükselince, beyninde seni uyanık tutan hücreler tek tek kısılır."
+// Beyin merceği: sarı hücreler parlıyor; şeker küpleri gelir; hücreler "tek tek" söner; son hücreyle avatarın başı masaya düşer.
+const SkBeyin2: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const lens = tw(f, 0, 10);
+  const span = (w(9) + 8 - w(7)) / 9;
+  const dims = Array.from({ length: 9 }, (_, i) => tw(f, w(7) - 6 + i * span, w(7) - 6 + (i + 1) * span));
+  const off = tw(f, w(9) + 2, w(9) + 12);
+  const lid = 0.45 + 0.55 * tw(f, w(7), w(9) + 4);
+  return (
+    <CamK k={[[0, 1.06, 560, 820], [w(9), 1.06, 560, 820], [d, 1.12, 460, 960]]} shake={hit(f, w(9) + 10, 12) * 0.7}>
+      <KanOffice f={f} solo foodMe={0.1} forkOnPlate av={{ lid, tilt: -14 * off, drop: 1 + 4 * off, mouth: "flat" }}>
+        <SleepWeight heavy={0.5 + 0.5 * tw(f, w(7), w(9))} f={f} />
+      </KanOffice>
+      <Heavy o={0.2 + 0.5 * tw(f, w(7), d)} />
+      <path d={`M${MY_HEAD.x + 60} ${MY_HEAD.y - 60} L620 600`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens * (1 - off)} />
+      <g opacity={1 - off}>
+        <BrainLens x={760} y={420} r={290} p={lens} dims={dims} sugar={tw(f, 0, w(2))} f={f} />
+        <HandText x={760} y={790} text="uyanık tutan hücreler" size={54} color={C.ink} p={tw(f, w(3), w(6))} />
+      </g>
+    </CamK>
+  );
+};
+
 // 10 mayışma UZUN (~45 sn): aynı sahneler, uzun metnin kelime sırasına göre (kısa sürüm kelime i → uzun sürümde MAP[i])
 const remapW = (C: React.FC<SceneProps>, map: number[]): React.FC<SceneProps> => {
   const R: React.FC<SceneProps> = ({ w, d }) => <C d={d} w={(i) => w(map[i] ?? i)} />;
   return R;
 };
 const SKU_MAP: Record<string, React.FC<SceneProps>> = {
+  "skk-agirlik": SkAgirlik,
+  "skk-son": SkSon,
   "sku-agirlik": SkAgirlik,
   "sku-seker": SkSeker,
   "sku-soru": SkSoru,
@@ -13661,6 +13741,8 @@ const SKU_SCENES: Record<string, React.FC<SceneProps>> = Object.fromEntries(Obje
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
   ...SKU_SCENES,
+  "sk-tabak2": SkTabak2,
+  "sk-beyin2": SkBeyin2,
   "sk-agirlik": SkAgirlik,
   "sk-seker": SkSeker,
   "sk-soru": SkSoru,
