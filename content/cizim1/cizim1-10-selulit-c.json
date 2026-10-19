@@ -1,0 +1,76 @@
+{
+  "id": "cizim1-10-selulit-c",
+  "title": "Selülit: dört yüz yıl önce bir başyapıttı",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.05,
+  "caption": "Selülit bir kusur mu? Rubens'in Üç Güzeller tablosunda (1630'lar, Prado) hekimler ortadaki figürde selülit görmüş; o dönem kıvrımlı beden güzellik ölçüsüydü. Kelime İngilizce basına 1968'de bir moda dergisiyle girdi. Sebep: deri altındaki bağ dokusu ipleri kadınlarda dik dizilir (Nürnberger & Müller 1978).",
+  "hashtags": [
+    "selülit",
+    "kadınfitness",
+    "fitness",
+    "sağlıklıyaşam",
+    "bunubiliyormuydun",
+    "voom"
+  ],
+  "scenes": [
+    {
+      "visual": "selc-tablo",
+      "voice": "Bacağındaki bu çukurlar, dört yüz yıl önce bir başyapıttı.",
+      "say": "Bacağındaki bu çukurlar... dört yüz yıl önce bir başyapıttı."
+    },
+    {
+      "visual": "selc-ressam",
+      "voice": "Rubens'in Üç Güzeller'i. Doktorlar ortadakinin bacağında selülit buldu. O gün güzellik buydu.",
+      "say": "Rubens'in Üç Güzeller'i. Doktorlar, ortadakinin bacağında selülit buldu. O gün... güzellik buydu."
+    },
+    {
+      "visual": "selc-dergi",
+      "voice": "Sonra bin dokuz yüz altmış sekizde bir moda dergisi ona bir isim taktı: selülit. Ve 'kurtulman gereken yağ' dedi.",
+      "say": "Sonra bin dokuz yüz altmış sekizde, bir moda dergisi ona bir isim taktı: selülit. Ve 'kurtulman gereken yağ' dedi."
+    },
+    {
+      "visual": "selc-bakis",
+      "voice": "Aynı bacaklar, aynı çukurlar. Değişen tek şey bakıştı.",
+      "say": "Aynı bacaklar, aynı çukurlar. [curious] Değişen tek şey... bakıştı."
+    },
+    {
+      "visual": "selc-krem",
+      "voice": "Kremler satıldı, kadınlar suçu kendinde aradı.",
+      "say": "Kremler satıldı, kadınlar suçu kendinde aradı."
+    },
+    {
+      "visual": "selc-bugun",
+      "voice": "Ve bugün sen, haftada dört gün spor yapıp yine aynaya kızıyorsun.",
+      "say": "Ve bugün sen... haftada dört gün spor yapıp, yine aynaya kızıyorsun."
+    },
+    {
+      "visual": "selc-ip",
+      "voice": "Oysa sebebi derinin altında. Yağı bölen ipler kadınlarda dimdik durur, yağ aralarından kabarır.",
+      "say": "Oysa sebebi derinin altında. Yağı bölen ipler, kadınlarda dimdik durur; yağ aralarından kabarır."
+    },
+    {
+      "visual": "sel-erkek",
+      "voice": "Erkeklerde çapraz örülür, deri düz kalır.",
+      "say": "Erkeklerde çapraz örülür, deri düz kalır."
+    },
+    {
+      "visual": "sel-yaygin",
+      "voice": "Bu yüzden on kadından sekiz-dokuzunda var. Zayıfında da, sporcusunda da.",
+      "say": "Bu yüzden on kadından sekiz-dokuzunda var. Zayıfında da, sporcusunda da."
+    },
+    {
+      "visual": "selc-son",
+      "voice": "Yani bacakların bozulmadı. Birileri güzelliğin tanımını değiştirdi. Sana bunun kusur olduğunu ilk kim söyledi?",
+      "say": "Yani bacakların bozulmadı. Birileri, güzelliğin tanımını değiştirdi. [curious] Sana bunun kusur olduğunu... ilk kim söyledi?",
+      "hold": 1.1
+    }
+  ]
+}

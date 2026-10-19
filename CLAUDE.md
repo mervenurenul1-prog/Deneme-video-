@@ -22,6 +22,18 @@ Sessiz önizlemeden önce seçilen kıyafeti kullanıcıya söyle.
   (Yunus ~510 + kadın ~26 karakter) → müzikle render → gönder.
 - Kullanıcıdan gelen son görsel ders: referans heyvoom "büyüme plağı" videosu — sade/büyük/net, yüzlü hücreler, hap etiketler.
 
+## >>> 10 SELÜLİT C (`cizim1-10-selulit-c`, 19 Ekim gece — EN GÜNCEL) <<<
+CEFF/ekip eski selülit hikâyesini BEĞENMEDİ ("hikâyeyi geliştirmek lazım"). Kullanıcı C'yi seçti + "güzellik algısına bağla,
+çatışma yarat". Çatışma: aynı bacak 1630'larda başyapıt (Rubens, Üç Güzeller, Prado), 1968'de moda dergisi "kusur" dedi.
+**KULLANICI: "Rubens/Prado/2017 hekim incelemesi bilgisi çok iyi, KISA şekilde ekle — UNUTMA."** Kaynaklar: Prado sayfası
+(kıvrımlı beden o dönemin güzellik ölçüsü), IJAE 2017 (ortadaki figürde selülit). Metin (onaylandı "bi yap bakalım"):
+1 "Bacağındaki bu çukurlar, dört yüz yıl önce bir başyapıttı." 2 "Rubens'in Üç Güzeller'i. Doktorlar ortadakinin bacağında
+selülit buldu. O gün güzellik buydu." 3 1968 moda dergisi "selülit" + "kurtulman gereken yağ" 4 "Aynı bacaklar, aynı çukurlar.
+Değişen tek şey bakıştı." 5 "Kremler satıldı, kadınlar suçu kendinde aradı." 6 "Ve bugün sen, haftada dört gün spor yapıp yine
+aynaya kızıyorsun." 7 ipler (kadın dik) 8 erkek çapraz 9 8-9/10 10 "Yani bacakların bozulmadı. Birileri güzelliğin tanımını
+değiştirdi. Sana bunun kusur olduğunu ilk kim söyledi?" → döngü (ayna → tablo). Yalnız Yunus (kadın sesi yok).
+Kız: yüksek belli kısa tayt + kolsuz atlet, gerçekçi bacak (`Person realLegs/cellulite/shorts/shortsLen/sleeveless/shoe`).
+
 ## !!! STRATEJİ (kullanıcı, 19 Ekim) — TÜM YENİ KONULAR BUNA GÖRE, ayrıntı `notlar/00-strateji.md` !!!
 - **Hedef kitle:** (1) spora yeni başlayanlar, (2) bir süredir spor yapanlar, (3) spora merakı olanlar,
   (4) spora başlamaya ikna edilecekler. VOOM bu kitleyi sayfasında toplamalı; arada **satış Reels'i** de üretilecek.
