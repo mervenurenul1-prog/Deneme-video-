@@ -539,15 +539,17 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "boyun-asil": (w, d) => [...every(w(5) - 2, w(7) + 8, 3, "tik", 0.18), [w(5), "whoosh", 0.25], [w(6), "nefes", 0.3], [w(7) + 8, "ding", 0.2], ...every(w(8), d - 6, 10, "bip", 0.15)],
   "boyun-cozum": (w) => [[w(0), "yuksel", 0.35], [w(4) - 2, "whoosh", 0.2], [w(4) + 14, "whoosh", 0.2], [w(8) - 2, "whoosh", 0.4], [w(9) + 6, "agir-dusme", 0.85], [w(10), "nefes", 0.4], [w(10) + 4, "pirilti", 0.35], [w(11), "ding", 0.25]],
   "boyun-kapanis": (w) => [[w(1), "whoosh", 0.25], [w(6), "pop", 0.4], ...every(w(6), w(9) - 2, 3, "tak", 0.22), [w(9) - 4, "havalanma", 0.25]],
-  "sel-hook": (w) => [[w(0), "tik", 0.3], [w(5), "yuksel", 0.25], [w(8), "whoosh", 0.35], [w(11), "pop", 0.35], [w(13), "cizik", 0.35]],
-  "sel-esi": (w) => [[2, "adim", 0.3], [w(1), "pop", 0.3], [w(3), "ding", 0.3], [w(5), "bip", 0.3]],
+  "sel-reklam": (w) => [[0, "pirilti", 0.35], [w(4), "ding", 0.3], [w(5) + 2, "cizik", 0.4], [w(5) + 8, "whoosh", 0.35]],
+  "sel-hook": (w) => [[w(0), "tik", 0.3], [w(3), "yuksel", 0.25], [w(6), "whoosh", 0.35], [w(9), "pop", 0.35], [w(11), "cizik", 0.35]],
+  "sel-esi": (w) => [[2, "adim", 0.3], [w(2), "pop", 0.3], [w(4), "ding", 0.3], [w(6), "bip", 0.3]],
   "sel-ic": (w) => [[2, "pop", 0.3], [w(2), "tak", 0.45]],
-  "sel-dergi": (w) => [[w(0), "pop", 0.35], [w(3) + 9, "agir-dusme", 0.4], [w(5), "kagit", 0.35], [w(6), "yuksel", 0.25], [w(13), "kalem", 0.3], [w(15) + 4, "agir-dusme", 0.35]],
-  "sel-kadin": (w) => [[0, "whoosh", 0.35], [w(3), "kalem", 0.3], [w(10), "yuksel", 0.3], [w(13), "cizik", 0.3]],
-  "sel-erkek": (w) => [[2, "whoosh", 0.25], [w(1), "kalem", 0.3], [w(5), "ding", 0.3]],
-  "sel-yaygin": (w) => [[w(2), "pop", 0.3], [w(4), "bip", 0.3], [w(7), "pirilti", 0.3]],
-  "sel-deney": (w) => [[2, "bip", 0.3], [w(5), "pop", 0.3], [w(10), "ding", 0.3], [w(12) + 4, "agir-dusme", 0.3]],
-  "sel-son": (w) => [[w(0), "kalem", 0.3], [w(3) + 4, "agir-dusme", 0.35], [w(5), "pop", 0.3]],
+  "sel-haklisin": (w) => [[w(0), "ding", 0.3], [w(2), "whoosh", 0.35]],
+  "sel-kadin": (w) => [[w(3), "kalem", 0.3], [w(10), "yuksel", 0.3], [w(13), "cizik", 0.3]],
+  "sel-erkek": (w) => [[2, "whoosh", 0.25], [w(1), "kalem", 0.3], [w(4), "ding", 0.3]],
+  "sel-yaygin": (w) => [[w(2), "pop", 0.3], [w(4), "bip", 0.3]],
+  "sel-dergi": (w) => [[w(0), "pop", 0.35], [w(6), "kagit", 0.35], [w(7), "yuksel", 0.25], [w(12), "kalem", 0.3], [w(13) + 6, "agir-dusme", 0.35]],
+  "sel-deney": (w) => [[2, "bip", 0.3], [w(5), "pop", 0.3], [w(9), "ding", 0.3], [w(10) + 4, "agir-dusme", 0.3]],
+  "sel-son": (w, d) => [[w(0), "kalem", 0.3], [w(3) + 4, "agir-dusme", 0.35], [w(5), "pop", 0.3], [d - 24, "whoosh", 0.3]],
   "kilo-sofra1": (w) => [[w(3), "pop", 0.3], [w(7), "ding", 0.3], [w(11), "bip", 0.3]],
   "kilo-sofra2": (w) => [[w(0) + 2, "tak", 0.45], [w(1) - 4, "pop", 0.35], [w(1) + 2, "kalem", 0.3]],
   "kilo-lab1": (w) => [[w(3), "whoosh", 0.4], [w(5), "sihir", 0.3], [w(11), "kagit", 0.35]],
@@ -681,6 +683,8 @@ type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
   tarti: { to: 1.07, x: 540, y: 1000 },
+  "sel-reklam": { to: 1.0, x: 540, y: 960 },
+  "sel-haklisin": { to: 1.0, x: 540, y: 960 },
   "sel-hook": { to: 1.0, x: 540, y: 960 },
   "sel-esi": { to: 1.0, x: 540, y: 960 },
   "sel-ic": { to: 1.0, x: 540, y: 960 },
@@ -11627,9 +11631,10 @@ const KiloSon2: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-/* ---------- 10 selülit (kadın konusu 6): B (sporcu kadın) + C (dergideki "kusur" damgası) harmanı ---------- */
-// Evde ayna karşısında dambılla squat yapan kadın; aynada arkadan yansıması. Avatar (erkek) yan karakter.
-// "KUSUR" damgası 1968 dergisinde iner, her bilgide biraz daha çatlar, sonda düşer.
+/* ---------- 10 selülit (kadın konusu 6): sahte reklam + "dün başlayan" avatar ---------- */
+// Video parlak bir krem reklamıyla açılır; kamera geri çekilir: reklam, ayna karşısında dambılla squat yapan kadının
+// yerdeki telefonunda oynuyordur. Avatar (erkek) yan karakter, dün başladı ama bacağı pürüzsüz. Sebep deri altındaki
+// bağ dokusu; "KUSUR" damgası 1968 dergisinde iner, sonda düşer; kamera yine telefondaki reklama dalar (döngü).
 
 const SEL_FL = 1330; // zemin
 const SEL_WO = { x: 300, y: SEL_FL, s: 0.9 };
@@ -11733,13 +11738,14 @@ const SelMirror: React.FC<{ shine?: number; children?: React.ReactNode }> = ({ s
 };
 
 // Ayna karşısındaki tüm sahne: oda, ayna + arkadan yansıma, kadın; avatar isteğe bağlı (aynanın önünde)
-const SelScene: React.FC<{ wo?: SelWoProps; reflDimples?: number; shine?: number; avatar?: React.ReactNode; mirrorExtra?: React.ReactNode }> = ({ wo = {}, reflDimples = 0, shine = 0, avatar, mirrorExtra }) => (
+const SelScene: React.FC<{ wo?: SelWoProps; reflDimples?: number; shine?: number; avatar?: React.ReactNode; mirrorExtra?: React.ReactNode; adF?: number; glitch?: number }> = ({ wo = {}, reflDimples = 0, shine = 0, avatar, mirrorExtra, adF = 0, glitch = 0 }) => (
   <>
     <SelRoom />
     <SelMirror shine={shine}>
       <SelWoman {...wo} legGlow={0} x={SEL_RF.x} y={SEL_RF.y} s={SEL_RF.s} back dimples={reflDimples} mouth="smile" />
       {mirrorExtra}
     </SelMirror>
+    <PhoneAd adF={adF} glitch={glitch} />
     {avatar}
     <SelWoman {...wo} />
   </>
@@ -12029,35 +12035,157 @@ const MiniW: React.FC<{ x: number; y: number; s: number; c: string; badge?: numb
   </g>
 );
 
-// 1) "Haftada dört gün spor yapıyorsun, bacakların sıkılaştı. Ama arkanı dönünce o portakal kabuğu hâlâ orada."
-// İlk kareden hareket: kadın ayna karşısında dambılla squat yapıyor; günlere tik, bacak kasları parlar ("sıkı!");
-// "Ama"da durur, kamera aynadaki yansımanın uyluğuna dalar: büyüteçte portakal kabuğu, yanında portakal, kırmızı çember.
+// Sahte krem reklamı (dikey video gibi, 1080×1920): pembe zemin, dönen ışınlar, parlayan bacak, krem kavanozu, "%50".
+// hi: söylenen kelimede başlık satırlarının vurgusu; glitch: reklam cızırdayıp kesilir. Gerçek bir marka değil.
+const AdScreen: React.FC<{ f: number; hi?: [number, number, number, number]; glitch?: number }> = ({ f, hi = [0, 0, 0, 0], glitch = 0 }) => {
+  const id = svgId(useId());
+  const jx = glitch > 0 ? Math.sin(f * 7.3) * 40 * glitch : 0;
+  const line = (text: string, y: number, size: number, color: string, k: number) => (
+    <g transform={`translate(540 ${y}) scale(${1 + 0.18 * k}) translate(-540 ${-y})`}>
+      <text x={540} y={y} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={size} fill={color} stroke={C.ink} strokeWidth={10} paintOrder="stroke fill" letterSpacing={2}>
+        {text}
+      </text>
+    </g>
+  );
+  return (
+    <g>
+      <defs>
+        <clipPath id={`ad${id}`}>
+          <rect x={0} y={0} width={1080} height={1920} />
+        </clipPath>
+        <linearGradient id={`adg${id}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#ff4f9a" />
+          <stop offset="100%" stopColor="#ffb25c" />
+        </linearGradient>
+      </defs>
+      <g clipPath={`url(#ad${id})`}>
+        <g transform={`translate(${jx} 0)`}>
+          <rect x={-60} y={0} width={1200} height={1920} fill={`url(#adg${id})`} />
+          {Array.from({ length: 12 }, (_, i) => (
+            <path key={i} d="M540 1000 L-400 -600 L200 -900 Z" fill="#fff" opacity={0.12} transform={`rotate(${i * 30 + f * 0.8} 540 1000)`} />
+          ))}
+          <rect x={60} y={230} width={250} height={64} rx={32} fill="#fff" opacity={0.85} />
+          <text x={185} y={274} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={34} fill={C.ink}>
+            Sponsorlu
+          </text>
+          {line("7 GÜNDE", 470, 150, "#fff", hi[0])}
+          {line("PÜRÜZSÜZ", 640, 150, C.yellow, hi[1])}
+          {line("BACAKLAR!", 800, 140, "#fff", hi[2])}
+          {/* parlayan bacak (yandan: uyluk, diz, baldır, sivri ayak) */}
+          <g stroke={C.ink} strokeLinejoin="round" transform="translate(260 1160) scale(1.05) translate(-250 -1200)">
+            <path d="M196 900 L304 900 C322 1000 316 1100 300 1180 C294 1260 302 1350 300 1428 C332 1448 382 1460 422 1474 C432 1488 424 1500 402 1500 L292 1500 C276 1494 270 1484 272 1470 C262 1420 242 1360 236 1300 C230 1250 238 1210 234 1180 C220 1090 200 1000 196 900 Z" fill={C.skin} strokeWidth={7} />
+            <path d="M282 940 C294 1020 294 1090 286 1150 M290 1220 C292 1300 294 1360 292 1410" stroke="#fff" strokeWidth={10} fill="none" opacity={0.75} strokeLinecap="round" />
+          </g>
+          {[
+            [200, 980, 0],
+            [430, 1060, 9],
+            [250, 1290, 17],
+            [440, 1360, 25],
+          ].map(([x, y, o], i) => (
+            <Star key={i} x={x} y={y} r={(26 + 10 * Math.sin((f + o) / 5)) * (0.7 + 0.3 * Math.sin((f + o) / 3))} rot={f * 2} />
+          ))}
+          {/* krem kavanozu */}
+          <g transform={`translate(780 1180) scale(${1 + 0.18 * hi[3]})`} stroke={C.ink} strokeLinejoin="round">
+            <rect x={-150} y={-60} width={300} height={220} rx={40} fill="#ffe1ee" strokeWidth={8} />
+            <rect x={-165} y={-120} width={330} height={80} rx={20} fill="#e9b949" strokeWidth={8} />
+            <text x={0} y={30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={48} fill={C.red} stroke="none">
+              MUCİZE
+            </text>
+            <text x={0} y={92} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={60} fill={C.red} stroke="none">
+              KREM
+            </text>
+            <path d="M-120 -40 Q-130 40 -110 120" stroke="#fff" strokeWidth={14} fill="none" opacity={0.7} strokeLinecap="round" />
+          </g>
+          {/* %50 yıldızı */}
+          <g transform={`translate(860 960) rotate(${f * 1.5}) scale(${1 + 0.06 * Math.sin(f / 3)})`}>
+            <path d={Array.from({ length: 32 }, (_, i) => `${i ? "L" : "M"}${(Math.cos((i * Math.PI) / 16) * (i % 2 ? 92 : 125)).toFixed(1)} ${(Math.sin((i * Math.PI) / 16) * (i % 2 ? 92 : 125)).toFixed(1)}`).join(" ") + " Z"} fill={C.yellow} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+            <text x={0} y={26} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={70} fill={C.red} transform={`rotate(${-f * 1.5})`}>
+              %50
+            </text>
+          </g>
+        </g>
+        {glitch > 0
+          ? [180, 520, 760, 1100, 1430, 1700].map((y, i) => (
+              <rect key={i} x={((f * 53 + i * 211) % 400) - 200} y={y + ((f * 31 + i * 77) % 90)} width={1400} height={30 + (i % 3) * 22} fill={i % 2 ? "#29e0ff" : "#ff2fd6"} opacity={0.55 * glitch} />
+            ))
+          : null}
+      </g>
+    </g>
+  );
+};
+
+// Telefon: yerde, aynaya yaslı; ekranında reklam oynuyor
+const SEL_PH = { x: 478, y: SEL_FL - 158, w: 100, h: 178 };
+const SEL_PC = { x: SEL_PH.x + SEL_PH.w / 2, y: SEL_PH.y + SEL_PH.h / 2 };
+const SEL_S0 = 1080 / SEL_PH.w;
+const PhoneAd: React.FC<{ adF: number; glitch?: number }> = ({ adF, glitch = 0 }) => (
+  <g>
+    <rect x={SEL_PH.x - 9} y={SEL_PH.y - 16} width={SEL_PH.w + 18} height={SEL_PH.h + 34} rx={16} fill="#22252b" stroke={C.ink} strokeWidth={5} />
+    <g transform={`translate(${SEL_PH.x} ${SEL_PH.y}) scale(${SEL_PH.w / 1080} ${SEL_PH.h / 1920})`}>
+      <AdScreen f={adF} glitch={glitch} />
+    </g>
+  </g>
+);
+// e = 0: telefon ekranı tam ekran (reklam), e = 1: normal oda. Telefon ekranda düz bir yolda küçülür.
+const PhoneZoom: React.FC<{ e: number; children: React.ReactNode }> = ({ e, children }) => {
+  const s = Math.pow(SEL_S0, 1 - e);
+  const px = lerp(540, SEL_PC.x, e);
+  const py = lerp(960, SEL_PC.y, e);
+  const cx = SEL_PC.x - (px - 540) / s;
+  const cy = SEL_PC.y - (py - 960) / s;
+  return <g transform={`translate(540 960) scale(${s}) translate(${-cx} ${-cy})`}>{children}</g>;
+};
+
+// 1) (reklam sesi) "Yedi günde pürüzsüz bacaklar! Mucize krem!"
+// Tam ekran parlak reklam; her kelimede başlık satırı zıplar; "krem"den sonra cızırt ve kamera geri çekilir:
+// reklam, ayna karşısında squat yapan kadının yerdeki telefonunda oynuyordu.
+const SelReklam: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const hi: [number, number, number, number] = [hit(f, w(0) - 2, 16), hit(f, w(2) - 2, 16), hit(f, w(3) - 2, 16), hit(f, w(4) - 2, 18)];
+  const glitch = tw(f, w(5) + 2, w(5) + 6) * (1 - tw(f, w(5) + 14, w(5) + 20));
+  const e = tw(f, w(5) + 8, d - 1);
+  return (
+    <PhoneZoom e={e}>
+      <SelScene adF={f} glitch={glitch} wo={{ k: e > 0 ? repK(f) : 0, mouth: "flat" }} />
+      {e < 0.02 ? (
+        <g transform={`translate(${SEL_PH.x} ${SEL_PH.y}) scale(${SEL_PH.w / 1080} ${SEL_PH.h / 1920})`}>
+          <AdScreen f={f} hi={hi} glitch={glitch} />
+        </g>
+      ) : null}
+    </PhoneZoom>
+  );
+};
+
+// 2) "Haftada dört gün spor yapıyorsun. Ama arkanı dönünce o portakal kabuğu hâlâ orada."
+// Kadın dambılla squat yapıyor, günlere tik, bacak kasları parlar ("sıkı!"); "Ama"da durur, kamera aynadaki yansımanın
+// uyluğuna dalar: büyüteçte portakal kabuğu, yanında portakal, kırmızı çember.
 const SelHook: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const stop = w(7);
-  const k = f < stop ? repK(f) : repK(stop) * (1 - tw(f, stop, stop + 8));
+  const stop = w(5);
+  const k = f < stop ? repK(f + 12) : repK(stop + 12) * (1 - tw(f, stop, stop + 8));
   const days = [0, 2, 4, 6];
   const ticks = SEL_DAYS.map((_, i) => (days.includes(i) ? tw(f, w(days.indexOf(i)) - 4, w(days.indexOf(i)) + 4) : 0));
-  const strip = pop(f, 2, 10) * (1 - tw(f, w(7), w(7) + 8));
-  const firm = tw(f, w(5) - 4, w(6) + 4) * (1 - tw(f, w(7), w(7) + 8));
-  const lens = pop(f, w(11) - 4, 14);
-  const ring = tw(f, w(13) - 2, w(14) + 4);
-  const bang = hit(f, w(13), 10);
+  const strip = pop(f, 0, 10) * (1 - tw(f, stop, stop + 8));
+  const firm = tw(f, w(3) - 4, w(4) + 4) * (1 - tw(f, stop, stop + 8));
+  const lens = pop(f, w(9) - 4, 14);
+  const ring = tw(f, w(11) - 2, w(12) + 4);
+  const bang = hit(f, w(11), 10);
   return (
-    <CamK k={[[0, 1, 540, 960], [stop, 1, 540, 960], [w(9) + 4, 1.5, SEL_THIGH.x, SEL_THIGH.y - 120], [d, 1.56, SEL_THIGH.x, SEL_THIGH.y - 120]]} shake={bang * 0.5}>
+    <CamK k={[[0, 1, 540, 960], [stop, 1, 540, 960], [w(7) + 4, 1.5, SEL_THIGH.x, SEL_THIGH.y - 120], [d, 1.56, SEL_THIGH.x, SEL_THIGH.y - 120]]} shake={bang * 0.5}>
       <SelScene
-        wo={{ k, legGlow: firm, mouth: f < stop ? (Math.floor(f / 15) % 2 ? "o" : "smile") : "flat", blush: 0.5 + 0.3 * k, lookY: f >= w(9) ? 6 : 0 }}
-        reflDimples={tw(f, w(9), w(11))}
-        shine={tw(f, w(8) - 4, w(9) + 6)}
+        adF={f + 60}
+        wo={{ k, legGlow: firm, mouth: f < stop ? (Math.floor(f / 15) % 2 ? "o" : "smile") : "flat", blush: 0.5 + 0.3 * k, lookY: f >= w(7) ? 6 : 0 }}
+        reflDimples={tw(f, w(7), w(9))}
+        shine={tw(f, w(6) - 4, w(7) + 6)}
       />
       <DayStrip p={strip} ticks={ticks} />
       {firm > 0 ? (
         <g opacity={firm}>
-          <HandText x={SEL_WO.x - 190} y={SEL_FL - 420} text="sıkı!" size={84} color={YAS_OK} p={tw(f, w(6) - 2, w(6) + 8)} rotate={-8} />
+          <HandText x={SEL_WO.x - 190} y={SEL_FL - 420} text="sıkı!" size={84} color={YAS_OK} p={tw(f, w(4) - 2, w(4) + 8)} rotate={-8} />
         </g>
       ) : null}
       <SkinLens x={SEL_THIGH.x - 110} y={SEL_THIGH.y - 200} r={120} p={lens} dimple={1} ring={ring > 0 ? C.red : C.ink} />
-      <Orange x={SEL_THIGH.x + 120} y={SEL_THIGH.y - 330} s={0.8 * pop(f, w(12) - 2, 12)} rot={12} />
+      <Orange x={SEL_THIGH.x + 120} y={SEL_THIGH.y - 330} s={0.8 * pop(f, w(10) - 2, 12)} rot={12} />
       {ring > 0 ? (
         <circle cx={SEL_THIGH.x - 110} cy={SEL_THIGH.y - 200} r={150} fill="none" stroke={C.red} strokeWidth={12} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - ring} transform={`rotate(-90 ${SEL_THIGH.x - 110} ${SEL_THIGH.y - 200})`} />
       ) : null}
@@ -12065,32 +12193,33 @@ const SelHook: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-// 2) "Yanındaki yeni başladı, onda tek çukur yok."
-// Kamera hızla geri çekilir; avatar aynanın önüne kayarak gelir, göğsünde "1. gün"; iki büyüteç: "o" düz (lacivert tik), "sen" çukurlu (kırmızı).
+// 3) "Yanındaki daha dün başladı, onda tek çukur yok."
+// Kamera hızla geri çekilir; avatar aynanın önüne kayarak gelir, göğsünde "2. gün"; iki büyüteç: "o" düz (lacivert tik), "sen" çukurlu (kırmızı).
 const SelEsi: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const inn = tw(f, 0, 14);
-  const flex = tw(f, w(5) - 4, w(5) + 4);
+  const flex = tw(f, w(6) - 4, w(6) + 4);
   return (
     <CamK k={[[0, 1.56, SEL_THIGH.x, SEL_THIGH.y - 120], [10, 1, 540, 960]]}>
       <SelScene
-        wo={{ mouth: f >= w(5) ? "worry" : "flat", lookY: 0, blush: 0.6 }}
+        adF={f + 200}
+        wo={{ mouth: f >= w(6) ? "worry" : "flat", lookY: 0, blush: 0.6 }}
         reflDimples={1}
         avatar={
           <Person x={lerp(1300, SEL_AV.x, inn)} y={SEL_AV.y - Math.abs(Math.sin(f / 3)) * 14 * (1 - inn)} s={SEL_AV.s} belly={0.45} armL={[12, 0]} armR={[lerp(12, 100, flex), lerp(0, -135, flex)]} mouth={flex > 0.5 ? "grin" : "smile"} legL={{ spread: 4 + 10 * Math.sin(f / 3) * (1 - inn) }} legR={{ spread: 4 - 10 * Math.sin(f / 3) * (1 - inn) }} />
         }
       />
-      <KTag x={SEL_AV.x + 10} y={SEL_AV.y - 470 * SEL_AV.s} p={pop(f, w(1) - 2, 12)} text="1. gün" color={YAS_OK} rot={4} />
-      <SkinLens x={790} y={430} r={125} p={pop(f, w(3) - 4, 12)} dimple={0} ring={YAS_OK} label="o" />
-      {f >= w(5) - 2 ? (
-        <path d="M740 430 L780 470 L850 380" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(f, w(5) - 2, w(5) + 6)} />
+      <KTag x={SEL_AV.x + 10} y={SEL_AV.y - 470 * SEL_AV.s} p={pop(f, w(2) - 2, 12)} text="2. gün" color={YAS_OK} rot={4} />
+      <SkinLens x={790} y={430} r={125} p={pop(f, w(4) - 4, 12)} dimple={0} ring={YAS_OK} label="o" />
+      {f >= w(6) - 2 ? (
+        <path d="M740 430 L780 470 L850 380" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(f, w(6) - 2, w(6) + 6)} />
       ) : null}
-      <SkinLens x={270} y={430} r={125} p={pop(f, w(5) - 2, 12)} dimple={1} ring={C.red} label="sen" />
+      <SkinLens x={270} y={430} r={125} p={pop(f, w(6) - 2, 12)} dimple={1} ring={C.red} label="sen" />
     </CamK>
   );
 };
 
-// 3) (kadın sesi, iç ses) "Ben ondan çok çalışıyorum!"
+// 4) (kadın, iç ses) "Ben ondan çok çalışıyorum!"
 // Kadının üstünde düşünce bulutu, içine kırmızıyla yazılır; "çok"ta sarsıntı; avatar şaşkın omuz silker.
 const SelIc: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
@@ -12099,6 +12228,7 @@ const SelIc: React.FC<SceneProps> = ({ w }) => {
   return (
     <CamK k={[[0, 1, 540, 960], [w(3) + 8, 1.06, 480, 900]]} shake={bang * 0.7}>
       <SelScene
+        adF={f + 300}
         wo={{ mouth: talk(f, w(0) - 2, w(3) + 10) ? "open" : "worry", eyes: "wide", blush: 0.95, tilt: -4 }}
         reflDimples={1}
         avatar={<Person x={SEL_AV.x} y={SEL_AV.y} s={SEL_AV.s} belly={0.45} armL={[55, -70]} armR={[55, -70]} mouth="o" eyes="wide" />}
@@ -12115,53 +12245,38 @@ const SelIc: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-// 4) "Peki ya sorun spor değilse? Bu çukurlar bin dokuz yüz altmış sekizde bir moda dergisinde kusur diye anlatıldı."
-// Dev lacivert "?"; dambıllar yere düşer; yukarıdan dergi düşer, yıl 2026'dan 1968'e geri sayar; "SELÜLİT" yazılır; "KUSUR" damgası iner.
-const SelDergi: React.FC<SceneProps> = ({ w, d }) => {
+// 5) "Haklısın. Sorun derinin altında."
+// Bulutta lacivert tik ("haklısın"); kamera aynadaki uyluğa dalar, büyüteç büyüyüp ekranı kaplar (deri kesitine geçiş).
+const SelHaklisin: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const q = pop(f, w(0) - 2, 12) * (1 - tw(f, w(5) - 2, w(5) + 6));
-  const drop = tw(f, w(3), w(3) + 10);
-  const dim = tw(f, w(0) - 2, w(0) + 6) * 0.45 + tw(f, w(5), w(5) + 8) * 0.4;
-  const fly = tw(f, w(5) - 2, w(5) + 12);
-  const year = Math.round(lerp(2026, 1968, tw(f, w(6), w(11) + 4)));
-  const stamp = tw(f, w(15) - 2, w(15) + 8);
-  const bang = hit(f, w(15) + 6, 12);
-  const spread = tw(f, w(16), d - 4);
-  const hands = [-1, 1].map((side) => armPoints(side, [12, 0])[2]);
+  const tick = tw(f, w(0) - 2, w(0) + 8);
+  const lens = pop(f, w(2) - 4, 12);
+  const grow = tw(f, w(3), d);
   return (
-    <CamK k={[[0, 1, 540, 960], [w(5), 1, 540, 960], [w(13), 1.06, 540, 900], [d, 1.1, 540, 880]]} shake={bang * 0.8 + hit(f, w(3) + 10, 10) * 0.4}>
-      <SelScene wo={{ bells: false, mouth: f >= w(3) ? "o" : "worry", eyes: "wide", blush: 0.7, armL: [30, -20], armR: [30, -20] }} reflDimples={1} />
-      {hands.map((h, i) => (
-        <Dumbbell key={i} x={SEL_WO.x + h[0] * SEL_WO.s} y={lerp(SEL_WO.y + h[1] * SEL_WO.s, SEL_FL + 20, Easing.in(Easing.quad)(drop))} s={0.42 * SEL_WO.s} rot={drop * (i ? 14 : -10)} />
-      ))}
-      <rect x={-100} y={-100} width={1280} height={2120} fill={C.paper} opacity={dim} />
-      {q > 0 ? (
-        <text x={540} y={860} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={520 * q} fill={YAS_OK} transform={`rotate(${8 * Math.sin(f / 8)} 540 700)`}>
-          ?
-        </text>
-      ) : null}
-      {spread > 0
-        ? [
-            [-1, -1],
-            [1, -1],
-            [-1, 1],
-            [1, 1],
-          ].map(([sx, sy], i) => (
-            <Magazine key={i} x={540 + sx * 330 * spread} y={800 + sy * 330 * spread} s={0.5} rot={sx * 14 * spread} year={1968} title={1} />
-          ))
-        : null}
-      {fly > 0 ? <Magazine x={540} y={lerp(-500, 800, Easing.out(Easing.back(1.2))(fly))} rot={lerp(-30, -3, fly)} year={year} title={tw(f, w(13), w(14) + 6)} /> : null}
-      <KiloStamp p={stamp} text="KUSUR" x={560} y={860} half={200} />
+    <CamK k={[[0, 1.06, 480, 900], [w(1), 1, 540, 960], [w(3) + 2, 1.7, SEL_THIGH.x, SEL_THIGH.y], [d, 2, SEL_THIGH.x, SEL_THIGH.y]]}>
+      <SelScene
+        adF={f + 400}
+        wo={{ mouth: "o", eyes: "wide", blush: 0.7, lookY: -4 }}
+        reflDimples={1}
+        avatar={<Person x={SEL_AV.x} y={SEL_AV.y} s={SEL_AV.s} belly={0.45} armL={[12, 0]} armR={[12, 0]} mouth="smile" />}
+      />
+      <Bubble x={470} y={400} rx={360} ry={160} p={1 - tw(f, w(1), w(1) + 8)} tail={[SEL_WO.x + 20, SEL_WO.y - 790 * SEL_WO.s]}>
+        <HandText x={470} y={370} text="Ben ondan" size={88} color={C.red} p={1} />
+        <HandText x={470} y={470} text="çok çalışıyorum!" size={88} color={C.red} p={1} />
+        {tick > 0 ? <path d="M760 360 L800 410 L880 300" stroke={YAS_OK} strokeWidth={18} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tick} /> : null}
+      </Bubble>
+      <SkinLens x={SEL_THIGH.x} y={SEL_THIGH.y} r={70 + 600 * grow} p={lens} dimple={1} ring={C.ink} />
     </CamK>
   );
 };
 
-// 5) "Derinin altında yağı bölen bantlar var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker."
-// Uyluğun içine dalış (daire açılır): deri, yağ odacıkları, dikey bantlar; bantlar laciverte döner, yağ yukarı kabarır, bantlar deriyi aşağı çeker → çukurlar.
+// 6) "Orada yağı odalara bölen ipler var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker."
+// Uyluğun içi (daire açılır): deri katmanları, petek gibi yağ hücreleri, lifli bağ dokusu ipleri; ipler laciverte döner,
+// yağ yukarı kabarır, ipler deriyi aşağı çeker → çukurlar.
 const SelKadin: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const id = svgId(useId());
-  const reveal = tw(f, 0, 12);
+  const reveal = tw(f, 0, 10);
   const bulge = tw(f, w(9), w(11) + 6);
   const pull = tw(f, w(12), w(14) + 6);
   const upP = pop(f, w(10) - 2, 10) * (1 - tw(f, w(12), w(12) + 8));
@@ -12170,12 +12285,12 @@ const SelKadin: React.FC<SceneProps> = ({ w, d }) => {
   return (
     <>
       <clipPath id={`r${id}`}>
-        <circle cx={540} cy={900} r={lerp(60, 1300, reveal)} />
+        <circle cx={540} cy={900} r={lerp(300, 1300, reveal)} />
       </clipPath>
       <g clipPath={`url(#r${id})`}>
         <rect x={0} y={0} width={1080} height={1920} fill={C.cream} />
         <CamK k={[[0, 1, 540, 960], [w(12), 1, 540, 960], [w(14) + 6, 1.18, 540, 760], [d, 1.2, 540, 760]]}>
-          <WomanSection y={Y} fat={tw(f, w(2) - 4, w(3) + 10)} bands={tw(f, w(3), w(5) + 4)} stand={tw(f, w(7) - 2, w(8) + 4)} bulge={bulge} pull={pull} />
+          <WomanSection y={Y} fat={tw(f, w(1) - 4, w(2) + 10)} bands={tw(f, w(3), w(5) + 4)} stand={tw(f, w(7) - 2, w(8) + 4)} bulge={bulge} pull={pull} />
           {SEL_BANDS.slice(0, 5).map((bx, i) => (
             <g key={bx}>
               <HeadArrow x1={bx + 90} y1={Y + 330} x2={bx + 90} y2={Y + 150} p={upP} color={C.glow} w={14} />
@@ -12183,13 +12298,13 @@ const SelKadin: React.FC<SceneProps> = ({ w, d }) => {
             </g>
           ))}
           <HandText x={330} y={Y - 210} text="çukur" size={84} color={C.red} p={tw(f, w(14) - 2, w(14) + 10)} />
-          <g opacity={pop(f, 6, 10) * (1 - tw(f, w(2) - 4, w(2) + 2))}>
+          <g opacity={pop(f, 4, 10) * (1 - tw(f, w(1) - 4, w(1) + 2))}>
             <HeadArrow x1={880} y1={Y - 150} x2={900} y2={Y + 30} p={1} color={C.ink} w={9} />
             <text x={860} y={Y - 170} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink}>
               deri
             </text>
           </g>
-          <g opacity={pop(f, w(2) - 2, 10) * (1 - tw(f, w(4) - 4, w(4) + 2))}>
+          <g opacity={pop(f, w(1) - 2, 10) * (1 - tw(f, w(3) - 4, w(3) + 2))}>
             <HeadArrow x1={720} y1={Y + 640} x2={690} y2={Y + 330} p={1} color={C.ink} w={9} />
             <text x={720} y={Y + 700} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink}>
               yağ hücresi
@@ -12198,20 +12313,19 @@ const SelKadin: React.FC<SceneProps> = ({ w, d }) => {
           <g opacity={pop(f, w(4) - 2, 10) * (1 - tw(f, w(9) - 4, w(9)))}>
             <HeadArrow x1={640} y1={Y + 640} x2={466} y2={Y + 420} p={1} color={C.ink} w={9} />
             <text x={700} y={Y + 700} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink}>
-              bant
+              ip (bağ dokusu)
             </text>
           </g>
         </CamK>
         <KTag x={200} y={330} p={pop(f, 4, 12)} text="KADIN" color={C.red} />
-        <KusurBadge crack={tw(f, w(7), w(8) + 4) * 0.35} />
       </g>
-      {reveal < 1 ? <circle cx={540} cy={900} r={lerp(60, 1300, reveal)} fill="none" stroke={C.ink} strokeWidth={16} /> : null}
+      {reveal < 1 ? <circle cx={540} cy={900} r={lerp(300, 1300, reveal)} fill="none" stroke={C.ink} strokeWidth={16} /> : null}
     </>
   );
 };
 
-// 6) "Erkeklerde çapraz bir ağdır, yağ düz yayılır."
-// Kadın kesiti yukarı kayar; alttan erkek kesiti gelir: çapraz ağ çizilir, yağ yassı, yüzey düz (lacivert çizgi + tik).
+// 7) "Erkeklerde çapraz örülür, deri düz kalır."
+// Kadın kesiti yukarı kayar; alttan erkek kesiti gelir: çapraz ağ çizilir, yüzey düz (lacivert çizgi + tik).
 const SelErkek: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const mv = tw(f, 0, 12);
@@ -12219,55 +12333,77 @@ const SelErkek: React.FC<SceneProps> = ({ w }) => {
     <>
       <rect x={0} y={0} width={1080} height={1920} fill={C.cream} />
       <WomanSection y={lerp(560, 400, mv)} s={lerp(1, 0.72, mv)} fat={1} bands={1} stand={1} bulge={1} pull={1} />
-      <ManSection y={lerp(2000, 950, mv)} s={0.72} fat={tw(f, 4, 20)} net={tw(f, w(1) - 4, w(3) + 6)} flat={tw(f, w(5) - 2, w(6) + 4)} />
+      <ManSection y={lerp(2000, 950, mv)} s={0.72} fat={tw(f, 4, 20)} net={tw(f, w(1) - 4, w(2) + 6)} flat={tw(f, w(4) - 2, w(5) + 4)} />
       <KTag x={190} y={lerp(330, 300, mv)} p={1} text="KADIN" color={C.red} />
       <KTag x={190} y={870} p={pop(f, 6, 12)} text="ERKEK" color={YAS_OK} rot={4} />
-      {f >= w(5) ? <path d="M820 860 L850 890 L910 820" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(f, w(5), w(5) + 8)} /> : null}
-      <KusurBadge crack={0.35 + tw(f, w(5), w(6)) * 0.15} />
+      {f >= w(4) ? <path d="M820 860 L850 890 L910 820" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(f, w(4), w(4) + 8)} /> : null}
     </>
   );
 };
 
-// 7) "Bu yüzden on kadından sekiz-dokuzunda var, en sporcusunda bile."
-// On kadın sırayla belirir; dokuzunun uyluğunda portakal lekesi (dokuzuncusu yanıp söner: 8-9); en sporcusu büyür (bandana, dambıl, madalya) — lekesi hâlâ orada.
-const SelYaygin: React.FC<SceneProps> = ({ w, d }) => {
+// 8) "Bu yüzden on kadından sekiz-dokuzunda var."
+// On kadın sırayla belirir (ilki sporcu: bandana, dambıl, madalya); dokuzunun uyluğunda portakal lekesi (dokuzuncusu yanıp söner: 8-9).
+const SelYaygin: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const big = tw(f, w(7) - 4, w(7) + 8);
   const shirts = ["#d9705f", "#8fb08a", "#7d9cc4", "#e0b030", "#b06a8a"];
   return (
     <>
       <rect x={0} y={0} width={1080} height={1920} fill={C.cream} opacity={0.5} />
-      <CamK k={[[0, 1, 540, 960], [w(7) - 4, 1, 540, 960], [w(7) + 10, 1.16, 300, 860], [d, 1.18, 300, 860]]}>
+      <CamK k={[[0, 1, 540, 960], [w(5) + 4, 1.06, 540, 900]]}>
         <HandText x={540} y={500} text="8-9 / 10" size={150} color={C.red} p={tw(f, w(4) - 4, w(4) + 8)} />
         {Array.from({ length: 10 }, (_, i) => {
           const row = Math.floor(i / 5);
           const col = i % 5;
           const x = 140 + col * 200;
           const y = 860 + row * 420;
-          const s = 1.6 * (i === 0 ? 1 + 0.35 * big : 1);
+          const s = 1.6;
+          const p = pop(f, w(2) - 6 + i * 2, 10);
           const badge = i < 8 ? pop(f, w(4) + i * 2, 10) : i === 8 ? pop(f, w(4) + 16, 10) * (0.5 + 0.5 * Math.sin(f / 4)) : 0;
           return (
             <g key={i}>
-              <MiniW x={x} y={y} s={s * pop(f, w(2) - 6 + i * 2, 10)} c={i === 0 && big > 0.5 ? C.red : shirts[i % 5]} badge={badge} />
-              {i === 0 && big > 0 ? (
-                <g opacity={big}>
-                  <path d={`M${x - 40 * s * 0.75} ${y - 162 * s} Q${x} ${y - 175 * s} ${x + 40 * s * 0.75} ${y - 162 * s}`} stroke={C.red} strokeWidth={10} fill="none" />
+              <MiniW x={x} y={y} s={s * p} c={i === 0 ? C.red : shirts[i % 5]} badge={badge} />
+              {i === 0 && p > 0.5 ? (
+                <g>
+                  <path d={`M${x - 30 * s} ${y - 162 * s} Q${x} ${y - 175 * s} ${x + 30 * s} ${y - 162 * s}`} stroke={C.yellow} strokeWidth={10} fill="none" />
                   <Dumbbell x={x + 70} y={y - 110 * s} s={0.5} rot={-20} />
-                  <circle cx={x} cy={y - 85 * s} r={22} fill={C.yellow} stroke={C.ink} strokeWidth={5} />
-                  <HandText x={x + 130} y={y - 330} text="sporcu" size={70} color={YAS_OK} p={tw(f, w(7), w(7) + 10)} />
+                  <circle cx={x} cy={y - 85 * s} r={20} fill={C.yellow} stroke={C.ink} strokeWidth={5} />
                 </g>
               ) : null}
             </g>
           );
         })}
       </CamK>
-      <KusurBadge crack={0.5 + tw(f, w(4), w(5)) * 0.15} />
     </>
   );
 };
 
-// 8) "Kilo vermek bile garanti değil: yirmi dokuz kadın kilo verdi; çoğunda azaldı, dokuzunda arttı."
-// Tartı ekranı iner; "garanti?" etiketi; 29 kadın belirir, hepsi incelir; 17'si laciverte döner (azaldı), 9'u kırmızı (arttı), 3'ü aynı kalır.
+// 9) "Peki bu kusur fikri nereden çıktı? Bin dokuz yüz altmış sekizde bir moda dergisinden."
+// Dev lacivert "?"; yukarıdan dergi düşer, yıl 2026'dan 1968'e geri sayar; "SELÜLİT" yazılır; "KUSUR" damgası iner.
+const SelDergi: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, w(0) - 2, 12) * (1 - tw(f, w(6) - 2, w(6) + 6));
+  const fly = tw(f, w(6) - 2, w(6) + 12);
+  const year = Math.round(lerp(2026, 1968, tw(f, w(6), w(10) + 4)));
+  const stamp = tw(f, w(13), w(13) + 10);
+  const bang = hit(f, w(13) + 8, 12);
+  return (
+    <>
+      <rect x={0} y={0} width={1080} height={1920} fill={C.cream} opacity={0.5} />
+      <CamK k={[[0, 1, 540, 960], [w(6), 1, 540, 960], [w(12), 1.06, 540, 900], [d, 1.1, 540, 880]]} shake={bang * 0.8}>
+        {q > 0 ? (
+          <text x={540} y={1000} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={620 * q} fill={YAS_OK} transform={`rotate(${8 * Math.sin(f / 8)} 540 800)`}>
+            ?
+          </text>
+        ) : null}
+        {fly > 0 ? <Magazine x={540} y={lerp(-500, 800, Easing.out(Easing.back(1.2))(fly))} rot={lerp(-30, -3, fly)} year={year} title={tw(f, w(12), w(13) + 6)} /> : null}
+        <KiloStamp p={stamp} text="KUSUR" x={560} y={860} half={200} />
+      </CamK>
+    </>
+  );
+};
+
+// 10) "Kilo vermek bile garanti değil: kilo veren yirmi dokuz kadının dokuzunda arttı."
+// Tartı ekranı; "garanti?" etiketi; 29 kadın belirir, hepsi incelir; 17'si laciverte döner (azaldı), 9'u kırmızı (arttı), 3'ü aynı kalır.
 const SEL_29 = Array.from({ length: 29 }, (_, i) => i);
 const SEL_KIND = (() => {
   const order = [...SEL_29].sort((a, b) => random(`sk${a}`) - random(`sk${b}`));
@@ -12277,18 +12413,18 @@ const SEL_KIND = (() => {
 })();
 const SelDeney: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const lose = tw(f, w(5), w(9) + 6);
-  const down = tw(f, w(10) - 2, w(11) + 4);
-  const up = tw(f, w(12) - 2, w(13) + 4);
-  const bang = hit(f, w(12) + 4, 12);
+  const lose = tw(f, w(5), w(8) + 6);
+  const down = tw(f, w(9) - 2, w(9) + 8);
+  const up = tw(f, w(10) - 2, w(11) + 4);
+  const bang = hit(f, w(10) + 4, 12);
   return (
     <>
       <rect x={0} y={0} width={1080} height={1920} fill={C.cream} opacity={0.5} />
       <CamK k={[[0, 1, 540, 960], [d, 1.04, 540, 960]]} shake={bang * 0.6}>
         <KgDisplay x={540} y={370} p={pop(f, 0, 12) * 0.7} value={`${Math.round(72 - 6 * lose)} kg`} />
         <KTag x={540} y={560} p={pop(f, w(3) - 2, 12) * (1 - tw(f, w(5) - 2, w(5) + 4))} text="garanti?" color={C.red} rot={-4} />
-        <KTag x={300} y={560} p={pop(f, w(10) - 2, 12)} text="17 azaldı" color={YAS_OK} rot={-4} />
-        <KTag x={790} y={560} p={pop(f, w(12) - 2, 12)} text="9 arttı" color={C.red} rot={4} />
+        <KTag x={300} y={560} p={pop(f, w(9) - 2, 12)} text="17 azaldı" color={YAS_OK} rot={-4} />
+        <KTag x={790} y={560} p={pop(f, w(10) - 2, 12)} text="9 arttı" color={C.red} rot={4} />
         {SEL_29.map((i) => {
           const c = i % 6;
           const r = Math.floor(i / 6);
@@ -12297,71 +12433,77 @@ const SelDeney: React.FC<SceneProps> = ({ w, d }) => {
           const kind = SEL_KIND[i];
           const color = kind === "down" ? (down > 0.5 ? YAS_OK : "#d9705f") : kind === "up" ? (up > 0.5 ? C.red : "#d9705f") : down > 0.5 ? "#a9a29a" : "#d9705f";
           const badge = kind === "down" ? 1 - down * 0.85 : kind === "up" ? 1 + 0.5 * up : 1;
-          const jump = kind === "up" ? hit(f, w(12) + (i % 5) * 2, 10) * 18 : kind === "down" ? hit(f, w(10) + (i % 5) * 2, 10) * 12 : 0;
+          const jump = kind === "up" ? hit(f, w(10) + (i % 5) * 2, 10) * 18 : kind === "down" ? hit(f, w(9) + (i % 5) * 2, 10) * 12 : 0;
           return <MiniW key={i} x={x} y={y - jump} s={0.82 * pop(f, w(5) - 4 + i, 8)} c={color} badge={badge} slim={lose} />;
         })}
       </CamK>
-      <KusurBadge crack={0.65 + tw(f, w(12), w(13)) * 0.2} />
+      <KusurBadge crack={0.4 + tw(f, w(10), w(11)) * 0.3} />
     </>
   );
 };
 
-// 9) "Selülit tembellik değil, mimari. Peki sana bunun kusur olduğunu ilk kim söyledi?"
-// Aynaya dönüş: replik kartı; "mimari"de yansımanın üstüne lacivert plan çizgileri, aynadaki "KUSUR" damgası kırılıp düşer;
-// sonra sarı soru kartı (yorum); en sonda her şey söner, kadın açılış duruşuna döner (döngü).
+// 11) "Selülit tembellik değil, yapı. Peki sana bunun kusur olduğunu ilk kim söyledi?"
+// Aynaya dönüş: replik kartı; "yapı"da yansımanın üstüne lacivert plan çizgileri, aynadaki "KUSUR" damgası kırılıp düşer;
+// sarı soru kartı (yorum); sonda kamera yerdeki telefona dalar, reklam tam ekran olur (döngü: açılış karesi).
 const SelSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const back = tw(f, d - 26, d - 12);
+  const back = tw(f, d - 34, d - 22);
   const card = pop(f, w(0) - 4, 12) * (1 - tw(f, w(4) - 2, w(4) + 6));
   const plan = tw(f, w(3) - 4, w(3) + 12) * (1 - back);
   const chip = pop(f, w(5) - 2, 12) * (1 - back);
   const fall = tw(f, w(3), w(3) + 14);
+  const dive = tw(f, d - 24, d - 2);
   return (
-    <CamK k={[[0, 1.06, 540, 900], [w(4), 1.06, 540, 900], [w(5) + 6, 1, 540, 960]]}>
-      <SelScene
-        wo={{ mouth: "smile", lookY: 0, blush: 0.5 }}
-        reflDimples={1 - back}
-        mirrorExtra={
-          plan > 0 ? (
-            <g opacity={plan} stroke={YAS_OK} fill="none">
-              {[-3, -2, -1, 0, 1, 2, 3].map((k) => (
-                <path key={k} d={`M${SEL_THIGH.x + k * 28} ${SEL_THIGH.y - 90} V${SEL_THIGH.y + 110}`} strokeWidth={5} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - plan} />
-              ))}
-              <path d={`M${SEL_MR.x1 + 30} ${SEL_THIGH.y - 120} H${SEL_MR.x2 - 30} M${SEL_MR.x1 + 30} ${SEL_THIGH.y + 140} H${SEL_MR.x2 - 30}`} strokeWidth={4} strokeDasharray="16 10" />
-              {Array.from({ length: 12 }, (_, i) => (
-                <path key={i} d={`M${SEL_MR.x1 + 40 + i * 30} ${SEL_THIGH.y + 140} v-16`} strokeWidth={4} />
-              ))}
-            </g>
-          ) : null
-        }
-      />
-      <KiloStamp p={1} crack={tw(f, w(1), w(2) + 4)} fall={fall} text="KUSUR" x={795} y={760} half={180} />
-      {card > 0 ? (
-        <g transform={`translate(540 360) scale(${card}) rotate(-2)`}>
-          <rect x={-460} y={-160} width={920} height={290} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
-          <HandText x={0} y={-45} text="Selülit tembellik değil," size={88} color={C.ink} p={tw(f, w(0), w(2) + 6)} rotate={0} />
-          <HandText x={0} y={80} text="mimari." size={110} color={YAS_OK} p={tw(f, w(3) - 2, w(3) + 10)} rotate={0} />
-        </g>
-      ) : null}
-      {chip > 0 ? (
-        <g transform={`translate(540 380) scale(${chip}) rotate(-2)`}>
-          <rect x={-470} y={-130} width={940} height={250} rx={60} fill={C.yellow} stroke={C.ink} strokeWidth={9} />
-          <text x={0} y={-30} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={56} fill={C.ink}>
-            Sana bunun kusur olduğunu
-          </text>
-          <text x={0} y={50} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={56} fill={C.red}>
-            ilk kim söyledi?
-          </text>
-          <text x={0} y={175} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={58} fill={C.ink} opacity={tw(f, w(10), w(11) + 4)}>
-            yorumlara yaz ↓
-          </text>
-        </g>
-      ) : null}
-    </CamK>
+    <PhoneZoom e={1 - dive}>
+      <CamK k={[[0, 1.06, 540, 900], [w(4), 1.06, 540, 900], [w(5) + 6, 1, 540, 960]]}>
+        <SelScene
+          adF={0}
+          wo={{ mouth: "smile", lookY: 0, blush: 0.5 }}
+          reflDimples={1 - back}
+          mirrorExtra={
+            plan > 0 ? (
+              <g opacity={plan} stroke={YAS_OK} fill="none">
+                {[-3, -2, -1, 0, 1, 2, 3].map((k) => (
+                  <path key={k} d={`M${SEL_THIGH.x + k * 28} ${SEL_THIGH.y - 90} V${SEL_THIGH.y + 110}`} strokeWidth={5} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - plan} />
+                ))}
+                <path d={`M${SEL_MR.x1 + 30} ${SEL_THIGH.y - 120} H${SEL_MR.x2 - 30} M${SEL_MR.x1 + 30} ${SEL_THIGH.y + 140} H${SEL_MR.x2 - 30}`} strokeWidth={4} strokeDasharray="16 10" />
+                {Array.from({ length: 12 }, (_, i) => (
+                  <path key={i} d={`M${SEL_MR.x1 + 40 + i * 30} ${SEL_THIGH.y + 140} v-16`} strokeWidth={4} />
+                ))}
+              </g>
+            ) : null
+          }
+        />
+        <KiloStamp p={1} crack={tw(f, w(1), w(2) + 4)} fall={fall} text="KUSUR" x={795} y={760} half={180} />
+        {card > 0 ? (
+          <g transform={`translate(540 360) scale(${card}) rotate(-2)`}>
+            <rect x={-460} y={-160} width={920} height={290} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+            <HandText x={0} y={-45} text="Selülit tembellik değil," size={88} color={C.ink} p={tw(f, w(0), w(2) + 6)} rotate={0} />
+            <HandText x={0} y={80} text="yapı." size={120} color={YAS_OK} p={tw(f, w(3) - 2, w(3) + 10)} rotate={0} />
+          </g>
+        ) : null}
+        {chip > 0 ? (
+          <g transform={`translate(540 380) scale(${chip}) rotate(-2)`}>
+            <rect x={-470} y={-130} width={940} height={250} rx={60} fill={C.yellow} stroke={C.ink} strokeWidth={9} />
+            <text x={0} y={-30} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={56} fill={C.ink}>
+              Sana bunun kusur olduğunu
+            </text>
+            <text x={0} y={50} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={56} fill={C.red}>
+              ilk kim söyledi?
+            </text>
+            <text x={0} y={175} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={58} fill={C.ink} opacity={tw(f, w(10), w(11) + 4)}>
+              yorumlara yaz ↓
+            </text>
+          </g>
+        ) : null}
+      </CamK>
+    </PhoneZoom>
   );
 };
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "sel-reklam": SelReklam,
+  "sel-haklisin": SelHaklisin,
   "sel-hook": SelHook,
   "sel-esi": SelEsi,
   "sel-ic": SelIc,

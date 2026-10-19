@@ -13,14 +13,20 @@
   "padding": 0.05,
   "scenes": [
     {
+      "visual": "sel-reklam",
+      "voice": "Yedi günde pürüzsüz bacaklar! Mucize krem!",
+      "say": "[excited] Yedi günde pürüzsüz bacaklar! Mucize krem!",
+      "hold": 0.5
+    },
+    {
       "visual": "sel-hook",
-      "voice": "Haftada dört gün spor yapıyorsun, bacakların sıkılaştı. Ama arkanı dönünce o portakal kabuğu hâlâ orada.",
-      "say": "Haftada dört gün spor yapıyorsun, bacakların sıkılaştı. [quietly] Ama arkanı dönünce... o portakal kabuğu hâlâ orada."
+      "voice": "Haftada dört gün spor yapıyorsun. Ama arkanı dönünce o portakal kabuğu hâlâ orada.",
+      "say": "Haftada dört gün spor yapıyorsun. [quietly] Ama arkanı dönünce... o portakal kabuğu hâlâ orada."
     },
     {
       "visual": "sel-esi",
-      "voice": "Yanındaki yeni başladı, onda tek çukur yok.",
-      "say": "Yanındaki yeni başladı... onda tek çukur yok."
+      "voice": "Yanındaki daha dün başladı, onda tek çukur yok.",
+      "say": "Yanındaki daha dün başladı... onda tek çukur yok."
     },
     {
       "visual": "sel-ic",
@@ -29,35 +35,40 @@
       "voiceId": "qLdPxFtPuffoxx5gieBJ"
     },
     {
-      "visual": "sel-dergi",
-      "voice": "Peki ya sorun spor değilse? Bu çukurlar bin dokuz yüz altmış sekizde bir moda dergisinde kusur diye anlatıldı.",
-      "say": "[curious] Peki ya sorun spor değilse? Bu çukurlar, bin dokuz yüz altmış sekizde bir moda dergisinde... kusur diye anlatıldı."
+      "visual": "sel-haklisin",
+      "voice": "Haklısın. Sorun derinin altında.",
+      "say": "Haklısın. [curious] Sorun... derinin altında."
     },
     {
       "visual": "sel-kadin",
-      "voice": "Derinin altında yağı bölen bantlar var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker.",
-      "say": "Derinin altında, yağı bölen bantlar var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker."
+      "voice": "Orada yağı odalara bölen ipler var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker.",
+      "say": "Orada, yağı odalara bölen ipler var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker."
     },
     {
       "visual": "sel-erkek",
-      "voice": "Erkeklerde çapraz bir ağdır, yağ düz yayılır.",
-      "say": "Erkeklerde çapraz bir ağdır, yağ düz yayılır."
+      "voice": "Erkeklerde çapraz örülür, deri düz kalır.",
+      "say": "Erkeklerde çapraz örülür, deri düz kalır."
     },
     {
       "visual": "sel-yaygin",
-      "voice": "Bu yüzden on kadından sekiz-dokuzunda var, en sporcusunda bile.",
-      "say": "Bu yüzden on kadından sekiz-dokuzunda var... en sporcusunda bile."
+      "voice": "Bu yüzden on kadından sekiz-dokuzunda var.",
+      "say": "Bu yüzden on kadından sekiz-dokuzunda var."
+    },
+    {
+      "visual": "sel-dergi",
+      "voice": "Peki bu kusur fikri nereden çıktı? Bin dokuz yüz altmış sekizde bir moda dergisinden.",
+      "say": "[curious] Peki bu kusur fikri nereden çıktı? Bin dokuz yüz altmış sekizde... bir moda dergisinden."
     },
     {
       "visual": "sel-deney",
-      "voice": "Kilo vermek bile garanti değil: yirmi dokuz kadın kilo verdi; çoğunda azaldı, dokuzunda arttı.",
-      "say": "Kilo vermek bile garanti değil: yirmi dokuz kadın kilo verdi; çoğunda azaldı... dokuzunda arttı."
+      "voice": "Kilo vermek bile garanti değil: kilo veren yirmi dokuz kadının dokuzunda arttı.",
+      "say": "Kilo vermek bile garanti değil: kilo veren yirmi dokuz kadının... dokuzunda arttı."
     },
     {
       "visual": "sel-son",
-      "voice": "Selülit tembellik değil, mimari. Peki sana bunun kusur olduğunu ilk kim söyledi?",
-      "say": "Selülit tembellik değil, mimari. [curious] Peki sana bunun kusur olduğunu... ilk kim söyledi?",
-      "hold": 0.9
+      "voice": "Selülit tembellik değil, yapı. Peki sana bunun kusur olduğunu ilk kim söyledi?",
+      "say": "Selülit tembellik değil, yapı. [curious] Peki sana bunun kusur olduğunu... ilk kim söyledi?",
+      "hold": 1.1
     }
   ],
   "caption": "Selülit bir kusur mu?\n\nKadınların büyük çoğunluğunda görülür, erkeklerde nadirdir. Sebep deri altındaki bağ dokusu bantlarının dizilişi (Nürnberger ve Müller, 1978; Hexsel 2009 MR çalışması). Kelime İngilizce basına 1968'de bir moda dergisiyle girdi. Kilo vermek de garanti değil: Smalls ve ark. (2006, Plast Reconstr Surg) 29 kadında 17'sinde azaldı, 9'unda arttı.",

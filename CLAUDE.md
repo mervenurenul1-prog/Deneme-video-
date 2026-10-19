@@ -106,7 +106,14 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   seçilecek (sonra düşünülecek; seslendirmeden önce aday sesleri sun).
   **v2 (kullanıcı):** "kotun bol geliyor" saçma (üstünde kot yok) → "bacakların sıkılaştı" (bacak kasları parlar, "sıkı!").
   Deri kesiti gerçek anatomiyle yeniden çizildi: üst deri hücre sırası, alt deri (kolajen lifleri, kılcal damar, kıl kökü),
-  petek gibi yağ hücreleri (`FatCell`, çekirdek kenarda), lifli bağ dokusu bantları (`Septum`); erkekte çapraz ağ. `KiloStamp` artık `text/x/y/half` alıyor.
+  petek gibi yağ hücreleri (`FatCell`, çekirdek kenarda), lifli bağ dokusu bantları (`Septum`); erkekte çapraz ağ.
+  **v3 (kullanıcı: "konu anlatımı daha iyi olabilir" → "Fark YARAT" → "sahte reklamla dün başlayan hikâyesini birleştir"):**
+  11 sahne: `sel-reklam` sahte krem reklamı tam ekran ("Yedi günde pürüzsüz bacaklar! Mucize krem!", `AdScreen`, cızırt) →
+  kamera geri çekilir (`PhoneZoom`): reklam kadının yerdeki telefonunda (`PhoneAd`) → hook "Haftada dört gün…" → avatar
+  "daha dün başladı" ("2. gün", o/sen büyüteç) → iç ses → `sel-haklisin` "Haklısın. Sorun derinin altında." (uyluğa dalış) →
+  kesit "ipler" (bağ dokusu) → erkek çapraz → 8-9/10 → "Peki bu kusur fikri nereden çıktı? 1968 moda dergisi" → 29 kadın →
+  "Selülit tembellik değil, yapı. Peki sana bunun kusur olduğunu ilk kim söyledi?" → kamera telefona dalar = reklam (döngü).
+  KURAL: soru sorulunca cevap hemen gelsin; tarihçe mekanizmadan SONRA (ters köşe); "bant" yerine anlaşılır "ip". `KiloStamp` artık `text/x/y/half` alıyor.
 
 **>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
 - **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →
