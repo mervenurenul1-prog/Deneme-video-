@@ -13563,25 +13563,35 @@ const SkMide: React.FC<SceneProps> = ({ w, d }) => {
 // "3 TABAK"; 2006; beyin merceğinde sarı hücreler; şeker küpleri gelince tek tek söner; tabakta pilav/ekmek/tatlı sırayla parlar.
 const SkTabak: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const badge = pop(f, w(0), 12);
-  const lens = tw(f, w(6) - 6, w(6) + 8);
+  const badge = pop(f, w(0), 12) * (1 - tw(f, w(2) - 6, w(2)));
+  // laboratuvar ara karesi ("iki bin altıda" → "kısılıyor"): sade zemin, ortada fare kafesi, üstte beyin merceği
+  const lab = tw(f, w(2) - 6, w(2) + 4) * (1 - tw(f, w(15) - 8, w(15)));
+  const lens = tw(f, w(6) - 4, w(6) + 10);
   const span = (w(14) + 8 - w(9)) / 9;
   const dims = Array.from({ length: 9 }, (_, i) => tw(f, w(9) + i * span, w(9) + (i + 1) * span));
   const glow = [tw(f, w(15) - 2, w(15) + 6), tw(f, w(16) - 2, w(16) + 6), tw(f, w(17) - 2, w(17) + 6)];
-  const lid = 0.3 + 0.6 * tw(f, w(9), w(14) + 8);
-  const mouse = pop(f, w(5) - 2, 12) * (1 - tw(f, w(15) - 6, w(15)));
+  const sleepy = tw(f, w(9), w(14) + 4);
   return (
-    <CamK k={[[0, 1.04, 560, 900], [w(15) - 6, 1.04, 560, 900], [w(15) + 6, 1.18, 560, 1000], [d, 1.18, 560, 1000]]}>
-      <KanOffice f={f} solo foodMe={0.6} glow={glow} markMe={tw(f, w(1), w(2))} av={{ lid, tilt: -8 * tw(f, w(9), w(14) + 8), drop: 1, mouth: "flat" }}>
-        <SleepWeight heavy={0.4 + 0.5 * tw(f, w(9), w(14))} f={f} />
-      </KanOffice>
-      <LabMouse x={200} y={1012} p={mouse * 1.25} f={f} sleepy={tw(f, w(9), w(14))} />
-      <path d={`M${330} ${880} L540 560`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens * mouse} />
-      <BrainLens x={760} y={420} r={270} p={lens} dims={dims} sugar={tw(f, w(8) - 4, w(9))} f={f} />
-      <HandText x={760} y={780} text="uyanık tutan hücreler" size={52} color={C.ink} p={tw(f, w(10), w(13))} />
-      <HandText x={250} y={330} text="2006" size={120} color={C.red} p={tw(f, w(2), w(4) + 6)} rotate={-4} />
-      <NumBadge n={3} p={badge} label="tabak" />
-    </CamK>
+    <>
+      <CamK k={[[0, 1.04, 560, 900], [w(15) - 6, 1.1, 560, 960], [w(15) + 6, 1.2, 560, 1000], [d, 1.2, 560, 1000]]}>
+        <KanOffice f={f} solo foodMe={0.6} glow={glow} markMe={tw(f, w(1), w(2))} av={{ lid: 0.6 + 0.3 * tw(f, w(15), d), tilt: -6, drop: 1, mouth: "flat" }}>
+          <SleepWeight heavy={0.6 + 0.3 * tw(f, w(15), d)} f={f} />
+        </KanOffice>
+        <NumBadge n={3} p={badge} label="tabak" />
+      </CamK>
+      {lab > 0 ? (
+        <g opacity={lab}>
+          <rect x={-40} y={-40} width={1160} height={2000} fill="#efe3c6" />
+          <rect x={-40} y={1380} width={1160} height={600} fill="#d8c39b" />
+          <path d="M-40 1380 L1120 1380" stroke={C.ink} strokeWidth={7} />
+          <HandText x={540} y={220} text="2006" size={150} color={C.red} p={tw(f, w(2), w(4) + 6)} rotate={-3} />
+          <HandText x={540} y={330} text="fare deneyi" size={72} color={C.ink} p={tw(f, w(5) - 2, w(5) + 10)} rotate={-3} />
+          <LabMouse x={540} y={1230} p={2.1 * pop(f, w(5) - 4, 12)} f={f} sleepy={sleepy} />
+          {lens > 0 ? <path d="M450 1100 L520 900" stroke={C.ink} strokeWidth={7} strokeDasharray="16 12" opacity={lens} /> : null}
+          <BrainLens x={540} y={640} r={270} p={lens} dims={dims} sugar={tw(f, w(8) - 4, w(9))} f={f} />
+        </g>
+      ) : null}
+    </>
   );
 };
 
