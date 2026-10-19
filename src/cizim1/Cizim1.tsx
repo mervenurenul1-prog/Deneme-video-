@@ -565,6 +565,9 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "sk-tabak": (w) => [[w(0), "ding", 0.3], [w(2), "pop", 0.25], [w(5), "yuksel", 0.35], [w(6) - 4, "sihir", 0.3], [w(9), "sonme", 0.35]],
   "sk-tabak2": (w) => [[w(2), "pop", 0.3], [w(3), "pop", 0.2], [w(6) - 4, "yuksel", 0.4], [w(10), "boom", 0.35]],
   "sk-beyin2": (w) => [[0, "sihir", 0.3], [w(7), "sonme", 0.35], [w(9) + 10, "agir-dusme", 0.35]],
+  "sk-kursun": (w) => [[w(2), "tak", 0.25], [w(4) + 22, "pop", 0.25]],
+  "sk-akis": (w) => [[w(2), "pop", 0.25], [w(5), "whoosh", 0.3], [w(8), "sihir", 0.3], [w(10), "yuksel", 0.35]],
+  "sk-bina": (w) => [[w(1), "yuksel", 0.3], [w(8), "sonme", 0.3], [w(12) + 6, "tik", 0.2], [w(14) + 14, "agir-dusme", 0.35]],
   "sk-son": (w) => [[w(2), "cizik", 0.3], [w(10), "pop", 0.35]],
   "kan-agirlik": (w) => [[w(3) + 10, "tak", 0.3], [w(8), "agir-dusme", 0.45], [w(13) - 2, "nefes", 0.3]],
   "kan-internet": (w) => [[0, "pop", 0.3], [w(0), "klavye", 0.3], [w(5), "ding", 0.3]],
@@ -601,6 +604,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
 
 // 10 mayışma UZUN sürüm: kısa sürüm kelime i → uzun metinde SKU_IDX[i]; efektler kısa sürümden aktarılır
 const SKU_IDX: Record<string, number[]> = {
+  "skn-son": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12],
   "skk-agirlik": [0, 3, 4, 5, 6, 7, 8],
   "skk-son": [1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14],
   "sku-agirlik": [0, 3, 4, 5, 6, 7, 8],
@@ -612,7 +616,7 @@ const SKU_IDX: Record<string, number[]> = {
   "sku-son": [1, 2, 4, 5, 6, 7, 8, 10, 12, 13, 14, 16],
 };
 for (const [k, m] of Object.entries(SKU_IDX)) {
-  const base = SFX[k.replace(/^sk[uk]-/, "sk-")];
+  const base = SFX[k.replace(/^sk[ukn]-/, "sk-")];
   if (base) SFX[k] = (w, d) => base((i) => w(m[i] ?? i), d);
 }
 
@@ -13721,12 +13725,182 @@ const SkBeyin2: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// 10 mayışma KISA v3 (betimleyici). 1 "Son lokmayı yuttun. Göz kapakların kurşun gibi ağırlaştı."
+// Son lokma ağza gider, yutkunur (boğazda yumru iner); iki küçük kurşun ağırlık göz kapaklarına iple asılır, sallanarak kapakları aşağı çeker.
+const LeadLids: React.FC<{ lid: number; p: number; f: number; tilt?: number }> = ({ lid, p, f, tilt = 0 }) =>
+  p > 0 ? (
+    <g transform={`rotate(${tilt} 0 -630)`}>
+      {[-29, 29].map((x, i) => {
+        // kurşun blok göz kapağının üstüne oturur, kapakla birlikte aşağı bastırır
+        const top = -722 + 26 * lid;
+        const y = lerp(top - 120, top - 10, Easing.out(Easing.bounce)(p)) + Math.sin(f / 9 + i) * 1.5 * p;
+        return (
+          <g key={x} transform={`translate(${x} ${y}) scale(${0.55 + 0.1 * lid})`}>
+            <path d="M-26 -16 L26 -16 L32 16 L-32 16 Z" fill="#5f5f6a" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+            <path d="M-16 -8 L-4 -8" stroke="#a3a3ae" strokeWidth={4} strokeLinecap="round" />
+          </g>
+        );
+      })}
+    </g>
+  ) : null;
+const SkKursun: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const toMouth = tw(f, 0, w(1)) * (1 - tw(f, w(2) - 2, w(2) + 8));
+  const gulp = tw(f, w(2) - 2, w(2) + 10);
+  // göz kapakları ağır ağır iner → baş öne düşer → silkinip açılır → yeniden kapanır
+  const a = w(4);
+  const nod = tw(f, a, a + 18) * (1 - tw(f, a + 22, a + 26));
+  const close2 = tw(f, a + 30, d - 4);
+  const lid = Math.max(0.9 * nod, 0.95 * close2, 0.35 * tw(f, w(3), a));
+  const tilt = -10 * nod - 8 * close2;
+  const jerk = hit(f, a + 22, 10);
+  return (
+    <CamK k={[[0, 1, 540, 960], [w(3), 1.06, 500, 920], [a + 4, 1.4, 420, 770], [d, 1.48, 410, 760]]} shake={jerk * 0.5}>
+      <KanOffice
+        f={f}
+        solo
+        foodMe={0.12}
+        forkOnPlate={f >= w(2) + 8}
+        av={{
+          arm: f < w(2) + 8 ? mixArm(MY_PLATE, MY_MOUTH, toMouth) : MY_REST,
+          fork: f < w(2) + 8,
+          lid,
+          tilt,
+          drop: 0.8 * nod + 0.6 * close2,
+          mouth: f < w(2) - 2 ? (toMouth > 0.8 ? "o" : "smile") : jerk > 0 ? "o" : "flat",
+          kids: gulp > 0 && gulp < 1 ? <circle cx={0} cy={-610 + 40 * gulp} r={12} fill={C.skin} stroke={C.ink} strokeWidth={4} /> : null,
+        }}
+      />
+      <Heavy o={0.6 * Math.max(nod, close2)} />
+    </CamK>
+  );
+};
+
+// 4 "Tabağına bak: pilav, ekmek, tatlı. Midene indikleri an şekere dönüşüp kanına karışıyorlar."
+// Kamera tabakta; üçü sırayla parlar; "midene" — tabaktakiler küçülüp mideye uçar, mide parlar; "şekere dönüşüp" — mideden küp
+// şekerler çıkar; "kanına" — kırmızı damar belirir, küpler damarın içinde baştan aşağı akar.
+const SkAkis: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const glow = [tw(f, w(2) - 2, w(2) + 6), tw(f, w(3) - 2, w(3) + 6), tw(f, w(4) - 2, w(4) + 6)];
+  const eat = tw(f, w(5) - 2, w(7) + 4);
+  const st = pop(f, w(6), 12);
+  const cubes = tw(f, w(8) - 2, w(9) + 6);
+  const vein = tw(f, w(10) - 4, w(10) + 8);
+  const sx = MY_AV.x + 10;
+  const sy = MY_AV.y - 520;
+  const px = KN_PLATE_ME;
+  const py = MY_TT - 30;
+  // damar: göğüsten kola ve yukarı başa doğru kıvrılan yol
+  const P = [[sx, sy], [sx + 230, sy - 30], [sx + 260, sy - 330], [MY_HEAD.x + 120, MY_HEAD.y - 10]];
+  const bz = (t: number) => {
+    const u = 1 - t;
+    return [0, 1].map((k) => u ** 3 * P[0][k] + 3 * u * u * t * P[1][k] + 3 * u * t * t * P[2][k] + t ** 3 * P[3][k]);
+  };
+  const veinD = `M${P[0][0]} ${P[0][1]} C${P[1][0]} ${P[1][1]} ${P[2][0]} ${P[2][1]} ${P[3][0]} ${P[3][1]}`;
+  return (
+    <CamK k={[[0, 1.3, 560, 1030], [w(5) - 2, 1.3, 560, 1030], [w(6) + 6, 1.12, 480, 900], [d, 1.08, 480, 860]]}>
+      <KanOffice f={f} solo foodMe={0.6 * (1 - eat) + 0.05} glow={glow} av={{ lid: 0.55, tilt: -4, drop: 0.6, mouth: "flat" }}>
+        <FullStomach p={st} f={f} />
+        {eat > 0 && eat < 1
+          ? [0, 1, 2].map((i) => {
+              const t = Math.min(1, Math.max(0, eat * 1.4 - i * 0.2));
+              const x = lerp(px - 40 + i * 50, sx, t);
+              const y = lerp(py, sy, t) - Math.sin(t * Math.PI) * 120;
+              return t > 0 && t < 1 ? <circle key={i} cx={x} cy={y} r={20 * (1 - 0.5 * t)} fill={["#f7f2e2", "#d9a35c", "#e2a43c"][i]} stroke={C.ink} strokeWidth={4} /> : null;
+            })
+          : null}
+        {cubes > 0 && vein === 0
+          ? [0, 1, 2, 3, 4].map((i) => {
+              const a = (i / 5) * Math.PI * 2 + f / 10;
+              const r = 40 + 50 * cubes;
+              return <rect key={i} x={sx + Math.cos(a) * r - 11} y={sy + Math.sin(a) * r * 0.6 - 11} width={22} height={22} rx={4} fill="#fffdf6" stroke={C.ink} strokeWidth={4} />;
+            })
+          : null}
+        {vein > 0 ? (
+          <>
+            <path d={veinD} stroke={C.ink} strokeWidth={34} fill="none" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - vein} />
+            <path d={veinD} stroke="#c0394a" strokeWidth={24} fill="none" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - vein} />
+            {vein >= 1
+              ? cycles(f, w(10) + 8, 6, 36).map(({ k, p: q }) => {
+                  const [x, y] = bz(q);
+                  return <rect key={k} x={x - 9} y={y - 9} width={18} height={18} rx={3} fill="#fffdf6" stroke={C.ink} strokeWidth={3} transform={`rotate(${k * 33} ${x} ${y})`} />;
+                })
+              : null}
+          </>
+        ) : null}
+      </KanOffice>
+      <HandText x={sx + 330} y={sy - 180} text="şeker" size={74} color={C.red} p={tw(f, w(8) - 2, w(8) + 8)} />
+    </CamK>
+  );
+};
+
+// Gece binası (beyin merceğinin içinde): pencereler = uyanık tutan hücreler
+const NightBuilding: React.FC<{ x: number; y: number; r: number; lit: number[]; f: number }> = ({ x, y, r, lit, f }) => (
+  <g>
+    <circle cx={x} cy={y} r={r} fill="#1d2440" />
+    {[[-0.6, -0.5], [0.5, -0.62], [0.2, -0.75], [-0.3, -0.7]].map(([sx, sy], i) => (
+      <circle key={i} cx={x + sx * r} cy={y + sy * r} r={3} fill="#f6efc8" />
+    ))}
+    <rect x={x - r * 0.42} y={y - r * 0.5} width={r * 0.84} height={r * 1.5} fill="#3a3f55" stroke={C.ink} strokeWidth={6} />
+    {Array.from({ length: 9 }, (_, i) => {
+      const cx = x - r * 0.26 + (i % 3) * r * 0.26;
+      const cy = y - r * 0.32 + Math.floor(i / 3) * r * 0.3;
+      const on = lit[i] ?? 1;
+      return (
+        <g key={i}>
+          {on > 0.5 ? <rect x={cx - r * 0.1} y={cy - r * 0.1} width={r * 0.2} height={r * 0.2} fill={C.yellow} opacity={0.5 * (0.85 + 0.15 * Math.sin(f / 5 + i))} filter="url(#glow)" /> : null}
+          <rect x={cx - r * 0.07} y={cy - r * 0.08} width={r * 0.14} height={r * 0.16} fill={on > 0.5 ? C.yellow : "#22263a"} stroke={C.ink} strokeWidth={3} />
+        </g>
+      );
+    })}
+  </g>
+);
+
+// 5 "Kandaki şeker fırlayınca, seni uyanık tutan beyin hücreleri tek tek söner; bir binanın ışıkları gibi."
+// Beyin merceği: şeker akını; sarı hücreler yanar, "tek tek" yarısı söner; "binanın" mercek gece binasına döner, kalan pencereler
+// tek tek kararır; son pencereyle avatarın başı masaya düşer.
+const SkBina: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const lens = tw(f, 0, 10);
+  const morph = tw(f, w(11) - 4, w(12) + 6);
+  const half = (w(10) + 6 - w(8)) / 5;
+  const dims = Array.from({ length: 9 }, (_, i) => (i < 5 ? tw(f, w(8) + i * half, w(8) + (i + 1) * half) : 0));
+  const span = (w(14) + 8 - (w(12) + 6)) / 4;
+  const lit = Array.from({ length: 9 }, (_, i) => {
+    const order = [0, 4, 8, 2, 6, 1, 3, 5, 7].indexOf(i);
+    if (order < 5) return 0;
+    return 1 - tw(f, w(12) + 6 + (order - 5) * span, w(12) + 6 + (order - 4) * span);
+  });
+  const off = tw(f, w(14) + 6, w(14) + 16);
+  const lid = 0.5 + 0.45 * tw(f, w(8), w(14) + 6);
+  return (
+    <CamK k={[[0, 1.04, 560, 820], [w(14), 1.04, 560, 820], [d, 1.12, 460, 960]]} shake={hit(f, w(14) + 14, 12) * 0.7}>
+      <KanOffice f={f} solo foodMe={0.05} forkOnPlate av={{ lid, tilt: -14 * off, drop: 1 + 4 * off, mouth: "flat" }} />
+      <Heavy o={0.2 + 0.55 * tw(f, w(8), d)} />
+      <path d={`M${MY_HEAD.x + 60} ${MY_HEAD.y - 60} L620 600`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens * (1 - off)} />
+      <g opacity={1 - off}>
+        <g opacity={1 - morph}>
+          <BrainLens x={760} y={420} r={290} p={lens} dims={dims} sugar={tw(f, w(1) - 4, w(2) + 6) * (1 - morph)} f={f} />
+        </g>
+        {morph > 0 ? (
+          <g opacity={morph}>
+            <NightBuilding x={760} y={420} r={290} lit={lit} f={f} />
+            <circle cx={760} cy={420} r={290} fill="none" stroke={C.ink} strokeWidth={12} />
+          </g>
+        ) : null}
+        <HandText x={760} y={790} text="uyanık tutan hücreler" size={54} color={C.ink} p={tw(f, w(4), w(7)) * (1 - morph)} />
+      </g>
+    </CamK>
+  );
+};
+
 // 10 mayışma UZUN (~45 sn): aynı sahneler, uzun metnin kelime sırasına göre (kısa sürüm kelime i → uzun sürümde MAP[i])
 const remapW = (C: React.FC<SceneProps>, map: number[]): React.FC<SceneProps> => {
   const R: React.FC<SceneProps> = ({ w, d }) => <C d={d} w={(i) => w(map[i] ?? i)} />;
   return R;
 };
 const SKU_MAP: Record<string, React.FC<SceneProps>> = {
+  "skn-son": SkSon,
   "skk-agirlik": SkAgirlik,
   "skk-son": SkSon,
   "sku-agirlik": SkAgirlik,
@@ -13741,6 +13915,9 @@ const SKU_SCENES: Record<string, React.FC<SceneProps>> = Object.fromEntries(Obje
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
   ...SKU_SCENES,
+  "sk-kursun": SkKursun,
+  "sk-akis": SkAkis,
+  "sk-bina": SkBina,
   "sk-tabak2": SkTabak2,
   "sk-beyin2": SkBeyin2,
   "sk-agirlik": SkAgirlik,

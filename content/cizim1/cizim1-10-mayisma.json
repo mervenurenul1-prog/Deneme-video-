@@ -13,14 +13,14 @@
   "padding": 0.1,
   "scenes": [
     {
-      "visual": "skk-agirlik",
-      "voice": "Karnını bir güzel doyurdun… ve üstüne bir ağırlık çöktü.",
-      "say": "[tired] Karnını bir güzel doyurdun... ve üstüne bir ağırlık çöktü."
+      "visual": "sk-kursun",
+      "voice": "Son lokmayı yuttun. Göz kapakların kurşun gibi ağırlaştı.",
+      "say": "[tired] Son lokmayı yuttun... Göz kapakların kurşun gibi ağırlaştı."
     },
     {
-      "visual": "sk-seker",
-      "voice": "Aklına şu geliyor: Yoksa şekerim mi var?",
-      "say": "Aklına şu geliyor: [worried] Yoksa... şekerim mi var?"
+      "visual": "sku-seker",
+      "voice": "Ve içinden bir ses: Yoksa şekerim mi var?",
+      "say": "Ve içinden bir ses: [worried] Yoksa... şekerim mi var?"
     },
     {
       "visual": "sk-soru",
@@ -28,19 +28,19 @@
       "say": "[curious] Sence bu ağırlık nereden geliyor?"
     },
     {
-      "visual": "sk-tabak2",
-      "voice": "Çoğu zaman tabağından. Pilav, ekmek, tatlı kandaki şekeri bir anda fırlatır.",
-      "say": "Çoğu zaman tabağından. Pilav, ekmek, tatlı... kandaki şekeri bir anda fırlatır."
+      "visual": "sk-akis",
+      "voice": "Tabağına bak: pilav, ekmek, tatlı. Midene indikleri an şekere dönüşüp kanına karışıyorlar.",
+      "say": "Tabağına bak: pilav, ekmek, tatlı. Midene indikleri an, şekere dönüşüp kanına karışıyorlar."
     },
     {
-      "visual": "sk-beyin2",
-      "voice": "Şeker yükselince, beyninde seni uyanık tutan hücreler tek tek kısılır.",
-      "say": "Şeker yükselince, beyninde seni uyanık tutan hücreler... tek tek kısılır."
+      "visual": "sk-bina",
+      "voice": "Kandaki şeker fırlayınca, seni uyanık tutan beyin hücreleri tek tek söner; bir binanın ışıkları gibi.",
+      "say": "Kandaki şeker fırlayınca, seni uyanık tutan beyin hücreleri tek tek söner... bir binanın ışıkları gibi."
     },
     {
-      "visual": "skk-son",
-      "voice": "Yani çoğu zaman suçlu hastalık değil, tabak. Ama her seferinde bayılacak gibiysen, bir doktora görün.",
-      "say": "Yani çoğu zaman suçlu hastalık değil, tabak. Ama her seferinde bayılacak gibiysen, bir doktora görün.",
+      "visual": "skn-son",
+      "voice": "Çoğu zaman hastalık değil, tabak. Ama her seferinde bayılacak gibiysen, bir doktora görün.",
+      "say": "Çoğu zaman hastalık değil, tabak. Ama her seferinde bayılacak gibiysen, bir doktora görün.",
       "hold": 0.6
     }
   ],
