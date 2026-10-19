@@ -66,7 +66,112 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   yere oturursun." (sızı tekrarı yok). Üstte kırmızı "DİZİN HİÇ SIZLADI MI?" tabelası → kanca bitince "3. TUR"; ağrı
   `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
   müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
-**>>> EN SON DURUM (17 Ekim ~21:00, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+**>>> YENİ SOHBET: İLK İŞ (18 Ekim öğlen devir notu — EN GÜNCEL) <<<**
+1. **ÖNCE 08 SAUNA EŞOFMANI (`cizim1-08-sauna`) HİKÂYESİNİ YENİDEN OLUŞTUR.** v1 ve v2 beğenilmedi (ayrıntılar aşağıda
+   "08 SAUNA EŞOFMANI"). Konu aynı kalıyor: sauna eşofmanıyla verilen kilo yağ değil su; gerçek tarihçe hazır ve
+   doğrulandı (1997'de üç üniversiteli güreşçi kilo düşürürken 33 gün içinde öldü, Jeff Reese; hemen ardından, 1998'de
+   NCAA ter eşofmanını yasakladı). Yöntem: önce 2-3 farklı hikâye fikri sun → kullanıcı seçer → METNİ onaylat → sessiz önizleme.
+   Bu oturumdan çıkan dersleri uygula: **tek kahraman + tek zaman çizgisi, her cümle bir öncekinin sonucu; ÇATIŞMA
+   olsun (04 kadın-erkek çatışması yüzünden iyi izlendi); gerçek tarihçe ama konudan sapma; ilk cümle tarihle
+   başlamaz; "antrenör" değil "koç"; max 40-45 sn (karakter sayısını hesapla: Yunus ≈ 13-14 karakter/sn).**
+2. **07 yaş (v9) BİTTİ (18 Ekim): KULLANICI KISA HÂLİ SEÇTİ** → SON HÂLİ `ornek-videolar/cizim1-pilot/07-yas-kisa.mp4`
+   (`cizim1-07-yas-kisa`, ~50 sn; tarihçe tek cümle, hobiler kısa, "koçla ağırlık"). Uzun hâl `07-yas.mp4` (55,9 sn)
+   yedek. İkisinin sesi de `public/voiceover/cizim1-07-yas/` içinde. Kalan kredi ≈ 13.997.
+3. **KADIN KONULARI (ayrı yeni sohbette; kullanıcı numaraları TEYİT ETTİ: "önce dört, evet"):** sıra
+   **4 "kadın erkekten zor kilo verir" (İLK İŞ) → 6 selülit → 5 metabolizma yavaş**. Not: iki paralel sohbet var —
+   biri 08 sauna yeni hikâyesi, diğeri kadın konuları; hangi sohbette olduğunu kullanıcının ilk mesajından anla, emin
+   değilsen sor.
+   **4 için başlangıç notu:** kalıp = kadın bedeni hakkında, erkekle kıyaslayan, ters köşe bilimsel bilgi + kadın-erkek
+   çatışması (04 kadın-ağırlık gibi; aşağılayıcı değil, tartışma izleyicide doğsun). Ters köşe adayı: egzersiz sırasında
+   kadınlar yakıt olarak erkeklerden daha fazla YAĞ kullanır (doğrula: Tarnopolsky, Devries vb. derlemeler). Çatışma
+   adayı: "erkek arkadaşın/eşin aynı diyete başladı, o 5 kilo verdi sen 2" gündelik kıskançlığı. Gerçek tarihçe
+   bul (örn. kadınların spor/beslenme araştırmalarından uzun yıllar dışlanması; DOĞRULA). Akış: kaynakları doğrula →
+   2-3 hikâye fikri sun → kullanıcı seçer → metni onaylat (karakter sayısı; max ~45 sn ≈ 600 karakter) → sessiz
+   önizleme → onay → seslendirme. Avatar (erkek) ana karakter, kadın yan karakter; "koç" terimi.
+   6 selülit: kadınların büyük çoğunluğunda var, erkekte nadir; sebep bağ dokusunun dizilişi (hastalık/tembellik
+   değil); "selülit" kelimesi 1968 moda dergisiyle yayıldı (DOĞRULA). 5 metabolizma: Science 2021 (Pontzer, 6.000+
+   kişi) vücut büyüklüğü hesaba katılınca kadın-erkek farkı yok (DOĞRULA).
+
+**>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
+- **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →
+  `cizim1-09-kilo-a` (tam video, sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-a-sessiz.mp4`): A1 tartı ekranları +
+  duvar takvimi (HAFTA 1→4), kadın çatalını bırakır → A2 iç ses bulutta (Sibel) → A3 "Peki ya sorun sende değilse?" (lacivert
+  dev "?") + buluta dalış → laboratuvar canlı (arka sıralarda 2'şer soluk koşucu, Lab `cam` ile sıralar arası kamera) →
+  … → kapanış `kilo-son2`: "Kilo farkı, emek farkı değil. Bunu, sofrada sana beş kiloyu söyleyen kişiye gönder." (kadın
+  telefonla gönderir, kâğıt uçak, avatarın masadaki telefonu titrer; ekranda sarı "Sizde kim daha hızlı verdi?") → döngü.
+  Onay → seslendirme (Yunus + Sibel). `cizim1-09-kilo`, `-b`, `-c` eski/alternatif.
+- **SELÜLİT (yeni sohbet, kadın konusu 6):** arka plan HAZIR → `notlar/10-selulit.md` (doğrulanmış bilgiler, kaynaklar,
+  CEFF kanca kalıbı, 12 madde tablosu, kanca taslakları). İlk iş: dosyayı oku → 2-3 kanca/hikâye sun → metin onayı →
+  sessiz önizleme. Kullanıcı: "hâlâ bir video atmadık" — hızlı ilerle ama metin onayı kuralı geçerli.
+- **09 KİLO (bu sohbet):** v3 sessiz önizleme gönderildi; kullanıcı "güzel ama giriş beğenmedim" → CEFF'in uyku videosu
+  (50K+, "Her gece 8 saat uyuyorsun… Peki ya sorun uyku süren değilse?") örnek verildi. 3 yeni giriş sunuldu, **seçim
+  bekleniyor:** A tartı ("Aynı yemek, aynı spor. Onun tartısı her hafta düşüyor, seninki kıpırdamıyor bile. Ve aklından
+  şu geçiyor:" → kadının iç sesi bulutta "Ben kadınım, zor kilo veririm." → "Peki ya sorun sende değilse?"; önerilen),
+  B rakam şoku, C sofrada sessizlik. Ayrıca önerilen (onaylanmadı): laboratuvar canlansın (sırada 3'er koşucu, kamera),
+  kapanış "…Bunu, sofrada sana beş kiloyu söyleyen kişiye gönder." + ekranda "Sizde kim daha hızlı verdi?" + telefon
+  titrer → döngü.
+
+**>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+- **KADIN 4 → `cizim1-09-kilo` "Kadınlar zor mu kilo verir?" (18 Ekim, kadın konuları sohbeti):** reddedilenler: v1 "Aynı
+  program" (anlatıcı), v2 "Ben beş kilo verdim" (kullanıcının gönderdiği "Neden izlesin / yorum yapsın / paylaşsın"
+  tablosuna — hook, merak, tempo, his; taraf tutturan an, tartışma payı, söylenecek bir şey, kendini görmek; "bunu ona
+  atmalıyım", akılda kalan replik, "tam ben", kısa-net — HER MADDEYE tik atabilmeli); A/B/C fikirleri sunuldu. **Kullanıcı
+  fikri: tartışma YEMEKTE geçsin + tartışma DÜŞÜNCE BULUTUNUN İÇİNE dönüşsün.** Metin (v3, kullanıcı "yap bakalım"):
+  sofra: avatar "Aynı yemeği yiyoruz… Ben beş kilo verdim, sen niye veremiyorsun?" → kadın (Sibel sesi) "Çünkü kadınlar
+  zor kilo verir, bunu herkes bilir." (bulutta kırmızı yazı) → kamera buluta dalar, bulutun içi laboratuvar: 2003 Midwest
+  Exercise Trial (16 ay aynı program, erkek −5 kg, kadın ≈0; damga "KADIN ZOR VERİR") → avatar "Gördün mü?" → erkekler
+  iri, kalori 667/439 (damga çatlar) → 2013 MET-2 aynı kalori, fark kayboldu (damga düşer) → bulut patlar, sofra: kadın
+  "Yani sen daha hızlı vermedin…" / avatar "Sadece daha büyüğüm." (XL/S beden etiketleri) → "Kilo farkı, emek farkı
+  değil. Peki sizin sofranızda bu tartışmayı kim kazanırdı?" (döngü: yemeğe dönerler). Bileşenler `kilo-*` (`KiloSofra`,
+  `DinnerTable`, `CloudFrame`, `InCloud`, `Lab`, `Treadmill`, `KiloStamp`, `Kcal`). Sessiz önizleme
+  `ornek-videolar/cizim1-pilot/09-kilo-sessiz.mp4` → onay → seslendirme (Yunus ~520 + Sibel ~80 karakter). Kaynaklar
+  doğrulandı: Donnelly 2003 (PMID 12796071), MET-2 Obesity 2013 (PMID 23592678, "no significant difference between men
+  and women"), Tarnopolsky 1990 (kadın egzersizde daha çok yağ yakar; metne girmedi).
+- **!!! TERİM (kullanıcı): bizim dilimizde "antrenör" DEĞİL "KOÇ".** Metinlerde ve ekran yazılarında hep "koç" kullan.
+- **!!! KONU SEÇİMİ (kullanıcı, 18 Ekim): sonraki konular KADINLARIN GÜNDEMİNDE olan, kadınların bir kısmını rahatsız eden,
+  KADIN-ERKEK ÇATIŞMASI çıkaracak konular olsun** (04 kadın-ağırlık bu yüzden iyi izlendi). Kalıp: kadınlara bir şey
+  yasaklanmış/"yapamazsın" denmiş → gerçek tarih → bilim tersini gösterir; tartışma izleyicide doğar, aşağılayıcı değil.
+  Avatar yine ana karakter. Önerilen adaylar (18 Ekim, DOĞRULANMADI, seçince doğrula): 1) kadınlar uzun mesafe koşamaz
+  (1928 800 m "yığıldılar" → 1960'a kadar yasak; 1967 Boston, Kathrine Switzer), 2) regl döneminde spor yapılmaz (Rio 2016
+  Fu Yuanhui), 3) hamileyken spor yapılmaz (1985 ACOG katı sınırlar → bugün haftada 150 dk), 4) kadın zor kilo verir
+  (egzersizde kadın daha çok yağ yakar). **Kullanıcı 4'ü seçti: "diğerlerine göre çok daha iyi, bunun gibi konular bul"**
+  (kadın bedeni hakkında, erkekle kıyaslayan, ters köşe bilimsel bilgi). Yeni adaylar sunuldu: metabolizma yavaş mı
+  (Science 2021, Pontzer), selülit egzersizle gider mi (bağ dokusu farkı; "selülit" 1968 moda dergisi), kalça yağı en son
+  gider (sağlıklı yağ), kadınlar kolay yorulur mu. **Kullanıcı: "4-5-6 güzel, sırayla 4-6-5"** — numaralar iki listenin
+  devamı varsayıldı: 4 = kadın zor kilo verir, 5 = metabolizma yavaş, 6 = selülit → SIRA: 4 kilo → 6 selülit → 5
+  metabolizma (kullanıcı TEYİT ETTİ). Hepsi DOĞRULANACAK. Ayrıntı yukarıda "YENİ SOHBET: İLK İŞ" madde 3.
+- **08 sauna (`cizim1-08-sauna`): v2 hikâyesi de BEĞENİLMEDİ (18 Ekim). Yeni hikâyesi BAŞKA BİR SOHBETTE paralel
+  düşünülecek** — o sohbet buradan devam etsin. 07 bitti; kadın konuları da yeni sohbette.
+- **07 v9 (`cizim1-07-yas`, 18 Ekim) — GÜNCEL:** a/b/c seçenekleri beğenilmedi. Kullanıcı: "Konu NE ZAMAN SPORA BAŞLANIR,
+  sürekli sapıyorsun. Çocuğun sorusu: 13'te başlayabilir miyim, sorun olur mu? 16'da? Ne tür sporlar? Hareket göstermeden,
+  hobisinden yola çıkıp spor dalı öner." + "tarihçeyi ekle ama konudan sapma". 04 (kadın-ağırlık) iyi izlendi çünkü
+  ÇATIŞMA var (kadın-erkek) → 07'de çatışma: çocuklara "bekle" denmesi. Metin (kullanıcı "güzel" dedi), sahneler `y9-*`:
+  soru + "Kısa cevap: olmaz. Ama yıllarca çocuklara 'bekle' dendi." → eskiden doktorlar "çocuk güçlenemez, ağırlık
+  kemiklerini bozar", çocuklar salonun kapısında bekletildi (sepya, ip, "ÇOCUKLAR GİREMEZ") → araştırmacılar bilen biriyle
+  çalıştırdı, güçlendiler, zarar görülmedi (koç gelir, ip kopar) → AAP 2020 başlama yaşı yok, 13 de 16 da, yük yavaş
+  yavaş → "hangi spor? yaşın değil neyi sevdiğin seçer" → hobi kartları (müzik→dans, arkadaş→basketbol/voleybol,
+  dışarısı→bisiklet/koşu, rekor→koçla ağırlık) → "Yorumlara yaz, sana uyan sporu söyleyelim." Kaynaklar: Matos &
+  Winsley 2007 JSSM (eskiden kontrendike sayılırdı, Vrijens 1978), AAP 2001 (sinirsel güç, sakatlık nadir), AAP 2020.
+  Metin 794 karakter → ~57 sn (45 sınırını aşıyor; kullanıcıya kısaltma önerilecek). Sessiz önizleme `07-yas-sessiz.mp4`.
+- **07 v8 — ÜÇ SEÇENEK (18 Ekim):** v7 (bildirim + pasta) için CEFF: "konu güzel, hikâye akmıyor" (sahneler arası
+  atlama, tek kahraman/zaman çizgisi yok). **DERS: tek kahraman, tek zaman çizgisi, her cümle bir öncekinin sonucu.**
+  Kullanıcı "farklı akan 3 video hazırla, ben seçeyim" dedi → üç sessiz önizleme (seslendirilmedi):
+  `cizim1-07-yas-a` "Önce biraz büyü" (13'te "önce biraz büyü" denir, 14-15-16 bekler, 18'de salonda 13'ünde başlamış
+  biri "5 yıl" → rapor → iki yaş şeridi → "seni bekleten o cümleydi" → "13 yaşında biri sorarsa ne diyeceksin?"; 45 sn),
+  `cizim1-07-yas-b` baba-oğul ("Ben de gelebilir miyim?" / "Sen daha küçüksün" → baba da 45'inde yeni başlamış →
+  "biri çok erken öteki çok geç" → rapor → aynı salon farklı program → ertesi sabah iki kişi → baba sorar "Yarın da
+  gelir misin?"; 37 sn), `cizim1-07-yas-c` mektup (13 yaşındaki kendine tek cümle: "Beklemene gerek yok" → "daha
+  küçüksün" denip 10 yıl beklemiş → rapor → not → zarf "ADRES BULUNAMADI" → "bu videoyu 13 yaşında birine gönder";
+  33 sn). Videolar `ornek-videolar/cizim1-pilot/07-yas-{a,b,c}-sessiz.mp4`. Kullanıcı seçecek → seçilen seslendirilir.
+  Bileşenler `a-*`, `b-*`, `c-*` (+ `SportBag`, `SayBubble`, `Mustache`, `GymBg`, `Rapor2020`, `BigLetter`, `Envelope`).
+- **07 v7 (`cizim1-07-yas`, 18 Ekim):** kullanıcı "hareket göstermek değil konumuz" dedi; üç kuşak (B) fikri reddedildi.
+  Gelen kutusu + pasta harmanı, kullanıcının fikriyle 13. yaş günü: bildirimler ("13 erken mi? 16'yı mı bekleyeyim?") →
+  13. yaş günü, mum üflerken aklına salon gelir "Bugün mü başlasam?" → dev halter/iri adamlar, "Ben daha küçüğüm", her yıl
+  bir mum + "seneye…" notu (13→16) → AAP 2020 "YOK" damgası → "o salon da şart değil", oyun → hafif → biraz daha basamakları
+  → "asıl soru: kaç senedir bekliyorum?" → "O yüzden en doğru yaş: bugün." (pastada BUGÜN; sesi hazır). Kullanıcı son
+  cümleyi ("Yine de her hafta aynı soru geliyor") ATTIRDI. Bileşenler `yas7-*` (`BdayRoom`, `BigCake`, `LaterNote`,
+  `ScaryGym`, `PartyHat`). Sessiz önizleme `07-yas-sessiz.mp4` gönderildi → onay → seslendirme (~550 karakter).
+  Eski v6 sahneleri (`yas-*`) kodda duruyor ama JSON'dan çıktı.
 - **07 yaş (`cizim1-07-yas`):** son sessiz önizleme `07-yas-sessiz.mp4` (v6, ~68 sn): kanca → rapor → yaş bantları 5-7 /
   8-12 / 13-15 / 16+ → terazi → "Bir de önemli bir not…" ev kazası → "spor sadece salondan ibaret değil" (basketbol,
   voleybol, hentbol, tenis; 5/25/50 yaş panoları) → bugün. **CEFF/kullanıcı HİKÂYEYİ BEĞENMEDİ → alternatif hikâye
