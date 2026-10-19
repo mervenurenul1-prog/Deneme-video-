@@ -123,7 +123,16 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   **v4 (kullanıcı: "reklamı gören kaçar, televizyonda göreni yap"):** telefon/"Sponsorlu" tam ekran reklam KALKTI → reklam
   duvardaki TELEVİZYONDA (`AdTV` 1600×900, "REKLAM" etiketi + kanal logosu + küçük yazı; `TVAd`, `TVZoom`). İlk kare: TV yakın
   plan, önünde kadının başı (TV izleyen biri); kapanışta kamera TV'ye yaklaşır = açılış (döngü). DERS: video asla gerçek bir
-  Instagram reklamı gibi açılmasın (izleyici kaydırır); reklam bir sahnenin İÇİNDE görünsün. `KiloStamp` artık `text/x/y/half` alıyor.
+  Instagram reklamı gibi açılmasın (izleyici kaydırır); reklam bir sahnenin İÇİNDE görünsün.
+  **v5 (19 Ekim, kullanıcı: "max 40-45 sn" + referans video):** metin ~41 sn'ye sıkıldı (536 karakter, 11 sahne):
+  reklam "Yedi günde pürüzsüz bacaklar!" → "Haftada dört gün spor yapıyorsun ama o portakal kabuğu hâlâ orada." → "Yanındaki
+  dün başladı, onda yok." → iç ses → "Haklısın. Sorun derinin altında." → ipler → erkek → 8-9/10 → "Bu kusur fikri mi? 1968'de
+  bir moda dergisinden çıktı." → YENİ `sel-krem` "Krem de o ipleri değiştiremez." (kavanoz iner, krem yüzeyde kalır, ipler
+  kırmızı, çarpı; kaynak: Am J Clin Dermatol derlemesi, kremlerin kanıtı zayıf/geçici) → kapanış. Kilo/29 kadın sahnesi ÇIKTI.
+  **GÖRSEL DERS (kullanıcının referansı: heyvoom "büyüme plağı" videosu, 11,3B izlenme):** anatomi SADE, BÜYÜK, NET olmalı:
+  az sayıda iri, YÜZLÜ (sevimli) hücre, kalın konturlu kemik/doku, düz renkler, hap şeklinde etiketler ("büyüme plağı",
+  "bölünür" gibi; `PillLabel`), yuvarlak yakın plan (inset). Kalabalık/küçük histoloji çizimi YAPMA. Deri kesiti buna göre
+  yeniden çizildi (`FatCellC` yüzlü yağ hücresi, `SelRope` örgülü ip, `SkinBand`, "dışarıdan" büyüteci). Hedef: milyon izlenme. `KiloStamp` artık `text/x/y/half` alıyor.
 
 **>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
 - **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →

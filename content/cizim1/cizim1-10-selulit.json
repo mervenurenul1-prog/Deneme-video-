@@ -14,19 +14,19 @@
   "scenes": [
     {
       "visual": "sel-reklam",
-      "voice": "Yedi günde pürüzsüz bacaklar! Mucize krem!",
-      "say": "[excited] Yedi günde pürüzsüz bacaklar! Mucize krem!",
-      "hold": 0.5
+      "voice": "Yedi günde pürüzsüz bacaklar!",
+      "say": "[excited] Yedi günde pürüzsüz bacaklar!",
+      "hold": 1.2
     },
     {
       "visual": "sel-hook",
-      "voice": "Haftada dört gün spor yapıyorsun. Ama arkanı dönünce o portakal kabuğu hâlâ orada.",
-      "say": "Haftada dört gün spor yapıyorsun. [quietly] Ama arkanı dönünce... o portakal kabuğu hâlâ orada."
+      "voice": "Haftada dört gün spor yapıyorsun ama o portakal kabuğu hâlâ orada.",
+      "say": "Haftada dört gün spor yapıyorsun... ama o portakal kabuğu hâlâ orada."
     },
     {
       "visual": "sel-esi",
-      "voice": "Yanındaki daha dün başladı, onda tek çukur yok.",
-      "say": "Yanındaki daha dün başladı... onda tek çukur yok."
+      "voice": "Yanındaki dün başladı, onda yok.",
+      "say": "Yanındaki dün başladı... onda yok."
     },
     {
       "visual": "sel-ic",
@@ -41,8 +41,8 @@
     },
     {
       "visual": "sel-kadin",
-      "voice": "Orada yağı odalara bölen ipler var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker.",
-      "say": "Orada, yağı odalara bölen ipler var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker."
+      "voice": "Orada yağı bölen ipler var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker.",
+      "say": "Orada, yağı bölen ipler var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker."
     },
     {
       "visual": "sel-erkek",
@@ -56,22 +56,22 @@
     },
     {
       "visual": "sel-dergi",
-      "voice": "Peki bu kusur fikri nereden çıktı? Bin dokuz yüz altmış sekizde bir moda dergisinden.",
-      "say": "[curious] Peki bu kusur fikri nereden çıktı? Bin dokuz yüz altmış sekizde... bir moda dergisinden."
+      "voice": "Bu kusur fikri mi? Bin dokuz yüz altmış sekizde bir moda dergisinden çıktı.",
+      "say": "[curious] Bu kusur fikri mi? Bin dokuz yüz altmış sekizde... bir moda dergisinden çıktı."
     },
     {
-      "visual": "sel-deney",
-      "voice": "Kilo vermek bile garanti değil: kilo veren yirmi dokuz kadının dokuzunda arttı.",
-      "say": "Kilo vermek bile garanti değil: kilo veren yirmi dokuz kadının... dokuzunda arttı."
+      "visual": "sel-krem",
+      "voice": "Krem de o ipleri değiştiremez.",
+      "say": "Krem de... o ipleri değiştiremez."
     },
     {
       "visual": "sel-son",
-      "voice": "Selülit tembellik değil, yapı. Peki sana bunun kusur olduğunu ilk kim söyledi?",
-      "say": "Selülit tembellik değil, yapı. [curious] Peki sana bunun kusur olduğunu... ilk kim söyledi?",
+      "voice": "Selülit tembellik değil, yapı. Sana bunun kusur olduğunu ilk kim söyledi?",
+      "say": "Selülit tembellik değil, yapı. [curious] Sana bunun kusur olduğunu... ilk kim söyledi?",
       "hold": 1.1
     }
   ],
-  "caption": "Selülit bir kusur mu?\n\nKadınların büyük çoğunluğunda görülür, erkeklerde nadirdir. Sebep deri altındaki bağ dokusu bantlarının dizilişi (Nürnberger ve Müller, 1978; Hexsel 2009 MR çalışması). Kelime İngilizce basına 1968'de bir moda dergisiyle girdi. Kilo vermek de garanti değil: Smalls ve ark. (2006, Plast Reconstr Surg) 29 kadında 17'sinde azaldı, 9'unda arttı.",
+  "caption": "Selülit bir kusur mu?\n\nKadınların büyük çoğunluğunda görülür, erkeklerde nadirdir. Sebep deri altındaki bağ dokusu bantlarının dizilişi (Nürnberger ve Müller, 1978; Hexsel 2009 MR çalışması). Kelime İngilizce basına 1968'de bir moda dergisiyle girdi. Sürülen kremlerin etkisine dair kanıt zayıf; en fazla geçici ve hafif düzelme (Am J Clin Dermatol derlemesi).",
   "hashtags": [
     "selülit",
     "kadınfitness",
