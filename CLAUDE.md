@@ -93,6 +93,13 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
    kişi) vücut büyüklüğü hesaba katılınca kadın-erkek farkı yok (DOĞRULA).
 
 **>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
+- **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →
+  `cizim1-09-kilo-a` (tam video, sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-a-sessiz.mp4`): A1 tartı ekranları +
+  duvar takvimi (HAFTA 1→4), kadın çatalını bırakır → A2 iç ses bulutta (Sibel) → A3 "Peki ya sorun sende değilse?" (lacivert
+  dev "?") + buluta dalış → laboratuvar canlı (arka sıralarda 2'şer soluk koşucu, Lab `cam` ile sıralar arası kamera) →
+  … → kapanış `kilo-son2`: "Kilo farkı, emek farkı değil. Bunu, sofrada sana beş kiloyu söyleyen kişiye gönder." (kadın
+  telefonla gönderir, kâğıt uçak, avatarın masadaki telefonu titrer; ekranda sarı "Sizde kim daha hızlı verdi?") → döngü.
+  Onay → seslendirme (Yunus + Sibel). `cizim1-09-kilo`, `-b`, `-c` eski/alternatif.
 - **SELÜLİT (yeni sohbet, kadın konusu 6):** arka plan HAZIR → `notlar/10-selulit.md` (doğrulanmış bilgiler, kaynaklar,
   CEFF kanca kalıbı, 12 madde tablosu, kanca taslakları). İlk iş: dosyayı oku → 2-3 kanca/hikâye sun → metin onayı →
   sessiz önizleme. Kullanıcı: "hâlâ bir video atmadık" — hızlı ilerle ama metin onayı kuralı geçerli.
