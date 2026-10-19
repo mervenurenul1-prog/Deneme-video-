@@ -1,6 +1,6 @@
 {
   "id": "cizim1-10-mayisma",
-  "title": "Yemekten sonra neden uykun gelir?",
+  "title": "Kan mideye mi indi?",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -13,46 +13,45 @@
   "padding": 0.1,
   "scenes": [
     {
-      "visual": "may-agirlik",
-      "voice": "Yemeği yedin… ve üstüne bir ağırlık çöktü. Gözlerin kendiliğinden kapanıyor.",
-      "say": "[tired] Yemeği yedin... ve üstüne bir ağırlık çöktü. Gözlerin kendiliğinden kapanıyor."
+      "visual": "kan-agirlik",
+      "voice": "Öğle yemeğini yedin… ve üstüne bir ağırlık çöktü. Masada iş bekliyor, gözlerin kapanıyor.",
+      "say": "[tired] Öğle yemeğini yedin... ve üstüne bir ağırlık çöktü. Masada iş bekliyor, gözlerin kapanıyor."
     },
     {
-      "visual": "may-erteleme",
-      "voice": "Masadaki işi birazdan yaparım diye erteliyorsun. Sonra bir daha.",
-      "say": "Masadaki işi \"birazdan yaparım\" diye erteliyorsun. Sonra... bir daha."
+      "visual": "kan-anne",
+      "voice": "Annen hep söylerdi: Kan mideye indi, beynine kan gitmiyor.",
+      "say": "Annen hep söylerdi: \"Kan mideye indi, beynine kan gitmiyor.\""
     },
     {
-      "visual": "may-tembel",
-      "voice": "Ve içinden şu geçiyor: Ben neden bu kadar tembelim?",
-      "say": "Ve içinden şu geçiyor: [sighs] Ben neden bu kadar tembelim?"
+      "visual": "kan-arkadas",
+      "voice": "Ama karşındaki iş arkadaşın aynı saatte yedi ve dimdik çalışıyor.",
+      "say": "Ama karşındaki iş arkadaşın, aynı saatte yedi... ve dimdik çalışıyor."
     },
     {
-      "visual": "may-soru",
-      "voice": "Sence bu ağırlık nereden geliyor?",
-      "say": "[curious] Sence bu ağırlık nereden geliyor?"
+      "visual": "kan-soru",
+      "voice": "Sence aradaki fark ne?",
+      "say": "[curious] Sence aradaki fark ne?"
     },
     {
-      "visual": "may-saat",
-      "voice": "Tembellikten değil. İçinde bir saat var ve öğleden sonra kendiliğinden yavaşlıyor. Hiç yemek yemesen bile.",
-      "say": "Tembellikten değil. İçinde bir saat var, ve öğleden sonra kendiliğinden yavaşlıyor. Hiç yemek yemesen bile."
+      "visual": "kan-tabak",
+      "voice": "Kan değil. Beyin kanını kimseye kaptırmaz. Fark tabakta: pilav, ekmek, tatlı. Kandaki şeker bir anda fırlar.",
+      "say": "Kan değil. Beyin kanını kimseye kaptırmaz. Fark tabakta: pilav, ekmek, tatlı. Kandaki şeker bir anda fırlar."
     },
     {
-      "visual": "may-beyin",
-      "voice": "Dolu bir mide bunu derinleştirir: kana karışan şeker, beyninde seni uyanık tutan hücreleri tek tek kısar.",
-      "say": "Dolu bir mide bunu derinleştirir: kana karışan şeker, beyninde seni uyanık tutan hücreleri... tek tek kısar."
+      "visual": "kan-beyin",
+      "voice": "Bin dokuz yüz doksan sekizde beyinde seni uyanık tutan bir hücre grubu bulundu. İki bin altıda görüldü ki şeker yükselince bu hücreler kısılıyor.",
+      "say": "Bin dokuz yüz doksan sekizde, beyinde seni uyanık tutan bir hücre grubu bulundu. İki bin altıda görüldü ki, şeker yükselince bu hücreler... kısılıyor."
     },
     {
-      "visual": "may-siesta",
-      "voice": "İnsanlar bunu yüzyıllardır biliyor. Siesta, Latincede altıncı saat demek: güneş doğduktan altı saat sonra, tam öğle vakti.",
-      "say": "İnsanlar bunu yüzyıllardır biliyor. Siesta, Latincede \"altıncı saat\" demek: güneş doğduktan altı saat sonra, tam öğle vakti."
-    },
-    {
-      "visual": "may-son",
-      "voice": "Yani sorun sende değil, saatte. Yarın o ağırlık yine çöktüğünde, kendine tembel deme.",
-      "say": "Yani sorun sende değil, saatte. Yarın o ağırlık yine çöktüğünde... kendine tembel deme."
+      "visual": "kan-son",
+      "voice": "Yani kan mideye inmedi, şeker beynine çıktı. Bir dahaki sefere biri kan mideye indi derse, ona bu videoyu gönder.",
+      "say": "Yani kan mideye inmedi, şeker beynine çıktı. Bir dahaki sefere biri \"kan mideye indi\" derse, ona bu videoyu gönder."
     }
   ],
-  "caption": "Yemekten sonra çöken o ağırlık tembellik değil.",
-  "hashtags": ["voom", "uyku", "saglik"]
+  "caption": "Kan mideye inmedi, şeker beynine çıktı.",
+  "hashtags": [
+    "voom",
+    "uyku",
+    "saglik"
+  ]
 }

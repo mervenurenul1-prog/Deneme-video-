@@ -557,6 +557,13 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "bul-lab4": (w) => [[w(1), "bip", 0.5], [w(3), "cizik", 0.35], [w(7), "yuksel", 0.3], [w(9), "whoosh", 0.25], [w(15), "kalem", 0.3], [w(17), "agir-dusme", 0.4], [w(18) + 4, "pirilti", 0.35]],
   "bul-bende": (w) => [[4, "pop", 0.45], [8, "sonme", 0.3], [w(2), "pop", 0.3]],
   "bul-son": (w, d) => [[w(0), "kalem", 0.3], [w(5), "pop", 0.25], [w(6), "pop", 0.3], [d - 24, "whoosh", 0.2]],
+  "kan-agirlik": (w) => [[w(2) + 10, "tak", 0.3], [w(7), "agir-dusme", 0.45], [w(12) - 2, "nefes", 0.3]],
+  "kan-anne": (w) => [[w(0), "pop", 0.3], [w(4), "whoosh", 0.25]],
+  "kan-arkadas": (w) => [[w(1), "whoosh", 0.25], [w(7), "ding", 0.25], [w(9), "ding", 0.25]],
+  "kan-soru": (w) => [[w(0), "pop", 0.35]],
+  "kan-tabak": (w) => [[2, "cizik", 0.3], [w(3), "pop", 0.3], [w(8), "pop", 0.25], [w(11), "yuksel", 0.35]],
+  "kan-beyin": (w) => [[0, "sihir", 0.3], [w(13), "kalem", 0.3], [w(19), "sonme", 0.35]],
+  "kan-son": (w) => [[w(0), "kalem", 0.3], [w(2), "cizik", 0.3], [w(17), "whoosh", 0.35]],
   "may-agirlik": (w) => [[w(1) + 10, "tak", 0.3], [w(6), "agir-dusme", 0.45], [w(8) - 4, "nefes", 0.3]],
   "may-erteleme": (w) => [[w(2) - 2, "kagit", 0.35], [w(6), "kagit", 0.3], [w(8), "kagit", 0.3]],
   "may-tembel": (w) => [[w(1) - 2, "pop", 0.3], [w(8) - 2, "kalem", 0.3]],
@@ -12942,7 +12949,356 @@ const MySon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- 10 mayışma v2: "Kan mideye mi indi?" (dokun: anne sözü + iş arkadaşı → sor → tabak → 1998/2006 beynin içi → bağla) ---------- */
+
+const KN_CW = { x: 850, y: 1560, s: 0.88 }; // karşıdaki iş arkadaşı (masanın sağ ucu)
+const KN_CW_HEAD = { x: KN_CW.x, y: KN_CW.y - 700 * KN_CW.s };
+const KN_PLATE_ME = 545;
+const KN_PLATE_CW = 760;
+const KN_WRITE: Arm = [-20, 118]; // kalemle kâğıda yazar
+
+// Tabak: me = pilav + ekmek + tatlı (labels: her birinin adı söylenince parlar); cw = et + salata
+const KnPlate: React.FC<{ x: number; kind: "carb" | "fit"; food: number; glow?: number[] ; mark?: number }> = ({ x, kind, food, glow = [], mark = 0 }) => {
+  const y = MY_TT - 6;
+  const g = (i: number) => glow[i] ?? 0;
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      {mark > 0 ? <ellipse cx={x} cy={y} rx={140} ry={44} fill={kind === "carb" ? C.red : YAS_OK} opacity={0.35 * mark} stroke="none" filter="url(#glow)" /> : null}
+      <ellipse cx={x} cy={y} rx={104} ry={26} fill="#fffdf6" strokeWidth={6} />
+      {food > 0.02 ? (
+        <g transform={`translate(${x} ${y - 8}) scale(${0.4 + 0.6 * food}) translate(${-x} ${-(y - 8)})`}>
+          {kind === "carb" ? (
+            <>
+              {g(0) > 0 ? <ellipse cx={x - 40} cy={y - 26} rx={46} ry={34} fill={C.yellow} opacity={0.7 * g(0)} stroke="none" filter="url(#glow)" /> : null}
+              <path d={`M${x - 80} ${y - 4} Q${x - 40} ${y - 62} ${x} ${y - 4} Z`} fill="#f7f2e2" strokeWidth={5} />
+              {[-62, -48, -34, -20].map((dx, i) => (
+                <path key={i} d={`M${x + dx} ${y - 18 - (i % 2) * 12} l8 -3`} strokeWidth={3} />
+              ))}
+              {g(1) > 0 ? <ellipse cx={x + 20} cy={y - 34} rx={40} ry={40} fill={C.yellow} opacity={0.7 * g(1)} stroke="none" filter="url(#glow)" /> : null}
+              <path d={`M${x - 2} ${y - 8} L${x - 2} ${y - 58} Q${x + 20} ${y - 76} ${x + 42} ${y - 58} L${x + 42} ${y - 8} Z`} fill="#d9a35c" strokeWidth={5} />
+              <path d={`M${x + 6} ${y - 50} Q${x + 20} ${y - 62} ${x + 34} ${y - 50} L${x + 34} ${y - 14} L${x + 6} ${y - 14} Z`} fill="#f3dcae" strokeWidth={3} />
+              {g(2) > 0 ? <ellipse cx={x + 70} cy={y - 22} rx={40} ry={30} fill={C.yellow} opacity={0.7 * g(2)} stroke="none" filter="url(#glow)" /> : null}
+              <path d={`M${x + 50} ${y - 8} L${x + 70} ${y - 40} L${x + 92} ${y - 8} Z`} fill="#e2a43c" strokeWidth={5} />
+              <path d={`M${x + 58} ${y - 20} L${x + 84} ${y - 20}`} stroke="#9a5a1a" strokeWidth={4} />
+              <circle cx={x + 70} cy={y - 32} r={4} fill="#5f8f3e" strokeWidth={2} />
+            </>
+          ) : (
+            <>
+              <ellipse cx={x - 30} cy={y - 14} rx={42} ry={18} fill="#a8643a" strokeWidth={5} />
+              {[[20, -14], [44, -22], [62, -10], [36, -6]].map(([dx, dy], i) => (
+                <circle key={i} cx={x + dx} cy={y + dy} r={14} fill={i % 2 ? "#7fb069" : "#5f9a4e"} strokeWidth={4} />
+              ))}
+              <circle cx={x + 52} cy={y - 30} r={9} fill={C.red} strokeWidth={3} />
+            </>
+          )}
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// Masada bekleyen iş: kâğıt yığını
+const PaperStack: React.FC<{ x: number; n?: number }> = ({ x, n = 7 }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    {Array.from({ length: n }, (_, i) => (
+      <rect key={i} x={x - 70 + (random(`ps${i}`) - 0.5) * 12} y={MY_TT - 14 - i * 12} width={140} height={14} fill={i % 2 ? "#fffdf6" : "#f3ead4"} strokeWidth={4} />
+    ))}
+  </g>
+);
+
+// Kan şekeri küçük grafiği (başın üstünde): spike 0..1 yükseliş, red = fırlayan çizgi
+const SugarChart: React.FC<{ x: number; y: number; p: number; rise: number; spike: boolean }> = ({ x, y, p, rise, spike }) => {
+  if (p <= 0) return null;
+  const pts = Array.from({ length: 31 }, (_, i) => {
+    const t = i / 30;
+    const h = spike ? Math.exp(-((t - 0.45) ** 2) / 0.02) : 0.32 * Math.exp(-((t - 0.55) ** 2) / 0.08);
+    return [x - 150 + t * 300, y + 60 - (0.1 + 0.85 * h) * 140 * rise];
+  });
+  const shown = pts.filter((_, i) => i / 30 <= rise + 0.001);
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p}) translate(${-x} ${-y})`}>
+      <rect x={x - 180} y={y - 120} width={360} height={220} rx={18} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+      <text x={x} y={y - 76} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={34} fill={C.ink}>
+        KAN ŞEKERİ
+      </text>
+      <path d={`M${x - 155} ${y + 64} L${x + 155} ${y + 64}`} stroke={C.ink} strokeWidth={4} />
+      {shown.length > 1 ? <path d={shown.map((q, i) => `${i ? "L" : "M"}${q[0].toFixed(1)} ${q[1].toFixed(1)}`).join(" ")} stroke={spike ? C.red : YAS_OK} strokeWidth={9} fill="none" strokeLinecap="round" strokeLinejoin="round" /> : null}
+    </g>
+  );
+};
+
+// Gövdedeki kan yolu: kalpten başa (yukarı, hep dolu) ve mideye (aşağı). myth: mideye inen kırmızı ok vurgusu; cross: üstü çizilir
+const BloodMap: React.FC<{ p: number; f: number; myth?: number; cross?: number; shield?: number }> = ({ p, f, myth = 0, cross = 0, shield = 0 }) => {
+  if (p <= 0) return null;
+  const hx = MY_AV.x + 30;
+  const hy = MY_AV.y - 540;
+  const up = `M${hx} ${hy} C${hx + 10} ${hy - 40} ${hx + 10} ${hy - 70} ${MY_HEAD.x + 30} ${MY_HEAD.y + 70}`;
+  const down = `M${hx} ${hy} C${hx + 20} ${hy + 30} ${hx} ${hy + 50} ${MY_AV.x + 10} ${MY_AV.y - 470}`;
+  const dots = (d: "up" | "down", k: number, q: number) => {
+    const t = q;
+    const [x0, y0, x1, y1, x2, y2, x3, y3] = d === "up" ? [hx, hy, hx + 10, hy - 40, hx + 10, hy - 70, MY_HEAD.x + 30, MY_HEAD.y + 70] : [hx, hy, hx + 20, hy + 30, hx, hy + 50, MY_AV.x + 10, MY_AV.y - 470];
+    const bx = (1 - t) ** 3 * x0 + 3 * (1 - t) ** 2 * t * x1 + 3 * (1 - t) * t * t * x2 + t ** 3 * x3;
+    const by = (1 - t) ** 3 * y0 + 3 * (1 - t) ** 2 * t * y1 + 3 * (1 - t) * t * t * y2 + t ** 3 * y3;
+    return <circle key={`${d}${k}`} cx={bx} cy={by} r={9} fill="#d94040" stroke={C.ink} strokeWidth={3} />;
+  };
+  return (
+    <g opacity={p}>
+      <path d={up} stroke="#b23a4a" strokeWidth={22} fill="none" strokeLinecap="round" />
+      <path d={down} stroke="#b23a4a" strokeWidth={22} fill="none" strokeLinecap="round" />
+      <path d={`M${hx - 22} ${hy - 6} C${hx - 40} ${hy - 40} ${hx - 2} ${hy - 44} ${hx} ${hy - 22} C${hx + 2} ${hy - 44} ${hx + 40} ${hy - 40} ${hx + 22} ${hy - 6} L${hx} ${hy + 22} Z`} fill="#d94040" stroke={C.ink} strokeWidth={5} />
+      {cycles(f, 0, 8, 36).map(({ k, p: q }) => dots("up", k, q))}
+      {cycles(f, 4, 8 + 10 * (1 - myth), 36).map(({ k, p: q }) => dots("down", k, q))}
+      {myth > 0 ? <Arrow d={`M${hx + 120} ${hy - 220} Q${hx + 170} ${hy - 80} ${hx + 80} ${hy + 60}`} p={myth} color={C.red} w={12} /> : null}
+      {cross > 0 ? <Cross x={hx + 130} y={hy - 80} size={70} p={cross} /> : null}
+      {shield > 0 ? (
+        <g transform={`translate(${MY_HEAD.x - 170} ${MY_HEAD.y - 40}) scale(${shield})`}>
+          <path d="M0 -60 L50 -40 L46 20 Q30 56 0 70 Q-30 56 -46 20 L-50 -40 Z" fill={YAS_OK} stroke={C.ink} strokeWidth={6} />
+          <path d="M-18 4 L-4 20 L22 -16" stroke={C.cream} strokeWidth={10} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+type KnCw = { arm?: Arm; armL?: Arm; mouth?: Mouth; eyes?: Eyes; lookY?: number; pen?: boolean; kids?: React.ReactNode };
+// Ofis: saat, pencere, avatar + karşıdaki iş arkadaşı, ortak uzun masa, iki tabak, kâğıt yığını
+const KanOffice: React.FC<{ f: number; min?: number; av?: MyAv; cw?: KnCw; foodMe?: number; foodCw?: number; glow?: number[]; markMe?: number; markCw?: number; forkOnPlate?: boolean; clockGlow?: number; children?: React.ReactNode }> = ({ f, min = 810, av = {}, cw = {}, foodMe = 0.5, foodCw = 0.5, glow, markMe = 0, markCw = 0, forkOnPlate, clockGlow = 0, children }) => {
+  const { arm = MY_REST, armL = MY_REST, lid = 0, tilt = 0, mouth = "smile", lookY = 0, blush = 0.4, drop = 0, fork = false, kids } = av;
+  const cwArm = cw.arm ?? KN_WRITE;
+  return (
+    <>
+      <ellipse cx={540} cy={700} rx={560} ry={520} fill="#ffe2a0" opacity={0.2} />
+      <path d="M540 0 L540 120" stroke={C.ink} strokeWidth={6} />
+      <path d="M470 190 L610 190 L580 120 L500 120 Z" fill={C.yellow} stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+      <WallClock min={min} glow={clockGlow} />
+      <g stroke={C.ink} strokeLinejoin="round">
+        <rect x={700} y={230} width={300} height={340} rx={10} fill="#bfe0ee" strokeWidth={8} />
+        <path d="M850 230 L850 570 M700 400 L1000 400" strokeWidth={8} />
+        <Sun x={930} y={300} s={0.45} />
+      </g>
+      <Person x={KN_CW.x} y={KN_CW.y} s={KN_CW.s} female belly={0.2} armL={cw.armL ?? MY_REST} armR={cwArm} mouth={cw.mouth ?? "smile"} eyes={cw.eyes ?? "open"} lookY={cw.lookY ?? 12}>
+        {cw.pen !== false ? <Marker side={1} arm={cwArm} /> : null}
+        {cw.kids}
+      </Person>
+      <Person x={MY_AV.x} y={MY_AV.y + 26 * drop} s={MY_AV.s} belly={0.55} armL={armL} armR={arm} mouth={mouth} eyes={lid >= 0.97 ? "closed" : "open"} lookY={lookY} tilt={tilt} blush={blush}>
+        {fork ? <Fork side={1} arm={arm} /> : null}
+        <Lids lid={lid} tilt={tilt} lookY={lookY} />
+        {kids}
+      </Person>
+      <g stroke={C.ink} strokeLinejoin="round">
+        <rect x={30} y={MY_TT} width={1020} height={36} rx={8} fill="#8a5c35" strokeWidth={8} />
+        <rect x={60} y={MY_TT + 36} width={960} height={1600 - MY_TT - 36} fill="#a8744a" strokeWidth={8} />
+        <path d={`M100 ${MY_TT + 140} L980 ${MY_TT + 140}`} strokeWidth={5} opacity={0.4} />
+      </g>
+      <PaperStack x={220} />
+      <rect x={890} y={MY_TT - 10} width={150} height={10} fill="#fffdf6" stroke={C.ink} strokeWidth={4} transform={`rotate(-4 960 ${MY_TT})`} />
+      <KnPlate x={KN_PLATE_ME} kind="carb" food={foodMe} glow={glow} mark={markMe} />
+      <KnPlate x={KN_PLATE_CW} kind="fit" food={foodCw} mark={markCw} />
+      {forkOnPlate ? <path d={`M${KN_PLATE_ME + 40} ${MY_TT - 4} L${KN_PLATE_ME + 110} ${MY_TT - 30}`} stroke="#cfcfcf" strokeWidth={9} strokeLinecap="round" /> : null}
+      {children}
+      {f < 0 ? null : null}
+    </>
+  );
+};
+// iş arkadaşının yazan eli
+const writeArm = (f: number): Arm => [KN_WRITE[0] + 4 * Math.sin(f / 3), KN_WRITE[1] + 6 * Math.sin(f / 2.2)];
+
+// 1 "Öğle yemeğini yedin… ve üstüne bir ağırlık çöktü. Masada iş bekliyor, gözlerin kapanıyor."
+// Son lokmalar (pilav, ekmek, tatlı); çatal tabağa; koyu ağırlık başına iner, ekran kararır; kâğıt yığını parlar; gözler kapanır, esner.
+const KnAgirlik: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const done = w(2) + 10;
+  const eating = f < done;
+  const drop = tw(f, w(6) - 2, w(7) + 4);
+  const lid = tw(f, w(11), w(12) + 12) * 0.9;
+  const y = yawn(f, w(12) - 2, 24);
+  const work = pop(f, w(8), 12) * (1 - tw(f, w(11), w(12)));
+  return (
+    <CamK k={[[0, 1, 540, 960], [w(5), 1.02, 520, 960], [w(7) + 4, 1.1, 460, 900], [d, 1.16, 430, 880]]} shake={hit(f, w(7) + 2, 14) * 0.6}>
+      <KanOffice
+        f={f}
+        foodMe={eating ? 0.6 * (1 - tw(f, 0, done)) + 0.1 : 0.1}
+        foodCw={0.35}
+        forkOnPlate={!eating}
+        cw={{ arm: writeArm(f) }}
+        av={{ arm: eating ? myEat(f, done) : y ? MY_MOUTH : MY_REST, fork: eating, lid: y ? 0.9 : lid, tilt: -12 * tw(f, w(12), d), drop, mouth: y ? "open" : eating ? (Math.floor(f / 6) % 2 ? "flat" : "smile") : "flat", blush: 0.5 }}
+      >
+        {work > 0 ? <ellipse cx={220} cy={MY_TT - 50} rx={110} ry={70} fill={C.yellow} opacity={0.5 * work} filter="url(#glow)" /> : null}
+        <SleepWeight heavy={drop} drop={drop} f={f} />
+      </KanOffice>
+      <Heavy o={0.75 * drop} />
+    </CamK>
+  );
+};
+
+// 2 "Annen hep söylerdi: Kan mideye indi, beynine kan gitmiyor."
+// Düşünce balonunda annesi parmağını sallar; avatarın gövdesinde kan yolu belirir, kırmızı ok kanı mideye indirir.
+const KnAnne: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const b = pop(f, w(0), 14);
+  const map = tw(f, w(3), w(5) + 6);
+  const wag = Math.sin(f / 3) * 12;
+  return (
+    <CamK k={[[0, 1.1, 480, 860], [d, 1.14, 460, 820]]}>
+      <KanOffice f={f} foodMe={0.1} foodCw={0.35} forkOnPlate cw={{ arm: writeArm(f) }} av={{ lid: 0.6, tilt: -6, drop: 1, mouth: "flat" }}>
+        <SleepWeight heavy={0.7} f={f} />
+        <BloodMap p={map} f={f} myth={tw(f, w(4), w(5) + 8)} />
+      </KanOffice>
+      <Heavy o={0.35} />
+      <Bubble x={700} y={400} rx={290} ry={230} p={b} tail={[MY_HEAD.x + 70, MY_HEAD.y - 170]}>
+        <Person x={580} y={600} s={0.42} female shirt="#7b5aa6" belly={0.45} armL={[12, 0]} armR={[150 + wag, 20]} mouth={talk(f, w(2), d) ? "open" : "flat"} />
+        <HandText x={790} y={360} text="Kan mideye" size={62} color={C.red} p={tw(f, w(3), w(4) + 4)} />
+        <HandText x={790} y={440} text="indi!" size={62} color={C.red} p={tw(f, w(4), w(5) + 4)} />
+      </Bubble>
+    </CamK>
+  );
+};
+
+// 3 "Ama karşındaki iş arkadaşın aynı saatte yedi ve dimdik çalışıyor."
+// Kamera iş arkadaşına kayar: o da yemeğini bitirmiş, gözleri açık, hızla yazıyor; kâğıtlar yanına tamam yığını olarak dizilir; saat ikisinin de üstünde 13:30.
+const KnArkadas: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const ticks = [w(7), w(9), w(9) + 8];
+  return (
+    <CamK k={[[0, 1.1, 480, 880], [w(1), 1.16, 760, 880], [d, 1.12, 700, 880]]}>
+      <KanOffice f={f} foodMe={0.1} foodCw={0.12} forkOnPlate cw={{ arm: writeArm(f * 1.6), mouth: "smile", lookY: 14 }} av={{ lid: 0.65, tilt: -8, drop: 1, mouth: "flat", lookY: -2 }}>
+        <SleepWeight heavy={0.7} f={f} />
+        {ticks.map((t, i) => {
+          const p = pop(f, t, 12);
+          return p > 0 ? (
+            <text key={i} x={KN_CW.x + 150 - i * 20} y={KN_CW_HEAD.y - 120 - i * 70} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90 * p} fill={YAS_OK}>
+              ✓
+            </text>
+          ) : null;
+        })}
+      </KanOffice>
+      <HandText x={KN_CW.x - 20} y={KN_CW_HEAD.y - 200} text="dimdik" size={80} color={YAS_OK} p={tw(f, w(8) - 2, w(8) + 10)} />
+    </CamK>
+  );
+};
+
+// 4 "Sence aradaki fark ne?" — iki tabak yan yana parlar; aralarında dev lacivert "?".
+const KnSoru: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, w(0), 12);
+  return (
+    <CamK k={[[0, 1.06, 620, 900], [d, 1.12, 640, 960]]}>
+      <KanOffice f={f} foodMe={0.1} foodCw={0.12} forkOnPlate cw={{ arm: writeArm(f * 1.6) }} av={{ lid: 0.6, tilt: -6, drop: 1, mouth: "o", lookY: 6 }} markMe={tw(f, w(2), w(3) + 6)} markCw={tw(f, w(2), w(3) + 6)}>
+        <SleepWeight heavy={0.6} f={f} />
+      </KanOffice>
+      {q > 0 ? (
+        <text x={650} y={860} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={260 * q} fill={YAS_OK} stroke={C.cream} strokeWidth={6} paintOrder="stroke">
+          ?
+        </text>
+      ) : null}
+    </CamK>
+  );
+};
+
+// 5 "Kan değil. Beyin kanını kimseye kaptırmaz. Fark tabakta: pilav, ekmek, tatlı. Kandaki şeker bir anda fırlar."
+// Kan yolu döner: mideye inen ok çarpıyla silinir, başa giden kan dolu akar, lacivert kalkan; sonra kamera tabaklara iner,
+// pilav/ekmek/tatlı sırayla parlar; iki başın üstünde kan şekeri grafiği: seninki kırmızı fırlar, onunki sakin.
+const KnTabak: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const cross = tw(f, 0, w(1) + 4);
+  const shield = pop(f, w(3), 12);
+  const map = 1 - tw(f, w(6) - 6, w(6) + 4);
+  const glow = [tw(f, w(8) - 2, w(8) + 6), tw(f, w(9) - 2, w(9) + 6), tw(f, w(10) - 2, w(10) + 6)];
+  const chart = pop(f, w(11) - 4, 12);
+  const rise = tw(f, w(13), w(15) + 10);
+  return (
+    <CamK k={[[0, 1.12, 460, 820], [w(6), 1.12, 460, 820], [w(7) + 4, 1.2, 640, 980], [w(11) - 4, 1.0, 600, 760], [d, 1.0, 600, 760]]}>
+      <KanOffice f={f} foodMe={0.6} foodCw={0.5} cw={{ arm: writeArm(f * 1.6) }} glow={glow} av={{ lid: 0.4, tilt: -3, drop: 1 - 0.5 * tw(f, 0, w(1)), mouth: "flat", lookY: 8 }}>
+        <BloodMap p={map} f={f} myth={1} cross={cross} shield={shield} />
+        <SugarChart x={MY_HEAD.x} y={MY_HEAD.y - 330} p={chart} rise={rise} spike />
+        <SugarChart x={KN_CW_HEAD.x - 40} y={KN_CW_HEAD.y - 330} p={chart} rise={rise} spike={false} />
+      </KanOffice>
+      <HandText x={MY_HEAD.x + 20} y={460} text="beyin kanını korur" size={60} color={YAS_OK} p={tw(f, w(3), w(5) + 6) * map} />
+    </CamK>
+  );
+};
+
+// 6 "1998'de beyinde seni uyanık tutan bir hücre grubu bulundu. 2006'da görüldü ki şeker yükselince bu hücreler kısılıyor."
+// İki beyin merceği (sen / iş arkadaşın): 1998'de sarı hücreler yanar; 2006'da senin merceğine şeker küpleri akar, hücreler tek tek söner;
+// onunki yanık kalır; gözlerin kapanır.
+const KnBeyin: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const lens = tw(f, 0, 12);
+  const y98 = pop(f, 0, 12) * (1 - tw(f, w(13) - 6, w(13)));
+  const y06 = pop(f, w(13), 12);
+  const span = (w(22) + 8 - w(19)) / 9;
+  const dims = Array.from({ length: 9 }, (_, i) => tw(f, w(19) + i * span, w(19) + (i + 1) * span));
+  const lid = 0.4 + 0.55 * tw(f, w(19), d - 6);
+  return (
+    <CamK k={[[0, 1.04, 560, 860], [d, 1.04, 560, 860]]}>
+      <KanOffice f={f} foodMe={0.1} foodCw={0.12} forkOnPlate cw={{ arm: writeArm(f * 1.6) }} av={{ lid, tilt: -10 * tw(f, w(19), d), drop: 1, mouth: "flat" }} />
+      <Heavy o={0.3 + 0.3 * tw(f, w(19), d)} />
+      <path d={`M${MY_HEAD.x} ${MY_HEAD.y - 70} L330 600`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens} />
+      <path d={`M${KN_CW_HEAD.x} ${KN_CW_HEAD.y - 70} L800 600`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens} />
+      <BrainLens x={300} y={430} r={240} p={lens} dims={dims} sugar={tw(f, w(18) - 4, w(19))} f={f} />
+      <BrainLens x={800} y={470} r={190} p={lens} dims={[]} sugar={0} f={f} />
+      <HandText x={540} y={230} text="1998" size={110} color={C.red} p={y98} rotate={0} />
+      <HandText x={540} y={230} text="2006" size={110} color={C.red} p={y06} rotate={0} />
+      <HandText x={300} y={760} text="uyanık tutan hücreler" size={50} color={C.ink} p={tw(f, w(6), w(9))} />
+    </CamK>
+  );
+};
+
+// 7 "Yani kan mideye inmedi, şeker beynine çıktı. Bir dahaki sefere biri kan mideye indi derse, ona bu videoyu gönder."
+// Kartta iki satır: "kan mideye inmedi" (üstü çizili) / "şeker beynine çıktı"; avatar telefonu alır, kâğıt uçak gönderir;
+// sonra çatalına döner (son kare = ilk kare: öğle yemeği).
+const KnSon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const card = pop(f, 0, 12) * (1 - tw(f, w(7) - 6, w(7) + 4));
+  const strike = tw(f, w(2), w(3) + 6);
+  const phone = tw(f, w(14), w(16)) * (1 - tw(f, d - 34, d - 22));
+  const plane = tw(f, w(17), w(18) + 10);
+  const back = tw(f, d - 30, d - 14);
+  const phoneArm = mixArm(MY_REST, [40, 30] as Arm, phone);
+  const hand = armPoints(1, phoneArm)[2];
+  return (
+    <CamK k={[[0, 1.04, 540, 880], [w(7), 1.04, 540, 900], [d - 30, 1.02, 540, 940], [d, 1, 540, 960]]}>
+      <KanOffice
+        f={f}
+        min={810}
+        foodMe={0.1 + 0.6 * back}
+        foodCw={0.12 + 0.38 * back}
+        forkOnPlate={back < 0.5 && phone < 0.1}
+        cw={{ arm: writeArm(f * 1.6) }}
+        av={{
+          arm: back > 0.5 ? myEat(f, d + 100) : phoneArm,
+          fork: back > 0.5,
+          lid: 0,
+          drop: 0,
+          mouth: f < w(7) ? "grin" : "smile",
+          kids: phone > 0.3 && back < 0.5 ? <Phone x={hand[0]} y={hand[1] - 40} s={0.9} rot={-10} /> : null,
+        }}
+      />
+      {plane > 0 && plane < 1 ? (
+        <g transform={`translate(${lerp(MY_AV.x + 200, 1150, plane)} ${lerp(MY_AV.y - 520, 300, plane) - Math.sin(plane * Math.PI) * 120}) rotate(-20)`}>
+          <path d="M-50 0 L50 -20 L-20 30 Z" fill={C.cream} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {card > 0 ? (
+        <g transform={`translate(540 380) scale(${card}) rotate(-2)`}>
+          <rect x={-440} y={-170} width={880} height={300} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+          <HandText x={0} y={-50} text="Kan mideye inmedi," size={92} color={C.ink} p={tw(f, w(0), w(3) + 2)} rotate={0} />
+          {strike > 0 ? <path d={`M-380 -76 L${-380 + 760 * strike} -76`} stroke={C.red} strokeWidth={12} strokeLinecap="round" /> : null}
+          <HandText x={0} y={80} text="şeker beynine çıktı." size={92} color={YAS_OK} p={tw(f, w(4), w(6) + 6)} rotate={0} />
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kan-agirlik": KnAgirlik,
+  "kan-anne": KnAnne,
+  "kan-arkadas": KnArkadas,
+  "kan-soru": KnSoru,
+  "kan-tabak": KnTabak,
+  "kan-beyin": KnBeyin,
+  "kan-son": KnSon,
   "may-agirlik": MyAgirlik,
   "may-erteleme": MyErteleme,
   "may-tembel": MyTembel,
