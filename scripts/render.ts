@@ -32,6 +32,9 @@ for (const post of videos) {
     serveUrl,
     composition,
     codec: "h264",
+    // görüntü kalitesi: kareler JPEG %100, video crf 16 (çizgiler ve yazılar bulanıklaşmasın)
+    jpegQuality: 100,
+    crf: 16,
     audioBitrate: "192k",
     outputLocation: raw,
     browserExecutable,
