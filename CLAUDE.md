@@ -8,6 +8,18 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## >>> EN GÜNCEL DEVİR (19 Ekim akşam) — YENİ SOHBET BURADAN BAŞLASIN <<<
+- Çalışma dalı `claude/claude-md-continuation-e39del` (= main). `npm ci` → işe başla. Kalan ElevenLabs kredisi ≈ 13.600.
+- **09 KİLO: geçerli sürüm `cizim1-09-kilo-hangimiz`** ("Hangimiz daha önce kilo verecek?"; ayrıntı aşağıda "09 KİLO v5").
+  Sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-hangimiz-sessiz.mp4` kullanıcıya gönderildi → **onay/düzeltme
+  bekleniyor → sonra seslendirme** (Yunus ~490 + Aslı ~37 karakter; kadın sahnesi `voiceId` Aslı `HZh2tWL1clJO95e2qMt2`).
+  Seslendirme: `npm run voiceover -- cizim1-09-kilo-hangimiz` → `npm run render -- cizim1-09-kilo-hangimiz`.
+  Diğer 09 sürümleri (`-iddia`, `-a`, `-b`, `-c`, `cizim1-09-kilo`) eski/alternatif; dokunma.
+- **Uyulacaklar (19 Ekim):** HİKÂYE FORMÜLÜ (dokun → sor → açıkla → tarih + vücudun içi → bağla, basit); 12 madde
+  tablosu (izlesin/yorum/paylaşsın); CEFF kanca kalıbı; "görsel sözler kadar önemli" (her hareket gerçekteki gibi, göndermeden
+  önce kareleri kontrol et); Yunus ana ses, Sibel yalnız anne, genç kadın = Aslı; metin onayı → sessiz önizleme → onay →
+  seslendirme. Selülit (`notlar/10-selulit.md`) ayrı sohbette yürüyor.
+
 ## >>> YENİ SOHBET: ÖNCE BUNU OKU (17 Ekim devir notu — EN GÜNCEL) <<<
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; her işten sonra ikisine de push). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.095 karakter. Ses kitaplığı: Yunus (anlatıcı) + **Sibel** (`qLdPxFtPuffoxx5gieBJ`, anne sesi).
