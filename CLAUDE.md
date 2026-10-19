@@ -8,6 +8,11 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## !!! AVATAR KIYAFETİ (kullanıcı, 19 Ekim) — HER YENİ VİDEODA !!!
+Avatar aynı kalır ama **kıyafeti videonun konusuna göre uyarlanır** (koşu → atlet/şort, salon → tişört/şort/shaker,
+yüzme → bone/gözlük, günlük konu → günlük kıyafet…). Referans görseller ve kurallar: `notlar/avatar-kiyafet/OKU.md`.
+Sessiz önizlemeden önce seçilen kıyafeti kullanıcıya söyle.
+
 ## >>> YENİ SOHBET BURADAN BAŞLASIN (19 Ekim akşam devir notu — EN GÜNCEL) <<<
 - Dal: `claude/cellulite-video-prep-6zjwa8` (main birleştirilmiş + selülit işleri). `npm ci` → işe başla.
 - **10 SELÜLİT (`cizim1-10-selulit`) v5 sessiz önizleme gönderildi** (`ornek-videolar/cizim1-pilot/10-selulit-sessiz.mp4`,
