@@ -1,0 +1,59 @@
+{
+  "id": "cizim1-07-yas-kisa",
+  "title": "Spora kaç yaşında başlanır? (kısa)",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "caption": "",
+  "hashtags": [
+    "fitness",
+    "çocuk",
+    "spor",
+    "ağırlık",
+    "voom"
+  ],
+  "scenes": [
+    {
+      "visual": "y9-soru",
+      "voice": "On üç yaşındayım, spora başlasam bir sorun olur mu? Kısa cevap: olmaz. Ama yıllarca çocuklara “bekle” dendi.",
+      "say": "On üç yaşındayım, spora başlasam bir sorun olur mu? ... Kısa cevap: olmaz. [serious] Ama yıllarca çocuklara “bekle” dendi."
+    },
+    {
+      "visual": "y9k-kapi",
+      "voice": "Doktorlar çocuk güçlenemez sanıyordu; çocuklar salonun kapısında bekletildi.",
+      "say": "Doktorlar çocuk güçlenemez sanıyordu; [serious] çocuklar, salonun kapısında bekletildi."
+    },
+    {
+      "visual": "y9-degisim",
+      "voice": "Sonra araştırmacılar çocukları bilen biriyle çalıştırdı. Sonuç tam tersiydi: güçlendiler, zarar da görülmedi.",
+      "say": "Sonra araştırmacılar, çocukları bilen biriyle çalıştırdı. [curious] Sonuç tam tersiydi: güçlendiler, zarar da görülmedi."
+    },
+    {
+      "visual": "y9-rapor",
+      "voice": "Ve iki bin yirmide çocuk doktorları yazdı: spora başlamanın belli bir yaşı yok. On üç de olur, on altı da. Tek şart: yük yavaş yavaş artsın.",
+      "say": "Ve iki bin yirmide çocuk doktorları yazdı: spora başlamanın belli bir yaşı yok. On üç de olur, on altı da. Tek şart: yük, yavaş yavaş artsın."
+    },
+    {
+      "visual": "y9-hangi",
+      "voice": "Peki hangi spor? Onu yaşın değil, neyi sevdiğin seçer.",
+      "say": "Peki hangi spor? ... Onu yaşın değil, neyi sevdiğin seçer."
+    },
+    {
+      "visual": "y9k-hobi",
+      "voice": "Müzik mi seviyorsun? Dans. Arkadaşlarını mı? Basketbol, voleybol. Doğayı mı? Bisiklet, koşu. Rekor kırmayı mı? Koçla ağırlık.",
+      "say": "Müzik mi seviyorsun? Dans. Arkadaşlarını mı? Basketbol, voleybol. Doğayı mı? Bisiklet, koşu. Rekor kırmayı mı? Koçla ağırlık."
+    },
+    {
+      "visual": "y9-yorum",
+      "voice": "Sen neyi seviyorsun? Yorumlara yaz, sana uyan sporu söyleyelim.",
+      "say": "Sen neyi seviyorsun? Yorumlara yaz, [chuckles] sana uyan sporu söyleyelim."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "cizim1-07-yas-b",
+  "title": "Baba ve oğul",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "caption": "",
+  "hashtags": [
+    "fitness",
+    "çocuk",
+    "spor",
+    "ağırlık",
+    "voom"
+  ],
+  "scenes": [
+    {
+      "visual": "b-soru",
+      "voice": "On üç yaşındaki oğul babasına soruyor: “Ben de seninle spora gelebilir miyim?” Babası gülüyor: “Sen daha küçüksün.”",
+      "say": "On üç yaşındaki oğul babasına soruyor: “Ben de seninle spora gelebilir miyim?” Babası gülüyor: [chuckles] “Sen daha küçüksün.”"
+    },
+    {
+      "visual": "b-baba",
+      "voice": "Oysa babası da spora yeni başlamış. Kırk beş yaşında.",
+      "say": "Oysa babası da spora yeni başlamış. ... Kırk beş yaşında."
+    },
+    {
+      "visual": "b-ikisi",
+      "voice": "İkisi de aynı şeyi düşünüyor: biri çok erken, öteki çok geç.",
+      "say": "İkisi de aynı şeyi düşünüyor: biri çok erken, öteki çok geç."
+    },
+    {
+      "visual": "b-rapor",
+      "voice": "Ama Amerikan çocuk doktorları iki bin yirmide yazdı: spora başlamanın belli bir yaşı yok.",
+      "say": "Ama Amerikan çocuk doktorları, iki bin yirmide yazdı: spora başlamanın belli bir yaşı yok."
+    },
+    {
+      "visual": "b-program",
+      "voice": "Oğul için oyun ve kendi ağırlığı, baba için yavaş yavaş artan yük. Aynı salon, farklı program.",
+      "say": "Oğul için oyun ve kendi ağırlığı, baba için yavaş yavaş artan yük. Aynı salon, farklı program."
+    },
+    {
+      "visual": "b-sabah",
+      "voice": "Ertesi sabah, kapıdan iki kişi çıkıyor.",
+      "say": "Ertesi sabah, kapıdan iki kişi çıkıyor."
+    },
+    {
+      "visual": "b-dongu",
+      "voice": "Ve bu sefer soruyu baba soruyor: “Yarın da gelir misin?”",
+      "say": "Ve bu sefer soruyu baba soruyor: [chuckles] “Yarın da gelir misin?”"
+    }
+  ]
+}

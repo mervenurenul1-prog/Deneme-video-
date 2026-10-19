@@ -1,0 +1,70 @@
+{
+  "id": "cizim1-09-kilo",
+  "title": "Kadınlar zor mu kilo verir?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "scenes": [
+    {
+      "visual": "kilo-sofra1",
+      "voice": "Aynı yemeği yiyoruz, aynı sporu yapıyoruz. Ben beş kilo verdim, sen niye veremiyorsun?",
+      "say": "Aynı yemeği yiyoruz, aynı sporu yapıyoruz. [curious] Ben beş kilo verdim, sen niye veremiyorsun?"
+    },
+    {
+      "visual": "kilo-sofra2",
+      "voice": "Çünkü kadınlar zor kilo verir, bunu herkes bilir.",
+      "say": "[annoyed] Çünkü kadınlar zor kilo verir, bunu herkes bilir.",
+      "voiceId": "qLdPxFtPuffoxx5gieBJ"
+    },
+    {
+      "visual": "kilo-lab1",
+      "voice": "Bu tartışma iki bin üçte bir laboratuvara taşındı. Kadınlar ve erkekler on altı ay boyunca aynı programla spor yaptı.",
+      "say": "Bu tartışma, iki bin üçte bir laboratuvara taşındı. Kadınlar ve erkekler, on altı ay boyunca aynı programla spor yaptı."
+    },
+    {
+      "visual": "kilo-lab2",
+      "voice": "Erkekler beş kilo verdi. Kadınlar neredeyse hiç.",
+      "say": "Erkekler beş kilo verdi. Kadınlar... neredeyse hiç."
+    },
+    {
+      "visual": "kilo-lab3",
+      "voice": "Gördün mü?",
+      "say": "[chuckles] Gördün mü?"
+    },
+    {
+      "visual": "kilo-lab4",
+      "voice": "Ama bir ayrıntı vardı: erkekler daha iri olduğu için her antrenmanda çok daha fazla kalori yakıyordu.",
+      "say": "[curious] Ama bir ayrıntı vardı: erkekler daha iri olduğu için, her antrenmanda çok daha fazla kalori yakıyordu."
+    },
+    {
+      "visual": "kilo-lab5",
+      "voice": "On yıl sonra herkese aynı kaloriyi yaktırdılar. Ve fark kayboldu.",
+      "say": "On yıl sonra, herkese aynı kaloriyi yaktırdılar. Ve... fark kayboldu."
+    },
+    {
+      "visual": "kilo-sofra3",
+      "voice": "Yani sen daha hızlı vermedin…",
+      "say": "[smug] Yani sen daha hızlı vermedin...",
+      "voiceId": "qLdPxFtPuffoxx5gieBJ"
+    },
+    {
+      "visual": "kilo-sofra4",
+      "voice": "Sadece daha büyüğüm.",
+      "say": "[sheepish] Sadece... daha büyüğüm."
+    },
+    {
+      "visual": "kilo-son",
+      "voice": "Kilo farkı, emek farkı değil. Peki sizin sofranızda bu tartışmayı kim kazanırdı?",
+      "say": "Kilo farkı, emek farkı değil. [curious] Peki sizin sofranızda bu tartışmayı kim kazanırdı?"
+    }
+  ],
+  "caption": "Kadınlar gerçekten zor mu kilo verir?\n\nMidwest Exercise Trial (Donnelly ve ark., 2003): 16 ay aynı egzersiz programında erkekler ~5 kg verdi, kadınlar vermedi; ama erkekler antrenman başına ~667 kcal, kadınlar ~439 kcal yakıyordu. MET-2 (Donnelly ve ark., Obesity 2013): herkes aynı kaloriyi yakınca kadın-erkek farkı anlamlı değildi.",
+  "hashtags": ["fitness", "kiloverme", "kadınfitness", "sağlıklıyaşam", "bunubiliyormuydun", "voom"]
+}
