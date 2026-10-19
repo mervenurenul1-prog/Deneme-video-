@@ -13,6 +13,8 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 - **09 KİLO: geçerli sürüm `cizim1-09-kilo-hangimiz`** ("Hangimiz daha önce kilo verecek?"; ayrıntı aşağıda "09 KİLO v5").
   Sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-hangimiz-sessiz.mp4` kullanıcıya gönderildi → **onay/düzeltme
   bekleniyor → sonra seslendirme** (Yunus ~490 + Aslı ~37 karakter; kadın sahnesi `voiceId` Aslı `HZh2tWL1clJO95e2qMt2`).
+  **SESLENDİRİLDİ (19 Ekim akşam, kullanıcı "seslendir"), müzikle render → `ornek-videolar/cizim1-pilot/09-kilo-hangimiz.mp4`
+  (45,8 sn, crf 23 ile 20 MB). Kullanıcı geri bildirimi bekleniyor.**
   Seslendirme: `npm run voiceover -- cizim1-09-kilo-hangimiz` → `npm run render -- cizim1-09-kilo-hangimiz`.
   Diğer 09 sürümleri (`-iddia`, `-a`, `-b`, `-c`, `cizim1-09-kilo`) eski/alternatif; dokunma.
 - **Uyulacaklar (19 Ekim):** HİKÂYE FORMÜLÜ (dokun → sor → açıkla → tarih + vücudun içi → bağla, basit); 12 madde
