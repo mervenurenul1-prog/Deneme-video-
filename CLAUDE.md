@@ -8,6 +8,16 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## >>> YENİ SOHBET BURADAN BAŞLASIN (19 Ekim akşam devir notu — EN GÜNCEL) <<<
+- Dal: `claude/cellulite-video-prep-6zjwa8` (main birleştirilmiş + selülit işleri). `npm ci` → işe başla.
+- **10 SELÜLİT (`cizim1-10-selulit`) v5 sessiz önizleme gönderildi** (`ornek-videolar/cizim1-pilot/10-selulit-sessiz.mp4`,
+  önizleme 45,7 sn; gerçek sesle ~41 sn, 536 karakter). Kullanıcı ONAYI BEKLENİYOR. Metin ve sahneler aşağıda "v5".
+  Sıradaki adımlar: (1) kullanıcı onayı/düzeltme → (2) iç ses ("Ben ondan çok çalışıyorum!") için **Sibel DEĞİL**, Yunus
+  yaşında GENÇ kadın sesi adayları sun (ElevenLabs kütüphanesi, kısa örnekler) → (3) kredi kontrol → seslendirme
+  (Yunus ~510 + kadın ~26 karakter) → müzikle render → gönder.
+- Açık soru (kullanıcıya soruldu, cevap yok): stratejide "3 videodan biri Kimse söylemedi"; diğer ikisi ne olacak?
+- Kullanıcıdan gelen son görsel ders: referans heyvoom "büyüme plağı" videosu — sade/büyük/net, yüzlü hücreler, hap etiketler.
+
 ## !!! STRATEJİ (kullanıcı, 19 Ekim) — TÜM YENİ KONULAR BUNA GÖRE, ayrıntı `notlar/00-strateji.md` !!!
 - **Hedef kitle:** (1) spora yeni başlayanlar, (2) bir süredir spor yapanlar, (3) spora merakı olanlar,
   (4) spora başlamaya ikna edilecekler. VOOM bu kitleyi sayfasında toplamalı; arada **satış Reels'i** de üretilecek.
