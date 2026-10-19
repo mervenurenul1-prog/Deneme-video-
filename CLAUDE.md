@@ -25,6 +25,12 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
   → Siesta = Latince sexta hora, altıncı saat (sepya köy, güneş saati VI) → "Yani sorun sende değil, saatte. Yarın o ağırlık
   yine çöktüğünde, kendine tembel deme." (ertesi gün yeni tabak = açılış karesi). Sessiz önizleme
   `ornek-videolar/cizim1-pilot/10-mayisma-sessiz.mp4` (47,4 sn) → onay/düzeltme → seslendirme (yalnız Yunus).
+  **v2 (kullanıcı: "tembellik ne alaka, kan şekeri mi? A'yı B'ye bağla, yediklerinle ilgili; acıya dokun, sonra tarih ve
+  bilimle kanıtla — KAÇ KERE SÖYLEYECEĞİM"):** "Kan mideye mi indi?" (`kan-*`, 7 sahne, ~600 karakter): ağırlık çöker + masada
+  iş bekler → anne "kan mideye indi" (balon + gövdede kan yolu) → karşıdaki iş arkadaşı (et + salata) dimdik çalışıyor →
+  "Sence aradaki fark ne?" → "Kan değil, beyin kanını kaptırmaz; fark tabakta: pilav, ekmek, tatlı; şeker fırlar" (kan şekeri
+  grafikleri) → 1998 uyanık tutan hücreler bulundu, 2006 şeker bunları kısıyor (iki beyin merceği) → "Kan mideye inmedi, şeker
+  beynine çıktı. … bu videoyu gönder." Sessiz önizleme `10-mayisma-sessiz.mp4` (45,1 sn) gönderildi → onay → seslendirme.
 - **Uyulacaklar (19 Ekim):** HİKÂYE FORMÜLÜ (dokun → sor → açıkla → tarih + vücudun içi → bağla, basit); 12 madde
   tablosu (izlesin/yorum/paylaşsın); CEFF kanca kalıbı; "görsel sözler kadar önemli" (her hareket gerçekteki gibi, göndermeden
   önce kareleri kontrol et); Yunus ana ses, Sibel yalnız anne, genç kadın = Aslı; metin onayı → sessiz önizleme → onay →
