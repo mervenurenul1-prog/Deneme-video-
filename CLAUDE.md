@@ -98,6 +98,11 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   1 Gözde `rtnDjO8siSxeTEeTVczO`, 2 Zeynep `ZaoBgxgzPhoCm533Pb7B`, 3 Damla `A2XgcJ6lQVEFeIaIUyrc`, 4 Elif Özder
   `i50A6Mcx7A7vVwCVZVeZ`, 5 İrem `R0D8QjgVyRju4HRoCrIC`, 6 Aslı `HZh2tWL1clJO95e2qMt2`. **SEÇİLDİ: 6 Aslı `HZh2tWL1clJO95e2qMt2` (kitaplıkta "VOOM genc-kadin-asli") = genç kadın sesi.** Ekleme:
   (`POST /v1/voices/add/{public_owner_id}/{voice_id}`) → JSON'da kadın sahnelerinin `voiceId`'si. Kalan kredi ≈ 13.617.
+- **!!! DERS (kullanıcı, 19 Ekim, gerildi): "GÖRSEL SÖZLER KADAR ÖNEMLİ."** Açılışta tezgâh üstünden el uzatıp lavaboda
+  tokalaşma "ne kadar saçma bir an" bulundu. Her hareket GERÇEK hayatta nasıl yapılıyorsa öyle çizilsin (taş-kâğıt-makas
+  yapılacaksa gerçek taş-kâğıt-makas). Önizleme göndermeden önce her sahneden kare alıp "bu an gerçekte böyle mi olur?"
+  diye kontrol et. 09 iddia açılışı → BUZDOLABI NOTU (kullanıcı seçti): yakın çekimde mıknatısla iddia notu, satırlar
+  yazılır, imzalar, kamera geri çekilir; kulpta KAYBEDEN eldivenleri (`Fridge`, `BetNote`, `Marker`).
 - **09 KİLO v4 "Bulaşık iddiası"** (`cizim1-09-kilo-iddia`, kullanıcı "senaryoyu baştan yarat" dedi, metin "hemen önizleme"):
   mutfak (tezgâh, lavabo, KAYBEDEN eldivenleri) → iddia → ay sonu tartı −5/−1 → kadının iç sesi "Haklıymış… kadınlar zor
   kilo verir." (bulut) → laboratuvar → "Gördün mü?" → hakem düdüğü, kalori 667/439 → 600/600, damga düşer → avatar "Yani…

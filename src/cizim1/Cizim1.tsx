@@ -550,7 +550,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kilo-sofra4": (w) => [[w(2), "pop", 0.35]],
   "kilo-son": (w) => [[w(0), "kalem", 0.3], [w(9), "pop", 0.3], [w(10), "ding", 0.25]],
   "kilo-a1": (w) => [[w(2), "pop", 0.3], [w(5), "kagit", 0.3], [w(9), "bip", 0.35], [w(10), "tak", 0.35], [w(13), "pop", 0.3]],
-  "bul-iddia": (w) => [[w(1), "pop", 0.3], [w(3), "kalem", 0.25], [w(13), "pop", 0.35]],
+  "bul-iddia": (w) => [[2, "tak", 0.5], [w(3), "kalem", 0.25], [w(10), "kalem", 0.25], [w(13), "pop", 0.35]],
   "bul-tarti": (w) => [[0, "kagit", 0.3], [w(4), "ding", 0.35], [w(5), "kacing", 0.3], [w(7), "bip", 0.35]],
   "bul-ic": (w) => [[w(0) - 6, "pop", 0.3], [w(1), "kalem", 0.25]],
   "bul-lab1": (w) => [[w(0), "tak", 0.4], [w(4), "whoosh", 0.4], [w(6), "sihir", 0.3], [w(10), "kagit", 0.3]],
@@ -11728,25 +11728,75 @@ const Mutfak: React.FC<KitchenProps> = ({ f, av = {}, wo = {}, avGloves = false,
   );
 };
 
+// Buzdolabı (ön görünüş), sağda kulp; kapağın üst kısmı ayrı (dondurucu)
+const FRIDGE = { x: 400, y: 250, w: 280, h: 1250 };
+const Fridge: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={FRIDGE.x} y={FRIDGE.y} width={FRIDGE.w} height={FRIDGE.h} rx={26} fill="#e9eef0" strokeWidth={9} />
+    <path d={`M${FRIDGE.x} ${FRIDGE.y + 330} H${FRIDGE.x + FRIDGE.w}`} strokeWidth={8} />
+    <rect x={FRIDGE.x + FRIDGE.w - 40} y={FRIDGE.y + 90} width={18} height={170} rx={9} fill="#b8bec4" strokeWidth={6} />
+    <rect x={FRIDGE.x + FRIDGE.w - 40} y={FRIDGE.y + 400} width={18} height={330} rx={9} fill="#b8bec4" strokeWidth={6} />
+    <rect x={FRIDGE.x + 30} y={FRIDGE.y + FRIDGE.h} width={50} height={14} fill={C.ink} />
+    <rect x={FRIDGE.x + FRIDGE.w - 80} y={FRIDGE.y + FRIDGE.h} width={50} height={14} fill={C.ink} />
+  </g>
+);
+// İddia notu: kırmızı mıknatısla kapağa yapışır; satırlar konuşmayla yazılır, en altta iki imza
+const BetNote: React.FC<{ f: number; p: number; t1: number; t2: number; t3: number; sign: number }> = ({ f, p, t1, t2, t3, sign }) => {
+  if (p <= 0) return null;
+  const drop = interpolate(p, [0, 1], [-60, 0]);
+  const cx = FRIDGE.x + FRIDGE.w / 2 - 10;
+  const cy = 700;
+  return (
+    <g transform={`translate(${cx} ${cy + drop}) rotate(${-3 + (1 - p) * 8})`} opacity={Math.min(1, p * 3)}>
+      <rect x={-118} y={-150} width={236} height={310} fill="#fffdf2" stroke={C.ink} strokeWidth={6} />
+      {[0, 1, 2, 3, 4].map((i) => (
+        <path key={i} d={`M-100 ${-60 + i * 42} H100`} stroke={C.water} strokeWidth={2} opacity={0.35} />
+      ))}
+      <HandText x={0} y={-92} text="İDDİA" size={64} color={C.red} p={t1} rotate={0} />
+      <HandText x={0} y={-30} text="1 ay" size={56} color={C.ink} p={t2} rotate={-2} />
+      <HandText x={0} y={24} text="az veren" size={44} color={C.ink} p={tw(t3, 0, 0.5)} rotate={-2} />
+      <HandText x={0} y={68} text="bulaşık yıkar!" size={44} color={C.red} p={tw(t3, 0.5, 1)} rotate={-2} />
+      {sign > 0 ? (
+        <>
+          <path d="M-96 128 q14 -24 26 0 t26 0 q8 -18 18 -4" stroke={YAS_OK} strokeWidth={5} fill="none" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(sign, 0, 0.5)} strokeLinecap="round" />
+          <path d="M22 128 q10 -26 22 -4 q8 14 18 -10 q10 -10 22 8" stroke={C.red} strokeWidth={5} fill="none" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(sign, 0.5, 1)} strokeLinecap="round" />
+        </>
+      ) : null}
+      <circle cx={0} cy={-150} r={20 + 3 * Math.max(0, 1 - (f % 1000) / 6)} fill={C.red} stroke={C.ink} strokeWidth={6} />
+    </g>
+  );
+};
+// Elde keçeli kalem (karakter koordinatlarında)
+const Marker: React.FC<{ side: number; arm: Arm }> = ({ side, arm }) => {
+  const h = armPoints(side, arm)[2];
+  return (
+    <g transform={`translate(${h[0]} ${h[1]}) rotate(${side * 40})`} stroke={C.ink} strokeWidth={5}>
+      <rect x={-9} y={-70} width={18} height={70} rx={6} fill="#26332b" />
+      <rect x={-9} y={-82} width={18} height={14} rx={4} fill={C.red} />
+    </g>
+  );
+};
+
 // B1 "Eşinle iddiaya girdin: bir ayda kim daha çok kilo verirse, öteki bir ay bulaşık yıkayacak."
-// Tezgâhın üstünden el sıkışırlar; "1 AY" kartı; "bulaşık"ta duvarda "KAYBEDEN" eldivenleri belirir, köpük kabarır.
+// Yakın çekim: buzdolabına mıknatısla iddia notu yapışır, satırlar yazılır; kamera geri çekilir: iki yanında ikisi,
+// ellerinde kalem, birbirine meydan okur (avatar kalemiyle onu işaret eder, kadın kollarını kavuşturur);
+// "bulaşık"ta not imzalanır, buzdolabı kulpunda "KAYBEDEN" eldivenleri belirir.
 const BulIddia: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const shake = tw(f, w(1) - 6, w(1) + 4) * (1 - tw(f, w(9), w(10)));
-  const sh = shake > 0.9 ? Math.sin(f * 0.9) * 6 : 0;
-  const month = pop(f, w(3) - 2, 12);
+  const note = tw(f, 0, 8);
+  const pointArm: Arm = [62, 18 + 4 * Math.sin(f / 5)];
+  const pull = tw(f, w(2), w(5));
   return (
-    <CamK k={[[0, 1.05, 540, 1000], [w(10), 1.05, 540, 1000], [d, 1.1, 640, 900]]}>
-      <Mutfak
-        f={f}
-        av={{ armR: mixArm([20, -70], [20, 60 + sh], shake), mouth: "grin", eyes: "open" }}
-        wo={{ armL: mixArm([12, 0], [20, 60 - sh], shake), mouth: "grin" }}
-        foam={0.3 + 0.7 * tw(f, w(13), w(14) + 8)}
-      >
-        {shake > 0.9 ? <Star x={565} y={1010} r={26} rot={f * 6} /> : null}
-        <WallCalendar p={month} n={1} label="1 AY" />
-        <LoserGloves p={pop(f, w(13) - 2, 14)} />
-      </Mutfak>
+    <CamK k={[[0, 2.3, 530, 720], [w(2), 2.3, 530, 720], [w(5), 1, 540, 960], [d, 1.05, 540, 960]]}>
+      <KiloRoom />
+      <Backsplash />
+      <Fridge />
+      <Person x={K_AV.x - 60} y={K_AV.y} s={K_AV.s} belly={0.55} armL={[10, 0]} armR={pull > 0.5 ? pointArm : [12, 0]} mouth={f >= w(5) ? "grin" : "smile"} eyes="open">
+        {pull > 0.5 ? <Marker side={1} arm={pointArm} /> : null}
+      </Person>
+      <Person x={K_WO.x + 60} y={K_WO.y} s={K_WO.s} female belly={0.2} armL={[20, -100]} armR={[20, -100]} mouth={f >= w(9) ? "grin" : "smile"} eyes={f >= w(13) ? "closed" : "open"} tilt={-4} />
+      <BetNote f={f} p={note} t1={tw(f, 4, w(1) + 6)} t2={tw(f, w(3), w(4) + 6)} t3={tw(f, w(10), w(14))} sign={tw(f, w(13), w(14) + 12)} />
+      <LoserGloves p={pop(f, w(13) - 2, 14)} x={FRIDGE.x + FRIDGE.w - 40} y={FRIDGE.y + 720} />
     </CamK>
   );
 };
@@ -11767,7 +11817,6 @@ const BulTarti: React.FC<SceneProps> = ({ w, d }) => {
         wo={{ mouth: f >= w(7) ? "worry" : "flat", blush: f >= w(7) ? 0.9 : 0.4 }}
       >
         <WallCalendar p={1} n={1 + Math.round(29 * days)} label="GÜN" />
-        <LoserGloves p={1} />
         <KgDisplay x={K_AV.x} y={470} p={pop(f, w(2) - 4, 12) * 0.62} value={`−${Math.round(5 * m)} kg`} />
         <KgDisplay x={K_WO.x} y={620} p={pop(f, w(2) - 4, 12) * 0.62} value={f >= w(7) ? "−1 kg" : "−0 kg"} color={f >= w(7) ? "#ff8b7a" : "#9fe0a8"} />
       </Mutfak>
@@ -11859,7 +11908,7 @@ const BulLab4: React.FC<SceneProps> = ({ w }) => {
           stamp={[1, tw(f, w(2), w(5)) * 0.5 + tw(f, w(15), w(16)) * 0.5, gone]}
         />
       </InCloud>
-      <Whistle x={230} y={1070} p={pop(f, w(1) - 4, 12) * (1 - tw(f, w(6), w(7)))} blow={blow} />
+      <Whistle x={890} y={1020} p={0.6 * pop(f, w(1) - 4, 12) * (1 - tw(f, w(6), w(7)))} blow={blow} />
     </>
   );
 };
@@ -11916,9 +11965,7 @@ const BulSon: React.FC<SceneProps> = ({ w, d }) => {
           mouth: "grin",
           children: phone > 0.3 ? <Phone x={hand[0]} y={hand[1] - 40} s={0.9} rot={-10} /> : null,
         }}
-      >
-        <LoserGloves p={back} />
-      </Mutfak>
+      />
       {card > 0 ? (
         <g transform={`translate(540 330) scale(${card}) rotate(-2)`}>
           <rect x={-440} y={-170} width={880} height={300} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
