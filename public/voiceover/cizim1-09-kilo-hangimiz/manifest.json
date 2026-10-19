@@ -1,0 +1,563 @@
+{
+  "scenes": [
+    {
+      "voice": "Hangimiz daha önce beş kilo verecek?",
+      "say": "[playful] Hangimiz daha önce beş kilo verecek?",
+      "voiceId": "HZh2tWL1clJO95e2qMt2",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/1-mvffnlkh.mp3",
+      "durationInSeconds": 2.586122,
+      "words": [
+        {
+          "word": "Hangimiz",
+          "start": 0.16,
+          "end": 0.72
+        },
+        {
+          "word": "daha",
+          "start": 0.76,
+          "end": 0.96
+        },
+        {
+          "word": "önce",
+          "start": 1,
+          "end": 1.28
+        },
+        {
+          "word": "beş",
+          "start": 1.32,
+          "end": 1.44
+        },
+        {
+          "word": "kilo",
+          "start": 1.52,
+          "end": 1.76
+        },
+        {
+          "word": "verecek?",
+          "start": 1.92,
+          "end": 2.64
+        }
+      ]
+    },
+    {
+      "voice": "Kaybeden bir ay bulaşık yıkar!",
+      "say": "[laughs] Kaybeden bir ay bulaşık yıkar!",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/2-mvffnn8p.mp3",
+      "durationInSeconds": 3.213061,
+      "words": [
+        {
+          "word": "Kaybeden",
+          "start": 0.88,
+          "end": 1.44
+        },
+        {
+          "word": "bir",
+          "start": 1.52,
+          "end": 1.68
+        },
+        {
+          "word": "ay",
+          "start": 1.76,
+          "end": 1.92
+        },
+        {
+          "word": "bulaşık",
+          "start": 2,
+          "end": 2.4
+        },
+        {
+          "word": "yıkar!",
+          "start": 2.48,
+          "end": 3.1559399999999997
+        }
+      ]
+    },
+    {
+      "voice": "Bir ay sonra tartı: o beş kilo, sen bir. Ve eldivenler sana kaldı.",
+      "say": "Bir ay sonra tartı: o beş kilo... sen bir. Ve eldivenler, sana kaldı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/3-mvffnoxd.mp3",
+      "durationInSeconds": 5.773061,
+      "words": [
+        {
+          "word": "Bir",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "ay",
+          "start": 0.24,
+          "end": 0.32
+        },
+        {
+          "word": "sonra",
+          "start": 0.4,
+          "end": 0.64
+        },
+        {
+          "word": "tartı:",
+          "start": 0.72,
+          "end": 1.42127
+        },
+        {
+          "word": "o",
+          "start": 1.5012699999999999,
+          "end": 1.58127
+        },
+        {
+          "word": "beş",
+          "start": 1.66127,
+          "end": 1.82127
+        },
+        {
+          "word": "kilo,",
+          "start": 1.90127,
+          "end": 2.78127
+        },
+        {
+          "word": "sen",
+          "start": 2.9012700000000002,
+          "end": 3.0212700000000003
+        },
+        {
+          "word": "bir.",
+          "start": 3.1012699999999995,
+          "end": 3.42127
+        },
+        {
+          "word": "Ve",
+          "start": 3.6847700000000003,
+          "end": 3.7647700000000004
+        },
+        {
+          "word": "eldivenler",
+          "start": 3.8447700000000005,
+          "end": 4.56477
+        },
+        {
+          "word": "sana",
+          "start": 4.8847700000000005,
+          "end": 5.124770000000001
+        },
+        {
+          "word": "kaldı.",
+          "start": 5.164770000000001,
+          "end": 5.8447700000000005
+        }
+      ]
+    },
+    {
+      "voice": "Sence neden? Kadınlar gerçekten daha zor mu kilo veriyor?",
+      "say": "[curious] Sence neden? Kadınlar gerçekten daha zor mu kilo veriyor?",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/4-mvffnqeg.mp3",
+      "durationInSeconds": 3.970612,
+      "words": [
+        {
+          "word": "Sence",
+          "start": 0.16,
+          "end": 0.48
+        },
+        {
+          "word": "neden?",
+          "start": 0.52,
+          "end": 0.96
+        },
+        {
+          "word": "Kadınlar",
+          "start": 1.273556,
+          "end": 1.6735559999999998
+        },
+        {
+          "word": "gerçekten",
+          "start": 1.753556,
+          "end": 2.3135559999999997
+        },
+        {
+          "word": "daha",
+          "start": 2.393556,
+          "end": 2.553556
+        },
+        {
+          "word": "zor",
+          "start": 2.633556,
+          "end": 2.7935559999999997
+        },
+        {
+          "word": "mu",
+          "start": 2.8735559999999998,
+          "end": 2.953556
+        },
+        {
+          "word": "kilo",
+          "start": 2.993556,
+          "end": 3.1935559999999996
+        },
+        {
+          "word": "veriyor?",
+          "start": 3.2735559999999997,
+          "end": 3.913556
+        }
+      ]
+    },
+    {
+      "voice": "Hayır. O sadece senden daha iri.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/5-mvffnrhf.mp3",
+      "durationInSeconds": 2.899592,
+      "words": [
+        {
+          "word": "Hayır.",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "word": "O",
+          "start": 0.9194559999999999,
+          "end": 0.999456
+        },
+        {
+          "word": "sadece",
+          "start": 1.079456,
+          "end": 1.559456
+        },
+        {
+          "word": "senden",
+          "start": 1.639456,
+          "end": 2.039456
+        },
+        {
+          "word": "daha",
+          "start": 2.119456,
+          "end": 2.3594559999999998
+        },
+        {
+          "word": "iri.",
+          "start": 2.519456,
+          "end": 2.919456
+        }
+      ]
+    },
+    {
+      "voice": "İki bin üçte bunu on altı ay izlediler: erkekler beş kilo verdi, kadınlar neredeyse hiç.",
+      "say": "İki bin üçte bunu on altı ay izlediler: erkekler beş kilo verdi, kadınlar... neredeyse hiç.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/6-mvffnt68.mp3",
+      "durationInSeconds": 6.661224,
+      "words": [
+        {
+          "word": "İki",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "bin",
+          "start": 0.24,
+          "end": 0.32
+        },
+        {
+          "word": "üçte",
+          "start": 0.4,
+          "end": 0.72
+        },
+        {
+          "word": "bunu",
+          "start": 0.8,
+          "end": 1.12
+        },
+        {
+          "word": "on",
+          "start": 1.16,
+          "end": 1.2
+        },
+        {
+          "word": "altı",
+          "start": 1.36,
+          "end": 1.52
+        },
+        {
+          "word": "ay",
+          "start": 1.6,
+          "end": 1.68
+        },
+        {
+          "word": "izlediler:",
+          "start": 1.76,
+          "end": 2.67823
+        },
+        {
+          "word": "erkekler",
+          "start": 2.7582299999999997,
+          "end": 3.2382299999999997
+        },
+        {
+          "word": "beş",
+          "start": 3.31823,
+          "end": 3.47823
+        },
+        {
+          "word": "kilo",
+          "start": 3.55823,
+          "end": 3.7182299999999997
+        },
+        {
+          "word": "verdi,",
+          "start": 3.83823,
+          "end": 4.438230000000001
+        },
+        {
+          "word": "kadınlar",
+          "start": 4.518229999999999,
+          "end": 5.47823
+        },
+        {
+          "word": "neredeyse",
+          "start": 5.55823,
+          "end": 6.03823
+        },
+        {
+          "word": "hiç.",
+          "start": 6.1182300000000005,
+          "end": 6.678229999999999
+        }
+      ]
+    },
+    {
+      "voice": "Sebep kasın içinde: iri bir vücut aynı antrenmanda daha çok kalori yakar, daha büyük bir fırın gibi.",
+      "say": "Sebep kasın içinde: iri bir vücut, aynı antrenmanda daha çok kalori yakar. Daha büyük bir fırın gibi.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/7-mvffnv18.mp3",
+      "durationInSeconds": 6.661224,
+      "words": [
+        {
+          "word": "Sebep",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "word": "kasın",
+          "start": 0.64,
+          "end": 0.88
+        },
+        {
+          "word": "içinde:",
+          "start": 0.96,
+          "end": 1.54206
+        },
+        {
+          "word": "iri",
+          "start": 1.65988,
+          "end": 1.81988
+        },
+        {
+          "word": "bir",
+          "start": 1.89988,
+          "end": 1.97988
+        },
+        {
+          "word": "vücut",
+          "start": 2.05988,
+          "end": 2.6198799999999998
+        },
+        {
+          "word": "aynı",
+          "start": 2.77988,
+          "end": 3.01988
+        },
+        {
+          "word": "antrenmanda",
+          "start": 3.0998799999999997,
+          "end": 3.73988
+        },
+        {
+          "word": "daha",
+          "start": 3.81988,
+          "end": 3.97988
+        },
+        {
+          "word": "çok",
+          "start": 4.05988,
+          "end": 4.21988
+        },
+        {
+          "word": "kalori",
+          "start": 4.29988,
+          "end": 4.53988
+        },
+        {
+          "word": "yakar,",
+          "start": 4.592879999999999,
+          "end": 5.091760000000001
+        },
+        {
+          "word": "daha",
+          "start": 5.27421,
+          "end": 5.43421
+        },
+        {
+          "word": "büyük",
+          "start": 5.51421,
+          "end": 5.7542100000000005
+        },
+        {
+          "word": "bir",
+          "start": 5.794210000000001,
+          "end": 5.834210000000001
+        },
+        {
+          "word": "fırın",
+          "start": 5.914210000000001,
+          "end": 6.154210000000001
+        },
+        {
+          "word": "gibi.",
+          "start": 6.234210000000001,
+          "end": 6.714210000000001
+        }
+      ]
+    },
+    {
+      "voice": "Herkese aynı kaloriyi yaktırdıklarında fark kayboldu.",
+      "say": "Herkese aynı kaloriyi yaktırdıklarında... fark kayboldu.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/8-mvffnwa1.mp3",
+      "durationInSeconds": 4.127347,
+      "words": [
+        {
+          "word": "Herkese",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "word": "aynı",
+          "start": 0.72,
+          "end": 0.96
+        },
+        {
+          "word": "kaloriyi",
+          "start": 1.04,
+          "end": 1.4
+        },
+        {
+          "word": "yaktırdıklarında",
+          "start": 1.44,
+          "end": 2.9369199999999998
+        },
+        {
+          "word": "fark",
+          "start": 2.97692,
+          "end": 3.17692
+        },
+        {
+          "word": "kayboldu.",
+          "start": 3.2569199999999996,
+          "end": 4.13692
+        }
+      ]
+    },
+    {
+      "voice": "Yani… bulaşık bende mi?",
+      "say": "[sheepish] Yani... bulaşık bende mi?",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/9-mvffnxf0.mp3",
+      "durationInSeconds": 3.213061,
+      "words": [
+        {
+          "word": "Yani…",
+          "start": 0.72,
+          "end": 1.68
+        },
+        {
+          "word": "bulaşık",
+          "start": 1.72,
+          "end": 2.16
+        },
+        {
+          "word": "bende",
+          "start": 2.24,
+          "end": 2.56
+        },
+        {
+          "word": "mi?",
+          "start": 2.64,
+          "end": 3.1712
+        }
+      ]
+    },
+    {
+      "voice": "Kilo farkı, emek farkı değil. Bu videoyu iddiaya girdiğin kişiye gönder.",
+      "say": "Kilo farkı, emek farkı değil. [warmly] Bu videoyu, iddiaya girdiğin kişiye gönder.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-09-kilo-hangimiz/10-mvffnz7y.mp3",
+      "durationInSeconds": 5.433469,
+      "words": [
+        {
+          "word": "Kilo",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "farkı,",
+          "start": 0.32,
+          "end": 0.9909520000000002
+        },
+        {
+          "word": "emek",
+          "start": 1.0709520000000001,
+          "end": 1.3109520000000003
+        },
+        {
+          "word": "farkı",
+          "start": 1.390952,
+          "end": 1.7109520000000003
+        },
+        {
+          "word": "değil.",
+          "start": 1.7909520000000003,
+          "end": 2.277232
+        },
+        {
+          "word": "Bu",
+          "start": 2.4733120000000004,
+          "end": 2.5533120000000005
+        },
+        {
+          "word": "videoyu",
+          "start": 2.753312,
+          "end": 3.273312
+        },
+        {
+          "word": "iddiaya",
+          "start": 3.4333120000000004,
+          "end": 3.8333120000000003
+        },
+        {
+          "word": "girdiğin",
+          "start": 3.9133120000000003,
+          "end": 4.233312000000001
+        },
+        {
+          "word": "kişiye",
+          "start": 4.313312000000001,
+          "end": 4.633312
+        },
+        {
+          "word": "gönder.",
+          "start": 4.713312,
+          "end": 5.433312
+        }
+      ]
+    }
+  ]
+}
