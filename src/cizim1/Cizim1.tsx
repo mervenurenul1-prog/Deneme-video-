@@ -550,6 +550,13 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kilo-sofra4": (w) => [[w(2), "pop", 0.35]],
   "kilo-son": (w) => [[w(0), "kalem", 0.3], [w(9), "pop", 0.3], [w(10), "ding", 0.25]],
   "kilo-a1": (w) => [[w(2), "pop", 0.3], [w(5), "kagit", 0.3], [w(9), "bip", 0.35], [w(10), "tak", 0.35], [w(13), "pop", 0.3]],
+  "bul-iddia": (w) => [[w(1), "pop", 0.3], [w(3), "kalem", 0.25], [w(13), "pop", 0.35]],
+  "bul-tarti": (w) => [[0, "kagit", 0.3], [w(4), "ding", 0.35], [w(5), "kacing", 0.3], [w(7), "bip", 0.35]],
+  "bul-ic": (w) => [[w(0) - 6, "pop", 0.3], [w(1), "kalem", 0.25]],
+  "bul-lab1": (w) => [[w(0), "tak", 0.4], [w(4), "whoosh", 0.4], [w(6), "sihir", 0.3], [w(10), "kagit", 0.3]],
+  "bul-lab4": (w) => [[w(1), "bip", 0.5], [w(3), "cizik", 0.35], [w(7), "yuksel", 0.3], [w(9), "whoosh", 0.25], [w(15), "kalem", 0.3], [w(17), "agir-dusme", 0.4], [w(18) + 4, "pirilti", 0.35]],
+  "bul-bende": (w) => [[4, "pop", 0.45], [8, "sonme", 0.3], [w(2), "pop", 0.3]],
+  "bul-son": (w, d) => [[w(0), "kalem", 0.3], [w(5), "pop", 0.25], [w(6), "pop", 0.3], [d - 24, "whoosh", 0.2]],
   "kilo-son2": (w, d) => [[w(0), "kalem", 0.3], [w(5), "pop", 0.25], [w(7), "pop", 0.3], [w(10), "whoosh", 0.35], [w(12) + 6, "bip", 0.4], [w(12) + 16, "bip", 0.3], [d - 24, "whoosh", 0.2]],
   "kilo-a2": (w) => [[w(0), "kalem", 0.3]],
   "kilo-a3": (w) => [[w(3), "pop", 0.35], [w(7), "whoosh", 0.4], [w(9), "sihir", 0.3], [w(15), "kagit", 0.35]],
@@ -11211,16 +11218,20 @@ const InCloud: React.FC<{ t?: number; o?: number; children: React.ReactNode }> =
 // Kamera kadının bulutuna dalar; bulutun içi laboratuvara dönüşür: tahtada 2003, iki koşu bandı, 16 ay sayacı, takvim yaprakları.
 // Buluta dalış: kelime sıraları (cam: kamera bulutu hedefler, open..end: bulut açılır, year: tahtada yıl, months: 16 ay)
 type DiveK = { cam: number; open: number; fade: number; end: number; year: number; yearEnd: number; months: number; monthsEnd: number };
-const LabDive: React.FC<SceneProps & { k: DiveK; lines?: Lines; wo?: Partial<Diner>; extra?: React.ReactNode }> = ({ w, d, k, lines, wo, extra }) => {
+const LabDive: React.FC<SceneProps & { k: DiveK; lines?: Lines; wo?: Partial<Diner>; extra?: React.ReactNode; base?: (f: number, text: number) => React.ReactNode }> = ({ w, d, k, lines, wo, extra, base }) => {
   const f = useCurrentFrame();
   const open = tw(f, w(k.open), w(k.end) + 4);
   return (
     <>
       <g opacity={1 - tw(f, w(k.fade), w(k.end) + 4)}>
         <CamK k={[[0, 1, 540, 960], [w(k.cam), 1, K_BUB.x, K_BUB.y], [w(k.end) + 4, 3.2, K_BUB.x, K_BUB.y]]}>
-          <KiloSofra f={f} bubble={1} lines={lines} bubbleText={1 - tw(f, w(k.open), w(k.fade))} av={{ mouth: "flat", armR: [20, -70] }} wo={{ mouth: "flat", blush: 0.7, armL: [20, -76], ...wo }}>
-            {extra}
-          </KiloSofra>
+          {base ? (
+            base(f, 1 - tw(f, w(k.open), w(k.fade)))
+          ) : (
+            <KiloSofra f={f} bubble={1} lines={lines} bubbleText={1 - tw(f, w(k.open), w(k.fade))} av={{ mouth: "flat", armR: [20, -70] }} wo={{ mouth: "flat", blush: 0.7, armL: [20, -76], ...wo }}>
+              {extra}
+            </KiloSofra>
+          )}
         </CamK>
       </g>
       <InCloud t={open} o={tw(f, w(k.open), w(k.open + 1) + 2)}>
@@ -11266,13 +11277,13 @@ const KiloA1: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 // Duvar takvimi: "N. HAFTA" (haftalar akar)
-const WallCalendar: React.FC<{ p: number; n: number }> = ({ p, n }) =>
+const WallCalendar: React.FC<{ p: number; n: number; label?: string }> = ({ p, n, label = "HAFTA" }) =>
   p > 0 ? (
     <g transform={`translate(500 520) scale(${p}) rotate(3)`} stroke={C.ink} strokeLinejoin="round">
       <rect x={-75} y={-70} width={150} height={150} rx={10} fill={C.cream} strokeWidth={7} />
       <rect x={-75} y={-70} width={150} height={40} rx={10} fill={C.red} strokeWidth={7} />
       <text x={0} y={-40} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={24} fill={C.cream} stroke="none">
-        HAFTA
+        {label}
       </text>
       <text x={0} y={58} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={96} fill={C.ink} stroke="none">
         {n}
@@ -11611,7 +11622,330 @@ const KiloSon2: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- 09 kilo v4: "Bulaşık iddiası" (kullanıcı senaryoyu baştan istedi) ---------- */
+
+// Mutfak tezgâhı: ortada lavabo (köpük), solda tabak yığını; kişiler tezgâhın arkasında
+const SINK_X = 540;
+const KitchenCounter: React.FC<{ f: number; foam?: number }> = ({ f, foam = 0.6 }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <path d={`M${SINK_X - 20} ${K_TT - 4} L${SINK_X - 20} ${K_TT - 120} Q${SINK_X - 20} ${K_TT - 160} ${SINK_X + 30} ${K_TT - 160} L${SINK_X + 60} ${K_TT - 160} L${SINK_X + 60} ${K_TT - 135}`} stroke={C.ink} strokeWidth={22} fill="none" strokeLinecap="round" />
+    <path d={`M${SINK_X - 20} ${K_TT - 4} L${SINK_X - 20} ${K_TT - 120} Q${SINK_X - 20} ${K_TT - 160} ${SINK_X + 30} ${K_TT - 160} L${SINK_X + 60} ${K_TT - 160} L${SINK_X + 60} ${K_TT - 135}`} stroke="#b8bec4" strokeWidth={10} fill="none" strokeLinecap="round" />
+    <path d={`M30 ${K_TT} L1050 ${K_TT} L1050 ${K_TT + 50} L30 ${K_TT + 50} Z`} fill="#d9cdb6" strokeWidth={8} />
+    <rect x={40} y={K_TT + 50} width={1000} height={1530 - K_TT - 50} fill="#9c7a55" strokeWidth={8} />
+    {[0, 1, 2, 3].map((i) => (
+      <g key={i}>
+        <rect x={70 + i * 245} y={K_TT + 80} width={210} height={1500 - K_TT - 110} rx={10} fill="#b08c63" strokeWidth={6} />
+        <circle cx={70 + i * 245 + (i % 2 ? 30 : 180)} cy={K_TT + 200} r={10} fill={C.ink} />
+      </g>
+    ))}
+    <ellipse cx={SINK_X} cy={K_TT + 22} rx={150} ry={26} fill="#5d6870" strokeWidth={7} />
+    {foam > 0
+      ? Array.from({ length: 9 }, (_, i) => (
+          <circle key={i} cx={SINK_X - 110 + i * 27} cy={K_TT + 8 - 10 * Math.abs(Math.sin(i * 1.7 + f / 14))} r={(16 + (i % 3) * 6) * foam} fill="#ffffff" strokeWidth={4} />
+        ))
+      : null}
+    {[0, 1, 2, 3].map((i) => (
+      <ellipse key={i} cx={250} cy={K_TT - 8 - i * 16} rx={80} ry={16} fill="#fffdf6" strokeWidth={5} />
+    ))}
+  </g>
+);
+const Backsplash: React.FC = () => (
+  <g opacity={0.5}>
+    <rect x={0} y={860} width={1080} height={K_TT - 860} fill="#cfe0dc" />
+    {Array.from({ length: 9 }, (_, i) => (
+      <path key={i} d={`M${i * 130} 860 V${K_TT}`} stroke={C.ink} strokeWidth={2} opacity={0.4} />
+    ))}
+    {[0, 1, 2].map((i) => (
+      <path key={`h${i}`} d={`M0 ${860 + i * 90} H1080`} stroke={C.ink} strokeWidth={2} opacity={0.4} />
+    ))}
+  </g>
+);
+// Bulaşık eldiveni: elin üstünde sarı, bilekte kıvrık manşet (karakter koordinatlarında)
+const Glove: React.FC<{ side: number; arm: Arm }> = ({ side, arm }) => {
+  const [, e, h] = armPoints(side, arm);
+  const a = (Math.atan2(h[1] - e[1], h[0] - e[0]) * 180) / Math.PI;
+  return (
+    <g transform={`translate(${h[0]} ${h[1]}) rotate(${a - 90})`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-30} y={-62} width={60} height={46} rx={10} fill="#f2c230" strokeWidth={6} />
+      <ellipse cx={0} cy={2} rx={34} ry={38} fill="#f2c230" strokeWidth={6} />
+    </g>
+  );
+};
+// Duvarda asılı eldiven çifti + "KAYBEDEN" etiketi
+const LoserGloves: React.FC<{ p: number; x?: number; y?: number }> = ({ p, x = 820, y = 640 }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p}) rotate(${Math.sin(p * 9) * 4})`} stroke={C.ink} strokeLinejoin="round">
+      <circle cx={0} cy={-60} r={8} fill={C.ink} />
+      <path d="M0 -60 L-40 -20 M0 -60 L40 -20" strokeWidth={4} fill="none" />
+      {[-40, 40].map((dx) => (
+        <g key={dx}>
+          <rect x={dx - 24} y={-20} width={48} height={70} rx={12} fill="#f2c230" strokeWidth={5} />
+          <ellipse cx={dx} cy={60} rx={28} ry={26} fill="#f2c230" strokeWidth={5} />
+        </g>
+      ))}
+      <rect x={-90} y={96} width={180} height={52} rx={10} fill={C.cream} strokeWidth={5} />
+      <text x={0} y={132} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={30} fill={C.red} stroke="none">
+        KAYBEDEN
+      </text>
+    </g>
+  ) : null;
+
+const WASH: Arm = [20, 60];
+type KitchenProps = { f: number; av?: Partial<Diner>; wo?: Partial<Diner>; avGloves?: boolean; woGloves?: boolean; bubble?: number; bubbleText?: number; lines?: Lines; foam?: number; children?: React.ReactNode };
+const Mutfak: React.FC<KitchenProps> = ({ f, av = {}, wo = {}, avGloves = false, woGloves = false, bubble = 0, bubbleText = 0, lines, foam, children }) => {
+  const aArm = av.armR ?? [20, -70];
+  const wArm = wo.armL ?? [12, 0];
+  const wArmR = wo.armR ?? [10, 0];
+  const aArmL = av.armL ?? [10, 0];
+  return (
+    <>
+      <KiloRoom />
+      <Backsplash />
+      <KWoman f={f} fork={false} {...wo} armL={wArm} armR={wArmR}>
+        {woGloves ? (
+          <>
+            <Glove side={-1} arm={wArm} />
+            <Glove side={1} arm={wArmR} />
+          </>
+        ) : null}
+        {wo.children}
+      </KWoman>
+      <KAvatar f={f} fork={false} {...av} armR={aArm} armL={aArmL}>
+        {avGloves ? (
+          <>
+            <Glove side={1} arm={aArm} />
+            <Glove side={-1} arm={aArmL} />
+          </>
+        ) : null}
+        {av.children}
+      </KAvatar>
+      <KitchenCounter f={f} foam={foam} />
+      <Bubble x={K_BUB.x} y={K_BUB.y} rx={K_BUB.rx} ry={K_BUB.ry} p={bubble} tail={[K_WO.x, K_WO.y - K_WO.s * 830]}>
+        <BubbleText p={bubbleText} lines={lines} />
+      </Bubble>
+      {children}
+    </>
+  );
+};
+
+// B1 "Eşinle iddiaya girdin: bir ayda kim daha çok kilo verirse, öteki bir ay bulaşık yıkayacak."
+// Tezgâhın üstünden el sıkışırlar; "1 AY" kartı; "bulaşık"ta duvarda "KAYBEDEN" eldivenleri belirir, köpük kabarır.
+const BulIddia: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const shake = tw(f, w(1) - 6, w(1) + 4) * (1 - tw(f, w(9), w(10)));
+  const sh = shake > 0.9 ? Math.sin(f * 0.9) * 6 : 0;
+  const month = pop(f, w(3) - 2, 12);
+  return (
+    <CamK k={[[0, 1.05, 540, 1000], [w(10), 1.05, 540, 1000], [d, 1.1, 640, 900]]}>
+      <Mutfak
+        f={f}
+        av={{ armR: mixArm([20, -70], [20, 60 + sh], shake), mouth: "grin", eyes: "open" }}
+        wo={{ armL: mixArm([12, 0], [20, 60 - sh], shake), mouth: "grin" }}
+        foam={0.3 + 0.7 * tw(f, w(13), w(14) + 8)}
+      >
+        {shake > 0.9 ? <Star x={565} y={1010} r={26} rot={f * 6} /> : null}
+        <WallCalendar p={month} n={1} label="1 AY" />
+        <LoserGloves p={pop(f, w(13) - 2, 14)} />
+      </Mutfak>
+    </CamK>
+  );
+};
+
+// B2 "Ay sonu, tartı: o beş kilo, sen bir."
+// Takvim günleri hızla akar (1 → 30); başların üstünde tartı ekranları: onda −5 (sevinç, kollar havada), sende kırmızı −1.
+const BulTarti: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const days = tw(f, 0, w(2));
+  const m = tw(f, w(3), w(5) + 6);
+  const win = f >= w(5);
+  const dance = win ? Math.sin(f / 3) * 12 : 0;
+  return (
+    <CamK k={[[0, 1.1, 640, 900], [w(2), 1.04, 540, 1000], [d, 1.04, 540, 1000]]}>
+      <Mutfak
+        f={f}
+        av={{ armR: win ? [160 + dance, 20] : [20, -70], armL: win ? [160 - dance, 20] : [10, 0], mouth: win ? "grin" : "smile" }}
+        wo={{ mouth: f >= w(7) ? "worry" : "flat", blush: f >= w(7) ? 0.9 : 0.4 }}
+      >
+        <WallCalendar p={1} n={1 + Math.round(29 * days)} label="GÜN" />
+        <LoserGloves p={1} />
+        <KgDisplay x={K_AV.x} y={470} p={pop(f, w(2) - 4, 12) * 0.62} value={`−${Math.round(5 * m)} kg`} />
+        <KgDisplay x={K_WO.x} y={620} p={pop(f, w(2) - 4, 12) * 0.62} value={f >= w(7) ? "−1 kg" : "−0 kg"} color={f >= w(7) ? "#ff8b7a" : "#9fe0a8"} />
+      </Mutfak>
+    </CamK>
+  );
+};
+
+// B3 (kadın, iç ses) "Haklıymış… kadınlar zor kilo verir."
+// Kadın eldivenleri giymiş, lavabodadır, başı eğik; avatar arkada zafer dansı yapar; bulutta kırmızı yazı.
+const BUL_LINES: Lines = ["Kadınlar", "zor kilo verir…"];
+const BulIc: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const dance = Math.sin(f / 3) * 14;
+  return (
+    <CamK k={[[0, 1.04, 540, 1000], [w(4) + 10, 1.06, 640, 900]]}>
+      <Mutfak
+        f={f}
+        woGloves
+        foam={1}
+        bubble={pop(f, w(0) - 6, 14)}
+        bubbleText={tw(f, w(1), w(4) + 8)}
+        lines={BUL_LINES}
+        av={{ armR: [160 + dance, 20], armL: [160 - dance, 20], mouth: "grin", eyes: "closed", tilt: dance / 3 }}
+        wo={{ armL: [20, 60 + 6 * Math.sin(f / 4)], armR: [20, -70], mouth: "worry", lookY: 10, blush: 0.9 }}
+      />
+    </CamK>
+  );
+};
+
+// B4 "Bekle. Bu iddia iki bin üçte bir laboratuvarda da yapıldı. On altı ay, aynı program."
+// "Bekle"de her şey donar (dans durur); kamera buluta dalar, içi laboratuvar: 2003, iki koşu bandı, 16 ay.
+const BulLab1: React.FC<SceneProps> = (p) => (
+  <LabDive
+    {...p}
+    k={{ cam: 0, open: 5, fade: 7, end: 8, year: 3, yearEnd: 5, months: 10, monthsEnd: 12 }}
+    base={(f, text) => (
+      <Mutfak
+        f={f}
+        woGloves
+        foam={1}
+        bubble={1}
+        bubbleText={text}
+        lines={BUL_LINES}
+        av={{ armR: [160, 20], armL: [160, 20], mouth: "o", eyes: "wide" }}
+        wo={{ armL: WASH, armR: [20, -70], mouth: "flat", lookY: -8, eyes: "wide", blush: 0.9 }}
+      />
+    )}
+  />
+);
+
+// Hakem düdüğü (çalarken titrer, ses dalgaları)
+const Whistle: React.FC<{ x: number; y: number; p: number; blow: number }> = ({ x, y, p, blow }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p}) rotate(${-12 + Math.sin(blow * 40) * 6 * blow})`} stroke={C.ink} strokeLinejoin="round">
+      <path d="M-70 -20 L10 -20 A44 44 0 1 1 10 40 L-70 40 Z" fill="#c9ced3" strokeWidth={7} />
+      <circle cx={30} cy={10} r={14} fill={C.ink} />
+      <path d="M-70 -20 L-70 40" strokeWidth={7} />
+      {blow > 0 ? <path d="M-100 -40 L-140 -70 M-104 10 L-154 10 M-100 60 L-140 90" strokeWidth={7} strokeLinecap="round" opacity={blow} /> : null}
+    </g>
+  ) : null;
+
+// B7 "Ama hakem bir şeyi fark etti: erkekler daha iri, aynı antrenmanda daha çok kalori yakıyorlardı. Kaloriler eşitlenince fark kayboldu."
+// Düdük çalar, damga çatlar; erkek koşucu büyür ("iri"); kilo panelleri gider, kalori sayaçları 667/439; "Kaloriler eşitlenince"
+// tahtada 2013, ikisi de 600 (lacivert); "kayboldu"da damga düşer, kadın koşucu da incelir.
+const BulLab4: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const out = tw(f, w(9) - 4, w(10));
+  const kc = tw(f, w(9), w(14) + 6);
+  const eqT = tw(f, w(15), w(16) + 8);
+  const gone = tw(f, w(17), w(18) + 10);
+  const blow = f >= w(1) && f < w(1) + 24 ? 1 - (f - w(1)) / 24 : 0;
+  return (
+    <>
+      <InCloud>
+        <Lab
+          f={f}
+          cam={[[0, 1, 540, 960], [w(6), 1, 540, 960], [w(7) + 4, 1.15, 440, 560], [w(9), 1.15, 440, 560], [w(10) + 6, 1, 540, 960]]}
+          year2={tw(f, w(15) - 2, w(16) + 8)}
+          kgM={out < 1 ? [1 - out, "−5 kg"] : undefined}
+          kgW={out < 1 ? [1 - out, "≈0 kg"] : undefined}
+          kcalM={f >= w(9) ? [pop(f, w(9), 12), Math.round(lerp(667 * kc, 600, eqT))] : undefined}
+          kcalW={f >= w(9) ? [pop(f, w(9), 12), Math.round(lerp(439 * kc, 600, eqT))] : undefined}
+          eq={pop(f, w(16), 12)}
+          slimM={1}
+          slimW={gone}
+          big={tw(f, w(6) - 2, w(8) + 4) * (1 - tw(f, w(15), w(16)))}
+          faceM={f >= w(12) ? "worry" : "grin"}
+          faceW={gone > 0.5 ? "grin" : f >= w(12) ? "smile" : "worry"}
+          stamp={[1, tw(f, w(2), w(5)) * 0.5 + tw(f, w(15), w(16)) * 0.5, gone]}
+        />
+      </InCloud>
+      <Whistle x={230} y={1070} p={pop(f, w(1) - 4, 12) * (1 - tw(f, w(6), w(7)))} blow={blow} />
+    </>
+  );
+};
+
+// B8 (avatar) "Yani… bulaşık bende mi?"
+// Bulut patlar, mutfağa dönülür; kadın eldivenleri çıkarıp avatara uzatır; "bende mi"de eldivenler avatarın elinde, kızarır.
+const BulBende: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const pf = tw(f, 0, 12);
+  const give = tw(f, w(0), w(2));
+  const has = f >= w(2);
+  return (
+    <>
+      <Mutfak
+        f={f}
+        foam={1}
+        woGloves={!has}
+        avGloves={has}
+        av={{ armR: has ? [20, 60] : mixArm([20, -70], [40, 40], give), mouth: talk(f, w(0) - 2, w(3) + 8) ? "open" : "worry", blush: 1, lookY: has ? 8 : 0 }}
+        wo={{ armL: mixArm([20, -70], [40, 40], give), armR: [20, -70], mouth: "grin", eyes: has ? "closed" : "open" }}
+      />
+      <InCloud t={1 - pf} o={1 - pf}>
+        <Lab f={f} kcalM={[1, 600]} kcalW={[1, 600]} eq={1} slimM={1} slimW={1} faceW="grin" />
+      </InCloud>
+      {f < 40
+        ? Array.from({ length: 7 }, (_, i) => {
+            const a = (i / 7) * Math.PI * 2;
+            return <Puff key={i} x={K_BUB.x} y={K_BUB.y} p={tw(f, 6, 36)} dx={Math.cos(a) * 280} dy={Math.sin(a) * 200} s={1.6} />;
+          })
+        : null}
+    </>
+  );
+};
+
+// B9 "Kilo farkı, emek farkı değil. Bu videoyu iddiaya girdiğin kişiye gönder."
+// Avatar eldivenlerle bulaşık yıkar (köpük); üstte replik kartı; kadın telefonu kaldırır; sarı şerit "Sizde iddiayı kim kazandı?"
+const BulSon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const card = pop(f, w(0) - 4, 12) * (1 - tw(f, w(5) - 2, w(5) + 6));
+  const phone = tw(f, w(5), w(6) + 4) * (1 - tw(f, d - 24, d - 12));
+  const chip = pop(f, w(6), 12) * (1 - tw(f, d - 20, d - 10));
+  const back = tw(f, d - 26, d - 10);
+  const hand = armPoints(1, [150, 30])[2];
+  return (
+    <CamK k={[[0, 1.04, 540, 1000], [d - 26, 1.04, 540, 1000], [d - 1, 1.05, 540, 1000]]}>
+      <Mutfak
+        f={f}
+        foam={1 - 0.7 * back}
+        avGloves={back < 0.5}
+        av={{ armR: back > 0 ? mixArm([20, 60], [20, -70], back) : [20, 60 + 8 * Math.sin(f / 4)], mouth: back > 0.5 ? "grin" : "worry", blush: 1 - 0.6 * back }}
+        wo={{
+          armR: mixArm([10, 0], [150, 30], phone),
+          armL: [12, 0],
+          mouth: "grin",
+          children: phone > 0.3 ? <Phone x={hand[0]} y={hand[1] - 40} s={0.9} rot={-10} /> : null,
+        }}
+      >
+        <LoserGloves p={back} />
+      </Mutfak>
+      {card > 0 ? (
+        <g transform={`translate(540 330) scale(${card}) rotate(-2)`}>
+          <rect x={-440} y={-170} width={880} height={300} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+          <HandText x={0} y={-50} text="Kilo farkı," size={104} color={C.ink} p={tw(f, w(0), w(1) + 6)} rotate={0} />
+          <HandText x={0} y={80} text="emek farkı değil." size={104} color={YAS_OK} p={tw(f, w(2), w(4) + 6)} rotate={0} />
+        </g>
+      ) : null}
+      {chip > 0 ? (
+        <g transform={`translate(540 270) scale(${chip}) rotate(-2)`}>
+          <rect x={-410} y={-62} width={820} height={112} rx={56} fill={C.yellow} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={18} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={52} fill={C.ink}>
+            Sizde iddiayı kim kazandı?
+          </text>
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "bul-iddia": BulIddia,
+  "bul-tarti": BulTarti,
+  "bul-ic": BulIc,
+  "bul-lab1": BulLab1,
+  "bul-lab4": BulLab4,
+  "bul-bende": BulBende,
+  "bul-son": BulSon,
   "kilo-son2": KiloSon2,
   "kilo-sofra1": KiloSofra1,
   "kilo-sofra2": KiloSofra2,
