@@ -45,7 +45,8 @@
     {
       "visual": "sk-son",
       "voice": "Yani çoğu zaman suçlu hastalık değil. Ama her yemekten sonra bayılacak gibi oluyorsan, bir doktora görünmeni öneririm.",
-      "say": "Yani çoğu zaman suçlu hastalık değil. Ama her yemekten sonra bayılacak gibi oluyorsan, bir doktora görünmeni öneririm."
+      "say": "Yani çoğu zaman suçlu hastalık değil. Ama her yemekten sonra bayılacak gibi oluyorsan, bir doktora görünmeni öneririm.",
+      "hold": 1.0
     }
   ],
   "caption": "Yemekten sonra çöken ağırlığın üç sebebi.",

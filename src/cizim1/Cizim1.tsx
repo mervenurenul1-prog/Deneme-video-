@@ -13575,8 +13575,8 @@ const SkTabak: React.FC<SceneProps> = ({ w, d }) => {
       <KanOffice f={f} solo foodMe={0.6} glow={glow} markMe={tw(f, w(1), w(2))} av={{ lid, tilt: -8 * tw(f, w(9), w(14) + 8), drop: 1, mouth: "flat" }}>
         <SleepWeight heavy={0.4 + 0.5 * tw(f, w(9), w(14))} f={f} />
       </KanOffice>
-      <LabMouse x={250} y={560} p={mouse} f={f} sleepy={tw(f, w(9), w(14))} />
-      <path d={`M${370} ${560} L520 470`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens * mouse} />
+      <LabMouse x={200} y={1012} p={mouse * 1.25} f={f} sleepy={tw(f, w(9), w(14))} />
+      <path d={`M${330} ${880} L540 560`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens * mouse} />
       <BrainLens x={760} y={420} r={270} p={lens} dims={dims} sugar={tw(f, w(8) - 4, w(9))} f={f} />
       <HandText x={760} y={780} text="uyanık tutan hücreler" size={52} color={C.ink} p={tw(f, w(10), w(13))} />
       <HandText x={250} y={330} text="2006" size={120} color={C.red} p={tw(f, w(2), w(4) + 6)} rotate={-4} />
@@ -13590,10 +13590,10 @@ const SkTabak: React.FC<SceneProps> = ({ w, d }) => {
 const SkSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const bub = pop(f, 0, 10) * (1 - tw(f, w(5), w(5) + 10));
-  const doc = pop(f, w(13), 12) * (1 - tw(f, d - 34, d - 22));
-  const back = tw(f, d - 30, d - 14);
+  const doc = pop(f, w(13), 12) * (1 - tw(f, d - 18, d - 8));
+  const back = tw(f, d - 16, d - 4);
   return (
-    <CamK k={[[0, 1.06, 520, 860], [w(6), 1.04, 540, 880], [d - 30, 1.02, 540, 940], [d, 1, 540, 960]]}>
+    <CamK k={[[0, 1.06, 520, 860], [w(6), 1.04, 540, 880], [d - 16, 1.02, 540, 940], [d - 4, 1, 540, 960]]}>
       <KanOffice
         f={f}
         solo
