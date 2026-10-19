@@ -32,6 +32,7 @@ Yunus'la aynı cümlenin yan yana denemesi. Kalan kredi ≈ 13.370 (19 Ekim gece
 Kullanıcı "daha iyi klon çıkar" dedi → **klon v2** `kd6P2yodCccO2OzNoqOD` ("VOOM - kendi sesim v2 (ham kayıt)": işlenmemiş 48 kHz kayıt, 4 parça, gürültü giderme KAPALI; ayar stability 0.45, similarity 0.95, style 0, speaker boost). Deneme `klon3-*.mp3`.
 **Kullanıcı (19 Ekim gece): "Klon 1-3 arası bir şey yaparsın, şimdi seslendirmeye geçme, BEKLE."** → Klonun son hâli iki deneme arası bir ton olacak (hangi 1 ve 3 kastedildi teyit et); selülit seslendirmesi kullanıcı söyleyene kadar YAPILMAYACAK.
 **KIZ SESİ = KULLANICININ SESİ (19 Ekim gece, kullanıcı: "hepsini harmanla, benim sesim o kızın sesi"):** harman klon `kUOROTx2GgiPee3eXWoa` ("VOOM - kız sesi (kullanıcı, harman)": eski 43 sn kayıt + yeni 2 dk kayıt, 5 parça; ayar stability 0.5, similarity 0.9, style 0.1, speaker boost). Videolardaki KIZ/kadın karakter replikleri bu sesle. Deneme `kiz-harman-*.mp3`.
+Kullanıcı: kız konuşursa **eleven_v4** denenecek. Selülit C → Yunus ile seslendirmeye geçildi (19 Ekim gece).
 
 ## >>> 10 SELÜLİT C (`cizim1-10-selulit-c`, 19 Ekim gece — EN GÜNCEL) <<<
 CEFF/ekip eski selülit hikâyesini BEĞENMEDİ ("hikâyeyi geliştirmek lazım"). Kullanıcı C'yi seçti + "güzellik algısına bağla,
