@@ -66,8 +66,8 @@
     },
     {
       "visual": "sel-son",
-      "voice": "Selülit tembellik değil, yapı. Sana bunun kusur olduğunu ilk kim söyledi?",
-      "say": "Selülit tembellik değil, yapı. [curious] Sana bunun kusur olduğunu... ilk kim söyledi?",
+      "voice": "Yıllarca suçu kendinde aradın. Oysa o çukurları ne tembelliğin yaptı ne de emeğin; derinin altındaki ipler yaptı. Sana bunun kusur olduğunu ilk kim söyledi?",
+      "say": "Yıllarca suçu... kendinde aradın. Oysa o çukurları ne tembelliğin yaptı, ne de emeğin; derinin altındaki ipler yaptı. [curious] Sana bunun kusur olduğunu... ilk kim söyledi?",
       "hold": 1.1
     }
   ],

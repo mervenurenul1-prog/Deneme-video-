@@ -550,7 +550,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "sel-dergi": (w) => [[w(0), "pop", 0.35], [w(4), "kagit", 0.35], [w(5), "yuksel", 0.25], [w(10), "kalem", 0.3], [w(12) + 4, "agir-dusme", 0.35]],
   "sel-krem": (w) => [[w(0), "whoosh", 0.3], [w(1), "damla", 0.3], [w(3), "bip", 0.3], [w(4) + 4, "agir-dusme", 0.35]],
   "sel-deney": (w) => [[2, "bip", 0.3], [w(5), "pop", 0.3], [w(9), "ding", 0.3], [w(10) + 4, "agir-dusme", 0.3]],
-  "sel-son": (w, d) => [[w(0), "kalem", 0.3], [w(3) + 4, "agir-dusme", 0.35], [w(5), "pop", 0.3], [d - 24, "whoosh", 0.3]],
+  "sel-son": (w, d) => [[w(0), "kalem", 0.3], [w(8), "cizik", 0.3], [w(15), "kalem", 0.3], [w(16) + 4, "agir-dusme", 0.35], [w(17), "pop", 0.3], [d - 24, "whoosh", 0.3]],
   "kilo-sofra1": (w) => [[w(3), "pop", 0.3], [w(7), "ding", 0.3], [w(11), "bip", 0.3]],
   "kilo-sofra2": (w) => [[w(0) + 2, "tak", 0.45], [w(1) - 4, "pop", 0.35], [w(1) + 2, "kalem", 0.3]],
   "kilo-lab1": (w) => [[w(3), "whoosh", 0.4], [w(5), "sihir", 0.3], [w(11), "kagit", 0.35]],
@@ -12599,23 +12599,26 @@ const SelDeney: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-// 11) "Selülit tembellik değil, yapı. Sana bunun kusur olduğunu ilk kim söyledi?"
-// Aynaya dönüş: replik kartı; "yapı"da yansımanın üstüne lacivert plan çizgileri, aynadaki "KUSUR" damgası kırılıp düşer;
+// 11) "Yıllarca suçu kendinde aradın. Oysa o çukurları ne tembelliğin yaptı ne de emeğin; derinin altındaki ipler yaptı. Sana…"
+// Aynaya dönüş: replik kartları (tembellik/emek çizilir); "ipler"de yansımanın üstüne lacivert plan çizgileri, aynadaki "KUSUR" damgası kırılıp düşer;
 // sarı soru kartı (yorum); sonda kamera duvardaki televizyona yaklaşır, reklam ekranı kaplar (döngü: açılış karesi).
 const SelSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const back = tw(f, d - 34, d - 22);
+  // "Yıllarca suçu kendinde aradın. Oysa o çukurları ne tembelliğin yaptı ne de emeğin; derinin altındaki ipler yaptı.
+  //  Sana bunun kusur olduğunu ilk kim söyledi?"
   const card = pop(f, w(0) - 4, 12) * (1 - tw(f, w(4) - 2, w(4) + 6));
-  const plan = tw(f, w(3) - 4, w(3) + 12) * (1 - back);
-  const chip = pop(f, w(4) - 2, 12) * (1 - back);
-  const fall = tw(f, w(3), w(3) + 14);
+  const card2 = pop(f, w(4) - 2, 12) * (1 - tw(f, w(17) - 2, w(17) + 6));
+  const plan = tw(f, w(13) - 4, w(15) + 8) * (1 - back);
+  const chip = pop(f, w(17) - 2, 12) * (1 - back);
+  const fall = tw(f, w(16), w(16) + 14);
   const dive = tw(f, d - 24, d - 2);
   return (
     <TVZoom e={1 - dive}>
       <CamK k={[[0, 1.06, 540, 900], [w(4) - 6, 1.06, 540, 900], [w(4) + 6, 1, 540, 960]]}>
         <SelScene
           adF={0}
-          wo={{ mouth: "smile", lookY: 0, blush: 0.5 }}
+          wo={{ mouth: f < w(4) ? "worry" : f < w(15) ? "flat" : "smile", lookY: f < w(4) ? 6 : 0, blush: 0.5 }}
           reflDimples={1 - back}
           mirrorExtra={
             plan > 0 ? (
@@ -12631,12 +12634,25 @@ const SelSon: React.FC<SceneProps> = ({ w, d }) => {
             ) : null
           }
         />
-        <KiloStamp p={1} crack={tw(f, w(1), w(2) + 4)} fall={fall} text="KUSUR" x={795} y={760} half={180} />
+        <KiloStamp p={1} crack={tw(f, w(8), w(12) + 4)} fall={fall} text="KUSUR" x={795} y={760} half={180} />
         {card > 0 ? (
           <g transform={`translate(540 360) scale(${card}) rotate(-2)`}>
             <rect x={-460} y={-160} width={920} height={290} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
-            <HandText x={0} y={-45} text="Selülit tembellik değil," size={88} color={C.ink} p={tw(f, w(0), w(2) + 6)} rotate={0} />
-            <HandText x={0} y={80} text="yapı." size={120} color={YAS_OK} p={tw(f, w(3) - 2, w(3) + 10)} rotate={0} />
+            <HandText x={0} y={-45} text="Yıllarca suçu" size={96} color={C.ink} p={tw(f, w(0), w(1) + 6)} rotate={0} />
+            <HandText x={0} y={80} text="kendinde aradın." size={96} color={C.red} p={tw(f, w(2) - 2, w(3) + 8)} rotate={0} />
+          </g>
+        ) : null}
+        {card2 > 0 ? (
+          <g transform={`translate(540 360) scale(${card2}) rotate(2)`}>
+            <rect x={-460} y={-160} width={920} height={290} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+            <HandText x={-200} y={-50} text="tembellik" size={76} color={C.red} p={tw(f, w(8) - 2, w(8) + 8)} rotate={0} />
+            <HandText x={200} y={-50} text="emek" size={76} color={C.red} p={tw(f, w(12) - 2, w(12) + 8)} rotate={0} />
+            {[[-200, w(9)], [200, w(12) + 6]].map(([cx, t0], i) =>
+              f >= t0 ? (
+                <path key={i} d={`M${cx - 150} -60 L${cx + 150} -40`} stroke={C.red} strokeWidth={12} strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(f, t0, t0 + 6)} />
+              ) : null,
+            )}
+            <HandText x={0} y={85} text="derinin altındaki ipler" size={84} color={YAS_OK} p={tw(f, w(13) - 2, w(15) + 8)} rotate={0} />
           </g>
         ) : null}
         {chip > 0 ? (
@@ -12648,7 +12664,7 @@ const SelSon: React.FC<SceneProps> = ({ w, d }) => {
             <text x={0} y={50} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={56} fill={C.red}>
               ilk kim söyledi?
             </text>
-            <text x={0} y={175} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={58} fill={C.ink} opacity={tw(f, w(9), w(10) + 4)}>
+            <text x={0} y={175} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={58} fill={C.ink} opacity={tw(f, w(21), w(22) + 4)}>
               yorumlara yaz ↓
             </text>
           </g>
