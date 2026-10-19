@@ -22,6 +22,12 @@ Sessiz önizlemeden önce seçilen kıyafeti kullanıcıya söyle.
   (Yunus ~510 + kadın ~26 karakter) → müzikle render → gönder.
 - Kullanıcıdan gelen son görsel ders: referans heyvoom "büyüme plağı" videosu — sade/büyük/net, yüzlü hücreler, hap etiketler.
 
+## !!! KULLANICININ KENDİ SESİ → KADIN KARAKTERLER (19 Ekim) !!!
+Kullanıcı kendi sesini yeniden klonlatacak; klon **Yunus'un yerine değil, videolardaki KADIN karakterlerin replikleri/iç sesleri
+için** kullanılacak. Okuma metni `notlar/ses-klon-metni.md`. Eski tek örnekli klon: "VOOM Kullanıcı (kendi sesi)"
+`MalkCL6Ms3mHRGDVY6vZ`. Plan Starter: yalnız Anında Klon (IVC). Kayıt gelince: `POST /v1/voices/add` (multipart) →
+Yunus'la aynı cümlenin yan yana denemesi. Kalan kredi ≈ 13.370 (19 Ekim gece).
+
 ## >>> 10 SELÜLİT C (`cizim1-10-selulit-c`, 19 Ekim gece — EN GÜNCEL) <<<
 CEFF/ekip eski selülit hikâyesini BEĞENMEDİ ("hikâyeyi geliştirmek lazım"). Kullanıcı C'yi seçti + "güzellik algısına bağla,
 çatışma yarat". Çatışma: aynı bacak 1630'larda başyapıt (Rubens, Üç Güzeller, Prado), 1968'de moda dergisi "kusur" dedi.
