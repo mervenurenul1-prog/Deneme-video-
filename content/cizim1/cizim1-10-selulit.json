@@ -1,0 +1,72 @@
+{
+  "id": "cizim1-10-selulit",
+  "title": "Selülit bir kusur mu?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.05,
+  "scenes": [
+    {
+      "visual": "sel-hook",
+      "voice": "Haftada dört gün spor yapıyorsun, kotun bol geliyor. Ama arkanı dönünce o portakal kabuğu hâlâ orada.",
+      "say": "Haftada dört gün spor yapıyorsun, kotun bol geliyor. [quietly] Ama arkanı dönünce... o portakal kabuğu hâlâ orada."
+    },
+    {
+      "visual": "sel-esi",
+      "voice": "Yanındaki yeni başladı, onda tek çukur yok.",
+      "say": "Yanındaki yeni başladı... onda tek çukur yok."
+    },
+    {
+      "visual": "sel-ic",
+      "voice": "Ben ondan çok çalışıyorum!",
+      "say": "[frustrated] Ben ondan çok çalışıyorum!",
+      "voiceId": "qLdPxFtPuffoxx5gieBJ"
+    },
+    {
+      "visual": "sel-dergi",
+      "voice": "Peki ya sorun spor değilse? Bu çukurlar bin dokuz yüz altmış sekizde bir moda dergisinde kusur diye anlatıldı.",
+      "say": "[curious] Peki ya sorun spor değilse? Bu çukurlar, bin dokuz yüz altmış sekizde bir moda dergisinde... kusur diye anlatıldı."
+    },
+    {
+      "visual": "sel-kadin",
+      "voice": "Derinin altında yağı bölen bantlar var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker.",
+      "say": "Derinin altında, yağı bölen bantlar var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker."
+    },
+    {
+      "visual": "sel-erkek",
+      "voice": "Erkeklerde çapraz bir ağdır, yağ düz yayılır.",
+      "say": "Erkeklerde çapraz bir ağdır, yağ düz yayılır."
+    },
+    {
+      "visual": "sel-yaygin",
+      "voice": "Bu yüzden on kadından sekiz-dokuzunda var, en sporcusunda bile.",
+      "say": "Bu yüzden on kadından sekiz-dokuzunda var... en sporcusunda bile."
+    },
+    {
+      "visual": "sel-deney",
+      "voice": "Kilo vermek bile garanti değil: yirmi dokuz kadın kilo verdi; çoğunda azaldı, dokuzunda arttı.",
+      "say": "Kilo vermek bile garanti değil: yirmi dokuz kadın kilo verdi; çoğunda azaldı... dokuzunda arttı."
+    },
+    {
+      "visual": "sel-son",
+      "voice": "Selülit tembellik değil, mimari. Peki sana bunun kusur olduğunu ilk kim söyledi?",
+      "say": "Selülit tembellik değil, mimari. [curious] Peki sana bunun kusur olduğunu... ilk kim söyledi?",
+      "hold": 0.9
+    }
+  ],
+  "caption": "Selülit bir kusur mu?\n\nKadınların büyük çoğunluğunda görülür, erkeklerde nadirdir. Sebep deri altındaki bağ dokusu bantlarının dizilişi (Nürnberger ve Müller, 1978; Hexsel 2009 MR çalışması). Kelime İngilizce basına 1968'de bir moda dergisiyle girdi. Kilo vermek de garanti değil: Smalls ve ark. (2006, Plast Reconstr Surg) 29 kadında 17'sinde azaldı, 9'unda arttı.",
+  "hashtags": [
+    "selülit",
+    "kadınfitness",
+    "fitness",
+    "sağlıklıyaşam",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

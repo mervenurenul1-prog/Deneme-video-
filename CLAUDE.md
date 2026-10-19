@@ -92,6 +92,17 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
    değil); "selülit" kelimesi 1968 moda dergisiyle yayıldı (DOĞRULA). 5 metabolizma: Science 2021 (Pontzer, 6.000+
    kişi) vücut büyüklüğü hesaba katılınca kadın-erkek farkı yok (DOĞRULA).
 
+**>>> 19 EKİM — SELÜLİT (`cizim1-10-selulit`) GÜNCEL <<<**
+- Çalışma dalı `claude/cellulite-video-prep-6zjwa8` (main birleştirildi). Kullanıcı A/B/C kancalarından **B + C harmanını** seçti,
+  12 madde tablosunun hepsine tik + "giriş (hook) çok önemli" + sonda soru (yorum) + döngü + "hiç bekleme, hızlı geçiş, her an
+  yenilik" istedi; metni ayrıca onaylatmadan doğrudan sessiz önizleme istedi. 9 sahne `sel-*` (~664 karakter, ~46-49 sn):
+  hook (ayna karşısında dambıllı squat, gün tikleri, bol kot, yansımada büyüteç + portakal) → avatar "1. gün", "o" düz / "sen"
+  çukurlu büyüteç → Sibel iç ses "Ben ondan çok çalışıyorum!" → "Peki ya sorun spor değilse?" + 1968 moda dergisi (yıl
+  2026→1968 sayar, "KUSUR" damgası) → deri kesiti (dik bantlar, yağ kabarır, deri çekilir) → erkek çapraz ağ → 8-9/10 →
+  29 kadın (17 azaldı / 9 arttı) → "Selülit tembellik değil, mimari." + "Sana bunun kusur olduğunu ilk kim söyledi?" + döngü.
+  "KUSUR" damgası sağ üstte her sahnede çatlar, sonda kırılıp düşer. Sessiz önizleme `ornek-videolar/cizim1-pilot/10-selulit-sessiz.mp4`
+  → kullanıcı onayı → seslendirme (Yunus ~640 + Sibel ~26 karakter). `KiloStamp` artık `text/x/y/half` alıyor.
+
 **>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
 - **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →
   `cizim1-09-kilo-a` (tam video, sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-a-sessiz.mp4`): A1 tartı ekranları +
