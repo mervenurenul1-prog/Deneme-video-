@@ -549,6 +549,13 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kilo-sofra3": () => [[4, "pop", 0.45], [8, "sonme", 0.3]],
   "kilo-sofra4": (w) => [[w(2), "pop", 0.35]],
   "kilo-son": (w) => [[w(0), "kalem", 0.3], [w(9), "pop", 0.3], [w(10), "ding", 0.25]],
+  "kilo-a1": (w) => [[w(2), "pop", 0.3], [w(5), "kagit", 0.3], [w(9), "bip", 0.35], [w(13), "pop", 0.3]],
+  "kilo-a2": (w) => [[w(0), "kalem", 0.3]],
+  "kilo-a3": (w) => [[w(7), "whoosh", 0.4], [w(9), "sihir", 0.3], [w(15), "kagit", 0.35]],
+  "kilo-b1": (w) => [[w(3), "ding", 0.3], [w(7), "bip", 0.35], [w(10), "pop", 0.3], [w(14), "pop", 0.3], [w(16), "kalem", 0.3]],
+  "kilo-b2": (w) => [[w(2), "whoosh", 0.4], [w(4), "sihir", 0.3], [w(10), "kagit", 0.35]],
+  "kilo-c2": (w) => [[w(1), "ding", 0.3], [w(5), "bip", 0.3]],
+  "kilo-c3": (w) => [[w(5), "pop", 0.3], [w(6), "kalem", 0.3]],
 };
 
 /* ---------- yardımcılar ---------- */
@@ -10919,22 +10926,28 @@ const DinnerTable: React.FC<{ glow?: number }> = ({ glow = 0 }) => (
   </g>
 );
 
-const BubbleText: React.FC<{ p: number }> = ({ p }) => (
-  <>
-    <HandText x={K_BUB.x} y={K_BUB.y - 30} text="KADINLAR" size={86} color={C.red} p={tw(p, 0, 0.45)} />
-    <HandText x={K_BUB.x} y={K_BUB.y + 70} text="ZOR KİLO VERİR" size={80} color={C.red} p={tw(p, 0.45, 1)} />
-  </>
-);
+type Lines = [string, string];
+const K_LINES: Lines = ["KADINLAR", "ZOR KİLO VERİR"];
+const BubbleText: React.FC<{ p: number; lines?: Lines }> = ({ p, lines = K_LINES }) => {
+  const size = Math.min(86, Math.floor(1220 / Math.max(lines[0].length, lines[1].length)));
+  return (
+    <>
+      <HandText x={K_BUB.x} y={K_BUB.y - 30} text={lines[0]} size={size} color={C.red} p={tw(p, 0, 0.45)} />
+      <HandText x={K_BUB.x} y={K_BUB.y + 70} text={lines[1]} size={size} color={C.red} p={tw(p, 0.45, 1)} />
+    </>
+  );
+};
 
 // Sofra sahnesinin tamamı (kamera ve bulut dışında): karakterler, masa, bulut + yazı
-const KiloSofra: React.FC<{ f: number; av?: Partial<Diner>; wo?: Partial<Diner>; glow?: number; bubble?: number; bubbleText?: number }> = ({ f, av = {}, wo = {}, glow = 0, bubble = 0, bubbleText = 0 }) => (
+const KiloSofra: React.FC<{ f: number; av?: Partial<Diner>; wo?: Partial<Diner>; glow?: number; bubble?: number; bubbleText?: number; lines?: Lines; children?: React.ReactNode }> = ({ f, av = {}, wo = {}, glow = 0, bubble = 0, bubbleText = 0, lines, children }) => (
   <>
     <KiloRoom />
     <KWoman f={f} {...wo} />
     <KAvatar f={f} {...av} />
     <DinnerTable glow={glow} />
     <Bubble x={K_BUB.x} y={K_BUB.y} rx={K_BUB.rx} ry={K_BUB.ry} p={bubble} tail={[K_WO.x, K_WO.y - K_WO.s * 830]}>
-      <BubbleText p={bubbleText} />
+      <BubbleText p={bubbleText} lines={lines} />
+      {children}
     </Bubble>
   </>
 );
@@ -11181,21 +11194,154 @@ const InCloud: React.FC<{ t?: number; o?: number; children: React.ReactNode }> =
 
 // "Bu tartışma iki bin üçte bir laboratuvara taşındı. Kadınlar ve erkekler on altı ay boyunca aynı programla spor yaptı."
 // Kamera kadının bulutuna dalar; bulutun içi laboratuvara dönüşür: tahtada 2003, iki koşu bandı, 16 ay sayacı, takvim yaprakları.
-const KiloLab1: React.FC<SceneProps> = ({ w, d }) => {
+// Buluta dalış: kelime sıraları (cam: kamera bulutu hedefler, open..end: bulut açılır, year: tahtada yıl, months: 16 ay)
+type DiveK = { cam: number; open: number; fade: number; end: number; year: number; yearEnd: number; months: number; monthsEnd: number };
+const LabDive: React.FC<SceneProps & { k: DiveK; lines?: Lines; wo?: Partial<Diner> }> = ({ w, d, k, lines, wo }) => {
   const f = useCurrentFrame();
-  const open = tw(f, w(3), w(6) + 4);
+  const open = tw(f, w(k.open), w(k.end) + 4);
   return (
     <>
-      <g opacity={1 - tw(f, w(5), w(6) + 4)}>
-        <CamK k={[[0, 1, 540, 960], [w(1), 1, K_BUB.x, K_BUB.y], [w(6) + 4, 3.2, K_BUB.x, K_BUB.y]]}>
-          <KiloSofra f={f} bubble={1} bubbleText={1 - tw(f, w(3), w(5))} av={{ mouth: "flat", armR: [20, -70] }} wo={{ mouth: "flat", blush: 0.7, armL: [20, -76] }} />
+      <g opacity={1 - tw(f, w(k.fade), w(k.end) + 4)}>
+        <CamK k={[[0, 1, 540, 960], [w(k.cam), 1, K_BUB.x, K_BUB.y], [w(k.end) + 4, 3.2, K_BUB.x, K_BUB.y]]}>
+          <KiloSofra f={f} bubble={1} lines={lines} bubbleText={1 - tw(f, w(k.open), w(k.fade))} av={{ mouth: "flat", armR: [20, -70] }} wo={{ mouth: "flat", blush: 0.7, armL: [20, -76], ...wo }} />
         </CamK>
       </g>
-      <InCloud t={open} o={tw(f, w(3), w(4) + 2)}>
-        <Lab f={f} year={tw(f, w(2), w(4) + 4)} months={tw(f, w(11), w(13) + 6)} />
-        <FlyingPages start={w(11)} end={d} y={240} />
+      <InCloud t={open} o={tw(f, w(k.open), w(k.open + 1) + 2)}>
+        <Lab f={f} year={tw(f, w(k.year), w(k.yearEnd) + 4)} months={tw(f, w(k.months), w(k.monthsEnd) + 6)} />
+        <FlyingPages start={w(k.months)} end={d} y={240} />
       </InCloud>
     </>
+  );
+};
+const KiloLab1: React.FC<SceneProps> = (p) => <LabDive {...p} k={{ cam: 1, open: 3, fade: 5, end: 6, year: 2, yearEnd: 4, months: 11, monthsEnd: 13 }} />;
+
+/* 09 kilo — üç farklı giriş (kullanıcı hepsinin önizlemesini istedi). CEFF kalıbı: "sen" + yaygın dert, "tam ben" detayı, "Peki ya…?" */
+
+// A1 "Aynı yemek, aynı spor. Onun tartısı her hafta düşüyor, seninki kıpırdamıyor bile. Ve aklından şu geçiyor:"
+// Sofrada iki başın üstünde tartı ekranı; haftalar akarken onunki 84 → 79 iner, seninki 64'te kalır, titreyip kızarır; boş bulut belirir.
+const KiloA1: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const glow = tw(f, w(0) - 2, w(1) + 6) * (1 - tw(f, w(2), w(3)));
+  const db = pop(f, w(2) - 2, 12) * (1 - tw(f, w(4) - 6, w(4)));
+  const wk = tw(f, w(5), w(8) + 12);
+  const stuck = f >= w(9);
+  const disp = (1 - tw(f, w(13) - 4, w(13) + 6)) * pop(f, 0, 10);
+  const jit = stuck && f < w(12) ? Math.sin(f * 2.1) * 6 : 0;
+  return (
+    <CamK k={[[0, 1.04, 540, 1000], [w(9), 1.04, 540, 1000], [w(12), 1.12, 700, 900], [d, 1.12, 700, 900]]}>
+      <KiloSofra
+        f={f}
+        glow={glow}
+        bubble={pop(f, w(13) - 2, 14)}
+        av={{ mouth: wk > 0 ? "grin" : "smile" }}
+        wo={{ mouth: stuck ? "worry" : "smile", lookY: f >= w(13) ? -8 : 0, blush: stuck ? 0.8 : 0.4, armL: stuck ? [20, -76] : undefined }}
+      />
+      {db > 0 ? [K_AV.x, K_WO.x].map((x) => <Dumbbell key={x} x={x} y={x === K_AV.x ? 520 : 640} s={0.85 * db} rot={-8} />) : null}
+      {f >= w(5) - 4 && f < w(5) + 60 ? <FlyingPages start={w(5) - 4} end={w(8) + 6} y={230} /> : null}
+      <g opacity={tw(f, w(4) - 4, w(4) + 4)}>
+        <KgDisplay x={K_AV.x} y={500} p={disp * 0.62} value={`${Math.round(84 - 5 * wk)} kg`} />
+        <g transform={`translate(${jit} 0)`}>
+          <KgDisplay x={K_WO.x} y={620} p={disp * 0.62} value="64 kg" color={stuck ? "#ff8b7a" : "#9fe0a8"} />
+        </g>
+      </g>
+    </CamK>
+  );
+};
+
+// A2 (kadın sesi, iç ses) "Ben kadınım, zor kilo veririm." — bulutun içine kırmızıyla yazılır; kadın gözlerini kapatır, avatar habersiz yemeğine devam eder.
+const A_LINES: Lines = ["Ben kadınım,", "zor kilo veririm."];
+const KiloA2: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  return (
+    <CamK k={[[0, 1.12, 700, 900], [w(4) + 10, 1.06, 640, 900]]}>
+      <KiloSofra f={f} bubble={1} lines={A_LINES} bubbleText={tw(f, w(0), w(4) + 8)} wo={{ mouth: "worry", eyes: "closed", blush: 0.8, armL: [20, -76] }} />
+    </CamK>
+  );
+};
+
+// A3 "Peki ya sorun sende değilse? Bu soru iki bin üçte laboratuvara taşındı: kadınlar ve erkekler on altı ay aynı programla spor yaptı."
+const KiloA3: React.FC<SceneProps> = (p) => {
+  const f = useCurrentFrame();
+  return <LabDive {...p} lines={A_LINES} wo={{ eyes: f >= p.w(3) ? "wide" : "closed", lookY: -8 }} k={{ cam: 4, open: 8, fade: 10, end: 11, year: 7, yearEnd: 9, months: 15, monthsEnd: 17 }} />;
+};
+
+// B1 "Bir ayda o beş kilo verdi, sen yarım. Aynı tabak, aynı spor. Peki ya senin o yarım kilon, aslında onun beşiyle aynı emekse?"
+// Etiketler: onda "−5 kg", sende kırmızı "−0,5 kg"; aynı tabak parlar, aynı dambıl; bulutta "−0,5 kg = −5 kg ?"
+const B_LINES: Lines = ["−0,5 kg", "= −5 kg ?"];
+const KiloB1: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const glow = tw(f, w(8) - 2, w(9) + 6) * (1 - tw(f, w(10), w(11)));
+  const db = pop(f, w(10) - 2, 12) * (1 - tw(f, w(12) - 6, w(12)));
+  const tags = 1 - tw(f, w(12), w(13) + 4);
+  return (
+    <CamK k={[[0, 1.06, 540, 1000], [w(12), 1.06, 540, 1000], [d, 1.1, 660, 900]]}>
+      <KiloSofra
+        f={f}
+        glow={glow}
+        bubble={pop(f, w(14) - 2, 14)}
+        lines={B_LINES}
+        bubbleText={tw(f, w(16), w(22) + 8)}
+        av={{ mouth: f >= w(3) ? "grin" : "smile" }}
+        wo={{ mouth: f >= w(7) ? "worry" : "smile", blush: f >= w(7) ? 0.8 : 0.4, lookY: f >= w(14) ? -8 : 0 }}
+      />
+      {db > 0 ? [K_AV.x, K_WO.x].map((x) => <Dumbbell key={x} x={x} y={x === K_AV.x ? 520 : 640} s={0.85 * db} rot={-8} />) : null}
+      <g opacity={tags}>
+        <KTag x={K_AV.x} y={540} p={pop(f, w(3) - 2, 12)} text="−5 kg" color={YAS_OK} />
+        <KTag x={K_WO.x} y={670} p={pop(f, w(7) - 2, 12)} text="−0,5 kg" color={C.red} rot={5} />
+      </g>
+    </CamK>
+  );
+};
+// B2 "Bu soru iki bin üçte laboratuvara taşındı: kadınlar ve erkekler on altı ay aynı programla spor yaptı."
+const KiloB2: React.FC<SceneProps> = (p) => (
+  <LabDive {...p} lines={B_LINES} wo={{ lookY: -8 }} k={{ cam: 0, open: 3, fade: 4, end: 5, year: 2, yearEnd: 4, months: 10, monthsEnd: 12 }} />
+);
+
+// C1 "Akşam yemeğinde yine aynı cümleyi duydun:" — ikisi yemek yer; "yine"de kadın çatalını bırakır, avatara bakar (bir şey geliyor).
+const KiloC1: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const stop = tw(f, w(2) - 4, w(3));
+  return (
+    <CamK k={[[0, 1, 540, 1000], [d, 1.08, 520, 960]]}>
+      <KiloSofra f={f} wo={{ armL: mixArm(eatArm(f + 30), [20, -76], stop), mouth: stop > 0.5 ? "flat" : "smile" }} av={{ mouth: "smile" }} />
+    </CamK>
+  );
+};
+// C2 (avatar) "Ben beş kilo verdim, sen niye veremiyorsun?" — "−5 kg" etiketi, çatalı kadına doğrultur, kadında kırmızı "0 kg".
+const KiloC2: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const point = tw(f, w(4) - 6, w(4) + 4);
+  const zero = pop(f, w(5) - 2, 12);
+  return (
+    <CamK k={[[0, 1.08, 520, 960], [d, 1.12, 580, 960]]}>
+      <KiloSofra
+        f={f}
+        av={{ armR: mixArm(eatArm(f), [72, 12], point), mouth: talk(f, w(0) - 2, w(6) + 8) ? "open" : "smile" }}
+        wo={{ armL: [20, -76], mouth: zero > 0 ? "worry" : "flat", blush: 0.4 + 0.5 * zero, eyes: point > 0.5 ? "wide" : "open" }}
+      />
+      <KTag x={K_AV.x} y={540} p={pop(f, w(1) - 2, 12)} text="−5 kg" color={YAS_OK} />
+      <KTag x={K_WO.x} y={670} p={zero} text="0 kg" color={C.red} rot={5} />
+    </CamK>
+  );
+};
+// C3 "Ve sustun. Çünkü sen de inanıyorsun: kadınlar zor kilo verir." — kadın başını eğer; bulut açılır, içine kırmızıyla yazılır.
+const KiloC3: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const tags = 1 - tw(f, w(1), w(2) + 6);
+  return (
+    <CamK k={[[0, 1.12, 580, 960], [w(5), 1, 540, 960]]}>
+      <KiloSofra
+        f={f}
+        bubble={pop(f, w(5) - 4, 14)}
+        bubbleText={tw(f, w(6), w(9) + 8)}
+        av={{ armR: [20, -70], mouth: "smile" }}
+        wo={{ armL: [20, -76], mouth: "flat", lookY: f < w(5) ? 12 : -6, blush: 0.9 }}
+      />
+      <g opacity={tags}>
+        <KTag x={K_AV.x} y={540} p={1} text="−5 kg" color={YAS_OK} />
+        <KTag x={K_WO.x} y={670} p={1} text="0 kg" color={C.red} rot={5} />
+      </g>
+    </CamK>
   );
 };
 
@@ -11373,6 +11519,14 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   "kilo-sofra3": KiloSofra3,
   "kilo-sofra4": KiloSofra4,
   "kilo-son": KiloSon,
+  "kilo-a1": KiloA1,
+  "kilo-a2": KiloA2,
+  "kilo-a3": KiloA3,
+  "kilo-b1": KiloB1,
+  "kilo-b2": KiloB2,
+  "kilo-c1": KiloC1,
+  "kilo-c2": KiloC2,
+  "kilo-c3": KiloC3,
   "y9k-kapi": Y9KapiK,
   "y9k-hobi": Y9HobiK,
   "y9-soru": Y9Soru,
