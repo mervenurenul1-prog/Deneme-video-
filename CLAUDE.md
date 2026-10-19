@@ -98,6 +98,9 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   1 Gözde `rtnDjO8siSxeTEeTVczO`, 2 Zeynep `ZaoBgxgzPhoCm533Pb7B`, 3 Damla `A2XgcJ6lQVEFeIaIUyrc`, 4 Elif Özder
   `i50A6Mcx7A7vVwCVZVeZ`, 5 İrem `R0D8QjgVyRju4HRoCrIC`, 6 Aslı `HZh2tWL1clJO95e2qMt2`. **SEÇİLDİ: 6 Aslı `HZh2tWL1clJO95e2qMt2` (kitaplıkta "VOOM genc-kadin-asli") = genç kadın sesi.** Ekleme:
   (`POST /v1/voices/add/{public_owner_id}/{voice_id}`) → JSON'da kadın sahnelerinin `voiceId`'si. Kalan kredi ≈ 13.617.
+- **!!! HİKÂYE FORMÜLÜ (kullanıcı, 19 Ekim — HER VİDEODA):** 1) önce insanların YARISINA DOKUN (yaygın, "tam ben"
+  dert); 2) sonra SEBEBİNİ ONLARA SOR ("Sence neden?"); 3) sonra AÇIKLA (kısa, basit cevap); 4) sonra TARİHÇESİ + VÜCUTTAKİ
+  YERİNİ GÖSTER (gerekirse hücre, gerekirse kasın içi); 5) en sonunda toplam hikâyeyi BAĞLA. BASİT tut.
 - **!!! DERS (kullanıcı, 19 Ekim, gerildi): "GÖRSEL SÖZLER KADAR ÖNEMLİ."** Açılışta tezgâh üstünden el uzatıp lavaboda
   tokalaşma "ne kadar saçma bir an" bulundu. Her hareket GERÇEK hayatta nasıl yapılıyorsa öyle çizilsin (taş-kâğıt-makas
   yapılacaksa gerçek taş-kâğıt-makas). Önizleme göndermeden önce her sahneden kare alıp "bu an gerçekte böyle mi olur?"
