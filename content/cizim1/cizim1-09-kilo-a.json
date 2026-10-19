@@ -1,6 +1,6 @@
 {
   "id": "cizim1-09-kilo-a",
-  "title": "Kadınlar zor mu kilo verir? (A girişi)",
+  "title": "Kadınlar zor mu kilo verir?",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -60,9 +60,9 @@
       "say": "[sheepish] Sadece... daha büyüğüm."
     },
     {
-      "visual": "kilo-son",
-      "voice": "Kilo farkı, emek farkı değil. Peki sizin sofranızda bu tartışmayı kim kazanırdı?",
-      "say": "Kilo farkı, emek farkı değil. [curious] Peki sizin sofranızda bu tartışmayı kim kazanırdı?"
+      "visual": "kilo-son2",
+      "voice": "Kilo farkı, emek farkı değil. Bunu, sofrada sana beş kiloyu söyleyen kişiye gönder.",
+      "say": "Kilo farkı, emek farkı değil. [warmly] Bunu, sofrada sana beş kiloyu söyleyen kişiye gönder."
     }
   ],
   "caption": "Kadınlar gerçekten zor mu kilo verir?\n\nMidwest Exercise Trial (Donnelly ve ark., 2003): 16 ay aynı egzersiz programında erkekler ~5 kg verdi, kadınlar vermedi; ama erkekler antrenman başına ~667 kcal, kadınlar ~439 kcal yakıyordu. MET-2 (Donnelly ve ark., Obesity 2013): herkes aynı kaloriyi yakınca kadın-erkek farkı anlamlı değildi.",

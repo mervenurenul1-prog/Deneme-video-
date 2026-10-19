@@ -549,9 +549,10 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kilo-sofra3": () => [[4, "pop", 0.45], [8, "sonme", 0.3]],
   "kilo-sofra4": (w) => [[w(2), "pop", 0.35]],
   "kilo-son": (w) => [[w(0), "kalem", 0.3], [w(9), "pop", 0.3], [w(10), "ding", 0.25]],
-  "kilo-a1": (w) => [[w(2), "pop", 0.3], [w(5), "kagit", 0.3], [w(9), "bip", 0.35], [w(13), "pop", 0.3]],
+  "kilo-a1": (w) => [[w(2), "pop", 0.3], [w(5), "kagit", 0.3], [w(9), "bip", 0.35], [w(10), "tak", 0.35], [w(13), "pop", 0.3]],
+  "kilo-son2": (w, d) => [[w(0), "kalem", 0.3], [w(5), "pop", 0.25], [w(7), "pop", 0.3], [w(10), "whoosh", 0.35], [w(12) + 6, "bip", 0.4], [w(12) + 16, "bip", 0.3], [d - 24, "whoosh", 0.2]],
   "kilo-a2": (w) => [[w(0), "kalem", 0.3]],
-  "kilo-a3": (w) => [[w(7), "whoosh", 0.4], [w(9), "sihir", 0.3], [w(15), "kagit", 0.35]],
+  "kilo-a3": (w) => [[w(3), "pop", 0.35], [w(7), "whoosh", 0.4], [w(9), "sihir", 0.3], [w(15), "kagit", 0.35]],
   "kilo-b1": (w) => [[w(3), "ding", 0.3], [w(7), "bip", 0.35], [w(10), "pop", 0.3], [w(14), "pop", 0.3], [w(16), "kalem", 0.3]],
   "kilo-b2": (w) => [[w(2), "whoosh", 0.4], [w(4), "sihir", 0.3], [w(10), "kagit", 0.35]],
   "kilo-c2": (w) => [[w(1), "ding", 0.3], [w(5), "bip", 0.3]],
@@ -11135,17 +11136,29 @@ type LabProps = {
   slimW?: number;
   big?: number;
   stamp?: [number, number, number];
+  cam?: [number, number, number, number][];
 };
 // Laboratuvar (bulutun içinde): üstte erkekler, altta kadınlar koşu bandında; sağda sonuç panelleri
-const Lab: React.FC<LabProps> = ({ f, year = 1, year2 = 0, months = 0, kgM, kgW, kcalM, kcalW, eq = 0, faceM = "smile", faceW = "smile", lookM = 0, slimM = 0, slimW = 0, big = 0, stamp }) => {
+const Lab: React.FC<LabProps> = ({ f, year = 1, year2 = 0, months = 0, kgM, kgW, kcalM, kcalW, eq = 0, faceM = "smile", faceW = "smile", lookM = 0, slimM = 0, slimW = 0, big = 0, stamp, cam = [[0, 1, 540, 960]] }) => {
   const ph = f * 0.32;
-  const runner = (y: number, female: boolean, face: LabProps["faceM"], slim: number, look: number, k: number) => (
+  const runner = (y: number, female: boolean, face: LabProps["faceM"], slim: number, look: number, k: number, off = 0, shirt?: string, hair?: string) => (
     <g transform={`translate(${LAB.x} 0) scale(${1 - 0.1 * slim} 1) translate(${-LAB.x} 0)`}>
-      <SideRunner f={f} x={LAB.x} y={y} s={LAB.s + 0.05 * k} pose={runPose(ph + (female ? 1.3 : 0), 0.9)} face={face} female={female} shirt={female ? "#d9705f" : C.shirt} look={look} sweat />
+      <SideRunner f={f} x={LAB.x} y={y} s={LAB.s + 0.05 * k} pose={runPose(ph + (female ? 1.3 : 0) + off, 0.9)} face={face} female={female} shirt={shirt ?? (female ? "#d9705f" : C.shirt)} hair={hair} look={look} sweat />
     </g>
   );
+  // arka sırada aynı programı koşan diğer gönüllüler (küçük, soluk): "kadınlar ve erkekler" bir grup
+  const crowd = (y: number, female: boolean, slim: number) =>
+    [
+      [150, 0.9, female ? "#8fb08a" : "#b0a46a", "#2e1d12"],
+      [520, 2.1, female ? "#7d9cc4" : "#b06a6a", "#6b4a2b"],
+    ].map(([bx, off, shirt, hair], i) => (
+      <g key={i} opacity={0.5} transform={`translate(${bx} ${y - 90}) scale(0.5) translate(${-LAB.x} ${-y})`}>
+        <Treadmill x={LAB.x + 10} y={y} f={f + i * 7} />
+        {runner(y, female, "smile", slim, 0, 0, off as number, shirt as string, hair as string)}
+      </g>
+    ));
   return (
-    <g>
+    <CamK k={cam}>
       <rect x={0} y={0} width={1080} height={1920} fill="#dfe3dc" />
       {Array.from({ length: 12 }, (_, i) => (
         <path key={i} d={`M0 ${120 + i * 150} H1080`} stroke={C.ink} strokeWidth={2} opacity={0.12} />
@@ -11164,9 +11177,11 @@ const Lab: React.FC<LabProps> = ({ f, year = 1, year2 = 0, months = 0, kgM, kgW,
         ) : null}
       </g>
       <Counter x={800} y={290} to={16} p={months} suffix=" ay" size={130} color={C.red} />
+      {crowd(LAB.men, false, slimM)}
       <Treadmill x={LAB.x + 10} y={LAB.men} f={f} />
       <LabLabel y={LAB.men - 200} text="ERKEKLER" />
       {runner(LAB.men, false, faceM, slimM, lookM, big)}
+      {crowd(LAB.women, true, slimW)}
       <Treadmill x={LAB.x + 10} y={LAB.women} f={f} />
       <LabLabel y={LAB.women - 200} text="KADINLAR" />
       {runner(LAB.women, true, faceW, slimW, 0, 0)}
@@ -11180,7 +11195,7 @@ const Lab: React.FC<LabProps> = ({ f, year = 1, year2 = 0, months = 0, kgM, kgW,
       {kcalM ? <Kcal x={LAB.panel} y={LAB.men - 440} p={kcalM[0] * 0.8 * (1 + 0.15 * eq)} n={kcalM[1]} f={f} color={eq > 0.5 ? YAS_OK : C.ink} /> : null}
       {kcalW ? <Kcal x={LAB.panel} y={LAB.women - 440} p={kcalW[0] * 0.8 * (1 + 0.15 * eq)} n={kcalW[1]} f={f} color={eq > 0.5 ? YAS_OK : C.ink} /> : null}
       {stamp ? <KiloStamp p={stamp[0]} crack={stamp[1]} fall={stamp[2]} /> : null}
-    </g>
+    </CamK>
   );
 };
 // Bulutun içi: laboratuvar + bulut çerçevesi; t: bulut merkezinden tam ekrana açılma (0..1)
@@ -11196,14 +11211,16 @@ const InCloud: React.FC<{ t?: number; o?: number; children: React.ReactNode }> =
 // Kamera kadının bulutuna dalar; bulutun içi laboratuvara dönüşür: tahtada 2003, iki koşu bandı, 16 ay sayacı, takvim yaprakları.
 // Buluta dalış: kelime sıraları (cam: kamera bulutu hedefler, open..end: bulut açılır, year: tahtada yıl, months: 16 ay)
 type DiveK = { cam: number; open: number; fade: number; end: number; year: number; yearEnd: number; months: number; monthsEnd: number };
-const LabDive: React.FC<SceneProps & { k: DiveK; lines?: Lines; wo?: Partial<Diner> }> = ({ w, d, k, lines, wo }) => {
+const LabDive: React.FC<SceneProps & { k: DiveK; lines?: Lines; wo?: Partial<Diner>; extra?: React.ReactNode }> = ({ w, d, k, lines, wo, extra }) => {
   const f = useCurrentFrame();
   const open = tw(f, w(k.open), w(k.end) + 4);
   return (
     <>
       <g opacity={1 - tw(f, w(k.fade), w(k.end) + 4)}>
         <CamK k={[[0, 1, 540, 960], [w(k.cam), 1, K_BUB.x, K_BUB.y], [w(k.end) + 4, 3.2, K_BUB.x, K_BUB.y]]}>
-          <KiloSofra f={f} bubble={1} lines={lines} bubbleText={1 - tw(f, w(k.open), w(k.fade))} av={{ mouth: "flat", armR: [20, -70] }} wo={{ mouth: "flat", blush: 0.7, armL: [20, -76], ...wo }} />
+          <KiloSofra f={f} bubble={1} lines={lines} bubbleText={1 - tw(f, w(k.open), w(k.fade))} av={{ mouth: "flat", armR: [20, -70] }} wo={{ mouth: "flat", blush: 0.7, armL: [20, -76], ...wo }}>
+            {extra}
+          </KiloSofra>
         </CamK>
       </g>
       <InCloud t={open} o={tw(f, w(k.open), w(k.open + 1) + 2)}>
@@ -11234,10 +11251,10 @@ const KiloA1: React.FC<SceneProps> = ({ w, d }) => {
         glow={glow}
         bubble={pop(f, w(13) - 2, 14)}
         av={{ mouth: wk > 0 ? "grin" : "smile" }}
-        wo={{ mouth: stuck ? "worry" : "smile", lookY: f >= w(13) ? -8 : 0, blush: stuck ? 0.8 : 0.4, armL: stuck ? [20, -76] : undefined }}
+        wo={{ mouth: stuck ? "worry" : "smile", lookY: f >= w(13) ? -8 : 0, blush: stuck ? 0.8 : 0.4, armL: f >= w(10) ? [12, 0] : undefined, fork: f < w(10) }}
       />
       {db > 0 ? [K_AV.x, K_WO.x].map((x) => <Dumbbell key={x} x={x} y={x === K_AV.x ? 520 : 640} s={0.85 * db} rot={-8} />) : null}
-      {f >= w(5) - 4 && f < w(5) + 60 ? <FlyingPages start={w(5) - 4} end={w(8) + 6} y={230} /> : null}
+      <WallCalendar p={pop(f, w(5) - 6, 12) * (1 - tw(f, w(13) - 4, w(13) + 6))} n={1 + Math.min(3, Math.floor(wk * 3.99))} />
       <g opacity={tw(f, w(4) - 4, w(4) + 4)}>
         <KgDisplay x={K_AV.x} y={500} p={disp * 0.62} value={`${Math.round(84 - 5 * wk)} kg`} />
         <g transform={`translate(${jit} 0)`}>
@@ -11247,6 +11264,21 @@ const KiloA1: React.FC<SceneProps> = ({ w, d }) => {
     </CamK>
   );
 };
+
+// Duvar takvimi: "N. HAFTA" (haftalar akar)
+const WallCalendar: React.FC<{ p: number; n: number }> = ({ p, n }) =>
+  p > 0 ? (
+    <g transform={`translate(500 520) scale(${p}) rotate(3)`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-75} y={-70} width={150} height={150} rx={10} fill={C.cream} strokeWidth={7} />
+      <rect x={-75} y={-70} width={150} height={40} rx={10} fill={C.red} strokeWidth={7} />
+      <text x={0} y={-40} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={24} fill={C.cream} stroke="none">
+        HAFTA
+      </text>
+      <text x={0} y={58} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={96} fill={C.ink} stroke="none">
+        {n}
+      </text>
+    </g>
+  ) : null;
 
 // A2 (kadın sesi, iç ses) "Ben kadınım, zor kilo veririm." — bulutun içine kırmızıyla yazılır; kadın gözlerini kapatır, avatar habersiz yemeğine devam eder.
 const A_LINES: Lines = ["Ben kadınım,", "zor kilo veririm."];
@@ -11262,7 +11294,22 @@ const KiloA2: React.FC<SceneProps> = ({ w }) => {
 // A3 "Peki ya sorun sende değilse? Bu soru iki bin üçte laboratuvara taşındı: kadınlar ve erkekler on altı ay aynı programla spor yaptı."
 const KiloA3: React.FC<SceneProps> = (p) => {
   const f = useCurrentFrame();
-  return <LabDive {...p} lines={A_LINES} wo={{ eyes: f >= p.w(3) ? "wide" : "closed", lookY: -8 }} k={{ cam: 4, open: 8, fade: 10, end: 11, year: 7, yearEnd: 9, months: 15, monthsEnd: 17 }} />;
+  const q = pop(f, p.w(3) - 2, 12);
+  return (
+    <LabDive
+      {...p}
+      lines={A_LINES}
+      wo={{ eyes: f >= p.w(3) ? "wide" : "closed", lookY: -8, mouth: f >= p.w(3) ? "o" : "flat" }}
+      k={{ cam: 4, open: 8, fade: 10, end: 11, year: 7, yearEnd: 9, months: 15, monthsEnd: 17 }}
+      extra={
+        q > 0 ? (
+          <text x={K_BUB.x + 300} y={K_BUB.y + 60} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={260 * q} fill={YAS_OK} transform={`rotate(10 ${K_BUB.x + 300} ${K_BUB.y})`}>
+            ?
+          </text>
+        ) : null
+      }
+    />
+  );
 };
 
 // B1 "Bir ayda o beş kilo verdi, sen yarım. Aynı tabak, aynı spor. Peki ya senin o yarım kilon, aslında onun beşiyle aynı emekse?"
@@ -11354,6 +11401,7 @@ const KiloLab2: React.FC<SceneProps> = ({ w }) => {
     <InCloud>
       <Lab
         f={f}
+        cam={[[0, 1, 540, 960], [w(0), 1.18, 560, 560], [w(3) + 4, 1.18, 560, 560], [w(4) + 2, 1.18, 560, 1090], [w(6), 1.18, 560, 1090], [w(6) + 10, 1, 540, 960]]}
         kgM={[pop(f, w(0) - 2, 12), `−${Math.round(5 * m)} kg`]}
         kgW={f >= w(4) - 2 ? [pop(f, w(4) - 2, 12), f >= w(5) ? "≈0 kg" : "0 kg"] : undefined}
         slimM={m}
@@ -11387,6 +11435,7 @@ const KiloLab4: React.FC<SceneProps> = ({ w }) => {
     <InCloud>
       <Lab
         f={f}
+        cam={[[0, 1, 540, 960], [w(4), 1, 540, 960], [w(6), 1.15, 440, 560], [w(9), 1.15, 440, 560], [w(10) + 6, 1, 540, 960]]}
         kgM={out < 1 ? [1 - out, "−5 kg"] : undefined}
         kgW={out < 1 ? [1 - out, "≈0 kg"] : undefined}
         kcalM={f >= w(10) ? [pop(f, w(10), 12), Math.round(667 * kc)] : undefined}
@@ -11508,7 +11557,62 @@ const KiloSon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// "Kilo farkı, emek farkı değil. Bunu, sofrada sana beş kiloyu söyleyen kişiye gönder."
+// Replik kartı; kadın telefonu alır, kâğıt uçak avatara uçar, masadaki telefonu titrer, avatar bakar; üstte "Sizde kim daha hızlı verdi?" (yorum).
+const KiloSon2: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const card = pop(f, w(0) - 4, 12) * (1 - tw(f, w(5) - 2, w(5) + 6));
+  const phoneUp = tw(f, w(5), w(6) + 4);
+  const fly = tw(f, w(10), w(12) + 6);
+  const buzz = f >= w(12) + 6 && f < d - 18 ? Math.sin(f * 2.6) * 7 : 0;
+  const look = tw(f, w(12) + 6, w(12) + 14);
+  const chip = pop(f, w(7), 12) * (1 - tw(f, d - 20, d - 10));
+  const back = tw(f, d - 26, d - 12);
+  const hand = armPoints(1, [150, 30])[2];
+  return (
+    <CamK k={[[0, 1, 540, 1000], [w(5), 1, 540, 1000], [w(12), 1.06, 540, 980], [d - 26, 1.06, 540, 980], [d - 1, 1.04, 540, 1000]]}>
+      <KiloSofra
+        f={f}
+        av={{ armR: back > 0 ? mixArm([20, -70], eatArm(f), back) : [20, -70], mouth: look > 0.5 && back < 0.5 ? "o" : "smile", lookY: look * 14 * (1 - back), eyes: look > 0.5 && back < 0.5 ? "wide" : "open" }}
+        wo={{
+          armL: back > 0 ? mixArm([20, -76], eatArm(f + 30), back) : [20, -76],
+          armR: mixArm([12, 0], [150, 30], phoneUp * (1 - back)),
+          fork: back > 0.5,
+          mouth: phoneUp > 0.5 ? "grin" : "smile",
+          lookY: phoneUp * 10 * (1 - back),
+          children: phoneUp * (1 - back) > 0.3 ? <Phone x={hand[0]} y={hand[1] - 40} s={0.9} rot={-10} /> : null,
+        }}
+      />
+      <g opacity={1 - back}>
+        <Phone x={150} y={K_TT + 40} s={0.75} rot={80 + buzz} glow={look} />
+        {buzz !== 0 ? <path d={`M92 ${K_TT - 6} q-12 16 0 32 M208 ${K_TT - 6} q12 16 0 32`} stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
+      </g>
+      {fly > 0 && fly < 1 ? (
+        <g transform={`translate(${lerp(K_WO.x + 120, 150, fly)} ${lerp(K_WO.y - 820, K_TT - 40, fly) - Math.sin(fly * Math.PI) * 220}) rotate(${-20 + 40 * fly})`}>
+          <path d="M-40 0 L40 -18 L-10 10 Z M-10 10 L-4 30 L6 4" fill={C.cream} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {card > 0 ? (
+        <g transform={`translate(540 330) scale(${card}) rotate(-2)`}>
+          <rect x={-440} y={-170} width={880} height={300} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+          <HandText x={0} y={-50} text="Kilo farkı," size={104} color={C.ink} p={tw(f, w(0), w(1) + 6)} rotate={0} />
+          <HandText x={0} y={80} text="emek farkı değil." size={104} color={YAS_OK} p={tw(f, w(2), w(4) + 6)} rotate={0} />
+        </g>
+      ) : null}
+      {chip > 0 ? (
+        <g transform={`translate(540 270) scale(${chip}) rotate(-2)`}>
+          <rect x={-410} y={-62} width={820} height={112} rx={56} fill={C.yellow} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={18} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={52} fill={C.ink}>
+            Sizde kim daha hızlı verdi?
+          </text>
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kilo-son2": KiloSon2,
   "kilo-sofra1": KiloSofra1,
   "kilo-sofra2": KiloSofra2,
   "kilo-lab1": KiloLab1,
