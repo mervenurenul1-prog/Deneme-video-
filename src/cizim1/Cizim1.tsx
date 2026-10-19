@@ -557,6 +557,15 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "bul-lab4": (w) => [[w(1), "bip", 0.5], [w(3), "cizik", 0.35], [w(7), "yuksel", 0.3], [w(9), "whoosh", 0.25], [w(15), "kalem", 0.3], [w(17), "agir-dusme", 0.4], [w(18) + 4, "pirilti", 0.35]],
   "bul-bende": (w) => [[4, "pop", 0.45], [8, "sonme", 0.3], [w(2), "pop", 0.3]],
   "bul-son": (w, d) => [[w(0), "kalem", 0.3], [w(5), "pop", 0.25], [w(6), "pop", 0.3], [d - 24, "whoosh", 0.2]],
+  "bul2-soru": () => [[2, "pop", 0.25]],
+  "bul2-ceza": (w) => [[2, "tak", 0.5], [w(0), "kalem", 0.3], [w(3), "pop", 0.35]],
+  "bul2-kayip": (w) => [[0, "kagit", 0.3], [w(5), "ding", 0.35], [w(6), "kacing", 0.3], [w(8), "bip", 0.35], [w(10), "whoosh", 0.35], [w(11) + 6, "pop", 0.4]],
+  "bul2-neden": (w) => [[4, "tak", 0.25], [w(1) - 2, "pop", 0.35]],
+  "bul2-iri": (w) => [[0, "tak", 0.4], [w(3), "kalem", 0.3]],
+  "bul2-lab": (w) => [[0, "kalem", 0.3], [w(4), "kagit", 0.3], [w(8), "bip", 0.3], [w(12), "bip", 0.3], [w(14) + 6, "agir-dusme", 0.4]],
+  "bul2-kas": (w) => [[w(0), "sihir", 0.3], [w(8), "yuksel", 0.3], [w(15), "whoosh", 0.25]],
+  "bul2-esit": (w) => [[0, "kalem", 0.3], [w(2), "yuksel", 0.3], [w(4), "agir-dusme", 0.4], [w(5) + 4, "pirilti", 0.35]],
+  "bul2-bende": (w) => [[w(2), "pop", 0.3]],
   "kilo-son2": (w, d) => [[w(0), "kalem", 0.3], [w(5), "pop", 0.25], [w(7), "pop", 0.3], [w(10), "whoosh", 0.35], [w(12) + 6, "bip", 0.4], [w(12) + 16, "bip", 0.3], [d - 24, "whoosh", 0.2]],
   "kilo-a2": (w) => [[w(0), "kalem", 0.3]],
   "kilo-a3": (w) => [[w(3), "pop", 0.35], [w(7), "whoosh", 0.4], [w(9), "sihir", 0.3], [w(15), "kagit", 0.35]],
@@ -569,8 +578,9 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
 /* ---------- yardımcılar ---------- */
 
 const ease = Easing.inOut(Easing.cubic);
+// a ≥ b (kelimeler üst üste düşerse) aralık tek kareye iner
 const tw = (f: number, a: number, b: number, from = 0, to = 1) =>
-  interpolate(f, [a, b], [from, to], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  b <= a ? (f >= a ? to : from) : interpolate(f, [a, b], [from, to], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
 // Yaylanarak beliren öğeler için (0 → biraz taşar → 1)
 const pop = (f: number, a: number, len = 12) =>
   interpolate(f, [a, a + len * 0.6, a + len], [0, 1.12, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
@@ -11741,7 +11751,7 @@ const Fridge: React.FC = () => (
   </g>
 );
 // İddia notu: kırmızı mıknatısla kapağa yapışır; satırlar konuşmayla yazılır, en altta iki imza
-const BetNote: React.FC<{ f: number; p: number; t1: number; t2: number; t3: number; sign: number }> = ({ f, p, t1, t2, t3, sign }) => {
+const BetNote: React.FC<{ f: number; p: number; t1: number; t2: number; t3: number; sign: number; lines?: [string, string, string, string] }> = ({ f, p, t1, t2, t3, sign, lines = ["İDDİA", "1 ay", "az veren", "bulaşık yıkar!"] }) => {
   if (p <= 0) return null;
   const drop = interpolate(p, [0, 1], [-60, 0]);
   const cx = FRIDGE.x + FRIDGE.w / 2 - 10;
@@ -11752,10 +11762,10 @@ const BetNote: React.FC<{ f: number; p: number; t1: number; t2: number; t3: numb
       {[0, 1, 2, 3, 4].map((i) => (
         <path key={i} d={`M-100 ${-60 + i * 42} H100`} stroke={C.water} strokeWidth={2} opacity={0.35} />
       ))}
-      <HandText x={0} y={-92} text="İDDİA" size={64} color={C.red} p={t1} rotate={0} />
-      <HandText x={0} y={-30} text="1 ay" size={56} color={C.ink} p={t2} rotate={-2} />
-      <HandText x={0} y={24} text="az veren" size={44} color={C.ink} p={tw(t3, 0, 0.5)} rotate={-2} />
-      <HandText x={0} y={68} text="bulaşık yıkar!" size={44} color={C.red} p={tw(t3, 0.5, 1)} rotate={-2} />
+      <HandText x={0} y={-92} text={lines[0]} size={64} color={C.red} p={t1} rotate={0} />
+      <HandText x={0} y={-30} text={lines[1]} size={52} color={C.ink} p={t2} rotate={-2} />
+      <HandText x={0} y={24} text={lines[2]} size={44} color={C.ink} p={tw(t3, 0, 0.5)} rotate={-2} />
+      <HandText x={0} y={68} text={lines[3]} size={40} color={C.red} p={tw(t3, 0.5, 1)} rotate={-2} />
       {sign > 0 ? (
         <>
           <path d="M-96 128 q14 -24 26 0 t26 0 q8 -18 18 -4" stroke={YAS_OK} strokeWidth={5} fill="none" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tw(sign, 0, 0.5)} strokeLinecap="round" />
@@ -11985,7 +11995,328 @@ const BulSon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+/* ---------- 09 kilo v5: "Hangimiz daha önce kilo verecek?" (kullanıcının formülü: dokun → sor → açıkla → tarih + kasın içi → bağla) ---------- */
+
+const B2_AV = { x: 230, y: 1440, s: 1 };
+const B2_WO = { x: 850, y: 1440, s: 0.84 };
+const B2_NOTE: [string, string, string, string] = ["İDDİA", "ilk 5 kilo", "kaybeden:", "1 ay bulaşık!"];
+const GLOVE_HOOK = { x: FRIDGE.x + FRIDGE.w - 40, y: FRIDGE.y + 720 };
+// Buzdolabı önü: ikisi iki yanda; tartı (isteğe bağlı) ayaklarının altında
+const FridgeShot: React.FC<{ f: number; av?: Partial<PersonProps>; wo?: Partial<PersonProps>; avKids?: React.ReactNode; woKids?: React.ReactNode; scales?: [string, string, string?]; children?: React.ReactNode }> = ({ f, av = {}, wo = {}, avKids, woKids, scales, children }) => (
+  <>
+    <KiloRoom />
+    <Backsplash />
+    <Fridge />
+    {scales ? (
+      <>
+        <g transform={`translate(${B2_AV.x} ${B2_AV.y + 30}) scale(0.62)`}>
+          <Bathroom x={0} y={0} value={scales[0]} />
+        </g>
+        <g transform={`translate(${B2_WO.x} ${B2_WO.y + 30}) scale(0.62)`}>
+          <Bathroom x={0} y={0} value={scales[1]} />
+        </g>
+      </>
+    ) : null}
+    <Person x={B2_AV.x} y={B2_AV.y} s={B2_AV.s} belly={0.55} armL={[10, 0]} armR={[12, 0]} mouth="smile" {...av}>
+      {avKids}
+    </Person>
+    <Person x={B2_WO.x} y={B2_WO.y} s={B2_WO.s} female belly={0.2} armL={[12, 0]} armR={[12, 0]} mouth="smile" {...wo}>
+      {woKids}
+    </Person>
+    {children}
+    {f < 0 ? null : null}
+  </>
+);
+const handAt = (pp: { x: number; y: number; s: number }, side: number, arm: Arm) => {
+  const h = armPoints(side, arm)[2];
+  return { x: pp.x + h[0] * pp.s, y: pp.y + h[1] * pp.s };
+};
+
+// 1 (kadın, Aslı) "Hangimiz daha önce beş kilo verecek?" — buzdolabının önünde, parmağıyla ona meydan okur; avatar kaşını kaldırır.
+const B2_POINT: Arm = [58, 14];
+const B2Soru: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const point = tw(f, 0, 10);
+  const wob = Math.sin(f / 4) * 3;
+  return (
+    <CamK k={[[0, 1.18, 700, 980], [d, 1.04, 560, 980]]}>
+      <FridgeShot
+        f={f}
+        av={{ mouth: f >= w(3) ? "o" : "smile", eyes: f >= w(3) ? "wide" : "open", armR: [12, 0], armL: [10, 0] }}
+        wo={{ armL: mixArm([12, 0], [B2_POINT[0] + wob, B2_POINT[1]], point), armR: [20, -100], mouth: talk(f, 0, w(5) + 8) ? "open" : "grin", tilt: -4 }}
+      />
+    </CamK>
+  );
+};
+
+// 2 (avatar) "Kaybeden bir ay bulaşık yıkar!" — notu buzdolabına mıknatısla yapıştırır, satırlar yazılır, imzalanır; kulpa sarı eldivenler asılır.
+const B2Ceza: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const reach = tw(f, 0, 8) * (1 - tw(f, w(3) + 4, w(4) + 6));
+  const arm = mixArm([12, 0], [62, 18], reach);
+  return (
+    <CamK k={[[0, 1.04, 560, 980], [w(1), 1.25, 540, 760], [w(4) + 6, 1.25, 540, 760], [d, 1.12, 540, 860]]}>
+      <FridgeShot
+        f={f}
+        av={{ armR: arm, mouth: talk(f, 0, w(4) + 8) ? "open" : "grin" }}
+        avKids={reach > 0.3 ? <Marker side={1} arm={arm} /> : null}
+        wo={{ armL: [20, -100], armR: [20, -100], mouth: "grin", eyes: f >= w(4) ? "closed" : "open" }}
+      >
+        <BetNote f={f} p={tw(f, 0, 8)} lines={B2_NOTE} t1={tw(f, 2, 14)} t2={tw(f, 10, w(1) + 4)} t3={tw(f, w(1), w(4))} sign={tw(f, w(4), w(4) + 14)} />
+        <LoserGloves p={pop(f, w(3) - 2, 14)} x={GLOVE_HOOK.x} y={GLOVE_HOOK.y} />
+      </FridgeShot>
+    </CamK>
+  );
+};
+
+// 3 "Bir ay sonra tartı: o beş kilo, sen bir. Ve eldivenler sana kaldı."
+// Takvim akar; ikisi ayaklarının altındaki tartıda: onunki −5 (kollar havada), seninki kırmızı −1; eldivenler kulptan
+// uçup ellerine geçer (kayıp anı), not "KAYBEDEN" diye işaretlenir.
+const B2_WO_HANDS: Arm = [30, -30];
+const B2Kayip: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const days = tw(f, 0, w(3));
+  const m = tw(f, w(4), w(6) + 6);
+  const win = f >= w(6);
+  const dance = win ? Math.sin(f / 3) * 12 : 0;
+  const fly = tw(f, w(10), w(11) + 6);
+  const on = fly >= 1;
+  const from = GLOVE_HOOK;
+  const toL = handAt(B2_WO, -1, B2_WO_HANDS);
+  const toR = handAt(B2_WO, 1, B2_WO_HANDS);
+  return (
+    <CamK k={[[0, 1.06, 540, 960], [w(9), 1.06, 540, 960], [w(11) + 6, 1.2, 760, 1000], [d, 1.2, 760, 1000]]}>
+      <FridgeShot
+        f={f}
+        scales={[`−${Math.round(5 * m)}`, f >= w(8) ? "−1" : "−0"]}
+        av={{ armR: win ? [160 + dance, 20] : [12, 0], armL: win ? [160 - dance, 20] : [10, 0], mouth: win ? "grin" : "smile" }}
+        wo={{ armL: f >= w(9) ? B2_WO_HANDS : [12, 0], armR: f >= w(9) ? B2_WO_HANDS : [12, 0], mouth: f >= w(8) ? "worry" : "flat", blush: f >= w(8) ? 0.9 : 0.4, lookY: f >= w(8) ? 10 : 0 }}
+        woKids={
+          on ? (
+            <>
+              <Glove side={-1} arm={B2_WO_HANDS} />
+              <Glove side={1} arm={B2_WO_HANDS} />
+            </>
+          ) : null
+        }
+      >
+        <BetNote f={100} p={1} lines={B2_NOTE} t1={1} t2={1} t3={1} sign={1} />
+        <WallCalendar p={1 - tw(f, w(9), w(10))} n={1 + Math.round(29 * days)} label="GÜN" />
+        <LoserGloves p={fly > 0 ? 0 : 1} x={GLOVE_HOOK.x} y={GLOVE_HOOK.y} />
+        {fly > 0 && fly < 1
+          ? [toL, toR].map((t, i) => (
+              <g key={i} transform={`translate(${lerp(from.x + (i ? 40 : -40), t.x, fly)} ${lerp(from.y + 40, t.y, fly) - Math.sin(fly * Math.PI) * 160}) rotate(${fly * 360})`}>
+                <ellipse rx={30} ry={34} fill="#f2c230" stroke={C.ink} strokeWidth={5} />
+              </g>
+            ))
+          : null}
+        <KgDisplay x={B2_AV.x} y={560} p={pop(f, w(3) - 4, 12) * 0.55} value={`−${Math.round(5 * m)} kg`} />
+        <KgDisplay x={B2_WO.x} y={680} p={pop(f, w(3) - 4, 12) * 0.55 * (1 - tw(f, w(10), w(11)))} value={f >= w(8) ? "−1 kg" : "−0 kg"} color={f >= w(8) ? "#ff8b7a" : "#9fe0a8"} />
+      </FridgeShot>
+    </CamK>
+  );
+};
+
+// Lavabonun yanında yükselen tabak kulesi; tepedeki tabak sallanır
+const DishTower: React.FC<{ x: number; n: number; f: number }> = ({ x, n, f }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    {Array.from({ length: Math.max(0, Math.floor(n)) }, (_, i) => {
+      const top = i === Math.floor(n) - 1;
+      const jx = (random(`dt${i}`) - 0.5) * 16 + (top ? Math.sin(f / 4) * 10 : 0);
+      return <ellipse key={i} cx={x + jx} cy={K_TT - 10 - i * 20} rx={70} ry={13} fill={i % 3 === 0 ? "#f3e2c0" : "#fffdf6"} strokeWidth={5} />;
+    })}
+  </g>
+);
+
+// 4 "Sence neden? Kadınlar gerçekten daha zor mu kilo veriyor?"
+// Mutfakta, eldivenlerle bulaşıkta; tabak kulesi yükselir; avatar arkada keyifle kollarını kavuşturmuş; başının üstünde dev "?".
+const B2Neden: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, w(1) - 2, 12);
+  return (
+    <CamK k={[[0, 1.04, 600, 980], [w(8) + 10, 1.08, 640, 940]]}>
+      <Mutfak
+        f={f}
+        woGloves
+        foam={1}
+        av={{ armR: [20, -100], armL: [20, -100], mouth: "grin", eyes: "closed" }}
+        wo={{ armL: [20, 60 + 6 * Math.sin(f / 4)], armR: [20, -70], mouth: "worry", lookY: 4, blush: 0.9 }}
+      >
+        <DishTower x={975} n={6 + 20 * tw(f, 0, w(2))} f={f} />
+        {q > 0 ? (
+          <text x={K_WO.x + 60} y={560} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={260 * q} fill={YAS_OK} transform={`rotate(8 ${K_WO.x} 560)`}>
+            ?
+          </text>
+        ) : null}
+      </Mutfak>
+    </CamK>
+  );
+};
+
+// 5 "Hayır. O sadece senden daha iri." — düz zeminde ikisi yan yana; kesik çizgili kutular beden farkını gösterir, "daha iri".
+const B2Iri: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const box = tw(f, w(3), w(5) + 6);
+  const no = pop(f, 0, 10) * (1 - tw(f, w(1), w(1) + 8));
+  const box2 = (x: number, y: number, ww: number, h: number, p: number, label: string) =>
+    p > 0 ? (
+      <g>
+        <rect x={x - ww / 2} y={y - h} width={ww} height={h} rx={16} fill="none" stroke={YAS_OK} strokeWidth={8} strokeDasharray="22 14" pathLength={1} opacity={p} />
+        <HandText x={x} y={y - h - 30} text={label} size={70} color={YAS_OK} p={p} />
+      </g>
+    ) : null;
+  return (
+    <CamK k={[[0, 1, 540, 1000]]}>
+      <rect x={0} y={1500} width={1080} height={420} fill="#c9a77a" opacity={0.35} />
+      <Person x={340} y={1460} s={1.15} belly={0.55} mouth="smile" armL={[10, 0]} armR={[10, 0]} />
+      <Person x={780} y={1460} s={0.82} female belly={0.2} mouth="smile" armL={[10, 0]} armR={[10, 0]} />
+      {box2(340, 1480, 420, 960, box, "daha iri")}
+      {box2(780, 1480, 300, 690, box, "")}
+      {no > 0 ? (
+        <text x={540} y={520} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={220 * no} fill={C.red}>
+          Hayır.
+        </text>
+      ) : null}
+    </CamK>
+  );
+};
+
+// 6 "İki bin üçte bunu on altı ay izlediler: erkekler beş kilo verdi, kadınlar neredeyse hiç."
+const B2Lab: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const m = tw(f, w(9), w(11) + 6);
+  return (
+    <>
+      <Lab
+        f={f}
+        year={tw(f, 0, w(2) + 4)}
+        months={tw(f, w(4), w(6) + 6) * (1 - tw(f, w(8) - 4, w(8)))}
+        cam={[[0, 1, 540, 960], [w(8), 1, 540, 960], [w(8) + 8, 1.15, 560, 600], [w(11) + 4, 1.15, 560, 600], [w(12) + 4, 1.15, 560, 1100], [w(14), 1.15, 560, 1100], [w(14) + 10, 1, 540, 960]]}
+        kgM={f >= w(8) ? [pop(f, w(8) - 2, 12), `−${Math.round(5 * m)} kg`] : undefined}
+        kgW={f >= w(12) ? [pop(f, w(12) - 2, 12), "≈0 kg"] : undefined}
+        slimM={m}
+        faceM={m > 0.6 ? "grin" : "smile"}
+        faceW={f >= w(13) ? "worry" : "smile"}
+        stamp={[tw(f, w(14) + 2, w(14) + 12), 0, 0]}
+      />
+      {f < w(8) ? <FlyingPages start={w(4)} end={w(8)} y={240} /> : null}
+    </>
+  );
+};
+
+// Kasın içi: lifler + ortada fırın; ateşin büyüklüğü yakılan kaloriyi gösterir
+const FurnaceLens: React.FC<{ x: number; y: number; r: number; p: number; fire: number; f: number; kcal?: number; color?: string }> = ({ x, y, r, p, fire, f, kcal, color = C.ink }) => {
+  const id = svgId(useId());
+  if (p <= 0) return null;
+  const fl = (k: number) => 0.85 + 0.15 * Math.sin(f / 3 + k);
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p}) translate(${-x} ${-y})`}>
+      <clipPath id={`fl${id}`}>
+        <circle cx={x} cy={y} r={r} />
+      </clipPath>
+      <circle cx={x} cy={y} r={r} fill="#3a2430" />
+      <g clipPath={`url(#fl${id})`}>
+        {Array.from({ length: 7 }, (_, i) => (
+          <rect key={i} x={x - r - 10} y={y - r + i * (r / 3.2)} width={r * 2 + 20} height={r / 4.4} rx={r / 9} fill="#c9566b" stroke={C.ink} strokeWidth={3} opacity={0.75} />
+        ))}
+        <g transform={`translate(${x} ${y + r * 0.25})`} stroke={C.ink} strokeLinejoin="round">
+          <path d={`M${-r * 0.45} ${r * 0.4} L${-r * 0.45} ${-r * 0.1} Q0 ${-r * 0.55} ${r * 0.45} ${-r * 0.1} L${r * 0.45} ${r * 0.4} Z`} fill="#4b4b55" strokeWidth={6} />
+          <path d={`M${-r * 0.3} ${r * 0.4} L${-r * 0.3} ${0} Q0 ${-r * 0.32} ${r * 0.3} 0 L${r * 0.3} ${r * 0.4} Z`} fill="#2a1d18" strokeWidth={4} />
+          {[-0.14, 0, 0.14].map((dx, k) => (
+            <path
+              key={k}
+              d={`M${dx * r - r * 0.09} ${r * 0.38} Q${dx * r - r * 0.12} ${r * 0.1} ${dx * r} ${-r * 0.32 * fire * fl(k)} Q${dx * r + r * 0.12} ${r * 0.1} ${dx * r + r * 0.09} ${r * 0.38} Z`}
+              fill={k === 1 ? C.yellow : C.glow}
+              strokeWidth={3}
+            />
+          ))}
+        </g>
+      </g>
+      <circle cx={x} cy={y} r={r} fill="none" stroke={C.ink} strokeWidth={12} />
+      {kcal !== undefined ? (
+        <g transform={`translate(${x} ${y + r + 70})`}>
+          <rect x={-130} y={-58} width={260} height={84} rx={18} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+          <text x={0} y={6} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={color}>
+            {kcal} kcal
+          </text>
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// 7 "Sebep kasın içinde: iri bir vücut aynı antrenmanda daha çok kalori yakar, daha büyük bir fırın gibi."
+// Laboratuvar arkada soluklaşır; iki koşucunun bacağından büyük mercekler açılır: erkekte büyük fırın + büyük ateş (667), kadında küçük (439).
+const B2Kas: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const lens = tw(f, w(0), w(2) + 6);
+  const fire = tw(f, w(8), w(11) + 6);
+  const big = tw(f, w(12), w(15) + 6);
+  return (
+    <>
+      <g opacity={1 - 0.55 * lens}>
+        <Lab f={f} kgM={[1 - lens, "−5 kg"]} kgW={[1 - lens, "≈0 kg"]} slimM={1} faceM="grin" faceW="worry" stamp={[1, tw(f, w(12), w(16)) * 0.5, 0]} />
+      </g>
+      <path d={`M${LAB.x + 30} ${LAB.men - 230} L${700} ${560}`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens} />
+      <path d={`M${LAB.x + 30} ${LAB.women - 230} L${730} ${1080}`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens} />
+      <FurnaceLens x={720} y={560} r={210 + 20 * big} p={lens} fire={0.6 + 0.9 * fire} f={f} kcal={fire > 0 ? Math.round(667 * fire) : undefined} />
+      <FurnaceLens x={740} y={1080} r={150} p={lens} fire={0.6 + 0.35 * fire} f={f} kcal={fire > 0 ? Math.round(439 * fire) : undefined} />
+    </>
+  );
+};
+
+// 8 "Herkese aynı kaloriyi yaktırdıklarında fark kayboldu." — tahtada 2013; kadının merceği büyür, iki ateş eşitlenir, ikisi de 600; damga düşer.
+const B2Esit: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const eq = tw(f, w(0), w(3) + 6);
+  const gone = tw(f, w(4), w(5) + 10);
+  return (
+    <>
+      <g opacity={0.45}>
+        <Lab f={f} year2={tw(f, 0, w(1) + 6)} slimM={1} slimW={gone} faceM="smile" faceW={gone > 0.5 ? "grin" : "smile"} stamp={[1, 0.5 + 0.5 * eq, gone]} />
+      </g>
+      <FurnaceLens x={720} y={560} r={lerp(230, 190, eq)} p={1} fire={lerp(1.5, 1.25, eq)} f={f} kcal={Math.round(lerp(667, 600, eq))} color={eq > 0.9 ? YAS_OK : C.ink} />
+      <FurnaceLens x={740} y={1080} r={lerp(150, 190, eq)} p={1} fire={lerp(0.95, 1.25, eq)} f={f} kcal={Math.round(lerp(439, 600, eq))} color={eq > 0.9 ? YAS_OK : C.ink} />
+      {gone > 0 ? (
+        <text x={330} y={900} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={200 * pop(f, w(4), 12)} fill={YAS_OK}>
+          =
+        </text>
+      ) : null}
+    </>
+  );
+};
+
+// 9 (avatar) "Yani… bulaşık bende mi?" — kadın eldivenleri çıkarıp ona uzatır; tabak kulesi duruyor; avatar kızarır.
+const B2Bende: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const give = tw(f, w(0), w(2));
+  const has = f >= w(2);
+  return (
+    <CamK k={[[0, 1.04, 540, 980], [w(3) + 10, 1.08, 480, 960]]}>
+      <Mutfak
+        f={f}
+        foam={1}
+        woGloves={!has}
+        avGloves={has}
+        av={{ armR: has ? [20, 60] : mixArm([20, -70], [40, 40], give), mouth: talk(f, w(0) - 2, w(3) + 8) ? "open" : "worry", blush: 1, lookY: has ? 8 : 0 }}
+        wo={{ armL: mixArm([20, -70], [40, 40], give), armR: [20, -70], mouth: "grin", eyes: has ? "closed" : "open" }}
+      >
+        <DishTower x={975} n={26} f={f} />
+      </Mutfak>
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "bul2-soru": B2Soru,
+  "bul2-ceza": B2Ceza,
+  "bul2-kayip": B2Kayip,
+  "bul2-neden": B2Neden,
+  "bul2-iri": B2Iri,
+  "bul2-lab": B2Lab,
+  "bul2-kas": B2Kas,
+  "bul2-esit": B2Esit,
+  "bul2-bende": B2Bende,
   "bul-iddia": BulIddia,
   "bul-tarti": BulTarti,
   "bul-ic": BulIc,
