@@ -1,6 +1,6 @@
 # Avatar kıyafeti — her videoda konuya göre (kullanıcı kuralı, 19 Ekim)
 
-Kullanıcı bu görselleri gönderdi: "Videoya göre avatarın kıyafetini uyarla, her videoda bunu yapalım."
+Kullanıcı bu görselleri ÖRNEK olarak gönderdi (CEFF'in fikri; birebir kopya değil, yön gösterir): "Videoya göre avatarın kıyafetini uyarla, her videoda bunu yapalım."
 
 - `01-spor-1.jpg`: koşu atleti/şort, tenis, bisiklet (kask, eldiven), salon (tişört + şort + shaker), futbol,
   yoga (eşofman, yalınayak), yüzme (bone, gözlük, havlu), doğa yürüyüşü (çanta, batonlar), basketbol, eşofman + spor çantası.

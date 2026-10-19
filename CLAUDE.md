@@ -10,7 +10,7 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
 ## !!! AVATAR KIYAFETİ (kullanıcı, 19 Ekim) — HER YENİ VİDEODA !!!
 Avatar aynı kalır ama **kıyafeti videonun konusuna göre uyarlanır** (koşu → atlet/şort, salon → tişört/şort/shaker,
-yüzme → bone/gözlük, günlük konu → günlük kıyafet…). Referans görseller ve kurallar: `notlar/avatar-kiyafet/OKU.md`.
+yüzme → bone/gözlük, günlük konu → günlük kıyafet…). Referans görseller (CEFF'in gösterdiği ÖRNEKLER, birebir kopya değil) ve kurallar: `notlar/avatar-kiyafet/OKU.md`.
 Sessiz önizlemeden önce seçilen kıyafeti kullanıcıya söyle.
 
 ## >>> YENİ SOHBET BURADAN BAŞLASIN (19 Ekim akşam devir notu — EN GÜNCEL) <<<
@@ -20,7 +20,6 @@ Sessiz önizlemeden önce seçilen kıyafeti kullanıcıya söyle.
   Sıradaki adımlar: (1) kullanıcı onayı/düzeltme → (2) iç ses ("Ben ondan çok çalışıyorum!") için **Sibel DEĞİL**, Yunus
   yaşında GENÇ kadın sesi adayları sun (ElevenLabs kütüphanesi, kısa örnekler) → (3) kredi kontrol → seslendirme
   (Yunus ~510 + kadın ~26 karakter) → müzikle render → gönder.
-- Açık soru (kullanıcıya soruldu, cevap yok): stratejide "3 videodan biri Kimse söylemedi"; diğer ikisi ne olacak?
 - Kullanıcıdan gelen son görsel ders: referans heyvoom "büyüme plağı" videosu — sade/büyük/net, yüzlü hücreler, hap etiketler.
 
 ## !!! STRATEJİ (kullanıcı, 19 Ekim) — TÜM YENİ KONULAR BUNA GÖRE, ayrıntı `notlar/00-strateji.md` !!!
@@ -28,6 +27,7 @@ Sessiz önizlemeden önce seçilen kıyafeti kullanıcıya söyle.
   (4) spora başlamaya ikna edilecekler. VOOM bu kitleyi sayfasında toplamalı; arada **satış Reels'i** de üretilecek.
 - **Her üç videodan biri "Kimse söylemedi" serisinden** (şimdiki tür: inanılan bir şeyi ters köşe bilgiyle çürüten,
   kanca → tarihçe → görsel → döngü). Konu bu dört kitleden hiçbirine dokunmuyorsa ELENİR.
+- **Diğer ikisi (kullanıcı cevapladı):** doğrudan bu dört kitleye hitap eden içerik; arada satış Reels'i.
 
 ## >>> YENİ SOHBET: ÖNCE BUNU OKU (17 Ekim devir notu — EN GÜNCEL) <<<
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; her işten sonra ikisine de push). `npm ci` → işe başla.

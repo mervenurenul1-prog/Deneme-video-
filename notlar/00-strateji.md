@@ -13,7 +13,9 @@ VOOM bu kitleyi sayfasında toplamalı. Arada **satış için Reels** de üretil
 - **Her üç videodan biri "Kimse söylemedi" serisinden** olacak (şimdiki yaptığımız tür: izleyicinin inandığı bir şeyi
   ters köşe bilgiyle çürüten, kanca → kısa tarihçe → görsel anlatım → döngü; ör. 03 on bin adım, 04 kadın-ağırlık,
   09 kilo, 10 selülit).
-- Kalan videolar da aynı kitleye hitap eden içerik + ara ara satış Reels'i.
+- **Diğer iki video (kullanıcı, 19 Ekim akşam — açık soru kapandı):** doğrudan bu dört kitleye hitap eden içerik
+  (yeni başlayan / bir süredir yapan / meraklı / ikna edilecek). Amaç bu kitleyi VOOM sayfasında toplamak.
+  Bunların arasına ara ara **satış Reels'i** (VOOM uygulaması) girer.
 - Konu seçerken sor: "Bu konu yeni başlayana / bir süredir yapana / meraklıya / ikna edilecek kişiye ne kazandırıyor?"
   Hiçbirine dokunmuyorsa konu ELENİR.
 
