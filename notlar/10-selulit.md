@@ -1,3 +1,6 @@
+> STRATEJİ (19 Ekim): hedef kitle yeni başlayan / bir süredir yapan / meraklı / ikna edilecek; bu video "Kimse söylemedi"
+> serisinden. Ayrıntı `notlar/00-strateji.md`.
+
 # 10 Selülit — arka plan (19 Ekim, kadın konuları sırası: 4 kilo → **6 selülit** → 5 metabolizma)
 
 Önerilen id: `cizim1-10-selulit`, sahne adları `sel-*`. Durum: **araştırma hazır, metin YAZILMADI.**

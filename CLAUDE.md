@@ -8,6 +8,12 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## !!! STRATEJİ (kullanıcı, 19 Ekim) — TÜM YENİ KONULAR BUNA GÖRE, ayrıntı `notlar/00-strateji.md` !!!
+- **Hedef kitle:** (1) spora yeni başlayanlar, (2) bir süredir spor yapanlar, (3) spora merakı olanlar,
+  (4) spora başlamaya ikna edilecekler. VOOM bu kitleyi sayfasında toplamalı; arada **satış Reels'i** de üretilecek.
+- **Her üç videodan biri "Kimse söylemedi" serisinden** (şimdiki tür: inanılan bir şeyi ters köşe bilgiyle çürüten,
+  kanca → tarihçe → görsel → döngü). Konu bu dört kitleden hiçbirine dokunmuyorsa ELENİR.
+
 ## >>> YENİ SOHBET: ÖNCE BUNU OKU (17 Ekim devir notu — EN GÜNCEL) <<<
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; her işten sonra ikisine de push). `npm ci` → işe başla.
 Kalan ElevenLabs kredisi ≈ 15.095 karakter. Ses kitaplığı: Yunus (anlatıcı) + **Sibel** (`qLdPxFtPuffoxx5gieBJ`, anne sesi).
