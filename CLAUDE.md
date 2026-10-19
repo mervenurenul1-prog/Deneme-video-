@@ -17,6 +17,14 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
   (45,8 sn, crf 23 ile 20 MB). Kullanıcı geri bildirimi bekleniyor.**
   Seslendirme: `npm run voiceover -- cizim1-09-kilo-hangimiz` → `npm run render -- cizim1-09-kilo-hangimiz`.
   Diğer 09 sürümleri (`-iddia`, `-a`, `-b`, `-c`, `cizim1-09-kilo`) eski/alternatif; dokunma.
+- **10 MAYIŞMA (`cizim1-10-mayisma`, 19 Ekim akşam, kullanıcı konuyu verdi: yemek sonrası mayışma + iş erteleme):** kullanıcı
+  "kanca 'yemek yedin ve bir ağırlık çöktü' olsun, senaryoyu geliştir, önizleme oluştur" dedi. Metin (8 sahne, `may-*`,
+  ~630 karakter): ağırlık çöker (koyu bulut başa iner, ekran kararır, esner) → işi "birazdan" diye erteler (pano + yapışkan
+  notlar, saat ilerler) → "Ben neden bu kadar tembelim?" (balon) → "Sence bu ağırlık nereden geliyor?" → iç saat, uyanıklık
+  eğrisi 14:00 çukuru, yemeksiz de (Monk 2005) → mide + şeker beyindeki uyanık tutan hücreleri kısar (Burdakov 2006, oreksin)
+  → Siesta = Latince sexta hora, altıncı saat (sepya köy, güneş saati VI) → "Yani sorun sende değil, saatte. Yarın o ağırlık
+  yine çöktüğünde, kendine tembel deme." (ertesi gün yeni tabak = açılış karesi). Sessiz önizleme
+  `ornek-videolar/cizim1-pilot/10-mayisma-sessiz.mp4` (47,4 sn) → onay/düzeltme → seslendirme (yalnız Yunus).
 - **Uyulacaklar (19 Ekim):** HİKÂYE FORMÜLÜ (dokun → sor → açıkla → tarih + vücudun içi → bağla, basit); 12 madde
   tablosu (izlesin/yorum/paylaşsın); CEFF kanca kalıbı; "görsel sözler kadar önemli" (her hareket gerçekteki gibi, göndermeden
   önce kareleri kontrol et); Yunus ana ses, Sibel yalnız anne, genç kadın = Aslı; metin onayı → sessiz önizleme → onay →
