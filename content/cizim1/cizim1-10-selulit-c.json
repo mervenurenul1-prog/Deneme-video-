@@ -33,38 +33,38 @@
     },
     {
       "visual": "selc-dergi",
-      "voice": "Bin dokuz yüz altmış sekizde bir moda dergisi onlara selülit dedi, kusur ilan etti.",
-      "say": "Bin dokuz yüz altmış sekizde, bir moda dergisi onlara selülit dedi... kusur ilan etti."
+      "voice": "Bin dokuz yüz altmış sekizde bir moda dergisi onlara selülit dedi. Ve bir gecede güzel olan, kusur oldu.",
+      "say": "Bin dokuz yüz altmış sekizde bir moda dergisi onlara selülit dedi. Ve bir gecede... güzel olan, kusur oldu."
     },
     {
       "visual": "selc-bakis",
-      "voice": "Aynı bacaklar. Değişen sadece bakış.",
-      "say": "Aynı bacaklar. [curious] Değişen sadece... bakış."
+      "voice": "Bacaklar aynı kaldı. Değişen sadece bakan gözdü.",
+      "say": "Bacaklar aynı kaldı. [curious] Değişen sadece... bakan gözdü."
     },
     {
       "visual": "selc-bugun",
-      "voice": "Ve sen bugün, haftada dört gün spor yapıp yine de havluyu belinden çözemiyorsun.",
-      "say": "Ve sen bugün... haftada dört gün spor yapıp, yine de havluyu belinden çözemiyorsun."
+      "voice": "Ve bugün sen, haftada dört gün spor yapıyorsun ama plajda hâlâ havluya sarınıyorsun.",
+      "say": "Ve bugün sen... haftada dört gün spor yapıyorsun, ama plajda hâlâ havluya sarınıyorsun."
     },
     {
       "visual": "selc-ip",
-      "voice": "Oysa sebep derinin altında: kadınlarda yağı bölen ipler dimdik durur, yağ aralarından kabarır.",
-      "say": "Oysa sebep derinin altında: kadınlarda yağı bölen ipler dimdik durur; yağ aralarından kabarır."
+      "voice": "Çünkü sebep spor değil: kadınlarda deriyi bağlayan ipler dimdik durur, yağ aralarından kabarır.",
+      "say": "Çünkü sebep spor değil: kadınlarda deriyi bağlayan ipler dimdik durur; yağ aralarından kabarır."
     },
     {
       "visual": "selc-erkek",
-      "voice": "Erkeklerde ise ipler çapraz örülür; yağ kabaramaz, deri düz kalır.",
-      "say": "Erkeklerde ise ipler çapraz örülür; yağ kabaramaz, deri düz kalır."
+      "voice": "Erkeklerde ise ipler çapraz örülür, deri düz kalır. Bu bir emek farkı değil, yapı farkı.",
+      "say": "Erkeklerde ise ipler çapraz örülür, deri düz kalır. Bu bir emek farkı değil... yapı farkı."
     },
     {
       "visual": "sel-yaygin",
-      "voice": "Bu yüzden on kadından sekiz-dokuzunda var; zayıfında da, sporcusunda da.",
-      "say": "Bu yüzden on kadından sekiz-dokuzunda var; zayıfında da, sporcusunda da."
+      "voice": "Bu yüzden on kadından sekiz-dokuzunda var.",
+      "say": "Bu yüzden on kadından sekiz-dokuzunda var."
     },
     {
       "visual": "selc-son",
-      "voice": "Yani bacakların bozulmadı, bakış değişti. Sence bu bir kusur mu, yoksa sana öyle mi öğretildi?",
-      "say": "Yani bacakların bozulmadı, bakış değişti. [curious] Sence bu bir kusur mu... yoksa sana öyle mi öğretildi?",
+      "voice": "Yani bacakların bozulmadı. Sence bu bir kusur mu, yoksa sana öyle mi öğretildi?",
+      "say": "Yani bacakların bozulmadı. [curious] Sence bu bir kusur mu... yoksa sana öyle mi öğretildi?",
       "hold": 1.6
     }
   ]
