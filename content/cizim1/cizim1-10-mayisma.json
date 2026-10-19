@@ -1,0 +1,58 @@
+{
+  "id": "cizim1-10-mayisma",
+  "title": "Yemekten sonra neden uykun gelir?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "scenes": [
+    {
+      "visual": "may-agirlik",
+      "voice": "Yemeği yedin… ve üstüne bir ağırlık çöktü. Gözlerin kendiliğinden kapanıyor.",
+      "say": "[tired] Yemeği yedin... ve üstüne bir ağırlık çöktü. Gözlerin kendiliğinden kapanıyor."
+    },
+    {
+      "visual": "may-erteleme",
+      "voice": "Masadaki işi birazdan yaparım diye erteliyorsun. Sonra bir daha.",
+      "say": "Masadaki işi \"birazdan yaparım\" diye erteliyorsun. Sonra... bir daha."
+    },
+    {
+      "visual": "may-tembel",
+      "voice": "Ve içinden şu geçiyor: Ben neden bu kadar tembelim?",
+      "say": "Ve içinden şu geçiyor: [sighs] Ben neden bu kadar tembelim?"
+    },
+    {
+      "visual": "may-soru",
+      "voice": "Sence bu ağırlık nereden geliyor?",
+      "say": "[curious] Sence bu ağırlık nereden geliyor?"
+    },
+    {
+      "visual": "may-saat",
+      "voice": "Tembellikten değil. İçinde bir saat var ve öğleden sonra kendiliğinden yavaşlıyor. Hiç yemek yemesen bile.",
+      "say": "Tembellikten değil. İçinde bir saat var, ve öğleden sonra kendiliğinden yavaşlıyor. Hiç yemek yemesen bile."
+    },
+    {
+      "visual": "may-beyin",
+      "voice": "Dolu bir mide bunu derinleştirir: kana karışan şeker, beyninde seni uyanık tutan hücreleri tek tek kısar.",
+      "say": "Dolu bir mide bunu derinleştirir: kana karışan şeker, beyninde seni uyanık tutan hücreleri... tek tek kısar."
+    },
+    {
+      "visual": "may-siesta",
+      "voice": "İnsanlar bunu yüzyıllardır biliyor. Siesta, Latincede altıncı saat demek: güneş doğduktan altı saat sonra, tam öğle vakti.",
+      "say": "İnsanlar bunu yüzyıllardır biliyor. Siesta, Latincede \"altıncı saat\" demek: güneş doğduktan altı saat sonra, tam öğle vakti."
+    },
+    {
+      "visual": "may-son",
+      "voice": "Yani sorun sende değil, saatte. Yarın o ağırlık yine çöktüğünde, kendine tembel deme.",
+      "say": "Yani sorun sende değil, saatte. Yarın o ağırlık yine çöktüğünde... kendine tembel deme."
+    }
+  ],
+  "caption": "Yemekten sonra çöken o ağırlık tembellik değil.",
+  "hashtags": ["voom", "uyku", "saglik"]
+}

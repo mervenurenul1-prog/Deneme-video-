@@ -557,6 +557,14 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "bul-lab4": (w) => [[w(1), "bip", 0.5], [w(3), "cizik", 0.35], [w(7), "yuksel", 0.3], [w(9), "whoosh", 0.25], [w(15), "kalem", 0.3], [w(17), "agir-dusme", 0.4], [w(18) + 4, "pirilti", 0.35]],
   "bul-bende": (w) => [[4, "pop", 0.45], [8, "sonme", 0.3], [w(2), "pop", 0.3]],
   "bul-son": (w, d) => [[w(0), "kalem", 0.3], [w(5), "pop", 0.25], [w(6), "pop", 0.3], [d - 24, "whoosh", 0.2]],
+  "may-agirlik": (w) => [[w(1) + 10, "tak", 0.3], [w(6), "agir-dusme", 0.45], [w(8) - 4, "nefes", 0.3]],
+  "may-erteleme": (w) => [[w(2) - 2, "kagit", 0.35], [w(6), "kagit", 0.3], [w(8), "kagit", 0.3]],
+  "may-tembel": (w) => [[w(1) - 2, "pop", 0.3], [w(8) - 2, "kalem", 0.3]],
+  "may-soru": (w) => [[w(0), "pop", 0.35]],
+  "may-saat": (w) => [[4, "cizik", 0.3], [w(3), "sihir", 0.3], [w(5), "whoosh", 0.25], [w(10), "sonme", 0.3], [w(12), "kalem", 0.25]],
+  "may-beyin": (w) => [[w(1), "pop", 0.3], [w(5), "yuksel", 0.3], [w(8) - 4, "sihir", 0.3], [w(12), "sonme", 0.35]],
+  "may-siesta": (w) => [[0, "whoosh", 0.25], [w(4) - 2, "kalem", 0.3], [w(9), "yuksel", 0.3], [w(14), "pirilti", 0.35]],
+  "may-son": (w) => [[w(3), "ding", 0.35], [w(5), "whoosh", 0.3], [w(6) + 4, "tak", 0.3], [w(11), "kagit", 0.35]],
   "bul2-soru": () => [[2, "pop", 0.25]],
   "bul2-ceza": (w) => [[2, "tak", 0.5], [w(0), "kalem", 0.3], [w(3), "pop", 0.35]],
   "bul2-kayip": (w) => [[0, "kagit", 0.3], [w(5), "ding", 0.35], [w(6), "kacing", 0.3], [w(8), "bip", 0.35], [w(10), "whoosh", 0.35], [w(11) + 6, "pop", 0.4]],
@@ -12307,7 +12315,642 @@ const B2Bende: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 10 mayışma: "Yemeği yedin… ve üstüne bir ağırlık çöktü." (dokun → sor → açıkla → tarih + vücudun içi → bağla) ---------- */
+
+const MY_AV = { x: 400, y: 1560, s: 1 }; // masada oturan avatar (bacaklar masanın arkasında)
+const MY_TT = 1100; // masa üstü
+const MY_PLATE: Arm = [-28, 128]; // el tabakta
+const MY_MOUTH: Arm = [-60, 212]; // çatal ağızda
+const MY_REST: Arm = [-14, 120]; // kol masada
+const MY_CHIN: Arm = [-42, -156]; // eli çenesinde
+const MY_HEAD = { x: MY_AV.x, y: MY_AV.y - 700 };
+const MY_CLOCK = { x: 190, y: 330, r: 105 };
+const MY_BOARD = { x: 610, y: 210, w: 410, h: 530 };
+const MY_TODO = ["Rapor", "Mail", "Sunum"];
+
+// çatalla yemek: el tabaktan ağza yavaşça gidip gelir; b karesinden sonra el tabakta kalır
+const myEat = (f: number, b: number): Arm => {
+  if (f >= b) return MY_PLATE;
+  const k = 0.5 - 0.5 * Math.cos((f / 34) * Math.PI * 2);
+  return mixArm(MY_PLATE, MY_MOUTH, k);
+};
+
+// Ağırlaşan göz kapakları (0 açık … 1 kapalı); karakterin koordinatlarında, başla birlikte döner
+const Lids: React.FC<{ lid: number; tilt?: number; lookY?: number }> = ({ lid, tilt = 0, lookY = 0 }) =>
+  lid > 0.03 && lid < 0.97 ? (
+    <g transform={`rotate(${tilt} 0 -630)`}>
+      {[-29, 29].map((x) => {
+        const top = -722 + lookY;
+        const h = 26 * lid;
+        return (
+          <g key={x}>
+            <path d={`M${x - 17} ${top - 2} L${x + 17} ${top - 2} L${x + 17} ${top + h} Q${x} ${top + h + 7} ${x - 17} ${top + h} Z`} fill={C.skin} />
+            <path d={`M${x - 15} ${top + h} Q${x} ${top + h + 7} ${x + 15} ${top + h}`} stroke={C.ink} strokeWidth={5} fill="none" strokeLinecap="round" />
+          </g>
+        );
+      })}
+    </g>
+  ) : null;
+
+// Duvar saati: dakika (13:30 = 810) → akrep/yelkovan; glow: "saatte" vurgusu
+const WallClock: React.FC<{ min: number; glow?: number }> = ({ min, glow = 0 }) => {
+  const { x, y, r } = MY_CLOCK;
+  const h = ((min / 60) % 12) * 30;
+  const m = (min % 60) * 6;
+  const hand = (deg: number, len: number, wd: number) => {
+    const a = (deg * Math.PI) / 180;
+    return <path d={`M${x} ${y} L${x + Math.sin(a) * len} ${y - Math.cos(a) * len}`} stroke={C.ink} strokeWidth={wd} strokeLinecap="round" />;
+  };
+  return (
+    <g>
+      {glow > 0 ? <circle cx={x} cy={y} r={r + 40} fill={C.yellow} opacity={0.55 * glow} filter="url(#glow)" /> : null}
+      <circle cx={x} cy={y} r={r} fill={C.cream} stroke={C.ink} strokeWidth={10} />
+      {Array.from({ length: 12 }, (_, i) => {
+        const a = (i * 30 * Math.PI) / 180;
+        return <path key={i} d={`M${x + Math.sin(a) * (r - 14)} ${y - Math.cos(a) * (r - 14)} L${x + Math.sin(a) * (r - 30)} ${y - Math.cos(a) * (r - 30)}`} stroke={C.ink} strokeWidth={i % 3 === 0 ? 8 : 4} strokeLinecap="round" />;
+      })}
+      {hand(h, r * 0.48, 11)}
+      {hand(m, r * 0.72, 7)}
+      <circle cx={x} cy={y} r={9} fill={C.red} stroke={C.ink} strokeWidth={4} />
+    </g>
+  );
+};
+
+// Yapılacaklar panosu; notes[i]: i. işin üstüne yapışan "birazdan / sonra" kâğıdı (0..1)
+const TodoBoard: React.FC<{ notes?: number[]; mark?: number }> = ({ notes = [], mark = -1 }) => {
+  const { x, y, w, h } = MY_BOARD;
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      <rect x={x} y={y} width={w} height={h} rx={10} fill="#c99a62" strokeWidth={9} />
+      <rect x={x + 22} y={y + 22} width={w - 44} height={h - 44} rx={6} fill="#d9b07a" strokeWidth={4} />
+      <rect x={x + 60} y={y + 46} width={w - 120} height={h - 90} fill={C.cream} strokeWidth={5} transform={`rotate(-2 ${x + w / 2} ${y + h / 2})`} />
+      <circle cx={x + w / 2} cy={y + 56} r={13} fill={C.red} strokeWidth={4} />
+      <text x={x + w / 2} y={y + 130} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.ink} stroke="none">
+        YAPILACAKLAR
+      </text>
+      {MY_TODO.map((t, i) => (
+        <g key={t}>
+          {mark === i ? <rect x={x + 80} y={y + 175 + i * 100} width={w - 160} height={74} rx={10} fill={C.yellow} opacity={0.55} stroke="none" /> : null}
+          <rect x={x + 92} y={y + 192 + i * 100} width={36} height={36} rx={5} fill="#fffdf6" strokeWidth={5} />
+          <text x={x + 150} y={y + 226 + i * 100} fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink} stroke="none">
+            {t}
+          </text>
+        </g>
+      ))}
+      {notes.map((p, i) =>
+        p > 0 ? (
+          <g key={i} transform={`translate(${x + w - 110} ${y + 210 + i * 100}) scale(${p}) rotate(${i % 2 ? 7 : -6})`}>
+            <rect x={-95} y={-44} width={190} height={84} fill="#ffe36b" strokeWidth={5} />
+            <text x={0} y={14} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={44} fill={C.red} stroke="none">
+              {i === 0 ? "birazdan" : "sonra"}
+            </text>
+          </g>
+        ) : null,
+      )}
+    </g>
+  );
+};
+
+// Masa, tabak (food: kalan yemek 0..1), su bardağı
+const MyDesk: React.FC<{ food: number; forkOnPlate?: boolean }> = ({ food, forkOnPlate = false }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={30} y={MY_TT} width={1020} height={36} rx={8} fill="#8a5c35" strokeWidth={8} />
+    <rect x={60} y={MY_TT + 36} width={960} height={1600 - MY_TT - 36} fill="#a8744a" strokeWidth={8} />
+    <path d={`M100 ${MY_TT + 140} L980 ${MY_TT + 140}`} strokeWidth={5} opacity={0.4} />
+    <ellipse cx={590} cy={MY_TT - 6} rx={130} ry={30} fill="#fffdf6" strokeWidth={6} />
+    {food > 0.02 ? (
+      <g transform={`translate(590 ${MY_TT - 14}) scale(${0.35 + 0.65 * food}) translate(-590 ${-(MY_TT - 14)})`}>
+        <path d={`M520 ${MY_TT - 10} Q560 ${MY_TT - 64} 610 ${MY_TT - 10} Z`} fill="#f6f0dc" strokeWidth={5} />
+        <ellipse cx={645} cy={MY_TT - 20} rx={40} ry={18} fill="#a8643a" strokeWidth={5} />
+        <circle cx={540} cy={MY_TT - 34} r={10} fill="#7fb069" strokeWidth={3} />
+      </g>
+    ) : null}
+    {forkOnPlate ? <path d={`M640 ${MY_TT - 4} L720 ${MY_TT - 30}`} stroke="#cfcfcf" strokeWidth={9} strokeLinecap="round" /> : null}
+    <path d={`M806 ${MY_TT - 110} L854 ${MY_TT - 110} L848 ${MY_TT} L812 ${MY_TT} Z`} fill="#dbeef5" strokeWidth={6} opacity={0.9} />
+    <path d={`M809 ${MY_TT - 60} L851 ${MY_TT - 60}`} stroke={C.water} strokeWidth={5} />
+  </g>
+);
+
+// Uykunun ağırlığı: başın üstüne çöken koyu, yumuşak bulut (heavy 0..1, drop: yukarıdan inişi)
+const SleepWeight: React.FC<{ heavy: number; drop?: number; f: number; hi?: number }> = ({ heavy, drop = 1, f, hi = 0 }) => {
+  if (heavy <= 0) return null;
+  const y0 = MY_HEAD.y - 150 - 520 * (1 - drop);
+  const sq = 1 + 0.03 * Math.sin(f / 12);
+  return (
+    <g transform={`translate(${MY_HEAD.x} ${y0}) scale(${1.04 * sq} ${0.96 / sq})`} opacity={Math.min(1, heavy * 1.2)}>
+      {hi > 0 ? <ellipse cx={0} cy={0} rx={290} ry={130} fill={C.yellow} opacity={0.5 * hi} filter="url(#glow)" /> : null}
+      {[
+        [-150, 20, 85],
+        [-70, -40, 105],
+        [40, -50, 110],
+        [140, 10, 90],
+        [0, 30, 100],
+      ].map(([cx, cy, r], i) => (
+        <circle key={i} cx={cx} cy={cy} r={r} fill="#6c6670" stroke={C.ink} strokeWidth={7} />
+      ))}
+      {[
+        [-150, 20, 85],
+        [-70, -40, 105],
+        [40, -50, 110],
+        [140, 10, 90],
+        [0, 30, 100],
+      ].map(([cx, cy, r], i) => (
+        <circle key={`f${i}`} cx={cx} cy={cy} r={r - 4} fill="#6c6670" />
+      ))}
+      <path d="M-120 -30 Q-80 -70 -30 -60" stroke="#8d8791" strokeWidth={10} fill="none" strokeLinecap="round" />
+    </g>
+  );
+};
+
+// Ekranın kenarlarından içeri çöken karanlık (ağırlık hissi)
+const Heavy: React.FC<{ o: number }> = ({ o }) => {
+  const id = svgId(useId());
+  if (o <= 0) return null;
+  return (
+    <>
+      <radialGradient id={`hv${id}`} cx="50%" cy="45%" r="70%">
+        <stop offset="45%" stopColor="#1f1410" stopOpacity={0} />
+        <stop offset="100%" stopColor="#1f1410" stopOpacity={0.75} />
+      </radialGradient>
+      <rect x={-200} y={-200} width={1480} height={2320} fill={`url(#hv${id})`} opacity={o} />
+    </>
+  );
+};
+
+type MyAv = { arm?: Arm; armL?: Arm; lid?: number; tilt?: number; mouth?: Mouth; lookY?: number; blush?: number; drop?: number; fork?: boolean; kids?: React.ReactNode };
+// Ofis: duvar, saat, pano, avatar, masa
+const MyOffice: React.FC<{ f: number; min: number; av?: MyAv; food?: number; notes?: number[]; mark?: number; clockGlow?: number; forkOnPlate?: boolean; children?: React.ReactNode }> = ({ f, min, av = {}, food = 0, notes, mark, clockGlow = 0, forkOnPlate, children }) => {
+  const { arm = MY_REST, armL = MY_REST, lid = 0, tilt = 0, mouth = "smile", lookY = 0, blush = 0.4, drop = 0, fork = false, kids } = av;
+  return (
+    <>
+      <ellipse cx={540} cy={700} rx={560} ry={520} fill="#ffe2a0" opacity={0.2} />
+      <path d="M540 0 L540 120" stroke={C.ink} strokeWidth={6} />
+      <path d="M470 190 L610 190 L580 120 L500 120 Z" fill={C.yellow} stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+      <WallClock min={min} glow={clockGlow} />
+      <TodoBoard notes={notes} mark={mark} />
+      <Person x={MY_AV.x} y={MY_AV.y + 26 * drop} s={MY_AV.s} belly={0.55} armL={armL} armR={arm} mouth={mouth} eyes={lid >= 0.97 ? "closed" : "open"} lookY={lookY} tilt={tilt} blush={blush}>
+        {fork ? <Fork side={1} arm={arm} /> : null}
+        <Lids lid={lid} tilt={tilt} lookY={lookY} />
+        {kids}
+      </Person>
+      <MyDesk food={food} forkOnPlate={forkOnPlate} />
+      {children}
+      {f < 0 ? null : null}
+    </>
+  );
+};
+
+// Esneme: ağız açılır, el ağza
+const yawn = (f: number, a: number, len = 30) => f >= a && f < a + len;
+
+// 1 "Yemeği yedin… ve üstüne bir ağırlık çöktü. Gözlerin kendiliğinden kapanıyor."
+// Son lokmalar; çatalı tabağa bırakır, arkasına yaslanır. "Ağırlık çöktü"de koyu bulut başına iner, omuzları düşer, ekran kararır;
+// gözleri yavaş yavaş kapanır, esner, başı yana düşer.
+const MyAgirlik: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const done = w(1) + 10;
+  const eating = f < done;
+  const drop = tw(f, w(5) - 2, w(6) + 4);
+  const lid = tw(f, w(7), w(9) + 14) * 0.9;
+  const tilt = -14 * tw(f, w(8), d - 4);
+  const y = yawn(f, w(8) - 4, 26);
+  return (
+    <CamK k={[[0, 1, 540, 960], [w(4), 1.02, 520, 960], [w(6) + 4, 1.1, 460, 900], [d, 1.2, 430, 880]]} shake={hit(f, w(6) + 2, 14) * 0.6}>
+      <MyOffice
+        f={f}
+        min={810}
+        food={eating ? 0.45 * (1 - tw(f, 0, done)) + 0.05 : 0.05}
+        forkOnPlate={!eating}
+        av={{
+          arm: eating ? myEat(f, done) : y ? MY_MOUTH : MY_REST,
+          armL: MY_REST,
+          fork: eating,
+          lid: y ? 0.9 : lid,
+          tilt,
+          drop,
+          mouth: y ? "open" : eating ? (Math.floor(f / 6) % 2 ? "flat" : "smile") : drop > 0.5 ? "flat" : "smile",
+          blush: 0.5,
+        }}
+      >
+        <SleepWeight heavy={drop} drop={drop} f={f} />
+      </MyOffice>
+      <Heavy o={0.85 * drop} />
+    </CamK>
+  );
+};
+
+// 2 "Masadaki işi birazdan yaparım diye erteliyorsun. Sonra bir daha."
+// Çenesini eline dayamış, panoya bakar; işin üstüne "birazdan" kâğıdı yapışır, sonra diğerlerine "sonra"; saat ilerler.
+const MyErteleme: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const min = 810 + 70 * tw(f, w(2), d);
+  return (
+    <CamK k={[[0, 1.06, 560, 860], [w(1), 1.12, 700, 720], [w(5) + 6, 1.12, 700, 720], [d, 1.04, 560, 760]]}>
+      <MyOffice
+        f={f}
+        min={min}
+        food={0.05}
+        forkOnPlate
+        mark={f >= w(1) && f < w(6) ? 0 : -1}
+        notes={[pop(f, w(2) - 2, 12), pop(f, w(6), 12), pop(f, w(8), 12)]}
+        av={{ arm: MY_CHIN, armL: MY_REST, lid: 0.6, tilt: -6, lookY: -4, drop: 1, mouth: "flat" }}
+      >
+        <SleepWeight heavy={1} f={f} />
+      </MyOffice>
+      <Heavy o={0.6} />
+    </CamK>
+  );
+};
+
+// 3 "Ve içinden şu geçiyor: Ben neden bu kadar tembelim?" — başını öne eğer, düşünce balonunda kırmızı "TEMBELİM?".
+const MyTembel: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const b = pop(f, w(1) - 2, 14);
+  return (
+    <CamK k={[[0, 1.04, 560, 860], [d, 1.14, 520, 780]]}>
+      <MyOffice f={f} min={880} food={0.05} forkOnPlate notes={[1, 1, 1]} av={{ arm: MY_CHIN, armL: MY_REST, lid: 0.55, tilt: -4, lookY: 10, drop: 1, mouth: "worry", blush: 1 }}>
+        <SleepWeight heavy={0.8} f={f} />
+      </MyOffice>
+      <Heavy o={0.45} />
+      <Bubble x={720} y={430} rx={300} ry={190} p={b} tail={[MY_HEAD.x + 60, MY_HEAD.y - 160]}>
+        <HandText x={720} y={390} text="Ben neden bu kadar" size={58} color={C.ink} p={tw(f, w(4), w(7) + 4)} />
+        <HandText x={720} y={500} text="TEMBELİM?" size={110} color={C.red} p={tw(f, w(8) - 2, w(8) + 14)} />
+      </Bubble>
+    </CamK>
+  );
+};
+
+// 4 "Sence bu ağırlık nereden geliyor?" — başının üstündeki ağırlık parlar, üstünde lacivert dev "?".
+const MySoru: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, w(0), 12);
+  const hi = tw(f, w(2) - 2, w(2) + 8);
+  return (
+    <CamK k={[[0, 1.14, 520, 800], [d, 1.22, 440, 760]]}>
+      <MyOffice f={f} min={885} food={0.05} forkOnPlate notes={[1, 1, 1]} av={{ arm: MY_CHIN, armL: MY_REST, lid: 0.6, tilt: -6, lookY: -10, drop: 1, mouth: "o" }}>
+        <SleepWeight heavy={1} f={f} hi={hi} />
+      </MyOffice>
+      <Heavy o={0.45} />
+      {q > 0 ? (
+        <text x={MY_HEAD.x + 20} y={MY_HEAD.y - 290} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={240 * q} fill={YAS_OK} stroke={C.cream} strokeWidth={6} paintOrder="stroke" transform={`rotate(8 ${MY_HEAD.x} ${MY_HEAD.y - 300})`}>
+          ?
+        </text>
+      ) : null}
+    </CamK>
+  );
+};
+
+// Gün boyu uyanıklık eğrisi (saat 6 → 24): öğleden sonra (≈14) çukur, akşam yükselir, gece düşer
+const ALERT = (h: number) => 0.62 + 0.25 * Math.sin(((h - 8) / 24) * Math.PI * 2) - 0.2 * Math.exp(-((h - 14.3) ** 2) / 2.2) - (h > 21 ? (h - 21) * 0.12 : 0);
+const BodyClockLens: React.FC<{ x: number; y: number; r: number; p: number; dot: number; ghost?: number; f: number }> = ({ x, y, r, p, dot, ghost = 0, f }) => {
+  const id = svgId(useId());
+  if (p <= 0) return null;
+  const gx = (h: number) => x - r * 0.8 + ((h - 6) / 18) * r * 1.6;
+  const gy = (h: number, k = 0) => y + r * 0.42 - ALERT(h) * r * 0.9 + k;
+  const path = (k = 0) => Array.from({ length: 73 }, (_, i) => 6 + i * 0.25).map((h, i) => `${i ? "L" : "M"}${gx(h).toFixed(1)} ${gy(h, k).toFixed(1)}`).join(" ");
+  const hd = 6 + 8.3 * dot;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p}) translate(${-x} ${-y})`}>
+      <clipPath id={`bc${id}`}>
+        <circle cx={x} cy={y} r={r} />
+      </clipPath>
+      <circle cx={x} cy={y} r={r} fill={C.cream} />
+      <g clipPath={`url(#bc${id})`}>
+        <ellipse cx={gx(14.3)} cy={gy(14.3)} rx={r * 0.18} ry={r * 0.4} fill={C.yellow} opacity={0.35 + 0.25 * dot} />
+        <path d={`M${x - r * 0.82} ${y + r * 0.5} L${x + r * 0.82} ${y + r * 0.5}`} stroke={C.ink} strokeWidth={5} />
+        {[6, 10, 14, 18, 22].map((h) => (
+          <text key={h} x={gx(h)} y={y + r * 0.66} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={r * 0.12} fill={h === 14 ? C.red : C.ink}>
+            {h}:00
+          </text>
+        ))}
+        <path d={path()} stroke={C.ink} strokeWidth={9} fill="none" strokeLinecap="round" />
+        {ghost > 0 ? <path d={path(6)} stroke={YAS_OK} strokeWidth={7} fill="none" strokeDasharray="16 12" pathLength={1} opacity={ghost} /> : null}
+        <circle cx={gx(hd)} cy={gy(hd)} r={r * 0.07 * (1 + 0.08 * Math.sin(f / 3))} fill={C.red} stroke={C.ink} strokeWidth={5} />
+        <text x={x} y={y - r * 0.62} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={r * 0.13} fill={C.ink}>
+          UYANIKLIK
+        </text>
+      </g>
+      <circle cx={x} cy={y} r={r} fill="none" stroke={C.ink} strokeWidth={12} />
+    </g>
+  );
+};
+
+// Göğüste küçük iç saat (vücut saati)
+const ChestClock: React.FC<{ p: number; f: number; slow: number }> = ({ p, f, slow }) =>
+  p > 0 ? (
+    <g transform={`translate(${MY_AV.x} ${MY_AV.y - 500}) scale(${p})`}>
+      <circle r={70} fill={C.yellow} opacity={0.5} filter="url(#glow)" />
+      <circle r={52} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+      <path d={`M0 0 L${Math.sin(f / (6 + 40 * slow)) * 36} ${-Math.cos(f / (6 + 40 * slow)) * 36}`} stroke={C.ink} strokeWidth={7} strokeLinecap="round" />
+      <path d="M0 0 L0 -24" stroke={C.red} strokeWidth={8} strokeLinecap="round" transform="rotate(60)" />
+    </g>
+  ) : null;
+
+// 5 "Tembellikten değil. İçinde bir saat var ve öğleden sonra kendiliğinden yavaşlıyor. Hiç yemek yemesen bile."
+// "TEMBELİM?" kartı çarpıyla düşer; göğsünde iç saat yanar; mercekte uyanıklık eğrisi: kırmızı nokta sabahtan 14:00 çukuruna iner;
+// "hiç yemek yemesen bile": tabak tamamen boşalır ve lacivert kesik çizgi (yemeksiz gün) de aynı çukura düşer.
+const MySaat: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const card = pop(f, 0, 10) * (1 - tw(f, w(1) + 6, w(2)));
+  const clock = pop(f, w(3), 14);
+  const lens = tw(f, w(5), w(6) + 8);
+  const dot = tw(f, w(6), w(10) + 6);
+  const ghost = tw(f, w(12), w(14) + 8);
+  const lid = 0.15 + 0.55 * tw(f, w(9), w(10) + 6);
+  return (
+    <CamK k={[[0, 1.06, 540, 800], [w(5), 1.04, 560, 820], [d, 1.04, 560, 820]]}>
+      <MyOffice f={f} min={885} food={1 - tw(f, w(11), w(12) + 6) > 0 ? 0.05 * (1 - tw(f, w(11), w(12) + 6)) : 0} forkOnPlate={f < w(11)} notes={[1, 1, 1]} av={{ arm: MY_REST, armL: MY_REST, lid, tilt: -3 * dot, lookY: -6, drop: 1 - 0.6 * tw(f, 0, w(1)), mouth: f < w(2) ? "o" : "smile" }}>
+        <ChestClock p={clock} f={f} slow={dot} />
+        <SleepWeight heavy={0.45 + 0.45 * dot} f={f} />
+      </MyOffice>
+      {card > 0 ? (
+        <g transform={`translate(760 360) scale(${card}) rotate(-4)`}>
+          <rect x={-240} y={-80} width={480} height={150} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={100} fill={C.red}>
+            TEMBELİM?
+          </text>
+          <Cross x={0} y={-5} size={110} p={tw(f, 4, w(1) + 2)} />
+        </g>
+      ) : null}
+      {lens > 0 ? <path d={`M${MY_AV.x + 40} ${MY_AV.y - 540} L640 ${720}`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens} /> : null}
+      <BodyClockLens x={720} y={500} r={300} p={lens} dot={dot} ghost={ghost} f={f} />
+      {ghost > 0 ? <HandText x={720} y={880} text="yemek yemesen de" size={64} color={YAS_OK} p={ghost} /> : null}
+    </CamK>
+  );
+};
+
+// Beyin merceği: uyanık tutan hücreler (sarı); dim[i] 0..1 söner
+const BrainLens: React.FC<{ x: number; y: number; r: number; p: number; dims: number[]; sugar: number; f: number }> = ({ x, y, r, p, dims, sugar, f }) => {
+  const id = svgId(useId());
+  if (p <= 0) return null;
+  const cells = [
+    [-0.42, -0.18], [-0.18, -0.36], [0.12, -0.38], [0.4, -0.2], [-0.3, 0.1], [0.02, -0.06], [0.32, 0.1], [-0.08, 0.26], [0.2, 0.32],
+  ];
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p}) translate(${-x} ${-y})`}>
+      <clipPath id={`br${id}`}>
+        <circle cx={x} cy={y} r={r} />
+      </clipPath>
+      <circle cx={x} cy={y} r={r} fill="#3a2430" />
+      <g clipPath={`url(#br${id})`}>
+        <path
+          d={`M${x - r * 0.72} ${y + r * 0.1} C${x - r * 0.82} ${y - r * 0.5} ${x - r * 0.2} ${y - r * 0.75} ${x + r * 0.2} ${y - r * 0.62} C${x + r * 0.7} ${y - r * 0.6} ${x + r * 0.85} ${y - r * 0.05} ${x + r * 0.66} ${y + r * 0.3} C${x + r * 0.5} ${y + r * 0.62} ${x - r * 0.1} ${y + r * 0.6} ${x - r * 0.35} ${y + r * 0.48} C${x - r * 0.6} ${y + r * 0.45} ${x - r * 0.7} ${y + r * 0.32} ${x - r * 0.72} ${y + r * 0.1} Z`}
+          fill="#e7a3a6"
+          stroke={C.ink}
+          strokeWidth={7}
+        />
+        {[
+          `M${x - r * 0.5} ${y - r * 0.2} q${r * 0.12} ${-r * 0.16} ${r * 0.24} 0 t${r * 0.24} 0`,
+          `M${x - r * 0.1} ${y + r * 0.15} q${r * 0.12} ${-r * 0.16} ${r * 0.24} 0 t${r * 0.24} 0`,
+          `M${x - r * 0.55} ${y + r * 0.25} q${r * 0.1} ${r * 0.12} ${r * 0.22} 0`,
+          `M${x + r * 0.1} ${y - r * 0.45} q${r * 0.1} ${r * 0.14} ${r * 0.24} 0`,
+        ].map((dd, i) => (
+          <path key={i} d={dd} stroke="#a85a64" strokeWidth={6} fill="none" strokeLinecap="round" />
+        ))}
+        {cells.map(([cx, cy], i) => {
+          const on = 1 - (dims[i] ?? 0);
+          const px = x + cx * r;
+          const py = y + cy * r;
+          return (
+            <g key={i}>
+              <circle cx={px} cy={py} r={r * 0.11} fill={C.yellow} opacity={0.7 * on * (0.8 + 0.2 * Math.sin(f / 4 + i))} filter="url(#glow)" />
+              <circle cx={px} cy={py} r={r * 0.06} fill={on > 0.5 ? C.yellow : "#8a7f86"} stroke={C.ink} strokeWidth={4} />
+            </g>
+          );
+        })}
+        {cycles(f, 0, 7, 40).map(({ k, p: q }) => {
+          if (sugar <= 0) return null;
+          const t = cells[k % cells.length];
+          const sx = x - r * 0.9 + q * (t[0] * r + r * 0.9);
+          const sy = y + r * 0.95 + q * (t[1] * r - r * 0.95);
+          return <rect key={k} x={sx - 9} y={sy - 9} width={18} height={18} rx={3} fill="#fffdf6" stroke={C.ink} strokeWidth={3} opacity={sugar * (1 - q * 0.6)} transform={`rotate(${k * 37} ${sx} ${sy})`} />;
+        })}
+      </g>
+      <circle cx={x} cy={y} r={r} fill="none" stroke={C.ink} strokeWidth={12} />
+    </g>
+  );
+};
+
+// Midede yemek (gövdenin üstünde, masanın hemen üstü)
+const FullStomach: React.FC<{ p: number; f: number }> = ({ p, f }) =>
+  p > 0 ? (
+    <g transform={`translate(${MY_AV.x + 10} ${MY_AV.y - 520}) scale(${p})`} stroke={C.ink} strokeLinejoin="round">
+      <ellipse rx={95} ry={60} fill={C.glow} opacity={0.35 + 0.1 * Math.sin(f / 5)} stroke="none" filter="url(#glow)" />
+      <path d="M-70 -30 C-40 -70 40 -60 70 -20 C90 20 40 55 -10 45 C-60 38 -90 5 -70 -30 Z" fill="#e58f8f" strokeWidth={6} />
+      {[[-30, -5], [0, 10], [28, -10], [10, -28]].map(([cx, cy], i) => (
+        <circle key={i} cx={cx} cy={cy} r={11} fill={i % 2 ? "#a8643a" : "#f6f0dc"} strokeWidth={3} />
+      ))}
+    </g>
+  ) : null;
+
+// 6 "Dolu bir mide bunu derinleştirir: kana karışan şeker, beyninde seni uyanık tutan hücreleri tek tek kısar."
+// Mide yanar, ağırlık koyulaşır; şeker küpleri damardan başa akar; beyin merceğinde sarı hücreler tek tek söner, gözler kapanır.
+const MyBeyin: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const st = pop(f, w(1), 14);
+  const deep = tw(f, w(3), w(4) + 8);
+  const flow = tw(f, w(5), w(7) + 6);
+  const lens = tw(f, w(8) - 4, w(8) + 10);
+  const dims = Array.from({ length: 9 }, (_, i) => tw(f, w(12) + i * ((w(15) + 8 - w(12)) / 9), w(12) + (i + 1) * ((w(15) + 8 - w(12)) / 9)));
+  const lid = 0.35 + 0.6 * tw(f, w(12), d - 6);
+  const vein = `M${MY_AV.x + 10} ${MY_AV.y - 560} C${MY_AV.x + 160} ${MY_AV.y - 640} ${MY_AV.x + 150} ${MY_AV.y - 760} ${MY_AV.x + 60} ${MY_AV.y - 800}`;
+  return (
+    <CamK k={[[0, 1.08, 480, 900], [w(8), 1.08, 520, 820], [d, 1.06, 540, 800]]}>
+      <MyOffice f={f} min={890} food={0} notes={[1, 1, 1]} av={{ arm: MY_REST, armL: MY_REST, lid, tilt: -8 * tw(f, w(12), d), drop: 1, mouth: "flat" }}>
+        <FullStomach p={st} f={f} />
+        <SleepWeight heavy={0.5 + 0.5 * deep} f={f} />
+      </MyOffice>
+      <Heavy o={0.25 + 0.5 * deep} />
+      {flow > 0 ? (
+        <g>
+          <path d={vein} stroke="#b23a4a" strokeWidth={16} fill="none" strokeLinecap="round" opacity={0.85 * flow} />
+          {cycles(f, w(5), 6, 30).map(({ k, p: q }) => {
+            const t = q;
+            const bx = (1 - t) ** 3 * (MY_AV.x + 10) + 3 * (1 - t) ** 2 * t * (MY_AV.x + 160) + 3 * (1 - t) * t * t * (MY_AV.x + 150) + t ** 3 * (MY_AV.x + 60);
+            const by = (1 - t) ** 3 * (MY_AV.y - 560) + 3 * (1 - t) ** 2 * t * (MY_AV.y - 640) + 3 * (1 - t) * t * t * (MY_AV.y - 760) + t ** 3 * (MY_AV.y - 800);
+            return <rect key={k} x={bx - 10} y={by - 10} width={20} height={20} rx={3} fill="#fffdf6" stroke={C.ink} strokeWidth={3} transform={`rotate(${k * 41} ${bx} ${by})`} />;
+          })}
+          <HandText x={MY_AV.x + 250} y={MY_AV.y - 650} text="şeker" size={64} color={C.cream} p={tw(f, w(7) - 4, w(7) + 8)} />
+        </g>
+      ) : null}
+      {lens > 0 ? <path d={`M${MY_HEAD.x + 60} ${MY_HEAD.y - 40} L620 560`} stroke={C.cream} strokeWidth={6} strokeDasharray="14 10" opacity={lens} /> : null}
+      <BrainLens x={740} y={430} r={280} p={lens} dims={dims} sugar={tw(f, w(12) - 6, w(12))} f={f} />
+      {lens > 0 ? <HandText x={740} y={790} text="uyanık tutan hücreler" size={54} color={C.cream} p={tw(f, w(10), w(12))} /> : null}
+    </CamK>
+  );
+};
+
+// Güneş saati (önden, eğik kadran); gölge: 0 → VI (öğle)
+const Sundial: React.FC<{ x: number; y: number; shadow: number; glow: number }> = ({ x, y, shadow, glow }) => {
+  const nums = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"];
+  const ang = (i: number) => Math.PI - (i / 10) * Math.PI;
+  const rx = 300;
+  const ry = 110;
+  const a = ang(5 * shadow);
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      <rect x={x - 70} y={y + 40} width={140} height={260} fill="#d8c8a4" strokeWidth={7} />
+      <rect x={x - 110} y={y + 280} width={220} height={50} fill="#cdbb93" strokeWidth={7} />
+      <ellipse cx={x} cy={y} rx={rx + 30} ry={ry + 24} fill="#e9dcbc" strokeWidth={8} />
+      {nums.map((n, i) => (
+        <text key={n} x={x + Math.cos(ang(i)) * rx * 0.86} y={y - Math.sin(ang(i)) * ry * 0.75 + 14} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={i === 5 ? 54 : 38} fill={i === 5 && glow > 0.5 ? C.red : C.ink} stroke="none">
+          {n}
+        </text>
+      ))}
+      {glow > 0 ? <ellipse cx={x} cy={y - ry * 0.75} rx={60} ry={40} fill={C.yellow} opacity={0.5 * glow} stroke="none" filter="url(#glow)" /> : null}
+      <path d={`M${x} ${y} L${x + Math.cos(a) * rx * 0.7} ${y - Math.sin(a) * ry * 0.6}`} stroke="#5a4a3a" strokeWidth={16} strokeLinecap="round" opacity={0.6} />
+      <path d={`M${x - 8} ${y} L${x + 8} ${y} L${x} ${y - 150} Z`} fill="#7a6a52" strokeWidth={6} />
+    </g>
+  );
+};
+
+// Gölgeli ağaç (sepya köy)
+const ShadeTree: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <path d={`M${x - 40} ${y} L${x - 25} ${y - 520} L${x + 25} ${y - 520} L${x + 40} ${y} Z`} fill="#8a5c35" strokeWidth={8} />
+    {[
+      [-170, -560, 170],
+      [0, -680, 200],
+      [170, -560, 170],
+      [-80, -470, 150],
+      [90, -470, 150],
+    ].map(([dx, dy, r], i) => (
+      <circle key={i} cx={x + dx} cy={y + dy} r={r} fill="#7f9a62" strokeWidth={8} />
+    ))}
+    {[
+      [-170, -560, 170],
+      [0, -680, 200],
+      [170, -560, 170],
+      [-80, -470, 150],
+      [90, -470, 150],
+    ].map(([dx, dy, r], i) => (
+      <circle key={`f${i}`} cx={x + dx} cy={y + dy} r={r - 4} fill="#7f9a62" />
+    ))}
+    <ellipse cx={x + 20} cy={y + 20} rx={330} ry={44} fill={C.ink} opacity={0.2} stroke="none" />
+  </g>
+);
+
+const Zzz: React.FC<{ x: number; y: number; f: number; o: number }> = ({ x, y, f, o }) =>
+  o > 0 ? (
+    <g opacity={o}>
+      {[0, 1, 2].map((i) => {
+        const q = ((f / 40 + i / 3) % 1 + 1) % 1;
+        return (
+          <text key={i} x={x + q * 80} y={y - q * 160} fontFamily={handFamily} fontWeight={700} fontSize={70 + 40 * q} fill={C.ink} opacity={1 - q}>
+            z
+          </text>
+        );
+      })}
+    </g>
+  ) : null;
+
+// 7 "İnsanlar bunu yüzyıllardır biliyor. Siesta, Latincede altıncı saat demek: güneş doğduktan altı saat sonra, tam öğle vakti."
+// Sepya eski kasaba: avatar ağacın gölgesinde oturmuş uyukluyor; "SIESTA = sexta hora"; güneş ufuktan doğar, yayı çizip tepeye
+// gelir, güneş saatinin gölgesi VI'ya döner, saat sayacı 1→6.
+const MySiesta: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const rise = tw(f, w(9) - 4, w(10) + 6);
+  const arc = tw(f, w(11), w(15) + 4);
+  const sa = Math.PI - arc * (Math.PI / 2);
+  const sx = 540 + Math.cos(sa) * 420;
+  const sy = 880 - Math.sin(sa) * 330 + (1 - rise) * 200;
+  const hours = Math.max(0, Math.min(6, Math.floor(arc * 6 + 0.001)));
+  const noon = tw(f, w(14), w(16) + 6);
+  return (
+    <CamK k={[[0, 1.04, 540, 960], [w(4), 1.04, 540, 940], [w(9), 1.0, 540, 960], [d, 1.03, 540, 900]]}>
+      <rect x={-60} y={-60} width={1200} height={1100} fill="#f0d8a6" />
+      <path d="M-60 900 L180 760 L360 860 L560 720 L780 850 L960 760 L1140 860 L1140 1040 L-60 1040 Z" fill="#c9b07e" stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+      <rect x={-60} y={980} width={1200} height={1000} fill="#d8bf8c" />
+      {[[120, 840], [880, 820]].map(([hx, hy], i) => (
+        <g key={i} stroke={C.ink} strokeWidth={7} strokeLinejoin="round">
+          <rect x={hx - 90} y={hy} width={180} height={160} fill="#efe1c0" />
+          <path d={`M${hx - 110} ${hy} L${hx} ${hy - 90} L${hx + 110} ${hy} Z`} fill="#b86a45" />
+          <rect x={hx - 26} y={hy + 70} width={52} height={90} fill="#8a5c35" />
+        </g>
+      ))}
+      {sy < 1000 ? <Sun x={sx} y={sy} s={0.85 + 0.25 * noon} rot={f} /> : null}
+      <ShadeTree x={260} y={1500} />
+      <Person x={250} y={1600} s={0.78} belly={0.55} armL={[14, -20]} armR={[14, -20]} mouth="flat" eyes="closed" tilt={-14} />
+      <g stroke={C.ink} strokeWidth={7} strokeLinejoin="round">
+        <rect x={80} y={1330} width={340} height={30} rx={6} fill="#9a6a40" />
+        <rect x={95} y={1360} width={310} height={110} fill="#b07a4a" />
+        <rect x={105} y={1470} width={26} height={120} fill="#8a5c35" />
+        <rect x={369} y={1470} width={26} height={120} fill="#8a5c35" />
+      </g>
+      <Zzz x={330} y={1020} f={f} o={tw(f, 0, 10)} />
+      <Sundial x={760} y={1300} shadow={arc} glow={noon} />
+      {arc > 0 ? (
+        <g transform={`translate(760 1080) scale(${pop(f, w(11), 12)})`}>
+          <rect x={-120} y={-60} width={240} height={90} rx={18} fill={C.cream} stroke={C.ink} strokeWidth={6} />
+          <text x={0} y={10} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={60} fill={hours === 6 ? C.red : C.ink}>
+            {hours}. saat
+          </text>
+        </g>
+      ) : null}
+      <HandText x={540} y={240} text="SIESTA" size={150} color={C.red} p={tw(f, w(4) - 2, w(4) + 12)} rotate={-3} />
+      <HandText x={540} y={370} text="= sexta hora" size={84} color={C.ink} p={tw(f, w(5), w(6) + 4)} rotate={-3} />
+      <HandText x={540} y={470} text="altıncı saat" size={72} color={YAS_OK} p={tw(f, w(6), w(8) + 4)} rotate={-3} />
+      <OldPhoto o={1} />
+    </CamK>
+  );
+};
+
+// 8 "Yani sorun sende değil, saatte. Yarın o ağırlık yine çöktüğünde, kendine tembel deme."
+// Ofise dönüş: avatar başını kaldırır, duvar saati parlar ("saatte"); saat ertesi güne döner, yeni tabak gelir, yemeğe başlar;
+// "tembel" kâğıdını buruşturup atar. Son kare = ilk kare (yemek yerken, 13:30).
+const MySon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const glow = tw(f, w(3), w(4) + 6) * (1 - tw(f, w(5), w(5) + 8));
+  const spin = tw(f, w(5), w(6) + 10);
+  const min = 890 + spin * (1440 - 890 + 810);
+  const plate = tw(f, w(6), w(7) + 6);
+  const eat = f >= w(7) + 6;
+  const card = pop(f, w(10) - 4, 12) * (1 - tw(f, w(12) + 2, w(12) + 14));
+  const crumple = tw(f, w(11), w(12) + 4);
+  const cloud = tw(f, w(8), w(9) + 6) * (1 - tw(f, d - 30, d - 14)) * 0.35;
+  return (
+    <CamK k={[[0, 1.06, 480, 880], [w(4), 1.0, 520, 900], [w(6), 1.0, 540, 960], [d, 1, 540, 960]]}>
+      <MyOffice
+        f={f}
+        min={min}
+        clockGlow={glow}
+        food={plate * 0.5}
+        forkOnPlate={!eat && plate > 0.5}
+        notes={f < w(5) ? [1, 1, 1] : [1 - spin, 1 - spin, 1 - spin]}
+        av={{
+          arm: eat ? myEat(f, d + 100) : MY_REST,
+          armL: MY_REST,
+          fork: eat,
+          lid: 0.3 * (1 - tw(f, 0, w(1))),
+          drop: 1 - tw(f, 0, w(2)),
+          lookY: f < w(4) + 6 ? -12 : 0,
+          mouth: f < w(5) ? "grin" : "smile",
+        }}
+      >
+        <SleepWeight heavy={cloud} f={f} />
+      </MyOffice>
+      {card > 0 ? (
+        <g transform={`translate(760 400) scale(${card * (1 - 0.7 * crumple)}) rotate(${-4 + 220 * crumple})`}>
+          <rect x={-200} y={-70} width={400} height={130} rx={18 + 50 * crumple} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={90} fill={C.red} opacity={1 - crumple}>
+            tembel
+          </text>
+          <Cross x={0} y={-5} size={90} p={tw(f, w(11) - 4, w(11) + 6)} />
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "may-agirlik": MyAgirlik,
+  "may-erteleme": MyErteleme,
+  "may-tembel": MyTembel,
+  "may-soru": MySoru,
+  "may-saat": MySaat,
+  "may-beyin": MyBeyin,
+  "may-siesta": MySiesta,
+  "may-son": MySon,
   "bul2-soru": B2Soru,
   "bul2-ceza": B2Ceza,
   "bul2-kayip": B2Kayip,
