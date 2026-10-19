@@ -96,7 +96,7 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
 - **!!! SESLER (kullanıcı, 19 Ekim): Yunus = ANA SES, Sibel = YALNIZ ANNE SESİ.** Genç kadın karakter için Sibel KULLANMA;
   ayrı genç kadın sesi seçilecek. Adaylar (ElevenLabs paylaşılan kitaplık, tanıtım örnekleri `ses-ornekleri/genc-kadin-adaylar/`):
   1 Gözde `rtnDjO8siSxeTEeTVczO`, 2 Zeynep `ZaoBgxgzPhoCm533Pb7B`, 3 Damla `A2XgcJ6lQVEFeIaIUyrc`, 4 Elif Özder
-  `i50A6Mcx7A7vVwCVZVeZ`, 5 İrem `R0D8QjgVyRju4HRoCrIC`, 6 Aslı `HZh2tWL1clJO95e2qMt2`. Kullanıcı seçecek → kitaplığa ekle
+  `i50A6Mcx7A7vVwCVZVeZ`, 5 İrem `R0D8QjgVyRju4HRoCrIC`, 6 Aslı `HZh2tWL1clJO95e2qMt2`. **SEÇİLDİ: 6 Aslı `HZh2tWL1clJO95e2qMt2` (kitaplıkta "VOOM genc-kadin-asli") = genç kadın sesi.** Ekleme:
   (`POST /v1/voices/add/{public_owner_id}/{voice_id}`) → JSON'da kadın sahnelerinin `voiceId`'si. Kalan kredi ≈ 13.617.
 - **09 KİLO v4 "Bulaşık iddiası"** (`cizim1-09-kilo-iddia`, kullanıcı "senaryoyu baştan yarat" dedi, metin "hemen önizleme"):
   mutfak (tezgâh, lavabo, KAYBEDEN eldivenleri) → iddia → ay sonu tartı −5/−1 → kadının iç sesi "Haklıymış… kadınlar zor
