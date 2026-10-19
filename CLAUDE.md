@@ -93,6 +93,17 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
    kişi) vücut büyüklüğü hesaba katılınca kadın-erkek farkı yok (DOĞRULA).
 
 **>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
+- **!!! SESLER (kullanıcı, 19 Ekim): Yunus = ANA SES, Sibel = YALNIZ ANNE SESİ.** Genç kadın karakter için Sibel KULLANMA;
+  ayrı genç kadın sesi seçilecek. Adaylar (ElevenLabs paylaşılan kitaplık, tanıtım örnekleri `ses-ornekleri/genc-kadin-adaylar/`):
+  1 Gözde `rtnDjO8siSxeTEeTVczO`, 2 Zeynep `ZaoBgxgzPhoCm533Pb7B`, 3 Damla `A2XgcJ6lQVEFeIaIUyrc`, 4 Elif Özder
+  `i50A6Mcx7A7vVwCVZVeZ`, 5 İrem `R0D8QjgVyRju4HRoCrIC`, 6 Aslı `HZh2tWL1clJO95e2qMt2`. Kullanıcı seçecek → kitaplığa ekle
+  (`POST /v1/voices/add/{public_owner_id}/{voice_id}`) → JSON'da kadın sahnelerinin `voiceId`'si. Kalan kredi ≈ 13.617.
+- **09 KİLO v4 "Bulaşık iddiası"** (`cizim1-09-kilo-iddia`, kullanıcı "senaryoyu baştan yarat" dedi, metin "hemen önizleme"):
+  mutfak (tezgâh, lavabo, KAYBEDEN eldivenleri) → iddia → ay sonu tartı −5/−1 → kadının iç sesi "Haklıymış… kadınlar zor
+  kilo verir." (bulut) → laboratuvar → "Gördün mü?" → hakem düdüğü, kalori 667/439 → 600/600, damga düşer → avatar "Yani…
+  bulaşık bende mi?" (eldivenler ona geçer) → "Kilo farkı, emek farkı değil. Bu videoyu iddiaya girdiğin kişiye gönder." +
+  ekranda "Sizde iddiayı kim kazandı?". Bileşenler `bul-*` (`Mutfak`, `KitchenCounter`, `Glove`, `LoserGloves`, `Whistle`).
+  12 madde tablosu kontrol edildi: zayıf = tempo (hakem cümlesi ~9 sn) ve "eşinle" (bekârları dışlar) — kullanıcıya soruldu.
 - **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →
   `cizim1-09-kilo-a` (tam video, sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-a-sessiz.mp4`): A1 tartı ekranları +
   duvar takvimi (HAFTA 1→4), kadın çatalını bırakır → A2 iç ses bulutta (Sibel) → A3 "Peki ya sorun sende değilse?" (lacivert
