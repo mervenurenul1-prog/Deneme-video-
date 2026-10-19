@@ -558,6 +558,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "selc-bugun": (w) => [[w(1), "ding", 0.3], [w(3), "tik", 0.3], [w(9) - 4, "whoosh", 0.35], [w(11), "sonme", 0.3]],
   "selc-ip": (w) => [[w(4), "pop", 0.3], [w(6), "kalem", 0.3], [w(10), "yuksel", 0.3], [w(12), "cizik", 0.3]],
   "selc-son": (w, d) => [[w(0), "kalem", 0.3], [w(2), "cizik", 0.3], [w(2) + 6, "agir-dusme", 0.35], [w(3), "pop", 0.3], [w(6), "pop", 0.25], [w(12), "ding", 0.3], [d - 28, "whoosh", 0.3]],
+  "selc-yaygin": (w) => [[w(1), "pop", 0.3], [w(4), "pop", 0.3], [w(4) + 6, "ding", 0.3]],
   "selc-erkek": (w) => [[2, "whoosh", 0.25], [w(2), "kalem", 0.3], [w(5), "ding", 0.3], [w(12), "cizik", 0.3], [w(13), "kalem", 0.3]],
   "sel-son": (w, d) => [[w(0), "kalem", 0.3], [w(8), "cizik", 0.3], [w(15), "kalem", 0.3], [w(16) + 4, "agir-dusme", 0.35], [w(17), "pop", 0.3], [d - 24, "whoosh", 0.3]],
   "kilo-sofra1": (w) => [[w(3), "pop", 0.3], [w(7), "ding", 0.3], [w(11), "bip", 0.3]],
@@ -714,6 +715,7 @@ const ZOOM: Record<string, Zoom> = {
   "selc-ip": { to: 1.0, x: 540, y: 960 },
   "selc-erkek": { to: 1.03, x: 540, y: 900 },
   "selc-son": { to: 1.0, x: 540, y: 960 },
+  "selc-yaygin": { to: 1.0, x: 540, y: 960 },
   "yanlis-fikir": { to: 1.05, x: 540, y: 700 },
   "yag-hucresi": { to: 1.06, x: 700, y: 760 },
   nefes: { to: 1.08, x: 600, y: 700 },
@@ -13327,6 +13329,44 @@ const SelcSon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// 9) "Spor yapanda da var, yapmayanda da."
+// Üst sırada beş sporcu kadın (dambıl, bandana) belirir, "yapanda"da uyluklarında portakal lekesi; alt sırada beş kadın
+// kanepede/telefonla, "yapmayanda"da onlarda da; ortada lacivert "=" işareti.
+const SelcYaygin: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const shirts = ["#d9705f", "#8fb08a", "#7d9cc4", "#e0b030", "#b06a8a"];
+  const eq = pop(f, w(4) + 4, 12);
+  return (
+    <>
+      <rect x={0} y={0} width={1080} height={1920} fill={C.cream} opacity={0.5} />
+      <CamK k={[[0, 1, 540, 960], [w(5) + 6, 1.05, 540, 900]]}>
+        <KTag x={540} y={420} p={pop(f, 0, 10)} text="SPOR YAPAN" color={YAS_OK} rot={-3} />
+        <KTag x={540} y={1000} p={pop(f, w(3), 10)} text="YAPMAYAN" color={C.red} rot={3} />
+        {Array.from({ length: 10 }, (_, i) => {
+          const row = Math.floor(i / 5);
+          const x = 140 + (i % 5) * 200;
+          const y = 820 + row * 560;
+          const p = pop(f, row ? w(3) - 4 + (i % 5) * 2 : (i % 5) * 2, 10);
+          const badge = pop(f, row ? w(4) + (i % 5) * 2 : w(1) + (i % 5) * 2, 10);
+          return (
+            <g key={i}>
+              <MiniW x={x} y={y} s={1.6 * p} c={shirts[i % 5]} badge={badge} />
+              {!row && p > 0.5 ? <Dumbbell x={x + 70} y={y - 110 * 1.6} s={0.5} rot={-20} /> : null}
+              {row && p > 0.5 ? <rect x={x + 40} y={y - 210} width={34} height={56} rx={8} fill="#2b2b30" stroke={C.ink} strokeWidth={4} /> : null}
+            </g>
+          );
+        })}
+        {eq > 0 ? (
+          <g transform={`translate(540 1110) scale(${eq})`} stroke={C.ink} strokeWidth={6}>
+            <circle r={60} fill={C.yellow} />
+            <path d="M-30 -12 H30 M-30 12 H30" strokeWidth={14} strokeLinecap="round" stroke={YAS_OK} />
+          </g>
+        ) : null}
+      </CamK>
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
   "sel-reklam": SelReklam,
   "sel-haklisin": SelHaklisin,
@@ -13349,6 +13389,7 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   "selc-ip": SelcIp,
   "selc-erkek": SelcErkek,
   "selc-son": SelcSon,
+  "selc-yaygin": SelcYaygin,
   "kilo-son2": KiloSon2,
   "kilo-sofra1": KiloSofra1,
   "kilo-sofra2": KiloSofra2,

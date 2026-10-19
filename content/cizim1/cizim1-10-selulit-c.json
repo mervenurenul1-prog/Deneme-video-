@@ -10,7 +10,7 @@
   "maxPause": 0.3,
   "music": "music/merak-gerilim.mp3",
   "loop": true,
-  "padding": 0.05,
+  "padding": 0.02,
   "caption": "Selülit bir kusur mu? Rubens Üç Güzeller'de (1630'lar, Prado) kıvrımlı bedenleri olduğu gibi boyadı; o dönem güzellik ölçüsüydü. Kelime İngilizce basına 1968'de bir moda dergisiyle girdi. Sebep: deri altındaki bağ dokusu ipleri kadınlarda dik, erkeklerde çapraz dizilir (Nürnberger & Müller 1978).",
   "hashtags": [
     "selülit",
@@ -57,15 +57,15 @@
       "say": "Erkeklerde ise ipler çapraz örülür, deri düz kalır. Bu bir emek farkı değil... yapı farkı."
     },
     {
-      "visual": "sel-yaygin",
-      "voice": "Bu yüzden on kadından sekiz-dokuzunda var.",
-      "say": "Bu yüzden on kadından sekiz-dokuzunda var."
+      "visual": "selc-yaygin",
+      "voice": "Spor yapanda da var, yapmayanda da.",
+      "say": "Spor yapanda da var... yapmayanda da."
     },
     {
       "visual": "selc-son",
       "voice": "Yani bacakların bozulmadı. Sence bu bir kusur mu, yoksa sana öyle mi öğretildi?",
       "say": "Yani bacakların bozulmadı. [curious] Sence bu bir kusur mu... yoksa sana öyle mi öğretildi?",
-      "hold": 1.6
+      "hold": 0.6
     }
   ]
 }
