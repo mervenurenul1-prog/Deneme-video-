@@ -8,7 +8,38 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
-## >>> EN GÜNCEL DEVİR (19 Ekim akşam) — YENİ SOHBET BURADAN BAŞLASIN <<<
+## >>> EN GÜNCEL DEVİR (19 Ekim GECE, en son) — YENİ SOHBET BURADAN BAŞLASIN <<<
+- Çalışma dalı: bu oturumda `claude/claudemd-guncel-devir-ses-lkl9s6` kullanıldı; her işten sonra çalışma dalı + `main` push.
+- **SÜRE SINIRI: yeni bilgi videoları en fazla 30 sn** (~400-420 karakter). Kullanıcı: "az ve öz konuş, akılda kalıcı,
+  çok iyi görselleştir"; Claude'un sohbet mesajları da KISA olsun.
+- **10 MAYIŞMA (`cizim1-10-mayisma`) — ŞU ANKİ İŞ, KISA SÜRÜM:** Konu: yemekten sonra çöken ağırlık. Tek fikir: tabak →
+  şeker → beyin. Fare/2006 deneyi ANLATILMAYACAK (kullanıcı: "saçmalayacaksan bahsetme"; gerçek deney fare beyin dilimi,
+  uyuyan fare değil). Kod: sahneler `skk-agirlik`, `sk-seker`, `sk-soru`, `sk-tabak2` (roket kan şekeri grafiği),
+  `sk-beyin2` (hücreler söner, baş masaya düşer), `skk-son` (doktor kartı). JSON şu an şu metinle:
+  "Karnını bir güzel doyurdun… ve üstüne bir ağırlık çöktü." / "Aklına şu geliyor: Yoksa şekerim mi var?" / "Sence bu
+  ağırlık nereden geliyor?" / "Çoğu zaman tabağından. Pilav, ekmek, tatlı kandaki şekeri bir anda fırlatır." / "Şeker
+  yükselince, beyninde seni uyanık tutan hücreler tek tek kısılır." / "Yani çoğu zaman suçlu hastalık değil, tabak. Ama her
+  seferinde bayılacak gibiysen, bir doktora görün."
+  **SON İSTEK (onay bekliyor): "anlatımı geliştir, görselleştirmeyi ve betimlemeyi arttır".** Önerilen yeni metin:
+  1 "Son lokmayı yuttun. Göz kapakların kurşun gibi ağırlaştı." 2 "Ve içinden bir ses: Yoksa şekerim mi var?" 3 "Sence bu
+  ağırlık nereden geliyor?" 4 "Tabağına bak: pilav, ekmek, tatlı. Midene indikleri an şekere dönüşüp kanına karışıyorlar."
+  5 "Kandaki şeker fırlayınca, seni uyanık tutan beyin hücreleri tek tek söner; bir binanın ışıkları gibi." 6 "Çoğu zaman
+  hastalık değil, tabak. Ama her seferinde bayılacak gibiysen, bir doktora görün." Görsel: kurşun ağırlık göz
+  kapaklarını çeker; yiyecekler küp şekere dönüşüp kırmızı damara akar; beyin merceği gece binasına dönüşür, pencereler
+  tek tek söner, son ışıkla baş masaya düşer. → kullanıcı onaylarsa uygula → sessiz (müzikli) önizleme → onay → seslendirme.
+- **Uzun sürüm (`cizim1-10-mayisma-uzun`, ~45 sn, `sku-*` = kısa bileşenlerin uzun metne eşlenmesi):** kullanıcı "uzunu da
+  atma, değiştirme" dedi → BEKLEMEDE, gönderilmedi.
+- Kısa sürümün önceki hâli: `ornek-videolar/cizim1-pilot/10-mayisma-kisa-sessiz.mp4` (32 sn; kullanıcı "her yerden
+  kısmışsın" dedi, beğenmedi).
+- **Görüntü kalitesi (kullanıcı şikâyet etti):** `scripts/render.ts` artık `jpegQuality: 100, crf: 16`. Önizleme
+  render'ında da `--jpeg-quality=100 --crf=17` kullan (eski önizlemeler crf 23 + JPEG 80 → bulanıktı). 30 MB'ı aşarsa
+  kaliteyi koruyarak sıkıştır.
+- **Render ipucu:** bekleme döngüsünde `pgrep -f` kendi kabuğunu da yakalıyor (sonsuz döngü) → kullanma; render'ları
+  doğrudan sırayla başlat. Durdurmak için PID ile `kill`.
+- 09 kilo (`cizim1-09-kilo-hangimiz`) seslendirildi, `ornek-videolar/cizim1-pilot/09-kilo-hangimiz.mp4` (45,8 sn) — kullanıcı
+  geri bildirim vermedi. Kalan ElevenLabs kredisi ≈ 13.090 (API 13.617 gösteriyordu, gecikmeli olabilir).
+
+## (önceki) EN GÜNCEL DEVİR (19 Ekim akşam)
 - Çalışma dalı `claude/claude-md-continuation-e39del` (= main). `npm ci` → işe başla. Kalan ElevenLabs kredisi ≈ 13.600.
 - **09 KİLO: geçerli sürüm `cizim1-09-kilo-hangimiz`** ("Hangimiz daha önce kilo verecek?"; ayrıntı aşağıda "09 KİLO v5").
   Sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-hangimiz-sessiz.mp4` kullanıcıya gönderildi → **onay/düzeltme
