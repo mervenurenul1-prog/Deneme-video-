@@ -557,8 +557,8 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "bul-lab4": (w) => [[w(1), "bip", 0.5], [w(3), "cizik", 0.35], [w(7), "yuksel", 0.3], [w(9), "whoosh", 0.25], [w(15), "kalem", 0.3], [w(17), "agir-dusme", 0.4], [w(18) + 4, "pirilti", 0.35]],
   "bul-bende": (w) => [[4, "pop", 0.45], [8, "sonme", 0.3], [w(2), "pop", 0.3]],
   "bul-son": (w, d) => [[w(0), "kalem", 0.3], [w(5), "pop", 0.25], [w(6), "pop", 0.3], [d - 24, "whoosh", 0.2]],
-  "kan-agirlik": (w) => [[w(2) + 10, "tak", 0.3], [w(7), "agir-dusme", 0.45], [w(12) - 2, "nefes", 0.3]],
-  "kan-anne": (w) => [[w(0), "pop", 0.3], [w(4), "whoosh", 0.25]],
+  "kan-agirlik": (w) => [[w(3) + 10, "tak", 0.3], [w(8), "agir-dusme", 0.45], [w(13) - 2, "nefes", 0.3]],
+  "kan-internet": (w) => [[0, "pop", 0.3], [w(0), "klavye", 0.3], [w(5), "ding", 0.3]],
   "kan-arkadas": (w) => [[w(1), "whoosh", 0.25], [w(7), "ding", 0.25], [w(9), "ding", 0.25]],
   "kan-soru": (w) => [[w(0), "pop", 0.35]],
   "kan-tabak": (w) => [[2, "cizik", 0.3], [w(3), "pop", 0.3], [w(8), "pop", 0.25], [w(11), "yuksel", 0.35]],
@@ -13032,11 +13032,11 @@ const BloodMap: React.FC<{ p: number; f: number; myth?: number; cross?: number; 
   if (p <= 0) return null;
   const hx = MY_AV.x + 30;
   const hy = MY_AV.y - 540;
-  const up = `M${hx} ${hy} C${hx + 10} ${hy - 40} ${hx + 10} ${hy - 70} ${MY_HEAD.x + 30} ${MY_HEAD.y + 70}`;
+  const up = `M${hx} ${hy} C${hx + 10} ${hy - 40} ${hx + 10} ${hy - 70} ${MY_HEAD.x + 20} ${MY_HEAD.y + 110}`;
   const down = `M${hx} ${hy} C${hx + 20} ${hy + 30} ${hx} ${hy + 50} ${MY_AV.x + 10} ${MY_AV.y - 470}`;
   const dots = (d: "up" | "down", k: number, q: number) => {
     const t = q;
-    const [x0, y0, x1, y1, x2, y2, x3, y3] = d === "up" ? [hx, hy, hx + 10, hy - 40, hx + 10, hy - 70, MY_HEAD.x + 30, MY_HEAD.y + 70] : [hx, hy, hx + 20, hy + 30, hx, hy + 50, MY_AV.x + 10, MY_AV.y - 470];
+    const [x0, y0, x1, y1, x2, y2, x3, y3] = d === "up" ? [hx, hy, hx + 10, hy - 40, hx + 10, hy - 70, MY_HEAD.x + 20, MY_HEAD.y + 110] : [hx, hy, hx + 20, hy + 30, hx, hy + 50, MY_AV.x + 10, MY_AV.y - 470];
     const bx = (1 - t) ** 3 * x0 + 3 * (1 - t) ** 2 * t * x1 + 3 * (1 - t) * t * t * x2 + t ** 3 * x3;
     const by = (1 - t) ** 3 * y0 + 3 * (1 - t) ** 2 * t * y1 + 3 * (1 - t) * t * t * y2 + t ** 3 * y3;
     return <circle key={`${d}${k}`} cx={bx} cy={by} r={9} fill="#d94040" stroke={C.ink} strokeWidth={3} />;
@@ -13107,21 +13107,21 @@ const writeArm = (f: number): Arm => [KN_WRITE[0] + 4 * Math.sin(f / 3), KN_WRIT
 // Son lokmalar (pilav, ekmek, tatlı); çatal tabağa; koyu ağırlık başına iner, ekran kararır; kâğıt yığını parlar; gözler kapanır, esner.
 const KnAgirlik: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const done = w(2) + 10;
+  const done = w(3) + 10;
   const eating = f < done;
-  const drop = tw(f, w(6) - 2, w(7) + 4);
-  const lid = tw(f, w(11), w(12) + 12) * 0.9;
-  const y = yawn(f, w(12) - 2, 24);
-  const work = pop(f, w(8), 12) * (1 - tw(f, w(11), w(12)));
+  const drop = tw(f, w(7) - 2, w(8) + 4);
+  const lid = tw(f, w(12), w(13) + 12) * 0.9;
+  const y = yawn(f, w(13) - 2, 24);
+  const work = pop(f, w(9), 12) * (1 - tw(f, w(12), w(13)));
   return (
-    <CamK k={[[0, 1, 540, 960], [w(5), 1.02, 520, 960], [w(7) + 4, 1.1, 460, 900], [d, 1.16, 430, 880]]} shake={hit(f, w(7) + 2, 14) * 0.6}>
+    <CamK k={[[0, 1, 540, 960], [w(6), 1.02, 520, 960], [w(8) + 4, 1.1, 460, 900], [d, 1.16, 430, 880]]} shake={hit(f, w(8) + 2, 14) * 0.6}>
       <KanOffice
         f={f}
         foodMe={eating ? 0.6 * (1 - tw(f, 0, done)) + 0.1 : 0.1}
         foodCw={0.35}
         forkOnPlate={!eating}
         cw={{ arm: writeArm(f) }}
-        av={{ arm: eating ? myEat(f, done) : y ? MY_MOUTH : MY_REST, fork: eating, lid: y ? 0.9 : lid, tilt: -12 * tw(f, w(12), d), drop, mouth: y ? "open" : eating ? (Math.floor(f / 6) % 2 ? "flat" : "smile") : "flat", blush: 0.5 }}
+        av={{ arm: eating ? myEat(f, done) : y ? MY_MOUTH : MY_REST, fork: eating, lid: y ? 0.9 : lid, tilt: -12 * tw(f, w(13), d), drop, mouth: y ? "open" : eating ? (Math.floor(f / 6) % 2 ? "flat" : "smile") : "flat", blush: 0.5 }}
       >
         {work > 0 ? <ellipse cx={220} cy={MY_TT - 50} rx={110} ry={70} fill={C.yellow} opacity={0.5 * work} filter="url(#glow)" /> : null}
         <SleepWeight heavy={drop} drop={drop} f={f} />
@@ -13150,6 +13150,52 @@ const KnAnne: React.FC<SceneProps> = ({ w, d }) => {
         <HandText x={790} y={360} text="Kan mideye" size={62} color={C.red} p={tw(f, w(3), w(4) + 4)} />
         <HandText x={790} y={440} text="indi!" size={62} color={C.red} p={tw(f, w(4), w(5) + 4)} />
       </Bubble>
+    </CamK>
+  );
+};
+
+// 2 "İnternette hep aynı cevap yazar: kan mideye gidiyor, beynine az kan kalıyor."
+// Mayışık hâlde telefonu alır, arar; büyük telefon ekranında arama ve en üstteki cevap kırmızı yazılır;
+// gövdesinde kan yolu belirir, kırmızı ok kanı mideye indirir.
+const KnInternet: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const phone = tw(f, 0, 10);
+  const scr = pop(f, 4, 14);
+  const q = "yemekten sonra uyku";
+  const typed = q.slice(0, Math.round(q.length * tw(f, w(0), w(3))));
+  const map = tw(f, w(5), w(7) + 6);
+  const arm = mixArm(MY_REST, [40, 30] as Arm, phone);
+  const hand = armPoints(1, arm)[2];
+  return (
+    <CamK k={[[0, 1.08, 480, 860], [d, 1.12, 460, 820]]}>
+      <KanOffice f={f} foodMe={0.1} foodCw={0.35} forkOnPlate cw={{ arm: writeArm(f) }} av={{ arm, lid: 0.55, tilt: -4, drop: 1, mouth: "flat", lookY: 10, kids: <Phone x={hand[0]} y={hand[1] - 40} s={0.9} rot={-10} /> }}>
+        <SleepWeight heavy={0.6} f={f} />
+        <BloodMap p={map} f={f} myth={tw(f, w(6), w(7) + 8)} />
+      </KanOffice>
+      <Heavy o={0.3} />
+      {scr > 0 ? (
+        <g transform={`translate(740 430) scale(${scr}) rotate(3)`}>
+          <rect x={-250} y={-330} width={500} height={640} rx={50} fill="#2f2f36" stroke={C.ink} strokeWidth={9} />
+          <rect x={-222} y={-290} width={444} height={560} rx={22} fill="#fbfbf6" />
+          <rect x={-195} y={-260} width={390} height={70} rx={35} fill="#fff" stroke={C.ink} strokeWidth={5} />
+          <circle cx={-160} cy={-225} r={14} fill="none" stroke={C.ink} strokeWidth={5} />
+          <path d="M-150 -215 L-140 -205" stroke={C.ink} strokeWidth={5} strokeLinecap="round" />
+          <text x={-125} y={-213} fontFamily={fontFamily} fontWeight={700} fontSize={34} fill={C.ink}>
+            {typed}
+            {typed.length < q.length && Math.floor(f / 8) % 2 ? "|" : ""}
+          </text>
+          {f >= w(3) ? (
+            <>
+              <rect x={-195} y={-160} width={390} height={200} rx={16} fill="#fff3e8" stroke={C.red} strokeWidth={5} opacity={pop(f, w(3), 10)} />
+              <HandText x={0} y={-90} text="Kan mideye" size={64} color={C.red} p={tw(f, w(5), w(7) + 2)} rotate={0} />
+              <HandText x={0} y={-10} text="gidiyor!" size={64} color={C.red} p={tw(f, w(7) - 2, w(8) + 2)} rotate={0} />
+              {[70, 120, 170, 220].map((yy, i) => (
+                <rect key={i} x={-195} y={yy} width={i % 2 ? 300 : 380} height={22} rx={11} fill="#d9d5cb" opacity={pop(f, w(3) + 4 + i * 3, 10)} />
+              ))}
+            </>
+          ) : null}
+        </g>
+      ) : null}
     </CamK>
   );
 };
@@ -13237,8 +13283,8 @@ const KnBeyin: React.FC<SceneProps> = ({ w, d }) => {
       <path d={`M${KN_CW_HEAD.x} ${KN_CW_HEAD.y - 70} L800 600`} stroke={C.ink} strokeWidth={6} strokeDasharray="14 10" opacity={lens} />
       <BrainLens x={300} y={430} r={240} p={lens} dims={dims} sugar={tw(f, w(18) - 4, w(19))} f={f} />
       <BrainLens x={800} y={470} r={190} p={lens} dims={[]} sugar={0} f={f} />
-      <HandText x={540} y={230} text="1998" size={110} color={C.red} p={y98} rotate={0} />
-      <HandText x={540} y={230} text="2006" size={110} color={C.red} p={y06} rotate={0} />
+      <HandText x={540} y={300} text="1998" size={110} color={C.red} p={y98} rotate={0} />
+      <HandText x={540} y={300} text="2006" size={110} color={C.red} p={y06} rotate={0} />
       <HandText x={300} y={760} text="uyanık tutan hücreler" size={50} color={C.ink} p={tw(f, w(6), w(9))} />
     </CamK>
   );
@@ -13282,7 +13328,7 @@ const KnSon: React.FC<SceneProps> = ({ w, d }) => {
       {card > 0 ? (
         <g transform={`translate(540 380) scale(${card}) rotate(-2)`}>
           <rect x={-440} y={-170} width={880} height={300} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
-          <HandText x={0} y={-50} text="Kan mideye inmedi," size={92} color={C.ink} p={tw(f, w(0), w(3) + 2)} rotate={0} />
+          <HandText x={0} y={-50} text="Kan mideye gitmedi," size={92} color={C.ink} p={tw(f, w(0), w(3) + 2)} rotate={0} />
           {strike > 0 ? <path d={`M-380 -76 L${-380 + 760 * strike} -76`} stroke={C.red} strokeWidth={12} strokeLinecap="round" /> : null}
           <HandText x={0} y={80} text="şeker beynine çıktı." size={92} color={YAS_OK} p={tw(f, w(4), w(6) + 6)} rotate={0} />
         </g>
@@ -13294,6 +13340,7 @@ const KnSon: React.FC<SceneProps> = ({ w, d }) => {
 const SCENES: Record<string, React.FC<SceneProps>> = {
   "kan-agirlik": KnAgirlik,
   "kan-anne": KnAnne,
+  "kan-internet": KnInternet,
   "kan-arkadas": KnArkadas,
   "kan-soru": KnSoru,
   "kan-tabak": KnTabak,

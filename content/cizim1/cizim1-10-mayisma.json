@@ -14,13 +14,13 @@
   "scenes": [
     {
       "visual": "kan-agirlik",
-      "voice": "Öğle yemeğini yedin… ve üstüne bir ağırlık çöktü. Masada iş bekliyor, gözlerin kapanıyor.",
-      "say": "[tired] Öğle yemeğini yedin... ve üstüne bir ağırlık çöktü. Masada iş bekliyor, gözlerin kapanıyor."
+      "voice": "Karnını bir güzel doyurdun… ve üstüne bir ağırlık çöktü. Masada iş bekliyor, gözlerin kapanıyor.",
+      "say": "[tired] Karnını bir güzel doyurdun... ve üstüne bir ağırlık çöktü. Masada iş bekliyor, gözlerin kapanıyor."
     },
     {
-      "visual": "kan-anne",
-      "voice": "Annen hep söylerdi: Kan mideye indi, beynine kan gitmiyor.",
-      "say": "Annen hep söylerdi: \"Kan mideye indi, beynine kan gitmiyor.\""
+      "visual": "kan-internet",
+      "voice": "İnternette hep aynı cevap yazar: kan mideye gidiyor, beynine az kan kalıyor.",
+      "say": "İnternette hep aynı cevap yazar: \"Kan mideye gidiyor, beynine az kan kalıyor.\""
     },
     {
       "visual": "kan-arkadas",
@@ -44,11 +44,11 @@
     },
     {
       "visual": "kan-son",
-      "voice": "Yani kan mideye inmedi, şeker beynine çıktı. Bir dahaki sefere biri kan mideye indi derse, ona bu videoyu gönder.",
-      "say": "Yani kan mideye inmedi, şeker beynine çıktı. Bir dahaki sefere biri \"kan mideye indi\" derse, ona bu videoyu gönder."
+      "voice": "Yani kan mideye gitmedi, şeker beynine çıktı. Bir dahaki sefere biri kan mideye gidiyor derse, ona bu videoyu gönder.",
+      "say": "Yani kan mideye gitmedi, şeker beynine çıktı. Bir dahaki sefere biri \"kan mideye gidiyor\" derse, ona bu videoyu gönder."
     }
   ],
-  "caption": "Kan mideye inmedi, şeker beynine çıktı.",
+  "caption": "Kan mideye gitmedi, şeker beynine çıktı.",
   "hashtags": [
     "voom",
     "uyku",
