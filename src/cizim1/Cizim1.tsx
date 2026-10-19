@@ -990,7 +990,27 @@ const CELL_PTS = Array.from({ length: 46 }, (_, i) => ({
   a: -20 + 40 * random(`ca${i}`),
 }));
 
-const RealLegs: React.FC<{ legs: number[][][]; id: string; cellulite: number; from: number }> = ({ legs, id, cellulite, from }) => (
+// Kısa taytın dış hattı: belden kalçaya, iki uyluk boyunca paçaya (bacak çizimiyle aynı genişlik)
+const tightsPath = (lL: number[][], lR: number[][], waist: number, hipW: number, len: number) => {
+  const hem = (p: number[][], side: number) => {
+    const c = [lerp(p[0][0], p[1][0], len), lerp(p[0][1], p[1][1], len)];
+    const dx = p[1][0] - p[0][0];
+    const dy = p[1][1] - p[0][1];
+    const l = Math.hypot(dx, dy) || 1;
+    const n = [dy / l, -dx / l];
+    const o = n[0] * side > 0 ? 1 : -1; // dışa bakan yön
+    return [
+      [c[0] + n[0] * 38 * o, c[1] + n[1] * 38 * o],
+      [c[0] - n[0] * 33 * o, c[1] - n[1] * 33 * o],
+    ];
+  };
+  const [lo, li] = hem(lL, -1);
+  const [ro, ri] = hem(lR, 1);
+  const crotch = [0, Math.min(li[1], ri[1]) - 22];
+  return `M${-waist - 2} -430 Q${-waist - 6} -390 ${-hipW} -362 L${pt(lo)} L${pt(li)} L${pt(crotch)} L${pt(ri)} L${pt(ro)} L${hipW} -362 Q${waist + 6} -390 ${waist + 2} -430 Z`;
+};
+
+const RealLegs: React.FC<{ legs: number[][][]; id: string; cellulite: number; from: number; shorts: string }> = ({ legs, id, cellulite, from, shorts }) => (
   <g>
     <defs>
       <linearGradient id={`lg${id}`} x1="0" x2="1" y1="0" y2="0">
@@ -1105,7 +1125,7 @@ const Person: React.FC<PersonProps> = ({
   const frame = useCurrentFrame();
   // realLegs (kadın): ince bel, geniş kalça
   const waist = realLegs ? 70 + 60 * belly : 88 + 70 * belly;
-  const hipW = realLegs ? 100 + 20 * belly : 84 + 32 * belly;
+  const hipW = realLegs ? 86 + 20 * belly : 84 + 32 * belly;
   const hem = -350 + 28 * belly;
   const lL = legPoints(-1, legL);
   const lR = legPoints(1, legR);
@@ -1136,7 +1156,7 @@ const Person: React.FC<PersonProps> = ({
         </g>
       ) : null}
       {realLegs ? (
-        <RealLegs legs={[lL, lR]} id={pid} cellulite={cellulite} from={shortsLen} />
+        <RealLegs legs={[lL, lR]} id={pid} cellulite={cellulite} from={shortsLen} shorts={shorts ?? C.shorts} />
       ) : (
         <>
           <Limb p={lL} w={52 * limbW} color={suit ?? C.skin} />
@@ -1163,15 +1183,27 @@ const Person: React.FC<PersonProps> = ({
         />
       ))}
       {/* şort */}
-      <path
+      {realLegs ? null : <path
         d={`M${-hipW - 4} -392 L${hipW + 4} -392 L${pt(tRo)} L${pt(tRi)} L0 -300 L${pt(tLi)} L${pt(tLo)} Z`}
         fill={suit ?? shorts ?? C.shorts}
         stroke={C.ink}
         strokeWidth={7}
         strokeLinejoin="round"
-      />
+      />}
       {/* gövde */}
-      <path d={torso} fill={top} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      {realLegs ? (
+        // kadın spor kıyafeti: yüksek belli kısa tayt (bel + kalça + uyluklar tek parça), üstünde vücuda oturan atlet
+        <g>
+          <clipPath id={`tc${pid}`}>
+            <rect x={-300} y={-900} width={600} height={900 - 416} />
+          </clipPath>
+          <path d={tightsPath(lL, lR, waist, hipW, shortsLen)} fill={shorts ?? C.shorts} stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+          <path d={torso} fill={top} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" clipPath={`url(#tc${pid})`} />
+          <path d={`M${-waist - 4} -416 Q0 -402 ${waist + 4} -416`} stroke={C.ink} strokeWidth={7} fill="none" />
+        </g>
+      ) : (
+        <path d={torso} fill={top} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      )}
       {top === C.shirt ? <ellipse cx={0} cy={-445} rx={waist * 0.62} ry={52 + 40 * belly} fill={C.shirtLight} opacity={0.25 + 0.4 * belly} /> : null}
       {belly > 0.15 ? (
         <path
@@ -11795,7 +11827,7 @@ type SelWoProps = { legGlow?: number; k?: number; x?: number; y?: number; s?: nu
 const SelWoman: React.FC<SelWoProps> = ({ legGlow = 0, k = 0, x = SEL_WO.x, y = SEL_WO.y, s = SEL_WO.s, back = false, dimples = 0, bells = true, mouth = "smile", eyes = "open", armL = [12, 0], armR = [12, 0], blush = 0.5, lookY = 0, tilt = 0, children }) => {
   const q = selSquat(k);
   return (
-    <Person x={x} y={y + q.dy * s} s={s} female belly={0} realLegs cellulite={back ? dimples : 0} shirt={SEL_TOP} sleeveless shorts={SEL_TIGHTS} shortsLen={0.3} shoe="#f4f1ea" legGlow={legGlow} legL={q.leg} legR={q.leg} armL={armL} armR={armR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
+    <Person x={x} y={y + q.dy * s} s={s} female belly={0} realLegs cellulite={back ? dimples : 0} shirt={SEL_TOP} sleeveless shorts={SEL_TIGHTS} shortsLen={0.42} shoe="#f4f1ea" legGlow={legGlow} legL={q.leg} legR={q.leg} armL={armL} armR={armR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
       {back ? <BackHead /> : null}
       {bells
         ? [-1, 1].map((side) => {
