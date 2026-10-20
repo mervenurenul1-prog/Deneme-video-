@@ -8,6 +8,21 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## >>> 20 EKİM — EN YENİ İŞ: 11 DEFİLE (`cizim1-11-defile`) <<<
+- **YENİ KURAL (kullanıcı):** Videolarda FİYAT YOK, satış dili yok ("kitle oluşturuyoruz, onlar sormadan söylemeyiz").
+  Her videoya VOOM'un BİR özelliği hikâyenin içinden gizlice girer; adı sesle de geçebilir ("Bugün o koç cebinde. Adı VOOM.").
+  Örnek/benzetme saçma olmasın, hikâyeye bağlansın. Kullanıcının kontrol tablosu: izlenme (hook, merak, tempo, his),
+  yorum (taraf tutturan an, tartışma payı, söylenecek şey, kendini görmek), paylaşım ("bunu ona atmalıyım", akılda kalan
+  replik, "tam ben" hissi, kısa-net). Süre ~32 sn, boşluklar kısa (`padding` 0.05).
+- Konu: Victoria's Secret defilesi (1995–2018, 2019 iptal, 2024 dönüş; 2025'te olimpiyat şampiyonu cimnastikçi ve
+  basketbolcu yürüdü). Metin kullanıcıya gönderildi; kullanıcı "önizleme yap, görsel kalite mükemmel olsun" dedi.
+- Sahneler `vs-*` (Cizim1.tsx: `Stage` perde/podyum/spot/izleyici+flaş, `Wings`, `WingedModel`, `YearPlaque`,
+  `FrontRowAvatar`, `Balance`, `VoomPhone` = `public/app/program.jpg` gerçek ekran, `PaperPlane`). Logo ve gerçek kişi çizilmez.
+- Numara 11: 09 kilo bu dalda, 10 selülit ayrı sohbette.
+- **DURUM:** kod yazıldı ama 20 Ekim oturumunda npm kayıt deposu engelli olduğu için `npm ci` olmadı → **typecheck ve
+  render YAPILMADI.** Sıradaki oturum: `npm ci` → `npx tsc --noEmit` → hızlı kare kontrolü → sessiz önizleme render →
+  kullanıcıya gönder → onay → seslendirme (Yunus, ~440 karakter).
+
 ## >>> EN GÜNCEL DEVİR (19 Ekim akşam) — YENİ SOHBET BURADAN BAŞLASIN <<<
 - Çalışma dalı `claude/claude-md-continuation-e39del` (= main). `npm ci` → işe başla. Kalan ElevenLabs kredisi ≈ 13.600.
 - **09 KİLO: geçerli sürüm `cizim1-09-kilo-hangimiz`** ("Hangimiz daha önce kilo verecek?"; ayrıntı aşağıda "09 KİLO v5").

@@ -177,6 +177,13 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  // 11 defile
+  "vs-hook": (w) => [[w(3), "tik", 0.25], [w(13) - 2, "sonme", 0.35], [w(14) - 2, "boom", 0.2], [w(14), "pop", 0.4]],
+  "vs-iptal": (w) => [[w(1), "sonme", 0.25], [w(2), "kagit", 0.35], [w(5), "sonme", 0.3], [w(6) + 10, "agir-dusme", 0.22]],
+  "vs-donus": (w) => [[2, "whoosh", 0.3], [w(1), "pirilti", 0.35], [w(5), "ding", 0.3], [w(7) - 4, "havalanma", 0.3], [w(8) + 6, "agir-dusme", 0.22]],
+  "vs-soru": (w) => [[w(1), "pop", 0.3], [w(4), "tak", 0.3], [w(7), "tak", 0.3], [w(9), "pop", 0.35]],
+  "vs-koc": (w) => [[w(3), "kalem", 0.35], [w(9) - 3, "whoosh", 0.3], [w(11), "pop", 0.3], [w(14) - 2, "pirilti", 0.4]],
+  "vs-dongu": (w) => [[w(1) - 2, "pop", 0.3], [w(6) - 6, "havalanma", 0.35], [w(7), "whoosh", 0.25]],
   tarti: (w, d) => [
     [w(0) + 2, "bip", 0.35],
     [w(2) + 18, "bip", 0.35],
@@ -688,6 +695,12 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "vs-hook": { to: 1.05, x: 540, y: 800 },
+  "vs-iptal": { to: 1.03, x: 540, y: 800 },
+  "vs-donus": { to: 1.05, x: 540, y: 900 },
+  "vs-soru": { to: 1.04, x: 540, y: 700 },
+  "vs-koc": { to: 1.0, x: 540, y: 960 },
+  "vs-dongu": { to: 1.0, x: 540, y: 960 },
   tarti: { to: 1.07, x: 540, y: 1000 },
   "yanlis-fikir": { to: 1.05, x: 540, y: 700 },
   "yag-hucresi": { to: 1.06, x: 700, y: 760 },
@@ -12307,7 +12320,545 @@ const B2Bende: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+/* ---------- 11 Victoria's Secret defilesi: sahneler ---------- */
+// Podyum dünyası: koyu sahne, kırmızı kadife perde, parlak podyum, spot ışıkları, ön sırada izleyiciler ve flaşlar.
+// Serinin avatarı ön sırada izleyici (ana karakter); kanatlı manken ve cimnastikçi yan karakter (gerçek kişi çizilmez,
+// logo yok). VOOM yalnız 5. sahnede uygulamanın gerçek ekranıyla görünür.
+
+const VS = {
+  wall: "#2a1522",
+  wall2: "#46202f",
+  curtain: "#92202f",
+  curtainDark: "#5c111d",
+  runway: "#f3e5d0",
+  pink: "#f2a7bb",
+  lime: "#c9f24d",
+  gold: "#f2c94c",
+};
+const RUN = { y0: 600, y1: 1290, x0: 70, x1: 330 }; // podyum: arka kenar (y0, yarı genişlik x0), ön kenar (y1, x1)
+const runY = (t: number) => lerp(RUN.y0, RUN.y1, t);
+const runS = (t: number) => lerp(0.26, 0.74, t);
+
+// Ön sıradaki izleyiciler (podyumun iki yanında, iki sıra); r: kaybolma sırası
+const AUD = [
+  ...[40, 135, 230].map((x, i) => ({ x, y: 1235, r: 0.15 + i * 0.27 })),
+  ...[850, 945, 1040].map((x, i) => ({ x, y: 1235, r: 0.3 + i * 0.22 })),
+  ...[-10, 95, 200, 290].map((x, i) => ({ x, y: 1330, r: 0.05 + i * 0.24 })),
+  ...[790, 885, 980, 1080].map((x, i) => ({ x, y: 1330, r: 0.2 + i * 0.2 })),
+];
+
+// Sahne: lights = üç spot (0..1), crowd = izleyicilerin oranı, flash = flaş yoğunluğu, curtain = orta perde (0 açık, 1 kapalı)
+const Stage: React.FC<{ lights: [number, number, number]; crowd?: number; flash?: number; curtain?: number; children?: React.ReactNode; front?: React.ReactNode }> = ({
+  lights,
+  crowd = 1,
+  flash = 0,
+  curtain = 0,
+  children,
+  front,
+}) => {
+  const f = useCurrentFrame();
+  const lit = (lights[0] + lights[1] + lights[2]) / 3;
+  const L = [200, 540, 880];
+  const half = lerp(130, 560, curtain);
+  return (
+    <g>
+      {/* arka duvar ve ampullü kemer */}
+      <rect x={-200} y={-200} width={1480} height={RUN.y1 + 200} fill={VS.wall} />
+      <rect x={-200} y={-200} width={1480} height={RUN.y1 + 200} fill={VS.wall2} opacity={0.75 * lit} />
+      <path d={`M240 ${RUN.y0} L240 420 Q540 200 840 420 L840 ${RUN.y0}`} fill="none" stroke={C.ink} strokeWidth={14} />
+      {Array.from({ length: 17 }, (_, i) => {
+        const a = Math.PI * (i / 16);
+        const bx = 540 - Math.cos(a) * 300;
+        const by = 420 - Math.sin(a) * 210;
+        const on = lit * (0.7 + 0.3 * Math.sin(f / 5 + i));
+        return (
+          <g key={i}>
+            <circle cx={bx} cy={by} r={22} fill={VS.gold} opacity={0.35 * on} filter="url(#glow)" />
+            <circle cx={bx} cy={by} r={11} fill={on > 0.15 ? "#fff1b8" : "#6b5a48"} stroke={C.ink} strokeWidth={4} />
+          </g>
+        );
+      })}
+      {/* podyum */}
+      <path d={`M${540 - RUN.x0} ${RUN.y0} L${540 + RUN.x0} ${RUN.y0} L${540 + RUN.x1} ${RUN.y1} L${540 - RUN.x1} ${RUN.y1} Z`} fill={VS.runway} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      <path d={`M${540 - RUN.x0} ${RUN.y0} L${540 + RUN.x0} ${RUN.y0} L${540 + RUN.x1} ${RUN.y1} L${540 - RUN.x1} ${RUN.y1} Z`} fill="#1a0e14" opacity={0.6 * (1 - lit)} />
+      <path d={`M540 ${RUN.y0} L540 ${RUN.y1}`} stroke="#fff" strokeWidth={26} opacity={0.35 * lit} />
+      {[0.25, 0.5, 0.75].map((t) => (
+        <path key={t} d={`M${540 - lerp(RUN.x0, RUN.x1, t)} ${runY(t)} L${540 + lerp(RUN.x0, RUN.x1, t)} ${runY(t)}`} stroke={C.ink} strokeWidth={3} opacity={0.25} />
+      ))}
+      {/* ışık konileri */}
+      <g style={{ mixBlendMode: "screen" }}>
+        {L.map((lx, i) =>
+          lights[i] > 0.01 ? (
+            <path
+              key={i}
+              d={`M${lx - 26} -40 L${lx + 26} -40 L${540 + (lx - 540) * 0.15 + 230} ${RUN.y1 - 120} L${540 + (lx - 540) * 0.15 - 230} ${RUN.y1 - 120} Z`}
+              fill="#fff0c2"
+              opacity={0.16 * lights[i]}
+              filter="url(#glow)"
+            />
+          ) : null,
+        )}
+      </g>
+      {children}
+      {/* perdeler: üst saçak, yan perdeler, ortada kapanan perde */}
+      {[-1, 1].map((side) => (
+        <g key={side} transform={side === 1 ? "translate(1080 0) scale(-1 1)" : undefined}>
+          <path d={`M-200 -200 L${half} -200 L${half} ${RUN.y1 + 40} Q${half - 60} ${RUN.y1 + 10} ${half - 120} ${RUN.y1 + 40} L-200 ${RUN.y1 + 40} Z`} fill={VS.curtain} stroke={C.ink} strokeWidth={9} />
+          {Array.from({ length: Math.max(1, Math.floor((half + 200) / 70)) }, (_, k) => (
+            <path key={k} d={`M${-170 + k * 70} 120 Q${-150 + k * 70} 700 ${-175 + k * 70} ${RUN.y1 + 30}`} stroke={VS.curtainDark} strokeWidth={16} fill="none" opacity={0.75} />
+          ))}
+          <path d={`M${half - 30} 140 Q${half - 10} 700 ${half - 40} ${RUN.y1 + 20}`} stroke="#c94b58" strokeWidth={10} fill="none" opacity={0.6} />
+        </g>
+      ))}
+      <path d="M-200 -200 L1280 -200 L1280 150 Q1170 230 1060 150 Q950 230 840 150 Q730 230 620 150 Q510 230 400 150 Q290 230 180 150 Q70 230 -40 150 Q-120 230 -200 150 Z" fill={VS.curtain} stroke={C.ink} strokeWidth={9} strokeLinejoin="round" />
+      <path d="M-200 60 L1280 60" stroke={VS.gold} strokeWidth={12} opacity={0.8} />
+      {/* izleyiciler + flaşlar */}
+      {AUD.map((a, i) =>
+        a.r < crowd ? (
+          <g key={i}>
+            <ellipse cx={a.x} cy={a.y + 110} rx={70} ry={80} fill="#1c0f17" stroke={C.ink} strokeWidth={5} />
+            <circle cx={a.x} cy={a.y} r={40} fill="#1c0f17" stroke={C.ink} strokeWidth={5} />
+            {flash > 0 && random(`vfl${i}-${Math.floor(f / 4)}`) > 1 - 0.18 * flash ? (
+              <g>
+                <circle cx={a.x + 30} cy={a.y - 20} r={70} fill="#fff" opacity={0.55} filter="url(#glow)" />
+                <Star x={a.x + 30} y={a.y - 20} r={26} rot={i * 20} />
+              </g>
+            ) : null}
+          </g>
+        ) : null,
+      )}
+      <rect x={-200} y={RUN.y1 + 40} width={1480} height={800} fill="#170b12" />
+      {front}
+    </g>
+  );
+};
+
+// Melek kanatları: (x, y) figürün ayak noktası, s figür ölçeği; flap 0..1 hafif çırpma
+const Wings: React.FC<{ x: number; y: number; s: number; flap?: number; o?: number }> = ({ x, y, s, flap = 0, o = 1 }) => {
+  const tips: [number, number][] = [
+    [470, -330],
+    [500, -230],
+    [480, -130],
+    [430, -30],
+    [340, 60],
+    [220, 120],
+  ];
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} opacity={o}>
+      {[-1, 1].map((side) => (
+        <g key={side} transform={`translate(${side * 40} -560) scale(${side} 1) rotate(${-6 - 10 * flap})`}>
+          <path
+            d="M0 10 C90 -200 300 -360 470 -330 C430 -280 520 -260 500 -230 C440 -190 520 -160 480 -130 C420 -100 470 -60 430 -30 C360 -10 400 40 340 60 C280 60 280 110 220 120 C150 90 80 70 0 50 Z"
+            fill="#fbf6ee"
+            stroke={C.ink}
+            strokeWidth={8}
+            strokeLinejoin="round"
+          />
+          <path d="M10 20 C110 -150 270 -270 420 -290" stroke={VS.pink} strokeWidth={40} fill="none" opacity={0.35} strokeLinecap="round" />
+          {tips.map(([tx, ty], k) => (
+            <path key={k} d={`M30 20 Q${tx * 0.5} ${ty * 0.5 - 20} ${tx - 40} ${ty + 10}`} stroke={C.ink} strokeWidth={4} fill="none" opacity={0.45} />
+          ))}
+          {[0, 1, 2, 3, 4].map((k) => (
+            <path key={`s${k}`} d={`M${60 + k * 55} ${-60 - k * 40} q22 26 44 -8`} stroke={C.ink} strokeWidth={4} fill="none" opacity={0.5} />
+          ))}
+        </g>
+      ))}
+    </g>
+  );
+};
+
+// Podyumda yürüyen kanatlı manken: t podyum derinliği (0 arka, 1 ön)
+const WingedModel: React.FC<{ f: number; t: number; walking: number; flap?: number }> = ({ f, t, walking, flap = 0 }) => {
+  const s = runS(t);
+  const wk = walk(f, walking, 4);
+  const sway = Math.sin(f / 4) * 10 * walking;
+  return (
+    <g>
+      <ellipse cx={540} cy={runY(t) + 8} rx={150 * s} ry={20 * s} fill={C.ink} opacity={0.25} />
+      <Wings x={540 + sway * s} y={runY(t) - wk.bob * s} s={s} flap={flap + 0.3 * Math.sin(f / 7)} />
+      <Person x={540 + sway * s} y={runY(t) - wk.bob * s} s={s} female shirt={VS.pink} belly={0} armL={wk.armL} armR={wk.armR} legL={wk.legL} legR={wk.legR} mouth="smile" blush={0.6} />
+    </g>
+  );
+};
+
+// Ekranın üstündeki yıl tabelası
+const YearPlaque: React.FC<{ x: number; y: number; p: number; text: string; color?: string }> = ({ x, y, p, text, color = C.yellow }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`}>
+      <rect x={-200} y={-90} width={400} height={170} rx={26} fill="#1b0f15" stroke={C.ink} strokeWidth={10} />
+      <rect x={-186} y={-76} width={372} height={142} rx={18} fill="none" stroke={VS.gold} strokeWidth={5} opacity={0.8} />
+      <text x={0} y={42} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={color}>
+        {text}
+      </text>
+    </g>
+  ) : null;
+
+// Serinin avatarı ön sırada (podyumun solunda)
+const FrontRowAvatar: React.FC<{ arms?: [Arm, Arm]; mouth?: Mouth; eyes?: Eyes; lookY?: number; tilt?: number; jump?: number }> = ({ arms, mouth = "o", eyes = "open", lookY = -10, tilt = 0, jump = 0 }) => (
+  <Person x={175} y={1430 - jump} s={0.5} belly={0.35} armL={arms?.[0] ?? [12, 0]} armR={arms?.[1] ?? [12, 0]} mouth={mouth} eyes={eyes} lookY={lookY} tilt={tilt} />
+);
+
+// "Victoria's Secret defilesi yirmi üç yıl boyunca her yıl yapıldı. Sonra bir gün iptal edildi."
+// Işıklar, flaşlar, kanatlı manken podyumda yürür; yıl tabelası 1995 → 2018 akar. "iptal"de spotlar tek tek söner,
+// manken donar, kırmızı "İPTAL" levhası sahneye çakılır.
+const VsHook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const off = (k: number) => 1 - tw(f, w(13) - 2 + k * 5, w(13) + 2 + k * 5);
+  const stop = tw(f, w(12), w(13) + 4);
+  const t = lerp(0.3, 0.72, tw(f, 0, w(13) + 4));
+  const years = tw(f, w(3) - 2, w(9) + 4);
+  const year = Math.round(lerp(1995, 2018, years));
+  const stamp = pop(f, w(14) - 2, 10);
+  const shake = stamp > 0 && f < w(14) + 12 ? Math.sin(f * 1.7) * 8 : 0;
+  return (
+    <g transform={`translate(${shake} 0)`}>
+      <Stage lights={[off(0), off(1), off(2)]} flash={1 - stop} front={<FrontRowAvatar mouth={stamp > 0.5 ? "open" : "o"} eyes={stamp > 0.5 ? "wide" : "open"} arms={stamp > 0.5 ? [[40, -80], [40, -80]] : undefined} />}>
+        <WingedModel f={f} t={t} walking={1 - stop} />
+      </Stage>
+      <YearPlaque x={540} y={330} p={pop(f, 0, 10)} text={`${year}`} color={stamp > 0 ? "#f2a3a3" : C.yellow} />
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#000" opacity={0.35 * (1 - off(2))} />
+      {stamp > 0 ? (
+        <g transform={`translate(540 860) rotate(-9) scale(${1.6 - 0.6 * Math.min(1, stamp)})`} opacity={Math.min(1, stamp * 1.6)}>
+          <SignBoard x={0} y={0} p={1} lines={["İPTAL"]} rot={0} />
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// "Seyirci düştü, eleştiriler yağdı; podyumun ışıkları söndü."
+// Ön sıradaki izleyiciler tek tek kalkıp gider, arka duvarda izleyici çizgisi aşağı iner; kırmızı kâğıtlar yağar;
+// spotlar söner, perde kapanır. Avatar ön sırada yalnız kalır.
+const VsIptal: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const leave = tw(f, 0, w(2));
+  const line = tw(f, 2, w(2));
+  const lights: [number, number, number] = [1 - tw(f, w(4), w(4) + 6), 1 - tw(f, w(5) - 2, w(5) + 4), 1 - tw(f, w(6) - 2, w(6) + 4)];
+  const curtain = tw(f, w(5), w(6) + 14);
+  const pts = Array.from({ length: 9 }, (_, i) => {
+    const x = 300 + i * 60;
+    const y = 300 + 30 * Math.sin(i * 1.7) + i * i * 4.2;
+    return [x, y];
+  });
+  const n = Math.max(1, Math.floor(line * pts.length));
+  return (
+    <>
+      <Stage lights={lights} crowd={1 - leave * 0.95} curtain={curtain} front={<FrontRowAvatar mouth="worry" lookY={0} tilt={Math.sin(f / 14) * 8} />}>
+        <WingedModel f={f} t={0.72} walking={0} />
+      </Stage>
+      {/* izleyici çizgisi (canlı yayın sayacı gibi) */}
+      <g opacity={1 - curtain * 0.6}>
+        <rect x={230} y={200} width={620} height={330} rx={24} fill="#1b0f15" stroke={C.ink} strokeWidth={9} opacity={0.92} />
+        <text x={260} y={258} fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.cream}>
+          izleyici
+        </text>
+        <path d={`M${pts.slice(0, n).map((p) => p.join(" ")).join(" L")}`} stroke={C.red} strokeWidth={12} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        {n > 1 ? <circle cx={pts[n - 1][0]} cy={pts[n - 1][1]} r={14} fill={C.red} stroke={C.cream} strokeWidth={4} /> : null}
+        <Arrow d="M790 300 L790 470 M760 440 L790 475 L820 440" p={tw(f, w(1), w(1) + 8)} color={C.red} w={10} />
+      </g>
+      {f >= w(2) - 2 && f < w(4) + 20 ? <FlyingPages start={w(2) - 2} end={w(4)} y={760} /> : null}
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#000" opacity={0.25 * curtain} />
+    </>
+  );
+};
+
+// "Perde yeniden açıldığında, podyumda bir olimpiyat şampiyonu cimnastikçi yürüyordu."
+// Perde açılır, ışık patlar; mavi mayolu cimnastikçi podyumda yürür, göğsünde altın madalya parlar, "cimnastikçi"de
+// havada salto atar ve kollarını açıp iner. İzleyiciler geri gelir, flaşlar; avatar zıplayıp alkışlar.
+const VsDonus: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const curtain = 1 - tw(f, 0, w(2) + 6);
+  const burst = tw(f, w(1), w(2) + 4);
+  const crowd = tw(f, w(2), w(6));
+  const t = lerp(0.12, 0.58, tw(f, w(2), w(6) + 4));
+  const medal = pop(f, w(5) - 2, 12);
+  const flipA = w(7) - 4;
+  const flipB = w(8) + 6;
+  const flip = tw(f, flipA, flipB);
+  const inAir = f > flipA && f < flipB;
+  const s = runS(t);
+  const hop = Math.sin(flip * Math.PI) * 330 * s;
+  const landed = f >= flipB;
+  const wk = walk(f, f < flipA ? 1 : 0, 4);
+  const clap = Math.sin(f / 2.2);
+  const cheer = f > w(6);
+  const armsUp: [Arm, Arm] = [[150, 10], [150, 10]];
+  return (
+    <>
+      <Stage
+        lights={[burst, burst, burst]}
+        crowd={0.1 + 0.9 * crowd}
+        flash={crowd}
+        curtain={curtain}
+        front={<FrontRowAvatar mouth={cheer ? "grin" : "o"} eyes={cheer ? "open" : "wide"} arms={cheer ? [[25, -95 + 12 * clap], [25, -95 + 12 * clap]] : undefined} jump={cheer ? Math.abs(Math.sin(f / 5)) * 18 : 0} />}
+      >
+        <ellipse cx={540} cy={runY(t) + 8} rx={150 * s * (1 - 0.4 * Math.sin(flip * Math.PI))} ry={20 * s} fill={C.ink} opacity={0.25} />
+        <g transform={`rotate(${inAir ? -360 * flip : 0} 540 ${runY(t) - hop - 400 * s})`}>
+          <Person
+            x={540}
+            y={runY(t) - (f < flipA ? wk.bob * s : hop)}
+            s={s}
+            female
+            shirt="#2f5f9e"
+            belly={0}
+            armL={inAir ? [60, -120] : landed ? armsUp[0] : wk.armL}
+            armR={inAir ? [60, -120] : landed ? armsUp[1] : wk.armR}
+            legL={inAir ? { lift: 0.9 } : wk.legL}
+            legR={inAir ? { lift: 0.9 } : wk.legR}
+            mouth={landed ? "grin" : "smile"}
+            blush={0.6}
+          >
+            {medal > 0 ? (
+              <g transform={`translate(0 -470) scale(${1.5 * medal})`}>
+                <circle cx={0} cy={10} r={70} fill={VS.gold} opacity={0.45 * (0.7 + 0.3 * Math.sin(f / 3))} filter="url(#glow)" />
+                <GoldMedal x={0} y={0} s={1} />
+              </g>
+            ) : null}
+          </Person>
+        </g>
+        {inAir || (landed && f < flipB + 20) ? (
+          <path
+            d={`M${540 - 150 * s} ${runY(t) - 200 * s} A ${170 * s} ${260 * s} 0 1 1 ${540 + 150 * s} ${runY(t) - 200 * s}`}
+            stroke="#fff"
+            strokeWidth={10}
+            fill="none"
+            strokeDasharray="22 18"
+            opacity={0.7 * (landed ? 1 - tw(f, flipB, flipB + 20) : 1)}
+          />
+        ) : null}
+      </Stage>
+      {burst > 0 && burst < 1 ? <rect x={-200} y={-200} width={1480} height={2400} fill="#fff6dc" opacity={0.45 * Math.sin(burst * Math.PI)} /> : null}
+      {landed ? <Confetti start={flipB} n={36} /> : null}
+    </>
+  );
+};
+
+// İki kefeli terazi: angle derece (− sol aşağı)
+const Balance: React.FC<{ x: number; y: number; s?: number; angle: number; left: string; right: string }> = ({ x, y, s = 1, angle, left, right }) => {
+  const r = (angle * Math.PI) / 180;
+  const end = (side: number) => [side * 300 * Math.cos(r), side * 300 * Math.sin(r)];
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <path d="M0 0 L0 360 M-110 360 L110 360" stroke={C.ink} strokeWidth={16} strokeLinecap="round" />
+      <path d="M-50 -10 L0 -60 L50 -10 Z" fill={VS.gold} stroke={C.ink} strokeWidth={7} />
+      <path d={`M${end(-1)[0]} ${end(-1)[1]} L${end(1)[0]} ${end(1)[1]}`} stroke={C.ink} strokeWidth={18} strokeLinecap="round" />
+      <circle cx={0} cy={0} r={18} fill={VS.gold} stroke={C.ink} strokeWidth={6} />
+      {[-1, 1].map((side) => {
+        const [ex, ey] = end(side);
+        return (
+          <g key={side} transform={`translate(${ex} ${ey})`}>
+            <path d="M0 0 L-90 160 M0 0 L90 160" stroke={C.ink} strokeWidth={5} />
+            <path d="M-120 160 Q0 230 120 160 Z" fill={side < 0 ? VS.pink : "#7fb3d8"} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+            <text x={0} y={140} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.cream} stroke={C.ink} strokeWidth={10} paintOrder="stroke">
+              {side < 0 ? left : right}
+            </text>
+          </g>
+        );
+      })}
+    </g>
+  );
+};
+
+// "Şimdi sen söyle: güzellik ince olmak mı, güçlü olmak mı?"
+// Kamera sahneden avatara yaklaşır; avatar izleyiciyi işaret eder. Başının üstünde terazi: "ince"de sola,
+// "güçlü"de sağa yatar, karar vermeden sallanır; kocaman kırmızı "?" ve yazılan bir yorum balonu (taraf tut!).
+const VsSoru: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const point = tw(f, w(1) - 2, w(2) + 4) * (1 - tw(f, w(3), w(3) + 8));
+  const lean = interpolate(f, [w(3), w(4), w(5) + 4, w(7), w(8) + 4, w(9) + 6], [0, -16, -16, 16, 16, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  const wobble = f > w(9) ? Math.sin(f / 4) * 9 * Math.max(0, 1 - (f - w(9)) / 40) + Math.sin(f / 7) * 3 : 0;
+  const q = pop(f, w(9) - 2, 12);
+  const bubble = pop(f, w(9) + 4, 12);
+  const dots = Math.floor(f / 6) % 4;
+  return (
+    <>
+      <Stage lights={[0.35, 0.5, 0.35]} crowd={1} />
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#1a0e14" opacity={0.55} />
+      <g transform={`translate(0 ${-20 * pop(f, 0, 14)})`}>
+        <Person x={540} y={1400} s={0.95} belly={0.35} armL={[14, 0]} armR={point > 0 ? [lerp(12, 128, point), lerp(0, -30, point)] : [26, -40]} mouth={f > w(9) ? "smile" : "open"} eyes="open" lookY={0} tilt={wobble * 0.4} />
+      </g>
+      <Balance x={540} y={400} s={1.05} angle={lean + wobble} left="ince" right="güçlü" />
+      {q > 0 ? (
+        <text x={540} y={300} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={210 * q} fill={C.red} stroke={C.ink} strokeWidth={12} paintOrder="stroke" transform={`rotate(${Math.sin(f / 8) * 5} 540 240)`}>
+          ?
+        </text>
+      ) : null}
+      {bubble > 0 ? (
+        <g transform={`translate(850 1060) scale(${bubble})`}>
+          <path d="M-140 -80 Q-140 -130 -90 -130 L90 -130 Q140 -130 140 -80 L140 20 Q140 70 90 70 L-40 70 L-90 120 L-80 70 L-90 70 Q-140 70 -140 20 Z" fill={C.cream} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+          {[0, 1, 2].map((k) => (
+            <circle key={k} cx={-60 + k * 60} cy={-30} r={18} fill={k < dots ? C.ink : "#c9b99a"} />
+          ))}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// VOOM'un gerçek ekranı (public/app/program.jpg) büyük bir telefonda; ring: "HEDEF" noktasında parıltı
+const VoomPhone: React.FC<{ x: number; y: number; s?: number; rot?: number; ring?: number }> = ({ x, y, s = 1, rot = 0, ring = 0 }) => {
+  const id = svgId(useId());
+  const f = useCurrentFrame();
+  return (
+    <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
+      <rect x={-170} y={-335} width={340} height={670} rx={50} fill="#121214" stroke={C.ink} strokeWidth={10} />
+      <clipPath id={`vp${id}`}>
+        <rect x={-150} y={-310} width={300} height={620} rx={32} />
+      </clipPath>
+      <g clipPath={`url(#vp${id})`}>
+        <rect x={-150} y={-310} width={300} height={620} fill="#0b0b0c" />
+        <image href={staticFile("app/program.jpg")} x={-150} y={-310} width={300} height={610} preserveAspectRatio="xMidYMin slice" />
+        {ring > 0 ? <circle cx={-150 + 29} cy={-310 + 204} r={16 + 10 * Math.sin(f / 4)} fill="none" stroke={VS.lime} strokeWidth={5} opacity={ring} /> : null}
+      </g>
+      <rect x={-40} y={-322} width={80} height={10} rx={5} fill="#333" />
+    </g>
+  );
+};
+
+// "O sporcunun arkasında, her antrenmanını yazan bir koç vardı. Bugün o koç cebinde. Adı VOOM."
+// Sahne arkası: madalyalı cimnastikçi ısınır, arkasında koç not panosuna gün gün antrenman yazar (satırlar çizilir).
+// "Bugün"de kamera panoya dalar → pano avatarın elindeki telefona dönüşür (VOOM'un gerçek program ekranı);
+// "cebinde"de telefon cepten çıkar, "VOOM"da yeşil yazı ve pırıltı.
+const VsKoc: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const cut = w(9) - 3;
+  if (f < cut) {
+    const coachIn = tw(f, 0, w(2) + 6);
+    const write = tw(f, w(3), w(8) + 6);
+    const dive = tw(f, w(8) + 4, cut);
+    const lines = ["Pzt  güç", "Sal  sıçrama", "Çar  denge", "Per  esneklik", "Cum  güç"];
+    const hand = armPoints(1, [40, -105])[2];
+    const bounce = Math.abs(Math.sin(f / 6)) * 12;
+    return (
+      <g transform={dive > 0 ? diveTo(dive * 0.55, 740 + (hand[0] - 40) * 0.78, 1330 + (hand[1] - 120) * 0.78) : undefined}>
+        <rect x={-200} y={-200} width={1480} height={2400} fill={VS.wall} />
+        <rect x={-200} y={1330} width={1480} height={800} fill="#3a2230" />
+        <path d="M-200 1330 L1280 1330" stroke={C.ink} strokeWidth={6} />
+        {/* soyunma odası: aynalı masa ve ampuller */}
+        <rect x={60} y={300} width={400} height={300} rx={14} fill="#5b3546" stroke={C.ink} strokeWidth={8} />
+        {Array.from({ length: 6 }, (_, i) => (
+          <circle key={i} cx={90 + i * 68} cy={300} r={16} fill="#fff1b8" stroke={C.ink} strokeWidth={4} />
+        ))}
+        <HandText x={260} y={480} text="sahne arkası" size={70} p={tw(f, 0, 20)} color={VS.pink} rotate={-4} />
+        {/* cimnastikçi: madalyalı, yerinde zıplayarak ısınır */}
+        <Person x={330} y={1300 - bounce} s={0.62} female shirt="#2f5f9e" belly={0} armL={[150, 10]} armR={[150, 10]} legL={{ lift: bounce > 6 ? 0.3 : 0 }} legR={{ lift: bounce > 6 ? 0.3 : 0 }} mouth="smile" blush={0.6}>
+          <g transform="translate(0 -470) scale(1.3)">
+            <GoldMedal x={0} y={0} s={1} />
+          </g>
+        </Person>
+        {/* koç: not panosuna yazar */}
+        <g opacity={coachIn} transform={`translate(${lerp(200, 0, coachIn)} 0)`}>
+          <Person x={740} y={1330} s={0.78} shirt="#3c3f4a" belly={0.45} armL={[18, -20]} armR={[40, -105]} mouth="flat" lookY={14}>
+            <g transform={`translate(${hand[0] - 40} ${hand[1] - 120})`}>
+              <rect x={-120} y={-150} width={240} height={300} rx={14} fill="#c89a62" stroke={C.ink} strokeWidth={8} />
+              <rect x={-100} y={-120} width={200} height={255} fill={C.cream} stroke={C.ink} strokeWidth={4} />
+              <rect x={-40} y={-168} width={80} height={36} rx={8} fill="#8a8a8a" stroke={C.ink} strokeWidth={6} />
+              {lines.map((l, i) => (
+                <g key={i}>
+                  <HandText x={-88} y={-80 + i * 48} text={l} size={38} anchor="start" rotate={0} p={tw(write, i / 5, (i + 1) / 5)} />
+                  {write > (i + 1) / 5 ? <path d={`M70 ${-95 + i * 48} l10 12 l18 -22`} stroke="#3f7d4f" strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
+                </g>
+              ))}
+            </g>
+          </Person>
+        </g>
+        {coachIn > 0.5 ? <HandText x={800} y={300} text="koç" size={110} p={tw(f, w(7) - 2, w(7) + 8)} color={C.yellow} rotate={-6} /> : null}
+      </g>
+    );
+  }
+  const g = f - cut;
+  const up = tw(f, w(11), w(12) + 6);
+  const name = pop(f, w(14) - 2, 12);
+  const phoneY = lerp(1090, 790, up);
+  return (
+    <>
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#e6d3ae" />
+      <rect x={-200} y={1350} width={1480} height={800} fill="#c9a06c" />
+      <path d="M-200 1350 L1280 1350" stroke={C.ink} strokeWidth={6} />
+      <Person x={540} y={1400} s={0.95} belly={0.35} armL={[14, 0]} armR={up > 0.5 ? [30, -125] : [20, -40]} mouth={name > 0.5 ? "grin" : "smile"} lookY={up > 0.5 ? 12 : 0} />
+      {/* cep: telefon önce cepte, "cebinde"de yukarı çıkar */}
+      <g opacity={g < 4 ? g / 4 : 1}>
+        <VoomPhone x={lerp(610, 600, up)} y={phoneY} s={lerp(0.3, 1, up)} rot={lerp(-20, -4, up)} ring={tw(f, w(12), w(13))} />
+      </g>
+      {name > 0 ? (
+        <g transform={`translate(540 330) scale(${name})`}>
+          <rect x={-250} y={-110} width={500} height={190} rx={40} fill="#0f0f10" stroke={C.ink} strokeWidth={10} />
+          <text x={0} y={40} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={130} letterSpacing={8} fill={VS.lime}>
+            VOOM
+          </text>
+          {[[-280, -100], [280, -90], [-250, 110], [270, 100]].map(([sx, sy], i) => (
+            <Star key={i} x={sx} y={sy} r={24 + 8 * Math.sin(f / 3 + i)} rot={f * 4 + i * 30} />
+          ))}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// Kâğıt uçak: p 0..1 uçuş (a → b, yay çizerek), iz kesik çizgi
+const PaperPlane: React.FC<{ p: number; a: [number, number]; b: [number, number] }> = ({ p, a, b }) => {
+  if (p <= 0 || p >= 1) return null;
+  const e = ease(p);
+  const x = lerp(a[0], b[0], e);
+  const y = lerp(a[1], b[1], e) - Math.sin(e * Math.PI) * 260;
+  const trail = Array.from({ length: 12 }, (_, i) => {
+    const q = Math.max(0, e - i * 0.03);
+    return `${lerp(a[0], b[0], q).toFixed(1)} ${(lerp(a[1], b[1], q) - Math.sin(q * Math.PI) * 260).toFixed(1)}`;
+  });
+  return (
+    <g>
+      <path d={`M${trail.join(" L")}`} stroke={C.ink} strokeWidth={5} strokeDasharray="14 12" fill="none" opacity={0.5} />
+      <g transform={`translate(${x} ${y}) rotate(${-20 + 40 * e})`}>
+        <path d="M-60 0 L60 -30 L-10 30 Z" fill={C.cream} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+        <path d="M-10 30 L60 -30 L0 0 Z" fill="#d9c9a8" stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+      </g>
+    </g>
+  );
+};
+
+// "Bunu, ince olan güzeldir diyen arkadaşına at. Çünkü:"
+// Avatar telefonuyla döner; sağda arkadaşı "ince olan güzeldir" der (balon). "at"ta kâğıt uçak telefondan arkadaşa uçar,
+// arkadaşın telefonu yanar; "Çünkü"de arkada podyumun ışıkları yeniden yanar (açılış karesine döner).
+const VsDongu: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const say = pop(f, w(1) - 2, 12);
+  const plane = tw(f, w(6) - 6, w(7) + 2);
+  const got = f > w(7);
+  const stage = tw(f, w(7), w(7) + 14);
+  return (
+    <>
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#e6d3ae" />
+      <rect x={-200} y={1350} width={1480} height={800} fill="#c9a06c" />
+      <path d="M-200 1350 L1280 1350" stroke={C.ink} strokeWidth={6} />
+      <Person x={320} y={1400} s={0.82} belly={0.35} armL={[14, 0]} armR={[30, -125]} mouth={plane > 0 ? "grin" : "smile"} lookY={4} />
+      <Phone x={350} y={970} s={1.6} rot={-8} />
+      <Person x={830} y={1400} s={0.78} shirt="#c9566b" belly={0.2} armL={got ? [30, -125] : [14, 0]} armR={[14, 0]} mouth={got ? "o" : "smile"} eyes={got ? "wide" : "open"} lookY={got ? 10 : 0} />
+      {got ? <Phone x={805} y={1020} s={1.5} rot={8} glow={0.6 + 0.4 * Math.sin(f / 3)} /> : null}
+      {say > 0 ? (
+        <Bubble x={760} y={470} rx={250} ry={130} p={say} tail={[820, 690]}>
+          <HandText x={760} y={455} text="ince olan" size={78} p={tw(f, w(1), w(2) + 2)} rotate={-2} />
+          <HandText x={760} y={540} text="güzeldir!" size={78} p={tw(f, w(3) - 2, w(3) + 8)} color={C.red} rotate={-2} />
+        </Bubble>
+      ) : null}
+      <PaperPlane p={plane} a={[360, 930]} b={[790, 980]} />
+      {stage > 0 ? (
+        <g opacity={stage}>
+          <Stage lights={[1, 1, 1]} flash={1}>
+            <WingedModel f={f} t={0.3} walking={1} />
+          </Stage>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "vs-hook": VsHook,
+  "vs-iptal": VsIptal,
+  "vs-donus": VsDonus,
+  "vs-soru": VsSoru,
+  "vs-koc": VsKoc,
+  "vs-dongu": VsDongu,
   "bul2-soru": B2Soru,
   "bul2-ceza": B2Ceza,
   "bul2-kayip": B2Kayip,
