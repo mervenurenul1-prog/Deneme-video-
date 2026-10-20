@@ -19,6 +19,21 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
   siyah tişört + gri şort + shaker. Sessiz önizleme `ornek-videolar/cizim1-pilot/11-ekim-sessiz.mp4` → **kullanıcı onayı
   bekleniyor** → seslendirme (Yunus) → ses 1.2x (atempo + manifest /1.2) → render. Zamana bağlı: ekim bitmeden yayınlanmalı.
   Eski uzun sürüm sahneleri (`ekim-*`) kodda duruyor, JSON'da yok.
+- **!!! İLK İŞ (yeni sohbet): EKİM TEORİSİ v3 SESSİZ ÖNİZLEME.** Kullanıcı v2'yi beğenmedi ("kalite zayıf, gözde
+  canlanmıyor, betimleme zayıf; her saniyede insan 'evet' deyip düşünmeli, 'vay' demeli; milyon izlenmeli") ve v3 planını
+  yeni sohbette önizleme olarak istedi ("yeni sohbette önizleme"). v3 METİN (6 sahne, ~480 karakter, 1.2x ≈ 30 sn):
+  1 "Ocak bir. Salonda nefes alacak yer yok; herkes 'bu yıl başlıyorum' diyor." (kapıdan taşan kuyruk, her koşu bandında
+  biri, etiketli yeni kıyafetler, telefonlarda "yeni yıl yeni ben"; avatar sırada) 2 "Ocak yirmi bir. Aynı salon bomboş."
+  (aynı kare hızlı akışla boşalır, ışıklar söner, bir koşu bandı boşta döner) 3 "Bu söz dört bin yıllık: Babilliler yeni
+  yılda tanrılara ödünç aldıklarını geri vereceklerine söz verirdi." (salon sepyaya → Babil, biri ödünç aletini utanarak
+  geri verir, kil tablet "SÖZ"; kaynak History.com, doğrula) 4 "Ama ekimde salon senindir: kuyruk yok, en iyi alet boş.
+  Adı: Ekim Teorisi." (pencereden yapraklar, sakin salon, en iyi alette "BOŞ" parlar, dev başlık) 5 "Ocak geldiğinde herkes
+  ilk gününde; sen onuncu haftandasın." (kapı açılır, ocak kalabalığı dolar, avatar güçlenmiş, daha ağır kaldırır, göğsünde
+  "10. HAFTA" rozeti, yeni gelenler hayranlıkla bakar) 6 "Haftada iki gün yeter, planını VOOM hazırlar. Sen hangisisin:
+  ocakçı mı, ekimci mi?" (gerçek VOOM program ekranı → OCAKÇI/EKİMCİ + "Bu yıl başlıyorum diyen arkadaşına gönder" →
+  döngü: Ocak bir kuyruğu). TEK DÜNYA: aynı spor salonu, dönüşümü izlenir. Kıyafet: gri kapüşonlu + çizgili eşofman →
+  ekimden sonra siyah tişört + gri şort + shaker. Görsel kalite yüksek olmalı: büyük, net, canlı, kalabalık detaylı.
+  12 madde tablosu kullanıcıya sunuldu. Yeni sahneler `ekim3-*`, JSON `cizim1-11-ekim` güncellenir.
 - Kalan ElevenLabs kredisi ≈ 12.885 (20 Ekim). Kız sesi klonu `kUOROTx2GgiPee3eXWoa` (kız konuşursa eleven_v4).
 
 ## !!! TEMPO VE SES KURALI (kullanıcı, 19 Ekim gece — selülit son hâli beğenildi, ARTIK HEP BÖYLE) !!!
