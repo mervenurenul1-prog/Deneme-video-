@@ -1,0 +1,71 @@
+{
+  "id": "cizim1-09-kilo-iddia",
+  "title": "Bulaşık iddiası",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "scenes": [
+    {
+      "visual": "bul-iddia",
+      "voice": "Eşinle iddiaya girdin: bir ayda kim daha çok kilo verirse, öteki bir ay bulaşık yıkayacak.",
+      "say": "[playful] Eşinle iddiaya girdin: bir ayda kim daha çok kilo verirse, öteki bir ay bulaşık yıkayacak."
+    },
+    {
+      "visual": "bul-tarti",
+      "voice": "Ay sonu, tartı: o beş kilo, sen bir.",
+      "say": "Ay sonu, tartı: o beş kilo... sen bir."
+    },
+    {
+      "visual": "bul-ic",
+      "voice": "Haklıymış… kadınlar zor kilo verir.",
+      "say": "[sighs] Haklıymış... kadınlar zor kilo verir.",
+      "voiceId": "HZh2tWL1clJO95e2qMt2"
+    },
+    {
+      "visual": "bul-lab1",
+      "voice": "Bekle. Bu iddia iki bin üçte bir laboratuvarda da yapıldı. On altı ay, aynı program.",
+      "say": "[curious] Bekle. Bu iddia, iki bin üçte bir laboratuvarda da yapıldı. On altı ay, aynı program."
+    },
+    {
+      "visual": "kilo-lab2",
+      "voice": "Erkekler beş kilo verdi, kadınlar neredeyse hiç.",
+      "say": "Erkekler beş kilo verdi, kadınlar... neredeyse hiç."
+    },
+    {
+      "visual": "kilo-lab3",
+      "voice": "Gördün mü?",
+      "say": "[chuckles] Gördün mü?"
+    },
+    {
+      "visual": "bul-lab4",
+      "voice": "Ama hakem bir şeyi fark etti: erkekler daha iri, aynı antrenmanda daha çok kalori yakıyorlardı. Kaloriler eşitlenince fark kayboldu.",
+      "say": "[curious] Ama hakem bir şeyi fark etti: erkekler daha iri, aynı antrenmanda daha çok kalori yakıyorlardı. Kaloriler eşitlenince... fark kayboldu."
+    },
+    {
+      "visual": "bul-bende",
+      "voice": "Yani… bulaşık bende mi?",
+      "say": "[sheepish] Yani... bulaşık bende mi?"
+    },
+    {
+      "visual": "bul-son",
+      "voice": "Kilo farkı, emek farkı değil. Bu videoyu iddiaya girdiğin kişiye gönder.",
+      "say": "Kilo farkı, emek farkı değil. [warmly] Bu videoyu, iddiaya girdiğin kişiye gönder."
+    }
+  ],
+  "caption": "Kadınlar gerçekten zor mu kilo verir?\n\nMidwest Exercise Trial (Donnelly ve ark., 2003): 16 ay aynı egzersiz programında erkekler ~5 kg verdi, kadınlar vermedi; ama erkekler antrenman başına ~667 kcal, kadınlar ~439 kcal yakıyordu. MET-2 (Donnelly ve ark., Obesity 2013): herkes aynı kaloriyi yakınca kadın-erkek farkı anlamlı değildi.",
+  "hashtags": [
+    "fitness",
+    "kiloverme",
+    "kadınfitness",
+    "sağlıklıyaşam",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

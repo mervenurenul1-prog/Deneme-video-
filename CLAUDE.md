@@ -8,6 +8,8 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## !!! İKİ PARALEL SOHBET (20 Ekim): EKİM TEORİSİ sohbeti ve MAYIŞMA sohbeti. Kullanıcının ilk mesajından hangisi olduğunu anla. Her iki iş de bu dalda ve main'de. !!!
+
 ## >>> YENİ SOHBET BURADAN BAŞLASIN (20 Ekim devir notu — EN GÜNCEL) <<<
 - **Dal:** `claude/cellulite-video-prep-n06393` (en güncel; selülit + ekim işleri burada). `npm ci` → işe başla.
 - **10 SELÜLİT BİTTİ:** son video `ornek-videolar/cizim1-pilot/10-selulit.mp4` (`cizim1-10-selulit-c`, 40,5 sn, Yunus 1.2x).
@@ -97,6 +99,105 @@ Kız: yüksek belli kısa tayt + kolsuz atlet, gerçekçi bacak (`Person realLeg
 - **Her üç videodan biri "Kimse söylemedi" serisinden** (şimdiki tür: inanılan bir şeyi ters köşe bilgiyle çürüten,
   kanca → tarihçe → görsel → döngü). Konu bu dört kitleden hiçbirine dokunmuyorsa ELENİR.
 - **Diğer ikisi (kullanıcı cevapladı):** doğrudan bu dört kitleye hitap eden içerik; arada satış Reels'i.
+
+## >>> EN YENİ (20 Ekim) — YENİ SOHBET İLK İŞ <<<
+- **10 MAYIŞMA'yı kullanıcının getirdiği referans senaryoyla GELİŞTİR** (ekran görüntüsü: `notlar/10-mayisma-referans-senaryo.png`).
+  Referans 30 sn senaryo: 0-5 sn acıya dokun ("Yemekten sonra gözlerin kapanıyor, beynin duruyor ve günün geri kalanını
+  çöpe atmış gibi mi hissediyorsun?") → 5-10 sn tarih ("Bu his o kadar eski ki… 'Siesta' kelimesinin kökü, Romalıların
+  günün altıncı saatine verdiği addan geliyor.") → 10-22 sn bilim + yanlış inanış ("Ama sebep, kanının beyninden mideye
+  kaçması değil! Büyük öğünler, bağırsaklarından gelen sinyaller ve öğleden sonraki doğal biyolojik ritmin bu uyku hâlini
+  artırabiliyor.") → 22-30 sn bağla ve çöz ("Çözüm? Daha dengeli porsiyonlar ve yemekten sonra kısa bir yürüyüş. Çünkü
+  bazen mesele tembellik değil, vücudunun ritmi."). Kullanıcı: "bu senaryoyu GELİŞTİR".
+  **Kullanıcının görsel talimatı:** vintage kitap estetiği, elle çizilmiş 2D karakterler, hafif dokulu kâğıt zemin, tarihî
+  tablolar ve bilimsel kesit animasyonları; fotogerçekçi stok YOK. Her sahne bir öncekinin hikâyesini sürdürsün. Tarihte
+  ESKİ ROMA (güneş saati, altıncı saat), bilimde BAĞIRSAK→BEYİN SİNYALLERİ + BİYOLOJİK SAAT, finalde DENGELİ TABAK + YÜRÜYÜŞ.
+  Türkçe seslendirme doğal, vurucu, ~30 sn. Altyazı kelime grupları hâlinde senkron, ÖNEMLİ KELİMELER FARKLI RENKTE
+  (şu an yalnız konuşulan kelime sarı → anahtar kelime vurgusu eklenecek). 9:16, 1080×1920. Geçişler anlatımla eşleşsin;
+  gereksiz sahne/uzun giriş yok. DOĞRULANMAMIŞ kesin neden/sağlık iddiası yok ("artırabiliyor" gibi temkinli dil).
+  Akış: geliştirilmiş metni yaz (~400 karakter) → kullanıcıya ONAYLAT → sahneler (mevcut `sk-*`, `SiestaScene`/`Sundial`
+  (`may-siesta`), `BodyClockLens`, `SkMide` sinir hattı, `KnPlate`, yürüyen avatar yeni) → yüksek kaliteli müzikli önizleme
+  (`--jpeg-quality=100 --crf=17`) → onay → seslendirme (Yunus).
+- **20 Ekim (sonraki sohbet): geliştirilmiş metin sunuldu, ONAY BEKLİYOR** (~470 karakter, 71 kelime, 1.2x ile ~25-30 sn):
+  1 "Son lokmayı yuttun. Göz kapakların kurşun gibi… ve günün geri kalanı çöpe gidiyor." 2 "Bu his iki bin yıllık.
+  Romalılar öğleye altıncı saat derdi: sexta hora. Siesta oradan gelir." 3 "Peki kanın beyninden mideye mi kaçıyor? Pek
+  sayılmaz." 4 "Büyük bir öğünde bağırsakların beynine dinlen sinyali yollar. Üstelik iç saatin öğleden sonra zaten
+  yavaşlar." 5 "Çözüm: dengeli bir tabak, yemekten sonra on dakika yürüyüş. VOOM o tabağı seninle kurar." 6 "Yani tembel
+  değilsin. Sadece altıncı saattesin." (döngü: son kare = ilk kare). Kurallar: 12 madde tablosu + acı/tarih/VOOM,
+  dolgu yok, `padding` 0.02, ses 1.2x (cellulite dalındaki 20 Ekim kuralları).
+- **20 Ekim: kullanıcı "önizleme nerde" dedi → metin onaylı sayıldı, v4 kuruldu.** JSON `cizim1-10-mayisma` (sahneler
+  `sr-kursun`, `sr-roma`, `sr-kan`, `sr-sinyal`, `sr-cozum`, `sr-son`; `padding` 0.02), altyazıda JSON `keys` → anahtar kelimeler
+  turuncu (`KEY_COLOR`). Sessiz müzikli önizleme `ornek-videolar/cizim1-pilot/10-mayisma-sessiz.mp4` (~34,5 sn; gerçek ses 1.2x
+  ile ~28 sn) gönderildi → **ONAY → seslendirme (Yunus, ~470 karakter) → sesi 1.2x hızlandır**.
+- Son gönderilen: `ornek-videolar/cizim1-pilot/10-mayisma-kisa-sessiz.mp4` (v3, 31 sn: kurşun göz kapakları/baş düşüp
+  toparlanma, şeker damara akar, beyin merceği → gece binası). Önerilen ufak metin düzeltmesi onaylanmadı; referans senaryo
+  ile değişecek.
+- Sohbette kısa ve öz yaz.
+
+## >>> EN GÜNCEL DEVİR (19 Ekim GECE, en son) — YENİ SOHBET BURADAN BAŞLASIN <<<
+- Çalışma dalı: bu oturumda `claude/claudemd-guncel-devir-ses-lkl9s6` kullanıldı; her işten sonra çalışma dalı + `main` push.
+- **SÜRE SINIRI: yeni bilgi videoları en fazla 30 sn** (~400-420 karakter). Kullanıcı: "az ve öz konuş, akılda kalıcı,
+  çok iyi görselleştir"; Claude'un sohbet mesajları da KISA olsun.
+- **10 MAYIŞMA (`cizim1-10-mayisma`) — ŞU ANKİ İŞ, KISA SÜRÜM:** Konu: yemekten sonra çöken ağırlık. Tek fikir: tabak →
+  şeker → beyin. Fare/2006 deneyi ANLATILMAYACAK (kullanıcı: "saçmalayacaksan bahsetme"; gerçek deney fare beyin dilimi,
+  uyuyan fare değil). Kod: sahneler `skk-agirlik`, `sk-seker`, `sk-soru`, `sk-tabak2` (roket kan şekeri grafiği),
+  `sk-beyin2` (hücreler söner, baş masaya düşer), `skk-son` (doktor kartı). JSON şu an şu metinle:
+  "Karnını bir güzel doyurdun… ve üstüne bir ağırlık çöktü." / "Aklına şu geliyor: Yoksa şekerim mi var?" / "Sence bu
+  ağırlık nereden geliyor?" / "Çoğu zaman tabağından. Pilav, ekmek, tatlı kandaki şekeri bir anda fırlatır." / "Şeker
+  yükselince, beyninde seni uyanık tutan hücreler tek tek kısılır." / "Yani çoğu zaman suçlu hastalık değil, tabak. Ama her
+  seferinde bayılacak gibiysen, bir doktora görün."
+  **SON İSTEK (onay bekliyor): "anlatımı geliştir, görselleştirmeyi ve betimlemeyi arttır".** Önerilen yeni metin:
+  1 "Son lokmayı yuttun. Göz kapakların kurşun gibi ağırlaştı." 2 "Ve içinden bir ses: Yoksa şekerim mi var?" 3 "Sence bu
+  ağırlık nereden geliyor?" 4 "Tabağına bak: pilav, ekmek, tatlı. Midene indikleri an şekere dönüşüp kanına karışıyorlar."
+  5 "Kandaki şeker fırlayınca, seni uyanık tutan beyin hücreleri tek tek söner; bir binanın ışıkları gibi." 6 "Çoğu zaman
+  hastalık değil, tabak. Ama her seferinde bayılacak gibiysen, bir doktora görün." Görsel: kurşun ağırlık göz
+  kapaklarını çeker; yiyecekler küp şekere dönüşüp kırmızı damara akar; beyin merceği gece binasına dönüşür, pencereler
+  tek tek söner, son ışıkla baş masaya düşer. → kullanıcı onaylarsa uygula → sessiz (müzikli) önizleme → onay → seslendirme.
+- **Uzun sürüm (`cizim1-10-mayisma-uzun`, ~45 sn, `sku-*` = kısa bileşenlerin uzun metne eşlenmesi):** kullanıcı "uzunu da
+  atma, değiştirme" dedi → BEKLEMEDE, gönderilmedi.
+- Kısa sürümün önceki hâli: `ornek-videolar/cizim1-pilot/10-mayisma-kisa-sessiz.mp4` (32 sn; kullanıcı "her yerden
+  kısmışsın" dedi, beğenmedi).
+- **Görüntü kalitesi (kullanıcı şikâyet etti):** `scripts/render.ts` artık `jpegQuality: 100, crf: 16`. Önizleme
+  render'ında da `--jpeg-quality=100 --crf=17` kullan (eski önizlemeler crf 23 + JPEG 80 → bulanıktı). 30 MB'ı aşarsa
+  kaliteyi koruyarak sıkıştır.
+- **Render ipucu:** bekleme döngüsünde `pgrep -f` kendi kabuğunu da yakalıyor (sonsuz döngü) → kullanma; render'ları
+  doğrudan sırayla başlat. Durdurmak için PID ile `kill`.
+- 09 kilo (`cizim1-09-kilo-hangimiz`) seslendirildi, `ornek-videolar/cizim1-pilot/09-kilo-hangimiz.mp4` (45,8 sn) — kullanıcı
+  geri bildirim vermedi. Kalan ElevenLabs kredisi ≈ 13.090 (API 13.617 gösteriyordu, gecikmeli olabilir).
+
+## (önceki) EN GÜNCEL DEVİR (19 Ekim akşam)
+- Çalışma dalı `claude/claude-md-continuation-e39del` (= main). `npm ci` → işe başla. Kalan ElevenLabs kredisi ≈ 13.600.
+- **09 KİLO: geçerli sürüm `cizim1-09-kilo-hangimiz`** ("Hangimiz daha önce kilo verecek?"; ayrıntı aşağıda "09 KİLO v5").
+  Sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-hangimiz-sessiz.mp4` kullanıcıya gönderildi → **onay/düzeltme
+  bekleniyor → sonra seslendirme** (Yunus ~490 + Aslı ~37 karakter; kadın sahnesi `voiceId` Aslı `HZh2tWL1clJO95e2qMt2`).
+  **SESLENDİRİLDİ (19 Ekim akşam, kullanıcı "seslendir"), müzikle render → `ornek-videolar/cizim1-pilot/09-kilo-hangimiz.mp4`
+  (45,8 sn, crf 23 ile 20 MB). Kullanıcı geri bildirimi bekleniyor.**
+  Seslendirme: `npm run voiceover -- cizim1-09-kilo-hangimiz` → `npm run render -- cizim1-09-kilo-hangimiz`.
+  Diğer 09 sürümleri (`-iddia`, `-a`, `-b`, `-c`, `cizim1-09-kilo`) eski/alternatif; dokunma.
+- **10 MAYIŞMA (`cizim1-10-mayisma`, 19 Ekim akşam, kullanıcı konuyu verdi: yemek sonrası mayışma + iş erteleme):** kullanıcı
+  "kanca 'yemek yedin ve bir ağırlık çöktü' olsun, senaryoyu geliştir, önizleme oluştur" dedi. Metin (8 sahne, `may-*`,
+  ~630 karakter): ağırlık çöker (koyu bulut başa iner, ekran kararır, esner) → işi "birazdan" diye erteler (pano + yapışkan
+  notlar, saat ilerler) → "Ben neden bu kadar tembelim?" (balon) → "Sence bu ağırlık nereden geliyor?" → iç saat, uyanıklık
+  eğrisi 14:00 çukuru, yemeksiz de (Monk 2005) → mide + şeker beyindeki uyanık tutan hücreleri kısar (Burdakov 2006, oreksin)
+  → Siesta = Latince sexta hora, altıncı saat (sepya köy, güneş saati VI) → "Yani sorun sende değil, saatte. Yarın o ağırlık
+  yine çöktüğünde, kendine tembel deme." (ertesi gün yeni tabak = açılış karesi). Sessiz önizleme
+  `ornek-videolar/cizim1-pilot/10-mayisma-sessiz.mp4` (47,4 sn) → onay/düzeltme → seslendirme (yalnız Yunus).
+  **v2 (kullanıcı: "tembellik ne alaka, kan şekeri mi? A'yı B'ye bağla, yediklerinle ilgili; acıya dokun, sonra tarih ve
+  bilimle kanıtla — KAÇ KERE SÖYLEYECEĞİM"):** "Kan mideye mi indi?" (`kan-*`, 7 sahne, ~600 karakter): ağırlık çöker + masada
+  iş bekler → anne "kan mideye indi" (balon + gövdede kan yolu) → karşıdaki iş arkadaşı (et + salata) dimdik çalışıyor →
+  "Sence aradaki fark ne?" → "Kan değil, beyin kanını kaptırmaz; fark tabakta: pilav, ekmek, tatlı; şeker fırlar" (kan şekeri
+  grafikleri) → 1998 uyanık tutan hücreler bulundu, 2006 şeker bunları kısıyor (iki beyin merceği) → "Kan mideye inmedi, şeker
+  beynine çıktı. … bu videoyu gönder." Sessiz önizleme `10-mayisma-sessiz.mp4` (45,1 sn) gönderildi → onay → seslendirme.
+- **!!! SÜRE (kullanıcı, 19 Ekim gece): YENİ BİLGİ VİDEOLARININ SINIRI 30 SN** (≈ 400-420 karakter, Yunus ~14 kar/sn).
+  "Saçmalayacaksan bahsetme": emin olunmayan/yanlış betimlenecek bilimsel ayrıntıyı (ör. 2006 fare beyin dilimi deneyini
+  "uyuyan fare" diye göstermek) koyma. "Canlı" = gerçekçi ama hareketli sahneler; abartılı karakterleştirme (esneyen saat,
+  konuşan mide) değil.
+- **10 MAYIŞMA v3 (GÜNCEL, `sk-*`, 7 sahne, ~420 karakter, ~30 sn):** "Karnını doyurdun… ağırlık çöktü" → "Yoksa şekerim mi
+  var?" → "Sence bu ağırlık nereden geliyor?" → 1 saat (öğleden sonra yavaşlar) → 2 mide (beyne "dinlen") → 3 tabak (pilav,
+  ekmek, tatlı şekeri fırlatır, uyanık tutan hücreler kısılır; fare YOK) → "Çoğu zaman hastalık değil… bir doktora görün."
+- **Uyulacaklar (19 Ekim):** HİKÂYE FORMÜLÜ (dokun → sor → açıkla → tarih + vücudun içi → bağla, basit); 12 madde
+  tablosu (izlesin/yorum/paylaşsın); CEFF kanca kalıbı; "görsel sözler kadar önemli" (her hareket gerçekteki gibi, göndermeden
+  önce kareleri kontrol et); Yunus ana ses, Sibel yalnız anne, genç kadın = Aslı; metin onayı → sessiz önizleme → onay →
+  seslendirme. Selülit (`notlar/10-selulit.md`) ayrı sohbette yürüyor.
 
 ## >>> YENİ SOHBET: ÖNCE BUNU OKU (17 Ekim devir notu — EN GÜNCEL) <<<
 Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; her işten sonra ikisine de push). `npm ci` → işe başla.
@@ -219,6 +320,31 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
   yeniden çizildi (`FatCellC` yüzlü yağ hücresi, `SelRope` örgülü ip, `SkinBand`, "dışarıdan" büyüteci). Hedef: milyon izlenme. `KiloStamp` artık `text/x/y/half` alıyor.
 
 **>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
+- **!!! SESLER (kullanıcı, 19 Ekim): Yunus = ANA SES, Sibel = YALNIZ ANNE SESİ.** Genç kadın karakter için Sibel KULLANMA;
+  ayrı genç kadın sesi seçilecek. Adaylar (ElevenLabs paylaşılan kitaplık, tanıtım örnekleri `ses-ornekleri/genc-kadin-adaylar/`):
+  1 Gözde `rtnDjO8siSxeTEeTVczO`, 2 Zeynep `ZaoBgxgzPhoCm533Pb7B`, 3 Damla `A2XgcJ6lQVEFeIaIUyrc`, 4 Elif Özder
+  `i50A6Mcx7A7vVwCVZVeZ`, 5 İrem `R0D8QjgVyRju4HRoCrIC`, 6 Aslı `HZh2tWL1clJO95e2qMt2`. **SEÇİLDİ: 6 Aslı `HZh2tWL1clJO95e2qMt2` (kitaplıkta "VOOM genc-kadin-asli") = genç kadın sesi.** Ekleme:
+  (`POST /v1/voices/add/{public_owner_id}/{voice_id}`) → JSON'da kadın sahnelerinin `voiceId`'si. Kalan kredi ≈ 13.617.
+- **09 KİLO v5 (EN GÜNCEL, 19 Ekim): "Hangimiz daha önce kilo verecek?"** (`cizim1-09-kilo-hangimiz`, kullanıcı: "hook
+  bu olsun, iddia güzel ama cezayı/kaybetme anını görelim"; metin onaylandı "yap önizleme"). Kadın (Aslı) soruyu sorar →
+  avatar "Kaybeden bir ay bulaşık yıkar!" (buzdolabı notu + kulpta eldiven) → tartı −5/−1, eldivenler uçup kadının eline
+  geçer → lavaboda tabak kulesi + "Sence neden?" → "Hayır. O sadece senden daha iri." (beden kutuları) → laboratuvar 2003 →
+  kasın içinde fırın mercekleri (667/439) → eşit kalori 600/600, damga düşer → avatar "Yani… bulaşık bende mi?" → `bul-son`.
+  Sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-hangimiz-sessiz.mp4` → onay → seslendirme (Yunus + Aslı).
+- **!!! HİKÂYE FORMÜLÜ (kullanıcı, 19 Ekim — HER VİDEODA):** 1) önce insanların YARISINA DOKUN (yaygın, "tam ben"
+  dert); 2) sonra SEBEBİNİ ONLARA SOR ("Sence neden?"); 3) sonra AÇIKLA (kısa, basit cevap); 4) sonra TARİHÇESİ + VÜCUTTAKİ
+  YERİNİ GÖSTER (gerekirse hücre, gerekirse kasın içi); 5) en sonunda toplam hikâyeyi BAĞLA. BASİT tut.
+- **!!! DERS (kullanıcı, 19 Ekim, gerildi): "GÖRSEL SÖZLER KADAR ÖNEMLİ."** Açılışta tezgâh üstünden el uzatıp lavaboda
+  tokalaşma "ne kadar saçma bir an" bulundu. Her hareket GERÇEK hayatta nasıl yapılıyorsa öyle çizilsin (taş-kâğıt-makas
+  yapılacaksa gerçek taş-kâğıt-makas). Önizleme göndermeden önce her sahneden kare alıp "bu an gerçekte böyle mi olur?"
+  diye kontrol et. 09 iddia açılışı → BUZDOLABI NOTU (kullanıcı seçti): yakın çekimde mıknatısla iddia notu, satırlar
+  yazılır, imzalar, kamera geri çekilir; kulpta KAYBEDEN eldivenleri (`Fridge`, `BetNote`, `Marker`).
+- **09 KİLO v4 "Bulaşık iddiası"** (`cizim1-09-kilo-iddia`, kullanıcı "senaryoyu baştan yarat" dedi, metin "hemen önizleme"):
+  mutfak (tezgâh, lavabo, KAYBEDEN eldivenleri) → iddia → ay sonu tartı −5/−1 → kadının iç sesi "Haklıymış… kadınlar zor
+  kilo verir." (bulut) → laboratuvar → "Gördün mü?" → hakem düdüğü, kalori 667/439 → 600/600, damga düşer → avatar "Yani…
+  bulaşık bende mi?" (eldivenler ona geçer) → "Kilo farkı, emek farkı değil. Bu videoyu iddiaya girdiğin kişiye gönder." +
+  ekranda "Sizde iddiayı kim kazandı?". Bileşenler `bul-*` (`Mutfak`, `KitchenCounter`, `Glove`, `LoserGloves`, `Whistle`).
+  12 madde tablosu kontrol edildi: zayıf = tempo (hakem cümlesi ~9 sn) ve "eşinle" (bekârları dışlar) — kullanıcıya soruldu.
 - **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →
   `cizim1-09-kilo-a` (tam video, sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-a-sessiz.mp4`): A1 tartı ekranları +
   duvar takvimi (HAFTA 1→4), kadın çatalını bırakır → A2 iç ses bulutta (Sibel) → A3 "Peki ya sorun sende değilse?" (lacivert
