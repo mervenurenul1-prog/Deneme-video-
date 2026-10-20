@@ -558,6 +558,14 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "selc-bugun": (w) => [[w(1), "ding", 0.3], [w(3), "tik", 0.3], [w(9) - 4, "whoosh", 0.35], [w(11), "sonme", 0.3]],
   "selc-ip": (w) => [[w(4), "pop", 0.3], [w(6), "kalem", 0.3], [w(10), "yuksel", 0.3], [w(12), "cizik", 0.3]],
   "selc-son": (w, d) => [[w(0), "kalem", 0.3], [w(2), "cizik", 0.3], [w(2) + 6, "agir-dusme", 0.35], [w(3), "pop", 0.3], [w(6), "pop", 0.25], [w(12), "ding", 0.3], [d - 28, "whoosh", 0.3]],
+  "ekim-soz": (w) => [[0, "pirilti", 0.35], [w(4), "pop", 0.3], [w(7), "kagit", 0.35], [w(11), "whoosh", 0.35], [w(13), "agir-dusme", 0.35]],
+  "ekim-babil": (w) => [[w(2), "yuksel", 0.3], [w(7), "kalem", 0.3], [w(10) - 4, "whoosh", 0.35]],
+  "ekim-birak": (w) => [[w(4), "adim", 0.3], [w(10) + 4, "agir-dusme", 0.4]],
+  "ekim-teori": (w) => [[w(4), "kagit", 0.35], [w(7), "adim", 0.3], [w(9), "sihir", 0.4]],
+  "ekim-beyin": (w) => [[w(4), "kagit", 0.3], [w(6), "pirilti", 0.35], [w(8), "bip", 0.3], [w(13), "yuksel", 0.3]],
+  "ekim-yol": (w) => [[2, "pop", 0.25], [w(4), "whoosh", 0.35], [w(9), "ding", 0.35]],
+  "ekim-voom": (w) => [[2, "pop", 0.3], [w(1), "cizik", 0.3], [w(4), "tik", 0.3], [w(7), "pop", 0.3], [w(10), "sihir", 0.35], [w(12), "whoosh", 0.3]],
+  "ekim-son": (w, d) => [[w(3), "pop", 0.3], [w(6), "ding", 0.3], [w(8) + 4, "pop", 0.25], [d - 26, "whoosh", 0.3]],
   "selc-yaygin": (w) => [[w(1), "pop", 0.3], [w(4), "pop", 0.3], [w(4) + 6, "ding", 0.3]],
   "selc-erkek": (w) => [[2, "whoosh", 0.25], [w(2), "kalem", 0.3], [w(5), "ding", 0.3], [w(12), "cizik", 0.3], [w(13), "kalem", 0.3]],
   "sel-son": (w, d) => [[w(0), "kalem", 0.3], [w(8), "cizik", 0.3], [w(15), "kalem", 0.3], [w(16) + 4, "agir-dusme", 0.35], [w(17), "pop", 0.3], [d - 24, "whoosh", 0.3]],
@@ -716,6 +724,14 @@ const ZOOM: Record<string, Zoom> = {
   "selc-erkek": { to: 1.03, x: 540, y: 900 },
   "selc-son": { to: 1.0, x: 540, y: 960 },
   "selc-yaygin": { to: 1.0, x: 540, y: 960 },
+  "ekim-soz": { to: 1.0, x: 540, y: 960 },
+  "ekim-babil": { to: 1.0, x: 540, y: 960 },
+  "ekim-birak": { to: 1.0, x: 540, y: 960 },
+  "ekim-teori": { to: 1.0, x: 540, y: 960 },
+  "ekim-beyin": { to: 1.0, x: 540, y: 960 },
+  "ekim-yol": { to: 1.0, x: 540, y: 960 },
+  "ekim-voom": { to: 1.0, x: 540, y: 960 },
+  "ekim-son": { to: 1.0, x: 540, y: 960 },
   "yanlis-fikir": { to: 1.05, x: 540, y: 700 },
   "yag-hucresi": { to: 1.06, x: 700, y: 760 },
   nefes: { to: 1.08, x: 600, y: 700 },
@@ -13367,6 +13383,474 @@ const SelcYaygin: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+// ===== 11 EKİM TEORİSİ — "Her ocak aynı söz" (avatarın evi: duvar takvimi, kanepe, kapı; kapüşonlu → spor kıyafeti) =====
+const EK_FL = 1330;
+const EK_HOOD = "#8a8f99"; // kapüşonlu (günlük)
+const EK_SWEAT = "#5b5f68"; // eşofman altı
+const EK_DOOR = { x: 860, y: EK_FL }; // kapının alt ortası
+const EK_CAL = { x: 300, y: 420 }; // duvar takviminin ortası
+const EK_AV = { x: 470, y: EK_FL + 10, s: 0.9 };
+
+// Kapüşon (Person koordinatlarında; başın arkasında kalan yaka + önde iki ip)
+const Hood: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <path d="M-92 -600 Q0 -560 92 -600 Q70 -540 0 -548 Q-70 -540 -92 -600 Z" fill="#767b85" strokeWidth={6} />
+    <path d="M-24 -560 L-28 -470 M24 -560 L28 -470" stroke="#f1ece2" strokeWidth={6} />
+    <path d="M-60 -430 Q0 -410 60 -430 L56 -380 Q0 -366 -56 -380 Z" fill="#767b85" strokeWidth={5} />
+  </g>
+);
+// Avatar: sport=0 kapüşonlu/eşofman, sport=1 siyah tişört/gri şort (kıyafet değişimi)
+const EkAvatar: React.FC<{ x?: number; y?: number; s?: number; sport?: boolean; mouth?: Mouth; eyes?: Eyes; armL?: Arm; armR?: Arm; lookY?: number; tilt?: number; children?: React.ReactNode }> = ({ x = EK_AV.x, y = EK_AV.y, s = EK_AV.s, sport = false, mouth = "smile", eyes = "open", armL = [12, 0], armR = [12, 0], lookY = 0, tilt = 0, children }) => (
+  <Person x={x} y={y} s={s} belly={0.45} shirt={sport ? SEL_AV_TOP : EK_HOOD} shorts={sport ? "#8c8c90" : EK_SWEAT} shortsLen={sport ? 0.55 : 0.95} shoe={sport ? "#f4f1ea" : "#5a5a62"} mouth={mouth} eyes={eyes} armL={armL} armR={armR} lookY={lookY} tilt={tilt}>
+    {sport ? null : <Hood />}
+    {children}
+  </Person>
+);
+
+// Duvar takvimi: büyük yaprak (ay adı + gün); flip 0..1 yaprak çevrilirken
+const EK_MONTHS = ["OCAK", "ŞUBAT", "MART", "NİSAN", "MAYIS", "HAZİRAN", "TEMMUZ", "AĞUSTOS", "EYLÜL", "EKİM", "KASIM", "ARALIK"];
+const BigCal: React.FC<{ x: number; y: number; s?: number; month: string; day: number | string; flip?: number; ring?: number; color?: string }> = ({ x, y, s = 1, month, day, flip = 0, ring = 0, color = C.red }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+    <rect x={-150} y={-150} width={300} height={300} rx={18} fill={C.cream} strokeWidth={8} />
+    <path d="M-150 -70 V-132 Q-150 -150 -132 -150 H132 Q150 -150 150 -132 V-70 Z" fill={color} strokeWidth={8} />
+    {[-70, 70].map((rx) => (
+      <rect key={rx} x={rx - 9} y={-172} width={18} height={44} rx={9} fill={C.ink} />
+    ))}
+    <text x={0} y={-92} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={month.length > 6 ? 46 : 58} fill={C.cream} stroke="none" letterSpacing={4}>
+      {month}
+    </text>
+    <text x={0} y={90} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={150} fill={C.ink} stroke="none">
+      {day}
+    </text>
+    {flip > 0 ? <path d={`M-150 -70 H150 V${-70 + 220 * (1 - flip)} Q0 ${-70 + 260 * (1 - flip)} -150 ${-70 + 220 * (1 - flip)} Z`} fill="#efe4cc" strokeWidth={6} opacity={1 - flip * 0.6} transform={`rotate(${-flip * 40} 0 -70)`} /> : null}
+    {ring > 0 ? <circle cx={0} cy={40} r={110} fill="none" stroke={C.red} strokeWidth={12} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - ring} /> : null}
+  </g>
+);
+
+// Ev: duvar, parke, kapı (aralık açılabilir), kanepe, askılık
+const EkRoom: React.FC<{ door?: number }> = ({ door = 0 }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={0} y={0} width={1080} height={EK_FL} fill="#e7d7b8" stroke="none" />
+    {Array.from({ length: 9 }, (_, i) => (
+      <path key={i} d={`M${60 + i * 120} 0 V${EK_FL}`} stroke="#d5c19c" strokeWidth={4} opacity={0.5} fill="none" />
+    ))}
+    <rect x={0} y={EK_FL} width={1080} height={1920 - EK_FL} fill="#b98d5e" opacity={0.6} stroke="none" />
+    <path d={`M0 ${EK_FL} H1080`} strokeWidth={6} />
+    {/* kapı */}
+    <rect x={EK_DOOR.x - 130} y={EK_FL - 560} width={260} height={560} fill="#6b4a2e" strokeWidth={7} />
+    <rect x={EK_DOOR.x - 112} y={EK_FL - 542} width={224} height={542} fill={door > 0 ? "#fff3cf" : "#8a5f3a"} strokeWidth={5} />
+    {door > 0 ? <path d={`M${EK_DOOR.x - 112} ${EK_FL - 542} L${EK_DOOR.x - 112 + 224 * (1 - door)} ${EK_FL - 520} L${EK_DOOR.x - 112 + 224 * (1 - door)} ${EK_FL - 20} L${EK_DOOR.x - 112} ${EK_FL} Z`} fill="#8a5f3a" strokeWidth={5} /> : null}
+    {door <= 0 ? <circle cx={EK_DOOR.x + 80} cy={EK_FL - 270} r={12} fill="#e8c25a" strokeWidth={4} /> : null}
+    {/* kanepe */}
+    <g transform={`translate(240 ${EK_FL})`}>
+      <rect x={-230} y={-250} width={460} height={130} rx={40} fill="#c46a4a" strokeWidth={7} />
+      <rect x={-250} y={-150} width={500} height={110} rx={30} fill="#d47c5a" strokeWidth={7} />
+      <rect x={-270} y={-200} width={60} height={160} rx={26} fill="#b85e40" strokeWidth={7} />
+      <rect x={210} y={-200} width={60} height={160} rx={26} fill="#b85e40" strokeWidth={7} />
+      <path d="M-220 -40 V0 M220 -40 V0" strokeWidth={10} />
+    </g>
+  </g>
+);
+
+// 1) "Her ocak aynı söz: 'Bu yıl başlıyorum.' Ve her ocak ortası, spor çantası yine kapının arkasında."
+// 1 Ocak: konfeti, takvim "OCAK 1", avatar (kapüşonlu) çantayı kaldırır, balonda "Bu yıl başlıyorum!"; "Ve"de yapraklar
+// hızla çevrilir → "OCAK 17"; avatar kanepeye çöker, çanta kapının dibine fırlar, toz olur; kamera çantaya yaklaşır.
+const EkimSoz: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const flipT = tw(f, w(7), w(10));
+  const dayN = Math.round(lerp(1, 17, flipT));
+  const flip = flipT > 0 && flipT < 1 ? (f % 6) / 6 : 0;
+  const slump = tw(f, w(9), w(10) + 8);
+  const bagT = tw(f, w(11) - 4, w(12) + 4);
+  const dust = tw(f, w(13), w(15) + 6);
+  const hand = armPoints(1, [150, -20])[2];
+  const bx = lerp(EK_AV.x + hand[0] * EK_AV.s, EK_DOOR.x - 40, bagT);
+  const by = lerp(EK_AV.y + hand[1] * EK_AV.s + 80, EK_FL - 60, bagT) - Math.sin(Math.PI * bagT) * 200;
+  return (
+    <CamK k={[[0, 1, 540, 960], [w(13), 1, 540, 960], [w(15) + 4, 1.45, EK_DOOR.x - 60, EK_FL - 200], [d, 1.5, EK_DOOR.x - 60, EK_FL - 200]]}>
+      <EkRoom />
+      <BigCal x={EK_CAL.x} y={EK_CAL.y} month="OCAK" day={dayN} flip={flip} ring={tw(f, w(10), w(10) + 8)} />
+      {slump < 1 ? (
+        <g opacity={1 - slump}>
+          <EkAvatar armL={[40, -40]} armR={bagT > 0 ? [12, 0] : [150, -20]} mouth="grin">
+            {bagT <= 0 ? <SportBag x={hand[0]} y={hand[1] + 80} s={1} /> : null}
+          </EkAvatar>
+        </g>
+      ) : null}
+      {slump > 0 ? (
+        <g opacity={slump}>
+          <SideRunner f={f} x={250} y={EK_FL - 70} s={0.82} pose={sitPose} face="worry" shirt={EK_HOOD} />
+        </g>
+      ) : null}
+      {bagT > 0 ? <SportBag x={bx} y={by} s={0.9} dust={dust} /> : null}
+      <SayBubble x={560} y={760} p={pop(f, w(4) - 2, 10) * (1 - tw(f, w(7), w(7) + 6))} text="Bu yıl başlıyorum!" tail={[500, 900]} size={64} />
+      {f < w(7) + 6 ? <Confetti start={0} n={36} /> : null}
+    </CamK>
+  );
+};
+
+// Babil zigguratı (basamaklı tapınak)
+const Ziggurat: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={7} strokeLinejoin="round">
+    {[0, 1, 2, 3].map((i) => (
+      <rect key={i} x={-300 + i * 70} y={-110 - i * 110} width={600 - i * 140} height={110} fill={["#d9b77c", "#d1ac70", "#c9a264", "#c19858"][i]} />
+    ))}
+    <path d="M-30 0 V-330 H30 V0" fill="#a8824a" />
+    {[-1, 1].map((sd) => (
+      <path key={sd} d={`M${sd * 200} -110 v-40 M${sd * 140} -220 v-40`} strokeWidth={5} />
+    ))}
+  </g>
+);
+// 2) "İnsanlar bu sözü dört bin yıldır veriyor; Babilliler tanrılara verirdi, biz spor salonuna."
+// Sepya geçmiş: "4.000 yıl önce" sayacı; Babil zigguratı önünde el kaldırıp söz veren insanlar, kil tablette "SÖZ";
+// "biz"de ekran ikiye ayrılır: sağda bugün, spor salonu kapısında el kaldıran avatar.
+const EkimBabil: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const yrs = Math.round(lerp(0, 4000, tw(f, w(2), w(5) + 4)));
+  const split = Easing.inOut(Easing.cubic)(tw(f, w(10) - 4, w(10) + 10));
+  const raise = tw(f, w(8) - 4, w(8) + 8);
+  return (
+    <CamK k={[[0, 1.04, 540, 940], [d, 1.08, 540, 920]]}>
+      <rect x={0} y={0} width={1080} height={1920} fill="#e9d2a6" />
+      <g transform={`translate(${-270 * split} 0)`}>
+        <rect x={0} y={0} width={1080} height={1920} fill="#e2c58f" opacity={0.6} />
+        <circle cx={820} cy={300} r={90} fill="#f6d27a" stroke={C.ink} strokeWidth={6} />
+        <Ziggurat x={540} y={1100} s={1} />
+        <rect x={0} y={1100} width={1080} height={820} fill="#cfa86a" opacity={0.7} />
+        {[200, 330, 750, 880].map((x, i) => (
+          <g key={i} transform={`translate(${x} 1240) scale(1.6)`}>
+            <MiniW x={0} y={0} s={1} c={["#b0593c", "#d9c08a", "#8a6a3a", "#c47a4a"][i]} />
+            <path d={`M${i % 2 ? 14 : -14} -110 L${(i % 2 ? 34 : -34) * (0.5 + raise / 2)} ${-150 - 30 * raise}`} stroke={C.ink} strokeWidth={7} strokeLinecap="round" />
+          </g>
+        ))}
+        <g transform={`translate(540 1300) rotate(-4)`} opacity={pop(f, w(7), 12)}>
+          <rect x={-120} y={-80} width={240} height={160} rx={18} fill="#b98d5e" stroke={C.ink} strokeWidth={7} />
+          <text x={0} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={70} fill={C.ink}>
+            SÖZ
+          </text>
+        </g>
+      </g>
+      {split > 0 ? (
+        <g transform={`translate(${lerp(1080, 540, split)} 0)`}>
+          <rect x={0} y={0} width={540} height={1920} fill="#e7d7b8" stroke={C.ink} strokeWidth={8} />
+          <rect x={60} y={500} width={420} height={760} fill="#6b4a2e" stroke={C.ink} strokeWidth={7} />
+          <rect x={90} y={530} width={360} height={60} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={5} />
+          <text x={270} y={572} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={38} fill={C.ink}>
+            SPOR SALONU
+          </text>
+          <EkAvatar x={270} y={1300} s={0.62} armR={[160, -10]} mouth="grin" />
+          <rect x={0} y={1300} width={540} height={620} fill="#b98d5e" opacity={0.6} />
+        </g>
+      ) : null}
+      <KTag x={540} y={200} p={pop(f, w(2) - 4, 12) * (1 - split)} text={`${yrs.toLocaleString("tr-TR")} yıl önce`} color={C.red} rot={-3} />
+      {split > 0.5 ? <KTag x={810} y={200} p={pop(f, w(10) + 6, 12)} text="bugün" color={YAS_OK} rot={3} /> : null}
+    </CamK>
+  );
+};
+
+// 3) "Ve tutamıyoruz. Strava'ya göre çoğumuz ocak ortasında bırakıyor; o güne 'Bırakanlar Günü' diyorlar."
+// Salon kapısı önünde kalabalık (1 Ocak); "çoğumuz"dan itibaren insanlar tek tek döner gider; üstte katılım çizgisi
+// düşer; "Bırakanlar Günü"nde takvimde kırmızı damga.
+const EkimBirak: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const leave = tw(f, w(4) - 4, w(7) + 6);
+  const line = tw(f, w(2), w(7) + 6);
+  const stamp = tw(f, w(10) - 4, w(10) + 6);
+  const N = 12;
+  return (
+    <CamK k={[[0, 1, 540, 960], [d, 1.05, 540, 920]]} shake={hit(f, w(10) + 4, 12) * 0.6}>
+      <rect x={0} y={0} width={1080} height={1920} fill="#e7d7b8" />
+      <rect x={0} y={1330} width={1080} height={590} fill="#a19a90" opacity={0.6} />
+      <rect x={330} y={760} width={420} height={570} fill="#6b4a2e" stroke={C.ink} strokeWidth={7} />
+      <rect x={360} y={790} width={360} height={60} rx={10} fill={C.cream} stroke={C.ink} strokeWidth={5} />
+      <text x={540} y={832} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={38} fill={C.ink}>
+        SPOR SALONU
+      </text>
+      {Array.from({ length: N }, (_, i) => {
+        const gone = tw(leave, i / N, i / N + 0.25) * (i < 10 ? 1 : 0);
+        const x = 110 + (i % 6) * 170 + (gone * (i % 2 ? 900 : -900));
+        const y = 1420 + Math.floor(i / 6) * 140;
+        return <MiniW key={i} x={x} y={y} s={1.5} c={["#d9705f", "#8fb08a", "#7d9cc4", "#e0b030", "#b06a8a"][i % 5]} o={1 - gone * 0.6} />;
+      })}
+      {/* katılım grafiği */}
+      <g transform="translate(140 260)">
+        <rect x={0} y={0} width={800} height={380} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+        <text x={30} y={56} fontFamily={fontFamily} fontWeight={800} fontSize={38} fill={C.ink}>
+          OCAK · salon
+        </text>
+        <path d={`M40 120 ${Array.from({ length: 21 }, (_, i) => i / 20).filter((t) => t <= line).map((t) => `L${40 + t * 720} ${120 + 200 * Math.min(1, Math.max(0, (t - 0.45) / 0.55) * 1.3)}`).join(" ")}`} stroke={C.red} strokeWidth={10} fill="none" strokeLinejoin="round" strokeLinecap="round" />
+      </g>
+      <BigCal x={830} y={1100} s={0.62} month="OCAK" day="17" ring={stamp} />
+      <KiloStamp p={stamp} text="BIRAKANLAR GÜNÜ" x={540} y={700} half={330} />
+    </CamK>
+  );
+};
+
+// Düşen sonbahar yaprakları
+const LEAVES = Array.from({ length: 22 }, (_, i) => ({ x: random(`lx${i}`) * 1080, v: 3 + 4 * random(`lv${i}`), r: random(`lr${i}`) * 360, c: ["#d9822b", "#c0392b", "#e0b030", "#a85a2a"][i % 4] }));
+const Leaves: React.FC<{ start: number; o?: number }> = ({ start, o = 1 }) => {
+  const f = useCurrentFrame();
+  if (f < start) return null;
+  const t = f - start;
+  return (
+    <g opacity={o}>
+      {LEAVES.map((l, i) => {
+        const y = -60 + ((t * l.v + i * 90) % 2000);
+        const x = l.x + Math.sin((t + i * 13) / 14) * 50;
+        return <path key={i} d="M0 -26 Q22 -6 0 26 Q-22 -6 0 -26 Z" fill={l.c} stroke={C.ink} strokeWidth={3} transform={`translate(${x} ${y}) rotate(${l.r + t * 3})`} />;
+      })}
+    </g>
+  );
+};
+// 4) "Ama şu an milyonlar ocağı beklemiyor. Ekimde başlıyorlar. Adı: Ekim Teorisi."
+// Takvim geri sayar: OCAK → ARALIK → KASIM → EKİM (turuncu); milyonlarca küçük insan koşmaya başlar (ızgara);
+// "Ekim Teorisi"de dev başlık kartı, yapraklar düşer.
+const EkimTeori: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const back = tw(f, w(4), w(6) + 4);
+  const mIdx = Math.round(lerp(12, 9, back)) % 12;
+  const crowd = tw(f, w(3) - 4, w(7) + 6);
+  const title = pop(f, w(9) - 4, 14);
+  return (
+    <CamK k={[[0, 1, 540, 960], [d, 1.05, 540, 920]]}>
+      <rect x={0} y={0} width={1080} height={1920} fill="#f1e2c4" />
+      <BigCal x={540} y={430} s={1.05} month={EK_MONTHS[mIdx]} day={mIdx === 0 ? 1 : 20} color={mIdx === 9 ? "#d9822b" : C.red} flip={back > 0 && back < 1 ? (f % 5) / 5 : 0} />
+      {Array.from({ length: 20 }, (_, i) => {
+        const p = tw(crowd, i / 30, i / 30 + 0.3);
+        const x = 110 + (i % 5) * 215;
+        const y = 1000 + Math.floor(i / 5) * 190;
+        return p > 0 ? <SideRunner key={i} f={f + i * 7} x={x + p * 20} y={y} s={0.3} pose={runPose((f + i * 9) / 4, p)} shirt={["#d9705f", "#8fb08a", "#7d9cc4", "#e0b030", "#b06a8a"][i % 5]} /> : null;
+      })}
+      <Leaves start={w(6)} />
+      {title > 0 ? (
+        <g transform={`translate(540 760) scale(${title}) rotate(-3)`}>
+          <rect x={-430} y={-110} width={860} height={220} rx={30} fill="#d9822b" stroke={C.ink} strokeWidth={10} />
+          <text x={0} y={36} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={104} fill={C.cream} stroke={C.ink} strokeWidth={6} paintOrder="stroke fill">
+            EKİM TEORİSİ
+          </text>
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
+// Basit beyin (pembe, kıvrımlı)
+const Brain: React.FC<{ x: number; y: number; s?: number; glow?: number }> = ({ x, y, s = 1, glow = 0 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+    {glow > 0 ? <ellipse rx={190} ry={150} fill={C.yellow} opacity={0.5 * glow} filter="url(#glow)" /> : null}
+    <path d="M-150 20 C-180 -60 -120 -130 -50 -120 C-20 -160 60 -160 90 -115 C160 -120 190 -40 160 20 C180 80 120 130 60 110 C20 140 -60 140 -90 105 C-150 120 -180 70 -150 20 Z" fill="#f2a6b0" strokeWidth={8} />
+    <path d="M0 -150 V120 M-110 -40 Q-70 -10 -100 40 M-40 -90 Q-10 -50 -50 0 Q-20 40 -60 80 M60 -100 Q30 -60 70 -20 Q40 20 80 70 M120 -40 Q90 0 125 40" fill="none" stroke="#c2707c" strokeWidth={6} strokeLinecap="round" />
+  </g>
+);
+// 5) "Çünkü beyin yeni bir sayfa görünce harekete geçer. On iki bin öğrencinin salon kaydı bunu gösterdi."
+// Avatarın başının üstünde beyin; önünde defter, "sayfa"da yeni sayfa çevrilir, beyin parlar ve kıvılcımlar; sonra
+// turnike sayacı 0 → 12.000 ve çubuk grafik: "yeni hafta", "ayın 1'i", "yeni dönem" çubukları fırlar.
+const EkimBeyin: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const page = tw(f, w(4) - 2, w(4) + 10);
+  const glow = tw(f, w(6) - 2, w(7) + 6);
+  const part2 = tw(f, w(8) - 6, w(8) + 6);
+  const n = Math.round(lerp(0, 12000, tw(f, w(8), w(11) + 4)));
+  const bars = tw(f, w(13) - 2, w(15) + 8);
+  return (
+    <CamK k={[[0, 1, 540, 960], [d, 1.04, 540, 930]]}>
+      <rect x={0} y={0} width={1080} height={1920} fill="#efe1c6" />
+      <g opacity={1 - part2}>
+        <Brain x={540} y={560} s={1.4} glow={glow} />
+        {glow > 0 ? [0, 1, 2, 3, 4, 5].map((i) => <Star key={i} x={540 + Math.cos(i) * 300} y={560 + Math.sin(i) * 220} r={26 * glow} rot={f * 3 + i * 30} />) : null}
+        <g transform="translate(540 1120)" stroke={C.ink} strokeLinejoin="round">
+          <rect x={-300} y={-180} width={600} height={360} rx={16} fill={C.cream} strokeWidth={8} />
+          <path d="M0 -180 V180" strokeWidth={6} />
+          <path d={`M0 -180 L${300 - 600 * page} ${-180 - 40 * Math.sin(Math.PI * page)} L${300 - 600 * page} ${180 - 40 * Math.sin(Math.PI * page)} L0 180 Z`} fill="#fbf3e2" strokeWidth={6} />
+          <HandText x={150} y={10} text="yeni sayfa" size={60} color={YAS_OK} p={tw(f, w(4) + 6, w(5) + 6)} rotate={0} />
+        </g>
+      </g>
+      {part2 > 0 ? (
+        <g opacity={part2}>
+          <g transform="translate(540 420)">
+            <rect x={-330} y={-110} width={660} height={220} rx={24} fill="#2b2b30" stroke={C.ink} strokeWidth={8} />
+            <text x={0} y={30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={96} fill="#ffd36b">
+              {n.toLocaleString("tr-TR")}
+            </text>
+            <text x={0} y={170} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={44} fill={C.ink}>
+              öğrencinin salon kaydı
+            </text>
+          </g>
+          {[["Pazartesi", 0.62], ["Ayın 1'i", 0.75], ["Yeni dönem", 1]].map(([label, hgt], i) => {
+            const h = 520 * (hgt as number) * tw(bars, i * 0.2, 0.6 + i * 0.2);
+            const x = 220 + i * 320;
+            return (
+              <g key={i}>
+                <rect x={x - 90} y={1300 - 160} width={180} height={160} fill="#c9bba0" stroke={C.ink} strokeWidth={6} />
+                <rect x={x - 90} y={1300 - 160 - h} width={180} height={h} fill={YAS_OK} stroke={C.ink} strokeWidth={6} />
+                <text x={x} y={1360} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={40} fill={C.ink}>
+                  {label as string}
+                </text>
+              </g>
+            );
+          })}
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
+// 6) "Ocakta başlarsan kalabalığa karışırsın. Ekimde başlarsan, ocak geldiğinde zaten yoldasın."
+// Yandan bir yol: EKİM, KASIM, ARALIK, OCAK bayrakları; OCAK çizgisinde sıkışan kalabalık; "Ekimde"de avatar EKİM'den
+// koşmaya başlar, "ocak geldiğinde" kalabalık daha çizgide iken avatar OCAK'ı çoktan geçmiştir, lacivert tik.
+const EK_ROAD = 1180;
+const EkimYol: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const run = tw(f, w(4) - 4, w(9) + 4);
+  const crowd = pop(f, 0, 12);
+  const flags: [string, number][] = [["EKİM", 120], ["KASIM", 380], ["ARALIK", 640], ["OCAK", 900]];
+  const ax = lerp(120, 1010, run);
+  return (
+    <CamK k={[[0, 1, 540, 960], [d, 1.03, 540, 940]]}>
+      <rect x={0} y={0} width={1080} height={1920} fill="#dceef3" />
+      <rect x={0} y={EK_ROAD} width={1080} height={740} fill="#b98d5e" opacity={0.6} />
+      <rect x={0} y={EK_ROAD - 40} width={1080} height={80} fill="#9a9187" stroke={C.ink} strokeWidth={6} />
+      <path d={`M0 ${EK_ROAD} H1080`} stroke="#fff" strokeWidth={6} strokeDasharray="40 30" />
+      {flags.map(([t, x], i) => (
+        <g key={t} stroke={C.ink} strokeWidth={6}>
+          <path d={`M${x} ${EK_ROAD - 40} V${EK_ROAD - 300}`} />
+          <path d={`M${x} ${EK_ROAD - 300} h150 l-24 40 l24 40 h-150 Z`} fill={i === 0 ? "#d9822b" : i === 3 ? C.red : C.cream} />
+          <text x={x + 64} y={EK_ROAD - 248} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={34} fill={i === 0 || i === 3 ? C.cream : C.ink} stroke="none">
+            {t}
+          </text>
+        </g>
+      ))}
+      {/* OCAK çizgisinde kalabalık */}
+      {Array.from({ length: 9 }, (_, i) => (
+        <MiniW key={i} x={760 + (i % 5) * 34 + Math.sin(f / 6 + i) * 4} y={EK_ROAD + 20 + Math.floor(i / 5) * 40} s={1.05 * crowd} c={["#d9705f", "#8fb08a", "#7d9cc4", "#e0b030", "#b06a8a"][i % 5]} />
+      ))}
+      <HandText x={850} y={EK_ROAD + 220} text="kalabalık" size={64} color={C.red} p={tw(f, w(2) - 2, w(3) + 6)} rotate={-3} />
+      <SideRunner f={f} x={ax} y={EK_ROAD + 10} s={0.42} pose={run > 0 && run < 1 ? runPose(f / 3.2, 1) : runPose(0, 0.2)} shirt={SEL_AV_TOP} face={run >= 1 ? "grin" : "smile"} />
+      {run >= 0.98 ? <path d="M930 960 L960 990 L1020 920" stroke={YAS_OK} strokeWidth={14} fill="none" strokeLinecap="round" strokeLinejoin="round" /> : null}
+      <KTag x={540} y={330} p={pop(f, w(8) - 4, 12)} text="zaten yoldasın" color={YAS_OK} rot={-2} />
+    </CamK>
+  );
+};
+
+// VOOM uygulama ekranı (çizim; gerçek ekran görüntüsü değil): logo, "Bu hafta: 2 gün" ve iki antrenman satırı
+const VoomScreen: React.FC<{ x: number; y: number; s?: number; p: number }> = ({ x, y, s = 1, p }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${s * p})`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-200} y={-380} width={400} height={760} rx={50} fill="#1e1f24" strokeWidth={8} />
+      <rect x={-176} y={-350} width={352} height={700} rx={30} fill="#f6f3ec" strokeWidth={0} />
+      <text x={0} y={-270} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={64} fill="#1e1f24" stroke="none" letterSpacing={6}>
+        VOOM
+      </text>
+      <rect x={-150} y={-220} width={300} height={70} rx={20} fill="#d9822b" strokeWidth={4} />
+      <text x={0} y={-174} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={32} fill="#fff" stroke="none">
+        Bu hafta: 2 gün
+      </text>
+      {[["Salı", "Tüm vücut · 30 dk"], ["Cuma", "Yürüyüş + core · 30 dk"]].map(([g, t], i) => (
+        <g key={g} transform={`translate(0 ${-80 + i * 150})`}>
+          <rect x={-150} y={-50} width={300} height={110} rx={20} fill="#fff" strokeWidth={4} />
+          <text x={-130} y={-8} fontFamily={fontFamily} fontWeight={900} fontSize={30} fill="#1e1f24" stroke="none">
+            {g}
+          </text>
+          <text x={-130} y={34} fontFamily={fontFamily} fontWeight={600} fontSize={22} fill="#555" stroke="none">
+            {t}
+          </text>
+        </g>
+      ))}
+      <rect x={-150} y={230} width={300} height={80} rx={40} fill={YAS_OK} strokeWidth={4} />
+      <text x={0} y={282} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={34} fill="#fff" stroke="none">
+        Başla
+      </text>
+    </g>
+  ) : null;
+// 7) "Koca hedef koyma; haftada iki gün yeter. Planını VOOM hazırlar, sen sadece kapıdan çık."
+// Odada; dev "HER GÜN 2 SAAT!" hedef kartı kırmızı çarpı; gün şeridinde iki tik (Sa, Cu); telefon büyür: VOOM ekranı;
+// "sen"de avatar spor kıyafetine geçer (parıltı), çantayı alır, "kapıdan çık"ta kapı açılır, ışığa doğru yürür.
+const EkimVoom: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const big = pop(f, 0, 12) * (1 - tw(f, w(3) - 4, w(3) + 4));
+  const cross = tw(f, w(1), w(2) + 6);
+  const strip = pop(f, w(3) - 4, 10) * (1 - tw(f, w(7) - 4, w(7) + 2));
+  const ticks = [0, 1, 0, 0, 1, 0, 0].map((t, i) => (t ? tw(f, w(i === 1 ? 4 : 5) - 2, w(i === 1 ? 4 : 5) + 6) : 0));
+  const phone = pop(f, w(7) - 2, 12) * (1 - tw(f, w(10) - 2, w(10) + 6));
+  const sport = f >= w(10);
+  const flash = hit(f, w(10), 10);
+  const door = tw(f, w(12) - 2, w(12) + 8);
+  const walk = tw(f, w(12) + 4, w(13) + 14);
+  const hand = armPoints(1, [12, 0])[2];
+  return (
+    <CamK k={[[0, 1, 540, 960], [d, 1.04, 600, 940]]}>
+      <EkRoom door={door} />
+      <BigCal x={EK_CAL.x} y={EK_CAL.y} month="EKİM" day={20} color="#d9822b" />
+      <g opacity={1 - walk * 0.9}>
+        <EkAvatar x={lerp(EK_AV.x, EK_DOOR.x, walk)} sport={sport} mouth={sport ? "grin" : "smile"} armR={[12, 0]}>
+          {sport ? <SportBag x={hand[0]} y={hand[1] + 80} s={1} /> : null}
+        </EkAvatar>
+      </g>
+      {!sport ? <SportBag x={EK_DOOR.x - 40} y={EK_FL - 60} s={0.9} dust={1 - tw(f, w(8), w(9))} /> : null}
+      {flash > 0 ? <circle cx={EK_AV.x} cy={EK_FL - 350} r={300} fill="#fff6d8" opacity={flash * 0.8} /> : null}
+      {big > 0 ? (
+        <g transform={`translate(540 330) scale(${big}) rotate(-2)`}>
+          <rect x={-420} y={-110} width={840} height={220} rx={24} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+          <text x={0} y={30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={76} fill={C.ink}>
+            HER GÜN 2 SAAT!
+          </text>
+          <Cross x={0} y={0} size={140} p={cross} />
+        </g>
+      ) : null}
+      <DayStrip p={strip} ticks={ticks} />
+      <VoomScreen x={760} y={760} s={0.95} p={phone} />
+    </CamK>
+  );
+};
+
+// 8) "Peki sen hangisisin: ocağı bekleyen mi, bugün başlayan mı?"
+// Ekran ikiye: solda kanepede kapüşonlu avatar + "OCAK 1" takvim (kırmızı "OCAKÇI"), sağda kapıdan koşarak çıkan spor
+// kıyafetli avatar + "EKİM" (lacivert "EKİMCİ"); altta "Her ocak 'bu yıl başlıyorum' diyen arkadaşına gönder";
+// sonda kamera soldaki takvime dalar = açılış (OCAK 1).
+const EkimSon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const end = tw(f, d - 28, d - 4);
+  const a = pop(f, w(3) - 2, 12);
+  const b = pop(f, w(6) - 2, 12);
+  const share = pop(f, w(8) + 4, 12) * (1 - end);
+  return (
+    <CamK k={[[0, 1, 540, 960], [d - 28, 1, 540, 960], [d - 2, 2.2, 270, 520], [d, 2.2, 270, 520]]}>
+      <rect x={0} y={0} width={540} height={1920} fill="#e7d7b8" />
+      <rect x={540} y={0} width={540} height={1920} fill="#dceef3" />
+      <path d="M540 0 V1920" stroke={C.ink} strokeWidth={8} />
+      <BigCal x={270} y={520} s={0.75} month="OCAK" day={1} />
+      <SideRunner f={f} x={230} y={1250} s={0.6} pose={sitPose} face="worry" shirt={EK_HOOD} />
+      <BigCal x={810} y={520} s={0.75} month="EKİM" day={20} color="#d9822b" />
+      <SideRunner f={f} x={810 + Math.sin(f / 10) * 20} y={1270} s={0.6} pose={runPose(f / 3.2, 1)} shirt={SEL_AV_TOP} face="grin" />
+      {a > 0 ? (
+        <g transform={`translate(270 860) scale(${a}) rotate(-3)`}>
+          <rect x={-200} y={-55} width={400} height={110} rx={55} fill="#fff" stroke={C.red} strokeWidth={8} />
+          <text x={0} y={20} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={56} fill={C.red}>
+            OCAKÇI
+          </text>
+        </g>
+      ) : null}
+      {b > 0 ? (
+        <g transform={`translate(810 860) scale(${b}) rotate(3)`}>
+          <rect x={-200} y={-55} width={400} height={110} rx={55} fill="#fff" stroke={YAS_OK} strokeWidth={8} />
+          <text x={0} y={20} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={56} fill={YAS_OK}>
+            EKİMCİ
+          </text>
+        </g>
+      ) : null}
+      {share > 0 ? (
+        <g transform={`translate(540 1700) scale(${share})`}>
+          <rect x={-480} y={-60} width={960} height={120} rx={60} fill={C.yellow} stroke={C.ink} strokeWidth={7} />
+          <PaperPlane x={-400} y={0} s={0.9} />
+          <text x={40} y={14} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={34} fill={C.ink}>
+            "Bu yıl başlıyorum" diyen arkadaşına gönder
+          </text>
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
   "sel-reklam": SelReklam,
   "sel-haklisin": SelHaklisin,
@@ -13390,6 +13874,14 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   "selc-erkek": SelcErkek,
   "selc-son": SelcSon,
   "selc-yaygin": SelcYaygin,
+  "ekim-soz": EkimSoz,
+  "ekim-babil": EkimBabil,
+  "ekim-birak": EkimBirak,
+  "ekim-teori": EkimTeori,
+  "ekim-beyin": EkimBeyin,
+  "ekim-yol": EkimYol,
+  "ekim-voom": EkimVoom,
+  "ekim-son": EkimSon,
   "kilo-son2": KiloSon2,
   "kilo-sofra1": KiloSofra1,
   "kilo-sofra2": KiloSofra2,

@@ -1,0 +1,65 @@
+{
+  "id": "cizim1-11-ekim",
+  "title": "Ekim Teorisi: ocağı bekleme",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "scenes": [
+    {
+      "visual": "ekim-soz",
+      "voice": "Her ocak aynı söz: 'Bu yıl başlıyorum.' Ve her ocak ortası, spor çantası yine kapının arkasında.",
+      "say": "Her ocak aynı söz: 'Bu yıl başlıyorum.' Ve her ocak ortası, spor çantası yine kapının arkasında."
+    },
+    {
+      "visual": "ekim-babil",
+      "voice": "İnsanlar bu sözü dört bin yıldır veriyor; Babilliler tanrılara verirdi, biz spor salonuna.",
+      "say": "İnsanlar bu sözü dört bin yıldır veriyor; Babilliler tanrılara verirdi, biz spor salonuna."
+    },
+    {
+      "visual": "ekim-birak",
+      "voice": "Ve tutamıyoruz. Strava'ya göre çoğumuz ocak ortasında bırakıyor; o güne 'Bırakanlar Günü' diyorlar.",
+      "say": "Ve tutamıyoruz. Strava'ya göre çoğumuz ocak ortasında bırakıyor; o güne 'Bırakanlar Günü' diyorlar."
+    },
+    {
+      "visual": "ekim-teori",
+      "voice": "Ama şu an milyonlar ocağı beklemiyor. Ekimde başlıyorlar. Adı: Ekim Teorisi.",
+      "say": "Ama şu an milyonlar ocağı beklemiyor. Ekimde başlıyorlar. Adı: Ekim Teorisi."
+    },
+    {
+      "visual": "ekim-beyin",
+      "voice": "Çünkü beyin yeni bir sayfa görünce harekete geçer. On iki bin öğrencinin salon kaydı bunu gösterdi.",
+      "say": "Çünkü beyin yeni bir sayfa görünce harekete geçer. On iki bin öğrencinin salon kaydı bunu gösterdi."
+    },
+    {
+      "visual": "ekim-yol",
+      "voice": "Ocakta başlarsan kalabalığa karışırsın. Ekimde başlarsan, ocak geldiğinde zaten yoldasın.",
+      "say": "Ocakta başlarsan kalabalığa karışırsın. Ekimde başlarsan, ocak geldiğinde zaten yoldasın."
+    },
+    {
+      "visual": "ekim-voom",
+      "voice": "Koca hedef koyma; haftada iki gün yeter. Planını VOOM hazırlar, sen sadece kapıdan çık.",
+      "say": "Koca hedef koyma; haftada iki gün yeter. Planını VOOM hazırlar, sen sadece kapıdan çık."
+    },
+    {
+      "visual": "ekim-son",
+      "voice": "Peki sen hangisisin: ocağı bekleyen mi, bugün başlayan mı?",
+      "say": "Peki sen hangisisin: ocağı bekleyen mi, bugün başlayan mı?",
+      "hold": 0.6
+    }
+  ],
+  "caption": "Ekim Teorisi: yeni yıl kararlarını ocakta değil ekimde başlat. Taze başlangıç etkisi (Dai, Milkman & Riis 2014). Strava'ya göre ocak kararlarının çoğu ocak ortasında bırakılıyor.",
+  "hashtags": [
+    "ekimteorisi",
+    "spor",
+    "fitness",
+    "voom",
+    "yeniyıl"
+  ]
+}
