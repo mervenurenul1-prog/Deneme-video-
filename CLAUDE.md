@@ -8,6 +8,28 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## >>> EN YENİ (20 Ekim) — YENİ SOHBET İLK İŞ <<<
+- **10 MAYIŞMA'yı kullanıcının getirdiği referans senaryoyla GELİŞTİR** (ekran görüntüsü: `notlar/10-mayisma-referans-senaryo.png`).
+  Referans 30 sn senaryo: 0-5 sn acıya dokun ("Yemekten sonra gözlerin kapanıyor, beynin duruyor ve günün geri kalanını
+  çöpe atmış gibi mi hissediyorsun?") → 5-10 sn tarih ("Bu his o kadar eski ki… 'Siesta' kelimesinin kökü, Romalıların
+  günün altıncı saatine verdiği addan geliyor.") → 10-22 sn bilim + yanlış inanış ("Ama sebep, kanının beyninden mideye
+  kaçması değil! Büyük öğünler, bağırsaklarından gelen sinyaller ve öğleden sonraki doğal biyolojik ritmin bu uyku hâlini
+  artırabiliyor.") → 22-30 sn bağla ve çöz ("Çözüm? Daha dengeli porsiyonlar ve yemekten sonra kısa bir yürüyüş. Çünkü
+  bazen mesele tembellik değil, vücudunun ritmi."). Kullanıcı: "bu senaryoyu GELİŞTİR".
+  **Kullanıcının görsel talimatı:** vintage kitap estetiği, elle çizilmiş 2D karakterler, hafif dokulu kâğıt zemin, tarihî
+  tablolar ve bilimsel kesit animasyonları; fotogerçekçi stok YOK. Her sahne bir öncekinin hikâyesini sürdürsün. Tarihte
+  ESKİ ROMA (güneş saati, altıncı saat), bilimde BAĞIRSAK→BEYİN SİNYALLERİ + BİYOLOJİK SAAT, finalde DENGELİ TABAK + YÜRÜYÜŞ.
+  Türkçe seslendirme doğal, vurucu, ~30 sn. Altyazı kelime grupları hâlinde senkron, ÖNEMLİ KELİMELER FARKLI RENKTE
+  (şu an yalnız konuşulan kelime sarı → anahtar kelime vurgusu eklenecek). 9:16, 1080×1920. Geçişler anlatımla eşleşsin;
+  gereksiz sahne/uzun giriş yok. DOĞRULANMAMIŞ kesin neden/sağlık iddiası yok ("artırabiliyor" gibi temkinli dil).
+  Akış: geliştirilmiş metni yaz (~400 karakter) → kullanıcıya ONAYLAT → sahneler (mevcut `sk-*`, `SiestaScene`/`Sundial`
+  (`may-siesta`), `BodyClockLens`, `SkMide` sinir hattı, `KnPlate`, yürüyen avatar yeni) → yüksek kaliteli müzikli önizleme
+  (`--jpeg-quality=100 --crf=17`) → onay → seslendirme (Yunus).
+- Son gönderilen: `ornek-videolar/cizim1-pilot/10-mayisma-kisa-sessiz.mp4` (v3, 31 sn: kurşun göz kapakları/baş düşüp
+  toparlanma, şeker damara akar, beyin merceği → gece binası). Önerilen ufak metin düzeltmesi onaylanmadı; referans senaryo
+  ile değişecek.
+- Sohbette kısa ve öz yaz.
+
 ## >>> EN GÜNCEL DEVİR (19 Ekim GECE, en son) — YENİ SOHBET BURADAN BAŞLASIN <<<
 - Çalışma dalı: bu oturumda `claude/claudemd-guncel-devir-ses-lkl9s6` kullanıldı; her işten sonra çalışma dalı + `main` push.
 - **SÜRE SINIRI: yeni bilgi videoları en fazla 30 sn** (~400-420 karakter). Kullanıcı: "az ve öz konuş, akılda kalıcı,
