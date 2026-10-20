@@ -32,6 +32,10 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
   yavaşlar." 5 "Çözüm: dengeli bir tabak, yemekten sonra on dakika yürüyüş. VOOM o tabağı seninle kurar." 6 "Yani tembel
   değilsin. Sadece altıncı saattesin." (döngü: son kare = ilk kare). Kurallar: 12 madde tablosu + acı/tarih/VOOM,
   dolgu yok, `padding` 0.02, ses 1.2x (cellulite dalındaki 20 Ekim kuralları).
+- **20 Ekim: kullanıcı "önizleme nerde" dedi → metin onaylı sayıldı, v4 kuruldu.** JSON `cizim1-10-mayisma` (sahneler
+  `sr-kursun`, `sr-roma`, `sr-kan`, `sr-sinyal`, `sr-cozum`, `sr-son`; `padding` 0.02), altyazıda JSON `keys` → anahtar kelimeler
+  turuncu (`KEY_COLOR`). Sessiz müzikli önizleme `ornek-videolar/cizim1-pilot/10-mayisma-sessiz.mp4` (~34,5 sn; gerçek ses 1.2x
+  ile ~28 sn) gönderildi → **ONAY → seslendirme (Yunus, ~470 karakter) → sesi 1.2x hızlandır**.
 - Son gönderilen: `ornek-videolar/cizim1-pilot/10-mayisma-kisa-sessiz.mp4` (v3, 31 sn: kurşun göz kapakları/baş düşüp
   toparlanma, şeker damara akar, beyin merceği → gece binası). Önerilen ufak metin düzeltmesi onaylanmadı; referans senaryo
   ile değişecek.
