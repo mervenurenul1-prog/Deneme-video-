@@ -15,6 +15,11 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 - **Hız:** Yunus sesi seslendirmeden sonra 1.2x hızlandırılır (atempo; manifestte kelime zamanları ve süreler /1.2,
   `"speed": 1.2`). Hedef süre ~40 sn. Örnek: `cizim1-10-selulit-c` (son video `ornek-videolar/cizim1-pilot/10-selulit.mp4`, 40,5 sn).
 
+## !!! METİN SUNMA KURALI (kullanıcı, 20 Ekim — HER VİDEODA) !!!
+Her metni **12 madde tik tablosuyla** sun (izlesin: hook/merak/tempo/his; yorum: taraf/tartışma/söylenecek/kendini görmek;
+paylaş: "ona atmalıyım"/replik/"tam ben"/kısa-net). Metin mutlaka: **acıya dokunsun**, **gerçek tarih** içersin,
+**VOOM'a bağlansın**. Doğal Türkçe, dolgu yok, her an "wow"/düşündürücü.
+
 ## !!! AVATAR KIYAFETİ (kullanıcı, 19 Ekim) — HER YENİ VİDEODA !!!
 Avatar aynı kalır ama **kıyafeti videonun konusuna göre uyarlanır** (koşu → atlet/şort, salon → tişört/şort/shaker,
 yüzme → bone/gözlük, günlük konu → günlük kıyafet…). Referans görseller (CEFF'in gösterdiği ÖRNEKLER, birebir kopya değil) ve kurallar: `notlar/avatar-kiyafet/OKU.md`.
