@@ -20,6 +20,11 @@ Her metni **12 madde tik tablosuyla** sun (izlesin: hook/merak/tempo/his; yorum:
 paylaş: "ona atmalıyım"/replik/"tam ben"/kısa-net). Metin mutlaka: **acıya dokunsun**, **gerçek tarih** içersin,
 **VOOM'a bağlansın**. Doğal Türkçe, dolgu yok, her an "wow"/düşündürücü.
 
+## !!! RAKİP MARKA YOK + GERÇEK VOOM (kullanıcı, 20 Ekim) !!!
+Strava gibi VOOM'a rakip uygulama/marka adı ASLA örnek gösterilmez. VOOM'u gösterirken çizim değil **gerçek VOOM ekran
+görüntüsü** (`public/app/*.jpg`: program, bugun, beslenme, koc, profil, durus). Avatar kıyafet RENKLERİ referans
+karikatürlerdeki gibi (`notlar/avatar-kiyafet/`); birebir kopya değil. Videolar KISA (hedef 25-30 sn).
+
 ## !!! AVATAR KIYAFETİ (kullanıcı, 19 Ekim) — HER YENİ VİDEODA !!!
 Avatar aynı kalır ama **kıyafeti videonun konusuna göre uyarlanır** (koşu → atlet/şort, salon → tişört/şort/shaker,
 yüzme → bone/gözlük, günlük konu → günlük kıyafet…). Referans görseller (CEFF'in gösterdiği ÖRNEKLER, birebir kopya değil) ve kurallar: `notlar/avatar-kiyafet/OKU.md`.
