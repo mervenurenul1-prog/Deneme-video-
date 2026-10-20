@@ -8,6 +8,19 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
+## >>> YENİ SOHBET BURADAN BAŞLASIN (20 Ekim devir notu — EN GÜNCEL) <<<
+- **Dal:** `claude/cellulite-video-prep-n06393` (en güncel; selülit + ekim işleri burada). `npm ci` → işe başla.
+- **10 SELÜLİT BİTTİ:** son video `ornek-videolar/cizim1-pilot/10-selulit.mp4` (`cizim1-10-selulit-c`, 40,5 sn, Yunus 1.2x).
+- **11 EKİM TEORİSİ (`cizim1-11-ekim`) v2:** kısa 4 sahne (`ekim2-*`), metin: 1 "Her ocak aynı söz: 'Bu yıl başlıyorum.' Üç
+  hafta sonra çanta yine kapının arkasında." 2 "Bu söz dört bin yıllık; Babilliler bile verirdi. Ama milyonlar artık ocağı
+  beklemiyor: Ekim Teorisi." 3 "Ekimde başlayan, ocak geldiğinde kalabalığın arasında değil, çoktan yolda olur." 4 "Haftada
+  iki gün yeter, planını VOOM hazırlar. Sen ocağı mı bekleyeceksin, bugün mü başlayacaksın?" (360 karakter, ~23 sn).
+  Gerçek VOOM ekranı (`public/app/program.jpg`, `useImgReady`), kıyafet: gri kapüşonlu + beyaz çizgili siyah eşofman →
+  siyah tişört + gri şort + shaker. Sessiz önizleme `ornek-videolar/cizim1-pilot/11-ekim-sessiz.mp4` → **kullanıcı onayı
+  bekleniyor** → seslendirme (Yunus) → ses 1.2x (atempo + manifest /1.2) → render. Zamana bağlı: ekim bitmeden yayınlanmalı.
+  Eski uzun sürüm sahneleri (`ekim-*`) kodda duruyor, JSON'da yok.
+- Kalan ElevenLabs kredisi ≈ 12.885 (20 Ekim). Kız sesi klonu `kUOROTx2GgiPee3eXWoa` (kız konuşursa eleven_v4).
+
 ## !!! TEMPO VE SES KURALI (kullanıcı, 19 Ekim gece — selülit son hâli beğenildi, ARTIK HEP BÖYLE) !!!
 - **Aralıksız:** JSON `"padding": 0.02`, son sahne `"hold"` ≤ 0.6; sahneler arası boşluk yok.
 - **Dolgu YOK:** `say` metnine "ıı", "eee", "hmm", "şey", "yani" gibi dolgular EKLEME (eski "sohbet dolguları" kuralı iptal).
