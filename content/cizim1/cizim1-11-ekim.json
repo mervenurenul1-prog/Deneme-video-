@@ -13,48 +13,28 @@
   "padding": 0.02,
   "scenes": [
     {
-      "visual": "ekim-soz",
-      "voice": "Her ocak aynı söz: 'Bu yıl başlıyorum.' Ve her ocak ortası, spor çantası yine kapının arkasında.",
-      "say": "Her ocak aynı söz: 'Bu yıl başlıyorum.' Ve her ocak ortası, spor çantası yine kapının arkasında."
+      "visual": "ekim2-soz",
+      "voice": "Her ocak aynı söz: 'Bu yıl başlıyorum.' Üç hafta sonra çanta yine kapının arkasında.",
+      "say": "Her ocak aynı söz: 'Bu yıl başlıyorum.' Üç hafta sonra çanta yine kapının arkasında."
     },
     {
-      "visual": "ekim-babil",
-      "voice": "İnsanlar bu sözü dört bin yıldır veriyor; Babilliler tanrılara verirdi, biz spor salonuna.",
-      "say": "İnsanlar bu sözü dört bin yıldır veriyor; Babilliler tanrılara verirdi, biz spor salonuna."
+      "visual": "ekim2-teori",
+      "voice": "Bu söz dört bin yıllık; Babilliler bile verirdi. Ama milyonlar artık ocağı beklemiyor: Ekim Teorisi.",
+      "say": "Bu söz dört bin yıllık; Babilliler bile verirdi. Ama milyonlar artık ocağı beklemiyor: Ekim Teorisi."
     },
     {
-      "visual": "ekim-birak",
-      "voice": "Ve tutamıyoruz. Strava'ya göre çoğumuz ocak ortasında bırakıyor; o güne 'Bırakanlar Günü' diyorlar.",
-      "say": "Ve tutamıyoruz. Strava'ya göre çoğumuz ocak ortasında bırakıyor; o güne 'Bırakanlar Günü' diyorlar."
+      "visual": "ekim2-yol",
+      "voice": "Ekimde başlayan, ocak geldiğinde kalabalığın arasında değil, çoktan yolda olur.",
+      "say": "Ekimde başlayan, ocak geldiğinde kalabalığın arasında değil, çoktan yolda olur."
     },
     {
-      "visual": "ekim-teori",
-      "voice": "Ama şu an milyonlar ocağı beklemiyor. Ekimde başlıyorlar. Adı: Ekim Teorisi.",
-      "say": "Ama şu an milyonlar ocağı beklemiyor. Ekimde başlıyorlar. Adı: Ekim Teorisi."
-    },
-    {
-      "visual": "ekim-beyin",
-      "voice": "Çünkü beyin yeni bir sayfa görünce harekete geçer. On iki bin öğrencinin salon kaydı bunu gösterdi.",
-      "say": "Çünkü beyin yeni bir sayfa görünce harekete geçer. On iki bin öğrencinin salon kaydı bunu gösterdi."
-    },
-    {
-      "visual": "ekim-yol",
-      "voice": "Ocakta başlarsan kalabalığa karışırsın. Ekimde başlarsan, ocak geldiğinde zaten yoldasın.",
-      "say": "Ocakta başlarsan kalabalığa karışırsın. Ekimde başlarsan, ocak geldiğinde zaten yoldasın."
-    },
-    {
-      "visual": "ekim-voom",
-      "voice": "Koca hedef koyma; haftada iki gün yeter. Planını VOOM hazırlar, sen sadece kapıdan çık.",
-      "say": "Koca hedef koyma; haftada iki gün yeter. Planını VOOM hazırlar, sen sadece kapıdan çık."
-    },
-    {
-      "visual": "ekim-son",
-      "voice": "Peki sen hangisisin: ocağı bekleyen mi, bugün başlayan mı?",
-      "say": "Peki sen hangisisin: ocağı bekleyen mi, bugün başlayan mı?",
+      "visual": "ekim2-voom",
+      "voice": "Haftada iki gün yeter, planını VOOM hazırlar. Sen ocağı mı bekleyeceksin, bugün mü başlayacaksın?",
+      "say": "Haftada iki gün yeter, planını VOOM hazırlar. Sen ocağı mı bekleyeceksin, bugün mü başlayacaksın?",
       "hold": 0.6
     }
   ],
-  "caption": "Ekim Teorisi: yeni yıl kararlarını ocakta değil ekimde başlat. Taze başlangıç etkisi (Dai, Milkman & Riis 2014). Strava'ya göre ocak kararlarının çoğu ocak ortasında bırakılıyor.",
+  "caption": "Ekim Teorisi: yeni yıl kararını ocakta değil bugün başlat. Yeni yıl sözü vermek 4.000 yıllık bir gelenek (Babil).",
   "hashtags": [
     "ekimteorisi",
     "spor",
