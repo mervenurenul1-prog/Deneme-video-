@@ -25,6 +25,13 @@ dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
   Akış: geliştirilmiş metni yaz (~400 karakter) → kullanıcıya ONAYLAT → sahneler (mevcut `sk-*`, `SiestaScene`/`Sundial`
   (`may-siesta`), `BodyClockLens`, `SkMide` sinir hattı, `KnPlate`, yürüyen avatar yeni) → yüksek kaliteli müzikli önizleme
   (`--jpeg-quality=100 --crf=17`) → onay → seslendirme (Yunus).
+- **20 Ekim (sonraki sohbet): geliştirilmiş metin sunuldu, ONAY BEKLİYOR** (~470 karakter, 71 kelime, 1.2x ile ~25-30 sn):
+  1 "Son lokmayı yuttun. Göz kapakların kurşun gibi… ve günün geri kalanı çöpe gidiyor." 2 "Bu his iki bin yıllık.
+  Romalılar öğleye altıncı saat derdi: sexta hora. Siesta oradan gelir." 3 "Peki kanın beyninden mideye mi kaçıyor? Pek
+  sayılmaz." 4 "Büyük bir öğünde bağırsakların beynine dinlen sinyali yollar. Üstelik iç saatin öğleden sonra zaten
+  yavaşlar." 5 "Çözüm: dengeli bir tabak, yemekten sonra on dakika yürüyüş. VOOM o tabağı seninle kurar." 6 "Yani tembel
+  değilsin. Sadece altıncı saattesin." (döngü: son kare = ilk kare). Kurallar: 12 madde tablosu + acı/tarih/VOOM,
+  dolgu yok, `padding` 0.02, ses 1.2x (cellulite dalındaki 20 Ekim kuralları).
 - Son gönderilen: `ornek-videolar/cizim1-pilot/10-mayisma-kisa-sessiz.mp4` (v3, 31 sn: kurşun göz kapakları/baş düşüp
   toparlanma, şeker damara akar, beyin merceği → gece binası). Önerilen ufak metin düzeltmesi onaylanmadı; referans senaryo
   ile değişecek.
