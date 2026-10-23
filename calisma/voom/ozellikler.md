@@ -3,6 +3,8 @@
 Koç yazınca programı kendi kafasına göre değiştirmez; sen ne istersen o. İstemediğin şey (ör. duruş rutini, postürün iyiyse)
 programa girmez. VOOM'u yalnız konuyla DOĞAL bağ varsa an; zorlama bağ kurma (23 Ekim listesi bu yüzden reddedildi).
 
+- **VOOM beslenme PLANI (öğün/menü) HAZIRLAMAZ** (kullanıcı, 23 Ekim). Ekrandaki kalori/makro hedefi var; "beslenme planı" diye bağlama.
+
 # Ekranlardaki özellikler (gerçek ekranlardan, `public/app/*.jpg`) — her videoya BİRİ çaktırmadan
 Kullanıcı (23 Ekim): reklam yok; her videoda farklı bir özellik, ya tek cümle ya arka planda tahtada/telefonda yazı.
 İzleyici "bu VOOM ne?" desin. Hangi videoda hangisi kullanıldı → aşağıya yaz, tekrar etme.

@@ -21,6 +21,9 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
 - Emin değilsen SOR. Instagram açıklaması YAZMA. Her işten sonra commit + push (çalışma dalı + main).
 - Kullanıcının örnek cümlelerini birebir koyma; kendi doğal cümleni yaz.
 
+## Hangi videolar tuttu (kullanıcı, 23 Ekim)
+- EN BEĞENİLEN: 10 selülit. EN AZ SEVİLEN: 03 on bin adım ve 06 diz/koşu. Selülit tarzında ilerle.
+
 ## Hikâye formülü
 1) İzleyicinin YARISINA dokun ("tam ben" dert, zaten inandığı yanlış) 2) "Sence neden?" 3) kısa cevap
 4) gerçek, DOĞRULANMIŞ tarihçe + vücuttaki yeri (hücre/kas içi) 5) bağla + döngü (`"loop": true`, son kare = ilk kare).

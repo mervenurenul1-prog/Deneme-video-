@@ -43,3 +43,7 @@ C. Salonda herkes bana bakıyor: 2000 Cornell utanç tişörtü deneyi, tahmin ~
 7. Hafta sonu sporcusu — 2017 (O'Donovan, JAMA Intern Med, ~63 bin kişi): haftada 1-2 gün spor yapanlarda ölüm riski
    düzenli yapanlara yakın düştü. VOOM: program takvimine göre.
 8. 90 yaşında halter — 1990 (Fiatarone, JAMA): 90'lı yaşlardaki 10 kişi 8 hafta ağırlık, güç ~%174 arttı. VOOM: yaşına göre.
+- Kullanıcı: 7 güçlü, 8 iyi, 5 VOOM bağı bulunursa (beslenme planı YOK). 2 cepte.
+- 7 doğrulandı: O'Donovan ve ark. 2017 JAMA Intern Med (doi 10.1001/jamainternmed.2016.8014), İngiltere+İskoçya 63.591
+  yetişkin (40+), 1994-2012; haftada 1-2 gün (hafta sonu sporcusu) tüm nedenlere bağlı ölüm ~%30 düşük, 3+ gün ~%35 (basın
+  rakamları; HR KVH 0,53 / 0,51).
