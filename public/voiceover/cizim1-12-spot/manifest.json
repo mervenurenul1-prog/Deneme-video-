@@ -1,0 +1,498 @@
+{
+  "scenes": [
+    {
+      "voice": "Salonda kırk kişi var. Sence kaçı şu an seni düşünüyor?",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-12-spot/1-mvleo90p.mp3",
+      "durationInSeconds": 3.0476191666666668,
+      "words": [
+        {
+          "word": "Salonda",
+          "start": 0.0,
+          "end": 0.4
+        },
+        {
+          "word": "kırk",
+          "start": 0.46666666666666673,
+          "end": 0.6
+        },
+        {
+          "word": "kişi",
+          "start": 0.6666666666666667,
+          "end": 0.8666666666666667
+        },
+        {
+          "word": "var.",
+          "start": 0.9666666666666667,
+          "end": 1.1333333333333335
+        },
+        {
+          "word": "Sence",
+          "start": 1.2859083333333334,
+          "end": 1.619241666666667
+        },
+        {
+          "word": "kaçı",
+          "start": 1.8192416666666666,
+          "end": 2.019241666666667
+        },
+        {
+          "word": "şu",
+          "start": 2.0525750000000005,
+          "end": 2.152575
+        },
+        {
+          "word": "an",
+          "start": 2.2192416666666666,
+          "end": 2.2859083333333334
+        },
+        {
+          "word": "seni",
+          "start": 2.3525750000000003,
+          "end": 2.4859083333333336
+        },
+        {
+          "word": "düşünüyor?",
+          "start": 2.530075,
+          "end": 3.0859083333333333
+        }
+      ]
+    },
+    {
+      "voice": "Biri göbeğine bakıyor, biri setini sayıyor, biri gelen mesajı bekliyor. Seni düşünen yok.",
+      "say": "Biri göbeğine bakıyor, biri setini sayıyor, biri gelen mesajı bekliyor. [chuckles] Seni düşünen yok.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-12-spot/2-mvleob0b.mp3",
+      "durationInSeconds": 5.4204083333333335,
+      "words": [
+        {
+          "word": "Biri",
+          "start": 0.0,
+          "end": 0.2
+        },
+        {
+          "word": "göbeğine",
+          "start": 0.23333333333333336,
+          "end": 0.6
+        },
+        {
+          "word": "bakıyor,",
+          "start": 0.7,
+          "end": 1.2666666666666668
+        },
+        {
+          "word": "biri",
+          "start": 1.3333333333333335,
+          "end": 1.4666666666666668
+        },
+        {
+          "word": "setini",
+          "start": 1.5666666666666667,
+          "end": 1.8000000000000003
+        },
+        {
+          "word": "sayıyor,",
+          "start": 1.9,
+          "end": 2.466666666666667
+        },
+        {
+          "word": "biri",
+          "start": 2.5,
+          "end": 2.666666666666667
+        },
+        {
+          "word": "gelen",
+          "start": 2.7,
+          "end": 2.9333333333333336
+        },
+        {
+          "word": "mesajı",
+          "start": 3.0,
+          "end": 3.2666666666666666
+        },
+        {
+          "word": "bekliyor.",
+          "start": 3.3666666666666667,
+          "end": 3.774341666666667
+        },
+        {
+          "word": "Seni",
+          "start": 4.441008333333334,
+          "end": 4.607675
+        },
+        {
+          "word": "düşünen",
+          "start": 4.641008333333334,
+          "end": 4.9743416666666675
+        },
+        {
+          "word": "yok.",
+          "start": 5.041008333333334,
+          "end": 5.4410083333333334
+        }
+      ]
+    },
+    {
+      "voice": "Ama sen yine de üyeliğini alıp gitmiyorsun. Hani yalnız da değilsin: iki bin altıda sekiz bin salon üyesini incelediler. Gitmeyen o kadar çoktu ki makalenin adı şu oldu: “Salona gitmemek için para ödemek.”",
+      "say": "Ama sen yine de üyeliğini alıp gitmiyorsun. Hani yalnız da değilsin: ıı, iki bin altıda sekiz bin salon üyesini incelediler. Gitmeyen o kadar çoktu ki... makalenin adı şu oldu: “Salona gitmemek için para ödemek.”",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-12-spot/3-mvleodxf.mp3",
+      "durationInSeconds": 10.688435,
+      "words": [
+        {
+          "word": "Ama",
+          "start": 0.0,
+          "end": 0.2
+        },
+        {
+          "word": "sen",
+          "start": 0.26666666666666666,
+          "end": 0.46666666666666673
+        },
+        {
+          "word": "yine",
+          "start": 0.5333333333333333,
+          "end": 0.6666666666666667
+        },
+        {
+          "word": "de",
+          "start": 0.7333333333333334,
+          "end": 0.8
+        },
+        {
+          "word": "üyeliğini",
+          "start": 0.8333333333333334,
+          "end": 1.2
+        },
+        {
+          "word": "alıp",
+          "start": 1.2333333333333334,
+          "end": 1.4
+        },
+        {
+          "word": "gitmiyorsun.",
+          "start": 1.4666666666666668,
+          "end": 1.9939666666666667
+        },
+        {
+          "word": "Hani",
+          "start": 2.045808333333334,
+          "end": 2.2458083333333336
+        },
+        {
+          "word": "yalnız",
+          "start": 2.379141666666667,
+          "end": 2.6458083333333335
+        },
+        {
+          "word": "da",
+          "start": 2.7124750000000004,
+          "end": 2.779141666666667
+        },
+        {
+          "word": "değilsin:",
+          "start": 2.8124750000000005,
+          "end": 3.3791416666666674
+        },
+        {
+          "word": "iki",
+          "start": 3.645808333333333,
+          "end": 3.7124749999999995
+        },
+        {
+          "word": "bin",
+          "start": 3.7791416666666664,
+          "end": 3.8458083333333333
+        },
+        {
+          "word": "altıda",
+          "start": 3.9124749999999997,
+          "end": 4.312475
+        },
+        {
+          "word": "sekiz",
+          "start": 4.4124750000000015,
+          "end": 4.5791416666666676
+        },
+        {
+          "word": "bin",
+          "start": 4.645808333333334,
+          "end": 4.779141666666668
+        },
+        {
+          "word": "salon",
+          "start": 4.845808333333334,
+          "end": 5.045808333333334
+        },
+        {
+          "word": "üyesini",
+          "start": 5.112475000000001,
+          "end": 5.3791416666666665
+        },
+        {
+          "word": "incelediler.",
+          "start": 5.479141666666667,
+          "end": 5.979141666666667
+        },
+        {
+          "word": "Gitmeyen",
+          "start": 6.130066666666667,
+          "end": 6.463400000000001
+        },
+        {
+          "word": "o",
+          "start": 6.596733333333335,
+          "end": 6.630066666666667
+        },
+        {
+          "word": "kadar",
+          "start": 6.663400000000001,
+          "end": 6.930066666666668
+        },
+        {
+          "word": "çoktu",
+          "start": 6.996733333333335,
+          "end": 7.2634
+        },
+        {
+          "word": "ki",
+          "start": 7.363400000000001,
+          "end": 7.570766666666666
+        },
+        {
+          "word": "makalenin",
+          "start": 7.670766666666666,
+          "end": 8.037433333333333
+        },
+        {
+          "word": "adı",
+          "start": 8.104099999999999,
+          "end": 8.237433333333334
+        },
+        {
+          "word": "şu",
+          "start": 8.270766666666665,
+          "end": 8.370766666666666
+        },
+        {
+          "word": "oldu:",
+          "start": 8.470766666666666,
+          "end": 8.813849999999997
+        },
+        {
+          "word": "“Salona",
+          "start": 8.858016666666664,
+          "end": 9.14718333333333
+        },
+        {
+          "word": "gitmemek",
+          "start": 9.213849999999997,
+          "end": 9.613849999999998
+        },
+        {
+          "word": "için",
+          "start": 9.64718333333333,
+          "end": 9.813849999999999
+        },
+        {
+          "word": "para",
+          "start": 9.947183333333331,
+          "end": 10.080516666666664
+        },
+        {
+          "word": "ödemek.”",
+          "start": 10.14718333333333,
+          "end": 10.713849999999997
+        }
+      ]
+    },
+    {
+      "voice": "Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.",
+      "say": "Salona ne yapacağını bilerek gir. Hani, planı olan kişi kaybolmaz... kaybolmayan kişiye de kimse bakmaz.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-12-spot/4-mvleofsi.mp3",
+      "durationInSeconds": 5.616326666666667,
+      "words": [
+        {
+          "word": "Salona",
+          "start": 0.0,
+          "end": 0.33333333333333337
+        },
+        {
+          "word": "ne",
+          "start": 0.4,
+          "end": 0.46666666666666673
+        },
+        {
+          "word": "yapacağını",
+          "start": 0.5,
+          "end": 0.9333333333333335
+        },
+        {
+          "word": "bilerek",
+          "start": 1.0,
+          "end": 1.2666666666666668
+        },
+        {
+          "word": "gir.",
+          "start": 1.3333333333333335,
+          "end": 1.6137833333333333
+        },
+        {
+          "word": "Planı",
+          "start": 1.9705000000000004,
+          "end": 2.2038333333333338
+        },
+        {
+          "word": "olan",
+          "start": 2.2371666666666674,
+          "end": 2.437166666666667
+        },
+        {
+          "word": "kişi",
+          "start": 2.5038333333333336,
+          "end": 2.7038333333333338
+        },
+        {
+          "word": "kaybolmaz,",
+          "start": 2.7705,
+          "end": 3.5209666666666672
+        },
+        {
+          "word": "kaybolmayan",
+          "start": 3.554300000000001,
+          "end": 4.0543000000000005
+        },
+        {
+          "word": "kişiye",
+          "start": 4.120966666666667,
+          "end": 4.387633333333334
+        },
+        {
+          "word": "de",
+          "start": 4.454300000000001,
+          "end": 4.520966666666667
+        },
+        {
+          "word": "kimse",
+          "start": 4.720966666666667,
+          "end": 4.920966666666668
+        },
+        {
+          "word": "bakmaz.",
+          "start": 4.987633333333334,
+          "end": 5.654300000000001
+        }
+      ]
+    },
+    {
+      "voice": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu, yıllık üyelik yaptırıp hiç gitmeyen arkadaşına gönder ve sor:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-12-spot/5-mvleohqp.mp3",
+      "durationInSeconds": 6.312925000000001,
+      "words": [
+        {
+          "word": "O",
+          "start": 0.0,
+          "end": 0.13333333333333333
+        },
+        {
+          "word": "günün",
+          "start": 0.2,
+          "end": 0.33333333333333337
+        },
+        {
+          "word": "programı",
+          "start": 0.5,
+          "end": 0.7333333333333334
+        },
+        {
+          "word": "VOOM'da",
+          "start": 0.8,
+          "end": 1.0666666666666667
+        },
+        {
+          "word": "hazır;",
+          "start": 1.1333333333333335,
+          "end": 1.5462833333333332
+        },
+        {
+          "word": "sen",
+          "start": 1.6129499999999999,
+          "end": 1.7462833333333332
+        },
+        {
+          "word": "ne",
+          "start": 1.8129499999999998,
+          "end": 1.8796166666666667
+        },
+        {
+          "word": "istiyorsan",
+          "start": 1.9462833333333334,
+          "end": 2.41295
+        },
+        {
+          "word": "o.",
+          "start": 2.5462833333333332,
+          "end": 2.7508833333333333
+        },
+        {
+          "word": "Bunu,",
+          "start": 2.8270083333333336,
+          "end": 3.160341666666667
+        },
+        {
+          "word": "yıllık",
+          "start": 3.2936750000000004,
+          "end": 3.493675
+        },
+        {
+          "word": "üyelik",
+          "start": 3.5603416666666665,
+          "end": 3.7603416666666667
+        },
+        {
+          "word": "yaptırıp",
+          "start": 3.8270083333333336,
+          "end": 4.160341666666667
+        },
+        {
+          "word": "hiç",
+          "start": 4.227008333333333,
+          "end": 4.360341666666667
+        },
+        {
+          "word": "gitmeyen",
+          "start": 4.427008333333333,
+          "end": 4.760341666666667
+        },
+        {
+          "word": "arkadaşına",
+          "start": 4.827008333333334,
+          "end": 5.227008333333333
+        },
+        {
+          "word": "gönder",
+          "start": 5.260341666666667,
+          "end": 5.627008333333333
+        },
+        {
+          "word": "ve",
+          "start": 5.693675000000001,
+          "end": 5.827008333333334
+        },
+        {
+          "word": "sor:",
+          "start": 5.893675,
+          "end": 6.360341666666667
+        }
+      ]
+    }
+  ],
+  "speed": 1.2
+}
