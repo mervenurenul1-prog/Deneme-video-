@@ -33,3 +33,10 @@ Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
 8 İzlenmek seni zayıflatmaz. Ama bir şartla.
 9 Herkesin önünde ağırlık kaldırmaktan çekiniyorsan, sorun cesaret değil.
 10 Salonda herkes seni izliyor mu sanıyorsun? Yüz yirmi yıl önce biri bunu ölçtü.
+
+## METİN v5 (23 Ekim) — kanca 1+10 harmanı, tarih: "gymnasium" = çıplak (Yunanca gymnos; gymnazein "çıplak antrenman")
+1 Ağırlıkların önüne kadar geldin… sonra telefonuna bakıyormuş gibi yaptın. Çünkü bütün salon seni izliyor sandın.
+2 Oysa spor salonunun adı bile "çıplak" kelimesinden gelir: Antik Yunan'da herkes, herkesin önünde çıplak çalışırdı.
+3 Sen bir tişörtle çekiniyorsun. İki binde ölçtüler: utanç verici tişörtle sınıfa giren öğrenci "Yarısı gördü" sandı. Gerçek: dörtte biri bile değil.
+4 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
+5 O günün programı VOOM'da hazır; sen ne istiyorsan o. Bir dahaki sefere telefonuna baktığında… gerçekten bir şeye bak.
