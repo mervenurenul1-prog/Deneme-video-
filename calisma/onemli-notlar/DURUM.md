@@ -1,6 +1,7 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## 23 Ekim
+- SIRADAKİ: VOOM'SUZ video (sıra kuralı). Aday: 8 (90 yaşında halter) veya 2 (1953 otobüs). 7 beklemede.
 - **12 SPOT IŞIĞI (`cizim1-12-spot`):** v10 SESLENDİRİLDİ (Yunus, 1.2x, 31,5 sn; kalan kredi 12.633), müzikle render → `ornek-videolar/cizim1-pilot/12-spot.mp4`. Sahneler `sp3-*`.
   Kardiyo ve ağırlık bölgesi ayrı (sarı-siyah şerit). Sessiz önizleme v8 → onay → seslendirme (Yunus ~525 kr).
   `ornek-videolar/cizim1-pilot/12-spot-sessiz.mp4` → kullanıcı bakıp yerleri değiştirecek → onay → seslendirme (Yunus ~520 kr).

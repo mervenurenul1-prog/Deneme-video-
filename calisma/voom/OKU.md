@@ -9,3 +9,4 @@
   izleyici "bu ne?" diye merak etsin.
 - **GÜNCELLEME (23 Ekim, kullanıcı):** gerçek ekran görüntülerinden BİRİ kullanılır ama KÜÇÜK telefona sığacak boyutta
   (kırpılmış/küçültülmüş, yine okunur); liste uydurma. VOOM adı cümlede geçebilir (1-2 cümle).
+- **SIRA KURALI (kullanıcı, 23 Ekim): bir VOOM'lu, bir VOOM'suz video.** 12 spot VOOM'luydu → sıradaki VOOM'SUZ.
