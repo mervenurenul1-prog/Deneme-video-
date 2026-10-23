@@ -1,0 +1,887 @@
+# VOOM Instagram video projesi — çalışma notları
+
+Bu dosya yeni oturumların kaldığı yerden devam etmesi içindir. Her oturum başında okuyun.
+
+## Proje
+VOOM (antrenman + beslenme + kişisel koç uygulaması) için Instagram Reels üretimi.
+Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **main** dalında (16 Ekim'de
+birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
+dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
+
+## !!! İKİ PARALEL SOHBET (20 Ekim): EKİM TEORİSİ sohbeti ve MAYIŞMA sohbeti (MAYIŞMA İPTAL 23 Ekim; yeni sohbet yeni konu önerisiyle başlar). Kullanıcının ilk mesajından hangisi olduğunu anla. Her iki iş de bu dalda ve main'de. !!!
+
+## >>> 23 EKİM — YENİ SOHBET İLK İŞ: YENİ KONU ÖNER <<<
+- **10 MAYIŞMA İPTAL (kullanıcı, 23 Ekim: "konu sevilmedi, bırakıyoruz").** Üzerinde çalışma, kredi harcama. Kod (`sr-*`,
+  `cizim1-10-mayisma`) ve önizleme yalnız arşiv olarak duruyor.
+- **Yeni sohbette ilk iş: kullanıcıya YENİ KONU ÖNERİLERİ sun** (kullanıcı: "yeni sohbette yeni konularla gel bana öneri").
+  Konuyu kullanıcı seçer. Öneriler: antrenman/sağlık, izleyicinin ZATEN inandığı yaygın bir yanlış ya da "tam ben" dert,
+  gerçek + DOĞRULANMIŞ tarihçe, VOOM'a bağlanabilir, kısa (25-30 sn). Kadın-erkek çatışması çıkaran konular iyi izlendi
+  (04, 09). Kullanılmış/iptal konular: yağ nereye, tartı, 10 bin adım, kadın-ağırlık, boyun, diz, yaş, sauna, kilo,
+  selülit, ekim teorisi, mayışma. Daha önce adı geçen adaylar: 30 dk protein penceresi, mekik/göbek yağı, 8 bardak su,
+  laktik asit/kas ağrısı, kas yağa dönüşür, boy kısalır, metabolizma yavaş (kadın), kadınlar uzun mesafe koşamaz, regl
+  döneminde spor. Her öneriye 1 satır kanca + 1 satır tarihçe yaz, kısa tut.
+- Mayışmadan kalan kullanışlı parça: altyazıda JSON `"keys": [...]` → önemli kelimeler turuncu (`KEY_COLOR`).
+
+## >>> YENİ SOHBET BURADAN BAŞLASIN (20 Ekim devir notu — EN GÜNCEL) <<<
+- **Dal:** `claude/cellulite-video-prep-n06393` (en güncel; selülit + ekim işleri burada). `npm ci` → işe başla.
+- **10 SELÜLİT BİTTİ:** son video `ornek-videolar/cizim1-pilot/10-selulit.mp4` (`cizim1-10-selulit-c`, 40,5 sn, Yunus 1.2x).
+- **11 EKİM TEORİSİ (`cizim1-11-ekim`) v2:** kısa 4 sahne (`ekim2-*`), metin: 1 "Her ocak aynı söz: 'Bu yıl başlıyorum.' Üç
+  hafta sonra çanta yine kapının arkasında." 2 "Bu söz dört bin yıllık; Babilliler bile verirdi. Ama milyonlar artık ocağı
+  beklemiyor: Ekim Teorisi." 3 "Ekimde başlayan, ocak geldiğinde kalabalığın arasında değil, çoktan yolda olur." 4 "Haftada
+  iki gün yeter, planını VOOM hazırlar. Sen ocağı mı bekleyeceksin, bugün mü başlayacaksın?" (360 karakter, ~23 sn).
+  Gerçek VOOM ekranı (`public/app/program.jpg`, `useImgReady`), kıyafet: gri kapüşonlu + beyaz çizgili siyah eşofman →
+  siyah tişört + gri şort + shaker. Sessiz önizleme `ornek-videolar/cizim1-pilot/11-ekim-sessiz.mp4` → **kullanıcı onayı
+  bekleniyor** → seslendirme (Yunus) → ses 1.2x (atempo + manifest /1.2) → render. Zamana bağlı: ekim bitmeden yayınlanmalı.
+  Eski uzun sürüm sahneleri (`ekim-*`) kodda duruyor, JSON'da yok.
+- **!!! İLK İŞ (yeni sohbet): EKİM TEORİSİ v3 SESSİZ ÖNİZLEME.** Kullanıcı v2'yi beğenmedi ("kalite zayıf, gözde
+  canlanmıyor, betimleme zayıf; her saniyede insan 'evet' deyip düşünmeli, 'vay' demeli; milyon izlenmeli") ve v3 planını
+  yeni sohbette önizleme olarak istedi ("yeni sohbette önizleme"). v3 METİN (6 sahne, ~480 karakter, 1.2x ≈ 30 sn):
+  1 "Ocak bir. Salonda nefes alacak yer yok; herkes 'bu yıl başlıyorum' diyor." (kapıdan taşan kuyruk, her koşu bandında
+  biri, etiketli yeni kıyafetler, telefonlarda "yeni yıl yeni ben"; avatar sırada) 2 "Ocak yirmi bir. Aynı salon bomboş."
+  (aynı kare hızlı akışla boşalır, ışıklar söner, bir koşu bandı boşta döner) 3 "Bu söz dört bin yıllık: Babilliler yeni
+  yılda tanrılara ödünç aldıklarını geri vereceklerine söz verirdi." (salon sepyaya → Babil, biri ödünç aletini utanarak
+  geri verir, kil tablet "SÖZ"; kaynak History.com, doğrula) 4 "Ama ekimde salon senindir: kuyruk yok, en iyi alet boş.
+  Adı: Ekim Teorisi." (pencereden yapraklar, sakin salon, en iyi alette "BOŞ" parlar, dev başlık) 5 "Ocak geldiğinde herkes
+  ilk gününde; sen onuncu haftandasın." (kapı açılır, ocak kalabalığı dolar, avatar güçlenmiş, daha ağır kaldırır, göğsünde
+  "10. HAFTA" rozeti, yeni gelenler hayranlıkla bakar) 6 "Haftada iki gün yeter, planını VOOM hazırlar. Sen hangisisin:
+  ocakçı mı, ekimci mi?" (gerçek VOOM program ekranı → OCAKÇI/EKİMCİ + "Bu yıl başlıyorum diyen arkadaşına gönder" →
+  döngü: Ocak bir kuyruğu). TEK DÜNYA: aynı spor salonu, dönüşümü izlenir. Kıyafet: gri kapüşonlu + çizgili eşofman →
+  ekimden sonra siyah tişört + gri şort + shaker. Görsel kalite yüksek olmalı: büyük, net, canlı, kalabalık detaylı.
+  12 madde tablosu kullanıcıya sunuldu. Yeni sahneler `ekim3-*`, JSON `cizim1-11-ekim` güncellenir.
+- Kalan ElevenLabs kredisi ≈ 12.885 (20 Ekim). Kız sesi klonu `kUOROTx2GgiPee3eXWoa` (kız konuşursa eleven_v4).
+
+## !!! TEMPO VE SES KURALI (kullanıcı, 19 Ekim gece — selülit son hâli beğenildi, ARTIK HEP BÖYLE) !!!
+- **Aralıksız:** JSON `"padding": 0.02`, son sahne `"hold"` ≤ 0.6; sahneler arası boşluk yok.
+- **Dolgu YOK:** `say` metnine "ıı", "eee", "hmm", "şey", "yani" gibi dolgular EKLEME (eski "sohbet dolguları" kuralı iptal).
+  Yalnız noktalama/"..." ve gerekirse [curious] gibi ton etiketi.
+- **Hız:** Yunus sesi seslendirmeden sonra 1.2x hızlandırılır (atempo; manifestte kelime zamanları ve süreler /1.2,
+  `"speed": 1.2`). Hedef süre ~40 sn. Örnek: `cizim1-10-selulit-c` (son video `ornek-videolar/cizim1-pilot/10-selulit.mp4`, 40,5 sn).
+
+## !!! METİN SUNMA KURALI (kullanıcı, 20 Ekim — HER VİDEODA) !!!
+Her metni **12 madde tik tablosuyla** sun (izlesin: hook/merak/tempo/his; yorum: taraf/tartışma/söylenecek/kendini görmek;
+paylaş: "ona atmalıyım"/replik/"tam ben"/kısa-net). Metin mutlaka: **acıya dokunsun**, **gerçek tarih** içersin,
+**VOOM'a bağlansın**. Doğal Türkçe, dolgu yok, her an "wow"/düşündürücü.
+
+## !!! RAKİP MARKA YOK + GERÇEK VOOM (kullanıcı, 20 Ekim) !!!
+Strava gibi VOOM'a rakip uygulama/marka adı ASLA örnek gösterilmez. VOOM'u gösterirken çizim değil **gerçek VOOM ekran
+görüntüsü** (`public/app/*.jpg`: program, bugun, beslenme, koc, profil, durus). Avatar kıyafet RENKLERİ referans
+karikatürlerdeki gibi (`notlar/avatar-kiyafet/`); birebir kopya değil. Videolar KISA (hedef 25-30 sn).
+
+## !!! AVATAR KIYAFETİ (kullanıcı, 19 Ekim) — HER YENİ VİDEODA !!!
+Avatar aynı kalır ama **kıyafeti videonun konusuna göre uyarlanır** (koşu → atlet/şort, salon → tişört/şort/shaker,
+yüzme → bone/gözlük, günlük konu → günlük kıyafet…). Referans görseller (CEFF'in gösterdiği ÖRNEKLER, birebir kopya değil) ve kurallar: `notlar/avatar-kiyafet/OKU.md`.
+Sessiz önizlemeden önce seçilen kıyafeti kullanıcıya söyle.
+
+## >>> YENİ SOHBET BURADAN BAŞLASIN (19 Ekim akşam devir notu — EN GÜNCEL) <<<
+- Dal: `claude/cellulite-video-prep-6zjwa8` (main birleştirilmiş + selülit işleri). `npm ci` → işe başla.
+- **10 SELÜLİT (`cizim1-10-selulit`) v5 sessiz önizleme gönderildi** (`ornek-videolar/cizim1-pilot/10-selulit-sessiz.mp4`,
+  önizleme 45,7 sn; gerçek sesle ~41 sn, 536 karakter). Kullanıcı ONAYI BEKLENİYOR. Metin ve sahneler aşağıda "v5".
+  Sıradaki adımlar: (1) kullanıcı onayı/düzeltme → (2) iç ses ("Ben ondan çok çalışıyorum!") için **Sibel DEĞİL**, Yunus
+  yaşında GENÇ kadın sesi adayları sun (ElevenLabs kütüphanesi, kısa örnekler) → (3) kredi kontrol → seslendirme
+  (Yunus ~510 + kadın ~26 karakter) → müzikle render → gönder.
+- Kullanıcıdan gelen son görsel ders: referans heyvoom "büyüme plağı" videosu — sade/büyük/net, yüzlü hücreler, hap etiketler.
+
+## !!! KULLANICININ KENDİ SESİ → KADIN KARAKTERLER (19 Ekim) !!!
+**UNUTMA (kullanıcı): ANLATICI YUNUS DEVAM EDECEK.** Kullanıcının klonu yalnız kadın karakter replikleri/iç sesleri içindir; anlatımı asla değiştirmez.
+Kullanıcı kendi sesini yeniden klonlatacak; klon **Yunus'un yerine değil, videolardaki KADIN karakterlerin replikleri/iç sesleri
+için** kullanılacak. Okuma metni `notlar/ses-klon-metni.md`. Eski tek örnekli klon: "VOOM Kullanıcı (kendi sesi)"
+`MalkCL6Ms3mHRGDVY6vZ`. Plan Starter: yalnız Anında Klon (IVC). Kayıt gelince: `POST /v1/voices/add` (multipart) →
+Yunus'la aynı cümlenin yan yana denemesi. Kalan kredi ≈ 13.370 (19 Ekim gece).
+**YENİ KLON KURULDU (19 Ekim gece):** "VOOM - kendi sesim (kadın karakterler)" `x98shFqnDG0A3Ve4CtFL` (2 dk kayıt, sessizlikler kısaltıldı, gürültü azaltıldı). Deneme: `ses-ornekleri/kullanici-sesi/klon2-v4.mp3`, `klon2-multilingual.mp3` → kullanıcı model seçecek.
+Kullanıcı "daha iyi klon çıkar" dedi → **klon v2** `kd6P2yodCccO2OzNoqOD` ("VOOM - kendi sesim v2 (ham kayıt)": işlenmemiş 48 kHz kayıt, 4 parça, gürültü giderme KAPALI; ayar stability 0.45, similarity 0.95, style 0, speaker boost). Deneme `klon3-*.mp3`.
+**Kullanıcı (19 Ekim gece): "Klon 1-3 arası bir şey yaparsın, şimdi seslendirmeye geçme, BEKLE."** → Klonun son hâli iki deneme arası bir ton olacak (hangi 1 ve 3 kastedildi teyit et); selülit seslendirmesi kullanıcı söyleyene kadar YAPILMAYACAK.
+**KIZ SESİ = KULLANICININ SESİ (19 Ekim gece, kullanıcı: "hepsini harmanla, benim sesim o kızın sesi"):** harman klon `kUOROTx2GgiPee3eXWoa` ("VOOM - kız sesi (kullanıcı, harman)": eski 43 sn kayıt + yeni 2 dk kayıt, 5 parça; ayar stability 0.5, similarity 0.9, style 0.1, speaker boost). Videolardaki KIZ/kadın karakter replikleri bu sesle. Deneme `kiz-harman-*.mp3`.
+Kullanıcı: kız konuşursa **eleven_v4** denenecek. Selülit C → Yunus ile seslendirmeye geçildi (19 Ekim gece).
+
+## >>> 10 SELÜLİT C (`cizim1-10-selulit-c`, 19 Ekim gece — EN GÜNCEL) <<<
+CEFF/ekip eski selülit hikâyesini BEĞENMEDİ ("hikâyeyi geliştirmek lazım"). Kullanıcı C'yi seçti + "güzellik algısına bağla,
+çatışma yarat". Çatışma: aynı bacak 1630'larda başyapıt (Rubens, Üç Güzeller, Prado), 1968'de moda dergisi "kusur" dedi.
+**KULLANICI: "Rubens/Prado/2017 hekim incelemesi bilgisi çok iyi, KISA şekilde ekle — UNUTMA."** Kaynaklar: Prado sayfası
+(kıvrımlı beden o dönemin güzellik ölçüsü), IJAE 2017 (ortadaki figürde selülit). Metin (onaylandı "bi yap bakalım"):
+1 "Bacağındaki bu çukurlar, dört yüz yıl önce bir başyapıttı." 2 "Rubens'in Üç Güzeller'i. Doktorlar ortadakinin bacağında
+selülit buldu. O gün güzellik buydu." 3 1968 moda dergisi "selülit" + "kurtulman gereken yağ" 4 "Aynı bacaklar, aynı çukurlar.
+Değişen tek şey bakıştı." 5 "Kremler satıldı, kadınlar suçu kendinde aradı." 6 "Ve bugün sen, haftada dört gün spor yapıp yine
+aynaya kızıyorsun." 7 ipler (kadın dik) 8 erkek çapraz 9 8-9/10 10 "Yani bacakların bozulmadı. Birileri güzelliğin tanımını
+değiştirdi. Sana bunun kusur olduğunu ilk kim söyledi?" → döngü (ayna → tablo). Yalnız Yunus (kadın sesi yok).
+Kız: yüksek belli kısa tayt + kolsuz atlet, gerçekçi bacak (`Person realLegs/cellulite/shorts/shortsLen/sleeveless/shoe`).
+
+## !!! STRATEJİ (kullanıcı, 19 Ekim) — TÜM YENİ KONULAR BUNA GÖRE, ayrıntı `notlar/00-strateji.md` !!!
+- **Hedef kitle:** (1) spora yeni başlayanlar, (2) bir süredir spor yapanlar, (3) spora merakı olanlar,
+  (4) spora başlamaya ikna edilecekler. VOOM bu kitleyi sayfasında toplamalı; arada **satış Reels'i** de üretilecek.
+- **Her üç videodan biri "Kimse söylemedi" serisinden** (şimdiki tür: inanılan bir şeyi ters köşe bilgiyle çürüten,
+  kanca → tarihçe → görsel → döngü). Konu bu dört kitleden hiçbirine dokunmuyorsa ELENİR.
+- **Diğer ikisi (kullanıcı cevapladı):** doğrudan bu dört kitleye hitap eden içerik; arada satış Reels'i.
+
+## >>> EN YENİ (20 Ekim) — YENİ SOHBET İLK İŞ <<<
+- **10 MAYIŞMA'yı kullanıcının getirdiği referans senaryoyla GELİŞTİR** (ekran görüntüsü: `notlar/10-mayisma-referans-senaryo.png`).
+  Referans 30 sn senaryo: 0-5 sn acıya dokun ("Yemekten sonra gözlerin kapanıyor, beynin duruyor ve günün geri kalanını
+  çöpe atmış gibi mi hissediyorsun?") → 5-10 sn tarih ("Bu his o kadar eski ki… 'Siesta' kelimesinin kökü, Romalıların
+  günün altıncı saatine verdiği addan geliyor.") → 10-22 sn bilim + yanlış inanış ("Ama sebep, kanının beyninden mideye
+  kaçması değil! Büyük öğünler, bağırsaklarından gelen sinyaller ve öğleden sonraki doğal biyolojik ritmin bu uyku hâlini
+  artırabiliyor.") → 22-30 sn bağla ve çöz ("Çözüm? Daha dengeli porsiyonlar ve yemekten sonra kısa bir yürüyüş. Çünkü
+  bazen mesele tembellik değil, vücudunun ritmi."). Kullanıcı: "bu senaryoyu GELİŞTİR".
+  **Kullanıcının görsel talimatı:** vintage kitap estetiği, elle çizilmiş 2D karakterler, hafif dokulu kâğıt zemin, tarihî
+  tablolar ve bilimsel kesit animasyonları; fotogerçekçi stok YOK. Her sahne bir öncekinin hikâyesini sürdürsün. Tarihte
+  ESKİ ROMA (güneş saati, altıncı saat), bilimde BAĞIRSAK→BEYİN SİNYALLERİ + BİYOLOJİK SAAT, finalde DENGELİ TABAK + YÜRÜYÜŞ.
+  Türkçe seslendirme doğal, vurucu, ~30 sn. Altyazı kelime grupları hâlinde senkron, ÖNEMLİ KELİMELER FARKLI RENKTE
+  (şu an yalnız konuşulan kelime sarı → anahtar kelime vurgusu eklenecek). 9:16, 1080×1920. Geçişler anlatımla eşleşsin;
+  gereksiz sahne/uzun giriş yok. DOĞRULANMAMIŞ kesin neden/sağlık iddiası yok ("artırabiliyor" gibi temkinli dil).
+  Akış: geliştirilmiş metni yaz (~400 karakter) → kullanıcıya ONAYLAT → sahneler (mevcut `sk-*`, `SiestaScene`/`Sundial`
+  (`may-siesta`), `BodyClockLens`, `SkMide` sinir hattı, `KnPlate`, yürüyen avatar yeni) → yüksek kaliteli müzikli önizleme
+  (`--jpeg-quality=100 --crf=17`) → onay → seslendirme (Yunus).
+- **20 Ekim (sonraki sohbet): geliştirilmiş metin sunuldu, ONAY BEKLİYOR** (~470 karakter, 71 kelime, 1.2x ile ~25-30 sn):
+  1 "Son lokmayı yuttun. Göz kapakların kurşun gibi… ve günün geri kalanı çöpe gidiyor." 2 "Bu his iki bin yıllık.
+  Romalılar öğleye altıncı saat derdi: sexta hora. Siesta oradan gelir." 3 "Peki kanın beyninden mideye mi kaçıyor? Pek
+  sayılmaz." 4 "Büyük bir öğünde bağırsakların beynine dinlen sinyali yollar. Üstelik iç saatin öğleden sonra zaten
+  yavaşlar." 5 "Çözüm: dengeli bir tabak, yemekten sonra on dakika yürüyüş. VOOM o tabağı seninle kurar." 6 "Yani tembel
+  değilsin. Sadece altıncı saattesin." (döngü: son kare = ilk kare). Kurallar: 12 madde tablosu + acı/tarih/VOOM,
+  dolgu yok, `padding` 0.02, ses 1.2x (cellulite dalındaki 20 Ekim kuralları).
+- **20 Ekim: kullanıcı "önizleme nerde" dedi → metin onaylı sayıldı, v4 kuruldu.** JSON `cizim1-10-mayisma` (sahneler
+  `sr-kursun`, `sr-roma`, `sr-kan`, `sr-sinyal`, `sr-cozum`, `sr-son`; `padding` 0.02), altyazıda JSON `keys` → anahtar kelimeler
+  turuncu (`KEY_COLOR`). Sessiz müzikli önizleme `ornek-videolar/cizim1-pilot/10-mayisma-sessiz.mp4` (~34,5 sn; gerçek ses 1.2x
+  ile ~28 sn) gönderildi → **ONAY → seslendirme (Yunus, ~470 karakter) → sesi 1.2x hızlandır**.
+- Son gönderilen: `ornek-videolar/cizim1-pilot/10-mayisma-kisa-sessiz.mp4` (v3, 31 sn: kurşun göz kapakları/baş düşüp
+  toparlanma, şeker damara akar, beyin merceği → gece binası). Önerilen ufak metin düzeltmesi onaylanmadı; referans senaryo
+  ile değişecek.
+- Sohbette kısa ve öz yaz.
+
+## >>> EN GÜNCEL DEVİR (19 Ekim GECE, en son) — YENİ SOHBET BURADAN BAŞLASIN <<<
+- Çalışma dalı: bu oturumda `claude/claudemd-guncel-devir-ses-lkl9s6` kullanıldı; her işten sonra çalışma dalı + `main` push.
+- **SÜRE SINIRI: yeni bilgi videoları en fazla 30 sn** (~400-420 karakter). Kullanıcı: "az ve öz konuş, akılda kalıcı,
+  çok iyi görselleştir"; Claude'un sohbet mesajları da KISA olsun.
+- **10 MAYIŞMA (`cizim1-10-mayisma`) — ŞU ANKİ İŞ, KISA SÜRÜM:** Konu: yemekten sonra çöken ağırlık. Tek fikir: tabak →
+  şeker → beyin. Fare/2006 deneyi ANLATILMAYACAK (kullanıcı: "saçmalayacaksan bahsetme"; gerçek deney fare beyin dilimi,
+  uyuyan fare değil). Kod: sahneler `skk-agirlik`, `sk-seker`, `sk-soru`, `sk-tabak2` (roket kan şekeri grafiği),
+  `sk-beyin2` (hücreler söner, baş masaya düşer), `skk-son` (doktor kartı). JSON şu an şu metinle:
+  "Karnını bir güzel doyurdun… ve üstüne bir ağırlık çöktü." / "Aklına şu geliyor: Yoksa şekerim mi var?" / "Sence bu
+  ağırlık nereden geliyor?" / "Çoğu zaman tabağından. Pilav, ekmek, tatlı kandaki şekeri bir anda fırlatır." / "Şeker
+  yükselince, beyninde seni uyanık tutan hücreler tek tek kısılır." / "Yani çoğu zaman suçlu hastalık değil, tabak. Ama her
+  seferinde bayılacak gibiysen, bir doktora görün."
+  **SON İSTEK (onay bekliyor): "anlatımı geliştir, görselleştirmeyi ve betimlemeyi arttır".** Önerilen yeni metin:
+  1 "Son lokmayı yuttun. Göz kapakların kurşun gibi ağırlaştı." 2 "Ve içinden bir ses: Yoksa şekerim mi var?" 3 "Sence bu
+  ağırlık nereden geliyor?" 4 "Tabağına bak: pilav, ekmek, tatlı. Midene indikleri an şekere dönüşüp kanına karışıyorlar."
+  5 "Kandaki şeker fırlayınca, seni uyanık tutan beyin hücreleri tek tek söner; bir binanın ışıkları gibi." 6 "Çoğu zaman
+  hastalık değil, tabak. Ama her seferinde bayılacak gibiysen, bir doktora görün." Görsel: kurşun ağırlık göz
+  kapaklarını çeker; yiyecekler küp şekere dönüşüp kırmızı damara akar; beyin merceği gece binasına dönüşür, pencereler
+  tek tek söner, son ışıkla baş masaya düşer. → kullanıcı onaylarsa uygula → sessiz (müzikli) önizleme → onay → seslendirme.
+- **Uzun sürüm (`cizim1-10-mayisma-uzun`, ~45 sn, `sku-*` = kısa bileşenlerin uzun metne eşlenmesi):** kullanıcı "uzunu da
+  atma, değiştirme" dedi → BEKLEMEDE, gönderilmedi.
+- Kısa sürümün önceki hâli: `ornek-videolar/cizim1-pilot/10-mayisma-kisa-sessiz.mp4` (32 sn; kullanıcı "her yerden
+  kısmışsın" dedi, beğenmedi).
+- **Görüntü kalitesi (kullanıcı şikâyet etti):** `scripts/render.ts` artık `jpegQuality: 100, crf: 16`. Önizleme
+  render'ında da `--jpeg-quality=100 --crf=17` kullan (eski önizlemeler crf 23 + JPEG 80 → bulanıktı). 30 MB'ı aşarsa
+  kaliteyi koruyarak sıkıştır.
+- **Render ipucu:** bekleme döngüsünde `pgrep -f` kendi kabuğunu da yakalıyor (sonsuz döngü) → kullanma; render'ları
+  doğrudan sırayla başlat. Durdurmak için PID ile `kill`.
+- 09 kilo (`cizim1-09-kilo-hangimiz`) seslendirildi, `ornek-videolar/cizim1-pilot/09-kilo-hangimiz.mp4` (45,8 sn) — kullanıcı
+  geri bildirim vermedi. Kalan ElevenLabs kredisi ≈ 13.090 (API 13.617 gösteriyordu, gecikmeli olabilir).
+
+## (önceki) EN GÜNCEL DEVİR (19 Ekim akşam)
+- Çalışma dalı `claude/claude-md-continuation-e39del` (= main). `npm ci` → işe başla. Kalan ElevenLabs kredisi ≈ 13.600.
+- **09 KİLO: geçerli sürüm `cizim1-09-kilo-hangimiz`** ("Hangimiz daha önce kilo verecek?"; ayrıntı aşağıda "09 KİLO v5").
+  Sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-hangimiz-sessiz.mp4` kullanıcıya gönderildi → **onay/düzeltme
+  bekleniyor → sonra seslendirme** (Yunus ~490 + Aslı ~37 karakter; kadın sahnesi `voiceId` Aslı `HZh2tWL1clJO95e2qMt2`).
+  **SESLENDİRİLDİ (19 Ekim akşam, kullanıcı "seslendir"), müzikle render → `ornek-videolar/cizim1-pilot/09-kilo-hangimiz.mp4`
+  (45,8 sn, crf 23 ile 20 MB). Kullanıcı geri bildirimi bekleniyor.**
+  Seslendirme: `npm run voiceover -- cizim1-09-kilo-hangimiz` → `npm run render -- cizim1-09-kilo-hangimiz`.
+  Diğer 09 sürümleri (`-iddia`, `-a`, `-b`, `-c`, `cizim1-09-kilo`) eski/alternatif; dokunma.
+- **10 MAYIŞMA (`cizim1-10-mayisma`, 19 Ekim akşam, kullanıcı konuyu verdi: yemek sonrası mayışma + iş erteleme):** kullanıcı
+  "kanca 'yemek yedin ve bir ağırlık çöktü' olsun, senaryoyu geliştir, önizleme oluştur" dedi. Metin (8 sahne, `may-*`,
+  ~630 karakter): ağırlık çöker (koyu bulut başa iner, ekran kararır, esner) → işi "birazdan" diye erteler (pano + yapışkan
+  notlar, saat ilerler) → "Ben neden bu kadar tembelim?" (balon) → "Sence bu ağırlık nereden geliyor?" → iç saat, uyanıklık
+  eğrisi 14:00 çukuru, yemeksiz de (Monk 2005) → mide + şeker beyindeki uyanık tutan hücreleri kısar (Burdakov 2006, oreksin)
+  → Siesta = Latince sexta hora, altıncı saat (sepya köy, güneş saati VI) → "Yani sorun sende değil, saatte. Yarın o ağırlık
+  yine çöktüğünde, kendine tembel deme." (ertesi gün yeni tabak = açılış karesi). Sessiz önizleme
+  `ornek-videolar/cizim1-pilot/10-mayisma-sessiz.mp4` (47,4 sn) → onay/düzeltme → seslendirme (yalnız Yunus).
+  **v2 (kullanıcı: "tembellik ne alaka, kan şekeri mi? A'yı B'ye bağla, yediklerinle ilgili; acıya dokun, sonra tarih ve
+  bilimle kanıtla — KAÇ KERE SÖYLEYECEĞİM"):** "Kan mideye mi indi?" (`kan-*`, 7 sahne, ~600 karakter): ağırlık çöker + masada
+  iş bekler → anne "kan mideye indi" (balon + gövdede kan yolu) → karşıdaki iş arkadaşı (et + salata) dimdik çalışıyor →
+  "Sence aradaki fark ne?" → "Kan değil, beyin kanını kaptırmaz; fark tabakta: pilav, ekmek, tatlı; şeker fırlar" (kan şekeri
+  grafikleri) → 1998 uyanık tutan hücreler bulundu, 2006 şeker bunları kısıyor (iki beyin merceği) → "Kan mideye inmedi, şeker
+  beynine çıktı. … bu videoyu gönder." Sessiz önizleme `10-mayisma-sessiz.mp4` (45,1 sn) gönderildi → onay → seslendirme.
+- **!!! SÜRE (kullanıcı, 19 Ekim gece): YENİ BİLGİ VİDEOLARININ SINIRI 30 SN** (≈ 400-420 karakter, Yunus ~14 kar/sn).
+  "Saçmalayacaksan bahsetme": emin olunmayan/yanlış betimlenecek bilimsel ayrıntıyı (ör. 2006 fare beyin dilimi deneyini
+  "uyuyan fare" diye göstermek) koyma. "Canlı" = gerçekçi ama hareketli sahneler; abartılı karakterleştirme (esneyen saat,
+  konuşan mide) değil.
+- **10 MAYIŞMA v3 (GÜNCEL, `sk-*`, 7 sahne, ~420 karakter, ~30 sn):** "Karnını doyurdun… ağırlık çöktü" → "Yoksa şekerim mi
+  var?" → "Sence bu ağırlık nereden geliyor?" → 1 saat (öğleden sonra yavaşlar) → 2 mide (beyne "dinlen") → 3 tabak (pilav,
+  ekmek, tatlı şekeri fırlatır, uyanık tutan hücreler kısılır; fare YOK) → "Çoğu zaman hastalık değil… bir doktora görün."
+- **Uyulacaklar (19 Ekim):** HİKÂYE FORMÜLÜ (dokun → sor → açıkla → tarih + vücudun içi → bağla, basit); 12 madde
+  tablosu (izlesin/yorum/paylaşsın); CEFF kanca kalıbı; "görsel sözler kadar önemli" (her hareket gerçekteki gibi, göndermeden
+  önce kareleri kontrol et); Yunus ana ses, Sibel yalnız anne, genç kadın = Aslı; metin onayı → sessiz önizleme → onay →
+  seslendirme. Selülit (`notlar/10-selulit.md`) ayrı sohbette yürüyor.
+
+## >>> YENİ SOHBET: ÖNCE BUNU OKU (17 Ekim devir notu — EN GÜNCEL) <<<
+Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; her işten sonra ikisine de push). `npm ci` → işe başla.
+Kalan ElevenLabs kredisi ≈ 15.095 karakter. Ses kitaplığı: Yunus (anlatıcı) + **Sibel** (`qLdPxFtPuffoxx5gieBJ`, anne sesi).
+**ŞU ANKİ İŞ: 06 diz (`cizim1-06-diz`)** — sessiz önizleme gönderildi, **kullanıcı onayı → seslendirme** (Yunus ~520 +
+Sibel ~85 karakter, tek seferde). Max 45 sn (gerçek sesle ~45; aşarsa `padding`'i kısalt, cümle kesmeden önce SOR).
+Metin (kullanıcı onayladı, sahneler):
+1. `diz4-pist`: "Üçüncü tur… ve birden dizine bir sızı giriyor. Eğilip dizini tutuyor, yere oturuyorsun." (ilk ~0,6 sn hızlı sarma 1-2-3. TUR; kullanıcı: "3 tur koşmasını beklemem")
+   (YAN PROFİL koşu `SideRunner`/`SideTrack`, kısa koşu → ani ağrı → eğilip dizini tutar → yere oturur; kırmızı karalama YOK)
+2. `diz4-anne`: "Kulağında annenin sesi:" (Yunus) 3. `diz4-annesoz` (**Sibel**, sahne `voiceId`): "Koşma, dizin biter! Çok
+   çömelme, dizine yazık! Benim gibi mi olmak istiyorsun?" (anne düşünce balonunda, sonda kendi dizini ovuşturur)
+4. `diz3-stanford`: 1984 Stanford, koşucuların dizlerini 18 yıl röntgenlediler 5. `diz3-sonuc`: dizleri daha kötü çıkmadı;
+   kireçlenme evde oturan %10, hobi koşucu %3,5 6. `diz3-squat`: "Derin squatın sağlıklı dizi bozduğu da hiç kanıtlanmadı."
+7. `diz4-doz`: sızı çoğu zaman yükü birden artırmaktan (2,2,2,10 km → 2,3,4,5) 8. `diz4-soru`: "Peki sen yarın o piste
+   dönecek misin?" (kalkıp koşar = açılış karesi). Ağrıdan sonraki tüm sahnelerde avatarın dizi **bandajlı** (`KneeBandage`).
+Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor (`scripts/generate-voiceover.ts`).
+**YAPILDI (17 Ekim, sonraki oturum):** (a) hızlı sarma kaldırıldı; sahneye JSON `"lead": 1` (ses başlamadan 1 sn
+  sessiz normal koşu; `CizimScene.lead`, `sceneDurations` + Cizim1'de kelime/ses kaydırma) → "birden"e kadar ~2,4 sn koşu,
+  "Üçüncü tur"da kırmızı "3. TUR" etiketi. (b) `SittingOnTrack`'ten bandaj kaldırıldı; bandaj yalnız `diz3-squat`,
+  `diz4-doz`, `diz4-soru`'da. (c) Kullanıcı: başta "2. TUR" sonra "3. TUR" etiketi (yapıldı; ses metni aynı).
+  (d) Anne "benim gibi mi" derken dizini değil ayağını tutuyor gibiydi → anne balonda YANDAN (`SideRunner` `female`
+  `shirt`) eğilip iki eliyle dizini tutar, dizi kızarır. (e) Squat "araya atılmış gibi" (spor salonu, farklı çöp adam)
+  → yeni `diz4-squat` (`Diz5Squat`): aynı pist + aynı avatar, bandajlı derin squat, "sağlıklı diz" yeşil parıltı,
+  annenin "dizine yazık!" balonu "hiç kanıtlanmadı"da çizilip söner.
+  (f) Kullanıcı: "squatı gerekirse çıkar, koşu olayını daha iyi betimle, dikkat çekici yap" → metin onaylandı ("yap
+  bakalım"): squat sahnesi ve annenin "Çok çömelme, dizine yazık!" cümlesi ÇIKTI; doz: "O sızı çoğu zaman yükü birden
+  artırmaktan gelir: haftalarca iki kilometre, sonra bir günde on. Dizin bitmiyor, dozunu bekliyor." Görsel: açılışta
+  "birden"den önce ağır çekim + ekran kararır, dizde röntgen merceği (`KneeLens`) kızarır; `diz4-stanford`/`diz4-sonuc`
+  aynı pistte üç koşucu (`StanfordRunners`, saçları yıllarla ağarır `grayHair`), yıl sayacı 1984→2002, röntgen panosu
+  (`XrayBoard`, hepsi temiz + yeşil tik), "dizleri bitecek" tabelası çizilir; doz kartları büyüdü. 7 sahne.
+  (g) Kullanıcı "seslendir" dedi, iki değişiklikle: anne "Koşma, dizlerin aşınır! Benim gibi mi olmak istiyorsun?"
+  ("bitmek" yüklemi olmasın; tabela "dizleri aşınacak"); doz "…gelir: iki, iki, iki, sonra bir günde on. Oysa her hafta
+  biraz artırırsan, dizin yüke alışır." (kırmızı 10 km kartı kalsın, kullanıcı sevdi). SESLENDİRİLDİ (ses 43,0 sn,
+  `padding` 0.1 → video ~44,8 sn), müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4`.
+  (h) Giriş yenilendi (kullanıcı: "giriş çok kötü, zorlanma sesi olsun, son tur hadi desin"): avatar nefes nefese
+  "Hadi… yapabilirsin… son tur!" (say'de `[out of breath] Hah... hah...`; "hah" artık `FILLERS`'ta, altyazıya girmez),
+  "2. TUR" tabelası → dama desenli bitiş çizgisi geçilince kırmızı "3. TUR". Kamera: uzak plan (`SideTrack wide`: karlı
+  dağlar + çam ormanı + pist) → "yapabilirsin"de bir kademe yakın → "birden"de (ağrı) beyaz parlama + dize yakınlaşma +
+  röntgen merceği → geri çekilip eğilir/oturur. Ses başındaki 1,6 sn soluma kırpıldı (manifest güncellendi), `lead` 0.5,
+  `padding` 0.05 → ~46,9 sn (45'i ~2 sn aşıyor; kullanıcıya söylendi). Doz kartları başın üstünden yukarı alındı.
+  (i) 17 Ekim akşam — CEFF: "konu yine anlaşılmıyor, 3-4 sn'den sonra yakalıyor" → kanca arayışı. Denenip reddedilenler:
+  diz5 (röntgende aşınan diz + başlık), diz6 (70 yaşında koşan / 45 yaşında oturan bölünmüş ekran; kullanıcı "beyni
+  almadı"), "Bu adamın dizi yedi saniye sonra kilitlenecek" + geri sayım (sayaç ve "Hadi… son tur" istenmedi; asma kilit
+  koyma, "kilitlenmek" mecaz). Kullanıcı yan profil koşucuyu ve anneyi istiyor. SON SEÇİM (kullanıcı onayladı, yalnız
+  kod/JSON, SESLENDİRİLMEDİ, önizleme render edilmedi): kanca "Koşmak dizini aşındırmıyor. Bunu kanıtlamak on sekiz yıl
+  sürdü." (`diz7-hook`: uzak plan koşu, yandaki canlı röntgen merceği, yeşil tik, "18 yıl") → "Ama annen hep şöyle derdi:"
+  (`diz7-anne`, koşarken balonda anne) → Sibel (hazır, `diz7-annesoz`) → Stanford/sonuç (hazır) → doz "Peki koşunca dizin
+  neden sızlar? Çünkü çoğu zaman yükü birden artırırsın: iki, iki, iki, sonra bir günde on. Oysa her hafta biraz
+  artırırsan, dizin yüke alışır." → soru (hazır; avatar ayakta, bandaj yok). Sızı/oturma sahnesi çıktı. Altyazı artık
+  cümle sonunda bölünür ve biten satır ekranda asılı kalmaz. Sahne başına `intro` sesi desteği eklendi (şu an kullanılmıyor).
+  **Kullanıcı 17 Ekim akşam "her şeyi durduruyorum" dedi** — devam etmeden önce sor. Sıradaki: sessiz önizleme → onay →
+  seslendirme (kanca + "Ama annen…" + doz ≈ 260 karakter; kalan kredi ≈ 14.730).
+**GÜNCEL (17 Ekim gece, v8):** Kullanıcı v7'yi bıraktı; hazır seslendirilmiş sahneler (anne → Stanford → sonuç → eski
+  doz "O sızı çoğu zaman…" → soru) kaldı, yalnız 1. sahne (`diz4-pist`) değişti. Kanca seçimi: "yeni başladıysan" yalnız
+  acemileri çağırıyor (reddedildi; "gelecek" de reddedildi, koşucular itiraz eder) → 10 öneriden **4** seçildi:
+  kanca (`intro`) "Koşarken dizin hiç sızladı mı?" → asıl "Hani bir anda yürüyemeyecek gibi olursun… Eğilip dizini tutarsın,
+  yere oturursun." (sızı tekrarı yok). Üstte kırmızı "DİZİN HİÇ SIZLADI MI?" tabelası → kanca bitince "3. TUR"; ağrı
+  `w(2)` ("anda"). `Diz4Doz`/`Diz4Soru` seslendirilmiş metne uyan eski hâline döndü. SESLENDİRİLDİ (kalan kredi ≈ 14.620),
+  müzikle render → `ornek-videolar/cizim1-pilot/06-diz.mp4` (~46,5 sn).
+**>>> YENİ SOHBET: İLK İŞ (18 Ekim öğlen devir notu — EN GÜNCEL) <<<**
+1. **ÖNCE 08 SAUNA EŞOFMANI (`cizim1-08-sauna`) HİKÂYESİNİ YENİDEN OLUŞTUR.** v1 ve v2 beğenilmedi (ayrıntılar aşağıda
+   "08 SAUNA EŞOFMANI"). Konu aynı kalıyor: sauna eşofmanıyla verilen kilo yağ değil su; gerçek tarihçe hazır ve
+   doğrulandı (1997'de üç üniversiteli güreşçi kilo düşürürken 33 gün içinde öldü, Jeff Reese; hemen ardından, 1998'de
+   NCAA ter eşofmanını yasakladı). Yöntem: önce 2-3 farklı hikâye fikri sun → kullanıcı seçer → METNİ onaylat → sessiz önizleme.
+   Bu oturumdan çıkan dersleri uygula: **tek kahraman + tek zaman çizgisi, her cümle bir öncekinin sonucu; ÇATIŞMA
+   olsun (04 kadın-erkek çatışması yüzünden iyi izlendi); gerçek tarihçe ama konudan sapma; ilk cümle tarihle
+   başlamaz; "antrenör" değil "koç"; max 40-45 sn (karakter sayısını hesapla: Yunus ≈ 13-14 karakter/sn).**
+2. **07 yaş (v9) BİTTİ (18 Ekim): KULLANICI KISA HÂLİ SEÇTİ** → SON HÂLİ `ornek-videolar/cizim1-pilot/07-yas-kisa.mp4`
+   (`cizim1-07-yas-kisa`, ~50 sn; tarihçe tek cümle, hobiler kısa, "koçla ağırlık"). Uzun hâl `07-yas.mp4` (55,9 sn)
+   yedek. İkisinin sesi de `public/voiceover/cizim1-07-yas/` içinde. Kalan kredi ≈ 13.997.
+3. **KADIN KONULARI (ayrı yeni sohbette; kullanıcı numaraları TEYİT ETTİ: "önce dört, evet"):** sıra
+   **4 "kadın erkekten zor kilo verir" (İLK İŞ) → 6 selülit → 5 metabolizma yavaş**. Not: iki paralel sohbet var —
+   biri 08 sauna yeni hikâyesi, diğeri kadın konuları; hangi sohbette olduğunu kullanıcının ilk mesajından anla, emin
+   değilsen sor.
+   **4 için başlangıç notu:** kalıp = kadın bedeni hakkında, erkekle kıyaslayan, ters köşe bilimsel bilgi + kadın-erkek
+   çatışması (04 kadın-ağırlık gibi; aşağılayıcı değil, tartışma izleyicide doğsun). Ters köşe adayı: egzersiz sırasında
+   kadınlar yakıt olarak erkeklerden daha fazla YAĞ kullanır (doğrula: Tarnopolsky, Devries vb. derlemeler). Çatışma
+   adayı: "erkek arkadaşın/eşin aynı diyete başladı, o 5 kilo verdi sen 2" gündelik kıskançlığı. Gerçek tarihçe
+   bul (örn. kadınların spor/beslenme araştırmalarından uzun yıllar dışlanması; DOĞRULA). Akış: kaynakları doğrula →
+   2-3 hikâye fikri sun → kullanıcı seçer → metni onaylat (karakter sayısı; max ~45 sn ≈ 600 karakter) → sessiz
+   önizleme → onay → seslendirme. Avatar (erkek) ana karakter, kadın yan karakter; "koç" terimi.
+   6 selülit: kadınların büyük çoğunluğunda var, erkekte nadir; sebep bağ dokusunun dizilişi (hastalık/tembellik
+   değil); "selülit" kelimesi 1968 moda dergisiyle yayıldı (DOĞRULA). 5 metabolizma: Science 2021 (Pontzer, 6.000+
+   kişi) vücut büyüklüğü hesaba katılınca kadın-erkek farkı yok (DOĞRULA).
+
+**>>> 19 EKİM — SELÜLİT (`cizim1-10-selulit`) GÜNCEL <<<**
+- Çalışma dalı `claude/cellulite-video-prep-6zjwa8` (main birleştirildi). Kullanıcı A/B/C kancalarından **B + C harmanını** seçti,
+  12 madde tablosunun hepsine tik + "giriş (hook) çok önemli" + sonda soru (yorum) + döngü + "hiç bekleme, hızlı geçiş, her an
+  yenilik" istedi; metni ayrıca onaylatmadan doğrudan sessiz önizleme istedi. 9 sahne `sel-*` (~664 karakter, ~46-49 sn):
+  hook (ayna karşısında dambıllı squat, gün tikleri, bol kot, yansımada büyüteç + portakal) → avatar "1. gün", "o" düz / "sen"
+  çukurlu büyüteç → Sibel iç ses "Ben ondan çok çalışıyorum!" → "Peki ya sorun spor değilse?" + 1968 moda dergisi (yıl
+  2026→1968 sayar, "KUSUR" damgası) → deri kesiti (dik bantlar, yağ kabarır, deri çekilir) → erkek çapraz ağ → 8-9/10 →
+  29 kadın (17 azaldı / 9 arttı) → "Selülit tembellik değil, mimari." + "Sana bunun kusur olduğunu ilk kim söyledi?" + döngü.
+  "KUSUR" damgası sağ üstte her sahnede çatlar, sonda kırılıp düşer. Sessiz önizleme `ornek-videolar/cizim1-pilot/10-selulit-sessiz.mp4`
+  → kullanıcı onayı → seslendirme (Yunus ~640 + Sibel ~26 karakter).
+  **SES NOTU (kullanıcı):** Sibel "anne sesi"; selülitteki kadın için Sibel OLMAZ → Yunus yaşında, daha GENÇ bir kadın sesi
+  seçilecek (sonra düşünülecek; seslendirmeden önce aday sesleri sun).
+  **v2 (kullanıcı):** "kotun bol geliyor" saçma (üstünde kot yok) → "bacakların sıkılaştı" (bacak kasları parlar, "sıkı!").
+  Deri kesiti gerçek anatomiyle yeniden çizildi: üst deri hücre sırası, alt deri (kolajen lifleri, kılcal damar, kıl kökü),
+  petek gibi yağ hücreleri (`FatCell`, çekirdek kenarda), lifli bağ dokusu bantları (`Septum`); erkekte çapraz ağ.
+  **v3 (kullanıcı: "konu anlatımı daha iyi olabilir" → "Fark YARAT" → "sahte reklamla dün başlayan hikâyesini birleştir"):**
+  11 sahne: `sel-reklam` sahte krem reklamı tam ekran ("Yedi günde pürüzsüz bacaklar! Mucize krem!", `AdScreen`, cızırt) →
+  kamera geri çekilir (`PhoneZoom`): reklam kadının yerdeki telefonunda (`PhoneAd`) → hook "Haftada dört gün…" → avatar
+  "daha dün başladı" ("2. gün", o/sen büyüteç) → iç ses → `sel-haklisin` "Haklısın. Sorun derinin altında." (uyluğa dalış) →
+  kesit "ipler" (bağ dokusu) → erkek çapraz → 8-9/10 → "Peki bu kusur fikri nereden çıktı? 1968 moda dergisi" → 29 kadın →
+  "Selülit tembellik değil, yapı. Peki sana bunun kusur olduğunu ilk kim söyledi?" → kamera telefona dalar = reklam (döngü).
+  KURAL: soru sorulunca cevap hemen gelsin; tarihçe mekanizmadan SONRA (ters köşe); "bant" yerine anlaşılır "ip".
+  **v4 (kullanıcı: "reklamı gören kaçar, televizyonda göreni yap"):** telefon/"Sponsorlu" tam ekran reklam KALKTI → reklam
+  duvardaki TELEVİZYONDA (`AdTV` 1600×900, "REKLAM" etiketi + kanal logosu + küçük yazı; `TVAd`, `TVZoom`). İlk kare: TV yakın
+  plan, önünde kadının başı (TV izleyen biri); kapanışta kamera TV'ye yaklaşır = açılış (döngü). DERS: video asla gerçek bir
+  Instagram reklamı gibi açılmasın (izleyici kaydırır); reklam bir sahnenin İÇİNDE görünsün.
+  **v5 (19 Ekim, kullanıcı: "max 40-45 sn" + referans video):** metin ~41 sn'ye sıkıldı (536 karakter, 11 sahne):
+  reklam "Yedi günde pürüzsüz bacaklar!" → "Haftada dört gün spor yapıyorsun ama o portakal kabuğu hâlâ orada." → "Yanındaki
+  dün başladı, onda yok." → iç ses → "Haklısın. Sorun derinin altında." → ipler → erkek → 8-9/10 → "Bu kusur fikri mi? 1968'de
+  bir moda dergisinden çıktı." → YENİ `sel-krem` "Krem de o ipleri değiştiremez." (kavanoz iner, krem yüzeyde kalır, ipler
+  kırmızı, çarpı; kaynak: Am J Clin Dermatol derlemesi, kremlerin kanıtı zayıf/geçici) → kapanış. Kilo/29 kadın sahnesi ÇIKTI.
+  **GÖRSEL DERS (kullanıcının referansı: heyvoom "büyüme plağı" videosu, 11,3B izlenme):** anatomi SADE, BÜYÜK, NET olmalı:
+  az sayıda iri, YÜZLÜ (sevimli) hücre, kalın konturlu kemik/doku, düz renkler, hap şeklinde etiketler ("büyüme plağı",
+  "bölünür" gibi; `PillLabel`), yuvarlak yakın plan (inset). Kalabalık/küçük histoloji çizimi YAPMA. Deri kesiti buna göre
+  yeniden çizildi (`FatCellC` yüzlü yağ hücresi, `SelRope` örgülü ip, `SkinBand`, "dışarıdan" büyüteci). Hedef: milyon izlenme. `KiloStamp` artık `text/x/y/half` alıyor.
+
+**>>> 19 EKİM — İKİ PARALEL SOHBET <<<**
+- **!!! SESLER (kullanıcı, 19 Ekim): Yunus = ANA SES, Sibel = YALNIZ ANNE SESİ.** Genç kadın karakter için Sibel KULLANMA;
+  ayrı genç kadın sesi seçilecek. Adaylar (ElevenLabs paylaşılan kitaplık, tanıtım örnekleri `ses-ornekleri/genc-kadin-adaylar/`):
+  1 Gözde `rtnDjO8siSxeTEeTVczO`, 2 Zeynep `ZaoBgxgzPhoCm533Pb7B`, 3 Damla `A2XgcJ6lQVEFeIaIUyrc`, 4 Elif Özder
+  `i50A6Mcx7A7vVwCVZVeZ`, 5 İrem `R0D8QjgVyRju4HRoCrIC`, 6 Aslı `HZh2tWL1clJO95e2qMt2`. **SEÇİLDİ: 6 Aslı `HZh2tWL1clJO95e2qMt2` (kitaplıkta "VOOM genc-kadin-asli") = genç kadın sesi.** Ekleme:
+  (`POST /v1/voices/add/{public_owner_id}/{voice_id}`) → JSON'da kadın sahnelerinin `voiceId`'si. Kalan kredi ≈ 13.617.
+- **09 KİLO v5 (EN GÜNCEL, 19 Ekim): "Hangimiz daha önce kilo verecek?"** (`cizim1-09-kilo-hangimiz`, kullanıcı: "hook
+  bu olsun, iddia güzel ama cezayı/kaybetme anını görelim"; metin onaylandı "yap önizleme"). Kadın (Aslı) soruyu sorar →
+  avatar "Kaybeden bir ay bulaşık yıkar!" (buzdolabı notu + kulpta eldiven) → tartı −5/−1, eldivenler uçup kadının eline
+  geçer → lavaboda tabak kulesi + "Sence neden?" → "Hayır. O sadece senden daha iri." (beden kutuları) → laboratuvar 2003 →
+  kasın içinde fırın mercekleri (667/439) → eşit kalori 600/600, damga düşer → avatar "Yani… bulaşık bende mi?" → `bul-son`.
+  Sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-hangimiz-sessiz.mp4` → onay → seslendirme (Yunus + Aslı).
+- **!!! HİKÂYE FORMÜLÜ (kullanıcı, 19 Ekim — HER VİDEODA):** 1) önce insanların YARISINA DOKUN (yaygın, "tam ben"
+  dert); 2) sonra SEBEBİNİ ONLARA SOR ("Sence neden?"); 3) sonra AÇIKLA (kısa, basit cevap); 4) sonra TARİHÇESİ + VÜCUTTAKİ
+  YERİNİ GÖSTER (gerekirse hücre, gerekirse kasın içi); 5) en sonunda toplam hikâyeyi BAĞLA. BASİT tut.
+- **!!! DERS (kullanıcı, 19 Ekim, gerildi): "GÖRSEL SÖZLER KADAR ÖNEMLİ."** Açılışta tezgâh üstünden el uzatıp lavaboda
+  tokalaşma "ne kadar saçma bir an" bulundu. Her hareket GERÇEK hayatta nasıl yapılıyorsa öyle çizilsin (taş-kâğıt-makas
+  yapılacaksa gerçek taş-kâğıt-makas). Önizleme göndermeden önce her sahneden kare alıp "bu an gerçekte böyle mi olur?"
+  diye kontrol et. 09 iddia açılışı → BUZDOLABI NOTU (kullanıcı seçti): yakın çekimde mıknatısla iddia notu, satırlar
+  yazılır, imzalar, kamera geri çekilir; kulpta KAYBEDEN eldivenleri (`Fridge`, `BetNote`, `Marker`).
+- **09 KİLO v4 "Bulaşık iddiası"** (`cizim1-09-kilo-iddia`, kullanıcı "senaryoyu baştan yarat" dedi, metin "hemen önizleme"):
+  mutfak (tezgâh, lavabo, KAYBEDEN eldivenleri) → iddia → ay sonu tartı −5/−1 → kadının iç sesi "Haklıymış… kadınlar zor
+  kilo verir." (bulut) → laboratuvar → "Gördün mü?" → hakem düdüğü, kalori 667/439 → 600/600, damga düşer → avatar "Yani…
+  bulaşık bende mi?" (eldivenler ona geçer) → "Kilo farkı, emek farkı değil. Bu videoyu iddiaya girdiğin kişiye gönder." +
+  ekranda "Sizde iddiayı kim kazandı?". Bileşenler `bul-*` (`Mutfak`, `KitchenCounter`, `Glove`, `LoserGloves`, `Whistle`).
+  12 madde tablosu kontrol edildi: zayıf = tempo (hakem cümlesi ~9 sn) ve "eşinle" (bekârları dışlar) — kullanıcıya soruldu.
+- **09 KİLO GÜNCEL: kullanıcı A girişini seçti** ("A ama daha çok gelişsin, tam hâli + önerdiğin değişiklikler") →
+  `cizim1-09-kilo-a` (tam video, sessiz önizleme `ornek-videolar/cizim1-pilot/09-kilo-a-sessiz.mp4`): A1 tartı ekranları +
+  duvar takvimi (HAFTA 1→4), kadın çatalını bırakır → A2 iç ses bulutta (Sibel) → A3 "Peki ya sorun sende değilse?" (lacivert
+  dev "?") + buluta dalış → laboratuvar canlı (arka sıralarda 2'şer soluk koşucu, Lab `cam` ile sıralar arası kamera) →
+  … → kapanış `kilo-son2`: "Kilo farkı, emek farkı değil. Bunu, sofrada sana beş kiloyu söyleyen kişiye gönder." (kadın
+  telefonla gönderir, kâğıt uçak, avatarın masadaki telefonu titrer; ekranda sarı "Sizde kim daha hızlı verdi?") → döngü.
+  Onay → seslendirme (Yunus + Sibel). `cizim1-09-kilo`, `-b`, `-c` eski/alternatif.
+- **SELÜLİT (yeni sohbet, kadın konusu 6):** arka plan HAZIR → `notlar/10-selulit.md` (doğrulanmış bilgiler, kaynaklar,
+  CEFF kanca kalıbı, 12 madde tablosu, kanca taslakları). İlk iş: dosyayı oku → 2-3 kanca/hikâye sun → metin onayı →
+  sessiz önizleme. Kullanıcı: "hâlâ bir video atmadık" — hızlı ilerle ama metin onayı kuralı geçerli.
+- **09 KİLO (bu sohbet):** v3 sessiz önizleme gönderildi; kullanıcı "güzel ama giriş beğenmedim" → CEFF'in uyku videosu
+  (50K+, "Her gece 8 saat uyuyorsun… Peki ya sorun uyku süren değilse?") örnek verildi. 3 yeni giriş sunuldu, **seçim
+  bekleniyor:** A tartı ("Aynı yemek, aynı spor. Onun tartısı her hafta düşüyor, seninki kıpırdamıyor bile. Ve aklından
+  şu geçiyor:" → kadının iç sesi bulutta "Ben kadınım, zor kilo veririm." → "Peki ya sorun sende değilse?"; önerilen),
+  B rakam şoku, C sofrada sessizlik. Ayrıca önerilen (onaylanmadı): laboratuvar canlansın (sırada 3'er koşucu, kamera),
+  kapanış "…Bunu, sofrada sana beş kiloyu söyleyen kişiye gönder." + ekranda "Sizde kim daha hızlı verdi?" + telefon
+  titrer → döngü.
+
+**>>> EN SON DURUM (18 Ekim, YENİ SOHBET BURADAN BAŞLASIN) <<<**
+- **KADIN 4 → `cizim1-09-kilo` "Kadınlar zor mu kilo verir?" (18 Ekim, kadın konuları sohbeti):** reddedilenler: v1 "Aynı
+  program" (anlatıcı), v2 "Ben beş kilo verdim" (kullanıcının gönderdiği "Neden izlesin / yorum yapsın / paylaşsın"
+  tablosuna — hook, merak, tempo, his; taraf tutturan an, tartışma payı, söylenecek bir şey, kendini görmek; "bunu ona
+  atmalıyım", akılda kalan replik, "tam ben", kısa-net — HER MADDEYE tik atabilmeli); A/B/C fikirleri sunuldu. **Kullanıcı
+  fikri: tartışma YEMEKTE geçsin + tartışma DÜŞÜNCE BULUTUNUN İÇİNE dönüşsün.** Metin (v3, kullanıcı "yap bakalım"):
+  sofra: avatar "Aynı yemeği yiyoruz… Ben beş kilo verdim, sen niye veremiyorsun?" → kadın (Sibel sesi) "Çünkü kadınlar
+  zor kilo verir, bunu herkes bilir." (bulutta kırmızı yazı) → kamera buluta dalar, bulutun içi laboratuvar: 2003 Midwest
+  Exercise Trial (16 ay aynı program, erkek −5 kg, kadın ≈0; damga "KADIN ZOR VERİR") → avatar "Gördün mü?" → erkekler
+  iri, kalori 667/439 (damga çatlar) → 2013 MET-2 aynı kalori, fark kayboldu (damga düşer) → bulut patlar, sofra: kadın
+  "Yani sen daha hızlı vermedin…" / avatar "Sadece daha büyüğüm." (XL/S beden etiketleri) → "Kilo farkı, emek farkı
+  değil. Peki sizin sofranızda bu tartışmayı kim kazanırdı?" (döngü: yemeğe dönerler). Bileşenler `kilo-*` (`KiloSofra`,
+  `DinnerTable`, `CloudFrame`, `InCloud`, `Lab`, `Treadmill`, `KiloStamp`, `Kcal`). Sessiz önizleme
+  `ornek-videolar/cizim1-pilot/09-kilo-sessiz.mp4` → onay → seslendirme (Yunus ~520 + Sibel ~80 karakter). Kaynaklar
+  doğrulandı: Donnelly 2003 (PMID 12796071), MET-2 Obesity 2013 (PMID 23592678, "no significant difference between men
+  and women"), Tarnopolsky 1990 (kadın egzersizde daha çok yağ yakar; metne girmedi).
+- **!!! TERİM (kullanıcı): bizim dilimizde "antrenör" DEĞİL "KOÇ".** Metinlerde ve ekran yazılarında hep "koç" kullan.
+- **!!! KONU SEÇİMİ (kullanıcı, 18 Ekim): sonraki konular KADINLARIN GÜNDEMİNDE olan, kadınların bir kısmını rahatsız eden,
+  KADIN-ERKEK ÇATIŞMASI çıkaracak konular olsun** (04 kadın-ağırlık bu yüzden iyi izlendi). Kalıp: kadınlara bir şey
+  yasaklanmış/"yapamazsın" denmiş → gerçek tarih → bilim tersini gösterir; tartışma izleyicide doğar, aşağılayıcı değil.
+  Avatar yine ana karakter. Önerilen adaylar (18 Ekim, DOĞRULANMADI, seçince doğrula): 1) kadınlar uzun mesafe koşamaz
+  (1928 800 m "yığıldılar" → 1960'a kadar yasak; 1967 Boston, Kathrine Switzer), 2) regl döneminde spor yapılmaz (Rio 2016
+  Fu Yuanhui), 3) hamileyken spor yapılmaz (1985 ACOG katı sınırlar → bugün haftada 150 dk), 4) kadın zor kilo verir
+  (egzersizde kadın daha çok yağ yakar). **Kullanıcı 4'ü seçti: "diğerlerine göre çok daha iyi, bunun gibi konular bul"**
+  (kadın bedeni hakkında, erkekle kıyaslayan, ters köşe bilimsel bilgi). Yeni adaylar sunuldu: metabolizma yavaş mı
+  (Science 2021, Pontzer), selülit egzersizle gider mi (bağ dokusu farkı; "selülit" 1968 moda dergisi), kalça yağı en son
+  gider (sağlıklı yağ), kadınlar kolay yorulur mu. **Kullanıcı: "4-5-6 güzel, sırayla 4-6-5"** — numaralar iki listenin
+  devamı varsayıldı: 4 = kadın zor kilo verir, 5 = metabolizma yavaş, 6 = selülit → SIRA: 4 kilo → 6 selülit → 5
+  metabolizma (kullanıcı TEYİT ETTİ). Hepsi DOĞRULANACAK. Ayrıntı yukarıda "YENİ SOHBET: İLK İŞ" madde 3.
+- **08 sauna (`cizim1-08-sauna`): v2 hikâyesi de BEĞENİLMEDİ (18 Ekim). Yeni hikâyesi BAŞKA BİR SOHBETTE paralel
+  düşünülecek** — o sohbet buradan devam etsin. 07 bitti; kadın konuları da yeni sohbette.
+- **07 v9 (`cizim1-07-yas`, 18 Ekim) — GÜNCEL:** a/b/c seçenekleri beğenilmedi. Kullanıcı: "Konu NE ZAMAN SPORA BAŞLANIR,
+  sürekli sapıyorsun. Çocuğun sorusu: 13'te başlayabilir miyim, sorun olur mu? 16'da? Ne tür sporlar? Hareket göstermeden,
+  hobisinden yola çıkıp spor dalı öner." + "tarihçeyi ekle ama konudan sapma". 04 (kadın-ağırlık) iyi izlendi çünkü
+  ÇATIŞMA var (kadın-erkek) → 07'de çatışma: çocuklara "bekle" denmesi. Metin (kullanıcı "güzel" dedi), sahneler `y9-*`:
+  soru + "Kısa cevap: olmaz. Ama yıllarca çocuklara 'bekle' dendi." → eskiden doktorlar "çocuk güçlenemez, ağırlık
+  kemiklerini bozar", çocuklar salonun kapısında bekletildi (sepya, ip, "ÇOCUKLAR GİREMEZ") → araştırmacılar bilen biriyle
+  çalıştırdı, güçlendiler, zarar görülmedi (koç gelir, ip kopar) → AAP 2020 başlama yaşı yok, 13 de 16 da, yük yavaş
+  yavaş → "hangi spor? yaşın değil neyi sevdiğin seçer" → hobi kartları (müzik→dans, arkadaş→basketbol/voleybol,
+  dışarısı→bisiklet/koşu, rekor→koçla ağırlık) → "Yorumlara yaz, sana uyan sporu söyleyelim." Kaynaklar: Matos &
+  Winsley 2007 JSSM (eskiden kontrendike sayılırdı, Vrijens 1978), AAP 2001 (sinirsel güç, sakatlık nadir), AAP 2020.
+  Metin 794 karakter → ~57 sn (45 sınırını aşıyor; kullanıcıya kısaltma önerilecek). Sessiz önizleme `07-yas-sessiz.mp4`.
+- **07 v8 — ÜÇ SEÇENEK (18 Ekim):** v7 (bildirim + pasta) için CEFF: "konu güzel, hikâye akmıyor" (sahneler arası
+  atlama, tek kahraman/zaman çizgisi yok). **DERS: tek kahraman, tek zaman çizgisi, her cümle bir öncekinin sonucu.**
+  Kullanıcı "farklı akan 3 video hazırla, ben seçeyim" dedi → üç sessiz önizleme (seslendirilmedi):
+  `cizim1-07-yas-a` "Önce biraz büyü" (13'te "önce biraz büyü" denir, 14-15-16 bekler, 18'de salonda 13'ünde başlamış
+  biri "5 yıl" → rapor → iki yaş şeridi → "seni bekleten o cümleydi" → "13 yaşında biri sorarsa ne diyeceksin?"; 45 sn),
+  `cizim1-07-yas-b` baba-oğul ("Ben de gelebilir miyim?" / "Sen daha küçüksün" → baba da 45'inde yeni başlamış →
+  "biri çok erken öteki çok geç" → rapor → aynı salon farklı program → ertesi sabah iki kişi → baba sorar "Yarın da
+  gelir misin?"; 37 sn), `cizim1-07-yas-c` mektup (13 yaşındaki kendine tek cümle: "Beklemene gerek yok" → "daha
+  küçüksün" denip 10 yıl beklemiş → rapor → not → zarf "ADRES BULUNAMADI" → "bu videoyu 13 yaşında birine gönder";
+  33 sn). Videolar `ornek-videolar/cizim1-pilot/07-yas-{a,b,c}-sessiz.mp4`. Kullanıcı seçecek → seçilen seslendirilir.
+  Bileşenler `a-*`, `b-*`, `c-*` (+ `SportBag`, `SayBubble`, `Mustache`, `GymBg`, `Rapor2020`, `BigLetter`, `Envelope`).
+- **07 v7 (`cizim1-07-yas`, 18 Ekim):** kullanıcı "hareket göstermek değil konumuz" dedi; üç kuşak (B) fikri reddedildi.
+  Gelen kutusu + pasta harmanı, kullanıcının fikriyle 13. yaş günü: bildirimler ("13 erken mi? 16'yı mı bekleyeyim?") →
+  13. yaş günü, mum üflerken aklına salon gelir "Bugün mü başlasam?" → dev halter/iri adamlar, "Ben daha küçüğüm", her yıl
+  bir mum + "seneye…" notu (13→16) → AAP 2020 "YOK" damgası → "o salon da şart değil", oyun → hafif → biraz daha basamakları
+  → "asıl soru: kaç senedir bekliyorum?" → "O yüzden en doğru yaş: bugün." (pastada BUGÜN; sesi hazır). Kullanıcı son
+  cümleyi ("Yine de her hafta aynı soru geliyor") ATTIRDI. Bileşenler `yas7-*` (`BdayRoom`, `BigCake`, `LaterNote`,
+  `ScaryGym`, `PartyHat`). Sessiz önizleme `07-yas-sessiz.mp4` gönderildi → onay → seslendirme (~550 karakter).
+  Eski v6 sahneleri (`yas-*`) kodda duruyor ama JSON'dan çıktı.
+- **07 yaş (`cizim1-07-yas`):** son sessiz önizleme `07-yas-sessiz.mp4` (v6, ~68 sn): kanca → rapor → yaş bantları 5-7 /
+  8-12 / 13-15 / 16+ → terazi → "Bir de önemli bir not…" ev kazası → "spor sadece salondan ibaret değil" (basketbol,
+  voleybol, hentbol, tenis; 5/25/50 yaş panoları) → bugün. **CEFF/kullanıcı HİKÂYEYİ BEĞENMEDİ → alternatif hikâye
+  bulunacak** (seslendirme YAPILMADI; yeni bant/spor/güvenlik metinleri seslendirilmedi). Önerilecek fikirler (henüz
+  sunulmadı, DOĞRULANMADI): (A) gerçek tarihçe — ünlü bir sporcunun çocukken birçok spor denemesi (ör. Federer; doğrula),
+  AAP 2016 "erken tek spora uzmanlaşma" ile bağla; (B) aynı evde üç kuşak (6, 15, 45 yaş) — "hangisi yanlış yapıyor?"
+  ters köşe: hiçbiri, her yaşın sporu farklı; (C) avatarın kendi hikâyesi (yanlış başlangıç → doğru yol). Önce metni
+  onaylat, sonra sessiz önizleme. Mevcut bileşenler kullanılabilir: `AgeRuler`, `SportIcon/SportCard`, `CellLens`, `Forest`,
+  ev kazası balonu (`YasGuvenlik`), terazi. Hazır sesler (manifest, metne göre önbellek): hook, rapor, terazi, eski güvenlik
+  ("Ve yanında bilen biri olsun…", 1,6 sn boşluklu), bugün, eski hareket sahneleri.
+- **08 sauna (`cizim1-08-sauna`):** v2 sessiz önizleme gönderildi, kullanıcı "bu bi kalsın" dedi (BEKLEMEDE, seslendirilmedi).
+- Kalan ElevenLabs kredisi ≈ 13.700. Çalışma dalı `claude/claude-md-continuation-e39del` + `main` (ikisine push).
+- Kullanıcı CEFF'e "videoları stoklayalım mı" diye sordu (günde 3, aralar 12 saatten kısa olunca keşfete çıkmıyor).
+- **DERSLER:** kullanıcının örnek cümlelerini birebir metne koyma, kendin doğal yaz; önce metni onaylat; renkler: doğru =
+  lacivert, yanlış = kırmızı; hareket gösterirken doğru form (sporcu kullanıcı).
+
+**YENİ KONU (17 Ekim gece): 07 "Spora kaç yaşında başlanır?" (`cizim1-07-yas`)** — takipçi soruları (13, 16 yaş;
+  "11 yaş çok erken mi?"). Kaynak: AAP 2020 raporu (Pediatrics 145(6):e20201011; başlama yaşı yok, 5 yaşında vücut ağırlığıyla
+  oyun, boy/büyüme plağına zarar yok, ergenlik öncesi güç sinirden, sakatlıkların çoğu evde gözetimsiz, haftada 2-3 gün).
+  Kullanıcı: "boyum kısa mı kalır" AYRI videoda; 13 yaşa özel değil, GENEL konu; yorumu suçlama. Onaylanan metin 9 sahne
+  (`yas-*`): yaş sayacı 18→5 → rapor "YOK" damgası + basamaklar → parkta oyun (kurbağa/ayı/tek ayak) → squat/şınav/plank →
+  dambıl/lastik bant/haftalık şerit → beyin→kas kabloları → terazi (10 yaş 3 yıl / 14 yaş ilk gün) → antrenör + evde yalnız
+  balon → "BUGÜN". Yandan poz yardımcıları: `pushPose`, `bearPose`, `armTo`, `SideAt`. Sessiz önizleme
+  `07-yas-sessiz.mp4` → onay → seslendirme (Yunus, ~800 karakter).
+  **v2 (kullanıcı: "hareketleri düzgün yap, ben sporcuyum"):** metin 12 sahne (A seçildi, ~50-53 sn kabul): hareket başına
+  talimat (`yas-squat` kalça geri/sandalye/diz→ayak ucu, `yas-sinav` dümdüz/göğüs yere/diz üstü, `yas-plank` DİRSEK plankı,
+  kalça düşer/kalkar kırmızı çarpı), önce LASTİK BANT sonra dambıl. Orman fonu (`Forest`: karlı dağ, çam ormanı, ağaçlar
+  avatardan büyük), `YAS_FLOOR` 1300 (figür altyazının üstünde). Sahne sonu `hold` desteği (types/shared). **Avatarın
+  tişörtü bu videoda KIRMIZI** (`YAS_SHIRT`, kullanıcı isteği).
+  **v3 (kullanıcı):** doğru/yardımcı işaretler LACİVERT (`YAS_OK`, yeşil zeminde seçilsin; yanlışlar kırmızı); kas
+  sahnesi hücre merceği (`CellLens`: önce aynı boy hücreler sinyalle tek tek yanar = güç, ergenlikte hücreler büyür);
+  lastik bant = dizlerin üstünde turuncu mini bant, yana adım; sakatlık balonu (kullanıcı: "evde halter saçma"): evde tek
+  başına 20 kg dambılı kaldırmaya çalışır, sendeler, dambıl AYAĞINA düşer, ayağını tutup tek ayakla seker, "ah!", kırmızı çarpı.
+  Kaza cümlenin ORTASINDA (kullanıcı): "olsun"dan sonra sese 1,6 sn sessizlik eklendi (manifest kelime zamanları kaydırıldı), kaza + "ah!" orada; SESLENDİRİLDİ (956 karakter, kalan ≈ 13.700), müzikle render → `ornek-videolar/cizim1-pilot/07-yas.mp4` (72,1 sn — 45 sınırının çok üstünde; kullanıcıya kısaltma seçenekleri sunuldu: sesi ~%12 hızlandır ≈64 sn veya kas sahnesini çıkar). "ah!" sesi `public/sfx/ah.mp3` (Yunus TTS "[pained] Aah!", ~10 karakter).
+**07 v4 (17 Ekim gece, CEFF geri bildirimi):** "Hareket göstermek olmamış; soru kaç yaşında spora başlanır, nasıl spor
+  yapılır değil; her yaşın sporu ayrı gibi bir anlatım beklerdim." → hareket sahneleri (oyun/hazır/squat/şınav/plank/
+  dambıl/sinir) ÇIKTI; yerine yaş bantları `yas-bant1..4` (5-7 oyun: koşmak/zıplamak/tırmanmak; 8-12 kendi vücut ağırlığı +
+  teknik, hücreler büyümez ama güç ↑; 13-15 ergenlik, hücreler büyür, lastik bant + hafif ağırlık, bilen biri; 16+ ağırlık
+  yavaş yavaş, TEKNİK ÖNCE). Üstte `AgeRuler` (etkin bant kırmızı). Rapordaki basamaklar 4 yaş grubu. Hook/rapor/terazi/
+  güvenlik/bugün sesleri hazır; 4 bant yeni seslendirilecek (~330 karakter). Seslendirme betiği önbelleği metne göre bulur
+  (sıra değişse de hazır sesler yeniden üretilmez; güvenlik sahnesinin 1,6 sn boşluklu sesi korunur).
+  **v5 → v6 (kullanıcı: "karman çorman oldu"):** spor dalları her banda serpiştirilmez; yaş bantları v4 hâline döndü
+  (13-15: "…Sporunun yanına, bilen birinin eşliğinde hafif ağırlık eklenebilir.") ve 13-15'ten SONRA tek GENEL sahne
+  `yas-sporlar`: "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. Üstelik
+  sana bir takım ve arkadaşlar kazandırır." (5/25/50 yaş yalnız görselde). **DERS: kullanıcının örneklerini birebir metne
+  koyma, kendi cümlenle doğal yaz.** **Sıra (kullanıcı):** bantlar → terazi → güvenlik ("Bir de önemli bir not: yanında bilen
+  biri olsun; sakatlıkların çoğu evde, tek başına olur." + "ÖNEMLİ NOT" etiketi; YENİDEN seslendirilecek, sonra "olsun"dan sonra
+  1,6 sn boşluk tekrar eklenecek) → `yas-sporlar` → bugün. İSTİSNA: ekip kuralı "spor
+  dalları yok" bu videoda kullanıcı isteğiyle esnetildi. AAP 2016 (Pediatrics 138(3):e20162148) erken tek spora
+  uzmanlaşmayı geciktir — doğrulandı. `SportIcon`/`SportCard`/`Heart`.
+  Sauna (08) bekliyor. Kullanıcı: "videoları stoklayalım" (günde 3, aralık 12 saat değil) — CEFF'e sordu.
+**08 SAUNA EŞOFMANI (`cizim1-08-sauna`, 17 Ekim gece, DENEME — kullanıcı konudan emin değil, metne bakıp karar verecek):**
+  "Sauna eşofmanıyla koştun, tartıda bir kilo eksiksin. Peki o kilo yağ mıydı? Hayır. Sadece su." → 1997 üç güreşçi bir ay
+  içinde hayatını kaybetti, 1998 NCAA ter eşofmanını yasakladı (kullanıcı: "yumuşatma, kalsın") → terle giden su, şişe →
+  saatlerce hareket, "ter ≠ yağ" → ısınma, baş dönmesi, bayılma → döngü "tartı yalan söylemez ama her şeyi de söylemez…
+  hatırla:". Avatar gümüş eşofmanlı (`Person`/`SideRunner` yeni `suit` prop). Bileşenler `sauna-*`. Sessiz önizleme
+  `08-sauna-sessiz.mp4` → onay → seslendirme. Diğer konu adayları: mekik/göbek (1971 tenis kolu), 8 bardak su (1945),
+  laktik asit (1922 Nobel), kas yağa dönüşür, boy kısalır (takipçi isteği).
+  **v2 (kullanıcı: "teri içmek iğrenç", "bir ay içinde öldüler ne demek"):** ter ÖLÇÜ KABINDA kalır, avatar masadaki temiz
+  şişeyi içer; tarihçe 3 sahne (`sauna-tarih1/2/3`): 1997 üniversiteli güreşçi maç için 8 kg vermek zorunda → eşofmanın
+  altına plastik giysi, 2 saat kondisyon bisikleti, yere yığılır, susuz kalmıştı, kurtarılamadı (Michigan Daily: Jeff Reese,
+  böbrek yetmezliği + kalp; 17 lb) → 33 günde aynı yolla ölen 3. güreşçi, ertesi ay yasak. Metin onaylandı ("olur").
+**05 boyun:** iki giriş Reels testi için hazır: `05-boyun.mp4` (Dikkat!) ve `05-boyun-b.mp4` (Giriş B, kullanıcı seçti).
+**Kullanıcının bu oturumdaki dersleri (UY):** betimle/canlandır — izleyici sahneyi gözünde canlandırmalı (ör. turuncu
+pistte koşan, ağrıyla eğilen, oturan biri; yan profil); tarihe dayan (dikkat çeker), sonda soru bırak; iki hikâyeyi
+"yer vermek için" değil anlamlı harmanla; bilinmeyen iddiayı varsayma; teknik terim yok; max 40-45 sn; önce METNİ onaylat,
+sonra sessiz önizleme, sonra tek seferde seslendirme (kredi!). Render ~10-15 dk; `pkill` kendi kabuğunu da öldürebilir →
+PID ile durdur (`ps -eo pid,args | awk ...`). Hızlı kontrol: `npx remotion render src/index.ts <id> out.mp4 --frames=0-250 --scale=0.4`.
+
+## (eski) 16 Ekim akşam devir notu
+Çalışma dalı `claude/claude-md-continuation-e39del` (main ile aynı; eski dal `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`). `npm ci` → işe başla.
+Kalan ElevenLabs kredisi ≈ 15.250 karakter (yalnız Yunus seslendirmesi için kullan).
+**Videoların durumu (ornek-videolar/cizim1-pilot/):**
+- **05 boyun TEKRAR AKTİF (17 Ekim):** ekipten CEFF videoyu beğendi ("çok güzel, paylaşalım"); yalnız "Dikkat!" girişi
+  "çok bağırıyor, insanları kaçırabilir" → Reels'te 2 giriş test edilecek. Kullanıcı **Giriş B**'yi seçti:
+  `cizim1-05-boyun-b` ("Şu an bu videoyu başın öne eğik izliyorsun, değil mi? Bunun için dünyaya yayılmış bir hesap var.
+  Ama hikâyenin yarısı eksik."; `boyun5-sen`, kapanış `boyun5-gonder` = telefona dalış yok, avatar ortaya gelir).
+  Seslendirildi, son video `05-boyun-b.mp4` (48,9 sn). Diğer sahne sesleri `cizim1-05-boyun` manifestinden kopyalandı
+  (yeni id için ses dizinini/manifesti kopyala → yalnız değişen sahne seslendirilir). Kalan kredi ≈ 15.095.
+- **05 boyun İPTAL (kullanıcı, 17 Ekim).** Üzerinde çalışma, kredi harcama.
+- **06 diz (ŞU AN):** `cizim1-06-diz` — iki yanlış kural harmanı: "koşu dizi bitirir" (2017 meta-analiz: koşmayan %10,
+  hobi koşucu %3,5; kıkırdak sünger) + "squatta diz parmak ucunu geçmesin" (Fry 2003, küçük deney: diz geride → kalça
+  yükü ~10 kat). Kapanış "Peki sen bu iki kuraldan hangisine inanıyordun?" (döngü). Bileşenler `diz-*` (yandan
+  `SideSquat`, `Crowd`, `KneeLens`, `DoseMeter`). Max 40 sn. Sessiz önizleme → onay → seslendirme (tek sefer).
+- **!!! DERS (17 Ekim, ekip geri bildirimi 05 için): "videodan hiçbir şey anlamadım."** Video "27 kilo"yu herkes
+  duymuş gibi anlattı; Türkiye'de kimse duymamış. KURAL: efsane çürüten video yalnız izleyicinin ZATEN İNANDIĞI bir
+  şey için yapılır (ör. "koşu dizi bitirir"). Bilinmeyen bir iddiayı önce kendisi anlatmalı; "bunu sen de duydun"
+  gibi varsayım yok. Az kavram: bir videoda tek ana fikir. Kredi: bu oturumda 05'e ~436, önceki sürümlere ~700
+  karakter gitti → büyük yeniden yazımlarda önce metni onaylat, seslendirmeyi en sona bırak. Süre üst sınırı 40 sn.
+  Kalan kredi ≈ 15.149.
+- **05 boyun v4 (EN GÜNCEL, v2/v3'ün yerine):** Kullanıcı v3 ve nesne benzetmelerini (bowling, karpuz, bidon, bagaj,
+  dambıl) BEĞENMEDİ: "daha yaratıcı ol, fark yarat, insansı düşün, ALGIYI YANILT; bu hook'ta durup izler misin?"
+  Fikir: video bir KORKU VİDEOSU gibi açılır (kırmızı UYARI ekranı, "Dikkat! … 27 kilo!"), cızırt + donma, kamera geri
+  çekilir: o video avatarın telefonunda oynuyordu ("Bunu sen de duydun, değil mi? Peki ya yarım bir bilgiyse?",
+  27 KG kartı yırtılır) → 2008 text neck + cerrahın hesabı + haber dünyayı dolaştı (telefon ızgarası) →
+  araştırma: eğik ve dik sıralarda ağrı eşit, "fark yok" → iki heykel (eğik + dik), ikisi de yorulur →
+  "boynunu suçlama, hareket ettir; biri 27 kiloyu anlatırsa bu videoyu gönder" → kâğıt uçak, kamera arkadaşın
+  telefonuna dalar = açılış ekranı (döngü). `BigPhone`, `diveTo`, `AlarmScreen`; bileşenler `boyun4-*`. **ONAYLANDI ve seslendirildi** (Yunus V4; kalan kredi ≈ 15.250): `ornek-videolar/cizim1-pilot/05-boyun.mp4`
+  (41,4 sn, SON HÂLİ). Sıradaki yeni konu: 30 dk protein penceresi. **DERS:** nesne benzetmesi değil, izleyicinin algısıyla oynayan
+  fikirler (ters köşe, video içinde video, izleyiciye hitap).
+- **05 boyun v3 (EN GÜNCEL, v2'nin yerine):** Kullanıcı v2 için: "kareler stabil, dikkat çekici yap, genelden kaçın;
+  60 derece gibi şeyler kafa karıştırır, izleyiciye SAMİMİ yaklaş"; "karpuz olmaz"; "aşırı hareketli olmasın ama hareket
+  ekle". v3: izleyiciye hitap ("Şu an bu videoyu nasıl izliyorsun? Başın öne eğik, değil mi?") → text neck adı (2008,
+  omurga terapisti) → bowling topu benzetmesi (göğüste kolay, kol uzanınca ağır) → havalimanı: 27 kg "FAZLA BAGAJ"
+  (sınır 23) → "bu yüzden mi ağrıyor?" + zincir kopar → heykel gibi donup kalmak (taş filtre, kaide, güvercin, çatlar)
+  → "Hadi başını kaldır. Ama videoyu tekrar izlerken yine eğileceksin, değil mi?" (döngü). Ölçülü kamera `CamK`
+  (anahtar karelerde yakınlaşma + `hit()` kısa sarsıntı). Bileşenler `boyun3-*`, 50,6 sn sessiz önizleme gönderildi →
+  onay → seslendirme. **KURALLAR:** teknik terim/derece yok, gündelik benzetme; izleyiciye doğrudan hitap; kamera
+  hareketi ölçülü ama her sahnede var.
+- **05 boyun v2 (16 Ekim gece, EN GÜNCEL):** kullanıcı metni onayladı ("olur"). Kanca "Telefona baktığında başın kaç
+  kilo? Beş mi? Bir hesaba göre yirmi yedi." → 2008 kayropraktör (Dean Fishman) "text neck" adını verdi (röntgen +
+  damga) → 2014 cerrah (Hansraj, model) 60° = 27 kg (NeckLens açı 0→60, kilo ekranı 5→27) → "bu yüzden mi ağrıyor?
+  İşte sürpriz" (? kutusu) → araştırmalar net bağ bulamadı (Damasceno 2018, Spine 2021; zincir kopar) → "sorun
+  eğilmek değil, saatlerce kıpırdamamak; en iyi duruş bir sonraki duruşun" (örümcek ağı, saat, poz değişimi) →
+  döngü "…başın kaç kilo, artık biliyorsun". Bileşenler `boyun2-*`, 41,1 sn sessiz önizleme
+  `05-boyun-sessiz.mp4` gönderildi → **onay → seslendirme**. `05-boyun.mp4` ESKİ sürüm.
+- **04 v5 (16 Ekim akşam, EN GÜNCEL):** Kullanıcı: "anlatıyorsun ama görsele kötü döküyorsun" + "104 nereden çıktı?" +
+  "40 sn olsun, kısaltacağım diye bilgileri saçma sapan koyma". Hikâye 104'ü açıklıyor: kanca "Ağırlık kaldırırsan iri
+  olur musun? Bu soru yüzünden kadınlar yüz dört yıl bekletildi." → 1896 erkekler kaldırdı, kadınlara "iri olursunuz"
+  dendi (kırmızı tabela) → 2000 ip kopar, tartı titrer "ilk final kaç kiloydu?" → 48 → testosteron (iki kas
+  büyüteci, 10:1) → kemik (8 ay) → "Sen bekleme" (avatar öne gelip dambıl uzatır) → "kırk sekiz kiloyu hatırla" (döngü).
+  Bileşenler `kadin5-*` (Cizim1.tsx). **ONAYLANDI ve seslendirildi** (Yunus V4, 172 karakter düştü; kalan ≈ 15.585):
+  `ornek-videolar/cizim1-pilot/04-kadin-agirlik.mp4` (41,3 sn, SON HÂLİ). Sıradaki: 05 boyun baştan (önce sessiz önizleme).
+  **KURALLAR:** her sahnede ortada tek büyük olay, karakterin vücudunda; sayı/olay havada kalmasın (nereden çıktığı
+  anlatılsın); her cümle bir merak açsın; süre için bilgi kırpma (~40 sn olur).
+- **04 KISALTILDI (16 Ekim 17:30, ekip: "izlerken sıkıldık"):** 52 sn → **35 sn**, 7 sahne: kanca (aynı) → 104 yıl
+  (1896 cümlesi atıldı) → testosteron 1/10 ("korku" sahnesi atıldı) → kas → kemik (8 ay) → "104 yıl beklediler" →
+  kapanış "Ve biri sana bunu bir daha sorarsa, cevabı artık biliyorsun." (36 sn). **KURAL (kullanıcı kızdı):
+  kısaltırken cümleyi yarıda kesme; video tam bir cümleyle bitsin, döngü yarım cümleye dayanmasın.**
+  **04 iyileştirme (kullanıcı "hepsini yap"):** (1) kapanış "Yüz dört yıl beklediler. Sen bekleme." → "Ve biri sana bunu
+  yine sorarsa, sadece kırk sekiz kiloyu hatırla." (`kadin-dongu3`: şampiyon fotoğrafı + 48 kg belirir, son karede
+  kaybolur = kanca karesi); (2) testosteron tüpleri sahne başında çıkar, dolgu sözcüğü yok; (3) yeni kemik sahnesi
+  `kadin-kemik3` (her halter tekrarında kemik dolar/parlar, yoğunluk çubuğu, "8 ay" sayacı); (4) tempo: JSON
+  `"padding": 0.15` (sahne sonu boşluğu; varsayılan 0.35). 34,6 sn sessiz önizleme gönderildi → onay → seslendirme. Kısa sahneler `KISA` haritasıyla eski bileşenleri yeni kelime sırasına bağlıyor
+  (Cizim1.tsx sonu). Yeni sessiz önizleme `04-kadin-agirlik-sessiz.mp4` gönderildi → **onay → seslendirme**
+  (~420 karakter). KURAL: yeni videolar da kısa olsun (~30-35 sn).
+- 03 on bin adım ✅ BEĞENİLDİ — serinin örnek videosu (formül: kanca → kısa tarihçe → görsel anlatım → loop).
+- 04 kadın ve ağırlık (`cizim1-04-kadin-agirlik`, "104 yıl bekleyen kadınlar"): YENİ hâli sessiz önizleme
+  (`04-kadin-agirlik-sessiz.mp4`). Kanca "Ağırlık kaldırırsan iri olur musun? … 48 kilo sınıfı" → 104 yıl tarihçe →
+  korku → testosteron → kas → kemik → "Sen bir gün daha bekleme" → döngü. Kullanıcı "güzel" dedi; **seslendirmeden önce
+  yine onay iste** (~600 karakter; testosteron sahnesinin sesi önbellekte). `04-kadin-agirlik.mp4` ESKİ sürüm.
+- 05 boyun (`cizim1-05-boyun`, ensede 27 kg dambıl): seslendirilmiş hâli var (`05-boyun.mp4`) AMA kullanıcı
+  "anlatım ve animasyon olmadı, baştan hikâyeleştir" dedi → 04 gibi formülle BAŞTAN yap (kanca → kısa tarihçe →
+  görsel → loop). Tarihçe adayı: "text neck" terimi (doğrula!). Önce sessiz önizleme.
+- Sıradaki yeni konu (kullanıcı seçti): "Antrenman sonrası 30 dakikalık protein penceresi bir efsane".
+**Sesler:** müzik `merak-gerilim` (seri müziği, değişmez). Efektler kısık/seyrek (`SFX_GAIN`, `tidySfx`).
+Yeni müzik/efekt gerekiyorsa ÜCRETSİZ üret (Python/numpy, açık kaynak, CC0) — ElevenLabs Music/SFX KULLANMA.
+**Kullanıcıyla:** Türkçe, kısa; kendi kafana göre iş yapma, sor; Instagram açıklaması yazma; konuyu kullanıcı seçer.
+
+## !!! SERİ KURALLARI (kullanıcı, 16 Ekim — her videoda uy) !!!
+- Bu bir **SERİ**: aynı avatar, aynı çizim stili, aynı kalite. **Avatarı değiştirme** ("bu avatarı seviyorum").
+- **Her yeni video döngülü** (`"loop": true`, kapanış cümlesi açılışa bağlanır).
+- **Konuyu kullanıcı seçer:** Claude konu önerir, kullanıcı seçer, sonra video hazırlanır. Kendi başına konu seçme.
+- Fazla betimleme, ince düşünülmüş, kaliteli içerik; her görsel olayın kendi efekt sesi; referans yapı (aşağıda).
+- Kendi kafana göre iş yapma; emin değilsen sor. Önce sessiz önizleme, onaydan sonra seslendirme.
+- **MÜZİK VE EFEKT ÜCRETSİZ OLACAK (kullanıcı: "müziği ücretsiz senden istemiştim, gerekirse kurulum yapalım"):**
+  ElevenLabs Music / Sound Effects ile ÜRETİM YAPMA (kredi harcıyor). Gerekirse ücretsiz araç kur ve yerelde üret
+  (Python/numpy sentez, açık kaynak araçlar, CC0 ses paketleri). Mevcut `merak-gerilim` ve üretilmiş efektler kullanılabilir.
+  ElevenLabs kredisi yalnız seslendirme (Yunus) için.
+- Kullanıcının söylediklerini dikkate al; her isteğini not et.
+- **BEĞENİLEN FORMÜL (10 bin adım, kullanıcı tarif etti): başta TARİHÇE (gerçek bir köken/olay), ortada GÖRSEL
+  ögeler, sonda LOOP, baştan sona DİKKAT ÇEKİCİ / algısı yüksek cümleler.** Her yeni videoyu bu formülle hikâyeleştir.
+  **AMA ilk cümle tarihle BAŞLAMAZ** (kullanıcı: "çok tarihçe olur, dikkat çekici olmaz"): önce soru + şaşırtıcı cevap
+  (kanca), tarihçe hemen ardından kısa. Ör. 04: "Ağırlık kaldırırsan iri olur musun? Olimpiyatta halter altını alan ilk
+  kadına bak: kırk sekiz kilo sınıfı." → "Ve kadınlar o sahneye çıkmak için 104 yıl bekledi…" → … → döngü "Ve bir dahaki
+  sefere biri sana şunu sorarsa:" → kanca sorusu.
+- **EFEKTLER AZ VE KISIK (kullanıcı: "efektler Yunus'un ve müziğin önüne geçmiş, çok tik-tak var"):** kodda
+  `SFX_GAIN = 0.45` ve `tidySfx` (küçük tekrar eden sesler 20 kareden yakınsa yalnız ilki). Yeni videolarda efekt
+  yalnız önemli anlarda; sayaç/tik-tak dizileri koyma. Öncelik: Yunus > müzik > efekt.
+- **Instagram açıklaması YAZMA** — kullanıcı kendisi hallediyor ("sen videolarla ilgilen"). JSON `caption` alanı kalabilir.
+- Kanca (ilk cümle) durdurucu ve **hikâyesel** olsun; döngü hem görüntüde hem cümlede hissedilsin (son kare = ilk kare, son cümle "Çünkü..." gibi açılışa akar).
+
+## >>> YENİ OTURUM: BURADAN BAŞLA <<<
+**Geçerli yöntem:** çizim v1 stili (`src/cizim1/Cizim1.tsx`, içerik `content/cizim1/*.json`): sade erkek
+karakter, düz sepya kâğıt, YAVAŞ animasyonlar (Zack kurgusu, oda, 3D YOK). Ses: **Yunus**, **eleven_v4**
+(kullanıcı V4'ü seçti; v3'ten daha akıcı, aynı kredi),
+sohbet tarzı `say` (+ dolgular), `maxPause: 0.3`, arka plan müziği `music` = `music/merak-gerilim.mp3`
+(ElevenLabs Music, bize ait, künye yok; `public/music/KAYNAK.txt`) ve olaylara bağlı efekt sesleri (`SFX` haritası, `public/sfx/`). Pilot: `cizim1-01-yag-nereye` → video
+`ornek-videolar/cizim1-pilot/01-yag-nereye.mp4` (kullanıcı onayı bekleniyor).
+Sonraki işler (onaydan sonra): 2 tartı, 3 takip (bırakma), 4 mekik, 5 kas ağrısı, 6 duruş, 7 ter, 8 kas hafızası
+→ sonra eleme listesindeki diğerleri. Her biri: `content/cizim1/cizim1-NN-<konu>.json` (voice + say + visual)
++ Cizim1.tsx'e o videoya özel sahne bileşenleri (SCENES'e benzersiz adla) → sessiz önizleme gönder → onay →
+`npm run voiceover -- <id>` → `npm run render -- <id>` (çizim ~10 dk) → `ornek-videolar/` + commit + push.
+Tartı ve takip metinleri `content/uc/uc-02-tarti.json`, `uc-03-takip.json` içinde hazır (hikâye tonu; yeni
+stile taşınırken `say`'e dolgu eklenip ses Yunus yapılmalı). Gönderilen dosya 30 MB'ı geçerse ffmpeg ile
+sıkıştır (crf 23-24). Kısa, Türkçe, telefondan okunacak şekilde yaz. "Her zaman daha iyisi olabilir."
+
+**16 Ekim (gece):** 02 tartı yeni stile taşındı: `content/cizim1/cizim1-02-tarti.json` (Yunus, dolgulu `say`) +
+Cizim1.tsx'e `tarti-*` sahneleri (ay/güneş, yemek kulesi, kas içi glikojen+su merceği, tuzluk, takvim/mide/dambıl,
+haftalık grafik, şişen "+1 kg" balonu). O oturumda npm deposuna erişim yoktu: kod **typecheck/render edilmedi**,
+yalnız çalışma dalında. Sıradaki oturum: `npm ci` → `npx tsc --noEmit` → sessiz önizleme render → gönder → main'e
+birleştir. Pilot (01) için ekip geri bildirimi bekleniyor; revize gelirse önce o.
+
+**16 Ekim (sonraki oturum):** 02 tartı typecheck'ten geçti, sessiz önizleme render edildi (41 sn, ~4 dk render):
+`ornek-videolar/cizim1-pilot/02-tarti-sessiz.mp4`, main'e birleştirildi. **Kullanıcı onayı bekleniyor** → onaydan
+sonra kredi kontrol → `npm run voiceover -- cizim1-02-tarti` → render. Pilot (01) geri bildirimini kullanıcı
+kendisi hallediyor. Not: oturum eski `claude/remotion-eleven-labs-integration-za21fe` dalında açılabiliyor —
+o dal eski; her zaman bu dosyadaki çalışma dalına geç.
+**Tartı için karar (kullanıcı):** tartı da pilotun aynısı olacak — Yunus **eleven_v4**, olaylara bağlı efekt
+sesleri (`SFX`'e `tarti-*` girdileri) + arka plan müziği (`music`). **AMA ŞİMDİ DEĞİL: önce pilotun sonucunu
+bekle**, kullanıcı "başla" demeden seslendirme/render yapma.
+
+**16 Ekim (SON DURUM, bunu oku):** Pilot 01 son hâli kullanıcıya gönderildi: Yunus + **eleven_v4** + arka plan
+müziği + olaylara bağlı efekt sesleri → `ornek-videolar/cizim1-pilot/01-yag-nereye.mp4` (onay bekleniyor).
+02 tartı'ya geçerken: `content/cizim1/cizim1-02-tarti.json` içinde `"modelId": "eleven_v4"` yap, `"music":
+"music/merak-gerilim.mp3"` ekle (künye gerekmez), Cizim1.tsx
+`SFX` haritasına `tarti-*` sahneleri için efektler ekle (pop/kalem/bip/damla/nefes/cizik/pirilti/ding/boom/whoosh).
+Sessiz önizleme zaten gönderildiyse onay sonrası: kredi kontrol → voiceover → render → gönder.
+
+**REVİZE (kullanıcı, 16 Ekim):** (1) Animasyonlar anlatıma birebir uysun ve **izleyiciyi merakta bıraksın**:
+cevabı hemen gösterme, önce soruyu/gizemi göster (ör. "?" ile kapalı kutu, yarım kalan hareket, sayaç),
+cevap kelimesi söylenirken aç; her sahnede "bakalım ne olacak" hissi (bekleten ama sıkmayan ipucu, hafif gerilim).
+(2) "Cacık" = kullanıcının deyimi: **arka plan müziği (Investigations) kötü**. Yeni müzik adayları
+`ses-ornekleri/muzik-adaylar/` (clean-soul, lobby-time, dreamy-flashback, easy-lemon) — kullanıcı seçecek, seçilen
+parçayı JSON `music` alanına yaz, künyeyi açıklamada güncelle. (Gülmeler de çıkarıldı.)
+(3) İzleyici ekrana kilitlensin: görsel anlatım konuyu tek başına net anlatabilmeli (sessiz izleyen de anlamalı).
+
+**MÜZİK ARAYIŞI (açık iş, 16 Ekim):** Pilotun müziği "Investigations" BEĞENİLMEDİ ("cacık" = kötü). Kullanıcı:
+"merak uyandırıcı olsun; arka plan sesi gibi ama duyulsun (kısık olunca 'var ile yok arası'); sadece piyano gibi
+sönük olmasın". Denenenler ve sonuç (`ses-ornekleri/`): incompetech Clean Soul/Lobby Time/Dreamy Flashback/Easy Lemon
+(sönük), Hypnothis/Unanswered Questions/**Spy Glass (en yakın ama oturmadı)**/Mesmerize; ElevenLabs Music üretimleri
+(`muzik-uretim/`): 1 gizem-nabız, 2 belgesel-merak → "çok hareketli"; 3 dedektif-caz, 4 modern-casus → beğenilmedi;
+5 sakin-merak, 6 yumuşak-gizem → "ikisi de değil". Hedef: Spy Glass ile 1-2 arası (orta enerji, meraklı, modern).
+ElevenLabs Music: `POST /v1/music` {prompt, music_length_ms, force_instrumental:true} — şimdiye kadar kredi
+düşmedi. Önizleme: Yunus sesi + müzik `volume=0.62` (kodda Music bileşeni 0.62). Seçilen müzik → JSON `music`.
+Pilot (01) son hâli: V4 ses + müzik (eski) + efektler; müzik seçilince yeniden render (seslendirme hazır, kredi yok).
+Yeni adaylar (16 Ekim 02:05): `muzik-uretim/` 7 merak-pizzicato, 8 merak-lofi, 9 merak-dedektif-modern (+ `-sesli`
+karışımları, istemler `ISTEMLER.md`). **Kullanıcı 7-merak-pizzicato'yu SEÇTİ** → `public/music/merak-pizzicato.mp3`
+(−20 LUFS, bize ait, künye yok). Pilot bu müzikle yeniden render edildi (40,8 sn), `ornek-videolar/cizim1-pilot/` güncel.
+Kullanıcı "7 yakın, son kez en iyisini yap" dedi → 10 akılda, 11 gerilim, 12 modern üretildi; **Kullanıcı 11-pizzicato-gerilim'i SEÇTİ (son karar)** → `public/music/merak-gerilim.mp3` (−20 LUFS, künye yok);
+pilot bununla yeniden render edildi. **Tartı ve sonraki tüm videolar `"music": "music/merak-gerilim.mp3"` kullanacak.** Not: Music API eşzamanlı istekte 429 veriyor, sırayla üret.
+
+**16 Ekim 02:35 — SON DURUM (en güncel):** Kullanıcı "her şeyi geliştir, bitir, at" dedi →
+- Merak bırakan animasyonlar eklendi (REVİZE 1): `MysteryBox` (sallanan "?" kutusu, cevap kelimesinde açılır),
+  `Counter` (hedefe dönen sayaç: %84, %16, 7.700 kcal), `Gauge` (yağ yakımı ibresi, "Hayır"da düşer), tartıda titreyen
+  rakamlar, adı söylenene kadar "?" görünen parçacıklar. Saat tiklemesi efektleri `public/sfx/tik.mp3`, `tak.mp3`
+  (Python ile üretildi), `ticks()` yardımcısı. Yeni videolarda da bu parçaları kullan.
+- Pilot 01 bu animasyonlarla yeniden render edildi; **02 tartı Yunus eleven_v4 ile seslendirildi** (~600 karakter),
+  efektler + `merak-gerilim` müziği ile render edildi (44,4 sn): `ornek-videolar/cizim1-pilot/02-tarti.mp4`.
+- Sıradaki: kullanıcı onayı → 03 takip (`content/uc/uc-03-takip.json` metni yeni stile taşınacak).
+
+**EKİP GERİ BİLDİRİMİ (16 Ekim, 01+02 sonrası):** "Animasyonlar ve konular daha iyi olmalı; konu da animasyon
+kadar önemli." → Konu seçimi ve açılış cümlesi (hook) güçlendirilecek; animasyonlar daha canlı olacak. Claude yeni
+konu açıları + animasyon iyileştirme önerisi sundu, kullanıcının seçimi bekleniyor. Seçim gelmeden 03'e geçme.
+
+**!!! KURAL (kullanıcı tekrar uyardı): ÖNCE SESSİZ ÖNİZLEME, ONAYDAN SONRA SESLENDİRME. Asla bozma. !!!**
+Kullanıcı "seslendirme önce" gibi bir şey derse bile bu kuralı kastediyor olabilir; emin değilsen SOR, seslendirme yapma.
+(16 Ekim: 03 on bin adım yanlış anlaşılıp onaysız seslendirildi, ~600 karakter. Kullanıcıya yalnız sesi
+çıkarılmış önizleme gönderildi; onay gelirse bu ses kullanılır.)
+
+**DÖNGÜ (loop):** Kullanıcı döngülü video istedi. JSON'da `"loop": true` → son 14 karede ilk sahnenin ilk karesi
+belirir (son kare = ilk kare), müzik ve toz kesintisiz. Kapanış cümlesi açılışa akmalı (ör. "...çünkü biri sana
+soracak:" → "Beş kilo verdin..."). 01, 02, 03 döngülü.
+
+**SEÇİLEN YENİ KONULAR (kullanıcı, 16 Ekim):** 1) 10 bin adım bir reklam sloganıydı (`cizim1-03-on-bin-adim`),
+5) ağırlık kaldıran kadın iri olmaz, 7) ertesi gün ağrımıyorsa antrenman boşa mı gitti? Sırayla, tek tek.
+
+**16 Ekim 12:30 — SON DURUM:** 03 on bin adım **BEĞENİLDİ** (tam hâli `ornek-videolar/cizim1-pilot/03-on-bin-adim.mp4`).
+04 kadın ve ağırlık (`cizim1-04-kadin-agirlik`) yazıldı: kadın karakter (`Person female`, `limbW`), spor salonu fonu
+(`Gym`), röntgen kemik merceği (`Bones`), test tüpü (`Flask`). Sessiz önizleme gönderildi
+(`ornek-videolar/cizim1-pilot/04-kadin-agirlik-sessiz.mp4`), **onay bekleniyor → sonra kredi kontrol + seslendirme**.
+Sıradaki konu: 7) ertesi gün ağrımıyorsa antrenman boşa mı gitti?
+**04 güncellendi (kullanıcı 4A):** serinin ERKEK avatarı her sahnede ana karakter, kadınlar yan karakter (kadın konuları
+için de avatar sahnede olur). Müzik için 2 alternatif gönderildi (`muzik-uretim/13-belgesel-sicak`, `14-modern-merak`),
+kullanıcı dinleyip seçecek.
+**Kullanıcı yeni konulardan 5 ve 3'ü seçti, önce 5:** `cizim1-05-boyun` ("telefona bakarken boynun 27 kilo taşıyor";
+Hansraj 2014 model tahmini + dürüst sürpriz: araştırmalar duruşun tek başına ağrı yaptığını net göstermedi). Yandan
+boyun röntgeni (`NeckLens`), telefon (`Phone`, `PHONE_ARM`), kettlebell. Sessiz önizleme gönderildi, onay bekleniyor.
+Sıradaki: 3) "30 dakikalık protein penceresi bir efsane".
+**05 boyun yeniden kuruldu (kullanıcı: "daha ilgi çekici, hook durdurucu ve hikâyesel, loop"):** kanca "Telefona her
+baktığında, boynunda aşağı yukarı sekiz yaşında bir çocuk taşıyorsun" — çocuk (`Kid`, sarı tişört, "8") avatarın
+omzuna tırmanır (`AvatarWithKid`, `neckSeat`); gün boyu (sabah/otobüs/iş/gece) hep orada; 27 kg = çocuk tartıda;
+telefonu kaldırınca zıplayıp iner; kapanış "o çocuk geri gelmeyi çok sever. Çünkü..." → çocuk geri gelir (döngü).
+**Kullanıcı: "çocuk değil dambıl daha mantıklı"** → çocuk yerine ensede 27 kg'lık dambıl (`NeckDumbbell`,
+`AvatarWithDumbbell`): yerden havalanıp enseye oturur, tartıya düşer, telefonu kaldırınca yere iner; kapanış
+"Ama telefona tekrar baktığın an, o dambıl geri gelir. Çünkü..." (dambıl yerde titrer = açılış karesi).
+**05 ONAYLANDI ve seslendirildi** (Yunus V4, ~700 karakter, 51,9 sn): `ornek-videolar/cizim1-pilot/05-boyun.mp4`.
+Kullanıcı "çarpıcı ses efektleri" istedi → ElevenLabs Sound Effects (`POST /v1/sound-generation` {text, duration_seconds,
+prompt_influence}) ile gerçekçi efektler üretildi, −16 LUFS: `agir-dusme`, `havalanma`, `alarm`, `otobus`, `klavye`,
+`zincir` (public/sfx). Anahtar anlarda bunları kullan. Not: müzik/efekt üretimi kredi düşürebiliyor, kontrol et.
+**04 BAŞTAN HİKÂYELEŞTİRİLDİ (kullanıcı: "anlatım ve animasyon olmadı, ikisi de baştan"):** "1896'da erkekler
+ağırlık kaldırdı, kadınlar 104 yıl bekledi (Olimpiyat 2000 Sydney); ilk altını 48 kg sınıfında yarışan kadın kazandı"
+→ korku → testosteron → kas → kemik (LIFTMOR) → "104 yıl beklediler, sen bir gün daha bekleme" → döngü: "Çünkü bu hikâye
+nasıl başladı, biliyor musun?" (avatar eski fotoğrafa dalar → 1896). Eski fotoğraf katmanı `OldPhoto`, `Temple`,
+`GlobeBarbell`, `Rope`, `GoldMedal`, `OperaHouse`, `Confetti`. Sessiz önizleme gönderildi → onay → seslendirme
+(testosteron sahnesinin sesi önbellekte). Sonra 05 boyun da aynı formülle baştan.
+(eski) **04 ONAYLANDI ve seslendirildi** (~709 karakter, 51,9 sn): `ornek-videolar/cizim1-pilot/04-kadin-agirlik.mp4`.
+Sıradaki: yeni konu 3) "30 dakikalık protein penceresi bir efsane" (önce sessiz önizleme). Müzik/efekt ÜCRETSİZ.
+**04 revize (kullanıcı: "beğendim ama daha iyi giriş, loop etkisi, daha kuvvetli betimleme"):** yeni açılış "Ağırlık
+kaldıran bir kadının iri olması, sandığından çok daha zor" + kadının kolları balon gibi şişip "izin vermez"de söner;
+kapanış "...arkadaşına gönder. Çünkü..." (avatar kâğıt uçakla gönderir, arkadaş dambılı alır = açılış karesi).
+Testosteron parçacıkları + tüp doldukça kol büyür; kas hatları. **Müzik: 10 bin adımdaki merak-gerilim kalıyor (seri).**
+Sessiz önizleme gönderildi → onay → seslendirme. Sonra 05 boyun, sonra yeni konu.
+**Kullanıcı: "Kendi kafana göre iş yapma, sor."** Yapılacak işi söyle, onay al.
+**Referans analiz (kullanıcının gönderdiği tutan 2 Instagram videosu):** ters köşe açılış (ilk 3 sn) → neden-sonuç
+zinciri → sonda sürpriz bilgi → başa bağlanan döngü; tek tutarlı dünya (kart/grafik az); mekanizmada vücudun içine
+gir; müzik kelime aralarında açıkça duyulur (bizimkinden ~5 dB yüksek); kedi videosu ~65-70 BPM sıcak, yavaş fon.
+Yeni efekt sesleri (Python ile üretildi): adim, kacing, sihir, sonme, kagit, yuksel (+ tik, tak). `steps()` ayak sesi.
+
+## Geçmiş (özet)
+Çizim v1 → v2 (gerçekçi karakter) → v3 (Zack kurgusu) → 3D kadın (ekip görüntüyü beğendi, sesten emin
+değildi) → kullanıcı en sonunda **çizim v1'i seçti, 3D kız iptal**. Eski şablonlar yedek: `src/cizim` (v3),
+`src/uc` (3D). Eski notlar aşağıda.
+
+## Kullanıcıyla anlaşılan çalışma kuralları
+- **Toplu video YOK: tek tek ilerle.** Bir video bitip onaylanmadan sonrakine geçme (kredi tasarrufu).
+  Her seslendirmeden önce kalan krediyi kontrol et ve kullanıcıya söyle (`/v1/user/subscription`).
+- **Önce sessiz önizleme, onaydan sonra seslendirme.** Kredi boşa gitmesin.
+- **Adım adım, yavaş:** önce 1 pilot, onay gelince kalanlar. Yarım iş bırakma.
+- Her işin sonunda commit + push.
+- Kullanıcı Türkçe konuşuyor, telefondan takip ediyor; kısa ve net anlat.
+
+## Ekip geri bildirimi (en güncel, buna uy)
+1. **Konu dar tutulacak: sadece ANTRENMAN ve SAĞLIK.** Basketbol, voleybol, yüzme gibi spor dalları YOK.
+2. **Görsel, söylenen şeyi birebir göstermeli.** Ses "karın yağların erir" derken ekranda karın yağı eriyen
+   bir insan olmalı. Grafik/kart/ikon ağırlıklı anlatım "zayıf" bulundu.
+3. **Masal/hikâye değil.** Örnek video (gergedan hikâyesi, sepya illüstrasyonlar) sadece görsel kalite ve tempo
+   için referans; içerik masal gibi anlatılmayacak.
+4. **Dil:** argo yok ("kanka", "bi" gibi kelimeler çok "keko"). Düzgün, akıcı, merak uyandıran Türkçe.
+   Kitap gibi ağır da değil. Örnek videodaki tempo: ~3 kelime/sn.
+
+## Kararlar (kullanıcı onayladı)
+1. **Eleme listesi onaylandı** (aşağıda, kalp ve şeker dahil).
+2. **Görsel yöntemi: B — ücretsiz, kodla çizilmiş illüstrasyonlar.** Kullanıcı: "Ücretsiz yapabildiğin her şey;
+   daha az maliyet, daha fazla kâr, başlangıç bu." Ücretli API önerme. (Ücretsiz Pollinations denendi: kalite
+   çok kötü + filigran, kullanılmaz.)
+   Hedef: söylenen şeyi birebir gösteren sahneler. Ör. "karın yağların erir" → karnındaki yağ eriyen bir
+   karakter. Örnek videonun havası: sıcak sepya kâğıt dokusu, ışık huzmeleri, elle çizilmiş görünüm,
+   yumuşak geçişler, yavaş kamera hareketi, ortada küçük altyazı (o anki kelime sarı).
+   Önerilen yapı: yeniden kullanılabilir bir karakter (poz verilebilen, ifadeli), sahne/eşya kütüphanesi
+   (tartı, dambıl, yatak, su şişesi, masa, sandalye…), SVG "el çizimi" filtresi (feTurbulence +
+   feDisplacementMap), kâğıt dokusu, ışık huzmeleri.
+
+## Eleme sonucu (onaylandı)
+Kalan 22 bilgi videosu:
+- Antrenman: bilgi-kas, reels-03-kas-agrisi, reels-04-kas-hafizasi, reels-07-isinma, reels-10-mekik,
+  bilgi-takip, bilgi-6-hafta, bilgi-koc, seri2-03-diz-agrisi, seri2-06-kosu-nefes,
+  seri3-02-kadin-agirlik, seri3-06-kemik
+- Sağlık: reels-01-yag-nereye, reels-02-tarti, reels-05-ter, reels-06-uyku, reels-09-su,
+  reels-08-gunluk-hareket, bilgi-durus, bilgi-takviye, seri3-01-10bin-adim, seri3-03-kalp, seri3-04-seker
+Elenen 7: yuzme-suda-kalmak, seri2-02-voleybol, seri2-05-basketbol, seri2-04-catlak,
+seri2-01-sabah-uzun, bilgi-hobi, seri3-05-kahve.
+VOOM tanıtım videoları (content/promos/voom-*) kalıyor.
+
+## KARAR (EN GÜNCEL): 1. sürüm çizim stili, 3D kız İPTAL
+Kullanıcı ilk gönderilen çizimli pilotu (v1, commit c610079: sade karakter, yavaş animasyonlar, düz arka plan)
+geri gönderdi: "bu beğeni aldı, artık bununla ilerleyeceğiz, kız iptal; bunu seslendir; bunun gibi yavaş
+animasyonlarla ilerle". v1 şablonu geri getirildi: `src/cizim1/Cizim1.tsx`, içerik `content/cizim1/`
+(id `cizim1-01-yag-nereye`).
+**Ses: Yunus** (`Q5n6GDIjpN0pLOlycRFT`, genç erkek, sohbet tarzı) — karakter erkek olduğu için erkek ses.
+Kullanıcı: "ChatGPT gibi, karşısında insan varmış gibi, düşünerek konuşsun; ıı/hmm olabilir; yapay tonlama
+olmasın". `say` metnine yalnız dolgular eklenir (ıı, hmm, hani, yani, şey) + [curious]/[chuckles]; dolgular
+altyazıya girmez (`scripts/ses-duzen.ts` matchWords). Uzun bekleme YOK: JSON'da `maxPause: 0.3` →
+0.3 sn'den uzun sessizlikler otomatik kısaltılır (kullanıcı: "o kadar beklersen insanlar geçer").
+Yeni videolar bu stilde (`content/cizim1/` + Cizim1.tsx sahneleri), yavaş animasyon, Zack kurgusu YOK.
+3D (`src/uc`) ve çizim v3 (`src/cizim`) yedek olarak duruyor; tartı/takip 3D sessiz önizlemeleri iptal sayılır
+(metinleri `content/uc/` içinde, yeni stile taşınabilir).
+
+## Kullanıcının kendi sesi (izinli)
+Kullanıcı kendi videosunu gönderip "benim sesimi kullanabilirsin, tiz olmasın, daha cool" dedi. Instant klon:
+`MalkCL6Ms3mHRGDVY6vZ` ("VOOM Kullanıcı"). Örnekler `ses-ornekleri/kullanici-sesi/` (1 doğal = v3; 2 cool = v3 +
+1.5 yarım ton kalın + sıcak EQ; 3 cool-sakin = multilingual_v2 + aynı işlem). Ham kayıt (.wav) repoya konmaz.
+"Cool" işlemi (ffmpeg): `rubberband=pitch=0.917:formant=preserved,bass=g=2.5:f=170,treble=g=-2.5:f=6000,
+deesser=i=0.4,acompressor=threshold=-20dB:ratio=2.5,loudnorm=I=-16:TP=-1.5`. Seçilirse seslendirmeye eklenecek.
+Kullanıcı: "Böyle devam edebilirsin ama her zaman daha iyisi olabileceğini unutma."
+
+## DURUM (en güncel)
+- Ekip 3D pilotu (yağ nereye) **çok beğendi**; sadece ses konusunda kararsızlar, cevap bekleniyor.
+  Kullanıcı: "diğerlerine tek tek başla". Ses kararı netleşene kadar yeni videolar **sessiz önizleme** olarak
+  gönderiliyor (JSON'da `say` + `voiceId` hazır).
+- 3D şablon: ortak parçalar `src/uc/kit.tsx`, videoya özel sahneler `src/uc/sahneler/<video>.tsx`
+  (`DEFS` + `OVERLAYS`), `src/uc/Uc.tsx` bunları birleştirir. `visual` adları benzersiz olmalı (ör. `tarti-*`).
+  Uygulama ekran görüntüsü gibi dokular `Uc.tsx` içinde `useTextures([...])` ile tuvalden ÖNCE yüklenir
+  (tuval içinde yüklenen doku karede görünmez), sahnede `TEXTURES.get(file)`.
+  Oturma/çömelme: UpLeg x+ (uyluğu öne) + Leg x− (dizi bük). Oturma bob ≈ −0.47.
+- Sıra (ekip-11 sırası): 01 yağ nereye ✅ → 02 tartı (uc-02-tarti, Sultan) → 03 takip (uc-03-takip, Gamze) →
+  03 takip/2. hafta → 04 mekik → 05 kas ağrısı → 06 duruş → 07 ter → 08 kas hafızası → sonra diğerleri.
+  Sesleri 6 anlatıcı arasında dönüşümlü dağıt.
+
+## KARAR: ses = Hürrem, hikâye anlatır gibi
+Ekip: "Instagram'da ekranda tutacak, ritmik, gerçek insan sesi; hikâye anlatır gibi (örnek videolardaki gibi)".
+Model **eleven_v3** + sahne başına `say` alanı: ton etiketli seslendirme metni ([curious], [whispers],
+[short pause], [laughs], [excited], "..."). `voice` altyazı metni olarak kalır; `say` ile kelimeleri aynı
+olmalı (yalnız etiket/noktalama farkı) yoksa animasyon kelime indeksleri kayar. Etiketler altyazıya girmez.
+Pilot sesi: **Hürrem** (`TASY7VCrU29rEMoYFTGG`). Kullanıcı: 6 anlatıcı sesin hepsi farklı videolarda
+kullanılabilir — Derya `NNn9dv8zq2kUo7d3JSGG`, Sultan `gyxPK6bLXQAkBSCeAKvk`, Gamze `Hvrobr8BhLPfiaSv2cHi`,
+Mimoza `J2f0yzAg5MILTXuHmQvk`, Hürrem `TASY7VCrU29rEMoYFTGG`, Dilek `vWs6DV3PkGKMP80V1Hv6`
+(örnekler `ses-ornekleri/anlatici-adaylar/`). Kütüphane slotu sınırı 10.
+
+## Önceki: kadın sesi = Derya
+Kullanıcı "gerçekçi, yapay zeka olduğu belli olmasın" dedi; 10 Türkçe kütüphane sesinden **6 - Derya**
+(`NNn9dv8zq2kUo7d3JSGG`, profesyonel klon) seçildi. Model `eleven_multilingual_v2`, ayarlar JSON'da
+`voiceSettings` (stability 0.45, similarityBoost 0.8, style 0.25). Adaylar: `ses-ornekleri/kadin-adaylar/`.
+3D pilot sessiz önizlemesi onaylandı, Derya ile seslendirildi (38 sn).
+
+## KARAR: 3D kadın karakter
+Kullanıcı yan yana denemede **3D kadın versiyonunu** seçti ("kız versiyonunu beğendim"). Kullanıcıyla
+**Türkçe** konuş. Pilot 3D olarak yeniden kuruldu: `content/uc/uc-01-yag-nereye.json`,
+şablon `src/uc/Uc.tsx`. Sessiz önizleme render edilip gönderilecek → onay → `npm run voiceover --
+uc-01-yag-nereye` → `npm run render -- uc-01-yag-nereye` (render.ts `uc-*` için `gl: swangle` kullanır;
+yaklaşık 30-40 dk sürer). Çizimli şablon (`src/cizim`) yedek olarak duruyor.
+3D şablon notları:
+- Model `public/3d/kadin.glb` (Mixamo Michelle). Kemik dönüşleri modelin kendi duruşuna EKLENİR (`applyPose`);
+  sıfırlamak duruşu bozar. Eksenler: Kol x+ = aşağı, z+ = öne (sağ kolda z işareti ters); Önkol z = dirsek
+  bükme; UpLeg x+ = bacağı öne kaldır; Leg x+ = diz bük; Head x+ = başı eğ, y = çevir; Spine x+ = öne eğil.
+- Sahne = `DEFS[visual]`: `pose`, `cam` (planlar), `fx` (3D efektler), isteğe bağlı `shake`; 2D katman
+  `OVERLAYS[visual]` (sadece önemli sayılar). Vücut içi yakın çekim için odadan uzakta `MICRO` seti var.
+- Erkek karakter için aynı kalitede ücretsiz model henüz bulunamadı (Xbot/Soldier insan gibi değil).
+
+## Kullanıcı cevapları (3. sürümden sonra)
+- Referans: "benzesin, kopya olmasın".
+- Karakter: **bir kadın bir erkek** (iki sabit karakter).
+- Ekran yazısı: **sadece önemli sayılar** (%84, CO₂ gibi); gerisini çizim anlatır.
+- Yöntem: **ikisini de 1 sahne dene** → açılış sahnesi hem çizim hem 3D olarak denendi, kullanıcı seçecek.
+  3D deneme: `src/deneme3d/Deneme3D.tsx` (composition `deneme-3d`), model `public/3d/kadin.glb`
+  (Mixamo "Michelle", three.js örnek deposundan; tek animasyonu dans, kemikler kodla pozlanıyor).
+  Render: `npx remotion render src/index.ts deneme-3d out/deneme/3d.mp4 --gl=swangle` (sunucuda GPU yok;
+  `angle` çalışmıyor). Model yüklenmeden `ThreeCanvas` kurulmamalı (yoksa kare boş çekilir).
+
+## Çizimli şablon (yeni yöntem)
+- İçerik: `content/cizim/*.json` (sahne başına `visual` + `voice`). Şablon: `src/cizim/Cizim.tsx`.
+- Kodla çizilmiş, poz verilebilen karakter `Person` (göbek `belly`, kol/bacak açıları, ağız/göz ifadesi,
+  akciğer, kas parlaması), eşyalar (tartı, düşünce balonu, damla, nefes bulutu, büyüteç, yıldız, el yazısı).
+- Kâğıt dokusu + ışık huzmeleri + toz; "el çizimi" titreşim filtresi; sahne başına yavaş kamera yakınlaşması.
+- Kamera: `Cam` + `plans` (her plan bir kelimede sert kesmeyle başlar, a → b yavaş kayar); arka plan `Room`
+  paralaksla. Karakter `back` ile arkadan çizilir.
+- Animasyonlar kelime zamanlamasına bağlı (`w(i)` = i. kelimenin karesi): seslendirmeden sonra otomatik oturur.
+- Yeni video = yeni sahne bileşenleri (`SCENES`) + JSON. El yazısı fontu Caveat (`public/fonts`).
+
+## Teknik özet
+- İçerik: `content/explainers/*.json` (bilgi videoları), `content/promos/*.json` (VOOM tanıtım, uygulama
+  ekran görüntüleri `public/app/`). Şablonlar: `src/explainer/Explainer.tsx`, `src/promo/Promo.tsx`.
+- Efekt katmanı (geçiş, sarsıntı, patlama, `stamp`, emoji `sticker`, konfeti, ses efektleri `public/sfx/`)
+  `Explainer.tsx` içinde; Promo da aynısını kullanıyor.
+- `npm run voiceover -- <id>`: ElevenLabs. Videoya özel `voiceId`/`modelId` (eleven_v3, Türkçe).
+  Sesler: erkek `iP95p4xoKVk53GoZ742B` (Chris), kadın `hpp4J3VqNfWAUOO0d1Us` (Bella). Kütüphane
+  (ana dili Türkçe) sesler ücretli planda kullanılabilir — Starter plan alındı (aylık ~30k karakter).
+  Metni değişmeyen sahne yeniden seslendirilmez; her sahneden sonra manifest kaydedilir.
+- Bulut ortamında anahtar `xi-api-key` başlığıyla Network secrets'ta; Node fetch için
+  `NODE_USE_ENV_PROXY=1` (package.json'da hazır).
+- `npm run render -- <id>`: çıktı `out/<id>/` (video.mp4, kapak.jpg, aciklama.txt). Ses −14 LUFS'a
+  normalize edilir (Instagram standardı).
+- Render ortamında: `REMOTION_BROWSER_EXECUTABLE` gerekmez, Remotion kendi Chrome'unu indirir.
+- Dosya gönderme sınırı 30 MB: büyük paketleri parçalara böl.
+
+## Teslim edilenler
+- `ornek-videolar/cizim-pilot/`: çizimli pilot, seslendirilmiş son hâli + sessiz önizleme.
+- `ornek-videolar/ekip-11/`: ekibe gönderilen 11 video (8 bilgi + 3 VOOM), açıklama `OKU.md`.
+- `ornek-videolar/secilen-8/`, `voom-secilen-3/`: aynı videoların ilk hâlleri.
