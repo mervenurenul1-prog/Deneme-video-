@@ -35,3 +35,11 @@ C. Salonda herkes bana bakıyor: 2000 Cornell utanç tişörtü deneyi, tahmin ~
    ölçüsü değil. VOOM: yük 1-2,5 kg adımla artar.
 4. Aynaya bakmaktan kaçmak — 2003 deneyi: aynalı odada egzersiz yapan kadınlar kendini daha kötü hissetti (Ginis ve ark.).
    VOOM: program hayalindeki vücuda göre.
+- Kullanıcı: 2 (1953 otobüs) CEPTE. Yeni öneriler (DOĞRULA):
+5. Kahvaltı günün en önemli öğünü mü? — 1940'larda bir mısır gevreği/tahıl firmasının reklam kampanyası (marka adı yok);
+   2014 Bath kahvaltı deneyi: kahvaltı yapan/yapmayan arasında kilo farkı yok (Betts). VOOM: beslenme sana göre.
+6. Uykusuz diyet kası yer — 2010 Chicago (Nedeltcheva, Ann Intern Med): aynı diyet, 5,5 vs 8,5 saat uyku; az uyuyan
+   daha az yağ, daha çok kas kaybetti. VOOM: plan/beslenme.
+7. Hafta sonu sporcusu — 2017 (O'Donovan, JAMA Intern Med, ~63 bin kişi): haftada 1-2 gün spor yapanlarda ölüm riski
+   düzenli yapanlara yakın düştü. VOOM: program takvimine göre.
+8. 90 yaşında halter — 1990 (Fiatarone, JAMA): 90'lı yaşlardaki 10 kişi 8 hafta ağırlık, güç ~%174 arttı. VOOM: yaşına göre.
