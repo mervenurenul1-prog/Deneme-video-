@@ -6,3 +6,4 @@
 - Kredi: seslendirmeden önce `GET /v1/user/subscription`, kullanıcıya söyle. Son bilinen ≈ 12.885 (20 Ekim).
 - Müzik: `music/merak-gerilim.mp3` (seri, değişmez). Efektler az ve kısık (`SFX_GAIN`, `tidySfx`).
   Yeni müzik/efekt ÜCRETSİZ (Python/numpy, CC0) — ElevenLabs Music/SFX KULLANMA.
+- Kullanıcı (23 Ekim): Yunus HIZLI konuşsun, "ıı"/dolgu YOK (say metnine dolgu ekleme; 1.2x hızlandır). Süre zaten buna göre kısalır.
