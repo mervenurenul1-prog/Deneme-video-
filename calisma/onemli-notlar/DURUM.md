@@ -1,7 +1,8 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## 23 Ekim
-- **12 SPOT IŞIĞI (`cizim1-12-spot`, sahneler `sp-*`):** metin v3 kısaltıldı (~32 sn), sessiz önizleme
+- **12 SPOT IŞIĞI (`cizim1-12-spot`):** metin v8 onaylandı (calisma/arastirma/12-spot-isigi.md). Sahneler `sp2-*` (eski `sp-*` arşiv).
+  Kardiyo ve ağırlık bölgesi ayrı (sarı-siyah şerit). Sessiz önizleme v8 → onay → seslendirme (Yunus ~525 kr).
   `ornek-videolar/cizim1-pilot/12-spot-sessiz.mp4` → kullanıcı bakıp yerleri değiştirecek → onay → seslendirme (Yunus ~520 kr).
   Efektler `kalp.mp3`, `geri-sar.mp3` (numpy ile üretildi, ücretsiz).
 - Mayışma ve Victoria's Secret defilesi İPTAL (kod arşivde: `sr-*`, `vs-*`). Ekim teorisi zamanı geçti.

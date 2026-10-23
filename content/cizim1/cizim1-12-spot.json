@@ -14,42 +14,55 @@
   "speed": 1.2,
   "scenes": [
     {
-      "visual": "sp-bant",
-      "voice": "Üç aydır salona gidiyorsun ve hâlâ aynı koşu bandındasın.",
-      "say": "Üç aydır salona gidiyorsun ve hâlâ aynı koşu bandındasın.",
-      "keys": ["Üç", "aydır", "aynı", "koşu", "bandındasın"]
+      "visual": "sp2-ekran",
+      "voice": "Herkes bakıyor diye, ağırlıkların önünde boş telefon ekranını kaydırdın mı hiç? Peki gerçekte kaç kişi fark etti?",
+      "say": "Herkes bakıyor diye, ağırlıkların önünde boş telefon ekranını kaydırdın mı hiç? Peki gerçekte kaç kişi fark etti?",
+      "keys": [
+        "Herkes",
+        "bakıyor",
+        "boş",
+        "telefon",
+        "kaç",
+        "kişi"
+      ]
     },
     {
-      "visual": "sp-gozler",
-      "voice": "Seni orada tutan ağırlıklar değil. Oradaki gözler. Üç adım atıp yine banda dönüyorsun.",
-      "say": "Seni orada tutan ağırlıklar değil. Oradaki gözler. Üç adım atıp yine banda dönüyorsun.",
-      "keys": ["gözler"]
+      "visual": "sp2-deney",
+      "voice": "“Herkes” dedin, değil mi? İki binde bunu ölçtüler: utanç verici tişörtle kalabalık bir sınıfa giren öğrenci “Yarısı gördü” sandı. Gerçek: dörtte biri bile değil.",
+      "say": "“Herkes” dedin, değil mi? İki binde bunu ölçtüler: utanç verici tişörtle kalabalık bir sınıfa giren öğrenci “Yarısı gördü” sandı. Gerçek: dörtte biri bile değil.",
+      "keys": [
+        "dörtte",
+        "biri",
+        "bile",
+        "değil"
+      ]
     },
     {
-      "visual": "sp-geri",
-      "voice": "Dur, geri saralım. Gerçekte herkes kendi setini sayıyor. Sana bakan yok.",
-      "say": "Dur, geri saralım. Gerçekte herkes kendi setini sayıyor. Sana bakan yok.",
-      "keys": ["yok"]
-    },
-    {
-      "visual": "sp-isik",
-      "voice": "Beynin üstüne spot ışığı tutuyor. İki binde ölçtüler: utanç verici tişörtle sınıfa giren öğrenci, “Yarısı fark etti” sandı. Gerçek: dörtte birinden azı.",
-      "say": "Beynin üstüne spot ışığı tutuyor. İki binde ölçtüler: utanç verici tişörtle sınıfa giren öğrenci, “Yarısı fark etti” sandı. Gerçek: dörtte birinden azı.",
-      "keys": ["spot", "ışığı", "dörtte", "birinden", "azı"]
-    },
-    {
-      "visual": "sp-plan",
+      "visual": "sp2-plan",
       "voice": "Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.",
       "say": "Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.",
-      "keys": ["Planı", "kaybolmaz"]
+      "keys": [
+        "Planı",
+        "kaybolmaz"
+      ]
     },
     {
-      "visual": "sp-voom",
-      "voice": "O günün programı telefonunda hazır; sen ne istiyorsan o. Yoksa üç ay sonra…",
-      "say": "O günün programı telefonunda hazır; sen ne istiyorsan o. Yoksa üç ay sonra…",
-      "hold": 0.3
+      "visual": "sp2-voom",
+      "voice": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu kaydet: o an gelince boş ekrana değil, programına bak. Ve salondaki arkadaşına gönder, ona da sor:",
+      "say": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu kaydet: o an gelince boş ekrana değil, programına bak. Ve salondaki arkadaşına gönder, ona da sor:",
+      "keys": [
+        "VOOM'da",
+        "kaydet",
+        "gönder"
+      ],
+      "hold": 0.2
     }
   ],
   "caption": "Salonda herkes sana bakmıyor: spot ışığı etkisi (Gilovich, Medvec & Savitsky 2000).",
-  "hashtags": ["spor", "fitness", "salon", "voom"]
+  "hashtags": [
+    "spor",
+    "fitness",
+    "salon",
+    "voom"
+  ]
 }

@@ -179,6 +179,10 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "sp2-ekran": (w) => [[0, "kalp", 0.55], [w(1), "kalp", 0.45], [w(3) + 4, "whoosh", 0.4], [w(11), "whoosh", 0.3], [w(13) - 2, "pop", 0.35], ...ticks(w(13), w(16), 6, 0.25)],
+  "sp2-deney": (w) => [[0, "boom", 0.2], [w(0) + 2, "kalp", 0.6], [w(4) - 4, "whoosh", 0.3], [w(5), "kalem", 0.3], [w(16) - 2, "pop", 0.35], [w(19), "agir-dusme", 0.3]],
+  "sp2-plan": (w) => [[w(1) - 2, "kagit", 0.35], [w(3), "kalem", 0.3], [w(7), "kalem", 0.3], [w(9), "ding", 0.3], [w(12), "whoosh", 0.25]],
+  "sp2-voom": (w, d) => [[0, "pop", 0.35], [w(10), "ding", 0.35], [w(15), "cizik", 0.3], [w(17), "pirilti", 0.3], [w(20), "whoosh", 0.35], [w(23), "kalp", 0.5]],
   "sp-bant": (w) => [[0, "kalp", 0.5], [w(4), "kalp", 0.4], [w(8) + 2, "whoosh", 0.4], [w(8) + 4, "agir-dusme", 0.25]],
   "sp-gozler": (w) => [[w(3), "whoosh", 0.35], [w(5) - 2, "kalp", 0.6], [w(6), "boom", 0.2], [w(8), "kalp", 0.6], [w(10), "kalp", 0.7], [w(11), "whoosh", 0.3]],
   "sp-geri": (w) => [[0, "geri-sar", 0.6], [w(3), "pirilti", 0.35], [w(5), "tik", 0.3], [w(8), "whoosh", 0.25], [w(10) - 2, "ding", 0.35]],
@@ -788,6 +792,10 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "sp2-ekran": { to: 1.0, x: 540, y: 960 },
+  "sp2-deney": { to: 1.0, x: 540, y: 960 },
+  "sp2-plan": { to: 1.0, x: 540, y: 960 },
+  "sp2-voom": { to: 1.0, x: 540, y: 960 },
   "sp-bant": { to: 1.0, x: 540, y: 960 },
   "sp-gozler": { to: 1.0, x: 540, y: 960 },
   "sp-geri": { to: 1.0, x: 540, y: 960 },
@@ -17908,7 +17916,394 @@ const SpVoom: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 12 SPOT IŞIĞI v8 — kardiyo alanı (sol) ve ağırlık bölgesi (sağ, siyah kauçuk zemin + sarı-siyah şerit) AYRI =====
+const S2F = 1320; // zemin
+const S2_TAPE = 900; // ağırlık bölgesinin başladığı şerit
+const S2_AX = 780; // avatar şeridin önünde
+const S2_S = 0.7;
+const S2_PP = [
+  { x: 1350, kind: "curl", shirt: "#b06a6a" },
+  { x: 1660, kind: "phone", shirt: "#8fb08a" },
+  { x: 2000, kind: "flex", shirt: "#7d9cc4" },
+  { x: 2330, kind: "squat", shirt: "#c99a4a" },
+];
+const S2_HEAD = S2F + 10 - 720 * S2_S;
+const S2_EYES = Array.from({ length: 18 }, (_, i) => ({ x: 950 + random(`s2x${i}`) * 1650, y: 280 + random(`s2y${i}`) * 560, s: 0.32 + random(`s2s${i}`) * 0.2 }));
+const S2_HAND = armPoints(1, [25, 135])[2];
+const S2_HANDW = { x: S2_AX + S2_HAND[0] * S2_S, y: S2F + 10 + (S2_HAND[1] - 20) * S2_S };
+
+// Salon v2: imagined 0 gerçek / 1 avatarın kafasındaki hâl (herkes ona bakıyor)
+const S2Gym: React.FC<{ f: number; imagined?: number; ax?: number; ay?: number; busy?: number }> = ({ f, imagined = 0, ax = S2_AX, ay = S2_HEAD, busy = 1 }) => {
+  const a = busy * (1 - imagined);
+  const curl = 30 + 110 * (0.5 + 0.5 * Math.sin(f / 7)) * a;
+  const flex = (0.5 + 0.5 * Math.sin(f / 9)) * a;
+  const sq = (0.5 + 0.5 * Math.sin(f / 10)) * a;
+  return (
+    <g>
+      <rect x={-1200} y={-1400} width={S2_TAPE + 1200} height={S2F + 1400} fill="#e6d6b4" />
+      <rect x={S2_TAPE} y={-1400} width={3000} height={S2F + 1400} fill="#cdbb98" />
+      <rect x={-1200} y={S2F} width={S2_TAPE + 1200} height={1600} fill="#a19a90" />
+      <rect x={S2_TAPE} y={S2F} width={3000} height={1600} fill="#3f3b38" />
+      {/* sarı-siyah şerit */}
+      {Array.from({ length: 30 }, (_, i) => (
+        <path key={i} d={`M${S2_TAPE - 30} ${S2F + i * 40} l60 0 l0 20 l-60 0 Z`} fill={i % 2 ? C.ink : "#e8b923"} />
+      ))}
+      <path d={`M-1200 ${S2F} H4000`} stroke={C.ink} strokeWidth={7} />
+      {/* kardiyo: pencere + iki koşu bandı */}
+      <rect x={-200} y={420} width={300} height={340} rx={10} fill="#cfe0ea" stroke={C.ink} strokeWidth={7} />
+      <g transform={`translate(-60 ${S2F}) scale(0.8) translate(0 ${-S2F})`}>
+        <Treadmill x={160} y={S2F} f={f} />
+      </g>
+      <g transform={`translate(330 ${S2F}) scale(0.8) translate(0 ${-S2F})`}>
+        <Treadmill x={160} y={S2F} f={f} />
+      </g>
+      <text x={S2_TAPE + 200} y={330} fontFamily={fontFamily} fontWeight={900} fontSize={70} fill={C.ink} opacity={0.75} letterSpacing={6}>
+        AĞIRLIK
+      </text>
+      {/* ayna duvarı + raf */}
+      <rect x={1860} y={420} width={700} height={900} rx={12} fill="#dfeef2" stroke={C.ink} strokeWidth={8} />
+      <path d="M1900 500 L1990 440 M1900 610 L2080 500" stroke="#fff" strokeWidth={12} opacity={0.6} />
+      <rect x={1180} y={1040} width={560} height={20} fill="#6b6b6b" stroke={C.ink} strokeWidth={5} />
+      <path d={`M1210 1060 L1210 ${S2F} M1710 1060 L1710 ${S2F}`} stroke={C.ink} strokeWidth={10} />
+      {[0, 1, 2, 3, 4].map((i) => (
+        <Dumbbell key={i} x={1240 + i * 105} y={1010} s={0.28 + i * 0.04} />
+      ))}
+      {/* kişiler */}
+      {S2_PP.map((p, i) => {
+        if (p.kind === "curl") {
+          const h1 = armPoints(-1, [8, curl])[2];
+          const h2 = armPoints(1, [8, curl])[2];
+          return (
+            <Person key={i} x={p.x} y={S2F + 10} s={S2_S} belly={0.3} shirt={p.shirt} shorts="#2b2b30" armL={[8, curl]} armR={[8, curl]} mouth={imagined > 0.5 ? "flat" : "o"} lookY={imagined > 0.5 ? 0 : 0.3}>
+              <Barbell x={(h1[0] + h2[0]) / 2} y={(h1[1] + h2[1]) / 2} s={0.55} />
+            </Person>
+          );
+        }
+        if (p.kind === "phone") {
+          const h = armPoints(1, [25, 135 * (1 - imagined * 0.8)])[2];
+          return (
+            <Person key={i} x={p.x} y={S2F + 10} s={S2_S} belly={0.5} shirt={p.shirt} shorts="#2b2b30" armR={[25, 135 * (1 - imagined * 0.8)]} mouth="smile" lookY={1 - imagined}>
+              <Phone x={h[0]} y={h[1] - 20} s={1.3} rot={-8} glow={0.6 + 0.4 * Math.sin(f / 5)} />
+            </Person>
+          );
+        }
+        if (p.kind === "flex")
+          return <Person key={i} x={p.x} y={S2F + 10} s={S2_S} belly={0.2} shirt={p.shirt} shorts="#2b2b30" armL={[95, 100 * flex + 20]} armR={[95, 100 * flex + 20]} mouth="grin" />;
+        return (
+          <g key={i} transform={`translate(0 ${70 * sq})`}>
+            <Person x={p.x} y={S2F + 10 - 70 * sq} s={S2_S} belly={0.3} shirt={p.shirt} shorts="#2b2b30" armL={[70, 110]} armR={[70, 110]} legL={{ spread: 4 + 14 * sq }} legR={{ spread: 4 + 14 * sq }} mouth="flat">
+              <Barbell x={0} y={-600} s={0.75} />
+            </Person>
+          </g>
+        );
+      })}
+      {imagined > 0 ? (
+        <g>
+          <rect x={-1200} y={-1400} width={5000} height={4400} fill={C.red} opacity={0.12 * imagined} />
+          {S2_PP.map((p, i) => (
+            <g key={i}>
+              <SpEye x={p.x - 32} y={S2_HEAD + 8} s={0.3 * imagined} tx={ax} ty={ay} />
+              <SpEye x={p.x + 32} y={S2_HEAD + 8} s={0.3 * imagined} tx={ax} ty={ay} />
+            </g>
+          ))}
+          {S2_EYES.map((e, i) => (
+            <SpEye key={i} x={e.x} y={e.y} s={e.s * tw(imagined, i / 22, i / 22 + 0.25)} tx={ax} ty={ay} />
+          ))}
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// Avatar önden, şeridin önünde telefonla (boş ekran)
+const S2Avatar: React.FC<{ f: number; x?: number; worry?: number; sweat?: number; phone?: boolean; arms?: number }> = ({ f, x = S2_AX, worry = 1, sweat = 0, phone = true, arms }) => {
+  const curl = arms === undefined ? 0 : 30 + 110 * arms;
+  const h1 = armPoints(-1, [8, curl])[2];
+  const h2 = armPoints(1, [8, curl])[2];
+  return (
+    <Person x={x} y={S2F + 10} s={S2_S} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#f4f1ea" mouth={worry > 0.5 ? "worry" : "grin"} lookY={phone ? 1 : 0} armR={phone ? [25, 135] : [8, curl]} armL={phone ? [12, 0] : [8, curl]}>
+      {phone ? <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.2} /> : null}
+      {arms !== undefined ? (
+        <>
+          <Dumbbell x={h1[0]} y={h1[1]} s={0.32} rot={90} />
+          <Dumbbell x={h2[0]} y={h2[1]} s={0.32} rot={90} />
+        </>
+      ) : null}
+      {sweat > 0 ? (
+        <g opacity={sweat}>
+          {[0, 1].map((k) => {
+            const t = ((f / 22 + k * 0.5) % 1);
+            return <path key={k} d={`M${70 - k * 150} ${-700 + 80 * t} q-12 22 0 30 q12 -8 0 -30 Z`} fill={C.water} stroke={C.ink} strokeWidth={3} opacity={1 - t} />;
+          })}
+        </g>
+      ) : null}
+    </Person>
+  );
+};
+
+// Ekranı dolduran telefon: boş ana ekran + kaydıran başparmak (açılış ve döngü karesi)
+const S2BigPhone: React.FC<{ f: number; p: number; x?: number; y?: number; content?: React.ReactNode }> = ({ f, p, x = 540, y = 900, content }) => {
+  if (p <= 0) return null;
+  const th = Math.sin(f / 5) * 120;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p})`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-300} y={-560} width={600} height={1120} rx={70} fill="#1e1f24" strokeWidth={12} />
+      <rect x={-270} y={-525} width={540} height={1050} rx={46} fill="#5d6b7a" strokeWidth={5} />
+      {content ?? (
+        <g stroke="none">
+          <text x={0} y={-380} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={96} fill="#e8eef4" opacity={0.8}>
+            21:47
+          </text>
+          {Array.from({ length: 8 }, (_, i) => (
+            <rect key={i} x={-200 + (i % 4) * 110} y={-180 + Math.floor(i / 4) * 130 - th * 0.3} width={70} height={70} rx={18} fill="#e8eef4" opacity={0.18} />
+          ))}
+        </g>
+      )}
+      <g transform={`translate(${150} ${380 + th})`}>
+        <path d="M-60 40 Q-70 -110 0 -130 Q70 -110 60 40 L60 300 L-60 300 Z" fill={C.skin} strokeWidth={10} />
+        <path d="M-34 -90 Q0 -110 34 -90 Q30 -60 0 -56 Q-30 -60 -34 -90 Z" fill="#f6d9c4" strokeWidth={5} />
+      </g>
+    </g>
+  );
+};
+
+// 1) "Herkes bakıyor diye, ağırlıkların önünde boş telefon ekranını kaydırdın mı hiç? Peki gerçekte kaç kişi fark etti?"
+// Ekranı dolduran boş telefon, başparmak boşuna kaydırır, kenarlarda kırmızı gözler açılır; "ağırlıkların"da telefon
+// avatarın eline küçülür, kamera geri çekilir: şeridin önünde donmuş avatar, öte yanda ağırlık bölgesi; terler;
+// "Peki"de kamera ağırlık bölgesine savrulur; "kaç kişi"de dev "?" ve dönen sayaç.
+const Sp2Ekran: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const shrink = tw(f, w(3) - 2, w(3) + 8);
+  const big = 1 - shrink;
+  const edge = tw(f, w(0), w(2) + 4) * big;
+  const q = pop(f, w(13) - 2, 12);
+  const spin = f < w(16) ? Math.floor(random(`s2n${Math.floor(f / 3)}`) * 40) : 0;
+  return (
+    <>
+      <SpCam
+        k={[
+          [0, 2.6, S2_HANDW.x, S2_HANDW.y],
+          [w(3) - 2, 2.6, S2_HANDW.x, S2_HANDW.y],
+          [w(3) + 8, 1.05, S2_AX + 240, 980],
+          [w(7), 1.45, S2_AX + 20, S2F - 330],
+          [w(11) - 2, 1.5, S2_AX + 10, S2F - 340],
+          [w(11) + 6, 0.8, 1500, 980],
+          [d, 0.76, 1500, 980],
+        ]}
+        shake={hit(f, w(3) + 6, 10) * 0.5}
+      >
+        <S2Gym f={f} />
+        <S2Avatar f={f} sweat={tw(f, w(5), w(7))} />
+      </SpCam>
+      {edge > 0
+        ? [
+            [130, 260],
+            [950, 300],
+            [110, 1500],
+            [960, 1450],
+            [100, 880],
+            [980, 900],
+          ].map(([x, y], i) => <SpEye key={i} x={x} y={y} s={0.42 * tw(edge, i / 8, i / 8 + 0.3)} tx={540} ty={900} />)
+        : null}
+      <S2BigPhone f={f} p={lerp(1, 0.08, shrink) * (shrink < 1 ? 1 : 0)} x={lerp(540, 540, shrink)} y={lerp(900, 960, shrink)} />
+      {q > 0 ? (
+        <g transform={`translate(540 360) scale(${q})`}>
+          <circle r={150} fill={C.cream} stroke={C.ink} strokeWidth={10} />
+          <text x={0} y={52} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={150} fill={C.red}>
+            {f < w(16) ? spin : "?"}
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// Sınıf v2 (ekran koordinatı, sepya): zamanlar karelerle verilir
+type S2ClassT = { board: number; walk: [number, number]; bubble: number; stamp: number; real: [number, number] };
+const S2Class: React.FC<{ f: number; t: S2ClassT }> = ({ f, t }) => {
+  const walkIn = tw(f, t.walk[0], t.walk[1]);
+  const sx = lerp(-120, 560, walkIn);
+  const bubble = pop(f, t.bubble, 14) * (1 - tw(f, t.stamp - 2, t.stamp + 6));
+  const stamp = pop(f, t.stamp, 12);
+  const imagRings = tw(f, t.bubble, t.bubble + 14);
+  const realRings = tw(f, t.real[0], t.real[1]);
+  const realSet = [1, 6, 10];
+  const imagSet = [0, 1, 3, 6, 8, 10];
+  return (
+    <g>
+      <rect x={0} y={0} width={1080} height={1920} fill="#dcc196" />
+      <rect x={0} y={1320} width={1080} height={600} fill="#b8935f" />
+      <rect x={160} y={240} width={760} height={330} rx={10} fill="#3f5a45" stroke={C.ink} strokeWidth={10} />
+      <HandText x={540} y={450} text="2000" size={150} color="#f4efe2" p={tw(f, t.board, t.board + 10)} rotate={-2} />
+      <rect x={-40} y={700} width={150} height={640} fill="#8a5f3a" stroke={C.ink} strokeWidth={8} />
+      {SP_SEATS.map((s, i) => (
+        <g key={i}>
+          <MiniW x={s.x} y={s.y} s={1.35} c={s.c} />
+          <rect x={s.x - 80} y={s.y - 40} width={160} height={70} rx={8} fill="#a8794a" stroke={C.ink} strokeWidth={6} />
+          {imagSet.includes(i) && imagRings > 0 ? <circle cx={s.x} cy={s.y - 200} r={60} fill="none" stroke={C.red} strokeWidth={9} opacity={imagRings * (1 - realRings)} /> : null}
+          {realSet.includes(i) && realRings > 0 ? <circle cx={s.x} cy={s.y - 200} r={60} fill="none" stroke={YAS_OK} strokeWidth={10} opacity={realRings} /> : null}
+        </g>
+      ))}
+      {walkIn > 0 ? (
+        <Person x={sx} y={1560} s={0.66} belly={0.2} shirt="#f2c230" shorts="#3b3b44" mouth="worry" blush={1} armL={[10 + 8 * Math.sin(f / 4), 0]} armR={[10 - 8 * Math.sin(f / 4), 0]}>
+          <circle cx={0} cy={-470} r={62} fill="#fff1c9" stroke={C.ink} strokeWidth={6} />
+          <path d="M-62 -490 Q-70 -560 0 -555 Q70 -560 62 -490 Q40 -530 0 -528 Q-40 -530 -62 -490 Z" fill="#c7782f" stroke={C.ink} strokeWidth={5} />
+          <path d="M-26 -448 Q0 -420 26 -448" fill="none" stroke={C.ink} strokeWidth={6} strokeLinecap="round" />
+          <circle cx={-20} cy={-478} r={6} fill={C.ink} />
+          <circle cx={20} cy={-478} r={6} fill={C.ink} />
+        </Person>
+      ) : null}
+      <Bubble x={760} y={760} rx={230} ry={120} p={bubble} tail={[640, 1000]}>
+        <text x={760} y={790} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={84} fill={C.red}>
+          yarısı gördü
+        </text>
+      </Bubble>
+      {stamp > 0 ? (
+        <g transform={`translate(760 700) scale(${stamp}) rotate(-6)`}>
+          <rect x={-250} y={-100} width={500} height={200} rx={24} fill={C.cream} stroke={YAS_OK} strokeWidth={14} />
+          <text x={0} y={46} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={128} fill={YAS_OK}>
+            %23
+          </text>
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// 2) "“Herkes” dedin, değil mi? İki binde bunu ölçtüler: utanç verici tişörtle kalabalık bir sınıfa giren öğrenci “Yarısı
+// gördü” sandı. Gerçek: dörtte biri bile değil."
+// "Herkes"te ağırlık bölgesindeki herkesin yüzünde ve duvarlarda kırmızı gözler açılır, hepsi avatara döner (kamera
+// itilir, sarsılır); "İki binde" sepya sınıf: tahtada 2000; yüz baskılı sarı tişörtlü öğrenci kızararak girer (kamera
+// ona yaklaşır); balon "yarısı gördü" + 6 kırmızı halka → "Gerçek"te lacivert %23 damgası, 3 halka.
+const Sp2Deney: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const imag = tw(f, 0, w(1) + 4);
+  const cls = tw(f, w(4) - 4, w(4) + 6);
+  return (
+    <>
+      {cls < 1 ? (
+        <g opacity={1 - cls}>
+          <SpCam k={[[0, 0.8, 1500, 980], [w(3) + 6, 1.0, 1250, 960]]} shake={hit(f, w(0) + 2, 12) * 0.5}>
+            <S2Gym f={f} imagined={imag} ax={S2_AX} ay={S2_HEAD} />
+            <S2Avatar f={f} sweat={1} />
+          </SpCam>
+        </g>
+      ) : null}
+      {cls > 0 ? (
+        <g opacity={cls}>
+          <CamK k={[[w(4), 1, 540, 960], [w(10), 1, 540, 960], [w(14), 1.35, 420, 1250], [w(15) + 4, 1.0, 540, 960], [w(19), 1.0, 540, 960], [w(19) + 8, 1.12, 720, 820], [d, 1.0, 540, 960]]} shake={hit(f, w(19), 10) * 0.5}>
+            <S2Class f={f} t={{ board: w(4), walk: [w(10) - 2, w(15)], bubble: w(16) - 2, stamp: w(19), real: [w(20), w(22)] }} />
+          </CamK>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 3) "Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz."
+// Plan kartı (üç hareket, sırayla tik); "Planı olan"da avatar şeridi geçip ağırlık bölgesine yürür (kamera onunla);
+// "kimse"de kamera herkesin kendi işine bakışını tarar; avatar dambılla çalışır.
+const Sp2Plan: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const walk = tw(f, w(5), w(9) + 6);
+  const x = lerp(S2_AX - 40, 1130, walk);
+  const card = pop(f, w(1) - 2, 12) * (1 - tw(f, w(11), w(12)));
+  const arrived = walk >= 1;
+  return (
+    <>
+      <SpCam k={[[0, 1.1, S2_AX + 120, 960], [w(5), 1.1, S2_AX + 120, 960], [w(9) + 6, 1.15, 1130, 960], [w(12) - 2, 1.15, 1130, 960], [w(12) + 8, 1.05, 1900, 960], [d, 1.0, 1500, 960]]}>
+        <S2Gym f={f} />
+        {arrived ? (
+          <S2Avatar f={f} x={1130} worry={0} phone={false} arms={0.5 + 0.5 * Math.sin((f - w(9)) / 6)} />
+        ) : walk > 0 ? (
+          <SideRunner f={f} x={x} y={S2F + 6} s={S2_S} pose={runPose(f / 4.5, 0.55)} shirt={SEL_AV_TOP} face="grin" />
+        ) : (
+          <S2Avatar f={f} worry={0} />
+        )}
+      </SpCam>
+      {card > 0 ? (
+        <g transform={`translate(540 380) scale(${card}) rotate(-2)`}>
+          <rect x={-300} y={-150} width={600} height={300} rx={26} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          {SP_PLAN.map((t, i) => {
+            const tick = tw(f, w(3 + i * 2), w(3 + i * 2) + 6);
+            return (
+              <g key={t}>
+                <text x={-240} y={-62 + i * 90} fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
+                  {t}
+                </text>
+                <path d={`M190 ${-80 + i * 90} l22 22 l40 -44`} fill="none" stroke={YAS_OK} strokeWidth={12} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={120} strokeDashoffset={120 * (1 - tick)} />
+              </g>
+            );
+          })}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// Gerçek VOOM "Bugün" ekranı, küçük telefona sığacak kadar kısa (üst kısmı görünür)
+const S2_SHOT = staticFile("app/bugun.jpg");
+const S2VoomScreen: React.FC<{ w0: number; h0: number; blank: number }> = ({ w0, h0, blank }) => (
+  <g>
+    <clipPath id="s2Shot">
+      <rect x={-w0 / 2} y={-h0 / 2} width={w0} height={h0} rx={30} />
+    </clipPath>
+    <image href={S2_SHOT} x={-w0 / 2} y={-h0 / 2} width={w0} height={(w0 * 2622) / 1290} clipPath="url(#s2Shot)" preserveAspectRatio="xMidYMin slice" />
+    {blank > 0 ? <rect x={-w0 / 2} y={-h0 / 2} width={w0} height={h0} rx={30} fill="#5d6b7a" opacity={blank} /> : null}
+  </g>
+);
+
+// 4) "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu kaydet: o an gelince boş ekrana değil, programına bak.
+// Ve salondaki arkadaşına gönder, ona da sor:"
+// Telefonda GERÇEK VOOM ekranı (küçük); "kaydet"te kaydet işareti zıplar; "boş ekrana" ekran kararır + kırmızı çarpı,
+// "programına" geri gelir + lacivert tik; "gönder"de kâğıt uçak arkadaşın telefonuna uçar; "sor"da telefon ekranı
+// kararıp büyür = açılıştaki boş telefon (döngü).
+const Sp2Voom: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(S2_SHOT);
+  const f = useCurrentFrame();
+  const ph = pop(f, 0, 12);
+  const save = pop(f, w(10) - 2, 12);
+  const blank = tw(f, w(14) - 2, w(14) + 4) * (1 - tw(f, w(17) - 2, w(17) + 4));
+  const xMark = pop(f, w(15), 10) * (1 - tw(f, w(17) - 2, w(17) + 2));
+  const okMark = pop(f, w(17), 10) * (1 - tw(f, w(19), w(19) + 4));
+  const plane = tw(f, w(20), w(22) + 6);
+  const end = tw(f, w(23), d - 2);
+  const PW = 320;
+  const PH = 560;
+  const bx = lerp(830, 540, end);
+  const by = lerp(640, 900, end);
+  const sc = lerp(0.8, 1.75, end);
+  return (
+    <>
+      <SpCam k={[[0, 1.1, 1260, 960], [w(19), 1.1, 1260, 960], [w(20) + 6, 0.9, 1500, 960], [d, 0.9, 1500, 960]]}>
+        <S2Gym f={f} />
+        <S2Avatar f={f} x={1130} worry={0} phone={false} arms={0.5 + 0.5 * Math.sin(f / 6)} />
+      </SpCam>
+      {ph > 0 ? (
+        <g transform={`translate(${bx} ${by}) scale(${ph * sc}) rotate(${-4 * (1 - end)})`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-PW / 2 - 18} y={-PH / 2 - 18} width={PW + 36} height={PH + 36} rx={46} fill="#1e1f24" strokeWidth={8} />
+          <S2VoomScreen w0={PW} h0={PH} blank={Math.max(blank, end)} />
+          {save > 0 ? (
+            <g transform={`translate(${PW / 2 - 20} ${-PH / 2 + 10}) scale(${save * (1 - end)})`}>
+              <circle r={62} fill={C.cream} strokeWidth={7} />
+              <path d="M-24 -32 H24 V34 L0 14 L-24 34 Z" fill={YAS_OK} strokeWidth={6} />
+            </g>
+          ) : null}
+          {xMark > 0 ? <path d={`M-90 -90 L90 90 M90 -90 L-90 90`} transform={`scale(${xMark})`} stroke={C.red} strokeWidth={26} strokeLinecap="round" /> : null}
+          {okMark > 0 ? <path d="M-80 0 L-20 60 L90 -70" transform={`scale(${okMark})`} fill="none" stroke={YAS_OK} strokeWidth={26} strokeLinecap="round" strokeLinejoin="round" /> : null}
+        </g>
+      ) : null}
+      {plane > 0 && plane < 1 ? <VsPaperPlane p={plane} a={[830, 640]} b={[980, 1100]} /> : null}
+      {end > 0.6 ? <S2BigPhone f={0} p={tw(end, 0.6, 1)} /> : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "sp2-ekran": Sp2Ekran,
+  "sp2-deney": Sp2Deney,
+  "sp2-plan": Sp2Plan,
+  "sp2-voom": Sp2Voom,
   "sp-bant": SpBant,
   "sp-gozler": SpGozler,
   "sp-geri": SpGeri,
