@@ -13,3 +13,11 @@ Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
 7 İki binde bunu ölçtüler: bir öğrenciye utanç verici bir tişört giydirip kalabalık bir sınıfa soktular. "Yarısı fark etti" dedi. Gerçek: dörtte birinden azı.
 8 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
 9 O günün programı telefonunda hazır; sen ne istiyorsan o. Yoksa üç ay sonra… (→ 1, döngü)
+
+## Tarih alternatifleri (23 Ekim, kullanıcı "daha ilgi çekici tarih" istedi)
+- A (önerilen) Triplett 1898 (ABD): bisiklet yarışı kayıtları — başkasıyla yarışan yalnız sürenden hızlı; çocuklarla olta
+  makarası deneyi; spor psikolojisinin ilk yayımlanmış çalışması sayılır (yöntemi eleştirilir, Stroebe 2012). Devamı:
+  Zajonc 1965 / Bond & Titus 1983 meta-analizi: izlenmek iyi bildiğin işte performansı artırır, yeni/zor işte bozar
+  → "planı olan kaybolmaz" tavsiyesini bilimle bağlar.
+- B Zajonc 1969 hamamböceği deneyi (seyirci hamamböcekleri): akılda kalıcı ama tekrar çalışmaları karışık → RİSKLİ.
+- C Gilovich 2000 utanç tişörtü (şu anki).
