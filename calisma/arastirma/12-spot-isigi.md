@@ -61,3 +61,11 @@ Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
 2 "Herkes" dedin, değil mi? İki binde bunu ölçtüler: utanç verici tişörtle kalabalık bir sınıfa giren öğrenci "Yarısı gördü" sandı. Gerçek: dörtte biri bile değil.
 3 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
 4 O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu kaydet: o an gelince boş ekrana değil, programına bak. Ve salondaki arkadaşına gönder, ona da sor: (→ 1, döngü)
+
+## v8 önizlemesi REDDEDİLDİ (23 Ekim): "ne akış ne görüntü iyi, metin saçma; tüm hikâyeyi değiştir"
+## METİN v9 — "Salondaki ilk günün" (tek kahraman, tek gün, kronolojik küçük anlar; döngü "ilk günün")
+1 Salondaki ilk günün: kapıda iki dakika bekledin. Kulaklığını taktın… müzik açmadan.
+2 Ağırlıklara gidemedin, koşu bandına bindin, boş ekranı kaydırdın. Eve dönerken tek düşüncen: "Herkes bana baktı."
+3 Bak şimdi… iki binde bunu ölçtüler: utanç verici tişörtle sınıfa giren öğrenci, herkesin baktığını sandı. Gerçekte fark eden, dörtte biri bile değildi.
+4 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
+5 O günün programı VOOM'da hazır; sen ne istiyorsan o. Yoksa her gün… salondaki ilk günün olur. (→ 1)
