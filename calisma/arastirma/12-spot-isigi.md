@@ -40,3 +40,4 @@ Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
 3 Sen bir tişörtle çekiniyorsun. İki binde ölçtüler: utanç verici tişörtle sınıfa giren öğrenci "Yarısı gördü" sandı. Gerçek: dörtte biri bile değil.
 4 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
 5 O günün programı VOOM'da hazır; sen ne istiyorsan o. Bir dahaki sefere telefonuna baktığında… gerçekten bir şeye bak.
+- v5 REDDEDİLDİ: "çıplak" tarihi ("neye özendiriyorsun, olmaz"). Çıplaklık/benzeri konulara GİRME. Tarih: 2000 tişört deneyi.
