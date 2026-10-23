@@ -8,28 +8,19 @@ Remotion (React) ile video, ElevenLabs ile Türkçe seslendirme. Güncel hâl **
 birleştirildi); çalışma dalı `claude/elevenlabs-voom-turkish-voiceover-4jqxsc`. Her işten sonra hem çalışma
 dalına hem main'e push et ki yeni oturumlar güncel hâli görsün.
 
-## !!! İKİ PARALEL SOHBET (20 Ekim): EKİM TEORİSİ sohbeti ve MAYIŞMA sohbeti (mayışma sohbeti 23 Ekim kapandı, kullanıcı yeni konuya geçiyor). Kullanıcının ilk mesajından hangisi olduğunu anla. Her iki iş de bu dalda ve main'de. !!!
+## !!! İKİ PARALEL SOHBET (20 Ekim): EKİM TEORİSİ sohbeti ve MAYIŞMA sohbeti (MAYIŞMA İPTAL 23 Ekim; yeni sohbet yeni konu önerisiyle başlar). Kullanıcının ilk mesajından hangisi olduğunu anla. Her iki iş de bu dalda ve main'de. !!!
 
-## >>> 10 MAYIŞMA DURUMU (23 Ekim, mayışma sohbeti kapandı) <<<
-- **Kullanıcı mayışmadan sonra YENİ KONU bulup yeni sohbete geçti** ("yeni konuyu bulup yeni sohbete geçiyoruz"). Mayışmaya
-  geri dönülürse buradan devam: v4 sessiz müzikli önizleme `ornek-videolar/cizim1-pilot/10-mayisma-sessiz.mp4` (~34,5 sn)
-  GÖNDERİLDİ, kullanıcı yorum yapmadı → **onay bekliyor, SESLENDİRİLMEDİ**.
-- v4 metni (referans senaryodan geliştirildi, ~470 karakter, 1.2x ile ~28 sn), JSON `cizim1-10-mayisma`, sahneler `sr-*`:
-  1 `sr-kursun` "Son lokmayı yuttun. Göz kapakların kurşun gibi… ve günün geri kalanı çöpe gidiyor." (öğleden sonra planı
-  buruşup masadaki çöpe) 2 `sr-roma` "Bu his iki bin yıllık. Romalılar öğleye altıncı saat derdi: sexta hora. Siesta oradan
-  gelir." (sepya Roma, tapınak, toga + kırmızı kuşaklı uyuklayan adam, güneş saati VI, "2000 YIL") 3 `sr-kan` "Peki kanın
-  beyninden mideye mi kaçıyor? Pek sayılmaz." (`BloodMap`: ok çizilir, beyin kalkanı) 4 `sr-sinyal` "Büyük bir öğünde
-  bağırsakların beynine dinlen sinyali yollar. Üstelik iç saatin öğleden sonra zaten yavaşlar." (`GutLens` kesit merceği:
-  mide+bağırsak, sinirle "DİNLEN" zarfı → `BodyClockLens` 14:00 çukuru) 5 `sr-cozum` "Çözüm: dengeli bir tabak, yemekten
-  sonra on dakika yürüyüş. VOOM o tabağı seninle kurar." (`BalancedPlate`, parkta yürüyüş, uyku bulutu uçar, 10 dk
-  kronometre, telefonda VOOM) 6 `sr-son` "Yani tembel değilsin. Sadece altıncı saattesin." (tembel kartı buruşur, güneş
-  saati merceği → döngü).
-- Altyazıda yeni özellik: sahnede JSON `"keys": [...]` → önemli kelimeler turuncu (`KEY_COLOR`), söylenen kelime sarı +
-  büyür. Tüm yeni videolarda kullanılabilir.
-- **Seslendirmeden ÖNCE düzeltilecekler (sonradan çıkan kurallara göre):** 5. sahnedeki VOOM telefonu ÇİZİM → gerçek VOOM
-  ekranı (`public/app/beslenme.jpg` vb., `useImgReady`) olmalı; avatar kıyafeti konuya göre (ofis → günlük kıyafet, yürüyüş).
-- Onaydan sonra: kredi kontrol → `npm run voiceover -- cizim1-10-mayisma` (Yunus) → ses 1.2x (atempo + manifest /1.2) →
-  `npm run render -- cizim1-10-mayisma`. Uzun sürüm `cizim1-10-mayisma-uzun` beklemede (kullanıcı "atma").
+## >>> 23 EKİM — YENİ SOHBET İLK İŞ: YENİ KONU ÖNER <<<
+- **10 MAYIŞMA İPTAL (kullanıcı, 23 Ekim: "konu sevilmedi, bırakıyoruz").** Üzerinde çalışma, kredi harcama. Kod (`sr-*`,
+  `cizim1-10-mayisma`) ve önizleme yalnız arşiv olarak duruyor.
+- **Yeni sohbette ilk iş: kullanıcıya YENİ KONU ÖNERİLERİ sun** (kullanıcı: "yeni sohbette yeni konularla gel bana öneri").
+  Konuyu kullanıcı seçer. Öneriler: antrenman/sağlık, izleyicinin ZATEN inandığı yaygın bir yanlış ya da "tam ben" dert,
+  gerçek + DOĞRULANMIŞ tarihçe, VOOM'a bağlanabilir, kısa (25-30 sn). Kadın-erkek çatışması çıkaran konular iyi izlendi
+  (04, 09). Kullanılmış/iptal konular: yağ nereye, tartı, 10 bin adım, kadın-ağırlık, boyun, diz, yaş, sauna, kilo,
+  selülit, ekim teorisi, mayışma. Daha önce adı geçen adaylar: 30 dk protein penceresi, mekik/göbek yağı, 8 bardak su,
+  laktik asit/kas ağrısı, kas yağa dönüşür, boy kısalır, metabolizma yavaş (kadın), kadınlar uzun mesafe koşamaz, regl
+  döneminde spor. Her öneriye 1 satır kanca + 1 satır tarihçe yaz, kısa tut.
+- Mayışmadan kalan kullanışlı parça: altyazıda JSON `"keys": [...]` → önemli kelimeler turuncu (`KEY_COLOR`).
 
 ## >>> YENİ SOHBET BURADAN BAŞLASIN (20 Ekim devir notu — EN GÜNCEL) <<<
 - **Dal:** `claude/cellulite-video-prep-n06393` (en güncel; selülit + ekim işleri burada). `npm ci` → işe başla.
