@@ -17866,17 +17866,15 @@ const SpPlan: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 // 6) "O günün programı telefonunda hazır; sen ne istiyorsan o. Yoksa üç ay sonra…"
-// Telefon büyür: GERÇEK VOOM "Bugün" ekranı; avatar arkada ağırlık çalışır; "Yoksa"da kamera boş bantlara savrulur,
+// Kullanıcı: VOOM ekranı aynen yapıştırılmaz; bizim çizim stilimizde küçük telefon, üstte yalnız "VOOM" yazısı +
+// o günün planı (merak uyandırsın, anlatılmasın). Avatar arkada ağırlık çalışır; "Yoksa"da kamera boş banda savrulur,
 // bandın ekranına dalar (= açılış karesi, döngü).
-const SP_SHOT = staticFile("app/bugun.jpg");
+const SP_TODAY = ["Bugün", "Göğüs 3×10", "Omuz 3×12", "Sırt 3×10"];
 const SpVoom: React.FC<SceneProps> = ({ w, d }) => {
-  useImgReady(SP_SHOT);
   const f = useCurrentFrame();
   const phone = pop(f, 0, 12) * (1 - tw(f, w(8), w(9)));
   const lift = 0.5 + 0.5 * Math.sin(f / 6);
   const ghost = tw(f, w(10), w(12));
-  const PW = 400;
-  const PH = (PW * 2622) / 1290;
   return (
     <>
       <SpCam k={[[0, 0.95, 1100, 960], [w(9) - 2, 0.95, 1100, 960], [w(10) + 2, 0.9, 700, 960], [d - 10, 3.1, SP_CON.x, SP_CON.y], [d, 3.1, SP_CON.x, SP_CON.y]]}>
@@ -17886,12 +17884,24 @@ const SpVoom: React.FC<SceneProps> = ({ w, d }) => {
         {ghost > 0 ? <SpAvatar f={f} x={SP_ON} pose={runPose(f / 3.2, 1)} face="worry" o={ghost} /> : null}
       </SpCam>
       {phone > 0 ? (
-        <g transform={`translate(540 860) scale(${phone}) rotate(-3)`}>
-          <rect x={-PW / 2 - 18} y={-PH / 2 - 18} width={PW + 36} height={PH + 36} rx={46} fill="#1e1f24" stroke={C.ink} strokeWidth={8} />
-          <clipPath id="spShot">
-            <rect x={-PW / 2} y={-PH / 2} width={PW} height={PH} rx={30} />
-          </clipPath>
-          <image href={SP_SHOT} x={-PW / 2} y={-PH / 2} width={PW} height={PH} clipPath="url(#spShot)" preserveAspectRatio="xMidYMid slice" />
+        <g transform={`translate(560 640) scale(${phone}) rotate(-4)`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-150} y={-260} width={300} height={520} rx={40} fill="#3a3a42" strokeWidth={8} />
+          <rect x={-128} y={-232} width={256} height={464} rx={24} fill={C.cream} strokeWidth={4} />
+          <text x={0} y={-176} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={44} letterSpacing={8} fill={C.ink} stroke="none">
+            VOOM
+          </text>
+          <path d="M-100 -150 H100" strokeWidth={4} opacity={0.4} />
+          {SP_TODAY.map((t, i) => {
+            const tick = i > 0 ? tw(f, w(1) + i * 5, w(1) + i * 5 + 6) : 0;
+            return (
+              <g key={t}>
+                <text x={-104} y={-96 + i * 76} fontFamily={handFamily} fontWeight={700} fontSize={i === 0 ? 40 : 38} fill={i === 0 ? C.red : C.ink} stroke="none">
+                  {t}
+                </text>
+                {i > 0 ? <path d={`M78 ${-112 + i * 76} l12 12 l22 -24`} fill="none" stroke={YAS_OK} strokeWidth={8} strokeLinecap="round" strokeDasharray={60} strokeDashoffset={60 * (1 - tick)} /> : null}
+              </g>
+            );
+          })}
         </g>
       ) : null}
     </>

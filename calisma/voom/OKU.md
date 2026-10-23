@@ -4,3 +4,6 @@
 - Rakip marka/uygulama adı (Strava vb.) ASLA. Video reklam gibi açılmaz.
 - Her videoda VOOM'un FARKLI bir özelliği çaktırmadan: tek cümle ya da arka planda tahta/telefon yazısı → `ozellikler.md`.
 - Fiyat ve satış dili YOK. Her videoya VOOM'un BİR özelliği hikâyenin içinden girer ("Bugün o koç cebinde. Adı VOOM.").
+- **Gerçek ekran görüntüsünü AYNEN YAPIŞTIRMA (kullanıcı, 23 Ekim).** Ekranlar yalnız incelemek için. Videoda bizim çizim
+  stilimizde, küçük, renkleri içeriğe uygun; arkada bir yerde "VOOM" yazısı ya da en fazla 1-2 cümle. Uzun anlatma,
+  izleyici "bu ne?" diye merak etsin.
