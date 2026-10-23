@@ -179,6 +179,11 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "sp3-kirk": (w) => [[0, "whoosh", 0.35], ...ticks(2, w(3), 6, 0.2), [w(4) + 2, "whoosh", 0.3], [w(5) - 2, "pop", 0.35], [w(5), "kalp", 0.5]],
+  "sp3-balon": (w) => [[w(0), "pop", 0.4], [w(3), "pop", 0.4], [w(6), "pop", 0.4], [w(10), "whoosh", 0.3], [w(12), "sonme", 0.35]],
+  "sp3-tarih": (w) => [[w(1), "cizik", 0.25], [w(7), "whoosh", 0.3], [w(11) - 4, "whoosh", 0.3], [w(11), "kalem", 0.3], [w(14), "kagit", 0.3], [w(24) - 2, "kagit", 0.35], [w(28), "klavye", 0.3]],
+  "sp3-plan": (w) => [[w(1) - 2, "kagit", 0.35], [w(3), "kalem", 0.3], [w(7), "kalem", 0.3], [w(9), "ding", 0.3], [w(12), "whoosh", 0.25]],
+  "sp3-voom": (w, d) => [[0, "pop", 0.35], [w(10) - 2, "pop", 0.3], [w(14), "whoosh", 0.35], [w(16) + 6, "ding", 0.3], [d - 14, "whoosh", 0.3]],
   "sp2-ekran": (w) => [[0, "kalp", 0.55], [w(1), "kalp", 0.45], [w(3) + 4, "whoosh", 0.4], [w(11), "whoosh", 0.3], [w(13) - 2, "pop", 0.35], ...ticks(w(13), w(16), 6, 0.25)],
   "sp2-deney": (w) => [[0, "whoosh", 0.3], [w(0), "kalem", 0.3], [w(9) - 2, "pop", 0.35], [w(9), "kalp", 0.5], [w(13) - 2, "whoosh", 0.3], [w(20), "agir-dusme", 0.3]],
   "sp2-plan": (w) => [[w(1) - 2, "kagit", 0.35], [w(3), "kalem", 0.3], [w(7), "kalem", 0.3], [w(9), "ding", 0.3], [w(12), "whoosh", 0.25]],
@@ -792,6 +797,11 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "sp3-kirk": { to: 1.0, x: 540, y: 960 },
+  "sp3-balon": { to: 1.0, x: 540, y: 960 },
+  "sp3-tarih": { to: 1.0, x: 540, y: 960 },
+  "sp3-plan": { to: 1.0, x: 540, y: 960 },
+  "sp3-voom": { to: 1.0, x: 540, y: 960 },
   "sp2-ekran": { to: 1.0, x: 540, y: 960 },
   "sp2-deney": { to: 1.0, x: 540, y: 960 },
   "sp2-plan": { to: 1.0, x: 540, y: 960 },
@@ -18387,7 +18397,330 @@ const Sp2Voom: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 12 SPOT IŞIĞI v10 — "Salonda kırk kişi var": herkesin kafasında kendi derdi + 2006 "salona gitmemek için ödemek" =====
+// Kalabalık salon: S2Gym'in 4 kişisine ön sırada 3 kişi ve kardiyoda 2 koşucu eklenir; avatar ön planda (S2_FG).
+const S3_FRONT = [
+  { x: 1060, kind: "belly", shirt: "#d9705f" },
+  { x: 1840, kind: "raise", shirt: "#b06a8a" },
+  { x: 2380, kind: "towel", shirt: "#6f8fa8" },
+];
+const S3_FY = S2F + 160;
+const S3_FS = 0.78;
+// Balonların bağlandığı kafalar (dünya koordinatı)
+const S3_HEADS = {
+  belly: { x: S3_FRONT[0].x, y: S3_FY - 720 * S3_FS },
+  set: { x: S2_PP[0].x, y: S2_HEAD },
+  msg: { x: S2_PP[1].x, y: S2_HEAD },
+  flex: { x: S2_PP[2].x, y: S2_HEAD },
+  raise: { x: S3_FRONT[1].x, y: S3_FY - 720 * S3_FS },
+};
+const S3Crowd: React.FC<{ f: number }> = ({ f }) => {
+  const raise = 40 + 50 * (0.5 + 0.5 * Math.sin(f / 8));
+  return (
+    <g>
+      {/* kardiyoda koşanlar */}
+      <SideRunner f={f} x={48} y={S2F - 2} s={0.56} pose={runPose(f / 3.4, 1)} shirt="#8fb08a" />
+      <SideRunner f={f + 9} x={438} y={S2F - 2} s={0.56} pose={runPose((f + 9) / 3.4, 1)} shirt="#e0b030" female />
+      {S3_FRONT.map((p, i) =>
+        p.kind === "belly" ? (
+          <Person key={i} x={p.x} y={S3_FY} s={S3_FS} belly={0.95} shirt={p.shirt} shorts="#2b2b30" armL={[20, 70]} armR={[20, 70]} lookY={1} mouth="worry" />
+        ) : p.kind === "raise" ? (
+          <Person key={i} x={p.x} y={S3_FY} s={S3_FS} female shirt={p.shirt} shorts="#2b2b30" armL={[raise, 0]} armR={[raise, 0]} mouth="flat">
+            {[-1, 1].map((side) => {
+              const h = armPoints(side, [raise, 0])[2];
+              return <Dumbbell key={side} x={h[0]} y={h[1]} s={0.28} />;
+            })}
+          </Person>
+        ) : (
+          <Person key={i} x={p.x} y={S3_FY} s={S3_FS} belly={0.3} shirt={p.shirt} shorts="#2b2b30" armL={[150, 40]} armR={[12, 0]} mouth="grin">
+            <path d="M-120 -640 Q-60 -700 0 -600" fill="none" stroke="#f4f1ea" strokeWidth={26} strokeLinecap="round" />
+          </Person>
+        ),
+      )}
+    </g>
+  );
+};
+
+// Düşünce balonu (dünya koordinatı): çizimli içerik
+const S3Thought: React.FC<{ x: number; y: number; p: number; children: React.ReactNode; tail?: [number, number] }> = ({ x, y, p, children, tail }) => (
+  <Bubble x={x} y={y - 230} rx={170} ry={110} p={p} tail={tail ?? [x, y - 60]}>
+    {children}
+  </Bubble>
+);
+const S3Belly: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <ellipse cx={x} cy={y} rx={90} ry={70} fill={C.skin} strokeWidth={7} />
+    <circle cx={x} cy={y + 6} r={7} fill={C.ink} />
+    <path d={`M${x - 110} ${y - 20} l30 0 M${x + 80} ${y - 20} l30 0`} strokeWidth={6} />
+  </g>
+);
+const S3Msg: React.FC<{ x: number; y: number; f: number }> = ({ x, y, f }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={x - 90} y={y - 55} width={180} height={110} rx={30} fill="#9fd0e8" strokeWidth={7} />
+    {[0, 1, 2].map((k) => (
+      <circle key={k} cx={x - 40 + k * 40} cy={y} r={12} fill={C.ink} opacity={0.3 + 0.7 * (Math.floor(f / 6) % 3 === k ? 1 : 0)} stroke="none" />
+    ))}
+  </g>
+);
+const S3EyesIn: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+  <g>
+    <SpEye x={x - 60} y={y} s={0.3} tx={x} ty={y + 300} />
+    <SpEye x={x + 60} y={y} s={0.3} tx={x} ty={y + 300} />
+  </g>
+);
+
+// 1) "Salonda kırk kişi var. Sence kaçı şu an seni düşünüyor?"
+// Kamera kalabalık salonu soldan sağa hızla tarar, köşede sayaç 1 → 40 KİŞİ; "Sence"de ön plandaki avatara döner
+// (gergin, telefon elinde); "kaçı"nda başının yanında dev sayaç döner, "?".
+const S3_START: [number, number, number] = [0.8, 300, 1000];
+const Sp3Kirk: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const n = Math.round(lerp(1, 40, tw(f, 0, w(3))));
+  const q = pop(f, w(5) - 2, 12);
+  const spin = f < w(9) ? 1 + Math.floor(random(`s3n${Math.floor(f / 3)}`) * 40) : 0;
+  return (
+    <>
+      <SpCam
+        k={[
+          [0, S3_START[0], S3_START[1], S3_START[2]],
+          [w(3), 0.8, 2100, 1000],
+          [w(4) + 6, 1.45, S2_FG.x, S2_HEAD + 140],
+          [d, 1.5, S2_FG.x, S2_HEAD + 140],
+        ]}
+        shake={hit(f, w(4) + 4, 10) * 0.4}
+      >
+        <S2Gym f={f} />
+        <S3Crowd f={f} />
+        <S2Avatar f={f} x={S2_FG.x} worry={1} sweat={tw(f, w(5), w(7))} />
+      </SpCam>
+      <g transform={`translate(860 300) scale(${pop(f, 0, 10) * (1 - tw(f, w(4), w(4) + 6))})`}>
+        <rect x={-180} y={-80} width={360} height={160} rx={30} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+        <text x={0} y={30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={84} fill={C.ink}>
+          {n} KİŞİ
+        </text>
+      </g>
+      {q > 0 ? (
+        <g transform={`translate(800 420) scale(${q})`}>
+          <circle r={150} fill={C.cream} stroke={C.ink} strokeWidth={10} />
+          <text x={0} y={52} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={150} fill={C.red}>
+            {f < w(9) ? spin : "?"}
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 2) "Biri göbeğine bakıyor, biri setini sayıyor, biri gelen mesajı bekliyor. Seni düşünen yok."
+// Her "biri"de kamera o kişiye atlar ve başında balon açılır: göbek / 8…9…10 / mesaj (üç nokta); "Seni"de geri çekilir:
+// herkesin balonu kendi derdinde, yalnız avatarın balonunda gözler; "yok"ta avatarın balonu söner, avatar gülümser.
+const Sp3Balon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const b1 = pop(f, w(0), 12);
+  const b2 = pop(f, w(3), 12);
+  const b3 = pop(f, w(6), 12);
+  const bF = pop(f, w(10) - 4, 12);
+  const bA = pop(f, w(10) - 2, 12) * (1 - tw(f, w(12), w(12) + 6));
+  const reps = 8 + Math.min(2, Math.floor((f - w(3)) / 10));
+  const H = S3_HEADS;
+  return (
+    <SpCam
+      k={[
+        [0, 1.3, H.belly.x, H.belly.y - 40],
+        [w(2) + 4, 1.3, H.belly.x, H.belly.y - 40],
+        [w(3) + 4, 1.3, H.set.x, H.set.y - 40],
+        [w(5) + 4, 1.3, H.set.x, H.set.y - 40],
+        [w(6) + 4, 1.3, H.msg.x, H.msg.y - 40],
+        [w(9) + 4, 1.3, H.msg.x, H.msg.y - 40],
+        [w(10) + 8, 0.62, 1400, 900],
+        [d, 0.62, 1400, 900],
+      ]}
+    >
+      <S2Gym f={f} />
+      <S3Crowd f={f} />
+      <S2Avatar f={f} x={S2_FG.x} worry={f < w(12) ? 1 : 0} />
+      <S3Thought x={H.belly.x} y={H.belly.y} p={b1}>
+        <S3Belly x={H.belly.x} y={H.belly.y - 230} />
+      </S3Thought>
+      <S3Thought x={H.set.x} y={H.set.y} p={b2}>
+        <text x={H.set.x} y={H.set.y - 200} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={96} fill={YAS_OK}>
+          {reps}…
+        </text>
+      </S3Thought>
+      <S3Thought x={H.msg.x} y={H.msg.y} p={b3}>
+        <S3Msg x={H.msg.x} y={H.msg.y - 230} f={f} />
+      </S3Thought>
+      <S3Thought x={H.flex.x} y={H.flex.y} p={bF}>
+        <text x={H.flex.x} y={H.flex.y - 200} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={84} fill={C.ink}>
+          kolum!
+        </text>
+      </S3Thought>
+      <S3Thought x={H.raise.x} y={H.raise.y} p={bF}>
+        <text x={H.raise.x} y={H.raise.y - 200} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={84} fill={C.ink}>
+          son 2!
+        </text>
+      </S3Thought>
+      <S3Thought x={S2_FG.x} y={S2_HEAD} p={bA}>
+        <S3EyesIn x={S2_FG.x} y={S2_HEAD - 230} />
+      </S3Thought>
+    </SpCam>
+  );
+};
+
+// 3) "Ama sen yine de üyeliğini alıp gitmiyorsun. Hani yalnız da değilsin: iki bin altıda sekiz bin salon üyesini
+// incelediler. Gitmeyen o kadar çoktu ki makalenin adı şu oldu: 'Salona gitmemek için para ödemek.'"
+// Ev: kanepede telefonla avatar, kapıda tozlanan spor çantası (üstünde ÜYE kartı), takvimde günler kırmızı çarpıyla
+// geçer; "yalnız da değilsin"de kamera geri çekilir: o pencere bir apartmanın pencerelerinden biri, hepsinde kanepe +
+// çanta; "iki bin altıda" sepya ofis: tahtada 2006, dolaplar dolusu üye kartı, sayaç ≈8.000; "makalenin adı"nda
+// daktilo kâğıdına başlık kelime kelime yazılır.
+const S3_WIN = { x: 540, y: 900, w: 300, h: 380 };
+const S3Home: React.FC<{ f: number; xs: number }> = ({ f, xs }) => (
+  <g>
+    <EkRoom />
+    <BigCal x={EK_CAL.x} y={EK_CAL.y} month="KASIM" day={Math.min(30, 3 + xs)} />
+    {Array.from({ length: Math.min(6, xs) }, (_, i) => (
+      <path key={i} d={`M${EK_CAL.x - 120 + i * 48} ${EK_CAL.y + 160} l30 30 m0 -30 l-30 30`} stroke={C.red} strokeWidth={7} strokeLinecap="round" />
+    ))}
+    <SportBag x={EK_DOOR.x - 60} y={EK_FL - 60} s={0.9} dust={1} />
+    <g transform={`translate(${EK_DOOR.x - 20} ${EK_FL - 120}) rotate(8)`}>
+      <rect x={-50} y={-32} width={100} height={64} rx={8} fill={C.cream} stroke={C.ink} strokeWidth={5} />
+      <text x={0} y={12} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={30} fill={C.red}>
+        ÜYE
+      </text>
+    </g>
+    <SideRunner f={f} x={250} y={EK_FL - 70} s={0.82} pose={sitPose} face="worry" shirt={SEL_AV_TOP} />
+  </g>
+);
+const Sp3Tarih: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const xs = Math.floor(tw(f, w(1), w(6) + 4) * 6);
+  const office = tw(f, w(11) - 4, w(11) + 6);
+  const cards = tw(f, w(13), w(18));
+  const cnt = Math.round(lerp(0, 8000, cards) / 100) * 100;
+  const paper = pop(f, w(24) - 2, 12);
+  const words: [string, number][] = [
+    ["SALONA", 28],
+    ["GİTMEMEK İÇİN", 29],
+    ["PARA ÖDEMEK", 31],
+  ];
+  const sc = S3_WIN.w / 1080;
+  return (
+    <>
+      {office < 1 ? (
+        <g opacity={1 - office}>
+          <CamK k={[[0, 1080 / S3_WIN.w, S3_WIN.x, S3_WIN.y], [w(7), 1080 / S3_WIN.w, S3_WIN.x, S3_WIN.y], [w(10), 1, S3_WIN.x, S3_WIN.y], [d, 0.96, S3_WIN.x, S3_WIN.y]]}>
+            <rect x={-200} y={-200} width={1480} height={2400} fill="#b98d6a" />
+            {Array.from({ length: 5 }, (_, r) =>
+              Array.from({ length: 3 }, (_, c) => {
+                const x = S3_WIN.x + (c - 1) * 340;
+                const y = S3_WIN.y + (r - 2) * 430;
+                const me = r === 2 && c === 1;
+                return (
+                  <g key={`${r}${c}`}>
+                    <rect x={x - S3_WIN.w / 2 - 12} y={y - S3_WIN.h / 2 - 12} width={S3_WIN.w + 24} height={S3_WIN.h + 24} fill="#6b4a33" stroke={C.ink} strokeWidth={6} />
+                    <clipPath id={`s3w${r}${c}`}>
+                      <rect x={x - S3_WIN.w / 2} y={y - S3_WIN.h / 2} width={S3_WIN.w} height={S3_WIN.h} />
+                    </clipPath>
+                    <g clipPath={`url(#s3w${r}${c})`}>
+                      <g transform={`translate(${x - 540 * sc} ${y - 960 * sc}) scale(${sc})`}>
+                        {me ? <S3Home f={f} xs={xs} /> : <S3Home f={f + r * 7 + c * 3} xs={6} />}
+                      </g>
+                    </g>
+                  </g>
+                );
+              }),
+            )}
+          </CamK>
+        </g>
+      ) : null}
+      {office > 0 ? (
+        <g opacity={office}>
+          <CamK k={[[w(11), 1, 540, 960], [w(23), 1.05, 540, 900], [w(24) + 6, 1.25, 540, 1000], [d, 1.3, 540, 1000]]}>
+            <rect x={0} y={0} width={1080} height={1920} fill="#dcc196" />
+            <rect x={0} y={1320} width={1080} height={600} fill="#b8935f" />
+            <rect x={160} y={200} width={760} height={300} rx={10} fill="#3f5a45" stroke={C.ink} strokeWidth={10} />
+            <HandText x={540} y={390} text="2006" size={150} color="#f4efe2" p={tw(f, w(11), w(13))} rotate={-2} />
+            {/* dolaplar dolusu üye kartı */}
+            {Array.from({ length: 160 }, (_, i) => {
+              const c = i % 16;
+              const r = Math.floor(i / 16);
+              return i / 160 < cards ? <rect key={i} x={120 + c * 54} y={600 + r * 62} width={44} height={50} rx={4} fill={["#f4efe2", "#e9d9b8", "#f2e6cc"][i % 3]} stroke={C.ink} strokeWidth={3} /> : null;
+            })}
+            <KTag x={540} y={1300} p={pop(f, w(14), 12)} text={`≈ ${cnt.toLocaleString("tr-TR")} üye`} color={C.ink} rot={-2} />
+            {paper > 0 ? (
+              <g transform={`translate(540 1000) scale(${paper}) rotate(-2)`}>
+                <rect x={-380} y={-300} width={760} height={600} fill="#fbf7ec" stroke={C.ink} strokeWidth={8} />
+                {words.map(([t, i], k) => {
+                  const p = tw(f, w(i) - 2, w(i) + 8);
+                  const shown = t.slice(0, Math.round(t.length * p));
+                  return (
+                    <text key={t} x={0} y={-120 + k * 130} textAnchor="middle" fontFamily="Courier New, monospace" fontWeight={900} fontSize={k === 0 ? 96 : 76} fill={k === 2 ? C.red : C.ink}>
+                      {shown}
+                    </text>
+                  );
+                })}
+                <path d="M-300 230 H300" stroke={C.ink} strokeWidth={4} opacity={0.4} />
+              </g>
+            ) : null}
+          </CamK>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 5) "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu, yıllık üyelik yaptırıp hiç gitmeyen arkadaşına gönder
+// ve sor:"
+// Salonda çalışan avatarın yanında küçük telefonda GERÇEK VOOM ekranı; "Bunu"nda yuvarlak ek görüntüde kanepedeki
+// arkadaş (tozlu çanta); kâğıt uçak telefondan ona uçar, telefonu parlar; "sor"da kamera kalabalık salonu tarayan
+// açılış planına döner (döngü: "Salonda kırk kişi var").
+const Sp3Voom: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(S2_SHOT);
+  const f = useCurrentFrame();
+  const ph = pop(f, 0, 12) * (1 - tw(f, w(9), w(10)));
+  const inset = pop(f, w(10) - 2, 12) * (1 - tw(f, w(17), w(18)));
+  const plane = tw(f, w(14), w(16) + 6);
+  const PW = 320;
+  const PH = 560;
+  const sc = 460 / 1080;
+  return (
+    <>
+      <SpCam k={[[0, 1.1, 1260, 960], [w(17), 1.1, 1260, 960], [d - 2, S3_START[0], S3_START[1], S3_START[2]], [d, S3_START[0], S3_START[1], S3_START[2]]]}>
+        <S2Gym f={f} />
+        <S3Crowd f={f} />
+        <S2Avatar f={f} x={1130} worry={0} phone={false} arms={0.5 + 0.5 * Math.sin(f / 6)} />
+      </SpCam>
+      {ph > 0 ? (
+        <g transform={`translate(830 640) scale(${ph * 0.8}) rotate(-4)`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-PW / 2 - 18} y={-PH / 2 - 18} width={PW + 36} height={PH + 36} rx={46} fill="#1e1f24" strokeWidth={8} />
+          <S2VoomScreen w0={PW} h0={PH} blank={0} />
+        </g>
+      ) : null}
+      {inset > 0 ? (
+        <g transform={`translate(700 620) scale(${inset})`}>
+          <clipPath id="s3Inset">
+            <circle r={260} />
+          </clipPath>
+          <g clipPath="url(#s3Inset)">
+            <g transform={`translate(${-540 * sc + 40} ${-960 * sc + 40}) scale(${sc})`}>
+              <S3Home f={f} xs={6} />
+            </g>
+            {plane >= 1 ? <circle cx={-150} cy={20} r={60} fill="#9fd0e8" opacity={0.5 + 0.5 * Math.sin(f / 3)} /> : null}
+          </g>
+          <circle r={260} fill="none" stroke={C.ink} strokeWidth={12} />
+        </g>
+      ) : null}
+      {plane > 0 && plane < 1 ? <VsPaperPlane p={plane} a={[300, 1100]} b={[560, 660]} /> : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "sp3-kirk": Sp3Kirk,
+  "sp3-balon": Sp3Balon,
+  "sp3-tarih": Sp3Tarih,
+  "sp3-plan": Sp2Plan,
+  "sp3-voom": Sp3Voom,
   "sp2-ekran": Sp2Ekran,
   "sp2-deney": Sp2Deney,
   "sp2-plan": Sp2Plan,

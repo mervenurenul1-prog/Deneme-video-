@@ -14,34 +14,38 @@
   "speed": 1.2,
   "scenes": [
     {
-      "visual": "sp2-ekran",
-      "voice": "Herkes bakıyor diye, ağırlıkların önünde boş telefon ekranını kaydırdın mı hiç? Peki gerçekte kaç kişi fark etti?",
-      "say": "Herkes bakıyor diye, ağırlıkların önünde boş telefon ekranını kaydırdın mı hiç? Peki gerçekte kaç kişi fark etti?",
+      "visual": "sp3-kirk",
+      "voice": "Salonda kırk kişi var. Sence kaçı şu an seni düşünüyor?",
+      "say": "Salonda kırk kişi var. Sence kaçı şu an seni düşünüyor?",
       "keys": [
-        "Herkes",
-        "bakıyor",
-        "boş",
-        "telefon",
-        "kaç",
-        "kişi"
+        "kırk",
+        "kişi",
+        "seni",
+        "düşünüyor"
       ]
     },
     {
-      "visual": "sp2-deney",
-      "voice": "İki binde denediler: utanç verici tişörtle sınıfa giren öğrenci, herkesin ona baktığını sandı. Tıpkı senin gibi. Gerçekte onu fark eden dörtte biri bile değildi.",
-      "say": "İki binde denediler: ıı, utanç verici tişörtle sınıfa giren öğrenci, herkesin ona baktığını sandı. [chuckles] Tıpkı senin gibi. Gerçekte... onu fark eden dörtte biri bile değildi.",
+      "visual": "sp3-balon",
+      "voice": "Biri göbeğine bakıyor, biri setini sayıyor, biri gelen mesajı bekliyor. Seni düşünen yok.",
+      "say": "Biri göbeğine bakıyor, biri setini sayıyor, biri gelen mesajı bekliyor. [chuckles] Seni düşünen yok.",
       "keys": [
-        "herkesin",
-        "Tıpkı",
-        "senin",
-        "dörtte",
-        "biri",
-        "bile",
-        "değildi"
+        "yok"
       ]
     },
     {
-      "visual": "sp2-plan",
+      "visual": "sp3-tarih",
+      "voice": "Ama sen yine de üyeliğini alıp gitmiyorsun. Hani yalnız da değilsin: iki bin altıda sekiz bin salon üyesini incelediler. Gitmeyen o kadar çoktu ki makalenin adı şu oldu: “Salona gitmemek için para ödemek.”",
+      "say": "Ama sen yine de üyeliğini alıp gitmiyorsun. Hani yalnız da değilsin: ıı, iki bin altıda sekiz bin salon üyesini incelediler. Gitmeyen o kadar çoktu ki... makalenin adı şu oldu: “Salona gitmemek için para ödemek.”",
+      "keys": [
+        "Salona",
+        "gitmemek",
+        "için",
+        "para",
+        "ödemek"
+      ]
+    },
+    {
+      "visual": "sp3-plan",
       "voice": "Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.",
       "say": "Salona ne yapacağını bilerek gir. Hani, planı olan kişi kaybolmaz... kaybolmayan kişiye de kimse bakmaz.",
       "keys": [
@@ -50,12 +54,11 @@
       ]
     },
     {
-      "visual": "sp2-voom",
-      "voice": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Kaydet: o an gelince boş ekrana değil, programına bak. Ve salondaki arkadaşına gönder, ona da sor:",
-      "say": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Kaydet: o an gelince boş ekrana değil, programına bak. Ve salondaki arkadaşına gönder, ona da sor:",
+      "visual": "sp3-voom",
+      "voice": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu, yıllık üyelik yaptırıp hiç gitmeyen arkadaşına gönder ve sor:",
+      "say": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu, yıllık üyelik yaptırıp hiç gitmeyen arkadaşına gönder ve sor:",
       "keys": [
         "VOOM'da",
-        "Kaydet",
         "gönder"
       ],
       "hold": 0.2
