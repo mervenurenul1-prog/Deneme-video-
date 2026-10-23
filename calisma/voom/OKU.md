@@ -7,3 +7,5 @@
 - **Gerçek ekran görüntüsünü AYNEN YAPIŞTIRMA (kullanıcı, 23 Ekim).** Ekranlar yalnız incelemek için. Videoda bizim çizim
   stilimizde, küçük, renkleri içeriğe uygun; arkada bir yerde "VOOM" yazısı ya da en fazla 1-2 cümle. Uzun anlatma,
   izleyici "bu ne?" diye merak etsin.
+- **GÜNCELLEME (23 Ekim, kullanıcı):** gerçek ekran görüntülerinden BİRİ kullanılır ama KÜÇÜK telefona sığacak boyutta
+  (kırpılmış/küçültülmüş, yine okunur); liste uydurma. VOOM adı cümlede geçebilir (1-2 cümle).

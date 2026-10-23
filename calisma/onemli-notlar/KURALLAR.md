@@ -8,6 +8,9 @@
 4. **TAVSİYE:** kısa, hemen uygulanır.
 5. **VOOM + KAPANIŞ:** doğal bağ (koç senin istediğini yapar, program hayalindeki vücuda göre) + döngü.
 Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu örnek). Konu önerisi bu 5 adımla gelir.
+- **12 madde kontrol tablosu görseli: `kontrol-tablosu.png`** (izlesin/yorum/paylaş). Her metin ve her önizlemede tabloyu
+  DÜRÜSTÇE doldurup kullanıcıya göster. Göndermeden önce kendine sor: "Bu videoyu ben izler miyim, yoksa geçer miyim?"
+  Duran, uzak plan, küçük figürlü kare yok; her 1-1,5 sn kamera/olay değişsin, yakın planlar.
 - **Marka/dergi/kişi adı ekrana YAZILMAZ** (telif/şikâyet riski, hesap yeni): "bir moda dergisi", "bir podcast" de.
 
 
