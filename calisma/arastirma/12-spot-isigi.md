@@ -1,12 +1,13 @@
-# 12 "Salonda herkes bana bakıyor" (spot ışığı etkisi) — METİN v1 (23 Ekim, onay bekliyor)
-Kaynak: Gilovich, Medvec & Savitsky 2000, J Pers Soc Psychol 78(2) "The Spotlight Effect in Social Judgment" (Cornell).
-Utanç verici tişört (ünlü bir şarkıcının yüzü; ADI YAZILMAZ). Tahmin ≈ yarısı (%46-50), gerçek < dörtte bir (~%23).
-Kullanıcının sevdiği iki cümle (aynen kalacak): tavsiye + VOOM cümlesi (aşağıda 5 ve 6).
+# 12 "Salonda herkes bana bakıyor" (spot ışığı etkisi) — METİN v2 (23 Ekim, onay bekliyor)
+Kaynak: Gilovich, Medvec & Savitsky 2000, J Pers Soc Psychol 78(2) (Cornell). Utanç verici tişört (ünlü şarkıcı, ADI YAZILMAZ).
+Tahmin ≈ yarısı (%46-50), gerçek < dörtte bir (~%23). v1 reddedildi: "her saniye izletsin, durağan saniye yok, giriş vurucu".
+Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
 
-1 kanca: Salona girdin. Ağırlıklara doğru üç adım attın… sonra döndün, yine koşu bandına bindin. Çünkü herkes bakacaktı.
-2 ters köşe: Bakmıyorlardı.
-3 sebep: Beynin seni salonun ortasına koyup üstüne bir spot ışığı tutuyor. Oysa herkes kendi setini sayıyor.
-4 tarih: İki binde bir üniversitede, öğrencilere utanç verici bir tişört giydirip kalabalık bir sınıfa soktular. Tahminleri:
-  "Yarısı fark etti." Gerçek: dörtte birinden azı.
-5 tavsiye: Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
-6 VOOM+döngü: O günün programı telefonunda hazır; sen ne istiyorsan o. Yarın ağırlıklara mı yürüyeceksin, yine koşu bandına mı?
+1 Yirmi kişi. Hepsi sana bakıyor.
+2 Elindeki dambılı bırakıp koşu bandına kaçıyorsun.
+3 Dur. Geri saralım.
+4 Aynı an, gerçek hâliyle: biri setini sayıyor, biri telefonda, biri aynada kendine bakıyor. Sana bakan: sıfır.
+5 Çünkü beynin seni salonun ortasına koyup üstüne bir spot ışığı tutuyor.
+6 İki binde bunu ölçtüler: bir öğrenciye utanç verici bir tişört giydirip kalabalık bir sınıfa soktular. "Yarısı fark etti" dedi. Gerçek: dörtte birinden azı.
+7 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
+8 O günün programı telefonunda hazır; sen ne istiyorsan o. Ama yarın kapıdan girdiğinde beynin yine fısıldayacak: (→ 1, döngü)
