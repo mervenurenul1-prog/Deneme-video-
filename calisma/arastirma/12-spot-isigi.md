@@ -69,3 +69,12 @@ Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
 3 Bak şimdi… iki binde bunu ölçtüler: utanç verici tişörtle sınıfa giren öğrenci, herkesin baktığını sandı. Gerçekte fark eden, dörtte biri bile değildi.
 4 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
 5 O günün programı VOOM'da hazır; sen ne istiyorsan o. Yoksa her gün… salondaki ilk günün olur. (→ 1)
+- v9 REDDEDİLDİ ("yok değiş"). Yön: A (herkesin kafasında kendi derdi) + C (gitmemek için ödemek), para ile BOĞMA.
+## Kaynak C: DellaVigna & Malmendier 2006, AER 96(3) "Paying Not to Go to the Gym": ABD'de 3 salon, 7.752 üye, 3 yıl;
+   aylık ~70$ ödeyen ayda ort. 4,3 kez gidiyor (ziyaret başı >17$; 10$'lık 10'luk kart varken). Sebep: geleceğe aşırı güven.
+## METİN v10 (23 Ekim)
+1 Salonda kırk kişi var. Sence kaçı şu an seni düşünüyor?
+2 Biri göbeğine bakıyor, biri setini sayıyor, biri gelen mesajı bekliyor. Seni düşünen yok.
+3 Ama sen yine de üyeliğini alıp gitmiyorsun. Hani yalnız da değilsin: iki bin altıda sekiz bin salon üyesini incelediler. Gitmeyen o kadar çoktu ki makalenin adı şu oldu: "Salona gitmemek için para ödemek."
+4 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
+5 O günün programı VOOM'da hazır; sen ne istiyorsan o. Bir dahaki sefere salona girince etrafına bak: (→ 1)
