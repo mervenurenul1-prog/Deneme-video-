@@ -48,3 +48,10 @@ Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
 3 Çünkü beynin seni sahnenin ortasına koyar; oysa herkes kendi setini sayıyor.
 4 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
 5 O günün programı VOOM'da hazır; sen ne istiyorsan o. Bir dahaki sefere telefona baktığında… gerçekten bir şeye bak.
+
+## METİN v7 (23 Ekim) — yeni ilk cümle + döngülü son
+1 Herkes bakıyor diye, ağırlıkların önünde boş telefon ekranını kaydırdın mı hiç? Peki gerçekte kaç kişi fark etti?
+2 "Herkes" dedin, değil mi? İki binde bunu ölçtüler: utanç verici tişörtle kalabalık bir sınıfa giren öğrenci "Yarısı gördü" sandı. Gerçek: dörtte biri bile değil.
+3 Çünkü beynin seni sahnenin ortasına koyar; oysa herkes kendi setini sayıyor.
+4 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
+5 O günün programı VOOM'da hazır; sen ne istiyorsan o. Şimdi dürüst ol: (→ 1, döngü)
