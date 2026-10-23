@@ -20,3 +20,8 @@ Reddedilen genel liste (23 Ekim): kadın maraton, metabolizma 30, mekik, laktik 
    (Soligard 2008 BMJ). VOOM: "senin için kararlar".
 7. Isınmada esneme sakatlığı önlemez: 2000 Avustralya ordusu, 1.538 asker (Pope, MSSE). VOOM: duruş rutini 7 dk.
 8. İlk spinning dersinden sonra hastanelik (rabdomiyoliz): yük birden; VOOM: 1-2,5 kg adımla artış.
+
+## 23 Ekim — formüllü öneriler (KANCA → SEBEP → TARİH/BİLİM → TAVSİYE → VOOM)
+A. Hep aynı yerde bırakmak (75 Hard akımı): bir gün kaçırınca "bozuldu zaten" → 1975 milkshake deneyi (Herman & Mack).
+B. Kavanozu açamamak: kavrama gücü ölüm riskini tansiyondan iyi tahmin ediyor (Lancet 2015, PURE, ~140 bin kişi, 17 ülke).
+C. Salonda herkes bana bakıyor: 2000 Cornell utanç tişörtü deneyi, tahmin ~%50, gerçek ~%23 (Gilovich, JPSP).

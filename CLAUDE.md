@@ -15,6 +15,6 @@ dosyayı aç; eski uzun not (887 satır) `calisma/onemli-notlar/arsiv-CLAUDE-23e
 | `calisma/sesler/` | Yunus/Sibel/Aslı, seslendirme, müzik/efekt, kredi |
 | `calisma/voom/` | Strateji, hedef kitle, gerçek VOOM ekranları |
 
-**İlk iş:** `calisma/onemli-notlar/DURUM.md` oku. En kritik 3 kural: konuyu kullanıcı seçer · önce METİN onayı →
+**İlk iş:** `calisma/onemli-notlar/DURUM.md` + KURALLAR.md başındaki 5 ADIMLI FORMÜL (her video, her öneri). En kritik kurallar:
 sessiz önizleme → onaydan sonra seslendirme (kredi!) · kendi kafana göre iş yapma, sor.
 Her oturum sonunda DURUM.md'yi güncelle (kısa tut, eski maddeyi sil).

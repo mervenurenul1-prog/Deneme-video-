@@ -1,5 +1,16 @@
 # Değişmez kurallar (kullanıcı)
 
+## !!! HER VİDEONUN FORMÜLÜ (kullanıcı, 23 Ekim — bir daha söyletme) !!!
+1. **KANCA = ACIYA VUR:** bir kadının / erkeğin bizzat yaşadığı, utandığı, sinirlendiği anı yüzüne vur ("tam ben").
+   Giriş çok güçlü olmalı; ilk 2 sn kaydırtmamalı.
+2. **ASIL SEBEP:** "Sorun sen değilsin, asıl sebep bu" — ters köşe.
+3. **TARİH + BİLİM:** gerçek, doğrulanmış olay/deney (selülit videosundaki dergi tarihi gibi), vücuttaki/beyindeki yeri.
+4. **TAVSİYE:** kısa, hemen uygulanır.
+5. **VOOM + KAPANIŞ:** doğal bağ (koç senin istediğini yapar, program hayalindeki vücuda göre) + döngü.
+Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu örnek). Konu önerisi bu 5 adımla gelir.
+- **Marka/dergi/kişi adı ekrana YAZILMAZ** (telif/şikâyet riski, hesap yeni): "bir moda dergisi", "bir podcast" de.
+
+
 ## Çalışma
 - Konuyu kullanıcı seçer; Claude öneri getirir. Tek tek video, toplu yok.
 - Sıra: metin (12 madde tablosuyla) onayı → sessiz önizleme → onay → TEK SEFERDE seslendirme → müzikle render.
