@@ -59,3 +59,11 @@ B. "Bisiklet yüzü" — 1890'larda doktorlar bisiklete binen kadınları uyard�
 C. İlk spor sütyeni (1977): iki erkek suspansuvarı dikilerek yapıldı; koşarken göğüs ciddi hareket eder (Portsmouth
    araştırmaları). HASSAS konu — kullanıcıya dikkatle sor.
 D. "Kalbin atış sayısı sınırlı, spor harcar" efsanesi — spor dinlenme nabzını düşürür, gün sonunda daha az atar.
+- A-D reddedildi ("daha ilgi çekici; kadın-erkek çatışması; BİLİNEN YALANLAR serisi"). Yeni (DOĞRULA):
+E. "Erkekler daha dayanıklı" — 1928 Amsterdam 800 m: gazeteler kadınların bayıldığını yazdı (abartı), 200 m üstü 32 yıl
+   yasak; 2019 Jasmin Paris 431 km Spine Race'i erkek rekorunu ~12 saat kırarak kazandı (molada bebeğini emzirdi).
+   Bilim: kadın kası yorgunluğa daha dirençli (Hunter).
+F. "Kadınlar ağırlıkla erkek kadar gelişemez" — oransal kas/güç artışı benzer (2020 meta-analiz, Roberts ve ark.).
+G. "Erkek daha çok yağ yakar" — egzersizde kadın daha çok yağ kullanır (Tarnopolsky 1990).
+H. "Hamileyken spor yapılmaz" — 1985 ACOG katı sınırlar (nabız 140, 15 dk) → bugün haftada 150 dk önerilir.
+I. (sınırda, spor dışı) Ofis klima kavgası: termostat standardı 1960'larda 40 yaş/70 kg erkeğe göre (Kingma 2015).
