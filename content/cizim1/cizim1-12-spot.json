@@ -28,12 +28,12 @@
     },
     {
       "visual": "sp2-deney",
-      "voice": "“Herkes” dedin, değil mi? İki binde denediler: utanç verici tişörtle sınıfa giren öğrenci herkesin baktığını sanıp köşede kızardı; tıpkı senin koşu bandına kaçman gibi. Gerçekte onu fark eden dörtte biri bile değildi.",
-      "say": "“Herkes” dedin, değil mi? İki binde denediler: utanç verici tişörtle sınıfa giren öğrenci herkesin baktığını sanıp köşede kızardı; tıpkı senin koşu bandına kaçman gibi. Gerçekte onu fark eden dörtte biri bile değildi.",
+      "voice": "İki binde denediler: utanç verici tişörtle sınıfa giren öğrenci, herkesin ona baktığını sandı. Tıpkı senin gibi. Gerçekte onu fark eden dörtte biri bile değildi.",
+      "say": "İki binde denediler: utanç verici tişörtle sınıfa giren öğrenci, herkesin ona baktığını sandı. Tıpkı senin gibi. Gerçekte onu fark eden dörtte biri bile değildi.",
       "keys": [
         "herkesin",
-        "koşu",
-        "bandına",
+        "Tıpkı",
+        "senin",
         "dörtte",
         "biri",
         "bile",
