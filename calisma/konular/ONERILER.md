@@ -25,3 +25,13 @@ Reddedilen genel liste (23 Ekim): kadın maraton, metabolizma 30, mekik, laktik 
 A. Hep aynı yerde bırakmak (75 Hard akımı): bir gün kaçırınca "bozuldu zaten" → 1975 milkshake deneyi (Herman & Mack).
 B. Kavanozu açamamak: kavrama gücü ölüm riskini tansiyondan iyi tahmin ediyor (Lancet 2015, PURE, ~140 bin kişi, 17 ülke).
 C. Salonda herkes bana bakıyor: 2000 Cornell utanç tişörtü deneyi, tahmin ~%50, gerçek ~%23 (Gilovich, JPSP).
+
+## 23 Ekim gece — yeni öneriler (5 adım; seçilince DOĞRULA). Kullanıldı: 12 spot ışığı ("Salonda kırk kişi var").
+1. Her gün koşuyorum, kilo gitmiyor — 2012 Tanzanya Hadza avcı-toplayıcıları: günde km'lerce yürüyor, ofis çalışanıyla
+   benzer kalori yakıyor (Pontzer, "kısıtlı enerji"). VOOM: antrenman/dinlenme gününe göre beslenme.
+2. Bütün gün oturup akşam spor — 1953 Londra çift katlı otobüs: oturan şoförlerde kalp krizi, ayakta merdiven inip çıkan
+   biletçilerden fazla (Morris, Lancet). VOOM: günlük plan.
+3. Ertesi gün ağrımadıysa boşa mı gitti? — "No pain, no gain" 1980'lerin aerobik videolarıyla yayıldı; ağrı gelişimin
+   ölçüsü değil. VOOM: yük 1-2,5 kg adımla artar.
+4. Aynaya bakmaktan kaçmak — 2003 deneyi: aynalı odada egzersiz yapan kadınlar kendini daha kötü hissetti (Ginis ve ark.).
+   VOOM: program hayalindeki vücuda göre.
