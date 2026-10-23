@@ -3,6 +3,7 @@ Kaynak: Gilovich, Medvec & Savitsky 2000, J Pers Soc Psychol 78(2) (Cornell). Ut
 Tahmin ≈ yarısı (%46-50), gerçek < dörtte bir (~%23). v1 reddedildi: "her saniye izletsin, durağan saniye yok, giriş vurucu".
 Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
 
+# v3 kısaltılmış hâli JSON: content/cizim1/cizim1-12-spot.json
 1 Üç aydır salona gidiyorsun ve hâlâ aynı koşu bandındasın.
 2 Seni orada tutan şey ağırlıklar değil. Oradaki gözler.
 3 Her seferinde üç adım atıyorsun… ve dönüp yine banda biniyorsun.

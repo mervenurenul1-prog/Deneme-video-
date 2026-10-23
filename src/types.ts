@@ -111,6 +111,8 @@ export type Cizim = {
   loop?: boolean;
   // Sahne sonunda ses bittikten sonra bırakılan boşluk (saniye); yoksa VIDEO.paddingSeconds. Tempo için kısalt
   padding?: number;
+  // Ses seslendirmeden sonra bu oranda hızlandırılır (ör. 1.2); sessiz önizleme süresi de buna göre
+  speed?: number;
   scenes: CizimScene[];
   caption: string;
   hashtags: string[];

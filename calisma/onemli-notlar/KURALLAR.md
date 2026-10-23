@@ -27,7 +27,10 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
   paylaş ("ona atmalıyım"/replik/"tam ben"/kısa-net). Acıya dokunsun, tarih içersin, VOOM'a bağlansın.
 
 ## Süre ve tempo
-- Hedef 25-40 sn. `"padding": 0.02`, son `hold` ≤ 0.6. Ses 1.2x (atempo, manifest /1.2). Dolgu (ıı, hmm, şey) YOK.
+- **MAX 30-32 sn** (kullanıcı, 23 Ekim). İlk 3 sn HİÇ durmasın: boşluk/düşünme yok, her saniye görsel olay
+  (yakın çekim → pat diye geri çekilme gibi). Hedef: ilk saniyelerde %90+ izleyici kalsın. JSON `"speed": 1.2`
+  (sessiz önizleme de 1.2x akar), `maxPause` 0.15.
+- (eski) Hedef 25-40 sn. `"padding": 0.02`, son `hold` ≤ 0.6. Ses 1.2x (atempo, manifest /1.2). Dolgu (ıı, hmm, şey) YOK.
 - Kısaltırken cümle yarıda kesilmez; video tam cümleyle biter.
 
 ## Görsel

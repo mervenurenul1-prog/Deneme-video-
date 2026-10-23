@@ -58,7 +58,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
   // Sahnenin sessiz açılışı (lead): kelimeler ve ses o kadar kaydırılır
   const leadOf = (i: number) => leadSeconds(cizim, voiceover, i);
   const mainWords = (i: number) =>
-    wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i)).map((x) => ({ ...x, start: x.start + leadOf(i), end: x.end + leadOf(i) }));
+    wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i), cizim.speed).map((x) => ({ ...x, start: x.start + leadOf(i), end: x.end + leadOf(i) }));
   // altyazı: varsa kanca (intro) kelimeleri + asıl kelimeler; w(i) yalnız asıl kelimeleri sayar
   const wordsAt = (i: number) => [...introWords(cizim, voiceover, i), ...mainWords(i)];
   const wOf = (i: number) => {
@@ -179,6 +179,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "sp-bant": (w) => [[0, "kalp", 0.5], [w(4), "kalp", 0.4], [w(8) + 2, "whoosh", 0.4], [w(8) + 4, "agir-dusme", 0.25]],
+  "sp-gozler": (w) => [[w(3), "whoosh", 0.35], [w(5) - 2, "kalp", 0.6], [w(6), "boom", 0.2], [w(8), "kalp", 0.6], [w(10), "kalp", 0.7], [w(11), "whoosh", 0.3]],
+  "sp-geri": (w) => [[0, "geri-sar", 0.6], [w(3), "pirilti", 0.35], [w(5), "tik", 0.3], [w(8), "whoosh", 0.25], [w(10) - 2, "ding", 0.35]],
+  "sp-isik": (w) => [[w(2) - 4, "boom", 0.2], [w(5) - 4, "whoosh", 0.3], [w(6), "kalem", 0.3], [w(14) - 2, "pop", 0.35], [w(18), "agir-dusme", 0.3]],
+  "sp-plan": (w) => [[w(1) - 2, "kagit", 0.35], [w(5), "kalem", 0.3], [w(9), "kalem", 0.3], [w(10), "ding", 0.3]],
+  "sp-voom": (w, d) => [[0, "pop", 0.35], [w(5), "pirilti", 0.3], [w(9), "whoosh", 0.35], [d - 12, "kalp", 0.5]],
   // 11 defile
   "vs-hook": (w) => [[w(3), "tik", 0.25], [w(13) - 2, "sonme", 0.35], [w(14) - 2, "boom", 0.2], [w(14), "pop", 0.4]],
   "vs-iptal": (w) => [[w(1), "sonme", 0.25], [w(2), "kagit", 0.35], [w(5), "sonme", 0.3], [w(6) + 10, "agir-dusme", 0.22]],
@@ -782,6 +788,12 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "sp-bant": { to: 1.0, x: 540, y: 960 },
+  "sp-gozler": { to: 1.0, x: 540, y: 960 },
+  "sp-geri": { to: 1.0, x: 540, y: 960 },
+  "sp-isik": { to: 1.0, x: 540, y: 960 },
+  "sp-plan": { to: 1.0, x: 540, y: 960 },
+  "sp-voom": { to: 1.0, x: 540, y: 960 },
   "vs-hook": { to: 1.05, x: 540, y: 800 },
   "vs-iptal": { to: 1.03, x: 540, y: 800 },
   "vs-donus": { to: 1.05, x: 540, y: 900 },
@@ -17473,7 +17485,426 @@ const VsDongu: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
+// ===== 12 SPOT IŞIĞI ("Salonda herkes bana bakıyor") — tek dünya: aynı salon, geniş (x 0..2000) =====
+// Kıyafet: siyah tişört + gri şort (salon). Sol: koşu bandı + takvim; sağ: ağırlık bölgesi (barbell, telefon, ayna).
+const SPF = 1320; // zemin
+const SP_TX = 330; // koşu bandı
+const SP_CON = { x: SP_TX + 270, y: SPF - 331 }; // koşu bandı ekranının ortası
+const SP_AVS = 0.7;
+const SP_P = [
+  { x: 1150, kind: "curl" },
+  { x: 1420, kind: "phone" },
+  { x: 1720, kind: "flex" },
+] as const;
+const SP_PS = 0.62;
+const SP_HEAD_Y = SPF + 10 - 720 * SP_PS;
+// Paranoya gözleri: duvarda rastgele yerler
+const SP_WALL_EYES = Array.from({ length: 16 }, (_, i) => ({ x: 120 + random(`spx${i}`) * 1800, y: 260 + random(`spy${i}`) * 700, s: 0.38 + random(`sps${i}`) * 0.22 }));
+
+// Kameranın baktığı nokta: [kare, ölçek, odak x, odak y] (CamK ölçekler, bu kaydırır)
+const SpCam: React.FC<{ k: [number, number, number, number][]; shake?: number; children: React.ReactNode }> = ({ k, shake = 0, children }) => {
+  const f = useCurrentFrame();
+  const [s, fx, fy] = camAt(k, f);
+  const sx = shake > 0 ? Math.sin(f * 2.3) * 16 * shake : 0;
+  const sy = shake > 0 ? Math.cos(f * 1.9) * 12 * shake : 0;
+  return <g transform={`translate(${540 + sx} ${960 + sy}) scale(${s}) translate(${-fx} ${-fy})`}>{children}</g>;
+};
+
+// Göz: hedefe (tx, ty) bakar
+const SpEye: React.FC<{ x: number; y: number; s: number; tx: number; ty: number; o?: number }> = ({ x, y, s, tx, ty, o = 1 }) => {
+  if (s <= 0 || o <= 0) return null;
+  const a = Math.atan2(ty - y, tx - x);
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} opacity={o} stroke={C.ink} strokeLinejoin="round">
+      <path d="M-170 0 Q0 -120 170 0 Q0 120 -170 0 Z" fill="#fff" strokeWidth={12} />
+      <circle cx={Math.cos(a) * 70} cy={Math.sin(a) * 30} r={52} fill={C.red} strokeWidth={8} />
+      <circle cx={Math.cos(a) * 70} cy={Math.sin(a) * 30} r={24} fill={C.ink} stroke="none" />
+      <circle cx={Math.cos(a) * 70 + 14} cy={Math.sin(a) * 30 - 16} r={9} fill="#fff" stroke="none" />
+    </g>
+  );
+};
+
+// Koşu bandının ekranı: "GÜN n"
+const SpTreadmill: React.FC<{ f: number; day: number | string }> = ({ f, day }) => (
+  <g>
+    <Treadmill x={SP_TX} y={SPF} f={f} />
+    <g transform={`rotate(-14 ${SP_TX + 262} ${SPF - 330})`}>
+      <text x={SP_TX + 270} y={SPF - 326} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={24} fill="#b8f28a">
+        {typeof day === "number" ? `GÜN ${day}` : day}
+      </text>
+    </g>
+  </g>
+);
+
+// Salon (dünya koordinatlarında). imagined: 0 gerçek, 1 avatarın kafasındaki salon (herkes ona bakıyor)
+// act: diğerlerinin hareket genliği; (ax, ay) gözlerin baktığı nokta; dim: kişiler soluk (spot ışığı)
+const SpGym: React.FC<{ f: number; imagined?: number; ax?: number; ay?: number; day?: number | string; month?: number; act?: number; eyeGrow?: number; reps?: number }> = ({
+  f,
+  imagined = 0,
+  ax = SP_TX,
+  ay = SPF - 500,
+  day = 90,
+  month = 11,
+  act = 1,
+  eyeGrow = 0,
+  reps = 0,
+}) => {
+  const curl = 70 + 70 * (0.5 + 0.5 * Math.sin(f / 7)) * act * (1 - imagined);
+  const flex = 0.5 + 0.5 * Math.sin(f / 9);
+  const repN = 8 + Math.floor(reps * 2.99);
+  return (
+    <g>
+      <rect x={-1200} y={-1400} width={4400} height={SPF + 1400} fill="#e6d6b4" />
+      <rect x={-1200} y={SPF} width={4400} height={1600} fill="#a19a90" />
+      <path d={`M-1200 ${SPF} H3200`} stroke={C.ink} strokeWidth={7} />
+      {/* pencere + takvim */}
+      <rect x={60} y={420} width={300} height={340} rx={10} fill="#cfe0ea" stroke={C.ink} strokeWidth={7} />
+      <path d="M210 420 V760 M60 590 H360" stroke={C.ink} strokeWidth={6} />
+      <BigCal x={720} y={540} s={0.75} month={EK_MONTHS[month % 12]} day={20} />
+      {/* ağırlık rafı */}
+      <g stroke={C.ink} strokeLinejoin="round">
+        <rect x={1000} y={1040} width={560} height={20} fill="#6b6b6b" strokeWidth={5} />
+        <path d={`M1030 1060 L1030 ${SPF} M1530 1060 L1530 ${SPF}`} strokeWidth={10} />
+      </g>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <Dumbbell key={i} x={1060 + i * 105} y={1010} s={0.28 + i * 0.04} />
+      ))}
+      <Barbell x={1290} y={SPF - 40} s={0.9} />
+      {/* ayna */}
+      <rect x={1840} y={460} width={300} height={860} rx={12} fill="#dfeef2" stroke={C.ink} strokeWidth={8} />
+      <clipPath id="spMirror">
+        <rect x={1846} y={466} width={288} height={848} />
+      </clipPath>
+      <g clipPath="url(#spMirror)" opacity={0.45}>
+        <g transform={`translate(${2*1980} 0) scale(-1 1)`}>
+          <Person x={1980} y={SPF + 10} s={SP_PS} belly={0.2} shirt="#7d9cc4" shorts="#3b3b44" armL={[95, 100 * flex + 20]} armR={[95, 100 * flex + 20]} mouth="grin" />
+        </g>
+      </g>
+      <path d="M1880 520 L1960 470 M1880 620 L2040 520" stroke="#fff" strokeWidth={10} opacity={0.6} />
+      {/* diğerleri */}
+      {(() => {
+        const [p1, p2, p3] = SP_P;
+        const h1 = armPoints(-1, [8, curl]);
+        const h2 = armPoints(1, [8, curl]);
+        const hand = armPoints(1, [25, 135])[2];
+        return (
+          <g>
+            <Person x={p1.x} y={SPF + 10} s={SP_PS} belly={0.3} shirt="#b06a6a" shorts="#3b3b44" armL={[8, curl]} armR={[8, curl]} mouth={imagined > 0.5 ? "flat" : "o"} lookY={imagined > 0.5 ? 0 : 0.3}>
+              <Barbell x={(h1[2][0] + h2[2][0]) / 2} y={(h1[2][1] + h2[2][1]) / 2} s={0.55} />
+            </Person>
+            <Person x={p2.x} y={SPF + 10} s={SP_PS} belly={0.5} shirt="#8fb08a" shorts="#3b3b44" armR={[25, 135 * (1 - imagined * 0.8)]} mouth="smile" lookY={1 - imagined}>
+              <Phone x={hand[0]} y={hand[1] - 20} s={1.3} rot={-8} glow={0.6 + 0.4 * Math.sin(f / 5)} />
+            </Person>
+            <Person x={p3.x} y={SPF + 10} s={SP_PS} belly={0.2} shirt="#7d9cc4" shorts="#3b3b44" armL={[95, (100 * flex + 20) * (1 - imagined)]} armR={[95, (100 * flex + 20) * (1 - imagined)]} mouth="grin" />
+          </g>
+        );
+      })()}
+      {/* tekrar sayacı (gerçek hâl) */}
+      {reps > 0 ? <HandText x={SP_P[0].x} y={SP_HEAD_Y - 150} text={`${repN}…`} size={90} color={YAS_OK} p={1} rotate={-4} /> : null}
+      {/* hayal: herkesin yüzünde ona dönen gözler + duvarlarda gözler */}
+      {imagined > 0 ? (
+        <g>
+          <rect x={-1200} y={-1400} width={4400} height={4400} fill={C.red} opacity={0.12 * imagined} />
+          {SP_P.map((p, i) => (
+            <g key={i}>
+              <SpEye x={p.x - 30} y={SP_HEAD_Y + 6} s={0.3 * imagined * (1 + eyeGrow)} tx={ax} ty={ay} />
+              <SpEye x={p.x + 30} y={SP_HEAD_Y + 6} s={0.3 * imagined * (1 + eyeGrow)} tx={ax} ty={ay} />
+            </g>
+          ))}
+          {SP_WALL_EYES.map((e, i) => (
+            <SpEye key={i} x={e.x} y={e.y} s={e.s * tw(imagined, i / 20, i / 20 + 0.25) * (1 + eyeGrow)} tx={ax} ty={ay} />
+          ))}
+        </g>
+      ) : null}
+      <SpTreadmill f={f} day={day} />
+    </g>
+  );
+};
+
+// Avatar (yandan). dir: 1 sağa, -1 sola bakar
+const SpAvatar: React.FC<{ f: number; x: number; pose: SidePose; dir?: number; face?: "smile" | "pain" | "worry" | "grin"; o?: number; children?: React.ReactNode }> = ({ f, x, pose, dir = 1, face = "smile", o = 1, children }) => (
+  <g opacity={o} transform={dir < 0 ? `translate(${2 * x} 0) scale(-1 1)` : undefined}>
+    <SideRunner f={f} x={x} y={SPF + 6} s={SP_AVS} pose={pose} shirt={SEL_AV_TOP} face={face} />
+    {children}
+  </g>
+);
+const SP_ON = SP_TX - 40; // bandın üstü
+const spStand: SidePose = runPose(0, 0);
+
+// 1) "Üç aydır salona gidiyorsun ve hâlâ aynı koşu bandındasın."
+// Karenin içinden: koşu bandı ekranı yakın plan, GÜN 1 → 90 hızla sayar, takvim EKİM → ARALIK; "bandındasın"da
+// pat diye geri çekilir: salonda tek başına aynı bantta koşan avatar; "3 AY · AYNI BANT".
+const SpBant: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const day = Math.max(1, Math.round(lerp(1, 90, tw(f, 0, w(5)))));
+  const month = Math.round(lerp(9, 11, tw(f, w(1), w(5))));
+  const tag = pop(f, w(8), 12);
+  return (
+    <>
+      <SpCam k={[[0, 3.1, SP_CON.x, SP_CON.y], [w(7), 2.7, SP_CON.x - 40, SP_CON.y + 20], [w(8) + 4, 0.92, 760, 960], [d, 0.88, 760, 960]]} shake={hit(f, w(8) + 4, 12) * 0.6}>
+        <SpGym f={f} day={day} month={month} />
+        <SpAvatar f={f} x={SP_ON} pose={runPose(f / 3.2, 1)} face="worry" />
+      </SpCam>
+      <KTag x={540} y={330} p={tag} text="3 ay · aynı bant" color={C.red} rot={-3} />
+    </>
+  );
+};
+
+// 2) "Seni orada tutan ağırlıklar değil. Oradaki gözler. Üç adım atıp yine banda dönüyorsun."
+// Kamera ağırlık bölgesine savrulur; "Oradaki gözler"de herkesin yüzünde ve duvarlarda kırmızı gözler açılır, hepsi
+// avatara döner (kamera geri çekilir); avatar bandan inip üç adım atar, gözler büyür; döner, banda kaçar.
+const SpGozler: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const imag = tw(f, w(5) - 2, w(6) + 6);
+  const go = tw(f, w(7), w(9) + 8);
+  const back = tw(f, w(10), w(12) + 4);
+  const x = back > 0 ? lerp(SP_ON + 420, SP_ON, back) : lerp(SP_ON, SP_ON + 420, go);
+  const moving = (go > 0 && go < 1) || (back > 0 && back < 1);
+  const onBelt = go === 0 || back === 1;
+  const pose = onBelt ? runPose(f / 3.2, 1) : moving ? runPose(f / (back > 0 ? 3 : 5), back > 0 ? 0.9 : 0.45) : spStand;
+  const grow = go * (1 - back) * 0.6;
+  return (
+    <SpCam k={[[0, 0.88, 760, 960], [w(2), 0.88, 760, 960], [w(3) + 4, 1.05, 1430, 940], [w(5) - 2, 1.05, 1430, 940], [w(6) + 6, 0.72, 980, 960], [d, 0.7, 980, 960]]} shake={hit(f, w(6), 10) * 0.5}>
+      <SpGym f={f} imagined={imag} ax={x + 20} ay={SPF - 600 * SP_AVS} eyeGrow={grow} />
+      <SpAvatar f={f} x={x} pose={pose} dir={back > 0 && back < 1 ? -1 : 1} face={imag > 0.5 ? "worry" : "smile"} />
+    </SpCam>
+  );
+};
+
+// Kaset geri sarma görüntüsü: tarama çizgileri + "◀◀"
+const SpVhs: React.FC<{ p: number }> = ({ p }) => {
+  const f = useCurrentFrame();
+  if (p <= 0) return null;
+  return (
+    <g opacity={p}>
+      <rect x={0} y={0} width={1080} height={1920} fill="#6d6a66" opacity={0.25} />
+      {Array.from({ length: 24 }, (_, i) => (
+        <rect key={i} x={0} y={((i * 80 + f * 37) % 1920)} width={1080} height={6} fill="#fff" opacity={0.18} />
+      ))}
+      <rect x={0} y={(f * 61) % 1920} width={1080} height={40} fill="#fff" opacity={0.25} />
+      <text x={110} y={330} fontFamily={fontFamily} fontWeight={900} fontSize={96} fill="#fff" stroke={C.ink} strokeWidth={6} paintOrder="stroke fill">
+        ◀◀
+      </text>
+    </g>
+  );
+};
+
+// 3) "Dur, geri saralım. Gerçekte herkes kendi setini sayıyor. Sana bakan yok."
+// Kaset gibi geri sarılır (avatar geri geri salonun ortasına döner); "Gerçekte"de beyaz parlama, gözler kaybolur,
+// kamera kişileri tek tek gezer: tekrar sayan (8…9…10), telefondaki, aynada kasını süzen; "yok"ta lacivert "0".
+const SpGeri: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const rew = tw(f, 0, w(3) - 2);
+  const vhs = f < w(3) ? 1 : 0;
+  const x = lerp(SP_ON, SP_ON + 420, rew);
+  const imag = f < w(3) ? 1 : 0;
+  const flash = hit(f, w(3), 10);
+  const zero = pop(f, w(10) - 2, 12);
+  const k: [number, number, number, number][] = [
+    [0, 0.6, 1040, 1000],
+    [w(3), 0.6, 1040, 1000],
+    [w(4) + 4, 1.25, SP_P[0].x, SP_HEAD_Y + 60],
+    [w(7), 1.25, SP_P[0].x + 40, SP_HEAD_Y + 60],
+    [w(8), 1.25, SP_P[1].x, SP_HEAD_Y + 80],
+    [w(9) - 2, 1.15, SP_P[2].x + 80, SP_HEAD_Y + 80],
+    [w(10) + 4, 0.62, 1040, 1000],
+    [d, 0.6, 1040, 1000],
+  ];
+  return (
+    <>
+      <g transform={vhs ? `translate(${Math.sin(f * 3.1) * 10} 0)` : undefined}>
+        <SpCam k={k}>
+          <SpGym f={vhs ? -f * 3 : f} imagined={imag} ax={x + 20} ay={SPF - 600 * SP_AVS} reps={f > w(4) && f < w(8) ? tw(f, w(5), w(7) + 6) : 0} />
+          <SpAvatar f={f} x={x} pose={rew > 0 && rew < 1 ? runPose(-f / 3, 0.6) : f < w(3) ? runPose(f / 3.2, 1) : spStand} face={f < w(3) ? "worry" : "smile"} />
+        </SpCam>
+      </g>
+      <SpVhs p={vhs} />
+      {flash > 0 ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={flash * 0.9} /> : null}
+      <KTag x={540} y={330} p={zero} text="sana bakan: 0" color={YAS_OK} rot={-3} />
+    </>
+  );
+};
+
+// Spot ışığı konisi (ekran koordinatı)
+const SpLight: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =>
+  p > 0 ? (
+    <g opacity={p}>
+      <defs>
+        <radialGradient id="spHole" cx={x / 1080} cy={(y - 200) / 1920} r="0.32">
+          <stop offset="0" stopColor="#000" stopOpacity={0} />
+          <stop offset="0.55" stopColor="#000" stopOpacity={0} />
+          <stop offset="1" stopColor="#000" stopOpacity={0.78} />
+        </radialGradient>
+      </defs>
+      <rect x={0} y={0} width={1080} height={1920} fill="url(#spHole)" />
+      <path d={`M${x - 60} -20 L${x + 60} -20 L${x + 300} ${y + 40} L${x - 300} ${y + 40} Z`} fill="#fff3b0" opacity={0.35} />
+      <ellipse cx={x} cy={y + 30} rx={300} ry={60} fill="#fff3b0" opacity={0.45} />
+      <g transform={`translate(${x} -10)`} stroke={C.ink} strokeWidth={8} strokeLinejoin="round">
+        <path d="M-80 -40 L80 -40 L60 60 L-60 60 Z" fill="#4b4b55" />
+        <ellipse cx={0} cy={60} rx={60} ry={16} fill="#fff6c8" />
+      </g>
+    </g>
+  ) : null;
+
+// Sınıf (ekran koordinatı, sepya): kara tahta "2000", sıralar, kapı
+const SP_SEATS = Array.from({ length: 12 }, (_, i) => ({ x: 230 + (i % 4) * 210, y: 1050 + Math.floor(i / 4) * 170, c: ["#b0a46a", "#7d9cc4", "#b06a6a", "#8fb08a"][(i * 3) % 4] }));
+const SpClass: React.FC<{ f: number; w: (i: number) => number; o: number }> = ({ f, w, o }) => {
+  const walkIn = tw(f, w(11) - 4, w(13) + 4);
+  const sx = lerp(-120, 540, walkIn);
+  const bubble = pop(f, w(14) - 2, 14) * (1 - tw(f, w(18) - 2, w(18) + 6));
+  const stamp = pop(f, w(18), 12);
+  const imagRings = tw(f, w(14), w(16));
+  const realRings = tw(f, w(19), w(21));
+  const realSet = [1, 6, 10];
+  const imagSet = [0, 1, 3, 6, 8, 10];
+  return (
+    <g opacity={o}>
+      <rect x={0} y={0} width={1080} height={1920} fill="#dcc196" />
+      <rect x={0} y={1320} width={1080} height={600} fill="#b8935f" />
+      <rect x={160} y={240} width={760} height={330} rx={10} fill="#3f5a45" stroke={C.ink} strokeWidth={10} />
+      <HandText x={540} y={450} text="2000" size={150} color="#f4efe2" p={tw(f, w(5) - 2, w(6) + 6)} rotate={-2} />
+      <rect x={-40} y={700} width={150} height={640} fill="#8a5f3a" stroke={C.ink} strokeWidth={8} />
+      {SP_SEATS.map((s, i) => (
+        <g key={i}>
+          <MiniW x={s.x} y={s.y} s={1.35} c={s.c} />
+          <rect x={s.x - 80} y={s.y - 40} width={160} height={70} rx={8} fill="#a8794a" stroke={C.ink} strokeWidth={6} />
+          {imagSet.includes(i) && imagRings > 0 ? <circle cx={s.x} cy={s.y - 200} r={60} fill="none" stroke={C.red} strokeWidth={9} opacity={imagRings * (1 - realRings)} /> : null}
+          {realSet.includes(i) && realRings > 0 ? <circle cx={s.x} cy={s.y - 200} r={60} fill="none" stroke={YAS_OK} strokeWidth={10} opacity={realRings} /> : null}
+        </g>
+      ))}
+      {walkIn > 0 ? (
+        <Person x={sx} y={1500} s={0.62} belly={0.2} shirt="#f2c230" shorts="#3b3b44" mouth="worry" blush={1} armL={[10 + 8 * Math.sin(f / 4), 0]} armR={[10 - 8 * Math.sin(f / 4), 0]}>
+          {/* tişörtteki utanç verici baskı: kocaman gülen yüz + kabarık saç */}
+          <circle cx={0} cy={-470} r={62} fill="#fff1c9" stroke={C.ink} strokeWidth={6} />
+          <path d="M-62 -490 Q-70 -560 0 -555 Q70 -560 62 -490 Q40 -530 0 -528 Q-40 -530 -62 -490 Z" fill="#c7782f" stroke={C.ink} strokeWidth={5} />
+          <path d="M-26 -448 Q0 -420 26 -448" fill="none" stroke={C.ink} strokeWidth={6} strokeLinecap="round" />
+          <circle cx={-20} cy={-478} r={6} fill={C.ink} />
+          <circle cx={20} cy={-478} r={6} fill={C.ink} />
+        </Person>
+      ) : null}
+      <Bubble x={760} y={760} rx={230} ry={120} p={bubble} tail={[600, 980]}>
+        <text x={760} y={790} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={84} fill={C.red}>
+          yarısı gördü
+        </text>
+      </Bubble>
+      {stamp > 0 ? (
+        <g transform={`translate(760 700) scale(${stamp}) rotate(-6)`}>
+          <rect x={-250} y={-100} width={500} height={200} rx={24} fill={C.cream} stroke={YAS_OK} strokeWidth={14} />
+          <text x={0} y={46} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={128} fill={YAS_OK}>
+            %23
+          </text>
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// 4) "Beynin üstüne spot ışığı tutuyor. İki binde ölçtüler: utanç verici tişörtle sınıfa giren öğrenci, 'Yarısı fark etti'
+// sandı. Gerçek: dörtte birinden azı."
+// Salon kararır, tavandan avatarın üstüne spot düşer; "İki binde" sepya sınıfa geçilir: tahtada 2000; sarı, yüz baskılı
+// tişörtlü öğrenci kızararak girer; balon "yarısı gördü" (6 kırmızı halka) → "Gerçek"te lacivert %23 damgası, 3 halka.
+const SpIsik: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const dark = tw(f, 0, w(2) + 4);
+  const cls = tw(f, w(5) - 4, w(5) + 6);
+  const ax = 760;
+  return (
+    <>
+      {cls < 1 ? (
+        <g opacity={1 - cls}>
+          <SpCam k={[[0, 0.75, 900, 1000], [w(4), 1.0, ax, 980], [d, 1.0, ax, 980]]}>
+            <SpGym f={f} />
+            <SpAvatar f={f} x={ax} pose={spStand} face="worry" />
+          </SpCam>
+          <SpLight x={540} y={1330} p={dark} />
+        </g>
+      ) : null}
+      {cls > 0 ? (
+        <CamK k={[[w(5), 1, 540, 960], [d, 1.06, 600, 900]]} shake={hit(f, w(18), 10) * 0.4}>
+          <SpClass f={f} w={w} o={cls} />
+        </CamK>
+      ) : null}
+    </>
+  );
+};
+
+// 5) "Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz."
+// Kapıdan giren avatarın elinde plan kartı (3 hareket, sırayla tik); "Planı olan"da ağırlıklara kararlı yürür,
+// diğerleri kendi işinde; "bakmaz"da avatar dambılı kaldırır.
+const SP_PLAN = ["Squat 4×8", "Dambıl 3×10", "Plank 3×30 sn"];
+const SpPlan: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const walk = tw(f, w(5), w(9) + 6);
+  const x = lerp(SP_ON + 150, 930, walk);
+  const card = pop(f, w(1) - 2, 12) * (1 - tw(f, w(12), w(13)));
+  const lift = f > w(10) ? 0.5 + 0.5 * Math.sin((f - w(10)) / 6) : 0;
+  return (
+    <>
+      <SpCam k={[[0, 0.85, 700, 960], [w(5), 0.85, 700, 960], [w(9) + 6, 0.9, 1100, 960], [d, 0.95, 1100, 960]]}>
+        <SpGym f={f} />
+        <SpAvatar f={f} x={x} pose={walk > 0 && walk < 1 ? runPose(f / 4.5, 0.5) : spStand} face="grin" />
+        {f > w(10) ? <Dumbbell x={x + 90} y={SPF - 300 - 160 * lift} s={0.35} /> : null}
+      </SpCam>
+      {card > 0 ? (
+        <g transform={`translate(540 380) scale(${card}) rotate(-2)`}>
+          <rect x={-300} y={-150} width={600} height={300} rx={26} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          {SP_PLAN.map((t, i) => {
+            const tick = tw(f, w(5 + i * 2), w(5 + i * 2) + 6);
+            return (
+              <g key={t}>
+                <text x={-240} y={-62 + i * 90} fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink}>
+                  {t}
+                </text>
+                <path d={`M190 ${-80 + i * 90} l22 22 l40 -44`} fill="none" stroke={YAS_OK} strokeWidth={12} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={120} strokeDashoffset={120 * (1 - tick)} />
+              </g>
+            );
+          })}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 6) "O günün programı telefonunda hazır; sen ne istiyorsan o. Yoksa üç ay sonra…"
+// Telefon büyür: GERÇEK VOOM "Bugün" ekranı; avatar arkada ağırlık çalışır; "Yoksa"da kamera boş bantlara savrulur,
+// bandın ekranına dalar (= açılış karesi, döngü).
+const SP_SHOT = staticFile("app/bugun.jpg");
+const SpVoom: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(SP_SHOT);
+  const f = useCurrentFrame();
+  const phone = pop(f, 0, 12) * (1 - tw(f, w(8), w(9)));
+  const lift = 0.5 + 0.5 * Math.sin(f / 6);
+  const ghost = tw(f, w(10), w(12));
+  const PW = 400;
+  const PH = (PW * 2622) / 1290;
+  return (
+    <>
+      <SpCam k={[[0, 0.95, 1100, 960], [w(9) - 2, 0.95, 1100, 960], [w(10) + 2, 0.9, 700, 960], [d - 10, 3.1, SP_CON.x, SP_CON.y], [d, 3.1, SP_CON.x, SP_CON.y]]}>
+        <SpGym f={f} day={1} month={9} />
+        <SpAvatar f={f} x={930} pose={spStand} face="grin" />
+        <Dumbbell x={1020} y={SPF - 300 - 160 * lift} s={0.35} />
+        {ghost > 0 ? <SpAvatar f={f} x={SP_ON} pose={runPose(f / 3.2, 1)} face="worry" o={ghost} /> : null}
+      </SpCam>
+      {phone > 0 ? (
+        <g transform={`translate(540 860) scale(${phone}) rotate(-3)`}>
+          <rect x={-PW / 2 - 18} y={-PH / 2 - 18} width={PW + 36} height={PH + 36} rx={46} fill="#1e1f24" stroke={C.ink} strokeWidth={8} />
+          <clipPath id="spShot">
+            <rect x={-PW / 2} y={-PH / 2} width={PW} height={PH} rx={30} />
+          </clipPath>
+          <image href={SP_SHOT} x={-PW / 2} y={-PH / 2} width={PW} height={PH} clipPath="url(#spShot)" preserveAspectRatio="xMidYMid slice" />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "sp-bant": SpBant,
+  "sp-gozler": SpGozler,
+  "sp-geri": SpGeri,
+  "sp-isik": SpIsik,
+  "sp-plan": SpPlan,
+  "sp-voom": SpVoom,
   "vs-hook": VsHook,
   "vs-iptal": VsIptal,
   "vs-donus": VsDonus,
