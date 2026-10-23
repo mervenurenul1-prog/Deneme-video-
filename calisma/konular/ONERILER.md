@@ -67,3 +67,18 @@ F. "Kadınlar ağırlıkla erkek kadar gelişemez" — oransal kas/güç artış
 G. "Erkek daha çok yağ yakar" — egzersizde kadın daha çok yağ kullanır (Tarnopolsky 1990).
 H. "Hamileyken spor yapılmaz" — 1985 ACOG katı sınırlar (nabız 140, 15 dk) → bugün haftada 150 dk önerilir.
 I. (sınırda, spor dışı) Ofis klima kavgası: termostat standardı 1960'larda 40 yaş/70 kg erkeğe göre (Kingma 2015).
+
+## 23 Ekim gece (yeni sohbet) — VOOM'suz sıra için yeni öneriler (seçilince DOĞRULA → arastirma/)
+J. Koşu bandı işkence gibi geliyor — 1818 William Cubitt'in hapishane "ayak değirmeni" (tread-wheel), mahkûmlar saatlerce
+   basamak çevirdi; İngiltere 1898 yasasıyla kaldırdı. Bilim: dışarıda aynı efor daha kolay/keyifli algılanıyor
+   (2011 "yeşil egzersiz" derlemesi, Thompson Coon). Tavsiye: dışarı çık / tempoyu böl. Kanca: "sorun sen değilsin, makine ceza için yapıldı".
+K. "Pilates kadın sporu" diyen erkek — Joseph Pilates I. Dünya Savaşı'nda Man Adası esir kampında erkek tutsaklara çalıştırdı;
+   yatak yaylarından alet (reformer'ın atası, kısmen efsane — doğrula); sonra New York'ta dansçılar. Bilim: derin karın kası.
+   Kadın-erkek tartışması.
+L. "Kardiyo/aerobik kız işi" — "Aerobik" kelimesi 1968'de ABD Hava Kuvvetleri doktoru Kenneth Cooper'ın askerler/pilotlar için
+   kitabı; kadın aerobik dansı (Jackie Sorensen) sonradan. Kadın-erkek tartışması.
+M. "Kilo veriyorum ama önce yüzümden/göğsümden gidiyor, basen yerinde" — bölgesel incelme yok: 1971 tenisçilerin iki kolu
+   (raket kolunda kas fazla, yağ aynı; Gwinup, Ann Intern Med); 2013 tek bacak 12 hafta pres → yağ çalışan bacaktan değil
+   üst vücuttan gitti (Ramírez-Campillo). Not: "mekik" genel konu olarak reddedilmişti; bu açı farklı (acı + kadın).
+N. Hep aynı ağırlıkta takılmak / "yapamam" duvarı — 1954 Bannister 4 dk mil; 46 gün sonra Landy de kırdı. DİKKAT: "doktorlar
+   kalbi patlar dedi" anlatısı tartışmalı, doğrulanmadan kullanılmaz. En zayıf aday.

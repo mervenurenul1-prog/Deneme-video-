@@ -6,6 +6,7 @@
   (kimsenin bilmediği, gerçek tarih + bilim, acıya vuran kanca). Konuyu kullanıcı seçer.
 - Cepteki adaylar (`konular/ONERILER.md`): 8 (1990, 90 yaşında halter), 2 (1953 Londra otobüsü), 7 (2017 hafta sonu
   sporcusu — VOOM'lu sıraya bekliyor, notları ONERILER'de), 5 (kahvaltı reklamı — VOOM bağı yok, beslenme planı YOK).
+- Yeni sohbette J-N önerildi (`konular/ONERILER.md` sonu), kullanıcının seçimi bekleniyor.
 - Kalan ElevenLabs kredisi 12.633 (23 Ekim).
 
 ## 23 Ekim'de bitenler
