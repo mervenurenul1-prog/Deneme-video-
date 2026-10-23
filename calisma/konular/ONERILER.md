@@ -1,24 +1,22 @@
 # Konu adayları
 
+## İSTENEN TÜR (kullanıcı, 23 Ekim)
+Genel konular REDDEDİLDİ ("çok genel"). İstenen: selülit gibi, KİMSENİN (kullanıcının bile) bilmediği, GERÇEK TARİHE dayanan,
+bilimsel açıklamalı, "bana özel" konular. Herkesin önerdiği klişeler yok.
+
 ## Kullanılmış / iptal (önerme)
 yağ nereye, tartı, 10 bin adım, kadın-ağırlık, boyun, diz, spora başlama yaşı, sauna eşofmanı, kadın zor kilo verir,
-selülit, ekim teorisi, mayışma.
+selülit, ekim teorisi, mayışma (iptal), Victoria's Secret defilesi (iptal, 23 Ekim: "heves gitti, başkaları yaptı").
+Reddedilen genel liste (23 Ekim): kadın maraton, metabolizma 30, mekik, laktik asit, 8 bardak, protein penceresi, regl, Japon yürüyüşü.
 
-## 23 Ekim önerileri (seçilince kaynakları DOĞRULA → `arastirma/`)
-1. **Kadınlar uzun koşamaz** — Kanca: "Kadın vücudu maratonu kaldırmaz denirdi. 1967'de bir kadın kayıt formuna adının
-   baş harfini yazdı." Tarih: Boston 1967 Kathrine Switzer, yarışta numarası koparılmak istendi; kadın maratonu Olimpiyat'a 1984'te girdi. (kadın-erkek ✓)
-2. **Metabolizma 30'unda çöker mi?** — Kanca: "Otuzundan sonra kilo almanın suçlusu metabolizma mı?" Tarih: Pontzer 2021
-   (Science, 6.400 kişi, 29 ülke): 20-60 yaş arası neredeyse sabit.
-3. **Mekik göbeği eritir mi?** — Kanca: "Her gün yüz mekik; göbek neden yerinde?" Tarih: 1971 tenis oyuncuları,
-   vurdukları kolda yağ farkı yok; 2011 deneyi: 6 hafta karın egzersizi, karın yağı değişmedi.
-4. **Ertesi gün ağrısı laktik asit mi?** — Kanca: "Ertesi gün merdivende inleten şey laktik asit değil." Tarih: 1922
-   Nobel (Hill, Meyerhof) laktik asidi yorgunlukla anan fikrin kökü; laktat ~1 saatte temizlenir.
-5. **Günde 8 bardak su** — Kanca: "Günde sekiz bardak kuralı, bir cümlenin yarısı." Tarih: 1945 ABD beslenme kurulu
-   "2,5 litre" dedi, devamındaki "çoğu zaten yiyeceklerde" kısmı unutuldu.
-6. **30 dakikalık protein penceresi** — Kanca: "Antrenmandan sonra shaker'a koşmazsan kas kaçar mı?" Tarih: 2013
-   Schoenfeld-Aragon meta-analizi: günlük toplam protein belirleyici.
-7. **Regl döneminde spor** — Kanca: "Regldeyken spor yapılmaz mı?" Tarih: Rio 2016, yüzücü Fu Yuanhui yarış sonrası
-   regl olduğunu söyledi, Çin'de tabu tartışması başladı. (kadın gündemi ✓)
-8. **Japon yürüyüşü** (viral akım) — Kanca: "On bin adımı unut: 3 dakika hızlı, 3 dakika yavaş." Tarih: Shinshu Üniv.
-   2007 (Nemoto, Mayo Clin Proc). 03'ün devamı gibi.
-Diğer: kas yağa dönüşür, boy kısalır (takipçi isteği), aç karnına kardiyo — tarihçeleri zayıf.
+## 23 Ekim — özel liste (seçilince kaynak DOĞRULA → arastirma/)
+1. Kramp ve turşu suyu: tuz eksikliği değil sinir; Miller 2010 (MSSE) turşu suyu mideye ulaşmadan krampı kesti; 1930'lar
+   işçilere tuz tableti/tuzlu su. VOOM: suplement hatırlatıcı (tahta).
+2. Sporcu kalbi: 1899 Henschen (İsveç) kayakçıların büyük kalbini hastalık sandı; aslında uyum. VOOM: 1/24 seans takibi.
+3. Yemekten sonra denize girme: 1908 izci el kitabı "kramp girer"; Kızılhaç 2011 kanıt bulamadı. VOOM: antrenman/dinlenme günü kalorisi.
+4. Kas hafızası: 2010 Oslo, kas çekirdekleri ara verince kaybolmuyor (Bruusgaard, PNAS). VOOM: 6 haftalık dönem.
+5. Buz banyosu kas büyümesini frenler: Roberts 2015 (J Physiol), 12 hafta. VOOM: koç günü taşır.
+6. Kadınlarda ön çapraz bağ 2-8 kat: 1995 NCAA verisi (Arendt & Dick); sebep iniş şekli, ısınma programı %50 azaltıyor
+   (Soligard 2008 BMJ). VOOM: "senin için kararlar".
+7. Isınmada esneme sakatlığı önlemez: 2000 Avustralya ordusu, 1.538 asker (Pope, MSSE). VOOM: duruş rutini 7 dk.
+8. İlk spinning dersinden sonra hastanelik (rabdomiyoliz): yük birden; VOOM: 1-2,5 kg adımla artış.
