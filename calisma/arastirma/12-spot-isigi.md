@@ -41,3 +41,10 @@ Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
 4 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
 5 O günün programı VOOM'da hazır; sen ne istiyorsan o. Bir dahaki sefere telefonuna baktığında… gerçekten bir şeye bak.
 - v5 REDDEDİLDİ: "çıplak" tarihi ("neye özendiriyorsun, olmaz"). Çıplaklık/benzeri konulara GİRME. Tarih: 2000 tişört deneyi.
+
+## METİN v6 (23 Ekim) — kanca A+D harmanı, tarih 2000 tişört deneyi
+1 Ağırlıkların önünde, boş telefon ekranına bakıp beklediğin o an… sence seni kaç kişi fark etti?
+2 "Herkes" dedin, değil mi? İki binde bunu ölçtüler: utanç verici tişörtle kalabalık bir sınıfa giren öğrenci "Yarısı gördü" sandı. Gerçek: dörtte biri bile değil.
+3 Çünkü beynin seni sahnenin ortasına koyar; oysa herkes kendi setini sayıyor.
+4 Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.
+5 O günün programı VOOM'da hazır; sen ne istiyorsan o. Bir dahaki sefere telefona baktığında… gerçekten bir şeye bak.
