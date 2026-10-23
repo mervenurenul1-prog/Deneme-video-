@@ -10,3 +10,7 @@
 ## Biten videolar (`ornek-videolar/cizim1-pilot/`)
 01 yağ nereye · 02 tartı · 03 on bin adım (serinin örneği) · 04 kadın-ağırlık · 05 boyun(-b) · 06 diz · 07 yaş ·
 09 kilo-hangimiz · 10 selülit (`cizim1-10-selulit-c`, 40,5 sn). Beklemede: 08 sauna (hikâye beğenilmedi).
+
+## Açık/yarım iş (20 Ekim, başka sohbet)
+- **11 defile** (`cizim1-11-defile`, Victoria's Secret defilesi, sahneler `vs-*`): kod yazıldı, typecheck/render
+  YAPILMADI. Kullanıcı devam isterse: `npx tsc --noEmit` → kare kontrolü → sessiz önizleme. Durumunu kullanıcıya sor.
