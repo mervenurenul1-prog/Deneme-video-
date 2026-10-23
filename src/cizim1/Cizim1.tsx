@@ -14939,7 +14939,6 @@ const B2Bende: React.FC<SceneProps> = ({ w }) => {
   );
 };
 
-<<<<<<< HEAD
 /* ---------- 10 mayışma: "Yemeği yedin… ve üstüne bir ağırlık çöktü." (dokun → sor → açıkla → tarih + vücudun içi → bağla) ---------- */
 
 const MY_AV = { x: 400, y: 1560, s: 1 }; // masada oturan avatar (bacaklar masanın arkasında)
@@ -15032,122 +15031,10 @@ const TodoBoard: React.FC<{ notes?: number[]; mark?: number }> = ({ notes = [], 
           </g>
         ) : null,
       )}
-=======
-/* ---------- 11 Victoria's Secret defilesi: sahneler ---------- */
-// Podyum dünyası: koyu sahne, kırmızı kadife perde, parlak podyum, spot ışıkları, ön sırada izleyiciler ve flaşlar.
-// Serinin avatarı ön sırada izleyici (ana karakter); kanatlı manken ve cimnastikçi yan karakter (gerçek kişi çizilmez,
-// logo yok). VOOM yalnız 5. sahnede uygulamanın gerçek ekranıyla görünür.
-
-const VS = {
-  wall: "#2a1522",
-  wall2: "#46202f",
-  curtain: "#92202f",
-  curtainDark: "#5c111d",
-  runway: "#f3e5d0",
-  pink: "#f2a7bb",
-  lime: "#c9f24d",
-  gold: "#f2c94c",
-};
-const RUN = { y0: 600, y1: 1290, x0: 70, x1: 330 }; // podyum: arka kenar (y0, yarı genişlik x0), ön kenar (y1, x1)
-const runY = (t: number) => lerp(RUN.y0, RUN.y1, t);
-const runS = (t: number) => lerp(0.26, 0.74, t);
-
-// Ön sıradaki izleyiciler (podyumun iki yanında, iki sıra); r: kaybolma sırası
-const AUD = [
-  ...[40, 135, 230].map((x, i) => ({ x, y: 1235, r: 0.15 + i * 0.27 })),
-  ...[850, 945, 1040].map((x, i) => ({ x, y: 1235, r: 0.3 + i * 0.22 })),
-  ...[-10, 95, 200, 290].map((x, i) => ({ x, y: 1330, r: 0.05 + i * 0.24 })),
-  ...[790, 885, 980, 1080].map((x, i) => ({ x, y: 1330, r: 0.2 + i * 0.2 })),
-];
-
-// Sahne: lights = üç spot (0..1), crowd = izleyicilerin oranı, flash = flaş yoğunluğu, curtain = orta perde (0 açık, 1 kapalı)
-const Stage: React.FC<{ lights: [number, number, number]; crowd?: number; flash?: number; curtain?: number; children?: React.ReactNode; front?: React.ReactNode }> = ({
-  lights,
-  crowd = 1,
-  flash = 0,
-  curtain = 0,
-  children,
-  front,
-}) => {
-  const f = useCurrentFrame();
-  const lit = (lights[0] + lights[1] + lights[2]) / 3;
-  const L = [200, 540, 880];
-  const half = lerp(130, 560, curtain);
-  return (
-    <g>
-      {/* arka duvar ve ampullü kemer */}
-      <rect x={-200} y={-200} width={1480} height={RUN.y1 + 200} fill={VS.wall} />
-      <rect x={-200} y={-200} width={1480} height={RUN.y1 + 200} fill={VS.wall2} opacity={0.75 * lit} />
-      <path d={`M240 ${RUN.y0} L240 420 Q540 200 840 420 L840 ${RUN.y0}`} fill="none" stroke={C.ink} strokeWidth={14} />
-      {Array.from({ length: 17 }, (_, i) => {
-        const a = Math.PI * (i / 16);
-        const bx = 540 - Math.cos(a) * 300;
-        const by = 420 - Math.sin(a) * 210;
-        const on = lit * (0.7 + 0.3 * Math.sin(f / 5 + i));
-        return (
-          <g key={i}>
-            <circle cx={bx} cy={by} r={22} fill={VS.gold} opacity={0.35 * on} filter="url(#glow)" />
-            <circle cx={bx} cy={by} r={11} fill={on > 0.15 ? "#fff1b8" : "#6b5a48"} stroke={C.ink} strokeWidth={4} />
-          </g>
-        );
-      })}
-      {/* podyum */}
-      <path d={`M${540 - RUN.x0} ${RUN.y0} L${540 + RUN.x0} ${RUN.y0} L${540 + RUN.x1} ${RUN.y1} L${540 - RUN.x1} ${RUN.y1} Z`} fill={VS.runway} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
-      <path d={`M${540 - RUN.x0} ${RUN.y0} L${540 + RUN.x0} ${RUN.y0} L${540 + RUN.x1} ${RUN.y1} L${540 - RUN.x1} ${RUN.y1} Z`} fill="#1a0e14" opacity={0.6 * (1 - lit)} />
-      <path d={`M540 ${RUN.y0} L540 ${RUN.y1}`} stroke="#fff" strokeWidth={26} opacity={0.35 * lit} />
-      {[0.25, 0.5, 0.75].map((t) => (
-        <path key={t} d={`M${540 - lerp(RUN.x0, RUN.x1, t)} ${runY(t)} L${540 + lerp(RUN.x0, RUN.x1, t)} ${runY(t)}`} stroke={C.ink} strokeWidth={3} opacity={0.25} />
-      ))}
-      {/* ışık konileri */}
-      <g style={{ mixBlendMode: "screen" }}>
-        {L.map((lx, i) =>
-          lights[i] > 0.01 ? (
-            <path
-              key={i}
-              d={`M${lx - 26} -40 L${lx + 26} -40 L${540 + (lx - 540) * 0.15 + 230} ${RUN.y1 - 120} L${540 + (lx - 540) * 0.15 - 230} ${RUN.y1 - 120} Z`}
-              fill="#fff0c2"
-              opacity={0.16 * lights[i]}
-              filter="url(#glow)"
-            />
-          ) : null,
-        )}
-      </g>
-      {children}
-      {/* perdeler: üst saçak, yan perdeler, ortada kapanan perde */}
-      {[-1, 1].map((side) => (
-        <g key={side} transform={side === 1 ? "translate(1080 0) scale(-1 1)" : undefined}>
-          <path d={`M-200 -200 L${half} -200 L${half} ${RUN.y1 + 40} Q${half - 60} ${RUN.y1 + 10} ${half - 120} ${RUN.y1 + 40} L-200 ${RUN.y1 + 40} Z`} fill={VS.curtain} stroke={C.ink} strokeWidth={9} />
-          {Array.from({ length: Math.max(1, Math.floor((half + 200) / 70)) }, (_, k) => (
-            <path key={k} d={`M${-170 + k * 70} 120 Q${-150 + k * 70} 700 ${-175 + k * 70} ${RUN.y1 + 30}`} stroke={VS.curtainDark} strokeWidth={16} fill="none" opacity={0.75} />
-          ))}
-          <path d={`M${half - 30} 140 Q${half - 10} 700 ${half - 40} ${RUN.y1 + 20}`} stroke="#c94b58" strokeWidth={10} fill="none" opacity={0.6} />
-        </g>
-      ))}
-      <path d="M-200 -200 L1280 -200 L1280 150 Q1170 230 1060 150 Q950 230 840 150 Q730 230 620 150 Q510 230 400 150 Q290 230 180 150 Q70 230 -40 150 Q-120 230 -200 150 Z" fill={VS.curtain} stroke={C.ink} strokeWidth={9} strokeLinejoin="round" />
-      <path d="M-200 60 L1280 60" stroke={VS.gold} strokeWidth={12} opacity={0.8} />
-      {/* izleyiciler + flaşlar */}
-      {AUD.map((a, i) =>
-        a.r < crowd ? (
-          <g key={i}>
-            <ellipse cx={a.x} cy={a.y + 110} rx={70} ry={80} fill="#1c0f17" stroke={C.ink} strokeWidth={5} />
-            <circle cx={a.x} cy={a.y} r={40} fill="#1c0f17" stroke={C.ink} strokeWidth={5} />
-            {flash > 0 && random(`vfl${i}-${Math.floor(f / 4)}`) > 1 - 0.18 * flash ? (
-              <g>
-                <circle cx={a.x + 30} cy={a.y - 20} r={70} fill="#fff" opacity={0.55} filter="url(#glow)" />
-                <Star x={a.x + 30} y={a.y - 20} r={26} rot={i * 20} />
-              </g>
-            ) : null}
-          </g>
-        ) : null,
-      )}
-      <rect x={-200} y={RUN.y1 + 40} width={1480} height={800} fill="#170b12" />
-      {front}
->>>>>>> origin/claude/claude-md-continuation-e39del
     </g>
   );
 };
 
-<<<<<<< HEAD
 // Masa, tabak (food: kalan yemek 0..1), su bardağı
 const MyDesk: React.FC<{ food: number; forkOnPlate?: boolean }> = ({ food, forkOnPlate = false }) => (
   <g stroke={C.ink} strokeLinejoin="round">
@@ -15464,43 +15351,10 @@ const BrainLens: React.FC<{ x: number; y: number; r: number; p: number; dims: nu
         })}
       </g>
       <circle cx={x} cy={y} r={r} fill="none" stroke={C.ink} strokeWidth={12} />
-=======
-// Melek kanatları: (x, y) figürün ayak noktası, s figür ölçeği; flap 0..1 hafif çırpma
-const Wings: React.FC<{ x: number; y: number; s: number; flap?: number; o?: number }> = ({ x, y, s, flap = 0, o = 1 }) => {
-  const tips: [number, number][] = [
-    [470, -330],
-    [500, -230],
-    [480, -130],
-    [430, -30],
-    [340, 60],
-    [220, 120],
-  ];
-  return (
-    <g transform={`translate(${x} ${y}) scale(${s})`} opacity={o}>
-      {[-1, 1].map((side) => (
-        <g key={side} transform={`translate(${side * 40} -560) scale(${side} 1) rotate(${-6 - 10 * flap})`}>
-          <path
-            d="M0 10 C90 -200 300 -360 470 -330 C430 -280 520 -260 500 -230 C440 -190 520 -160 480 -130 C420 -100 470 -60 430 -30 C360 -10 400 40 340 60 C280 60 280 110 220 120 C150 90 80 70 0 50 Z"
-            fill="#fbf6ee"
-            stroke={C.ink}
-            strokeWidth={8}
-            strokeLinejoin="round"
-          />
-          <path d="M10 20 C110 -150 270 -270 420 -290" stroke={VS.pink} strokeWidth={40} fill="none" opacity={0.35} strokeLinecap="round" />
-          {tips.map(([tx, ty], k) => (
-            <path key={k} d={`M30 20 Q${tx * 0.5} ${ty * 0.5 - 20} ${tx - 40} ${ty + 10}`} stroke={C.ink} strokeWidth={4} fill="none" opacity={0.45} />
-          ))}
-          {[0, 1, 2, 3, 4].map((k) => (
-            <path key={`s${k}`} d={`M${60 + k * 55} ${-60 - k * 40} q22 26 44 -8`} stroke={C.ink} strokeWidth={4} fill="none" opacity={0.5} />
-          ))}
-        </g>
-      ))}
->>>>>>> origin/claude/claude-md-continuation-e39del
     </g>
   );
 };
 
-<<<<<<< HEAD
 // Midede yemek (gövdenin üstünde, masanın hemen üstü)
 const FullStomach: React.FC<{ p: number; f: number }> = ({ p, f }) =>
   p > 0 ? (
@@ -15817,68 +15671,12 @@ const BloodMap: React.FC<{ p: number; f: number; myth?: number; cross?: number; 
         <g transform={`translate(${MY_HEAD.x - 170} ${MY_HEAD.y - 40}) scale(${shield})`}>
           <path d="M0 -60 L50 -40 L46 20 Q30 56 0 70 Q-30 56 -46 20 L-50 -40 Z" fill={YAS_OK} stroke={C.ink} strokeWidth={6} />
           <path d="M-18 4 L-4 20 L22 -16" stroke={C.cream} strokeWidth={10} fill="none" strokeLinecap="round" strokeLinejoin="round" />
-=======
-// Podyumda yürüyen kanatlı manken: t podyum derinliği (0 arka, 1 ön)
-const WingedModel: React.FC<{ f: number; t: number; walking: number; flap?: number }> = ({ f, t, walking, flap = 0 }) => {
-  const s = runS(t);
-  const wk = walk(f, walking, 4);
-  const sway = Math.sin(f / 4) * 10 * walking;
-  return (
-    <g>
-      <ellipse cx={540} cy={runY(t) + 8} rx={150 * s} ry={20 * s} fill={C.ink} opacity={0.25} />
-      <Wings x={540 + sway * s} y={runY(t) - wk.bob * s} s={s} flap={flap + 0.3 * Math.sin(f / 7)} />
-      <Person x={540 + sway * s} y={runY(t) - wk.bob * s} s={s} female shirt={VS.pink} belly={0} armL={wk.armL} armR={wk.armR} legL={wk.legL} legR={wk.legR} mouth="smile" blush={0.6} />
-    </g>
-  );
-};
-
-// Ekranın üstündeki yıl tabelası
-const YearPlaque: React.FC<{ x: number; y: number; p: number; text: string; color?: string }> = ({ x, y, p, text, color = C.yellow }) =>
-  p > 0 ? (
-    <g transform={`translate(${x} ${y}) scale(${p})`}>
-      <rect x={-200} y={-90} width={400} height={170} rx={26} fill="#1b0f15" stroke={C.ink} strokeWidth={10} />
-      <rect x={-186} y={-76} width={372} height={142} rx={18} fill="none" stroke={VS.gold} strokeWidth={5} opacity={0.8} />
-      <text x={0} y={42} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={color}>
-        {text}
-      </text>
-    </g>
-  ) : null;
-
-// Serinin avatarı ön sırada (podyumun solunda)
-const FrontRowAvatar: React.FC<{ arms?: [Arm, Arm]; mouth?: Mouth; eyes?: Eyes; lookY?: number; tilt?: number; jump?: number }> = ({ arms, mouth = "o", eyes = "open", lookY = -10, tilt = 0, jump = 0 }) => (
-  <Person x={175} y={1430 - jump} s={0.5} belly={0.35} armL={arms?.[0] ?? [12, 0]} armR={arms?.[1] ?? [12, 0]} mouth={mouth} eyes={eyes} lookY={lookY} tilt={tilt} />
-);
-
-// "Victoria's Secret defilesi yirmi üç yıl boyunca her yıl yapıldı. Sonra bir gün iptal edildi."
-// Işıklar, flaşlar, kanatlı manken podyumda yürür; yıl tabelası 1995 → 2018 akar. "iptal"de spotlar tek tek söner,
-// manken donar, kırmızı "İPTAL" levhası sahneye çakılır.
-const VsHook: React.FC<SceneProps> = ({ w }) => {
-  const f = useCurrentFrame();
-  const off = (k: number) => 1 - tw(f, w(13) - 2 + k * 5, w(13) + 2 + k * 5);
-  const stop = tw(f, w(12), w(13) + 4);
-  const t = lerp(0.3, 0.72, tw(f, 0, w(13) + 4));
-  const years = tw(f, w(3) - 2, w(9) + 4);
-  const year = Math.round(lerp(1995, 2018, years));
-  const stamp = pop(f, w(14) - 2, 10);
-  const shake = stamp > 0 && f < w(14) + 12 ? Math.sin(f * 1.7) * 8 : 0;
-  return (
-    <g transform={`translate(${shake} 0)`}>
-      <Stage lights={[off(0), off(1), off(2)]} flash={1 - stop} front={<FrontRowAvatar mouth={stamp > 0.5 ? "open" : "o"} eyes={stamp > 0.5 ? "wide" : "open"} arms={stamp > 0.5 ? [[40, -80], [40, -80]] : undefined} />}>
-        <WingedModel f={f} t={t} walking={1 - stop} />
-      </Stage>
-      <YearPlaque x={540} y={330} p={pop(f, 0, 10)} text={`${year}`} color={stamp > 0 ? "#f2a3a3" : C.yellow} />
-      <rect x={-200} y={-200} width={1480} height={2400} fill="#000" opacity={0.35 * (1 - off(2))} />
-      {stamp > 0 ? (
-        <g transform={`translate(540 860) rotate(-9) scale(${1.6 - 0.6 * Math.min(1, stamp)})`} opacity={Math.min(1, stamp * 1.6)}>
-          <SignBoard x={0} y={0} p={1} lines={["İPTAL"]} rot={0} />
->>>>>>> origin/claude/claude-md-continuation-e39del
         </g>
       ) : null}
     </g>
   );
 };
 
-<<<<<<< HEAD
 type KnCw = { arm?: Arm; armL?: Arm; mouth?: Mouth; eyes?: Eyes; lookY?: number; pen?: boolean; kids?: React.ReactNode };
 // Ofis: saat, pencere, avatar + karşıdaki iş arkadaşı, ortak uzun masa, iki tabak, kâğıt yığını
 const KanOffice: React.FC<{ f: number; min?: number; av?: MyAv; cw?: KnCw; foodMe?: number; foodCw?: number; glow?: number[]; markMe?: number; markCw?: number; forkOnPlate?: boolean; clockGlow?: number; solo?: boolean; children?: React.ReactNode }> = ({ f, min = 810, av = {}, cw = {}, foodMe = 0.5, foodCw = 0.5, glow, markMe = 0, markCw = 0, forkOnPlate, clockGlow = 0, solo = false, children }) => {
@@ -16527,139 +16325,10 @@ const LeadLids: React.FC<{ lid: number; p: number; f: number; tilt?: number }> =
           <g key={x} transform={`translate(${x} ${y}) scale(${0.55 + 0.1 * lid})`}>
             <path d="M-26 -16 L26 -16 L32 16 L-32 16 Z" fill="#5f5f6a" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
             <path d="M-16 -8 L-4 -8" stroke="#a3a3ae" strokeWidth={4} strokeLinecap="round" />
-=======
-// "Seyirci düştü, eleştiriler yağdı; podyumun ışıkları söndü."
-// Ön sıradaki izleyiciler tek tek kalkıp gider, arka duvarda izleyici çizgisi aşağı iner; kırmızı kâğıtlar yağar;
-// spotlar söner, perde kapanır. Avatar ön sırada yalnız kalır.
-const VsIptal: React.FC<SceneProps> = ({ w }) => {
-  const f = useCurrentFrame();
-  const leave = tw(f, 0, w(2));
-  const line = tw(f, 2, w(2));
-  const lights: [number, number, number] = [1 - tw(f, w(4), w(4) + 6), 1 - tw(f, w(5) - 2, w(5) + 4), 1 - tw(f, w(6) - 2, w(6) + 4)];
-  const curtain = tw(f, w(5), w(6) + 14);
-  const pts = Array.from({ length: 9 }, (_, i) => {
-    const x = 300 + i * 60;
-    const y = 300 + 30 * Math.sin(i * 1.7) + i * i * 4.2;
-    return [x, y];
-  });
-  const n = Math.max(1, Math.floor(line * pts.length));
-  return (
-    <>
-      <Stage lights={lights} crowd={1 - leave * 0.95} curtain={curtain} front={<FrontRowAvatar mouth="worry" lookY={0} tilt={Math.sin(f / 14) * 8} />}>
-        <WingedModel f={f} t={0.72} walking={0} />
-      </Stage>
-      {/* izleyici çizgisi (canlı yayın sayacı gibi) */}
-      <g opacity={1 - curtain * 0.6}>
-        <rect x={230} y={200} width={620} height={330} rx={24} fill="#1b0f15" stroke={C.ink} strokeWidth={9} opacity={0.92} />
-        <text x={260} y={258} fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.cream}>
-          izleyici
-        </text>
-        <path d={`M${pts.slice(0, n).map((p) => p.join(" ")).join(" L")}`} stroke={C.red} strokeWidth={12} fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        {n > 1 ? <circle cx={pts[n - 1][0]} cy={pts[n - 1][1]} r={14} fill={C.red} stroke={C.cream} strokeWidth={4} /> : null}
-        <Arrow d="M790 300 L790 470 M760 440 L790 475 L820 440" p={tw(f, w(1), w(1) + 8)} color={C.red} w={10} />
-      </g>
-      {f >= w(2) - 2 && f < w(4) + 20 ? <FlyingPages start={w(2) - 2} end={w(4)} y={760} /> : null}
-      <rect x={-200} y={-200} width={1480} height={2400} fill="#000" opacity={0.25 * curtain} />
-    </>
-  );
-};
-
-// "Perde yeniden açıldığında, podyumda bir olimpiyat şampiyonu cimnastikçi yürüyordu."
-// Perde açılır, ışık patlar; mavi mayolu cimnastikçi podyumda yürür, göğsünde altın madalya parlar, "cimnastikçi"de
-// havada salto atar ve kollarını açıp iner. İzleyiciler geri gelir, flaşlar; avatar zıplayıp alkışlar.
-const VsDonus: React.FC<SceneProps> = ({ w }) => {
-  const f = useCurrentFrame();
-  const curtain = 1 - tw(f, 0, w(2) + 6);
-  const burst = tw(f, w(1), w(2) + 4);
-  const crowd = tw(f, w(2), w(6));
-  const t = lerp(0.12, 0.58, tw(f, w(2), w(6) + 4));
-  const medal = pop(f, w(5) - 2, 12);
-  const flipA = w(7) - 4;
-  const flipB = w(8) + 6;
-  const flip = tw(f, flipA, flipB);
-  const inAir = f > flipA && f < flipB;
-  const s = runS(t);
-  const hop = Math.sin(flip * Math.PI) * 330 * s;
-  const landed = f >= flipB;
-  const wk = walk(f, f < flipA ? 1 : 0, 4);
-  const clap = Math.sin(f / 2.2);
-  const cheer = f > w(6);
-  const armsUp: [Arm, Arm] = [[150, 10], [150, 10]];
-  return (
-    <>
-      <Stage
-        lights={[burst, burst, burst]}
-        crowd={0.1 + 0.9 * crowd}
-        flash={crowd}
-        curtain={curtain}
-        front={<FrontRowAvatar mouth={cheer ? "grin" : "o"} eyes={cheer ? "open" : "wide"} arms={cheer ? [[25, -95 + 12 * clap], [25, -95 + 12 * clap]] : undefined} jump={cheer ? Math.abs(Math.sin(f / 5)) * 18 : 0} />}
-      >
-        <ellipse cx={540} cy={runY(t) + 8} rx={150 * s * (1 - 0.4 * Math.sin(flip * Math.PI))} ry={20 * s} fill={C.ink} opacity={0.25} />
-        <g transform={`rotate(${inAir ? -360 * flip : 0} 540 ${runY(t) - hop - 400 * s})`}>
-          <Person
-            x={540}
-            y={runY(t) - (f < flipA ? wk.bob * s : hop)}
-            s={s}
-            female
-            shirt="#2f5f9e"
-            belly={0}
-            armL={inAir ? [60, -120] : landed ? armsUp[0] : wk.armL}
-            armR={inAir ? [60, -120] : landed ? armsUp[1] : wk.armR}
-            legL={inAir ? { lift: 0.9 } : wk.legL}
-            legR={inAir ? { lift: 0.9 } : wk.legR}
-            mouth={landed ? "grin" : "smile"}
-            blush={0.6}
-          >
-            {medal > 0 ? (
-              <g transform={`translate(0 -470) scale(${1.5 * medal})`}>
-                <circle cx={0} cy={10} r={70} fill={VS.gold} opacity={0.45 * (0.7 + 0.3 * Math.sin(f / 3))} filter="url(#glow)" />
-                <GoldMedal x={0} y={0} s={1} />
-              </g>
-            ) : null}
-          </Person>
-        </g>
-        {inAir || (landed && f < flipB + 20) ? (
-          <path
-            d={`M${540 - 150 * s} ${runY(t) - 200 * s} A ${170 * s} ${260 * s} 0 1 1 ${540 + 150 * s} ${runY(t) - 200 * s}`}
-            stroke="#fff"
-            strokeWidth={10}
-            fill="none"
-            strokeDasharray="22 18"
-            opacity={0.7 * (landed ? 1 - tw(f, flipB, flipB + 20) : 1)}
-          />
-        ) : null}
-      </Stage>
-      {burst > 0 && burst < 1 ? <rect x={-200} y={-200} width={1480} height={2400} fill="#fff6dc" opacity={0.45 * Math.sin(burst * Math.PI)} /> : null}
-      {landed ? <Confetti start={flipB} n={36} /> : null}
-    </>
-  );
-};
-
-// İki kefeli terazi: angle derece (− sol aşağı)
-const Balance: React.FC<{ x: number; y: number; s?: number; angle: number; left: string; right: string }> = ({ x, y, s = 1, angle, left, right }) => {
-  const r = (angle * Math.PI) / 180;
-  const end = (side: number) => [side * 300 * Math.cos(r), side * 300 * Math.sin(r)];
-  return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <path d="M0 0 L0 360 M-110 360 L110 360" stroke={C.ink} strokeWidth={16} strokeLinecap="round" />
-      <path d="M-50 -10 L0 -60 L50 -10 Z" fill={VS.gold} stroke={C.ink} strokeWidth={7} />
-      <path d={`M${end(-1)[0]} ${end(-1)[1]} L${end(1)[0]} ${end(1)[1]}`} stroke={C.ink} strokeWidth={18} strokeLinecap="round" />
-      <circle cx={0} cy={0} r={18} fill={VS.gold} stroke={C.ink} strokeWidth={6} />
-      {[-1, 1].map((side) => {
-        const [ex, ey] = end(side);
-        return (
-          <g key={side} transform={`translate(${ex} ${ey})`}>
-            <path d="M0 0 L-90 160 M0 0 L90 160" stroke={C.ink} strokeWidth={5} />
-            <path d="M-120 160 Q0 230 120 160 Z" fill={side < 0 ? VS.pink : "#7fb3d8"} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
-            <text x={0} y={140} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.cream} stroke={C.ink} strokeWidth={10} paintOrder="stroke">
-              {side < 0 ? left : right}
-            </text>
->>>>>>> origin/claude/claude-md-continuation-e39del
           </g>
         );
       })}
     </g>
-<<<<<<< HEAD
   ) : null;
 const SkKursun: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
@@ -17272,77 +16941,342 @@ const SKU_MAP: Record<string, React.FC<SceneProps>> = {
 };
 const SKU_SCENES: Record<string, React.FC<SceneProps>> = Object.fromEntries(Object.entries(SKU_MAP).map(([k, c]) => [k, remapW(c, SKU_IDX[k])]));
 
-const SCENES: Record<string, React.FC<SceneProps>> = {
-  "sel-reklam": SelReklam,
-  "sel-haklisin": SelHaklisin,
-  "sel-hook": SelHook,
-  "sel-esi": SelEsi,
-  "sel-ic": SelIc,
-  "sel-dergi": SelDergi,
-  "sel-kadin": SelKadin,
-  "sel-erkek": SelErkek,
-  "sel-yaygin": SelYaygin,
-  "sel-deney": SelDeney,
-  "sel-krem": SelKrem,
-  "sel-son": SelSon,
-  "selc-tablo": SelcTablo,
-  "selc-ressam": SelcRessam,
-  "selc-dergi": SelcDergi,
-  "selc-bakis": SelcBakis,
-  "selc-krem": SelcKrem,
-  "selc-bugun": SelcBugun,
-  "selc-ip": SelcIp,
-  "selc-erkek": SelcErkek,
-  "selc-son": SelcSon,
-  "selc-yaygin": SelcYaygin,
-  "ekim-soz": EkimSoz,
-  "ekim-babil": EkimBabil,
-  "ekim-birak": EkimBirak,
-  "ekim-teori": EkimTeori,
-  "ekim-beyin": EkimBeyin,
-  "ekim-yol": EkimYol,
-  "ekim-voom": EkimVoom,
-  "ekim-son": EkimSon,
-  "ekim2-soz": Ekim2Soz,
-  "ekim2-teori": Ekim2Teori,
-  "ekim2-yol": Ekim2Yol,
-  "ekim2-voom": Ekim2Voom,
-  ...SKU_SCENES,
-  "sr-kursun": SrKursun,
-  "sr-roma": SrRoma,
-  "sr-kan": SrKan,
-  "sr-sinyal": SrSinyal,
-  "sr-cozum": SrCozum,
-  "sr-son": SrSon,
-  "sk-kursun": SkKursun,
-  "sk-akis": SkAkis,
-  "sk-bina": SkBina,
-  "sk-tabak2": SkTabak2,
-  "sk-beyin2": SkBeyin2,
-  "sk-agirlik": SkAgirlik,
-  "sk-seker": SkSeker,
-  "sk-soru": SkSoru,
-  "sk-saat": SkSaat,
-  "sk-mide": SkMide,
-  "sk-tabak": SkTabak,
-  "sk-son": SkSon,
-  "kan-agirlik": KnAgirlik,
-  "kan-anne": KnAnne,
-  "kan-internet": KnInternet,
-  "kan-arkadas": KnArkadas,
-  "kan-soru": KnSoru,
-  "kan-tabak": KnTabak,
-  "kan-beyin": KnBeyin,
-  "kan-son": KnSon,
-  "may-agirlik": MyAgirlik,
-  "may-erteleme": MyErteleme,
-  "may-tembel": MyTembel,
-  "may-soru": MySoru,
-  "may-saat": MySaat,
-  "may-beyin": MyBeyin,
-  "may-siesta": MySiesta,
-  "may-son": MySon,
-=======
+/* ---------- 11 Victoria's Secret defilesi: sahneler ---------- */
+// Podyum dünyası: koyu sahne, kırmızı kadife perde, parlak podyum, spot ışıkları, ön sırada izleyiciler ve flaşlar.
+// Serinin avatarı ön sırada izleyici (ana karakter); kanatlı manken ve cimnastikçi yan karakter (gerçek kişi çizilmez,
+// logo yok). VOOM yalnız 5. sahnede uygulamanın gerçek ekranıyla görünür.
+
+const VS = {
+  wall: "#2a1522",
+  wall2: "#46202f",
+  curtain: "#92202f",
+  curtainDark: "#5c111d",
+  runway: "#f3e5d0",
+  pink: "#f2a7bb",
+  lime: "#c9f24d",
+  gold: "#f2c94c",
+};
+const RUN = { y0: 600, y1: 1290, x0: 70, x1: 330 }; // podyum: arka kenar (y0, yarı genişlik x0), ön kenar (y1, x1)
+const runY = (t: number) => lerp(RUN.y0, RUN.y1, t);
+const runS = (t: number) => lerp(0.26, 0.74, t);
+
+// Ön sıradaki izleyiciler (podyumun iki yanında, iki sıra); r: kaybolma sırası
+const AUD = [
+  ...[40, 135, 230].map((x, i) => ({ x, y: 1235, r: 0.15 + i * 0.27 })),
+  ...[850, 945, 1040].map((x, i) => ({ x, y: 1235, r: 0.3 + i * 0.22 })),
+  ...[-10, 95, 200, 290].map((x, i) => ({ x, y: 1330, r: 0.05 + i * 0.24 })),
+  ...[790, 885, 980, 1080].map((x, i) => ({ x, y: 1330, r: 0.2 + i * 0.2 })),
+];
+
+// Sahne: lights = üç spot (0..1), crowd = izleyicilerin oranı, flash = flaş yoğunluğu, curtain = orta perde (0 açık, 1 kapalı)
+const Stage: React.FC<{ lights: [number, number, number]; crowd?: number; flash?: number; curtain?: number; children?: React.ReactNode; front?: React.ReactNode }> = ({
+  lights,
+  crowd = 1,
+  flash = 0,
+  curtain = 0,
+  children,
+  front,
+}) => {
+  const f = useCurrentFrame();
+  const lit = (lights[0] + lights[1] + lights[2]) / 3;
+  const L = [200, 540, 880];
+  const half = lerp(130, 560, curtain);
+  return (
+    <g>
+      {/* arka duvar ve ampullü kemer */}
+      <rect x={-200} y={-200} width={1480} height={RUN.y1 + 200} fill={VS.wall} />
+      <rect x={-200} y={-200} width={1480} height={RUN.y1 + 200} fill={VS.wall2} opacity={0.75 * lit} />
+      <path d={`M240 ${RUN.y0} L240 420 Q540 200 840 420 L840 ${RUN.y0}`} fill="none" stroke={C.ink} strokeWidth={14} />
+      {Array.from({ length: 17 }, (_, i) => {
+        const a = Math.PI * (i / 16);
+        const bx = 540 - Math.cos(a) * 300;
+        const by = 420 - Math.sin(a) * 210;
+        const on = lit * (0.7 + 0.3 * Math.sin(f / 5 + i));
+        return (
+          <g key={i}>
+            <circle cx={bx} cy={by} r={22} fill={VS.gold} opacity={0.35 * on} filter="url(#glow)" />
+            <circle cx={bx} cy={by} r={11} fill={on > 0.15 ? "#fff1b8" : "#6b5a48"} stroke={C.ink} strokeWidth={4} />
+          </g>
+        );
+      })}
+      {/* podyum */}
+      <path d={`M${540 - RUN.x0} ${RUN.y0} L${540 + RUN.x0} ${RUN.y0} L${540 + RUN.x1} ${RUN.y1} L${540 - RUN.x1} ${RUN.y1} Z`} fill={VS.runway} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+      <path d={`M${540 - RUN.x0} ${RUN.y0} L${540 + RUN.x0} ${RUN.y0} L${540 + RUN.x1} ${RUN.y1} L${540 - RUN.x1} ${RUN.y1} Z`} fill="#1a0e14" opacity={0.6 * (1 - lit)} />
+      <path d={`M540 ${RUN.y0} L540 ${RUN.y1}`} stroke="#fff" strokeWidth={26} opacity={0.35 * lit} />
+      {[0.25, 0.5, 0.75].map((t) => (
+        <path key={t} d={`M${540 - lerp(RUN.x0, RUN.x1, t)} ${runY(t)} L${540 + lerp(RUN.x0, RUN.x1, t)} ${runY(t)}`} stroke={C.ink} strokeWidth={3} opacity={0.25} />
+      ))}
+      {/* ışık konileri */}
+      <g style={{ mixBlendMode: "screen" }}>
+        {L.map((lx, i) =>
+          lights[i] > 0.01 ? (
+            <path
+              key={i}
+              d={`M${lx - 26} -40 L${lx + 26} -40 L${540 + (lx - 540) * 0.15 + 230} ${RUN.y1 - 120} L${540 + (lx - 540) * 0.15 - 230} ${RUN.y1 - 120} Z`}
+              fill="#fff0c2"
+              opacity={0.16 * lights[i]}
+              filter="url(#glow)"
+            />
+          ) : null,
+        )}
+      </g>
+      {children}
+      {/* perdeler: üst saçak, yan perdeler, ortada kapanan perde */}
+      {[-1, 1].map((side) => (
+        <g key={side} transform={side === 1 ? "translate(1080 0) scale(-1 1)" : undefined}>
+          <path d={`M-200 -200 L${half} -200 L${half} ${RUN.y1 + 40} Q${half - 60} ${RUN.y1 + 10} ${half - 120} ${RUN.y1 + 40} L-200 ${RUN.y1 + 40} Z`} fill={VS.curtain} stroke={C.ink} strokeWidth={9} />
+          {Array.from({ length: Math.max(1, Math.floor((half + 200) / 70)) }, (_, k) => (
+            <path key={k} d={`M${-170 + k * 70} 120 Q${-150 + k * 70} 700 ${-175 + k * 70} ${RUN.y1 + 30}`} stroke={VS.curtainDark} strokeWidth={16} fill="none" opacity={0.75} />
+          ))}
+          <path d={`M${half - 30} 140 Q${half - 10} 700 ${half - 40} ${RUN.y1 + 20}`} stroke="#c94b58" strokeWidth={10} fill="none" opacity={0.6} />
+        </g>
+      ))}
+      <path d="M-200 -200 L1280 -200 L1280 150 Q1170 230 1060 150 Q950 230 840 150 Q730 230 620 150 Q510 230 400 150 Q290 230 180 150 Q70 230 -40 150 Q-120 230 -200 150 Z" fill={VS.curtain} stroke={C.ink} strokeWidth={9} strokeLinejoin="round" />
+      <path d="M-200 60 L1280 60" stroke={VS.gold} strokeWidth={12} opacity={0.8} />
+      {/* izleyiciler + flaşlar */}
+      {AUD.map((a, i) =>
+        a.r < crowd ? (
+          <g key={i}>
+            <ellipse cx={a.x} cy={a.y + 110} rx={70} ry={80} fill="#1c0f17" stroke={C.ink} strokeWidth={5} />
+            <circle cx={a.x} cy={a.y} r={40} fill="#1c0f17" stroke={C.ink} strokeWidth={5} />
+            {flash > 0 && random(`vfl${i}-${Math.floor(f / 4)}`) > 1 - 0.18 * flash ? (
+              <g>
+                <circle cx={a.x + 30} cy={a.y - 20} r={70} fill="#fff" opacity={0.55} filter="url(#glow)" />
+                <Star x={a.x + 30} y={a.y - 20} r={26} rot={i * 20} />
+              </g>
+            ) : null}
+          </g>
+        ) : null,
+      )}
+      <rect x={-200} y={RUN.y1 + 40} width={1480} height={800} fill="#170b12" />
+      {front}
+    </g>
+  );
+};
+
+// Melek kanatları: (x, y) figürün ayak noktası, s figür ölçeği; flap 0..1 hafif çırpma
+const Wings: React.FC<{ x: number; y: number; s: number; flap?: number; o?: number }> = ({ x, y, s, flap = 0, o = 1 }) => {
+  const tips: [number, number][] = [
+    [470, -330],
+    [500, -230],
+    [480, -130],
+    [430, -30],
+    [340, 60],
+    [220, 120],
+  ];
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} opacity={o}>
+      {[-1, 1].map((side) => (
+        <g key={side} transform={`translate(${side * 40} -560) scale(${side} 1) rotate(${-6 - 10 * flap})`}>
+          <path
+            d="M0 10 C90 -200 300 -360 470 -330 C430 -280 520 -260 500 -230 C440 -190 520 -160 480 -130 C420 -100 470 -60 430 -30 C360 -10 400 40 340 60 C280 60 280 110 220 120 C150 90 80 70 0 50 Z"
+            fill="#fbf6ee"
+            stroke={C.ink}
+            strokeWidth={8}
+            strokeLinejoin="round"
+          />
+          <path d="M10 20 C110 -150 270 -270 420 -290" stroke={VS.pink} strokeWidth={40} fill="none" opacity={0.35} strokeLinecap="round" />
+          {tips.map(([tx, ty], k) => (
+            <path key={k} d={`M30 20 Q${tx * 0.5} ${ty * 0.5 - 20} ${tx - 40} ${ty + 10}`} stroke={C.ink} strokeWidth={4} fill="none" opacity={0.45} />
+          ))}
+          {[0, 1, 2, 3, 4].map((k) => (
+            <path key={`s${k}`} d={`M${60 + k * 55} ${-60 - k * 40} q22 26 44 -8`} stroke={C.ink} strokeWidth={4} fill="none" opacity={0.5} />
+          ))}
+        </g>
+      ))}
+    </g>
+  );
+};
+
+// Podyumda yürüyen kanatlı manken: t podyum derinliği (0 arka, 1 ön)
+const WingedModel: React.FC<{ f: number; t: number; walking: number; flap?: number }> = ({ f, t, walking, flap = 0 }) => {
+  const s = runS(t);
+  const wk = walk(f, walking, 4);
+  const sway = Math.sin(f / 4) * 10 * walking;
+  return (
+    <g>
+      <ellipse cx={540} cy={runY(t) + 8} rx={150 * s} ry={20 * s} fill={C.ink} opacity={0.25} />
+      <Wings x={540 + sway * s} y={runY(t) - wk.bob * s} s={s} flap={flap + 0.3 * Math.sin(f / 7)} />
+      <Person x={540 + sway * s} y={runY(t) - wk.bob * s} s={s} female shirt={VS.pink} belly={0} armL={wk.armL} armR={wk.armR} legL={wk.legL} legR={wk.legR} mouth="smile" blush={0.6} />
+    </g>
+  );
+};
+
+// Ekranın üstündeki yıl tabelası
+const YearPlaque: React.FC<{ x: number; y: number; p: number; text: string; color?: string }> = ({ x, y, p, text, color = C.yellow }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`}>
+      <rect x={-200} y={-90} width={400} height={170} rx={26} fill="#1b0f15" stroke={C.ink} strokeWidth={10} />
+      <rect x={-186} y={-76} width={372} height={142} rx={18} fill="none" stroke={VS.gold} strokeWidth={5} opacity={0.8} />
+      <text x={0} y={42} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={130} fill={color}>
+        {text}
+      </text>
+    </g>
+  ) : null;
+
+// Serinin avatarı ön sırada (podyumun solunda)
+const FrontRowAvatar: React.FC<{ arms?: [Arm, Arm]; mouth?: Mouth; eyes?: Eyes; lookY?: number; tilt?: number; jump?: number }> = ({ arms, mouth = "o", eyes = "open", lookY = -10, tilt = 0, jump = 0 }) => (
+  <Person x={175} y={1430 - jump} s={0.5} belly={0.35} armL={arms?.[0] ?? [12, 0]} armR={arms?.[1] ?? [12, 0]} mouth={mouth} eyes={eyes} lookY={lookY} tilt={tilt} />
+);
+
+// "Victoria's Secret defilesi yirmi üç yıl boyunca her yıl yapıldı. Sonra bir gün iptal edildi."
+// Işıklar, flaşlar, kanatlı manken podyumda yürür; yıl tabelası 1995 → 2018 akar. "iptal"de spotlar tek tek söner,
+// manken donar, kırmızı "İPTAL" levhası sahneye çakılır.
+const VsHook: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const off = (k: number) => 1 - tw(f, w(13) - 2 + k * 5, w(13) + 2 + k * 5);
+  const stop = tw(f, w(12), w(13) + 4);
+  const t = lerp(0.3, 0.72, tw(f, 0, w(13) + 4));
+  const years = tw(f, w(3) - 2, w(9) + 4);
+  const year = Math.round(lerp(1995, 2018, years));
+  const stamp = pop(f, w(14) - 2, 10);
+  const shake = stamp > 0 && f < w(14) + 12 ? Math.sin(f * 1.7) * 8 : 0;
+  return (
+    <g transform={`translate(${shake} 0)`}>
+      <Stage lights={[off(0), off(1), off(2)]} flash={1 - stop} front={<FrontRowAvatar mouth={stamp > 0.5 ? "open" : "o"} eyes={stamp > 0.5 ? "wide" : "open"} arms={stamp > 0.5 ? [[40, -80], [40, -80]] : undefined} />}>
+        <WingedModel f={f} t={t} walking={1 - stop} />
+      </Stage>
+      <YearPlaque x={540} y={330} p={pop(f, 0, 10)} text={`${year}`} color={stamp > 0 ? "#f2a3a3" : C.yellow} />
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#000" opacity={0.35 * (1 - off(2))} />
+      {stamp > 0 ? (
+        <g transform={`translate(540 860) rotate(-9) scale(${1.6 - 0.6 * Math.min(1, stamp)})`} opacity={Math.min(1, stamp * 1.6)}>
+          <SignBoard x={0} y={0} p={1} lines={["İPTAL"]} rot={0} />
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// "Seyirci düştü, eleştiriler yağdı; podyumun ışıkları söndü."
+// Ön sıradaki izleyiciler tek tek kalkıp gider, arka duvarda izleyici çizgisi aşağı iner; kırmızı kâğıtlar yağar;
+// spotlar söner, perde kapanır. Avatar ön sırada yalnız kalır.
+const VsIptal: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const leave = tw(f, 0, w(2));
+  const line = tw(f, 2, w(2));
+  const lights: [number, number, number] = [1 - tw(f, w(4), w(4) + 6), 1 - tw(f, w(5) - 2, w(5) + 4), 1 - tw(f, w(6) - 2, w(6) + 4)];
+  const curtain = tw(f, w(5), w(6) + 14);
+  const pts = Array.from({ length: 9 }, (_, i) => {
+    const x = 300 + i * 60;
+    const y = 300 + 30 * Math.sin(i * 1.7) + i * i * 4.2;
+    return [x, y];
+  });
+  const n = Math.max(1, Math.floor(line * pts.length));
+  return (
+    <>
+      <Stage lights={lights} crowd={1 - leave * 0.95} curtain={curtain} front={<FrontRowAvatar mouth="worry" lookY={0} tilt={Math.sin(f / 14) * 8} />}>
+        <WingedModel f={f} t={0.72} walking={0} />
+      </Stage>
+      {/* izleyici çizgisi (canlı yayın sayacı gibi) */}
+      <g opacity={1 - curtain * 0.6}>
+        <rect x={230} y={200} width={620} height={330} rx={24} fill="#1b0f15" stroke={C.ink} strokeWidth={9} opacity={0.92} />
+        <text x={260} y={258} fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.cream}>
+          izleyici
+        </text>
+        <path d={`M${pts.slice(0, n).map((p) => p.join(" ")).join(" L")}`} stroke={C.red} strokeWidth={12} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        {n > 1 ? <circle cx={pts[n - 1][0]} cy={pts[n - 1][1]} r={14} fill={C.red} stroke={C.cream} strokeWidth={4} /> : null}
+        <Arrow d="M790 300 L790 470 M760 440 L790 475 L820 440" p={tw(f, w(1), w(1) + 8)} color={C.red} w={10} />
+      </g>
+      {f >= w(2) - 2 && f < w(4) + 20 ? <FlyingPages start={w(2) - 2} end={w(4)} y={760} /> : null}
+      <rect x={-200} y={-200} width={1480} height={2400} fill="#000" opacity={0.25 * curtain} />
+    </>
+  );
+};
+
+// "Perde yeniden açıldığında, podyumda bir olimpiyat şampiyonu cimnastikçi yürüyordu."
+// Perde açılır, ışık patlar; mavi mayolu cimnastikçi podyumda yürür, göğsünde altın madalya parlar, "cimnastikçi"de
+// havada salto atar ve kollarını açıp iner. İzleyiciler geri gelir, flaşlar; avatar zıplayıp alkışlar.
+const VsDonus: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const curtain = 1 - tw(f, 0, w(2) + 6);
+  const burst = tw(f, w(1), w(2) + 4);
+  const crowd = tw(f, w(2), w(6));
+  const t = lerp(0.12, 0.58, tw(f, w(2), w(6) + 4));
+  const medal = pop(f, w(5) - 2, 12);
+  const flipA = w(7) - 4;
+  const flipB = w(8) + 6;
+  const flip = tw(f, flipA, flipB);
+  const inAir = f > flipA && f < flipB;
+  const s = runS(t);
+  const hop = Math.sin(flip * Math.PI) * 330 * s;
+  const landed = f >= flipB;
+  const wk = walk(f, f < flipA ? 1 : 0, 4);
+  const clap = Math.sin(f / 2.2);
+  const cheer = f > w(6);
+  const armsUp: [Arm, Arm] = [[150, 10], [150, 10]];
+  return (
+    <>
+      <Stage
+        lights={[burst, burst, burst]}
+        crowd={0.1 + 0.9 * crowd}
+        flash={crowd}
+        curtain={curtain}
+        front={<FrontRowAvatar mouth={cheer ? "grin" : "o"} eyes={cheer ? "open" : "wide"} arms={cheer ? [[25, -95 + 12 * clap], [25, -95 + 12 * clap]] : undefined} jump={cheer ? Math.abs(Math.sin(f / 5)) * 18 : 0} />}
+      >
+        <ellipse cx={540} cy={runY(t) + 8} rx={150 * s * (1 - 0.4 * Math.sin(flip * Math.PI))} ry={20 * s} fill={C.ink} opacity={0.25} />
+        <g transform={`rotate(${inAir ? -360 * flip : 0} 540 ${runY(t) - hop - 400 * s})`}>
+          <Person
+            x={540}
+            y={runY(t) - (f < flipA ? wk.bob * s : hop)}
+            s={s}
+            female
+            shirt="#2f5f9e"
+            belly={0}
+            armL={inAir ? [60, -120] : landed ? armsUp[0] : wk.armL}
+            armR={inAir ? [60, -120] : landed ? armsUp[1] : wk.armR}
+            legL={inAir ? { lift: 0.9 } : wk.legL}
+            legR={inAir ? { lift: 0.9 } : wk.legR}
+            mouth={landed ? "grin" : "smile"}
+            blush={0.6}
+          >
+            {medal > 0 ? (
+              <g transform={`translate(0 -470) scale(${1.5 * medal})`}>
+                <circle cx={0} cy={10} r={70} fill={VS.gold} opacity={0.45 * (0.7 + 0.3 * Math.sin(f / 3))} filter="url(#glow)" />
+                <GoldMedal x={0} y={0} s={1} />
+              </g>
+            ) : null}
+          </Person>
+        </g>
+        {inAir || (landed && f < flipB + 20) ? (
+          <path
+            d={`M${540 - 150 * s} ${runY(t) - 200 * s} A ${170 * s} ${260 * s} 0 1 1 ${540 + 150 * s} ${runY(t) - 200 * s}`}
+            stroke="#fff"
+            strokeWidth={10}
+            fill="none"
+            strokeDasharray="22 18"
+            opacity={0.7 * (landed ? 1 - tw(f, flipB, flipB + 20) : 1)}
+          />
+        ) : null}
+      </Stage>
+      {burst > 0 && burst < 1 ? <rect x={-200} y={-200} width={1480} height={2400} fill="#fff6dc" opacity={0.45 * Math.sin(burst * Math.PI)} /> : null}
+      {landed ? <Confetti start={flipB} n={36} /> : null}
+    </>
+  );
+};
+
+// İki kefeli terazi: angle derece (− sol aşağı)
+const Balance: React.FC<{ x: number; y: number; s?: number; angle: number; left: string; right: string }> = ({ x, y, s = 1, angle, left, right }) => {
+  const r = (angle * Math.PI) / 180;
+  const end = (side: number) => [side * 300 * Math.cos(r), side * 300 * Math.sin(r)];
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <path d="M0 0 L0 360 M-110 360 L110 360" stroke={C.ink} strokeWidth={16} strokeLinecap="round" />
+      <path d="M-50 -10 L0 -60 L50 -10 Z" fill={VS.gold} stroke={C.ink} strokeWidth={7} />
+      <path d={`M${end(-1)[0]} ${end(-1)[1]} L${end(1)[0]} ${end(1)[1]}`} stroke={C.ink} strokeWidth={18} strokeLinecap="round" />
+      <circle cx={0} cy={0} r={18} fill={VS.gold} stroke={C.ink} strokeWidth={6} />
+      {[-1, 1].map((side) => {
+        const [ex, ey] = end(side);
+        return (
+          <g key={side} transform={`translate(${ex} ${ey})`}>
+            <path d="M0 0 L-90 160 M0 0 L90 160" stroke={C.ink} strokeWidth={5} />
+            <path d="M-120 160 Q0 230 120 160 Z" fill={side < 0 ? VS.pink : "#7fb3d8"} stroke={C.ink} strokeWidth={8} strokeLinejoin="round" />
+            <text x={0} y={140} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.cream} stroke={C.ink} strokeWidth={10} paintOrder="stroke">
+              {side < 0 ? left : right}
+            </text>
+          </g>
+        );
+      })}
+    </g>
   );
 };
 
@@ -17483,7 +17417,7 @@ const VsKoc: React.FC<SceneProps> = ({ w }) => {
 };
 
 // Kâğıt uçak: p 0..1 uçuş (a → b, yay çizerek), iz kesik çizgi
-const PaperPlane: React.FC<{ p: number; a: [number, number]; b: [number, number] }> = ({ p, a, b }) => {
+const VsPaperPlane: React.FC<{ p: number; a: [number, number]; b: [number, number] }> = ({ p, a, b }) => {
   if (p <= 0 || p >= 1) return null;
   const e = ease(p);
   const x = lerp(a[0], b[0], e);
@@ -17527,7 +17461,7 @@ const VsDongu: React.FC<SceneProps> = ({ w }) => {
           <HandText x={760} y={540} text="güzeldir!" size={78} p={tw(f, w(3) - 2, w(3) + 8)} color={C.red} rotate={-2} />
         </Bubble>
       ) : null}
-      <PaperPlane p={plane} a={[360, 930]} b={[790, 980]} />
+      <VsPaperPlane p={plane} a={[360, 930]} b={[790, 980]} />
       {stage > 0 ? (
         <g opacity={stage}>
           <Stage lights={[1, 1, 1]} flash={1}>
@@ -17546,7 +17480,75 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   "vs-soru": VsSoru,
   "vs-koc": VsKoc,
   "vs-dongu": VsDongu,
->>>>>>> origin/claude/claude-md-continuation-e39del
+  "sel-reklam": SelReklam,
+  "sel-haklisin": SelHaklisin,
+  "sel-hook": SelHook,
+  "sel-esi": SelEsi,
+  "sel-ic": SelIc,
+  "sel-dergi": SelDergi,
+  "sel-kadin": SelKadin,
+  "sel-erkek": SelErkek,
+  "sel-yaygin": SelYaygin,
+  "sel-deney": SelDeney,
+  "sel-krem": SelKrem,
+  "sel-son": SelSon,
+  "selc-tablo": SelcTablo,
+  "selc-ressam": SelcRessam,
+  "selc-dergi": SelcDergi,
+  "selc-bakis": SelcBakis,
+  "selc-krem": SelcKrem,
+  "selc-bugun": SelcBugun,
+  "selc-ip": SelcIp,
+  "selc-erkek": SelcErkek,
+  "selc-son": SelcSon,
+  "selc-yaygin": SelcYaygin,
+  "ekim-soz": EkimSoz,
+  "ekim-babil": EkimBabil,
+  "ekim-birak": EkimBirak,
+  "ekim-teori": EkimTeori,
+  "ekim-beyin": EkimBeyin,
+  "ekim-yol": EkimYol,
+  "ekim-voom": EkimVoom,
+  "ekim-son": EkimSon,
+  "ekim2-soz": Ekim2Soz,
+  "ekim2-teori": Ekim2Teori,
+  "ekim2-yol": Ekim2Yol,
+  "ekim2-voom": Ekim2Voom,
+  ...SKU_SCENES,
+  "sr-kursun": SrKursun,
+  "sr-roma": SrRoma,
+  "sr-kan": SrKan,
+  "sr-sinyal": SrSinyal,
+  "sr-cozum": SrCozum,
+  "sr-son": SrSon,
+  "sk-kursun": SkKursun,
+  "sk-akis": SkAkis,
+  "sk-bina": SkBina,
+  "sk-tabak2": SkTabak2,
+  "sk-beyin2": SkBeyin2,
+  "sk-agirlik": SkAgirlik,
+  "sk-seker": SkSeker,
+  "sk-soru": SkSoru,
+  "sk-saat": SkSaat,
+  "sk-mide": SkMide,
+  "sk-tabak": SkTabak,
+  "sk-son": SkSon,
+  "kan-agirlik": KnAgirlik,
+  "kan-anne": KnAnne,
+  "kan-internet": KnInternet,
+  "kan-arkadas": KnArkadas,
+  "kan-soru": KnSoru,
+  "kan-tabak": KnTabak,
+  "kan-beyin": KnBeyin,
+  "kan-son": KnSon,
+  "may-agirlik": MyAgirlik,
+  "may-erteleme": MyErteleme,
+  "may-tembel": MyTembel,
+  "may-soru": MySoru,
+  "may-saat": MySaat,
+  "may-beyin": MyBeyin,
+  "may-siesta": MySiesta,
+  "may-son": MySon,
   "bul2-soru": B2Soru,
   "bul2-ceza": B2Ceza,
   "bul2-kayip": B2Kayip,
