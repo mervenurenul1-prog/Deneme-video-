@@ -9,7 +9,7 @@ yağ nereye, tartı, 10 bin adım, kadın-ağırlık, boyun, diz, spora başlama
 selülit, ekim teorisi, mayışma (iptal), Victoria's Secret defilesi (iptal, 23 Ekim: "heves gitti, başkaları yaptı").
 Reddedilen genel liste (23 Ekim): kadın maraton, metabolizma 30, mekik, laktik asit, 8 bardak, protein penceresi, regl, Japon yürüyüşü.
 
-## 23 Ekim — özel liste (seçilince kaynak DOĞRULA → arastirma/)
+## 23 Ekim — özel liste REDDEDİLDİ ("konuların açıklamayla ilgisi yok, VOOM bağları saçma") (seçilince kaynak DOĞRULA → arastirma/)
 1. Kramp ve turşu suyu: tuz eksikliği değil sinir; Miller 2010 (MSSE) turşu suyu mideye ulaşmadan krampı kesti; 1930'lar
    işçilere tuz tableti/tuzlu su. VOOM: suplement hatırlatıcı (tahta).
 2. Sporcu kalbi: 1899 Henschen (İsveç) kayakçıların büyük kalbini hastalık sandı; aslında uyum. VOOM: 1/24 seans takibi.
