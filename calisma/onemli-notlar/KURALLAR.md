@@ -34,7 +34,7 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
 - **MAX 30-32 sn** (kullanıcı, 23 Ekim). İlk 3 sn HİÇ durmasın: boşluk/düşünme yok, her saniye görsel olay
   (yakın çekim → pat diye geri çekilme gibi). Hedef: ilk saniyelerde %90+ izleyici kalsın. JSON `"speed": 1.2`
   (sessiz önizleme de 1.2x akar), `maxPause` 0.15.
-- (eski) Hedef 25-40 sn. `"padding": 0.02`, son `hold` ≤ 0.6. Ses 1.2x (atempo, manifest /1.2). Dolgu (ıı, hmm, şey) YOK.
+- (eski) Hedef 25-40 sn. `"padding": 0.02`, son `hold` ≤ 0.6. Ses 1.2x (atempo, manifest /1.2). Dolgu: ilk ve son sahnede YOK; orta sahnelerde ıı/hani/[chuckles] VAR (kullanıcı seviyor).
 - Kısaltırken cümle yarıda kesilmez; video tam cümleyle biter.
 
 ## Görsel

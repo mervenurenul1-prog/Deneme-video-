@@ -17933,7 +17933,7 @@ const S2_HAND = armPoints(1, [25, 135])[2];
 const S2_HANDW = { x: S2_AX + S2_HAND[0] * S2_S, y: S2F + 10 + (S2_HAND[1] - 20) * S2_S };
 
 // Salon v2: imagined 0 gerçek / 1 avatarın kafasındaki hâl (herkes ona bakıyor)
-const S2Gym: React.FC<{ f: number; imagined?: number; ax?: number; ay?: number; busy?: number }> = ({ f, imagined = 0, ax = S2_AX, ay = S2_HEAD, busy = 1 }) => {
+const S2Gym: React.FC<{ f: number; imagined?: number; ax?: number; ay?: number; busy?: number; eyeGrow?: number }> = ({ f, imagined = 0, ax = S2_AX, ay = S2_HEAD, busy = 1, eyeGrow = 0 }) => {
   const a = busy * (1 - imagined);
   const curl = 30 + 110 * (0.5 + 0.5 * Math.sin(f / 7)) * a;
   const flex = (0.5 + 0.5 * Math.sin(f / 9)) * a;
@@ -17960,9 +17960,59 @@ const S2Gym: React.FC<{ f: number; imagined?: number; ax?: number; ay?: number; 
       <text x={S2_TAPE + 200} y={330} fontFamily={fontFamily} fontWeight={900} fontSize={70} fill={C.ink} opacity={0.75} letterSpacing={6}>
         AĞIRLIK
       </text>
-      {/* ayna duvarı + raf */}
-      <rect x={1860} y={420} width={700} height={900} rx={12} fill="#dfeef2" stroke={C.ink} strokeWidth={8} />
-      <path d="M1900 500 L1990 440 M1900 610 L2080 500" stroke="#fff" strokeWidth={12} opacity={0.6} />
+      {/* tavan + sarkıt lambalar */}
+      <rect x={-1200} y={-1400} width={5000} height={1560} fill="#5a4a3c" opacity={0.85} />
+      {[-100, 400, 1100, 1500, 1900, 2300].map((lx, i) => (
+        <g key={i} stroke={C.ink} strokeLinejoin="round">
+          <path d={`M${lx} 160 V250`} strokeWidth={5} />
+          <path d={`M${lx - 60} 300 Q${lx} 230 ${lx + 60} 300 Z`} fill="#2b2b30" strokeWidth={6} />
+          <ellipse cx={lx} cy={302} rx={44} ry={10} fill="#fff3b0" strokeWidth={0} />
+          <path d={`M${lx - 44} 304 L${lx - 170} 700 L${lx + 170} 700 L${lx + 44} 304 Z`} fill="#fff3b0" opacity={0.12} stroke="none" />
+        </g>
+      ))}
+      {/* ayna duvarı (paneller) */}
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <g key={i}>
+          <rect x={1000 + i * 270} y={470} width={260} height={720} rx={8} fill="#dfeef2" stroke={C.ink} strokeWidth={7} />
+          <path d={`M${1030 + i * 270} 560 L${1110 + i * 270} 500 M${1030 + i * 270} 660 L${1190 + i * 270} 540`} stroke="#fff" strokeWidth={11} opacity={0.6} />
+        </g>
+      ))}
+      {/* poster */}
+      <g transform="rotate(-2 520 560)">
+        <rect x={400} y={430} width={240} height={300} rx={8} fill="#b23a2a" stroke={C.ink} strokeWidth={7} />
+        <text x={520} y={540} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={58} fill={C.cream}>PES</text>
+        <text x={520} y={610} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={58} fill={C.cream}>ETME</text>
+        <path d="M450 660 H590" stroke={C.cream} strokeWidth={8} />
+      </g>
+      {/* çim şerit (kızak / ördek yürüyüşü alanı) */}
+      <rect x={S2_TAPE + 60} y={S2F + 40} width={2600} height={170} fill="#5f8f4e" stroke={C.ink} strokeWidth={6} />
+      {Array.from({ length: 12 }, (_, i) => (
+        <g key={i}>
+          <path d={`M${S2_TAPE + 160 + i * 220} ${S2F + 40} V${S2F + 210}`} stroke="#f4f1ea" strokeWidth={6} opacity={0.85} />
+          <text x={S2_TAPE + 200 + i * 220} y={S2F + 140} fontFamily={fontFamily} fontWeight={900} fontSize={44} fill="#f4f1ea" opacity={0.8}>
+            {(i + 1) * 5}
+          </text>
+        </g>
+      ))}
+      <g transform={`translate(2450 ${S2F + 130})`} stroke={C.ink} strokeLinejoin="round">
+        <path d="M-120 40 L120 40 L90 -20 L-90 -20 Z" fill="#4b4b55" strokeWidth={7} />
+        <path d="M-60 -20 L-90 -170 M60 -20 L90 -170" strokeWidth={14} />
+        <path d="M-60 -20 L-90 -170 M60 -20 L90 -170" stroke="#9a9a9a" strokeWidth={6} />
+        <circle cx={0} cy={-40} r={40} fill="#2b2b30" strokeWidth={6} />
+      </g>
+      {/* su sebili + saksı (kardiyo) */}
+      <g stroke={C.ink} strokeLinejoin="round">
+        <rect x={640} y={S2F - 260} width={110} height={260} rx={10} fill="#e9edf2" strokeWidth={6} />
+        <path d={`M655 ${S2F - 260} Q695 ${S2F - 420} 735 ${S2F - 260} Z`} fill="#9fd0e8" strokeWidth={6} />
+        <path d={`M-160 ${S2F} L-100 ${S2F} L-110 ${S2F - 90} L-150 ${S2F - 90} Z`} fill="#c4683e" strokeWidth={6} />
+        {[-40, 0, 40].map((a, i) => (
+          <path key={i} d={`M-130 ${S2F - 90} Q${-130 + a} ${S2F - 220} ${-130 + a * 1.5} ${S2F - 280} Q${-120 + a * 0.4} ${S2F - 200} -130 ${S2F - 90} Z`} fill="#6f9a4c" strokeWidth={5} />
+        ))}
+      </g>
+      {/* kettlebell sırası */}
+      {[0, 1, 2, 3].map((i) => (
+        <Kettlebell key={i} x={1040 + i * 90} y={S2F + 300} s={0.42 + i * 0.05} />
+      ))}
       <rect x={1180} y={1040} width={560} height={20} fill="#6b6b6b" stroke={C.ink} strokeWidth={5} />
       <path d={`M1210 1060 L1210 ${S2F} M1710 1060 L1710 ${S2F}`} stroke={C.ink} strokeWidth={10} />
       {[0, 1, 2, 3, 4].map((i) => (
@@ -18002,12 +18052,12 @@ const S2Gym: React.FC<{ f: number; imagined?: number; ax?: number; ay?: number; 
           <rect x={-1200} y={-1400} width={5000} height={4400} fill={C.red} opacity={0.12 * imagined} />
           {S2_PP.map((p, i) => (
             <g key={i}>
-              <SpEye x={p.x - 32} y={S2_HEAD + 8} s={0.3 * imagined} tx={ax} ty={ay} />
-              <SpEye x={p.x + 32} y={S2_HEAD + 8} s={0.3 * imagined} tx={ax} ty={ay} />
+              <SpEye x={p.x - 32} y={S2_HEAD + 8} s={0.3 * imagined * (1 + eyeGrow)} tx={ax} ty={ay} />
+              <SpEye x={p.x + 32} y={S2_HEAD + 8} s={0.3 * imagined * (1 + eyeGrow)} tx={ax} ty={ay} />
             </g>
           ))}
           {S2_EYES.map((e, i) => (
-            <SpEye key={i} x={e.x} y={e.y} s={e.s * tw(imagined, i / 22, i / 22 + 0.25)} tx={ax} ty={ay} />
+            <SpEye key={i} x={e.x} y={e.y} s={e.s * tw(imagined, i / 22, i / 22 + 0.25) * (1 + eyeGrow)} tx={ax} ty={ay} />
           ))}
         </g>
       ) : null}
@@ -18067,33 +18117,67 @@ const S2BigPhone: React.FC<{ f: number; p: number; x?: number; y?: number; conte
   );
 };
 
+// Avatarın arkadan görünen başı (kısa saç, kulaklar): Person'ın yüzünü örter
+const AvBackHead: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <circle cx={-82} cy={-690} r={16} fill={C.skin} strokeWidth={5} />
+    <circle cx={82} cy={-690} r={16} fill={C.skin} strokeWidth={5} />
+    <circle cx={0} cy={-700} r={86} fill={C.hair} strokeWidth={7} />
+    <path d="M-60 -650 Q0 -620 60 -650 L56 -620 Q0 -600 -56 -620 Z" fill={C.skin} strokeWidth={5} />
+  </g>
+);
+const S2_FG = { x: 700, y: S2F + 330, s: 0.95 }; // ön planda (yakında) duran avatar
+const S2_FG_HEAD = { x: S2_FG.x, y: S2_FG.y - 720 * S2_FG.s };
+
 // 1) "Herkes bakıyor diye, ağırlıkların önünde boş telefon ekranını kaydırdın mı hiç? Peki gerçekte kaç kişi fark etti?"
-// Ekranı dolduran boş telefon, başparmak boşuna kaydırır, kenarlarda kırmızı gözler açılır; "ağırlıkların"da telefon
-// avatarın eline küçülür, kamera geri çekilir: şeridin önünde donmuş avatar, öte yanda ağırlık bölgesi; terler;
-// "Peki"de kamera ağırlık bölgesine savrulur; "kaç kişi"de dev "?" ve dönen sayaç.
+// Ekranı dolduran boş telefon, başparmak boşuna kaydırır, kenarlarda kırmızı gözler; "ağırlıkların"da telefon söner,
+// kamera avatarın ARKASINDAN geri çekilir: ön planda sırtı dönük avatar şeridin önünde, karşıda dolu ağırlık bölgesi;
+// herkes durup ona döner (yüzlerde ve aynalarda kırmızı gözler, büyür); "Peki"de avatar bize döner: kızarmış, terli,
+// utanmış (kamera yüzüne); "kaç kişi"de dev sayaç döner, "?".
 const Sp2Ekran: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const shrink = tw(f, w(3) - 2, w(3) + 8);
-  const big = 1 - shrink;
-  const edge = tw(f, w(0), w(2) + 4) * big;
+  const edge = tw(f, w(0), w(2) + 4) * (1 - shrink);
+  const imag = tw(f, w(4), w(6) + 4) * (1 - tw(f, w(14), w(16)));
+  const grow = tw(f, w(8), w(10)) * 0.5;
+  const turnT = w(11);
+  const sq = Math.abs((f - turnT) / 4);
+  const turnX = f > turnT - 4 && f < turnT + 4 ? Math.max(0.05, sq) : 1;
+  const front = f >= turnT;
   const q = pop(f, w(13) - 2, 12);
   const spin = f < w(16) ? Math.floor(random(`s2n${Math.floor(f / 3)}`) * 40) : 0;
+  const shake = front ? 0 : Math.sin(f * 1.7) * 3 * imag;
   return (
     <>
       <SpCam
         k={[
-          [0, 2.6, S2_HANDW.x, S2_HANDW.y],
-          [w(3) - 2, 2.6, S2_HANDW.x, S2_HANDW.y],
-          [w(3) + 8, 1.05, S2_AX + 240, 980],
-          [w(7), 1.45, S2_AX + 20, S2F - 330],
-          [w(11) - 2, 1.5, S2_AX + 10, S2F - 340],
-          [w(11) + 6, 0.8, 1500, 980],
-          [d, 0.76, 1500, 980],
+          [0, 2.2, S2_FG.x, S2_FG_HEAD.y + 160],
+          [w(3) - 2, 2.2, S2_FG.x, S2_FG_HEAD.y + 160],
+          [w(3) + 10, 0.85, 1080, 1050],
+          [w(10), 1.0, 980, 1060],
+          [turnT, 1.0, 980, 1060],
+          [turnT + 8, 1.55, S2_FG.x, S2_FG_HEAD.y + 120],
+          [w(13), 1.6, S2_FG.x, S2_FG_HEAD.y + 120],
+          [d, 1.6, S2_FG.x, S2_FG_HEAD.y + 120],
         ]}
-        shake={hit(f, w(3) + 6, 10) * 0.5}
+        shake={hit(f, w(3) + 8, 10) * 0.5 + hit(f, turnT, 10) * 0.4}
       >
-        <S2Gym f={f} />
-        <S2Avatar f={f} sweat={tw(f, w(5), w(7))} />
+        <S2Gym f={f} imagined={imag} ax={S2_FG_HEAD.x} ay={S2_FG_HEAD.y} eyeGrow={grow} />
+        <g transform={`translate(${S2_FG.x + shake} 0) scale(${turnX} 1) translate(${-S2_FG.x} 0)`}>
+          {front ? (
+            <Person x={S2_FG.x} y={S2_FG.y} s={S2_FG.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#f4f1ea" mouth="worry" blush={1} lookY={0.4} armR={[25, 135]}>
+              <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.2} />
+              {[0, 1, 2].map((k) => {
+                const t = (f / 18 + k / 3) % 1;
+                return <path key={k} d={`M${80 - k * 90} ${-760 + 90 * t} q-14 26 0 36 q14 -10 0 -36 Z`} fill={C.water} stroke={C.ink} strokeWidth={3} opacity={1 - t} />;
+              })}
+            </Person>
+          ) : (
+            <Person x={S2_FG.x} y={S2_FG.y} s={S2_FG.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#f4f1ea" armR={[12, 0]} armL={[12, 0]}>
+              <AvBackHead />
+            </Person>
+          )}
+        </g>
       </SpCam>
       {edge > 0
         ? [
@@ -18105,7 +18189,8 @@ const Sp2Ekran: React.FC<SceneProps> = ({ w, d }) => {
             [980, 900],
           ].map(([x, y], i) => <SpEye key={i} x={x} y={y} s={0.42 * tw(edge, i / 8, i / 8 + 0.3)} tx={540} ty={900} />)
         : null}
-      <S2BigPhone f={f} p={lerp(1, 0.08, shrink) * (shrink < 1 ? 1 : 0)} x={lerp(540, 540, shrink)} y={lerp(900, 960, shrink)} />
+      <S2BigPhone f={f} p={shrink < 1 ? lerp(1, 0.9, shrink) : 0} />
+      {shrink > 0 && shrink < 1 ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={0.6 * (1 - Math.abs(shrink - 0.5) * 2)} /> : null}
       {q > 0 ? (
         <g transform={`translate(540 360) scale(${q})`}>
           <circle r={150} fill={C.cream} stroke={C.ink} strokeWidth={10} />

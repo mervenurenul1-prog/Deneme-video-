@@ -6,4 +6,5 @@
 - Kredi: seslendirmeden önce `GET /v1/user/subscription`, kullanıcıya söyle. Son bilinen ≈ 12.885 (20 Ekim).
 - Müzik: `music/merak-gerilim.mp3` (seri, değişmez). Efektler az ve kısık (`SFX_GAIN`, `tidySfx`).
   Yeni müzik/efekt ÜCRETSİZ (Python/numpy, CC0) — ElevenLabs Music/SFX KULLANMA.
-- Kullanıcı (23 Ekim): Yunus HIZLI konuşsun, "ıı"/dolgu YOK (say metnine dolgu ekleme; 1.2x hızlandır). Süre zaten buna göre kısalır.
+- **DOLGU KURALI (kullanıcı, 23 Ekim, SON):** Yunus hızlı konuşsun (1.2x). İlk ve SON sahnede dolgu YOK (izleyiciyi tutmak için).
+  ORTA sahnelerde dolgular (ıı, hani, [chuckles] gülme) KALSIN — kullanıcı seviyor, izlenme oranını açıyor; çok kesme.
