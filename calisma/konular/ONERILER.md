@@ -50,3 +50,12 @@ C. Salonda herkes bana bakıyor: 2000 Cornell utanç tişörtü deneyi, tahmin ~
 - 7 BEKLEMEDE (VOOM'lu sıraya kalsın). Notlar: sonda da bir dolgu olabilir; "erken ölüm riski"; VOOM bağı geliştirilecek:
   "evde, salonda, nerede nasıl hayal edersen" programın oraya göre. Metin v1 sohbette (hafta içi bıraktın → 2017 → %30/%35 →
   "yeter ki sıfır olmasın" → VOOM + "vaktim yok diyen arkadaşına gönder ve sor:" döngü).
+
+## 23 Ekim gece — "daha ilgi çekici" VOOM'suz öneriler (DOĞRULA)
+A. Spor yaptığına inanmak — 2007 Harvard (Crum & Langer, Psychological Science): 84 otel temizlikçisi kadın; yarısına
+   "işiniz zaten egzersiz" dendi; 4 haftada kilo, tansiyon, bel/kalça oranı düştü, davranış değişmeden.
+B. "Bisiklet yüzü" — 1890'larda doktorlar bisiklete binen kadınları uyardı: yüzün gerilir, bozulur, gözler büyür. Kadınlara
+   sporun yasaklandığı korkular zinciri (sonra "rahmin düşer", "erkeksi olursun"). Kadın-erkek tartışması.
+C. İlk spor sütyeni (1977): iki erkek suspansuvarı dikilerek yapıldı; koşarken göğüs ciddi hareket eder (Portsmouth
+   araştırmaları). HASSAS konu — kullanıcıya dikkatle sor.
+D. "Kalbin atış sayısı sınırlı, spor harcar" efsanesi — spor dinlenme nabzını düşürür, gün sonunda daha az atar.
