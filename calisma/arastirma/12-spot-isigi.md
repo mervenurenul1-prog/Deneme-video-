@@ -21,3 +21,15 @@ Kullanıcının sevdiği iki cümle aynen: tavsiye + VOOM.
   → "planı olan kaybolmaz" tavsiyesini bilimle bağlar.
 - B Zajonc 1969 hamamböceği deneyi (seyirci hamamböcekleri): akılda kalıcı ama tekrar çalışmaları karışık → RİSKLİ.
 - C Gilovich 2000 utanç tişörtü (şu anki).
+
+## 10 kanca (23 Ekim) — ayna kancası REDDEDİLDİ ("adamları suçluyorsun"); kimseyi suçlama, izleyicinin iç hissine dokun
+1 Ağırlık bölgesinin önünde durup telefonuna bakıyormuş gibi yaptın mı hiç?
+2 Salonda seni izleyen biri varsa, bu aslında senin avantajın.
+3 Salona her gittiğinde aynı köşeye gidiyorsan, sebebi tembellik değil.
+4 Kulaklığını takıp koşu bandına saklananlar, bu video sizin için.
+5 Spor salonunda en ağır şey dambıl değil; ilk adım.
+6 Ağırlık bölgesine yaklaşırken kalbin neden hızlanıyor?
+7 Bin sekiz yüz doksan sekizde bir bisikletçi, bugün salonda yaşadığın korkuyu çözdü.
+8 İzlenmek seni zayıflatmaz. Ama bir şartla.
+9 Herkesin önünde ağırlık kaldırmaktan çekiniyorsan, sorun cesaret değil.
+10 Salonda herkes seni izliyor mu sanıyorsun? Yüz yirmi yıl önce biri bunu ölçtü.
