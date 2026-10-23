@@ -28,13 +28,16 @@
     },
     {
       "visual": "sp2-deney",
-      "voice": "“Herkes” dedin, değil mi? İki binde bunu ölçtüler: utanç verici tişörtle kalabalık bir sınıfa giren öğrenci “Yarısı gördü” sandı. Gerçek: dörtte biri bile değil.",
-      "say": "“Herkes” dedin, değil mi? İki binde bunu ölçtüler: utanç verici tişörtle kalabalık bir sınıfa giren öğrenci “Yarısı gördü” sandı. Gerçek: dörtte biri bile değil.",
+      "voice": "“Herkes” dedin, değil mi? İki binde denediler: utanç verici tişörtle sınıfa giren öğrenci herkesin baktığını sanıp köşede kızardı; tıpkı senin koşu bandına kaçman gibi. Gerçekte onu fark eden dörtte biri bile değildi.",
+      "say": "“Herkes” dedin, değil mi? İki binde denediler: utanç verici tişörtle sınıfa giren öğrenci herkesin baktığını sanıp köşede kızardı; tıpkı senin koşu bandına kaçman gibi. Gerçekte onu fark eden dörtte biri bile değildi.",
       "keys": [
+        "herkesin",
+        "koşu",
+        "bandına",
         "dörtte",
         "biri",
         "bile",
-        "değil"
+        "değildi"
       ]
     },
     {
@@ -48,11 +51,11 @@
     },
     {
       "visual": "sp2-voom",
-      "voice": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu kaydet: o an gelince boş ekrana değil, programına bak. Ve salondaki arkadaşına gönder, ona da sor:",
-      "say": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu kaydet: o an gelince boş ekrana değil, programına bak. Ve salondaki arkadaşına gönder, ona da sor:",
+      "voice": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Kaydet: o an gelince boş ekrana değil, programına bak. Ve salondaki arkadaşına gönder, ona da sor:",
+      "say": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Kaydet: o an gelince boş ekrana değil, programına bak. Ve salondaki arkadaşına gönder, ona da sor:",
       "keys": [
         "VOOM'da",
-        "kaydet",
+        "Kaydet",
         "gönder"
       ],
       "hold": 0.2

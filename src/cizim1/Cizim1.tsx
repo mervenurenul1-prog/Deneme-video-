@@ -180,9 +180,9 @@ const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "sp2-ekran": (w) => [[0, "kalp", 0.55], [w(1), "kalp", 0.45], [w(3) + 4, "whoosh", 0.4], [w(11), "whoosh", 0.3], [w(13) - 2, "pop", 0.35], ...ticks(w(13), w(16), 6, 0.25)],
-  "sp2-deney": (w) => [[0, "boom", 0.2], [w(0) + 2, "kalp", 0.6], [w(4) - 4, "whoosh", 0.3], [w(5), "kalem", 0.3], [w(16) - 2, "pop", 0.35], [w(19), "agir-dusme", 0.3]],
+  "sp2-deney": (w) => [[0, "boom", 0.2], [w(0) + 2, "kalp", 0.6], [w(4) - 4, "whoosh", 0.3], [w(5), "kalem", 0.3], [w(13) - 2, "pop", 0.35], [w(14), "kalp", 0.5], [w(18) - 2, "whoosh", 0.3], [w(28), "agir-dusme", 0.3]],
   "sp2-plan": (w) => [[w(1) - 2, "kagit", 0.35], [w(3), "kalem", 0.3], [w(7), "kalem", 0.3], [w(9), "ding", 0.3], [w(12), "whoosh", 0.25]],
-  "sp2-voom": (w, d) => [[0, "pop", 0.35], [w(10), "ding", 0.35], [w(15), "cizik", 0.3], [w(17), "pirilti", 0.3], [w(20), "whoosh", 0.35], [w(23), "kalp", 0.5]],
+  "sp2-voom": (w, d) => [[0, "pop", 0.35], [w(9), "ding", 0.35], [w(14), "cizik", 0.3], [w(16), "pirilti", 0.3], [w(19), "whoosh", 0.35], [w(22), "kalp", 0.5]],
   "sp-bant": (w) => [[0, "kalp", 0.5], [w(4), "kalp", 0.4], [w(8) + 2, "whoosh", 0.4], [w(8) + 4, "agir-dusme", 0.25]],
   "sp-gozler": (w) => [[w(3), "whoosh", 0.35], [w(5) - 2, "kalp", 0.6], [w(6), "boom", 0.2], [w(8), "kalp", 0.6], [w(10), "kalp", 0.7], [w(11), "whoosh", 0.3]],
   "sp-geri": (w) => [[0, "geri-sar", 0.6], [w(3), "pirilti", 0.35], [w(5), "tik", 0.3], [w(8), "whoosh", 0.25], [w(10) - 2, "ding", 0.35]],
@@ -18118,17 +18118,19 @@ const Sp2Ekran: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-// Sınıf v2 (ekran koordinatı, sepya): zamanlar karelerle verilir
-type S2ClassT = { board: number; walk: [number, number]; bubble: number; stamp: number; real: [number, number] };
+// Sınıf v2 (ekran koordinatı, sepya): zamanlar karelerle verilir. Öğrenci girer, herkes ona bakıyor sanır (tüm sıralarda
+// kırmızı halka + balon), kızarıp köşeye çekilir; içte avatarın koşu bandına kaçışı (yuvarlak ek görüntü); gerçek: 3 halka.
+type S2ClassT = { board: number; walk: [number, number]; bubble: number; corner: [number, number]; inset: [number, number]; real: [number, number]; stamp: number };
 const S2Class: React.FC<{ f: number; t: S2ClassT }> = ({ f, t }) => {
   const walkIn = tw(f, t.walk[0], t.walk[1]);
-  const sx = lerp(-120, 560, walkIn);
-  const bubble = pop(f, t.bubble, 14) * (1 - tw(f, t.stamp - 2, t.stamp + 6));
+  const toCorner = tw(f, t.corner[0], t.corner[1]);
+  const sx = lerp(lerp(-120, 560, walkIn), 960, toCorner);
+  const bubble = pop(f, t.bubble, 14) * (1 - tw(f, t.corner[1], t.corner[1] + 8));
   const stamp = pop(f, t.stamp, 12);
   const imagRings = tw(f, t.bubble, t.bubble + 14);
   const realRings = tw(f, t.real[0], t.real[1]);
+  const inset = pop(f, t.inset[0], 12) * (1 - tw(f, t.inset[1], t.inset[1] + 8));
   const realSet = [1, 6, 10];
-  const imagSet = [0, 1, 3, 6, 8, 10];
   return (
     <g>
       <rect x={0} y={0} width={1080} height={1920} fill="#dcc196" />
@@ -18140,12 +18142,12 @@ const S2Class: React.FC<{ f: number; t: S2ClassT }> = ({ f, t }) => {
         <g key={i}>
           <MiniW x={s.x} y={s.y} s={1.35} c={s.c} />
           <rect x={s.x - 80} y={s.y - 40} width={160} height={70} rx={8} fill="#a8794a" stroke={C.ink} strokeWidth={6} />
-          {imagSet.includes(i) && imagRings > 0 ? <circle cx={s.x} cy={s.y - 200} r={60} fill="none" stroke={C.red} strokeWidth={9} opacity={imagRings * (1 - realRings)} /> : null}
+          {imagRings > 0 ? <circle cx={s.x} cy={s.y - 200} r={60} fill="none" stroke={C.red} strokeWidth={9} opacity={tw(imagRings, (i % 6) / 10, (i % 6) / 10 + 0.4) * (1 - realRings)} /> : null}
           {realSet.includes(i) && realRings > 0 ? <circle cx={s.x} cy={s.y - 200} r={60} fill="none" stroke={YAS_OK} strokeWidth={10} opacity={realRings} /> : null}
         </g>
       ))}
       {walkIn > 0 ? (
-        <Person x={sx} y={1560} s={0.66} belly={0.2} shirt="#f2c230" shorts="#3b3b44" mouth="worry" blush={1} armL={[10 + 8 * Math.sin(f / 4), 0]} armR={[10 - 8 * Math.sin(f / 4), 0]}>
+        <Person x={sx} y={1560} s={0.66} belly={0.2} shirt="#f2c230" shorts="#3b3b44" mouth="worry" blush={0.4 + 0.6 * toCorner} lookY={toCorner} armL={toCorner > 0.9 ? [20, 120] : [10 + 8 * Math.sin(f / 4), 0]} armR={toCorner > 0.9 ? [20, 120] : [10 - 8 * Math.sin(f / 4), 0]}>
           <circle cx={0} cy={-470} r={62} fill="#fff1c9" stroke={C.ink} strokeWidth={6} />
           <path d="M-62 -490 Q-70 -560 0 -555 Q70 -560 62 -490 Q40 -530 0 -528 Q-40 -530 -62 -490 Z" fill="#c7782f" stroke={C.ink} strokeWidth={5} />
           <path d="M-26 -448 Q0 -420 26 -448" fill="none" stroke={C.ink} strokeWidth={6} strokeLinecap="round" />
@@ -18153,13 +18155,29 @@ const S2Class: React.FC<{ f: number; t: S2ClassT }> = ({ f, t }) => {
           <circle cx={20} cy={-478} r={6} fill={C.ink} />
         </Person>
       ) : null}
-      <Bubble x={760} y={760} rx={230} ry={120} p={bubble} tail={[640, 1000]}>
-        <text x={760} y={790} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={84} fill={C.red}>
-          yarısı gördü
+      <Bubble x={600} y={760} rx={250} ry={120} p={bubble} tail={[sx - 40, 1000]}>
+        <text x={600} y={790} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.red}>
+          herkes bakıyor!
         </text>
       </Bubble>
+      {inset > 0 ? (
+        <g transform={`translate(330 760) scale(${inset})`}>
+          <clipPath id="s2Inset">
+            <circle r={230} />
+          </clipPath>
+          <g clipPath="url(#s2Inset)">
+            <rect x={-240} y={-240} width={480} height={480} fill="#e6d6b4" />
+            <rect x={-240} y={120} width={480} height={200} fill="#a19a90" />
+            <g transform="translate(-30 120) scale(0.55)">
+              <Treadmill x={0} y={0} f={f} />
+              <SideRunner f={f} x={-70} y={-6} s={0.7} pose={runPose(f / 3.2, 1)} shirt={SEL_AV_TOP} face="worry" />
+            </g>
+          </g>
+          <circle r={230} fill="none" stroke={C.red} strokeWidth={12} />
+        </g>
+      ) : null}
       {stamp > 0 ? (
-        <g transform={`translate(760 700) scale(${stamp}) rotate(-6)`}>
+        <g transform={`translate(600 700) scale(${stamp}) rotate(-6)`}>
           <rect x={-250} y={-100} width={500} height={200} rx={24} fill={C.cream} stroke={YAS_OK} strokeWidth={14} />
           <text x={0} y={46} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={128} fill={YAS_OK}>
             %23
@@ -18170,11 +18188,11 @@ const S2Class: React.FC<{ f: number; t: S2ClassT }> = ({ f, t }) => {
   );
 };
 
-// 2) "“Herkes” dedin, değil mi? İki binde bunu ölçtüler: utanç verici tişörtle kalabalık bir sınıfa giren öğrenci “Yarısı
-// gördü” sandı. Gerçek: dörtte biri bile değil."
-// "Herkes"te ağırlık bölgesindeki herkesin yüzünde ve duvarlarda kırmızı gözler açılır, hepsi avatara döner (kamera
-// itilir, sarsılır); "İki binde" sepya sınıf: tahtada 2000; yüz baskılı sarı tişörtlü öğrenci kızararak girer (kamera
-// ona yaklaşır); balon "yarısı gördü" + 6 kırmızı halka → "Gerçek"te lacivert %23 damgası, 3 halka.
+// 2) "“Herkes” dedin, değil mi? İki binde denediler: utanç verici tişörtle sınıfa giren öğrenci, herkesin ona baktığını
+// hissetti ve kızarıp köşede bekledi; tıpkı senin koşu bandına kaçman gibi. Gerçekte onu fark eden, dörtte biri bile değildi."
+// "Herkes"te ağırlık bölgesinde kırmızı gözler; "İki binde" sepya sınıf (tahtada 2000); yüz baskılı sarı tişörtlü öğrenci
+// girer, "herkesin"de bütün sıralarda kırmızı halka + "herkes bakıyor!" balonu; "kızarıp köşede" köşeye çekilir;
+// "tıpkı senin"de yuvarlak ek görüntüde avatar koşu bandında kaçar; "Gerçekte" 3 lacivert halka, "dörtte"de %23 damgası.
 const Sp2Deney: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const imag = tw(f, 0, w(1) + 4);
@@ -18191,8 +18209,8 @@ const Sp2Deney: React.FC<SceneProps> = ({ w, d }) => {
       ) : null}
       {cls > 0 ? (
         <g opacity={cls}>
-          <CamK k={[[w(4), 1, 540, 960], [w(10), 1, 540, 960], [w(14), 1.35, 420, 1250], [w(15) + 4, 1.0, 540, 960], [w(19), 1.0, 540, 960], [w(19) + 8, 1.12, 720, 820], [d, 1.0, 540, 960]]} shake={hit(f, w(19), 10) * 0.5}>
-            <S2Class f={f} t={{ board: w(4), walk: [w(10) - 2, w(15)], bubble: w(16) - 2, stamp: w(19), real: [w(20), w(22)] }} />
+          <CamK k={[[w(4), 1, 540, 960], [w(9), 1, 540, 960], [w(12), 1.3, 480, 1250], [w(13) + 4, 1.0, 540, 960], [w(15), 1.0, 540, 960], [w(17), 1.25, 900, 1250], [w(18) + 4, 1.0, 540, 960], [d, 1.04, 560, 920]]} shake={hit(f, w(28), 10) * 0.5}>
+            <S2Class f={f} t={{ board: w(4), walk: [w(9) - 2, w(12)], bubble: w(13) - 2, corner: [w(15), w(17)], inset: [w(18) - 2, w(24) - 4], real: [w(24), w(27)], stamp: w(28) }} />
           </CamK>
         </g>
       ) : null}
@@ -18262,12 +18280,12 @@ const Sp2Voom: React.FC<SceneProps> = ({ w, d }) => {
   useImgReady(S2_SHOT);
   const f = useCurrentFrame();
   const ph = pop(f, 0, 12);
-  const save = pop(f, w(10) - 2, 12);
-  const blank = tw(f, w(14) - 2, w(14) + 4) * (1 - tw(f, w(17) - 2, w(17) + 4));
-  const xMark = pop(f, w(15), 10) * (1 - tw(f, w(17) - 2, w(17) + 2));
-  const okMark = pop(f, w(17), 10) * (1 - tw(f, w(19), w(19) + 4));
-  const plane = tw(f, w(20), w(22) + 6);
-  const end = tw(f, w(23), d - 2);
+  const save = pop(f, w(9) - 2, 12);
+  const blank = tw(f, w(13) - 2, w(13) + 4) * (1 - tw(f, w(16) - 2, w(16) + 4));
+  const xMark = pop(f, w(14), 10) * (1 - tw(f, w(16) - 2, w(16) + 2));
+  const okMark = pop(f, w(16), 10) * (1 - tw(f, w(18), w(18) + 4));
+  const plane = tw(f, w(19), w(21) + 6);
+  const end = tw(f, w(22), d - 2);
   const PW = 320;
   const PH = 560;
   const bx = lerp(830, 540, end);
@@ -18275,7 +18293,7 @@ const Sp2Voom: React.FC<SceneProps> = ({ w, d }) => {
   const sc = lerp(0.8, 1.75, end);
   return (
     <>
-      <SpCam k={[[0, 1.1, 1260, 960], [w(19), 1.1, 1260, 960], [w(20) + 6, 0.9, 1500, 960], [d, 0.9, 1500, 960]]}>
+      <SpCam k={[[0, 1.1, 1260, 960], [w(18), 1.1, 1260, 960], [w(19) + 6, 0.9, 1500, 960], [d, 0.9, 1500, 960]]}>
         <S2Gym f={f} />
         <S2Avatar f={f} x={1130} worry={0} phone={false} arms={0.5 + 0.5 * Math.sin(f / 6)} />
       </SpCam>
