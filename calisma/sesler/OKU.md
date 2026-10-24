@@ -8,3 +8,5 @@
   Yeni müzik/efekt ÜCRETSİZ (Python/numpy, CC0) — ElevenLabs Music/SFX KULLANMA.
 - **DOLGU KURALI (kullanıcı, 23 Ekim, SON):** Yunus hızlı konuşsun (1.2x). İlk ve SON sahnede dolgu YOK (izleyiciyi tutmak için).
   ORTA sahnelerde dolgular (ıı, hani, [chuckles] gülme) KALSIN — kullanıcı seviyor, izlenme oranını açıyor; çok kesme.
+- Dolgu YERİ (24 Ekim): yalnız doğal duraklama yerlerine; cümle sonuna/çağrının önüne "Hani…" gibi saçma dolgu KOYMA.
+- Kas adları: kullanıcı sonra "pazı" (veya biceps) olabilir dedi (24 Ekim); çok teknik terim yine yok.

@@ -179,6 +179,10 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "ba-ayna": (w) => [[2, "nefes", 0.35], [w(4), "nefes", 0.35], [w(5) + 2, "whoosh", 0.25], [w(9), "nefes", 0.35], [w(14) - 2, "cizik", 0.5], [w(14), "agir-dusme", 0.25]],
+  "ba-asker": (w) => [[0, "whoosh", 0.25], [w(9) - 2, "pop", 0.35], ...ticks(w(9), w(13), 6, 0.2), [w(13), "boom", 0.3], [w(17), "agir-dusme", 0.25]],
+  "ba-kralice": (w) => [[0, "pirilti", 0.3], [w(10) - 2, "pop", 0.35], [w(15) - 2, "whoosh", 0.3]],
+  "ba-son": (w, d) => [[0, "pirilti", 0.3], [w(5) - 2, "sihir", 0.3], [w(8), "whoosh", 0.35], [w(12) - 2, "pop", 0.4], [w(17), "tik", 0.3], [w(19), "tak", 0.3], [d - 18, "whoosh", 0.25]],
   "kd-kanca": (w) => [[w(2), "agir-dusme", 0.4], [w(4) - 1, "whoosh", 0.4], ...steps(w(4), w(8), 7, 0.3), [w(6), "whoosh", 0.3], [w(8), "nefes", 0.6]],
   "kd-sebep": (w) => [[w(1), "whoosh", 0.3], [w(3), "boom", 0.4]],
   "kd-tarih": (w) => [[2, "cizik", 0.4], [8, "agir-dusme", 0.3], [w(1), "kalem", 0.35], [w(6) + 2, "cizik", 0.35], [w(7) - 2, "havalanma", 0.4]],
@@ -803,6 +807,10 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "ba-ayna": { to: 1.0, x: 540, y: 960 },
+  "ba-asker": { to: 1.0, x: 540, y: 960 },
+  "ba-kralice": { to: 1.0, x: 540, y: 960 },
+  "ba-son": { to: 1.0, x: 540, y: 960 },
   "kd-kanca": { to: 1.0, x: 540, y: 960 },
   "kd-sebep": { to: 1.0, x: 540, y: 960 },
   "kd-tarih": { to: 1.0, x: 540, y: 960 },
@@ -19303,7 +19311,247 @@ const KdDongu: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 14 BEDEN ALGISI ("Aynadaki kusur") — VOOM'suz. Ayna (ev), oyuncak asker rafı, güzellik yarışması (TV) =====
+// Kıyafet: avatar evde siyah tişört + gri şort; sevgilisi evde açık mavi tişört + tayt.
+const BA_WO_TOP = "#9fc3d9";
+const BA_AV = { x: 350, y: 1440, s: 0.78 };
+const BA_WO = { x: 730, y: 1440, s: 0.74 };
+// Ayna çatlakları (merkez noktasından)
+const BA_CRACKS = Array.from({ length: 9 }, (_, i) => {
+  const a = (i / 9) * Math.PI * 2 + random(`bac${i}`) * 0.5;
+  const pts: [number, number][] = [[540, 820]];
+  let x = 540;
+  let y = 820;
+  for (let k = 0; k < 4; k++) {
+    const r = 90 + random(`bar${i}${k}`) * 90;
+    x += Math.cos(a + (random(`baa${i}${k}`) - 0.5) * 0.8) * r;
+    y += Math.sin(a + (random(`bab${i}${k}`) - 0.5) * 0.8) * r;
+    pts.push([x, y]);
+  }
+  return pts;
+});
+// Ayna: içinde iki kişinin yansıması (önden). flex 0..1 kol kasma, suck 0..1 karın içeri, crack 0..1, ghost 0..1 arka
+// planda oyuncak asker + kraliçe silueti (kıyasladıkları), smile: sonda rahatlar
+const BaMirror: React.FC<{ f: number; flex: number; suck: number; crack: number; ghost?: number; smile?: number; phone?: number }> = ({ f, flex, suck, crack, ghost = 0, smile = 0, phone = 0 }) => {
+  const id = svgId(useId());
+  const breath = Math.sin(f / 12) * 0.03;
+  return (
+    <g>
+      <rect x={0} y={0} width={1080} height={1920} fill="#d9c7a7" />
+      <rect x={0} y={1500} width={1080} height={420} fill="#b98d5e" />
+      <rect x={60} y={200} width={960} height={1340} rx={36} fill="#8a5a34" stroke={C.ink} strokeWidth={10} />
+      <clipPath id={`m${id}`}>
+        <rect x={100} y={240} width={880} height={1260} rx={20} />
+      </clipPath>
+      <g clipPath={`url(#m${id})`}>
+        <rect x={100} y={240} width={880} height={1260} fill="#e3eef2" />
+        <rect x={100} y={1260} width={880} height={240} fill="#c9d6da" />
+        {ghost > 0 ? (
+          <g opacity={ghost * 0.55}>
+            <Person x={250} y={1250} s={0.55} shirt="#6b7a3a" shorts="#55602d" limbW={2.3} belly={0} mouth="flat" armL={[20, 0]} armR={[20, 0]} />
+            <Person x={840} y={1250} s={0.55} female shirt="#e7c3d8" shorts="#e7c3d8" limbW={0.55} belly={0} mouth="smile">
+              <path d="M-50 -790 L-30 -840 L0 -800 L30 -840 L50 -790 Z" fill="#e8b923" stroke={C.ink} strokeWidth={6} />
+            </Person>
+          </g>
+        ) : null}
+        <Person x={BA_AV.x} y={BA_AV.y} s={BA_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} limbW={1 + 0.15 * flex} mouth={smile > 0.5 ? "grin" : flex > 0.5 ? "worry" : "flat"} lookY={smile > 0.5 ? 0 : 0.2} armL={[lerp(12, 95, flex), lerp(0, 120, flex)]} armR={[lerp(12, 95, flex), lerp(0, 120, flex)]} />
+        <Person x={BA_WO.x} y={BA_WO.y} s={BA_WO.s} female belly={lerp(0.55, 0.05, suck) + breath} shirt={BA_WO_TOP} shorts="#3b3b44" shortsLen={0.9} shoe={C.skin} mouth={smile > 0.5 ? "grin" : suck > 0.5 ? "flat" : "smile"} eyes={suck > 0.5 && smile < 0.5 ? "closed" : "open"} blush={0.3 + 0.5 * suck * (1 - smile)} armL={[18, 0]} armR={[18, 0]}>
+          {phone > 0 ? <Phone x={armPoints(1, [25, 135])[2][0]} y={armPoints(1, [25, 135])[2][1]} s={1.3} rot={-8} glow={phone} /> : null}
+        </Person>
+        <path d="M150 320 L260 260 M150 430 L370 300" stroke="#fff" strokeWidth={14} opacity={0.6} />
+        {suck > 0.3 && smile < 0.5
+          ? [-1, 1].map((k) => (
+              <path key={k} d={`M${BA_WO.x + k * 150} ${BA_WO.y - 430 * BA_WO.s} l${-k * 60} 0 m${k * 22} -20 l${-k * 22} 20 l${k * 22} 20`} fill="none" stroke={C.red} strokeWidth={9} strokeLinecap="round" opacity={(suck - 0.3) / 0.7} />
+            ))
+          : null}
+      </g>
+      {crack > 0 ? (
+        <g stroke="#fff" strokeWidth={6} fill="none" strokeLinecap="round" strokeLinejoin="round">
+          {BA_CRACKS.map((pts, i) => (
+            <path key={i} d={`M${pts.map((p) => p.join(" ")).join(" L")}`} strokeDasharray={600} strokeDashoffset={600 * (1 - crack)} />
+          ))}
+          <circle cx={540} cy={820} r={26 * crack} fill="#fff" opacity={0.8} />
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// 1) "Sen aynada kolunu kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı."
+// Aynada yakın plan: avatar kollarını kasar, kaşlarını çatar (kamera kolunda); "O"da kamera sevgilisine kayar: nefesini
+// tutup karnını içine çeker, kızarır; "beğenmedi"de ikisi birden iç çeker; geri çekilir; "kandırdı"da ayna çatlar.
+const BaAyna: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const flex = 1 - tw(f, w(4), w(4) + 8);
+  const suck = tw(f, w(6), w(8)) * (1 - tw(f, w(9) + 4, w(9) + 12));
+  const crack = tw(f, w(14) - 2, w(14) + 6);
+  return (
+    <CamK
+      k={[
+        [0, 1.9, BA_AV.x, 900],
+        [w(4) + 4, 1.9, BA_AV.x + 20, 900],
+        [w(5) + 6, 1.9, BA_WO.x, 1040],
+        [w(9) + 2, 1.9, BA_WO.x, 1040],
+        [w(10) + 8, 1.0, 540, 900],
+        [d, 1.04, 540, 880],
+      ]}
+      shake={hit(f, w(14), 12) * 0.7}
+    >
+      <BaMirror f={f} flex={flex} suck={suck} crack={crack} />
+    </CamK>
+  );
+};
+
+// Oyuncak asker kutusu: plastik pencereli karton, üstünde yıl; içinde limbW'si büyüyen asker
+const BA_BOXES: [string, number][] = [
+  ["1964", 1],
+  ["1975", 1.7],
+  ["1991", 2.5],
+  ["1997", 3.8],
+];
+const BaToyBox: React.FC<{ x: number; y: number; year: string; limb: number; burst?: number; f: number }> = ({ x, y, year, limb, burst = 0, f }) => (
+  <g>
+    {burst < 1 ? (
+      <g transform={`translate(${x} ${y})`} stroke={C.ink} strokeLinejoin="round" opacity={1 - burst}>
+        <rect x={-140} y={-470} width={280} height={500} rx={10} fill="#c4462f" strokeWidth={8} />
+        <rect x={-110} y={-400} width={220} height={390} rx={8} fill="#e8f2f6" strokeWidth={6} opacity={0.9} />
+        <text x={0} y={-420} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={48} fill={C.cream} stroke="none">
+          {year}
+        </text>
+      </g>
+    ) : null}
+    {burst > 0
+      ? [-1, 1].map((k) => <rect key={k} x={x + k * 140 * (1 + burst * 2) - 20} y={y - 470 - 200 * burst} width={40} height={500} fill="#c4462f" stroke={C.ink} strokeWidth={6} transform={`rotate(${k * 40 * burst} ${x + k * 140} ${y})`} opacity={1 - burst} />)
+      : null}
+    <Person x={x} y={y - 20} s={0.42} shirt="#6b7a3a" shorts="#55602d" shoe="#3b2f1e" limbW={limb} belly={0} mouth="flat" armL={[20 + 4 * Math.sin(f / 9), 0]} armR={[20, 0]}>
+      <path d="M-70 -760 Q0 -830 70 -760 L80 -740 L-80 -740 Z" fill="#55602d" stroke={C.ink} strokeWidth={6} />
+    </Person>
+  </g>
+);
+
+// 2) "Çocukken oynadığın oyuncak askerin kolu, insan boyuna çevrilince altmışlarda otuz santimdi. Doksanlarda altmış sekiz:
+// dünyada böyle bir kol yok."
+// Rafta yıl yıl dizilmiş oyuncak asker kutuları; kamera soldan sağa kayar, her kutuda kollar kalınlaşır; santim sayacı
+// 30 → 68; "altmış sekiz"de son kutu patlar; "yok"ta mezura kolun etrafında kapanmaz, kırmızı çarpı.
+const BaAsker: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const cm = Math.round(lerp(30, 68, tw(f, w(9), w(13))));
+  const burst = tw(f, w(13), w(13) + 10);
+  const xs = [150, 400, 650, 900];
+  const tag = pop(f, w(9) - 2, 12);
+  const xMark = pop(f, w(17), 10);
+  return (
+    <>
+      <CamK k={[[0, 1.25, 280, 1150], [w(8), 1.25, 280, 1150], [w(11), 1.15, 600, 1150], [w(13), 1.35, 860, 1120], [w(14) + 6, 1.1, 640, 1080], [d, 1.1, 640, 1080]]} shake={hit(f, w(13), 12) * 0.7}>
+        <rect x={-600} y={0} width={2400} height={1920} fill="#d9c7a7" />
+        <rect x={-600} y={1300} width={2400} height={40} fill="#8a5a34" stroke={C.ink} strokeWidth={8} />
+        <rect x={-600} y={1340} width={2400} height={600} fill="#b98d5e" />
+        {BA_BOXES.map(([year, limb], i) => (
+          <BaToyBox key={year} x={xs[i]} y={1300} year={year} limb={i === 3 ? lerp(2.5, limb, tw(f, w(11), w(13))) : limb} burst={i === 3 ? burst : 0} f={f} />
+        ))}
+      </CamK>
+      <KTag x={540} y={340} p={tag} text={`kol: ${cm} cm`} color={cm > 60 ? C.red : C.ink} rot={-3} />
+      {xMark > 0 ? <path d="M440 520 L640 720 M640 520 L440 720" transform={`translate(540 620) scale(${xMark}) translate(-540 -620)`} stroke={C.red} strokeWidth={26} strokeLinecap="round" /> : null}
+    </>
+  );
+};
+
+// 3) "Güzellik kraliçeleri ise her yıl biraz daha eridi; sonunda çoğu tıbben 'yetersiz beslenme' sınırına indi. [gülme]
+// Ve biz bunlara bakarak büyüdük."
+// TV ekranında sahne: taçlı kraliçe silueti yıl yıl incelir (1921 → 1999); yanda kilo göstergesi kırmızı "yetersiz
+// beslenme" çizgisinin altına iner; "Ve biz"de kamera geri çekilir: oturma odasında yerde TV izleyen iki çocuk.
+const BA_TV = { x: 540, y: 760, w: 640, h: 460 };
+const BaKralice: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const t = tw(f, w(0), w(7) + 6);
+  const year = Math.round(lerp(1921, 1999, t));
+  const gauge = tw(f, w(3), w(13));
+  const line = pop(f, w(10) - 2, 12);
+  const back = tw(f, w(15) - 2, w(15) + 10);
+  const zoom = BA_TV.w + 80;
+  return (
+    <>
+      <CamK k={[[0, 1080 / zoom, BA_TV.x, BA_TV.y], [w(15) - 2, 1080 / zoom, BA_TV.x, BA_TV.y], [w(15) + 10, 1, 540, 960], [d, 1.03, 540, 940]]}>
+        <rect x={0} y={0} width={1080} height={1920} fill="#e6cfa8" />
+        <rect x={0} y={1300} width={1080} height={620} fill="#b98d5e" />
+        <rect x={BA_TV.x - BA_TV.w / 2 - 30} y={BA_TV.y - BA_TV.h / 2 - 30} width={BA_TV.w + 60} height={BA_TV.h + 60} rx={30} fill="#3a3a42" stroke={C.ink} strokeWidth={10} />
+        <rect x={BA_TV.x - 200} y={BA_TV.y + BA_TV.h / 2 + 30} width={400} height={140} fill="#8a5a34" stroke={C.ink} strokeWidth={8} />
+        <clipPath id="baTv">
+          <rect x={BA_TV.x - BA_TV.w / 2} y={BA_TV.y - BA_TV.h / 2} width={BA_TV.w} height={BA_TV.h} />
+        </clipPath>
+        <g clipPath="url(#baTv)">
+          <rect x={BA_TV.x - BA_TV.w / 2} y={BA_TV.y - BA_TV.h / 2} width={BA_TV.w} height={BA_TV.h} fill="#5a2a3a" />
+          <path d={`M${BA_TV.x - 120} ${BA_TV.y - 230} L${BA_TV.x + 120} ${BA_TV.y - 230} L${BA_TV.x + 230} ${BA_TV.y + 230} L${BA_TV.x - 230} ${BA_TV.y + 230} Z`} fill="#fff3b0" opacity={0.25} />
+          <Person x={BA_TV.x} y={BA_TV.y + 210} s={0.5} female shirt="#e7c3d8" shorts="#e7c3d8" shortsLen={1} limbW={lerp(1, 0.5, t)} belly={lerp(0.35, 0, t)} mouth="smile" armL={[25, 0]} armR={[160, 30]}>
+              <path d="M-50 -790 L-30 -840 L0 -800 L30 -840 L50 -790 Z" fill="#e8b923" stroke={C.ink} strokeWidth={6} />
+              <path d="M-80 -560 L70 -330" stroke="#fff" strokeWidth={26} />
+          </Person>
+          <text x={BA_TV.x - BA_TV.w / 2 + 30} y={BA_TV.y - BA_TV.h / 2 + 70} fontFamily={fontFamily} fontWeight={900} fontSize={56} fill={C.cream}>
+            {year}
+          </text>
+        </g>
+        {/* oturma odasında TV izleyen iki çocuk (arkadan) */}
+        <g opacity={back}>
+          <MiniW x={400} y={1500} s={2.2} c={SEL_AV_TOP} />
+          <MiniW x={680} y={1500} s={2.1} c={BA_WO_TOP} />
+        </g>
+      </CamK>
+      {back < 1 ? (
+        <g opacity={1 - back}>
+          <g transform="translate(930 1050)">
+            <rect x={-40} y={-300} width={80} height={600} rx={40} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+            <rect x={-28} y={-288 + 576 * gauge * 0.7} width={56} height={576 - 576 * gauge * 0.7} rx={28} fill={gauge > 0.75 ? C.red : "#7aa05a"} />
+            {line > 0 ? <path d="M-80 120 H80" stroke={C.red} strokeWidth={10} opacity={line} /> : null}
+          </g>
+          <KTag x={540} y={1340} p={line} text="yetersiz beslenme" color={C.red} rot={-3} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 4) "Yani aynadaki kusur sende değil, kıyasladığın şeyde. Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı,
+// kadınlar mı, erkekler mi?"
+// Aynaya dönülür: çatlak kapanır, ikisi rahatlar; "kıyasladığın şeyde" aynanın arkasında oyuncak asker + kraliçe
+// silueti belirip söner; "gönder"de kâğıt uçak; "Sence"de iki büyük buton KADINLAR / ERKEKLER sırayla parlar;
+// son karelerde kamera avatarın koluna yakınlaşır (= açılış).
+const BaSon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const crack = 1 - tw(f, 0, w(3));
+  const ghost = tw(f, w(5) - 2, w(5) + 6) * (1 - tw(f, w(7), w(7) + 6));
+  const plane = tw(f, w(8), w(10) + 6);
+  const btn = pop(f, w(12) - 2, 12) * (1 - tw(f, d - 22, d - 12));
+  const hiW = f > w(17) - 2 && f < w(19) - 2;
+  const hiM = f >= w(19) - 2;
+  const end = tw(f, d - 20, d - 2);
+  return (
+    <>
+      <CamK k={[[0, 1.0, 540, 880], [d - 20, 1.0, 540, 880], [d - 2, 1.9, BA_AV.x, 900], [d, 1.9, BA_AV.x, 900]]}>
+        <BaMirror f={f} flex={end} suck={0} crack={crack} ghost={ghost} smile={1 - end} phone={tw(f, w(7), w(8)) * (1 - tw(f, w(11), w(12)))} />
+      </CamK>
+      {plane > 0 && plane < 1 ? <VsPaperPlane p={plane} a={[700, 1000]} b={[380, 760]} /> : null}
+      {btn > 0
+        ? [
+            ["KADINLAR", 290, hiW, "#b06a8a"],
+            ["ERKEKLER", 790, hiM, YAS_OK],
+          ].map(([t, x, hi, c]) => (
+            <g key={t as string} transform={`translate(${x} 330) scale(${btn * (hi ? 1.12 : 1)})`}>
+              <rect x={-220} y={-70} width={440} height={140} rx={70} fill={hi ? (c as string) : C.cream} stroke={C.ink} strokeWidth={8} />
+              <text x={0} y={22} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={64} fill={hi ? C.cream : C.ink}>
+                {t as string}
+              </text>
+            </g>
+          ))
+        : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "ba-ayna": BaAyna,
+  "ba-asker": BaAsker,
+  "ba-kralice": BaKralice,
+  "ba-son": BaSon,
   "kd-kanca": KdKanca,
   "kd-sebep": KdSebep,
   "kd-tarih": KdTarih,

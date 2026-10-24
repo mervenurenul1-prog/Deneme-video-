@@ -85,3 +85,9 @@ N. Hep aynı ağırlıkta takılmak / "yapamam" duvarı — 1954 Bannister 4 dk 
 - Kullanıcı (24 Ekim): K-L okey, "daha ilgi çekici nasıl yaparız" → öneri: K+L tek videoda birleştir ("kadın sporu" dediğin
   pilates/aerobik/zumba erkekler için doğdu), avatar alay edip derse giren erkek, 10. dk titrer; isim sonda "Pilates" diye
   açılır; Cooper 12 dk testiyle meydan okuma kapanışı. Zumba (Beto Pérez kaseti unuttu) DOĞRULA. Seçim bekleniyor.
+- E-I reddedildi ("yeni konu bul"). Yeni (DOĞRULA; paralel sohbetin J-N'siyle karışmasın diye O-P):
+O. "Erkekler zayıf kadın sever / kadınlar iri kaslı erkek sever" — 1985 Pennsylvania (Fallon & Rozin): kadınlar erkeklerin
+   istediğinden daha zayıf olmaları gerektiğini sandı; erkekler kadınların istediğinden daha kaslı olmaları gerektiğini
+   sandı. İki taraf da yanılıyor. (Sonrası: Lynch & Zellner 1999 erkekler/kas.)
+P. "Atlar terler, erkekler ter döker, kadınlar parlar" (Viktorya dönemi sözü) — Osaka 2010 (Ichinose/Kondo, J Appl
+   Physiol): kadınlar terlemeye daha geç başlar; antrenman terlemeyi artırır. Kadın-erkek eğlenceli çatışma.

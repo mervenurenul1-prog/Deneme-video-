@@ -1,0 +1,62 @@
+{
+  "id": "cizim1-14-beden",
+  "title": "Aynadaki kusur",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "ba-ayna",
+      "voice": "Sen aynada pazını kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.",
+      "say": "Sen aynada pazını kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.",
+      "keys": [
+        "kandırdı"
+      ]
+    },
+    {
+      "visual": "ba-asker",
+      "voice": "Çocukken oynadığın oyuncak askerin kolu, insan boyuna çevrilince altmışlarda otuz santimdi. Doksanlarda altmış sekiz: dünyada böyle bir kol yok.",
+      "say": "Çocukken oynadığın oyuncak askerin kolu, insan boyuna çevrilince altmışlarda otuz santimdi. Doksanlarda... altmış sekiz: dünyada böyle bir kol yok.",
+      "keys": [
+        "otuz",
+        "altmış",
+        "sekiz"
+      ]
+    },
+    {
+      "visual": "ba-kralice",
+      "voice": "Güzellik kraliçeleri ise her yıl biraz daha eridi; sonunda çoğu tıbben “yetersiz beslenme” sınırına indi. Ve biz bunlara bakarak büyüdük.",
+      "say": "Güzellik kraliçeleri ise her yıl biraz daha eridi; sonunda, ıı, çoğu tıbben “yetersiz beslenme” sınırına indi. [chuckles] Ve biz bunlara bakarak büyüdük.",
+      "keys": [
+        "yetersiz",
+        "beslenme"
+      ]
+    },
+    {
+      "visual": "ba-son",
+      "voice": "Yani aynadaki kusur sende değil, kıyasladığın şeyde. Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi?",
+      "say": "Yani aynadaki kusur sende değil, kıyasladığın şeyde. Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi?",
+      "keys": [
+        "sende",
+        "değil",
+        "kadınlar",
+        "erkekler"
+      ],
+      "hold": 0.2
+    }
+  ],
+  "caption": "Oyuncak askerin kolu ve güzellik kraliçeleri: beden algısı (Pope 1999; JAMA 2000).",
+  "hashtags": [
+    "spor",
+    "fitness",
+    "bedenalgısı"
+  ]
+}
