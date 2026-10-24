@@ -19339,7 +19339,50 @@ const BA_CRACKS = Array.from({ length: 9 }, (_, i) => {
 });
 // Ayna: içinde iki kişinin yansıması (önden). flex 0..1 kol kasma, suck 0..1 karın içeri, crack 0..1, ghost 0..1 arka
 // planda oyuncak asker + kraliçe silueti (kıyasladıkları), smile: sonda rahatlar
-const BaMirror: React.FC<{ f: number; flex: number; suck: number; crack: number; ghost?: number; smile?: number; phone?: number }> = ({ f, flex, suck, crack, ghost = 0, smile = 0, phone = 0 }) => {
+// Gerçekçi poz parçaları (Person koordinatları). Çift pazı kasma: üst kol yana-hafif yukarı, ön kol dik yukarı;
+// üst kolun ortasında kabaran pazı + yumruk. Tişört çekiştirme: eller karnın önünde kumaşı tutup ileri çeker (kırışıklar).
+const BB_FLEX: Arm = [100, 80];
+const BbBicep: React.FC<{ arm: Arm; size: number; skin?: string }> = ({ arm, size, skin = C.skin }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    {[-1, 1].map((side) => {
+      const [sp, e, h] = armPoints(side, arm);
+      const mx = (sp[0] + e[0]) / 2;
+      const my = (sp[1] + e[1]) / 2;
+      const ang = (Math.atan2(e[1] - sp[1], e[0] - sp[0]) * 180) / Math.PI;
+      return (
+        <g key={side}>
+          <ellipse cx={mx + (e[0] - mx) * 0.25} cy={my - 10 - 12 * size} rx={42 + 8 * size} ry={14 + 16 * size} transform={`rotate(${ang} ${mx + (e[0] - mx) * 0.25} ${my - 10 - 12 * size})`} fill={skin} strokeWidth={5} />
+          <circle cx={h[0]} cy={h[1]} r={24} fill={skin} strokeWidth={5} />
+          <path d={`M${h[0] - 14} ${h[1] - 8} h28 M${h[0] - 14} ${h[1] + 6} h28`} strokeWidth={3} opacity={0.6} />
+        </g>
+      );
+    })}
+  </g>
+);
+const BB_TUG: Arm = [15, -100];
+const BbShirtTug: React.FC<{ p: number; shirt: string; f: number }> = ({ p, shirt, f }) =>
+  p > 0 ? (
+    <g stroke={C.ink} strokeLinejoin="round" opacity={p}>
+      {/* kumaş ileri çekilir: göbek önünde açık ton katlantı + ellerden yayılan kırışıklar */}
+      <path d={`M-70 -470 Q0 ${-455 + 8 * Math.sin(f / 3)} 70 -470 Q40 -400 0 -395 Q-40 -400 -70 -470 Z`} fill={shirt} strokeWidth={5} />
+      {[-1, 1].map((k) => (
+        <path key={k} d={`M${k * 10} -440 Q${k * 60} -480 ${k * 95} -540 M${k * 12} -432 Q${k * 70} -430 ${k * 110} -450`} fill="none" stroke="#000" strokeWidth={3} opacity={0.35} />
+      ))}
+      {[-1, 1].map((k) => (
+        <circle key={k} cx={k * 24} cy={-436} r={24} fill={C.skin} strokeWidth={5} />
+      ))}
+    </g>
+  ) : null;
+const BB_HEM: Arm = [12, -18];
+const BbHemTug: React.FC<{ p: number; f: number }> = ({ p, f }) =>
+  p > 0 ? (
+    <g stroke="#000" strokeWidth={3} fill="none" opacity={0.35 * p}>
+      {[-1, 1].map((k) => (
+        <path key={k} d={`M${k * 95} ${-300 + 4 * Math.sin(f / 2)} Q${k * 60} -380 ${k * 30} -470 M${k * 95} -300 Q${k * 80} -400 ${k * 70} -500`} />
+      ))}
+    </g>
+  ) : null;
+const BaMirror: React.FC<{ f: number; flex: number; suck: number; crack: number; ghost?: number; smile?: number; phone?: number; tug?: number }> = ({ f, flex, suck, crack, ghost = 0, smile = 0, phone = 0, tug = 0 }) => {
   const id = svgId(useId());
   const breath = Math.sin(f / 12) * 0.03;
   return (
@@ -19361,8 +19404,12 @@ const BaMirror: React.FC<{ f: number; flex: number; suck: number; crack: number;
             </Person>
           </g>
         ) : null}
-        <Person x={BA_AV.x} y={BA_AV.y} s={BA_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} limbW={1 + 0.15 * flex} mouth={smile > 0.5 ? "grin" : flex > 0.5 ? "worry" : "flat"} lookY={smile > 0.5 ? 0 : 0.2} armL={[lerp(12, 95, flex), lerp(0, 120, flex)]} armR={[lerp(12, 95, flex), lerp(0, 120, flex)]} />
-        <Person x={BA_WO.x} y={BA_WO.y} s={BA_WO.s} female belly={lerp(0.55, 0.05, suck) + breath} shirt={BA_WO_TOP} shorts="#3b3b44" shortsLen={0.9} shoe={C.skin} mouth={smile > 0.5 ? "grin" : suck > 0.5 ? "flat" : "smile"} eyes={suck > 0.5 && smile < 0.5 ? "closed" : "open"} blush={0.3 + 0.5 * suck * (1 - smile)} armL={[18, 0]} armR={[18, 0]}>
+        <Person x={BA_AV.x} y={BA_AV.y} s={BA_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} mouth={smile > 0.5 ? "grin" : flex > 0.5 || tug > 0.5 ? "worry" : "flat"} lookY={smile > 0.5 ? 0 : tug > 0.5 ? 0.8 : 0.2} armL={tug > 0 ? BB_TUG : [lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]} armR={tug > 0 ? BB_TUG : [lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]}>
+          {flex > 0.6 && tug === 0 ? <BbBicep arm={[lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]} size={(flex - 0.6) / 0.4} /> : null}
+          <BbShirtTug p={tug} shirt="#3a3a42" f={f} />
+        </Person>
+        <Person x={BA_WO.x} y={BA_WO.y} s={BA_WO.s} female belly={lerp(0.55, 0.05, suck) + breath} shirt={BA_WO_TOP} shorts="#3b3b44" shortsLen={0.9} shoe={C.skin} mouth={smile > 0.5 ? "grin" : suck > 0.5 ? "flat" : "smile"} eyes={suck > 0.5 && smile < 0.5 ? "closed" : "open"} blush={0.3 + 0.5 * suck * (1 - smile)} armL={tug > 0 ? BB_HEM : [18, 0]} armR={tug > 0 ? BB_HEM : [18, 0]}>
+          <BbHemTug p={tug} f={f} />
           {phone > 0 ? <Phone x={armPoints(1, [25, 135])[2][0]} y={armPoints(1, [25, 135])[2][1]} s={1.3} rot={-8} glow={phone} /> : null}
         </Person>
         <path d="M150 320 L260 260 M150 430 L370 300" stroke="#fff" strokeWidth={14} opacity={0.6} />
@@ -19583,11 +19630,37 @@ const BbTape: React.FC<{ x: number; y: number; cm: number; p: number; color?: st
     </g>
   ) : null;
 // Dev oyuncak asker (kutusuyla): limb kol kalınlığı
-const BbSoldier: React.FC<{ x: number; y: number; s: number; limb: number; flex?: number; f: number }> = ({ x, y, s, limb, flex = 0, f }) => (
-  <Person x={x} y={y} s={s} shirt="#6b7a3a" shorts="#55602d" shoe="#3b2f1e" limbW={limb} belly={0} mouth="grin" armL={[lerp(20, 95, flex), lerp(0, 120, flex)]} armR={[lerp(20 + 3 * Math.sin(f / 8), 95, flex), lerp(0, 120, flex)]}>
-    <path d="M-70 -760 Q0 -830 70 -760 L80 -740 L-80 -740 Z" fill="#55602d" stroke={C.ink} strokeWidth={6} />
-  </Person>
-);
+const BbSoldier: React.FC<{ x: number; y: number; s: number; limb: number; flex?: number; f: number }> = ({ x, y, s, limb, flex = 0, f }) => {
+  const arm: Arm = [lerp(20 + 3 * Math.sin(f / 8), BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)];
+  const m = (limb - 1) / 1.8; // 0 sıradan … 1 dev kas
+  const lw = 1 + 0.45 * m;
+  return (
+    <Person x={x} y={y} s={s} shirt="#6b7a3a" shorts="#55602d" shoe="#2b2118" limbW={lw} belly={0} mouth="grin" armL={arm} armR={arm}>
+      {/* kamuflaj lekeleri */}
+      {[
+        [-50, -520, 26],
+        [40, -470, 30],
+        [-20, -400, 22],
+        [60, -560, 18],
+        [-70, -440, 16],
+      ].map(([cx, cy, r], i) => (
+        <ellipse key={i} cx={cx} cy={cy} rx={r * 1.4} ry={r} fill={i % 2 ? "#4a5428" : "#8a8f52"} stroke="none" opacity={0.9} />
+      ))}
+      {/* göğüs kasları */}
+      {m > 0.05 ? <path d={`M-90 -540 Q-45 ${-490 + 30 * m} 0 -530 Q45 ${-490 + 30 * m} 90 -540`} fill="none" stroke={C.ink} strokeWidth={5 + 3 * m} /> : null}
+      {/* kemer + künye */}
+      <rect x={-100 - 20 * m} y={-372} width={200 + 40 * m} height={26} fill="#3b2f1e" stroke={C.ink} strokeWidth={5} />
+      <rect x={-14} y={-370} width={28} height={22} fill="#c9a23a" stroke={C.ink} strokeWidth={4} />
+      <path d="M-20 -592 L0 -540 L20 -592" fill="none" stroke="#9a9a9a" strokeWidth={4} />
+      <rect x={-12} y={-545} width={24} height={30} rx={5} fill="#c8c8c8" stroke={C.ink} strokeWidth={3} />
+      {/* kask + çene kayışı */}
+      <path d="M-82 -742 Q0 -840 82 -742 L92 -722 L-92 -722 Z" fill="#55602d" stroke={C.ink} strokeWidth={6} />
+      <path d="M-78 -722 Q-70 -660 -40 -640 M78 -722 Q70 -660 40 -640" fill="none" stroke="#3b2f1e" strokeWidth={5} />
+      {/* pazılar */}
+      {flex > 0.6 || m > 0.05 ? <BbBicep arm={arm} size={Math.max(m * 1.6, flex > 0.6 ? 0.4 : 0)} /> : null}
+    </Person>
+  );
+};
 
 // 1) "Aynada beğenmediğin o kol, altmış yıl önce bir kahramanın koluydu."
 // İlk kare: aynadaki avatarın kasılmış kolu ekranı doldurur, iç çeker; "altmış yıl önce"de görüntü sepyaya akar, aynı
@@ -19611,11 +19684,18 @@ const BbKol: React.FC<SceneProps> = ({ w, d }) => {
           <CamK k={[[0, 3.0, 540 - 230, 860], [w(5) + 2, 3.0, 540 - 230, 860], [w(7) + 6, 1.05, 540, 980], [d, 1.0, 540, 980]]} shake={hit(f, w(8), 10) * 0.3}>
             <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
             <rect x={0} y={1420} width={1080} height={500} fill="#a8794a" />
-            <rect x={140} y={180} width={800} height={1240} rx={16} fill="#c4462f" stroke={C.ink} strokeWidth={10} />
-            <rect x={190} y={320} width={700} height={1060} rx={12} fill="#eef4f6" stroke={C.ink} strokeWidth={7} />
+            <path d="M140 230 Q140 180 190 180 L890 180 Q940 180 940 230 L940 1420 L140 1420 Z" fill="#c4462f" stroke={C.ink} strokeWidth={10} />
+            <ellipse cx={540} cy={210} rx={60} ry={16} fill="#e8d5b0" stroke={C.ink} strokeWidth={6} />
+            <path d="M140 300 L940 300 L940 330 L140 330 Z" fill="#f2c230" stroke={C.ink} strokeWidth={5} />
+            <path d="M220 360 Q220 340 240 340 L840 340 Q860 340 860 360 L860 1360 Q860 1390 830 1390 L250 1390 Q220 1390 220 1360 Z" fill="#eef6f8" stroke={C.ink} strokeWidth={6} opacity={0.92} />
+            <path d="M250 380 L320 380 M250 410 L280 410" stroke="#fff" strokeWidth={10} strokeLinecap="round" />
             <text x={540} y={290} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={92} fill={C.cream} stroke={C.ink} strokeWidth={4} paintOrder="stroke fill">
-              KAHRAMAN
+              ★ KAHRAMAN ★
             </text>
+            <g transform="translate(840 1250) rotate(-12)">
+              <circle r={70} fill="#f2c230" stroke={C.ink} strokeWidth={6} />
+              <text x={0} y={14} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={40} fill={C.ink}>1964</text>
+            </g>
             <BbSoldier x={540} y={1340} s={1.05} limb={1} flex={1} f={f} />
             {star > 0
               ? [
@@ -19746,6 +19826,42 @@ const BbAyni: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// Güzellik kraliçesi: uzun abiye (bel incelir), omuzdan kuşak, mücevherli taç, kolunda gül buketi
+const BbQueen: React.FC<{ x: number; y: number; s: number; thin: number; f: number }> = ({ x, y, s, thin, f }) => {
+  const wst = lerp(1, 0.6, thin);
+  return (
+    <g>
+      <Person x={x} y={y} s={s} female shirt="#f3c6d6" shorts="#f3c6d6" shortsLen={1} limbW={lerp(1.05, 0.55, thin)} belly={lerp(0.3, 0, thin)} mouth="smile" armL={[30, -70]} armR={[150, 25 + 6 * Math.sin(f / 9)]}>
+        <path d={`M${-80 * wst} -380 Q${-120 * wst} -200 ${-190 * wst} -10 L${190 * wst} -10 Q${120 * wst} -200 ${80 * wst} -380 Z`} fill="#f3c6d6" stroke={C.ink} strokeWidth={6} />
+        {Array.from({ length: 7 }, (_, i) => (
+          <circle key={i} cx={(random(`qx${i}`) - 0.5) * 220 * wst} cy={-60 - random(`qy${i}`) * 280} r={5} fill="#fff" opacity={0.5 + 0.5 * Math.sin(f / 4 + i)} />
+        ))}
+        <path d={`M${-90 * wst} -575 L${80 * wst} -360`} stroke="#fbf3e2" strokeWidth={34} />
+        <path d={`M${-90 * wst} -575 L${80 * wst} -360`} stroke={C.red} strokeWidth={22} />
+        <path d="M-62 -788 L-46 -850 L-22 -806 L0 -866 L22 -806 L46 -850 L62 -788 Z" fill="#e8b923" stroke={C.ink} strokeWidth={6} />
+        {[-46, 0, 46].map((cx, i) => (
+          <circle key={i} cx={cx} cy={i === 1 ? -846 : -830} r={8} fill={["#d9405a", "#3aa6d9", "#d9405a"][i]} stroke={C.ink} strokeWidth={3} />
+        ))}
+        {(() => {
+          const h = armPoints(-1, [30, -70])[2];
+          return (
+            <g transform={`translate(${h[0]} ${h[1]})`}>
+              <path d="M-10 0 L-40 120 M10 0 L40 120 M0 0 L0 130" stroke="#5c8a3a" strokeWidth={8} />
+              {[
+                [-28, -20],
+                [6, -34],
+                [32, -12],
+                [-6, 4],
+              ].map(([rx, ry], i) => (
+                <circle key={i} cx={rx} cy={ry} r={22} fill={C.red} stroke={C.ink} strokeWidth={4} />
+              ))}
+            </g>
+          );
+        })()}
+      </Person>
+    </g>
+  );
+};
 // 5) "Bin dokuz yüz yirmi birde güzellik kraliçesi sağlıklı bir kızdı; seksen yıl sonra kazananların çoğu yetersiz
 // beslenme sınırındaydı."
 // Sepya 1921 sahil sahnesi: taçlı, sağlıklı kraliçe, eski fotoğraf makinesi flaş patlatır; "seksen yıl sonra" yıllar akar,
@@ -19765,10 +19881,7 @@ const BbKralice: React.FC<SceneProps> = ({ w, d }) => {
         {t <= 0.5 ? <path d="M0 1350 Q270 1300 540 1350 T1080 1350" fill="none" stroke="#7fb0c8" strokeWidth={14} /> : null}
         <rect x={240} y={1300} width={600} height={60} fill="#8a5a34" stroke={C.ink} strokeWidth={7} />
         {t > 0.5 ? <path d="M420 0 L660 0 L860 1320 L220 1320 Z" fill="#fff3b0" opacity={0.18} /> : null}
-        <Person x={540} y={1300} s={0.78} female shirt="#f0e3ea" shorts="#f0e3ea" shortsLen={1} limbW={lerp(1.05, 0.5, t)} belly={lerp(0.35, 0, t)} mouth="smile" armL={[25, 0]} armR={[150, 30]}>
-          <path d="M-50 -790 L-30 -840 L0 -800 L30 -840 L50 -790 Z" fill="#e8b923" stroke={C.ink} strokeWidth={6} />
-          <path d="M-80 -560 L70 -330" stroke={C.red} strokeWidth={26} />
-        </Person>
+        <BbQueen x={540} y={1300} s={0.78} thin={t} f={f} />
         {flash > 0 ? <circle cx={180} cy={700} r={260} fill="#fff" opacity={flash} /> : null}
         <g transform="translate(160 760)" stroke={C.ink} strokeWidth={6} strokeLinejoin="round">
           <rect x={-70} y={-50} width={140} height={100} rx={10} fill="#3b3b44" />
@@ -19791,24 +19904,54 @@ const BbKralice: React.FC<SceneProps> = ({ w, d }) => {
 // 6) "Ve bugün ikiniz de aynanın önünde tişörtünüzü çekiştiriyorsunuz."
 // Renkli bugün: ayna; ikisi de tişörtünün eteğini çekiştirir (titrer); aynanın içinde arkalarında dev asker ve ince
 // kraliçe hayaletleri; kamera yavaşça ikisinin arasına itilir.
+const BbProfile: React.FC<{ x: number; f: number; female?: boolean; shirt: string; tug: number; mirror?: boolean }> = ({ x, f, female = false, shirt, tug, mirror = false }) => {
+  const sc = 0.78;
+  const y = 1420;
+  const stand = runPose(0, 0);
+  const pose: SidePose = female
+    ? { ...stand, armF: [lerp(0, 8, tug), lerp(10, -4, tug)], armB: [lerp(0, 8, tug), lerp(10, -4, tug)] }
+    : { ...stand, armF: [lerp(0, 22, tug), lerp(10, 72, tug)], armB: [lerp(0, 22, tug), lerp(10, 72, tug)] };
+  const pull = tug * (14 + 6 * Math.sin(f / 3));
+  return (
+    <g transform={mirror ? `translate(${2 * x} 0) scale(-1 1)` : undefined}>
+      <SideRunner f={f} x={x} y={y} s={sc} pose={pose} shirt={shirt} female={female} face={tug > 0.5 ? "worry" : "smile"} />
+      {tug > 0 ? (
+        <g transform={`translate(${x} ${y}) scale(${sc})`} stroke={C.ink} strokeLinejoin="round">
+          {female ? (
+            <path d={`M70 -330 L${96 + pull * 0.3} ${-300 + pull} L-60 ${-300 + pull} L-60 -330`} fill={shirt} strokeWidth={5} opacity={tug} />
+          ) : (
+            <path d={`M78 -520 Q${150 + pull * 2} -470 ${172 + pull} -470 Q${150 + pull * 2} -460 78 -420 Z`} fill={shirt} strokeWidth={5} opacity={tug} />
+          )}
+        </g>
+      ) : null}
+    </g>
+  );
+};
 const BbBugun: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const tug = tw(f, w(5), w(6) + 4);
+  const tug = tw(f, w(5) - 4, w(6));
   const ghost = tw(f, w(3), w(5));
-  const j = Math.sin(f * 1.3) * 6 * tug;
   return (
-    <CamK k={[[0, 1.0, 540, 900], [d, 1.25, 540, 960]]}>
-      <g transform={`translate(${j} 0)`}>
-        <BaMirror f={f} flex={0} suck={0.3 * tug} crack={0} ghost={ghost} />
+    <CamK k={[[0, 1.0, 540, 960], [w(5), 1.15, 560, 1000], [d, 1.35, 600, 1060]]}>
+      <rect x={-200} y={0} width={1480} height={1920} fill="#d9c7a7" />
+      <rect x={-200} y={1420} width={1480} height={600} fill="#b98d5e" />
+      {/* sağda duvar aynası (yandan görünür), içinde yansımaları */}
+      <rect x={700} y={300} width={360} height={1180} rx={20} fill="#8a5a34" stroke={C.ink} strokeWidth={10} />
+      <clipPath id="bbSideM">
+        <rect x={730} y={330} width={300} height={1120} rx={12} />
+      </clipPath>
+      <g clipPath="url(#bbSideM)">
+        <rect x={730} y={330} width={300} height={1120} fill="#e3eef2" />
+        {ghost > 0 ? (
+          <g opacity={ghost * 0.5}>
+            <BbSoldier x={820} y={1400} s={0.6} limb={2.8} f={f} />
+            <BbQueen x={960} y={1400} s={0.55} thin={1} f={f} />
+          </g>
+        ) : null}
+        <path d="M760 380 L840 330 M760 480 L900 390" stroke="#fff" strokeWidth={12} opacity={0.6} />
       </g>
-      {tug > 0
-        ? [BA_AV, BA_WO].map((p, i) => (
-            <g key={i} stroke={C.red} strokeWidth={8} strokeLinecap="round" opacity={tug}>
-              <path d={`M${p.x - 90} ${p.y - 330 * p.s} l0 ${50 + 10 * Math.sin(f)} m-16 -16 l16 16 l16 -16`} fill="none" />
-              <path d={`M${p.x + 90} ${p.y - 330 * p.s} l0 ${50 + 10 * Math.sin(f + 1)} m-16 -16 l16 16 l16 -16`} fill="none" />
-            </g>
-          ))
-        : null}
+      <BbProfile x={420} f={f} shirt={SEL_AV_TOP} tug={tug} />
+      <BbProfile x={180} f={f} female shirt={BA_WO_TOP} tug={tug} />
     </CamK>
   );
 };
@@ -19818,7 +19961,9 @@ const BbBugun: React.FC<SceneProps> = ({ w, d }) => {
 // parlar; son karelerde kamera avatarın kasılmış koluna dalar (= açılış karesi, döngü).
 const BbSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const plane = tw(f, w(1), w(3) + 6);
+  const chat = pop(f, 0, 10) * (1 - tw(f, w(4), w(5)));
+  const sent = tw(f, w(2), w(2) + 4);
+  const read = f > w(3);
   const btn = pop(f, w(5) - 2, 12) * (1 - tw(f, d - 22, d - 12));
   const hiW = f > w(10) - 2 && f < w(12) - 2;
   const hiM = f >= w(12) - 2;
@@ -19826,9 +19971,24 @@ const BbSon: React.FC<SceneProps> = ({ w, d }) => {
   return (
     <>
       <CamK k={[[0, 1.05, 540, 900], [d - 20, 1.0, 540, 880], [d - 2, 3.0, BA_AV.x - 160, 960], [d, 3.0, BA_AV.x - 160, 960]]}>
-        <BaMirror f={f} flex={end} suck={0} crack={0} smile={1 - end} phone={tw(f, 0, w(1)) * (1 - tw(f, w(4), w(5)))} />
+        <BaMirror f={f} flex={end} suck={0} crack={0} smile={1 - end} phone={tw(f, w(3), w(3) + 4) * (0.5 + 0.5 * Math.sin(f / 2)) * (1 - tw(f, w(5), w(6)))} />
       </CamK>
-      {plane > 0 && plane < 1 ? <VsPaperPlane p={plane} a={[700, 1000]} b={[380, 760]} /> : null}
+      {chat > 0 ? (
+        <g transform={`translate(540 760) scale(${chat})`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-230} y={-360} width={460} height={720} rx={50} fill="#1e1f24" strokeWidth={8} />
+          <rect x={-205} y={-330} width={410} height={660} rx={30} fill="#efe7dc" strokeWidth={4} />
+          <rect x={-205} y={-330} width={410} height={80} rx={30} fill="#2f6f5e" strokeWidth={0} />
+          <text x={-130} y={-278} fontFamily={fontFamily} fontWeight={800} fontSize={34} fill="#fff" stroke="none">Sevgilim</text>
+          <circle cx={-170} cy={-290} r={22} fill={BA_WO_TOP} strokeWidth={3} />
+          <g transform={`translate(${lerp(260, 40, sent)} 60)`}>
+            <rect x={-150} y={-120} width={300} height={240} rx={22} fill="#d6f2c8" strokeWidth={4} />
+            <rect x={-130} y={-100} width={260} height={150} rx={12} fill="#c9a16a" strokeWidth={3} />
+            <path d="M-20 -50 L30 -25 L-20 0 Z" fill="#fff" strokeWidth={3} />
+            <text x={70} y={100} textAnchor="end" fontFamily={fontFamily} fontWeight={800} fontSize={30} fill={read ? "#3aa6d9" : "#8a8f96"} stroke="none">✓✓</text>
+            <text x={-130} y={95} fontFamily={handFamily} fontWeight={700} fontSize={36} fill={C.ink} stroke="none">izle!</text>
+          </g>
+        </g>
+      ) : null}
       {btn > 0
         ? [
             ["KADINLAR", 290, hiW, "#b06a8a"],
