@@ -14,39 +14,61 @@
   "speed": 1.2,
   "scenes": [
     {
-      "visual": "ba-ayna",
-      "voice": "Sen aynada pazını kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.",
-      "say": "Sen aynada pazını kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.",
+      "visual": "bb-kol",
+      "voice": "Aynada beğenmediğin o kol, altmış yıl önce bir kahramanın koluydu.",
+      "say": "Aynada beğenmediğin o kol, altmış yıl önce bir kahramanın koluydu.",
       "keys": [
-        "kandırdı"
+        "kahramanın"
       ]
     },
     {
-      "visual": "ba-asker",
-      "voice": "Çocukken oynadığın oyuncak askerin kolu, insan boyuna çevrilince altmışlarda otuz santimdi. Doksanlarda altmış sekiz: dünyada böyle bir kol yok.",
-      "say": "Çocukken oynadığın oyuncak askerin kolu, insan boyuna çevrilince altmışlarda otuz santimdi. Doksanlarda... altmış sekiz: dünyada böyle bir kol yok.",
+      "visual": "bb-altmis",
+      "voice": "Bin dokuz yüz altmış dörtte çocukların oyuncak askeri tam senin kadar kaslıydı.",
+      "say": "Bin dokuz yüz altmış dörtte çocukların oyuncak askeri tam senin kadar kaslıydı.",
       "keys": [
-        "otuz",
-        "altmış",
-        "sekiz"
+        "senin",
+        "kadar"
       ]
     },
     {
-      "visual": "ba-kralice",
-      "voice": "Güzellik kraliçeleri ise her yıl biraz daha eridi; sonunda çoğu tıbben “yetersiz beslenme” sınırına indi. Ve biz bunlara bakarak büyüdük.",
-      "say": "Güzellik kraliçeleri ise her yıl biraz daha eridi; sonunda, ıı, çoğu tıbben “yetersiz beslenme” sınırına indi. [chuckles] Ve biz bunlara bakarak büyüdük.",
+      "visual": "bb-doksan",
+      "voice": "Otuz yıl sonra aynı askerin kolu iki katına çıktı: dünyada hiçbir insanda olmayan bir kol.",
+      "say": "Otuz yıl sonra aynı askerin kolu... iki katına çıktı: dünyada hiçbir insanda olmayan bir kol.",
+      "keys": [
+        "iki",
+        "katına"
+      ]
+    },
+    {
+      "visual": "bb-ayni",
+      "voice": "Kolun aynı kaldı. Değişen sadece oyuncaktı.",
+      "say": "Kolun aynı kaldı. Değişen sadece oyuncaktı.",
+      "keys": [
+        "oyuncaktı"
+      ]
+    },
+    {
+      "visual": "bb-kralice",
+      "voice": "Bin dokuz yüz yirmi birde güzellik kraliçesi sağlıklı bir kızdı; seksen yıl sonra kazananların çoğu yetersiz beslenme sınırındaydı.",
+      "say": "Bin dokuz yüz yirmi birde güzellik kraliçesi sağlıklı bir kızdı; ıı, seksen yıl sonra kazananların çoğu yetersiz beslenme sınırındaydı.",
       "keys": [
         "yetersiz",
         "beslenme"
       ]
     },
     {
-      "visual": "ba-son",
-      "voice": "Yani aynadaki kusur sende değil, kıyasladığın şeyde. Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi?",
-      "say": "Yani aynadaki kusur sende değil, kıyasladığın şeyde. Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi?",
+      "visual": "bb-bugun",
+      "voice": "Ve bugün ikiniz de aynanın önünde tişörtünüzü çekiştiriyorsunuz.",
+      "say": "[chuckles] Ve bugün ikiniz de aynanın önünde tişörtünüzü çekiştiriyorsunuz.",
       "keys": [
-        "sende",
-        "değil",
+        "ikiniz"
+      ]
+    },
+    {
+      "visual": "bb-son",
+      "voice": "Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi?",
+      "say": "Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi?",
+      "keys": [
         "kadınlar",
         "erkekler"
       ],

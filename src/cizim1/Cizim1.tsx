@@ -179,6 +179,13 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "bb-kol": (w) => [[0, "nefes", 0.35], [w(4) - 2, "sihir", 0.35], [w(6), "whoosh", 0.3], [w(8) - 2, "pirilti", 0.35]],
+  "bb-altmis": (w) => [[0, "kagit", 0.3], [w(8) - 4, "whoosh", 0.3], [w(10), "ding", 0.35]],
+  "bb-doksan": (w) => [...ticks(0, w(8), 6, 0.2), [w(8), "boom", 0.35], [w(10) - 2, "whoosh", 0.25], [w(13), "agir-dusme", 0.25]],
+  "bb-ayni": (w) => [[2, "pop", 0.3], [w(3), "whoosh", 0.35], [w(5) - 2, "pop", 0.35]],
+  "bb-kralice": (w) => [[0, "kagit", 0.25], [w(6), "pirilti", 0.35], [w(10), "whoosh", 0.3], [w(15) - 2, "agir-dusme", 0.25]],
+  "bb-bugun": (w) => [[0, "nefes", 0.35], [w(3), "sihir", 0.3], [w(5), "nefes", 0.35]],
+  "bb-son": (w, d) => [[w(1), "whoosh", 0.35], [w(5) - 2, "pop", 0.4], [w(10), "tik", 0.3], [w(12), "tak", 0.3], [d - 18, "whoosh", 0.3]],
   "ba-ayna": (w) => [[2, "nefes", 0.35], [w(4), "nefes", 0.35], [w(5) + 2, "whoosh", 0.25], [w(9), "nefes", 0.35], [w(14) - 2, "cizik", 0.5], [w(14), "agir-dusme", 0.25]],
   "ba-asker": (w) => [[0, "whoosh", 0.25], [w(9) - 2, "pop", 0.35], ...ticks(w(9), w(13), 6, 0.2), [w(13), "boom", 0.3], [w(17), "agir-dusme", 0.25]],
   "ba-kralice": (w) => [[0, "pirilti", 0.3], [w(10) - 2, "pop", 0.35], [w(15) - 2, "whoosh", 0.3]],
@@ -807,6 +814,13 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "bb-kol": { to: 1.0, x: 540, y: 960 },
+  "bb-altmis": { to: 1.0, x: 540, y: 960 },
+  "bb-doksan": { to: 1.0, x: 540, y: 960 },
+  "bb-ayni": { to: 1.0, x: 540, y: 960 },
+  "bb-kralice": { to: 1.0, x: 540, y: 960 },
+  "bb-bugun": { to: 1.0, x: 540, y: 960 },
+  "bb-son": { to: 1.0, x: 540, y: 960 },
   "ba-ayna": { to: 1.0, x: 540, y: 960 },
   "ba-asker": { to: 1.0, x: 540, y: 960 },
   "ba-kralice": { to: 1.0, x: 540, y: 960 },
@@ -19540,7 +19554,306 @@ const BaSon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 14 BEDEN ALGISI v5 (selülit yapısı, 7 kısa sahne): yakın çekim → geri çekil; eskiden (sepya) yeniye (renk) =====
+// Sepya katmanı: eski zaman (film greni + kararmış kenar)
+const BbSepia: React.FC<{ o: number }> = ({ o }) => {
+  const f = useCurrentFrame();
+  if (o <= 0) return null;
+  return (
+    <g opacity={o} pointerEvents="none">
+      <rect x={0} y={0} width={1080} height={1920} fill="#c9a16a" style={{ mixBlendMode: "color" }} />
+      <rect x={0} y={0} width={1080} height={1920} fill="#b88a52" opacity={0.18} />
+      {Array.from({ length: 6 }, (_, i) => (
+        <path key={i} d={`M${(random(`bbg${i}${Math.floor(f / 3)}`) * 1080).toFixed(0)} 0 v1920`} stroke="#5a4028" strokeWidth={2} opacity={0.25} />
+      ))}
+    </g>
+  );
+};
+// Mezura: kolun etrafında (ekran koordinatı)
+const BbTape: React.FC<{ x: number; y: number; cm: number; p: number; color?: string }> = ({ x, y, cm, p, color = C.ink }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`}>
+      <rect x={-130} y={-34} width={260} height={68} rx={14} fill="#f2c230" stroke={C.ink} strokeWidth={6} />
+      {Array.from({ length: 12 }, (_, i) => (
+        <path key={i} d={`M${-118 + i * 21} -34 v${i % 2 ? 14 : 24}`} stroke={C.ink} strokeWidth={3} />
+      ))}
+      <text x={0} y={22} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={40} fill={color}>
+        {cm} cm
+      </text>
+    </g>
+  ) : null;
+// Dev oyuncak asker (kutusuyla): limb kol kalınlığı
+const BbSoldier: React.FC<{ x: number; y: number; s: number; limb: number; flex?: number; f: number }> = ({ x, y, s, limb, flex = 0, f }) => (
+  <Person x={x} y={y} s={s} shirt="#6b7a3a" shorts="#55602d" shoe="#3b2f1e" limbW={limb} belly={0} mouth="grin" armL={[lerp(20, 95, flex), lerp(0, 120, flex)]} armR={[lerp(20 + 3 * Math.sin(f / 8), 95, flex), lerp(0, 120, flex)]}>
+    <path d="M-70 -760 Q0 -830 70 -760 L80 -740 L-80 -740 Z" fill="#55602d" stroke={C.ink} strokeWidth={6} />
+  </Person>
+);
+
+// 1) "Aynada beğenmediğin o kol, altmış yıl önce bir kahramanın koluydu."
+// İlk kare: aynadaki avatarın kasılmış kolu ekranı doldurur, iç çeker; "altmış yıl önce"de görüntü sepyaya akar, aynı
+// kadrajda kol artık 1964'ün oyuncak askerinin kolu; kamera geri çekilir: vitrindeki kutu, üstünde "KAHRAMAN" ve yıldızlar.
+const BB_ARM = { x: 150, y: 700 };
+const BbKol: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const past = tw(f, w(4) - 2, w(5) + 4);
+  const star = pop(f, w(8) - 2, 12);
+  return (
+    <>
+      {past < 1 ? (
+        <g opacity={1 - past}>
+          <CamK k={[[0, 3.0, BA_AV.x - 160, 960], [w(1), 2.6, BA_AV.x - 60, 940], [w(3), 3.3, BA_AV.x - 170, 900], [d, 3.3, BA_AV.x - 170, 900]]} shake={hit(f, w(3), 8) * 0.3}>
+            <BaMirror f={f} flex={0.85 + 0.15 * Math.sin(f / 4)} suck={0} crack={0} />
+          </CamK>
+        </g>
+      ) : null}
+      {past > 0 ? (
+        <g opacity={past}>
+          <CamK k={[[0, 3.0, 540 - 230, 860], [w(5) + 2, 3.0, 540 - 230, 860], [w(7) + 6, 1.05, 540, 980], [d, 1.0, 540, 980]]} shake={hit(f, w(8), 10) * 0.3}>
+            <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
+            <rect x={0} y={1420} width={1080} height={500} fill="#a8794a" />
+            <rect x={140} y={180} width={800} height={1240} rx={16} fill="#c4462f" stroke={C.ink} strokeWidth={10} />
+            <rect x={190} y={320} width={700} height={1060} rx={12} fill="#eef4f6" stroke={C.ink} strokeWidth={7} />
+            <text x={540} y={290} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={92} fill={C.cream} stroke={C.ink} strokeWidth={4} paintOrder="stroke fill">
+              KAHRAMAN
+            </text>
+            <BbSoldier x={540} y={1340} s={1.05} limb={1} flex={1} f={f} />
+            {star > 0
+              ? [
+                  [230, 420],
+                  [850, 440],
+                  [250, 1200],
+                  [840, 1180],
+                ].map(([x, y], i) => <path key={i} d="M0 -40 L12 -12 L42 -12 L18 6 L28 36 L0 18 L-28 36 L-18 6 L-42 -12 L-12 -12 Z" transform={`translate(${x} ${y}) scale(${star})`} fill={C.yellow} stroke={C.ink} strokeWidth={4} />)
+              : null}
+          </CamK>
+          <BbSepia o={1} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 2) "Bin dokuz yüz altmış dörtte çocukların oyuncak askeri tam senin kadar kaslıydı."
+// Sepya oyuncakçı vitrini: camına burnunu dayayan çocuklar, tabelada 1964; "tam senin kadar"da ekran ikiye bölünür:
+// solda sepya asker, sağda renkli aynadaki avatar, ikisi de kolunu kasar; iki kolda aynı mezura: 30 cm, ortada "=".
+const BbAltmis: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const split = tw(f, w(8) - 4, w(8) + 6);
+  const tape = pop(f, w(10), 12);
+  return (
+    <>
+      {split < 1 ? (
+        <g opacity={1 - split}>
+          <CamK k={[[0, 1.25, 540, 900], [w(5), 1.1, 540, 960], [w(7), 1.4, 640, 860], [d, 1.4, 640, 860]]}>
+            <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
+            <rect x={0} y={1420} width={1080} height={500} fill="#a8794a" />
+            <rect x={110} y={300} width={860} height={900} rx={14} fill="#dbe9ee" stroke={C.ink} strokeWidth={12} />
+            <text x={540} y={260} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={110} fill={C.red}>
+              1964
+            </text>
+            <BbSoldier x={640} y={1150} s={0.7} limb={1} flex={0.3 + 0.3 * Math.sin(f / 10)} f={f} />
+            {[220, 380].map((x, i) => (
+              <MiniW key={i} x={x} y={1430 + Math.sin(f / 6 + i) * 6} s={2.3} c={["#d9705f", "#7d9cc4"][i]} />
+            ))}
+          </CamK>
+          <BbSepia o={1} />
+        </g>
+      ) : null}
+      {split > 0 ? (
+        <g opacity={split}>
+          <rect x={0} y={0} width={540} height={1920} fill="#e8d5b0" />
+          <BbSoldier x={270} y={1300} s={0.62} limb={1} flex={1} f={f} />
+          <BbSepia o={0} />
+          <g>
+            <rect x={0} y={0} width={540} height={1920} fill="#c9a16a" opacity={0.35} style={{ mixBlendMode: "color" }} />
+          </g>
+          <rect x={540} y={0} width={540} height={1920} fill="#e3eef2" />
+          <Person x={810} y={1300} s={0.62} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} mouth="flat" armL={[95, 120]} armR={[95, 120]} />
+          <path d="M540 0 V1920" stroke={C.ink} strokeWidth={10} />
+          <text x={540} y={760} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={140} fill={YAS_OK} stroke={C.cream} strokeWidth={10} paintOrder="stroke fill" opacity={tape}>
+            =
+          </text>
+          <BbTape x={270} y={560} cm={30} p={tape} />
+          <BbTape x={810} y={560} cm={30} p={tape} />
+          <text x={270} y={300} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={80} fill={C.ink} opacity={split}>
+            1964
+          </text>
+          <text x={810} y={300} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={80} fill={C.ink} opacity={split}>
+            SEN
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 3) "Otuz yıl sonra aynı askerin kolu iki katına çıktı: dünyada hiçbir insanda olmayan bir kol."
+// Yıl sayacı 1964 → 1997, sepya renge döner; kamera askerin koluna yaklaşırken kol şişer (mezura 30 → 68 cm), "çıktı"da
+// kutu patlar; "dünyada"da geri çekilir: yanında dünyanın en iri kaslı insanının silüeti bile küçük kalır, kırmızı çarpı.
+const BbDoksan: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const t = tw(f, 0, w(8));
+  const year = Math.round(lerp(1964, 1997, t));
+  const limb = lerp(1, 2.8, t);
+  const cm = Math.round(lerp(30, 68, t));
+  const burst = tw(f, w(8), w(8) + 10);
+  const sil = pop(f, w(10) - 2, 12);
+  const xMark = pop(f, w(13), 10);
+  return (
+    <>
+      <CamK k={[[0, 1.0, 540, 960], [w(3), 1.6, 380, 820], [w(8), 1.7, 370, 800], [w(9) + 6, 0.95, 560, 980], [d, 0.95, 560, 980]]} shake={hit(f, w(8), 14) * 0.8}>
+        <rect x={0} y={0} width={1080} height={1920} fill="#f0e2c2" />
+        <rect x={0} y={1420} width={1080} height={500} fill="#b98d5e" />
+        {burst < 1 ? <rect x={260 - 260 * burst} y={260 - 200 * burst} width={560 + 520 * burst} height={1160} rx={16} fill="none" stroke="#c4462f" strokeWidth={40 * (1 - burst)} opacity={1 - burst} /> : null}
+        <BbSoldier x={540} y={1380} s={0.85} limb={limb} flex={0.2} f={f} />
+        {sil > 0 ? (
+          <g opacity={sil * 0.6}>
+            <Person x={900} y={1380} s={0.85} shirt="#3b3b44" shorts="#3b3b44" limbW={2.0} belly={0} mouth="flat" />
+          </g>
+        ) : null}
+      </CamK>
+      <KTag x={540} y={300} p={1} text={`${year}`} color={year > 1990 ? C.red : C.ink} rot={-2} />
+      <BbTape x={540} y={470} cm={cm} p={pop(f, w(4), 12)} color={cm > 55 ? C.red : C.ink} />
+      {xMark > 0 ? <path d="M760 1000 L1000 1240 M1000 1000 L760 1240" transform={`translate(880 1120) scale(${xMark}) translate(-880 -1120)`} stroke={C.red} strokeWidth={26} strokeLinecap="round" /> : null}
+      <BbSepia o={1 - t} />
+    </>
+  );
+};
+
+// 4) "Kolun aynı kaldı. Değişen sadece oyuncaktı."
+// Hızlı iki kesme: "Kolun aynı kaldı"da avatarın kolu 1964 (sepya) ve bugün (renk) aynı mezurayla yan yana; "Değişen"de
+// kamera sağa savrulur: küçük 1964 askeri ile dev 1997 askeri yan yana, "oyuncaktı"da dev olana kırmızı halka.
+const BbAyni: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const ring = pop(f, w(5) - 2, 12);
+  return (
+    <CamK k={[[0, 1.2, 540, 900], [w(3) - 2, 1.2, 540, 900], [w(3) + 6, 1.1, 1620, 960], [d, 1.15, 1640, 940]]} shake={hit(f, w(3), 8) * 0.4}>
+      <rect x={-200} y={0} width={2600} height={1920} fill="#e3eef2" />
+      <rect x={-200} y={1420} width={2600} height={500} fill="#b98d5e" />
+      <g>
+        <Person x={330} y={1380} s={0.7} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} armL={[95, 120]} armR={[95, 120]} mouth="smile" />
+        <rect x={60} y={200} width={540} height={1700} fill="#c9a16a" opacity={0.45} style={{ mixBlendMode: "color" }} />
+        <Person x={760} y={1380} s={0.7} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} armL={[95, 120]} armR={[95, 120]} mouth="grin" />
+        <BbTape x={330} y={640} cm={30} p={pop(f, 2, 10)} />
+        <BbTape x={760} y={640} cm={30} p={pop(f, 6, 10)} />
+      </g>
+      <g>
+        <BbSoldier x={1350} y={1380} s={0.6} limb={1} flex={0.6} f={f} />
+        <BbSoldier x={1850} y={1380} s={0.95} limb={2.8} flex={0.3} f={f} />
+        {ring > 0 ? <circle cx={1850} cy={1000} r={380 * ring} fill="none" stroke={C.red} strokeWidth={14} /> : null}
+      </g>
+    </CamK>
+  );
+};
+
+// 5) "Bin dokuz yüz yirmi birde güzellik kraliçesi sağlıklı bir kızdı; seksen yıl sonra kazananların çoğu yetersiz
+// beslenme sınırındaydı."
+// Sepya 1921 sahil sahnesi: taçlı, sağlıklı kraliçe, eski fotoğraf makinesi flaş patlatır; "seksen yıl sonra" yıllar akar,
+// renk gelir, sahne ışıkları; kraliçe her yıl incelir; "yetersiz beslenme"de yandaki gösterge kırmızı çizginin altına iner.
+const BbKralice: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const t = tw(f, w(10), w(14));
+  const year = Math.round(lerp(1921, 2000, t));
+  const flash = hit(f, w(6), 8);
+  const gauge = tw(f, w(10), w(16));
+  const line = pop(f, w(15) - 2, 12);
+  return (
+    <>
+      <CamK k={[[0, 1.5, 540, 880], [w(6), 1.25, 540, 960], [w(10), 1.25, 540, 960], [w(14), 1.5, 520, 820], [d, 1.55, 520, 820]]} shake={hit(f, w(6), 8) * 0.3}>
+        <rect x={0} y={0} width={1080} height={1920} fill={t > 0.5 ? "#4a2236" : "#cfe3ec"} />
+        <rect x={0} y={1350} width={1080} height={570} fill={t > 0.5 ? "#2b1a22" : "#e8d5a6"} />
+        {t <= 0.5 ? <path d="M0 1350 Q270 1300 540 1350 T1080 1350" fill="none" stroke="#7fb0c8" strokeWidth={14} /> : null}
+        <rect x={240} y={1300} width={600} height={60} fill="#8a5a34" stroke={C.ink} strokeWidth={7} />
+        {t > 0.5 ? <path d="M420 0 L660 0 L860 1320 L220 1320 Z" fill="#fff3b0" opacity={0.18} /> : null}
+        <Person x={540} y={1300} s={0.78} female shirt="#f0e3ea" shorts="#f0e3ea" shortsLen={1} limbW={lerp(1.05, 0.5, t)} belly={lerp(0.35, 0, t)} mouth="smile" armL={[25, 0]} armR={[150, 30]}>
+          <path d="M-50 -790 L-30 -840 L0 -800 L30 -840 L50 -790 Z" fill="#e8b923" stroke={C.ink} strokeWidth={6} />
+          <path d="M-80 -560 L70 -330" stroke={C.red} strokeWidth={26} />
+        </Person>
+        {flash > 0 ? <circle cx={180} cy={700} r={260} fill="#fff" opacity={flash} /> : null}
+        <g transform="translate(160 760)" stroke={C.ink} strokeWidth={6} strokeLinejoin="round">
+          <rect x={-70} y={-50} width={140} height={100} rx={10} fill="#3b3b44" />
+          <circle cx={0} cy={0} r={30} fill="#9fd0e8" />
+          <path d="M-20 60 L-40 300 M20 60 L40 300 M0 60 L0 300" />
+        </g>
+      </CamK>
+      <KTag x={540} y={300} p={1} text={`${year}`} color={t > 0.5 ? C.red : C.ink} rot={-2} />
+      <g transform="translate(950 1000)" opacity={gauge > 0 ? 1 : 0}>
+        <rect x={-40} y={-300} width={80} height={600} rx={40} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+        <rect x={-28} y={-288 + 576 * gauge * 0.7} width={56} height={576 - 576 * gauge * 0.7} rx={28} fill={gauge > 0.75 ? C.red : "#7aa05a"} />
+        {line > 0 ? <path d="M-80 120 H80" stroke={C.red} strokeWidth={10} opacity={line} /> : null}
+      </g>
+      <KTag x={540} y={1250} p={line} text="yetersiz beslenme" color={C.red} rot={-3} />
+      <BbSepia o={1 - t} />
+    </>
+  );
+};
+
+// 6) "Ve bugün ikiniz de aynanın önünde tişörtünüzü çekiştiriyorsunuz."
+// Renkli bugün: ayna; ikisi de tişörtünün eteğini çekiştirir (titrer); aynanın içinde arkalarında dev asker ve ince
+// kraliçe hayaletleri; kamera yavaşça ikisinin arasına itilir.
+const BbBugun: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const tug = tw(f, w(5), w(6) + 4);
+  const ghost = tw(f, w(3), w(5));
+  const j = Math.sin(f * 1.3) * 6 * tug;
+  return (
+    <CamK k={[[0, 1.0, 540, 900], [d, 1.25, 540, 960]]}>
+      <g transform={`translate(${j} 0)`}>
+        <BaMirror f={f} flex={0} suck={0.3 * tug} crack={0} ghost={ghost} />
+      </g>
+      {tug > 0
+        ? [BA_AV, BA_WO].map((p, i) => (
+            <g key={i} stroke={C.red} strokeWidth={8} strokeLinecap="round" opacity={tug}>
+              <path d={`M${p.x - 90} ${p.y - 330 * p.s} l0 ${50 + 10 * Math.sin(f)} m-16 -16 l16 16 l16 -16`} fill="none" />
+              <path d={`M${p.x + 90} ${p.y - 330 * p.s} l0 ${50 + 10 * Math.sin(f + 1)} m-16 -16 l16 16 l16 -16`} fill="none" />
+            </g>
+          ))
+        : null}
+    </CamK>
+  );
+};
+
+// 7) "Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi?"
+// Ayna: avatar telefonu alır, kâğıt uçak sevgilisine uçar; "Sence"de iki büyük buton KADINLAR / ERKEKLER sırayla
+// parlar; son karelerde kamera avatarın kasılmış koluna dalar (= açılış karesi, döngü).
+const BbSon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const plane = tw(f, w(1), w(3) + 6);
+  const btn = pop(f, w(5) - 2, 12) * (1 - tw(f, d - 22, d - 12));
+  const hiW = f > w(10) - 2 && f < w(12) - 2;
+  const hiM = f >= w(12) - 2;
+  const end = tw(f, d - 20, d - 2);
+  return (
+    <>
+      <CamK k={[[0, 1.05, 540, 900], [d - 20, 1.0, 540, 880], [d - 2, 3.0, BA_AV.x - 160, 960], [d, 3.0, BA_AV.x - 160, 960]]}>
+        <BaMirror f={f} flex={end} suck={0} crack={0} smile={1 - end} phone={tw(f, 0, w(1)) * (1 - tw(f, w(4), w(5)))} />
+      </CamK>
+      {plane > 0 && plane < 1 ? <VsPaperPlane p={plane} a={[700, 1000]} b={[380, 760]} /> : null}
+      {btn > 0
+        ? [
+            ["KADINLAR", 290, hiW, "#b06a8a"],
+            ["ERKEKLER", 790, hiM, YAS_OK],
+          ].map(([t, x, hi, c]) => (
+            <g key={t as string} transform={`translate(${x} 330) scale(${btn * (hi ? 1.12 : 1)})`}>
+              <rect x={-220} y={-70} width={440} height={140} rx={70} fill={hi ? (c as string) : C.cream} stroke={C.ink} strokeWidth={8} />
+              <text x={0} y={22} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={64} fill={hi ? C.cream : C.ink}>
+                {t as string}
+              </text>
+            </g>
+          ))
+        : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "bb-kol": BbKol,
+  "bb-altmis": BbAltmis,
+  "bb-doksan": BbDoksan,
+  "bb-ayni": BbAyni,
+  "bb-kralice": BbKralice,
+  "bb-bugun": BbBugun,
+  "bb-son": BbSon,
   "ba-ayna": BaAyna,
   "ba-asker": BaAsker,
   "ba-kralice": BaKralice,
