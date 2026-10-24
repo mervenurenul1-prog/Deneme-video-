@@ -31,3 +31,14 @@ Kaynaklar (doğrulandı):
 2 (v3 aynı) 3 (v3 aynı)
 4 Yani aynadaki kusur sende değil, kıyasladığın şeyde. Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi? (→ 1)
 - 24 Ekim: kullanıcı vazgeçti → ilk cümle "Sen aynada PAZINI kastın, beğenmedin…"
+## v4 önizlemesi REDDEDİLDİ (24 Ekim): "görsel kötü, durağan yer çok, metinde akış yok, tarih az, milyonluk düşün"
+## DERS: selülit (en beğenilen) yapısı = 9 KISA cümle/sahne, açılış izleyicinin bedenini tarihle ters çevirir ("çukurlar
+## 400 yıl önce başyapıttı"), tarih vuruşları, özdeyiş ("Değişen sadece bakan gözdü"), bugünkü acı, sonda soru.
+## METİN v5 (selülit yapısında)
+1 Aynada beğenmediğin o kol, altmış yıl önce bir kahramanın koluydu.
+2 Bin dokuz yüz altmış dörtte çocukların oyuncak askeri tam senin kadar kaslıydı.
+3 Otuz yıl sonra aynı askerin kolu iki katına çıktı: dünyada hiçbir insanda olmayan bir kol.
+4 Kolun aynı kaldı. Değişen sadece oyuncaktı.
+5 Bin dokuz yüz yirmi birde güzellik kraliçesi sağlıklı bir kızdı; seksen yıl sonra kazananların çoğu yetersiz beslenme sınırındaydı.
+6 Ve bugün ikiniz de aynanın önünde tişörtünüzü çekiştiriyorsunuz.
+7 Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi? (→ 1)
