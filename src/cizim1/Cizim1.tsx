@@ -19382,7 +19382,37 @@ const BbHemTug: React.FC<{ p: number; f: number }> = ({ p, f }) =>
       ))}
     </g>
   ) : null;
-const BaMirror: React.FC<{ f: number; flex: number; suck: number; crack: number; ghost?: number; smile?: number; phone?: number; tug?: number }> = ({ f, flex, suck, crack, ghost = 0, smile = 0, phone = 0, tug = 0 }) => {
+// Aynada "karın kontrolü" (referans: ayna selfie'si): tişört göğüse sıvanır, karın görünür; erkek eteği ağzıyla tutar,
+// kadın bir eliyle tutar; diğer elde telefon (selfie). Person koordinatları.
+const BB_SELFIE_M: Arm = [150, 60];
+const BB_SELFIE_W: Arm = [140, 128];
+const BB_HOLD_W: Arm = [30, -130];
+const BbLift: React.FC<{ p: number; shirt: string; female?: boolean; f: number }> = ({ p, shirt, female = false, f }) => {
+  if (p <= 0) return null;
+  const top = lerp(-345, -505, p);
+  const ph = female ? armPoints(1, BB_SELFIE_W)[2] : armPoints(1, BB_SELFIE_M)[2];
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      {/* açılan karın */}
+      <path d={`M-90 ${top} L90 ${top} Q${female ? 72 : 112} -400 86 -345 L-86 -345 Q${female ? -72 : -112} -400 -90 ${top} Z`} fill={C.skin} strokeWidth={6} />
+      {p > 0.6 ? <path d="M0 -392 q-6 10 0 16" fill="none" strokeWidth={4} /> : null}
+      {female && p > 0.6 ? <path d="M-30 -440 Q0 -430 30 -440" fill="none" strokeWidth={3} opacity={0.4} /> : null}
+      {/* göğüse sıvanan kumaş rulosu */}
+      <rect x={-104} y={top - 34} width={208} height={44} rx={20} fill={shirt} strokeWidth={6} />
+      <path d={`M-70 ${top - 20} q20 10 40 0 M10 ${top - 18} q24 10 48 0`} fill="none" stroke="#000" strokeWidth={3} opacity={0.35} />
+      {/* erkek: eteği ağzında */}
+      {!female && p > 0.5 ? <path d={`M-34 ${top - 20} L-16 -666 L16 -666 L34 ${top - 20} Z`} fill={shirt} strokeWidth={5} /> : null}
+      {/* selfie telefonu */}
+      <g transform={`translate(${ph[0]} ${ph[1] + (female ? 10 : 0)}) rotate(${female ? -6 : 8})`}>
+        <rect x={-44} y={-80} width={88} height={160} rx={16} fill="#2f2f36" strokeWidth={6} />
+        <circle cx={-16} cy={-54} r={9} fill="#555" strokeWidth={3} />
+        <circle cx={10} cy={-54} r={9} fill="#555" strokeWidth={3} />
+      </g>
+      <circle cx={ph[0]} cy={ph[1] + 40} r={22} fill={C.skin} strokeWidth={5} />
+    </g>
+  );
+};
+const BaMirror: React.FC<{ f: number; flex: number; suck: number; crack: number; ghost?: number; smile?: number; phone?: number; tug?: number; lift?: number }> = ({ f, flex, suck, crack, ghost = 0, smile = 0, phone = 0, tug = 0, lift = 0 }) => {
   const id = svgId(useId());
   const breath = Math.sin(f / 12) * 0.03;
   return (
@@ -19404,10 +19434,12 @@ const BaMirror: React.FC<{ f: number; flex: number; suck: number; crack: number;
             </Person>
           </g>
         ) : null}
-        <Person x={BA_AV.x} y={BA_AV.y} s={BA_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} mouth={smile > 0.5 ? "grin" : flex > 0.5 ? "worry" : "flat"} lookY={smile > 0.5 ? 0 : 2} tilt={-14 * flex} armL={[12, 0]} armR={[lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]}>
+        <Person x={BA_AV.x} y={BA_AV.y} s={BA_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} mouth={smile > 0.5 ? "grin" : flex > 0.5 ? "worry" : "flat"} lookY={smile > 0.5 ? 0 : 2} tilt={-14 * flex} armL={[12, 0]} armR={lift > 0 ? BB_SELFIE_M : [lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]}>
+          <BbLift p={lift} shirt={SEL_AV_TOP} f={f} />
           {flex > 0.6 ? <BbBicep arm={[lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]} size={(flex - 0.6) / 0.4} sides={[1]} /> : null}
         </Person>
-        <Person x={BA_WO.x} y={BA_WO.y} s={BA_WO.s} female belly={lerp(0.55, 0.05, suck) + breath} shirt={BA_WO_TOP} shorts="#3b3b44" shortsLen={0.9} shoe={C.skin} mouth={smile > 0.5 ? "grin" : suck > 0.5 ? "flat" : "smile"} eyes={suck > 0.5 && smile < 0.5 ? "closed" : "open"} blush={0.3 + 0.5 * suck * (1 - smile)} armL={tug > 0 ? BB_HEM : [18, 0]} armR={tug > 0 ? BB_HEM : [18, 0]}>
+        <Person x={BA_WO.x} y={BA_WO.y} s={BA_WO.s} female belly={lerp(0.55, 0.05, suck) + breath} shirt={BA_WO_TOP} shorts="#3b3b44" shortsLen={0.9} shoe={C.skin} mouth={smile > 0.5 ? "grin" : suck > 0.5 ? "flat" : "smile"} eyes={suck > 0.5 && smile < 0.5 ? "closed" : "open"} blush={0.3 + 0.5 * suck * (1 - smile)} armL={lift > 0 ? BB_HOLD_W : tug > 0 ? BB_HEM : [18, 0]} armR={lift > 0 ? BB_SELFIE_W : tug > 0 ? BB_HEM : [18, 0]}>
+          <BbLift p={lift} shirt={BA_WO_TOP} female f={f} />
           <BbHemTug p={tug} f={f} />
           {phone > 0 ? <Phone x={armPoints(1, [25, 135])[2][0]} y={armPoints(1, [25, 135])[2][1]} s={1.3} rot={-8} glow={phone} /> : null}
         </Person>
@@ -19976,29 +20008,11 @@ const BbProfile: React.FC<{ x: number; f: number; female?: boolean; shirt: strin
 };
 const BbBugun: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const tug = tw(f, w(5) - 4, w(6));
-  const ghost = tw(f, w(3), w(5));
+  const lift = tw(f, w(5) - 4, w(6) + 2);
+  const ghost = tw(f, w(2), w(4));
   return (
-    <CamK k={[[0, 1.0, 540, 960], [w(5), 1.15, 560, 1000], [d, 1.35, 600, 1060]]}>
-      <rect x={-200} y={0} width={1480} height={1920} fill="#d9c7a7" />
-      <rect x={-200} y={1420} width={1480} height={600} fill="#b98d5e" />
-      {/* sağda duvar aynası (yandan görünür), içinde yansımaları */}
-      <rect x={700} y={300} width={360} height={1180} rx={20} fill="#8a5a34" stroke={C.ink} strokeWidth={10} />
-      <clipPath id="bbSideM">
-        <rect x={730} y={330} width={300} height={1120} rx={12} />
-      </clipPath>
-      <g clipPath="url(#bbSideM)">
-        <rect x={730} y={330} width={300} height={1120} fill="#e3eef2" />
-        {ghost > 0 ? (
-          <g opacity={ghost * 0.5}>
-            <BbSoldier x={820} y={1400} s={0.6} limb={2.8} f={f} />
-            <BbQueen x={960} y={1400} s={0.55} thin={1} f={f} />
-          </g>
-        ) : null}
-        <path d="M760 380 L840 330 M760 480 L900 390" stroke="#fff" strokeWidth={12} opacity={0.6} />
-      </g>
-      <BbProfile x={420} f={f} shirt={SEL_AV_TOP} tug={tug} />
-      <BbProfile x={180} f={f} female shirt={BA_WO_TOP} tug={tug} />
+    <CamK k={[[0, 1.0, 540, 900], [w(5), 1.15, 540, 980], [d, 1.4, 540, 1060]]}>
+      <BaMirror f={f} flex={0} suck={0} crack={0} ghost={ghost} lift={lift} />
     </CamK>
   );
 };

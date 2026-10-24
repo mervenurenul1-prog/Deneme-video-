@@ -44,3 +44,4 @@ Kaynaklar (doğrulandı):
 7 Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi? (→ 1)
 - 24 Ekim düzeltmeleri: açılışta tek kol kasıp başını koluna çevirir; "tişört çekiştirme" yapılamadı → cümle "yan dönüp karnınızı tutuyorsunuz" (yandan profil, el karında); kraliçe: çan etek, korse, kabarık omuz, kürk yakalı kırmızı pelerin, asa, taç, buket; "gönder" = mesaj ekranı (kâğıt uçak YOK).
 - 24 Ekim: açılış = kol pat diye kasılır, mezura 30 cm, "beğenmedim…", film şeridi ◀◀ 1964 ile geri sarar; kapanış = aynadaki çift YOK → mesaj ekranı + oylama (asker vs kraliçe, KADINLAR/ERKEKLER çubukları).
+- 24 Ekim: 6. cümle "…tişörtü kaldırıp karnınıza bakıyorsunuz." Ayna selfie pozu (referans calisma/animasyon/referans/ayna-selfie-*.png): erkek tişört eteğini ağzıyla tutar, kadın bir eliyle; diğer elde telefon. Bileşen BbLift.

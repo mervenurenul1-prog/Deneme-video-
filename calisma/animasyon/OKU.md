@@ -8,3 +8,4 @@
 - Render: `npm run render -- <id>` (~10-15 dk). Hızlı kontrol: `npx remotion render src/index.ts <id> out.mp4 --frames=0-250 --scale=0.4`.
   Sessiz önizleme `ornek-videolar/cizim1-pilot/NN-<konu>-sessiz.mp4`. 30 MB üstü → ffmpeg crf 23-24.
 - Süreç durdurma: `pkill` kullanma, PID ile öldür.
+- Gerçek poz referansları: `referans/` (kullanıcının gönderdiği ekran görüntüleri, yalnız poz için).
