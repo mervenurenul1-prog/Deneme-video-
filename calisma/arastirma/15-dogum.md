@@ -25,3 +25,4 @@ Anadolu'da lohusalık 40 gün (gelenek). Mankenin hamilelikte spor yaptığı DO
 4 Ama dinlenmek kıpırdamamak değil; seksen beşte bile "nabzın yüz kırkı geçmesin" denirdi.
 6 Onun arkasında koca bir ekip, sırtında kanatlar vardı. Seninse kucağında bir melek. (bebeğe hale; yeşil tahtada VOOM)
 Görsel: melek kanatları (DgWings) "kanatlarla"da açılır, flaş; isim/logo YOK (risk kullanıcıya bildirildi).
+- v4 (24 Ekim): TEK BAĞ = gece 3 annenin telefonu. Podyum/tarih/tenis onun ekranında (DgScreen); kamera ekrana dalar (DgZoom), 4-5 Reels gibi alttan kayar (DgSwipe); "Seninse"de ekrandan çıkılır, anne beşikteki bebeğe bakar (hale), duvardaki tahtada VOOM; son mesaj aynı telefondan, ekrana dalış = açılış (döngü).
