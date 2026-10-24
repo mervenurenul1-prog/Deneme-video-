@@ -29,7 +29,7 @@
     {
       "visual": "kd-sebep",
       "voice": "Çünkü ona göre kardiyo kız işi.",
-      "say": "Çünkü hani, ona göre... kardiyo kız işi.",
+      "say": "Çünkü ona göre kardiyo kız işi.",
       "keys": [
         "kardiyo",
         "kız",
@@ -50,7 +50,7 @@
     {
       "visual": "kd-kupa",
       "voice": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakikalık testte dünyanın en iyi futbolcusu bile ‘çok iyi’ alamadı. Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil; kupa işi.",
-      "say": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakikalık testte dünyanın en iyi futbolcusu bile... ‘çok iyi’ alamadı. [chuckles] Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil; kupa işi.",
+      "say": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakikalık testte dünyanın en iyi futbolcusu bile... ‘çok iyi’ alamadı. [chuckles] Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil... [confident] Kupa işi!",
       "keys": [
         "Brezilya",
         "On",
@@ -66,16 +66,15 @@
     },
     {
       "visual": "kd-kalp",
-      "voice": "Kalp de bir kas: haftada iki gün, antrenman sonuna on beş dakika koşu. Kaydet.",
-      "say": "Kalp de bir kas: hani haftada iki gün, antrenman sonuna on beş dakika koşu. Kaydet.",
+      "voice": "Kalp de bir kas: haftada iki gün, antrenman sonuna on beş dakika koşu.",
+      "say": "Kalp de bir kas: haftada iki gün, antrenman sonuna on beş dakika koşu.",
       "keys": [
         "Kalp",
         "kas:",
         "iki",
         "gün,",
         "on",
-        "beş",
-        "Kaydet."
+        "beş"
       ]
     },
     {

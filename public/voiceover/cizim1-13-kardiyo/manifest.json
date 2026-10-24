@@ -9,7 +9,7 @@
       "words": [
         {
           "word": "Salonda",
-          "start": 0.0,
+          "start": 0,
           "end": 0.4
         },
         {
@@ -49,7 +49,7 @@
         },
         {
           "word": "nefes",
-          "start": 3.0,
+          "start": 3,
           "end": 3.2666666666666666
         },
         {
@@ -61,11 +61,10 @@
     },
     {
       "voice": "Çünkü ona göre kardiyo kız işi.",
-      "say": "Çünkü hani, ona göre... kardiyo kız işi.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-13-kardiyo/2-mvmsnqn0.mp3",
-      "durationInSeconds": 2.895238333333334,
+      "file": "voiceover/cizim1-13-kardiyo/2-mvmtod16.mp3",
+      "durationInSeconds": 2.329251666666667,
       "words": [
         {
           "word": "Çünkü",
@@ -74,28 +73,28 @@
         },
         {
           "word": "ona",
-          "start": 1.0666666666666667,
-          "end": 1.2
+          "start": 0.5333333333333333,
+          "end": 0.7333333333333334
         },
         {
           "word": "göre",
-          "start": 1.2666666666666668,
-          "end": 1.6625250000000003
+          "start": 0.7666666666666667,
+          "end": 1.0
         },
         {
           "word": "kardiyo",
-          "start": 1.7958583333333333,
-          "end": 2.1958583333333332
+          "start": 1.2182000000000002,
+          "end": 1.6182
         },
         {
           "word": "kız",
-          "start": 2.262525,
-          "end": 2.3958583333333334
+          "start": 1.6848666666666667,
+          "end": 1.8181999999999998
         },
         {
           "word": "işi.",
-          "start": 2.4625250000000003,
-          "end": 2.9291916666666666
+          "start": 1.8515333333333333,
+          "end": 2.3515333333333333
         }
       ]
     },
@@ -109,12 +108,12 @@
       "words": [
         {
           "word": "Oysa",
-          "start": 0.0,
+          "start": 0,
           "end": 0.4
         },
         {
           "word": "aerobik",
-          "start": 1.0,
+          "start": 1,
           "end": 1.3333333333333335
         },
         {
@@ -124,7 +123,7 @@
         },
         {
           "word": "bir",
-          "start": 2.0,
+          "start": 2,
           "end": 2.1333333333333333
         },
         {
@@ -156,11 +155,11 @@
     },
     {
       "voice": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakikalık testte dünyanın en iyi futbolcusu bile ‘çok iyi’ alamadı. Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil; kupa işi.",
-      "say": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakikalık testte dünyanın en iyi futbolcusu bile... ‘çok iyi’ alamadı. [chuckles] Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil; kupa işi.",
+      "say": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakikalık testte dünyanın en iyi futbolcusu bile... ‘çok iyi’ alamadı. [chuckles] Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil... [confident] Kupa işi!",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-13-kardiyo/4-mvmsnuwg.mp3",
-      "durationInSeconds": 11.189115833333334,
+      "file": "voiceover/cizim1-13-kardiyo/4-mvmtofwa.mp3",
+      "durationInSeconds": 10.971428333333334,
       "words": [
         {
           "word": "Sonra",
@@ -190,137 +189,136 @@
         {
           "word": "yöntemle",
           "start": 1.4666666666666668,
-          "end": 1.8000000000000003
+          "end": 1.866666666666667
         },
         {
           "word": "koştu.",
-          "start": 1.866666666666667,
-          "end": 2.266666666666667
+          "start": 1.9333333333333333,
+          "end": 2.331325
         },
         {
           "word": "On",
-          "start": 2.4216750000000005,
-          "end": 2.4883416666666673
+          "start": 2.4774000000000003,
+          "end": 2.544066666666667
         },
         {
           "word": "iki",
-          "start": 2.5550083333333338,
-          "end": 2.6216750000000006
+          "start": 2.6107333333333336,
+          "end": 2.6774000000000004
         },
         {
           "word": "dakikalık",
-          "start": 2.688341666666667,
-          "end": 3.088341666666667
+          "start": 2.744066666666667,
+          "end": 3.144066666666667
         },
         {
           "word": "testte",
-          "start": 3.155008333333334,
-          "end": 3.488341666666668
+          "start": 3.2774000000000005,
+          "end": 3.5440666666666676
         },
         {
           "word": "dünyanın",
-          "start": 3.6216749999999998,
-          "end": 4.088341666666667
+          "start": 3.6773999999999996,
+          "end": 4.144066666666667
         },
         {
           "word": "en",
-          "start": 4.155008333333334,
-          "end": 4.288341666666668
+          "start": 4.210733333333334,
+          "end": 4.2774
         },
         {
           "word": "iyi",
-          "start": 4.321675000000002,
-          "end": 4.388341666666668
+          "start": 4.310733333333334,
+          "end": 4.410733333333334
         },
         {
           "word": "futbolcusu",
-          "start": 4.4216750000000005,
-          "end": 4.955008333333335
+          "start": 4.444066666666668,
+          "end": 4.944066666666668
         },
         {
           "word": "bile",
-          "start": 5.044175000000001,
-          "end": 5.418783333333335
+          "start": 5.0332333333333334,
+          "end": 5.423866666666668
         },
         {
           "word": "‘çok",
-          "start": 5.441283333333335,
-          "end": 5.618783333333335
+          "start": 5.446366666666668,
+          "end": 5.623866666666668
         },
         {
           "word": "iyi’",
-          "start": 5.685450000000002,
-          "end": 5.8854500000000005
+          "start": 5.690533333333335,
+          "end": 5.890533333333336
         },
         {
           "word": "alamadı.",
-          "start": 5.952116666666667,
-          "end": 6.485450000000001
+          "start": 6.023866666666668,
+          "end": 6.401366666666668
         },
         {
           "word": "Ve",
-          "start": 7.305724999999998,
-          "end": 7.3723916666666645
+          "start": 7.090533333333335,
+          "end": 7.157200000000001
         },
         {
           "word": "yetmişte",
-          "start": 7.439058333333332,
-          "end": 7.905724999999999
+          "start": 7.223866666666667,
+          "end": 7.690533333333334
         },
         {
           "word": "Dünya",
-          "start": 8.105725,
-          "end": 8.305724999999999
+          "start": 7.823866666666667,
+          "end": 8.023866666666668
         },
         {
           "word": "Kupası'nı",
-          "start": 8.372391666666665,
-          "end": 8.672391666666666
+          "start": 8.090533333333335,
+          "end": 8.3572
         },
         {
           "word": "kaldırdılar.",
-          "start": 8.705724999999997,
-          "end": 9.305724999999999
+          "start": 8.423866666666669,
+          "end": 9.023866666666667
         },
         {
           "word": "Kardiyo",
-          "start": 9.461474999999997,
-          "end": 9.79480833333333
+          "start": 9.148616666666667,
+          "end": 9.48195
         },
         {
           "word": "kız",
-          "start": 9.861474999999997,
-          "end": 9.99480833333333
+          "start": 9.548616666666668,
+          "end": 9.68195
         },
         {
           "word": "işi",
-          "start": 10.028141666666663,
-          "end": 10.194808333333329
+          "start": 9.715283333333334,
+          "end": 9.815283333333333
         },
         {
           "word": "değil;",
-          "start": 10.228141666666664,
-          "end": 10.487391666666664
+          "start": 9.88195,
+          "end": 10.202033333333333
         },
         {
           "word": "kupa",
-          "start": 10.549141666666662,
-          "end": 10.749141666666663
+          "start": 10.259533333333334,
+          "end": 10.4687
         },
         {
           "word": "işi.",
-          "start": 10.81580833333333,
-          "end": 11.21580833333333
+          "start": 10.535366666666667,
+          "end": 11.002033333333333
         }
       ]
     },
     {
-      "voice": "Kalp de bir kas: haftada iki gün, antrenman sonuna on beş dakika koşu. Kaydet.",
-      "say": "Kalp de bir kas: hani haftada iki gün, antrenman sonuna on beş dakika koşu. Kaydet.",
+      "voice": "Kalp de bir kas: haftada iki gün, antrenman sonuna on beş dakika koşu.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-13-kardiyo/5-mvmsnwse.mp3",
-      "durationInSeconds": 4.854421666666667,
+      "file": "voiceover/cizim1-13-kardiyo/5-mvmtohbk.mp3",
+      "durationInSeconds": 3.983673333333334,
       "words": [
         {
           "word": "Kalp",
@@ -340,57 +338,52 @@
         {
           "word": "kas:",
           "start": 0.5333333333333333,
-          "end": 0.95735
+          "end": 0.9495333333333333
         },
         {
           "word": "haftada",
-          "start": 1.35735,
-          "end": 1.6906833333333335
+          "start": 1.0289666666666666,
+          "end": 1.3623
         },
         {
           "word": "iki",
-          "start": 1.7573499999999997,
-          "end": 1.8240166666666666
+          "start": 1.4289666666666665,
+          "end": 1.5623
         },
         {
           "word": "gün,",
-          "start": 1.8906833333333333,
-          "end": 2.2906833333333334
+          "start": 1.6289666666666667,
+          "end": 1.9623
         },
         {
           "word": "antrenman",
-          "start": 2.3906833333333335,
-          "end": 2.75735
+          "start": 2.028966666666667,
+          "end": 2.428966666666667
         },
         {
           "word": "sonuna",
-          "start": 2.8240166666666666,
-          "end": 3.0906833333333332
+          "start": 2.4956333333333336,
+          "end": 2.8289666666666666
         },
         {
           "word": "on",
-          "start": 3.15735,
-          "end": 3.2906833333333334
+          "start": 2.8956333333333335,
+          "end": 2.9623
         },
         {
           "word": "beş",
-          "start": 3.3240166666666666,
-          "end": 3.4240166666666667
+          "start": 3.028966666666667,
+          "end": 3.128966666666667
         },
         {
           "word": "dakika",
-          "start": 3.490683333333333,
-          "end": 3.75735
+          "start": 3.1623,
+          "end": 3.495633333333334
         },
         {
           "word": "koşu.",
-          "start": 3.824016666666667,
-          "end": 4.190541666666667
-        },
-        {
-          "word": "Kaydet.",
-          "start": 4.287908333333334,
-          "end": 4.887908333333335
+          "start": 3.5623000000000005,
+          "end": 4.028966666666667
         }
       ]
     },
@@ -403,7 +396,7 @@
       "words": [
         {
           "word": "Bunu",
-          "start": 0.0,
+          "start": 0,
           "end": 0.26666666666666666
         },
         {

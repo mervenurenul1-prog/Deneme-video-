@@ -8,8 +8,8 @@
   sporcusu — VOOM'lu sıraya bekliyor, notları ONERILER'de), 5 (kahvaltı reklamı — VOOM bağı yok, beslenme planı YOK).
 - **24 Ekim: 13 KARDİYO KIZ İŞİ BİTTİ** (`cizim1-13-kardiyo`, sahneler `kd-*`, VOOM'suz, kaynak `arastirma/13-kardiyo.md`):
   merdivende nefes nefese → "kardiyo kız işi" → aerobik bir askeri doktordan (1968) → Brezilya 70, en iyi futbolcu "çok iyi"
-  alamadı (not cetveli) → kupa işi → kalp de kas, haftada 2 gün +15 dk, kaydet → "…gönder. Çünkü o da:" (döngü).
-  Modern salon `KdGym` (kullanıcının salon fotoğraflarından). Yunus 1.2x, 30,7 sn → `ornek-videolar/cizim1-pilot/13-kardiyo.mp4`.
+  alamadı (not cetveli) → kupa işi (vurgulu) → kalp de kas, haftada 2 gün +15 dk ("kaydet" ÇIKTI, dolgu yok) → "…gönder. Çünkü o da:" (döngü).
+  Modern salon `KdGym` (kullanıcının salon fotoğraflarından). Yunus 1.2x, 29,0 sn → `ornek-videolar/cizim1-pilot/13-kardiyo.mp4`.
   Kullanıcı: hiçbir sahne durağan olmasın (her sahnede kamera hareketi).
 - Kalan ElevenLabs kredisi 12.422 (24 Ekim).
 

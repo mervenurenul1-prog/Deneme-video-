@@ -187,7 +187,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kd-sebep": (w) => [[w(1), "whoosh", 0.3], [w(3), "boom", 0.4]],
   "kd-tarih": (w) => [[2, "cizik", 0.4], [8, "agir-dusme", 0.3], [w(1), "kalem", 0.35], [w(6) + 2, "cizik", 0.35], [w(7) - 2, "havalanma", 0.4]],
   "kd-kupa": (w) => [[w(1), "kalem", 0.3], [w(7), "tik", 0.3], [w(10) + 10, "ding", 0.35], [w(14), "yuksel", 0.3], [w(18), "boom", 0.35], [w(19), "kacing", 0.4], [w(19) + 4, "pirilti", 0.35], [w(26), "cizik", 0.35], [w(28), "ding", 0.4]],
-  "kd-kalp": (w) => [[2, "kalp", 0.5], [w(3), "yuksel", 0.35], [w(5), "kalem", 0.3], [w(13), "pop", 0.4]],
+  "kd-kalp": (w) => [[2, "kalp", 0.5], [w(3), "yuksel", 0.35], [w(5), "kalem", 0.3]],
   "kd-dongu": (w, d) => [[w(5) - 4, "kagit", 0.35], [w(6) + 6, "ding", 0.3], [w(7), "whoosh", 0.35], [d - 14, "whoosh", 0.3]],
   "sp3-kirk": (w) => [[0, "whoosh", 0.35], ...ticks(2, w(3), 6, 0.2), [w(4) + 2, "whoosh", 0.3], [w(5) - 2, "pop", 0.35], [w(5), "kalp", 0.5]],
   "sp3-balon": (w) => [[w(0), "pop", 0.4], [w(3), "pop", 0.4], [w(6), "pop", 0.4], [w(10), "whoosh", 0.3], [w(12), "sonme", 0.35]],
@@ -19224,16 +19224,15 @@ const KdHeart: React.FC<{ f: number; flex: number }> = ({ f, flex }) => {
   );
 };
 
-// 5) "Kalp de bir kas: haftada iki gün, antrenman sonuna on beş dakika koşu. Kaydet."
+// 5) "Kalp de bir kas: haftada iki gün, antrenman sonuna on beş dakika koşu."
 // Avatar koşu bandında; göğsünden büyüteçte atan kalp, "kas"ta pazılarını şişirir; "haftada"da hafta kartı (iki gün
-// lacivert tik) + 15:00; "Kaydet"te kaydet işareti zıplar.
+// lacivert tik) + 15:00.
 const KdKalp: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const lens = pop(f, 0, 12) * (1 - tw(f, w(4) - 4, w(4) + 2));
   const flex = tw(f, w(2), w(3) + 6);
   const plan = pop(f, w(4) - 2, 12);
   const days = ["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"];
-  const save = pop(f, w(13) - 2, 12);
   return (
     <>
       <SpCam k={[[0, 1.4, 640, 900], [w(3), 1.15, 560, 940], [w(9), 1.3, 500, 960], [d, 1.1, 580, 930]]}>
@@ -19265,15 +19264,9 @@ const KdKalp: React.FC<SceneProps> = ({ w, d }) => {
               </g>
             );
           })}
-          <text x={-60} y={150} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={120} fill={YAS_OK} stroke="none" opacity={tw(f, w(9) - 2, w(11))}>
+          <text x={0} y={150} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={120} fill={YAS_OK} stroke="none" opacity={tw(f, w(9) - 2, w(11))}>
             + 15:00
           </text>
-          {save > 0 ? (
-            <g transform={`translate(340 120) scale(${save})`}>
-              <circle r={80} fill="#fff" strokeWidth={8} />
-              <path d="M-30 -42 H30 V44 L0 18 L-30 44 Z" fill={YAS_OK} strokeWidth={6} />
-            </g>
-          ) : null}
         </g>
       ) : null}
     </>
