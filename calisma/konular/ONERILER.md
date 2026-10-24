@@ -67,3 +67,9 @@ F. "Kadınlar ağırlıkla erkek kadar gelişemez" — oransal kas/güç artış
 G. "Erkek daha çok yağ yakar" — egzersizde kadın daha çok yağ kullanır (Tarnopolsky 1990).
 H. "Hamileyken spor yapılmaz" — 1985 ACOG katı sınırlar (nabız 140, 15 dk) → bugün haftada 150 dk önerilir.
 I. (sınırda, spor dışı) Ofis klima kavgası: termostat standardı 1960'larda 40 yaş/70 kg erkeğe göre (Kingma 2015).
+- E-I reddedildi ("yeni konu bul"). Yeni (DOĞRULA):
+J. "Erkekler zayıf kadın sever / kadınlar iri kaslı erkek sever" — 1985 Pennsylvania (Fallon & Rozin): kadınlar erkeklerin
+   istediğinden daha zayıf olmaları gerektiğini sandı; erkekler kadınların istediğinden daha kaslı olmaları gerektiğini
+   sandı. İki taraf da yanılıyor. (Sonrası: Lynch & Zellner 1999 erkekler/kas.)
+K. "Atlar terler, erkekler ter döker, kadınlar parlar" (Viktorya dönemi sözü) — Osaka 2010 (Ichinose/Kondo, J Appl
+   Physiol): kadınlar terlemeye daha geç başlar; antrenman terlemeyi artırır. Kadın-erkek eğlenceli çatışma.
