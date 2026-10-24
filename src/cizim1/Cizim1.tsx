@@ -19667,15 +19667,33 @@ const BbSoldier: React.FC<{ x: number; y: number; s: number; limb: number; flex?
 const BB_ARM = { x: 150, y: 700 };
 const BbKol: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const past = tw(f, w(4) - 2, w(5) + 4);
+  const past = tw(f, w(4) - 2, w(5) + 6);
   const star = pop(f, w(8) - 2, 12);
   return (
     <>
       {past < 1 ? (
         <g opacity={1 - past}>
-          <CamK k={[[0, 3.0, BA_AV.x - 160, 960], [w(1), 2.6, BA_AV.x - 60, 940], [w(3), 3.3, BA_AV.x - 170, 900], [d, 3.3, BA_AV.x - 170, 900]]} shake={hit(f, w(3), 8) * 0.3}>
-            <BaMirror f={f} flex={0.85 + 0.15 * Math.sin(f / 4)} suck={0} crack={0} />
+          <CamK k={[[0, 2.2, BA_AV.x + 40, 900], [6, 3.0, BA_AV.x + 110, 880], [w(2), 3.0, BA_AV.x + 110, 880], [w(3), 2.4, BA_AV.x + 40, 930], [d, 2.6, BA_AV.x + 60, 920]]} shake={hit(f, 4, 8) * 0.6 + hit(f, w(3), 8) * 0.3}>
+            <BaMirror f={f} flex={Math.min(1, f / 5) * (0.9 + 0.1 * Math.sin(f / 4))} suck={0} crack={0} />
           </CamK>
+          <BbTape x={490} y={1010} cm={30} p={pop(f, w(1), 10) * (1 - tw(f, w(4) - 2, w(4) + 4))} />
+          {f > w(3) ? <HandText x={540} y={330} text="beğenmedim…" size={78} color={C.red} p={tw(f, w(3), w(3) + 10)} rotate={-4} /> : null}
+        </g>
+      ) : null}
+      {past > 0 && past < 1 ? (
+        <g>
+          {Array.from({ length: 4 }, (_, i) => (
+            <g key={i} transform={`translate(0 ${((f * 90 + i * 520) % 2080) - 520})`}>
+              <rect x={60} y={0} width={960} height={500} fill="#2b1d12" />
+              <rect x={120} y={40} width={840} height={420} fill="#c9a16a" opacity={0.5} />
+              {Array.from({ length: 8 }, (_, k) => (
+                <rect key={k} x={74} y={20 + k * 60} width={28} height={36} rx={6} fill="#e8d5b0" />
+              ))}
+            </g>
+          ))}
+          <text x={540} y={1000} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={140} fill={C.cream} stroke={C.ink} strokeWidth={8} paintOrder="stroke fill">
+            ◀◀ 1964
+          </text>
         </g>
       ) : null}
       {past > 0 ? (
@@ -19993,15 +20011,34 @@ const BbSon: React.FC<SceneProps> = ({ w, d }) => {
   const chat = pop(f, 0, 10) * (1 - tw(f, w(4), w(5)));
   const sent = tw(f, w(2), w(2) + 4);
   const read = f > w(3);
-  const btn = pop(f, w(5) - 2, 12) * (1 - tw(f, d - 22, d - 12));
+  const vote = tw(f, w(4), w(5) + 4);
+  const bars = tw(f, w(10) - 2, w(13));
   const hiW = f > w(10) - 2 && f < w(12) - 2;
   const hiM = f >= w(12) - 2;
-  const end = tw(f, d - 20, d - 2);
   return (
     <>
-      <CamK k={[[0, 1.05, 540, 900], [d - 20, 1.0, 540, 880], [d - 2, 3.0, BA_AV.x - 160, 960], [d, 3.0, BA_AV.x - 160, 960]]}>
-        <BaMirror f={f} flex={end} suck={0} crack={0} smile={1 - end} phone={tw(f, w(3), w(3) + 4) * (0.5 + 0.5 * Math.sin(f / 2)) * (1 - tw(f, w(5), w(6)))} />
+      <CamK k={[[0, 1.1, 540, 1000], [d, 1.0, 540, 960]]}>
+        <rect x={0} y={0} width={540} height={1920} fill="#e8d5b0" />
+        <rect x={540} y={0} width={540} height={1920} fill="#4a2236" />
+        <rect x={0} y={1420} width={1080} height={500} fill="#b98d5e" />
+        <BbSoldier x={270} y={1400} s={0.62} limb={2.8} flex={0.5 + 0.5 * Math.sin(f / 7)} f={f} />
+        <BbQueen x={810} y={1400} s={0.6} thin={1} f={f} />
+        <path d="M540 0 V1920" stroke={C.ink} strokeWidth={10} />
       </CamK>
+      {vote > 0
+        ? [
+            ["KADINLAR", 290, hiW, "#b06a8a", 0.54],
+            ["ERKEKLER", 790, hiM, YAS_OK, 0.46],
+          ].map(([t, x, hi, c, pct]) => (
+            <g key={t as string} transform={`translate(${x} 330) scale(${vote * (hi ? 1.1 : 1)})`}>
+              <rect x={-230} y={-80} width={460} height={160} rx={30} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+              <rect x={-222} y={-72} width={444 * bars * (pct as number) * 1.6} height={144} rx={24} fill={c as string} opacity={0.85} />
+              <text x={0} y={22} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={60} fill={C.ink}>
+                {t as string}
+              </text>
+            </g>
+          ))
+        : null}
       {chat > 0 ? (
         <g transform={`translate(540 760) scale(${chat})`} stroke={C.ink} strokeLinejoin="round">
           <rect x={-230} y={-360} width={460} height={720} rx={50} fill="#1e1f24" strokeWidth={8} />
@@ -20018,19 +20055,6 @@ const BbSon: React.FC<SceneProps> = ({ w, d }) => {
           </g>
         </g>
       ) : null}
-      {btn > 0
-        ? [
-            ["KADINLAR", 290, hiW, "#b06a8a"],
-            ["ERKEKLER", 790, hiM, YAS_OK],
-          ].map(([t, x, hi, c]) => (
-            <g key={t as string} transform={`translate(${x} 330) scale(${btn * (hi ? 1.12 : 1)})`}>
-              <rect x={-220} y={-70} width={440} height={140} rx={70} fill={hi ? (c as string) : C.cream} stroke={C.ink} strokeWidth={8} />
-              <text x={0} y={22} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={64} fill={hi ? C.cream : C.ink}>
-                {t as string}
-              </text>
-            </g>
-          ))
-        : null}
     </>
   );
 };
