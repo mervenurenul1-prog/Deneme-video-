@@ -82,3 +82,6 @@ M. "Kilo veriyorum ama önce yüzümden/göğsümden gidiyor, basen yerinde" —
    üst vücuttan gitti (Ramírez-Campillo). Not: "mekik" genel konu olarak reddedilmişti; bu açı farklı (acı + kadın).
 N. Hep aynı ağırlıkta takılmak / "yapamam" duvarı — 1954 Bannister 4 dk mil; 46 gün sonra Landy de kırdı. DİKKAT: "doktorlar
    kalbi patlar dedi" anlatısı tartışmalı, doğrulanmadan kullanılmaz. En zayıf aday.
+- Kullanıcı (24 Ekim): K-L okey, "daha ilgi çekici nasıl yaparız" → öneri: K+L tek videoda birleştir ("kadın sporu" dediğin
+  pilates/aerobik/zumba erkekler için doğdu), avatar alay edip derse giren erkek, 10. dk titrer; isim sonda "Pilates" diye
+  açılır; Cooper 12 dk testiyle meydan okuma kapanışı. Zumba (Beto Pérez kaseti unuttu) DOĞRULA. Seçim bekleniyor.
