@@ -91,3 +91,8 @@ O. "Erkekler zayıf kadın sever / kadınlar iri kaslı erkek sever" — 1985 Pe
    sandı. İki taraf da yanılıyor. (Sonrası: Lynch & Zellner 1999 erkekler/kas.)
 P. "Atlar terler, erkekler ter döker, kadınlar parlar" (Viktorya dönemi sözü) — Osaka 2010 (Ichinose/Kondo, J Appl
    Physiol): kadınlar terlemeye daha geç başlar; antrenman terlemeyi artırır. Kadın-erkek eğlenceli çatışma.
+- Q. (kullanıcı önerdi, 24 Ekim) Ünlü bir manken doğumdan ~6 HAFTA sonra (1 ay değil) 2026 defilesinde yürüdü (18 Ekim, LA;
+  kaynaklar Yahoo/Daily Beast/AOL). İSİM ve MARKA ekrana/sese YAZILMAZ ("bir manken", "dünyaca ünlü bir defile").
+  Açı: "Nasıl mümkün?" → Anadolu'da lohusalık 40 gün ↔ bilim: rahim ~6 haftada eski hâline döner → 1985 "hamileyken
+  kıpırdama" kuralı (ACOG) → bugün hamilelikte spor önerilir, toparlanmayı hızlandırır (genel; onun hamilelikte spor
+  yaptığı DOĞRULANMADI, iddia etme) → "kıyaslama: arkasında ekip, genetik var" → hamile arkadaşına gönder. Max 30-35 sn.
