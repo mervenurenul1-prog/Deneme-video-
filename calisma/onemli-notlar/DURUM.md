@@ -1,7 +1,8 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (24 Ekim) <<<
-- **24 Ekim: 14 BEDEN ALGISI** (`cizim1-14-beden`, sahneler `ba-*`, VOOM'SUZ, kaynak `arastirma/14-beden-algisi.md`): metin v4
+- **14 BEDEN İPTAL (24 Ekim)** — acıya dokunmadı. Eski not:
+  14 BEDEN ALGISI (`cizim1-14-beden`, sahneler `ba-*`, VOOM'SUZ, kaynak `arastirma/14-beden-algisi.md`): metin v4
   onaylandı (oyuncak asker kolu 30→68 cm, Pope 1999; güzellik kraliçeleri JAMA 2000; "Bunu sevgiline gönder ve sor: kim daha
   çok kandırıldı?"). Sessiz önizleme `14-beden-sessiz.mp4` → onay → seslendirme (~520 kr) → 1.2x → render.
 - Cepteki adaylar (`konular/ONERILER.md`): 8 (1990, 90 yaşında halter), 2 (1953 Londra otobüsü), 7 (2017 hafta sonu
