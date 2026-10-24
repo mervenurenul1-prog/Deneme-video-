@@ -21,3 +21,8 @@ Kaynaklar (doğrulandı):
 2 İnsan boyuna çevirince, altmışların oyuncak askerinin kolu otuz santimdi. Doksanlarınki altmış sekiz: dünyada hiçbir vücut geliştiricide olmayan bir kol.
 3 Güzellik yarışmasını kazananlar ise o kadar zayıfladı ki, ıı, çoğu tıbben "yetersiz beslenme" sınırına indi.
 4 Yani aynada kıyasladığın vücutlar bir oyuncak kutusunda ve bir sahnede üretildi. Hani, sen gerçek bir insansın. Bunu kendini beğenmeyen birine gönder ve söyle: (→ 1)
+## METİN v3 (24 Ekim) — kullanıcı: "tablonun her maddesi yeşil, hem de güçlü olmalı"
+1 Sen aynada pazını sıktın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.
+2 Çocukken oynadığın oyuncak askerin kolu, insan boyuna çevrilince altmışlarda otuz santimdi. Doksanlarda altmış sekiz: dünyada böyle bir kol yok.
+3 Güzellik kraliçeleri ise her yıl biraz daha eridi; sonunda çoğu tıbben "yetersiz beslenme" sınırına indi. [chuckles] Ve biz bunlara bakarak büyüdük.
+4 Yani aynadaki kusur sende değil, kıyasladığın şeyde. Hani… bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi? (→ 1)
