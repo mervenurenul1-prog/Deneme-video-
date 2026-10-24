@@ -179,6 +179,13 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "dg-podyum": (w) => [[0, "pirilti", 0.3], [w(1) - 2, "pop", 0.3], [w(5) - 2, "whoosh", 0.4], [w(12) - 2, "agir-dusme", 0.2]],
+  "dg-soru": (w) => [[0, "pop", 0.35], [w(3), "whoosh", 0.3], [w(4), "kagit", 0.3]],
+  "dg-kirk": (w) => [...ticks(w(0), w(3), 6, 0.2), [w(4) - 2, "whoosh", 0.3], [w(12), "ding", 0.4]],
+  "dg-seksen": (w) => [[w(1), "kalem", 0.3], [w(4) - 4, "whoosh", 0.3], [w(10) - 2, "bip", 0.35]],
+  "dg-bugun": (w) => [[w(1), "cizik", 0.4], [w(2), "pirilti", 0.3], [w(7), "whoosh", 0.25]],
+  "dg-ekip": (w) => [[w(4), "pop", 0.3], [w(9) - 4, "whoosh", 0.3], [w(10), "kalem", 0.35]],
+  "dg-gonder": (w, d) => [[0, "pop", 0.35], [w(4), "whoosh", 0.3], [w(5) + 6, "ding", 0.3], [w(6), "whoosh", 0.3]],
   "bb-kol": (w) => [[0, "nefes", 0.35], [w(4) - 2, "sihir", 0.35], [w(6), "whoosh", 0.3], [w(8) - 2, "pirilti", 0.35]],
   "bb-altmis": (w) => [[0, "kagit", 0.3], [w(8) - 4, "whoosh", 0.3], [w(10), "ding", 0.35]],
   "bb-doksan": (w) => [...ticks(0, w(8), 6, 0.2), [w(8), "boom", 0.35], [w(10) - 2, "whoosh", 0.25], [w(13), "agir-dusme", 0.25]],
@@ -814,6 +821,13 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "dg-podyum": { to: 1.0, x: 540, y: 960 },
+  "dg-soru": { to: 1.0, x: 540, y: 960 },
+  "dg-kirk": { to: 1.0, x: 540, y: 960 },
+  "dg-seksen": { to: 1.0, x: 540, y: 960 },
+  "dg-bugun": { to: 1.0, x: 540, y: 960 },
+  "dg-ekip": { to: 1.0, x: 540, y: 960 },
+  "dg-gonder": { to: 1.0, x: 540, y: 960 },
   "bb-kol": { to: 1.0, x: 540, y: 960 },
   "bb-altmis": { to: 1.0, x: 540, y: 960 },
   "bb-doksan": { to: 1.0, x: 540, y: 960 },
@@ -20073,7 +20087,417 @@ const BbSon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 15 DOĞUMDAN 6 HAFTA SONRA PODYUM (`dg-*`) — isim/marka yok; model genel çizim =====
+const DG_MOM_TOP = "#c9b6d9"; // yeni anne: lila pijama üstü
+const DG_CRADLE: Arm = [38, -105];
+// Kundaktaki bebek (Person koordinatı veya düz)
+const DgBaby: React.FC<{ x: number; y: number; s?: number; cry?: number; f: number }> = ({ x, y, s = 1, cry = 0, f }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+    <ellipse cx={0} cy={10} rx={95} ry={52} fill="#f4efe2" strokeWidth={6} />
+    <path d="M-60 -10 Q0 40 60 -10" fill="none" strokeWidth={4} opacity={0.5} />
+    <circle cx={-58} cy={-6} r={34} fill={C.skin} strokeWidth={5} />
+    {cry > 0 ? (
+      <g>
+        <ellipse cx={-58} cy={4} rx={9} ry={11 * cry} fill={C.ink} strokeWidth={0} />
+        {[0, 1, 2].map((k) => (
+          <path key={k} d={`M${-110 - k * 14} ${-30 - k * 16} l-24 -10`} strokeWidth={5} opacity={0.6 + 0.4 * Math.sin(f / 2 + k)} />
+        ))}
+      </g>
+    ) : (
+      <path d="M-66 4 q8 6 16 0" fill="none" strokeWidth={3} />
+    )}
+    <path d="M-72 -12 l6 0 M-50 -12 l6 0" strokeWidth={4} />
+  </g>
+);
+// Yeni anne: dağınık topuz, pijama, kucakta bebek
+const DgMom: React.FC<{ x: number; y: number; s: number; f: number; cry?: number; mouth?: Mouth; baby?: boolean; armL?: Arm; armR?: Arm }> = ({ x, y, s, f, cry = 0, mouth = "worry", baby = true, armL, armR }) => (
+  <Person x={x} y={y} s={s} female belly={0.35} shirt={DG_MOM_TOP} shorts="#6d6a8c" shortsLen={0.95} shoe="#e9e3f2" mouth={mouth} blush={0.2} armL={armL ?? (baby ? DG_CRADLE : [14, 0])} armR={armR ?? (baby ? DG_CRADLE : [14, 0])}>
+    {/* dağınık saç telleri + topuz */}
+    <circle cx={10} cy={-800} r={34} fill={C.hair} stroke={C.ink} strokeWidth={5} />
+    {[-50, -20, 25, 55].map((dx, i) => (
+      <path key={i} d={`M${dx} -770 q${(i % 2 ? 1 : -1) * 18} ${-30 + 6 * Math.sin(f / 7 + i)} ${(i % 2 ? 1 : -1) * 34} -20`} fill="none" stroke={C.hair} strokeWidth={6} strokeLinecap="round" />
+    ))}
+    <path d="M-40 -700 q8 6 16 0 M24 -700 q8 6 16 0" fill="none" stroke="#7a6a9a" strokeWidth={4} opacity={0.7} />
+    {baby ? <DgBaby x={0} y={-470} s={0.95} cry={cry} f={f} /> : null}
+  </Person>
+);
+// Podyum modeli (genel): uzun, akan elbise, uzun saç
+const DgModel: React.FC<{ x: number; y: number; s: number; f: number }> = ({ x, y, s, f }) => {
+  const sw = Math.sin(f / 5);
+  return (
+    <Person x={x} y={y} s={s} female belly={0} shirt="#f2e3ea" shorts="#f2e3ea" shortsLen={1} limbW={0.85} mouth="smile" armL={[10 + 6 * sw, 0]} armR={[10 - 6 * sw, 0]} legL={{ lift: Math.max(0, sw) * 0.4 }} legR={{ lift: Math.max(0, -sw) * 0.4 }}>
+      <path d={`M-70 -380 Q-120 -180 ${-160 + 20 * sw} 0 L${160 + 20 * sw} 0 Q120 -180 70 -380 Z`} fill="#f2e3ea" stroke={C.ink} strokeWidth={5} opacity={0.95} />
+      <path d="M-60 -760 Q-120 -600 -96 -470 M60 -760 Q120 -600 96 -470" fill="none" stroke={C.hair} strokeWidth={34} strokeLinecap="round" />
+    </Person>
+  );
+};
+// Podyum: karanlık salon, perspektifli pist, seyirci silüetleri, flaşlar
+const DgRunway: React.FC<{ f: number }> = ({ f }) => (
+  <g>
+    <rect x={0} y={0} width={1080} height={1920} fill="#1f1a24" />
+    <path d="M440 600 L640 600 L1000 1920 L80 1920 Z" fill="#e9e3ea" stroke={C.ink} strokeWidth={6} />
+    <path d="M540 600 L540 1920" stroke="#cfc6d2" strokeWidth={4} strokeDasharray="30 30" />
+    {Array.from({ length: 14 }, (_, i) => {
+      const side = i % 2 ? 1 : -1;
+      const k = Math.floor(i / 2);
+      const xx = 540 + side * (180 + k * 70);
+      const yy = 760 + k * 160;
+      const fl = (Math.floor(f / 4) + i * 3) % 11 === 0;
+      return (
+        <g key={i}>
+          <circle cx={xx} cy={yy} r={34 + k * 4} fill="#0f0c12" />
+          <rect x={xx - 40 - k * 4} y={yy + 20} width={80 + k * 8} height={120} rx={30} fill="#0f0c12" />
+          {fl ? <circle cx={xx + side * 30} cy={yy - 10} r={70} fill="#fff" opacity={0.85} /> : null}
+        </g>
+      );
+    })}
+    <path d="M440 0 L640 0 L760 900 L320 900 Z" fill="#fff3b0" opacity={0.12} />
+  </g>
+);
+// Gece yatak odası: banyo kapısı, saat 03:12
+const DgNight: React.FC<{ f: number; door: number }> = ({ f, door }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={0} y={0} width={1080} height={1920} fill="#3b3a55" strokeWidth={0} />
+    <rect x={0} y={1420} width={1080} height={500} fill="#2a2940" strokeWidth={0} />
+    <rect x={700} y={520} width={300} height={900} fill="#5a4a3c" strokeWidth={8} />
+    <rect x={700} y={520} width={300 * (1 - 0.3 * door)} height={900} fill="#7a634e" strokeWidth={8} />
+    <circle cx={700 + 270 * (1 - 0.3 * door)} cy={980} r={14} fill="#e8b923" strokeWidth={4} />
+    <text x={850} y={480} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={36} fill="#cfe0ea" strokeWidth={0}>BANYO</text>
+    <rect x={90} y={380} width={260} height={120} rx={16} fill="#1e1f24" strokeWidth={6} />
+    <text x={220} y={466} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={76} fill="#ff6b5a" strokeWidth={0}>
+      03:{String(12 + Math.floor(f / 30)).padStart(2, "0")}
+    </text>
+    <rect x={60} y={1180} width={420} height={240} rx={20} fill="#6d6a8c" strokeWidth={7} />
+  </g>
+);
+
+// 1) "Doğumdan altı hafta sonra podyumdaydı. Sen altı haftada bebek uyurken bir duş bile alamadın."
+const DG_START: [number, number, number] = [1.6, 540, 900];
+const DgPodyum: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const cut = f >= w(5) - 2;
+  const walk = tw(f, 0, w(5));
+  const go = tw(f, w(8), w(11));
+  const cry = tw(f, w(12) - 4, w(12) + 2);
+  const back = tw(f, w(12), w(13) + 6);
+  const mx = lerp(lerp(300, 620, go), 420, back);
+  const tag = pop(f, w(1) - 2, 12) * (1 - tw(f, w(5) - 6, w(5) - 2));
+  return (
+    <>
+      {!cut ? (
+        <CamK k={[[0, DG_START[0], DG_START[1], DG_START[2]], [w(4), 1.15, 540, 1000], [w(5), 1.1, 540, 1000]]}>
+          <DgRunway f={f} />
+          <DgModel x={540} y={lerp(1050, 1650, walk)} s={lerp(0.5, 0.95, walk)} f={f} />
+        </CamK>
+      ) : (
+        <CamK k={[[w(5), 1.25, 400, 1000], [w(9), 1.1, 600, 1000], [w(12), 1.35, 700, 900], [d, 1.2, 520, 960]]} shake={hit(f, w(12), 10) * 0.5}>
+          <DgNight f={f} door={go * (1 - back)} />
+          <DgMom x={mx} y={1440} s={0.82} f={f} cry={cry} />
+          {f > w(9) && back < 1 ? (
+            <path d={`M${mx + 120} 1080 q30 60 0 160 q-30 60 0 120`} fill="none" stroke="#f4efe2" strokeWidth={26} opacity={0.9 * (1 - back)} />
+          ) : null}
+        </CamK>
+      )}
+      <KTag x={540} y={330} p={tag} text="6 hafta sonra" color={C.red} rot={-3} />
+      {cut ? <KTag x={540} y={330} p={pop(f, w(6) - 2, 12)} text="sen: 6 hafta" color={C.ink} rot={-3} /> : null}
+      {cry > 0 && back < 1 ? <HandText x={300} y={760} text="ıngaa!" size={90} color={C.red} p={cry} rotate={-8} /> : null}
+    </>
+  );
+};
+
+// 2) "Nasıl mümkün? Cevabın yarısı Anadolu'da saklı."
+const DgSoru: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const q = pop(f, 0, 12) * (1 - tw(f, w(3), w(4)));
+  const house = tw(f, w(2), w(4));
+  return (
+    <>
+      <CamK k={[[0, 1, 540, 960], [w(3), 1, 540, 960], [d, 1.5, 540, 1080]]}>
+        <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
+        <rect x={0} y={1380} width={1080} height={540} fill="#b98d5e" />
+        <g opacity={house} stroke={C.ink} strokeLinejoin="round">
+          <path d="M180 1380 L180 760 L540 520 L900 760 L900 1380 Z" fill="#d9b98a" strokeWidth={8} />
+          {Array.from({ length: 8 }, (_, i) => (
+            <path key={i} d={`M190 ${820 + i * 70} H890`} stroke="#b9956a" strokeWidth={4} />
+          ))}
+          <rect x={430} y={980} width={220} height={400} rx={100} fill="#6b4a33" strokeWidth={8} />
+          <rect x={250} y={880} width={130} height={130} fill="#fff3b0" strokeWidth={6} />
+          <rect x={700} y={880} width={130} height={130} fill="#fff3b0" strokeWidth={6} />
+          <path d="M520 1180 h40" stroke="#e8b923" strokeWidth={10} />
+        </g>
+      </CamK>
+      {q > 0 ? (
+        <g transform={`translate(540 800) scale(${q}) rotate(${Math.sin(f / 4) * 8})`}>
+          <circle r={220} fill={C.cream} stroke={C.ink} strokeWidth={12} />
+          <text x={0} y={80} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={260} fill={C.red}>?</text>
+        </g>
+      ) : null}
+      <BbSepia o={house} />
+    </>
+  );
+};
+
+// 3) "Lohusa kırk gün dinlenir. Bilim de aynısını söyler: rahim yaklaşık altı haftada eski hâline döner."
+// Sepya oda: yatakta başında kırmızı lohusa kurdelesi olan anne, misafir lohusa şerbeti getirir, takvim 1 → 40;
+// "Bilim"de sağ yarı renklenir: rahim simgesi küçülür, 1 → 6 hafta; sonda iki sayaç buluşur "40 gün ≈ 6 hafta".
+const DgKirk: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const day = Math.max(1, Math.round(lerp(1, 40, tw(f, w(0), w(3)))));
+  const split = tw(f, w(4) - 2, w(4) + 8);
+  const week = Math.max(1, Math.round(lerp(1, 6, tw(f, w(8), w(11)))));
+  const shrink = tw(f, w(8), w(14));
+  const eq = pop(f, w(12), 12);
+  const visitor = tw(f, w(1), w(3));
+  return (
+    <>
+      <CamK k={[[0, 1.3, 540, 1000], [w(3), 1.0, 540, 960], [d, 1.0, 540, 960]]}>
+        <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
+        <rect x={0} y={1380} width={1080} height={540} fill="#b98d5e" />
+        <g stroke={C.ink} strokeLinejoin="round">
+          <rect x={80} y={1060} width={620} height={200} rx={20} fill="#c98a6a" strokeWidth={8} />
+          <rect x={80} y={980} width={120} height={300} rx={14} fill="#8a5a34" strokeWidth={8} />
+        </g>
+        <g transform="translate(330 1050) rotate(-90)">
+          <Person x={0} y={0} s={0.5} female shirt={DG_MOM_TOP} shorts="#f4efe2" shortsLen={1} mouth="smile" armL={[14, 0]} armR={[14, 0]}>
+            <path d="M-80 -760 Q0 -720 80 -760" fill="none" stroke={C.red} strokeWidth={16} />
+            <path d="M70 -760 l40 30 M70 -760 l30 50" stroke={C.red} strokeWidth={10} />
+          </Person>
+        </g>
+        <g opacity={visitor}>
+          <Person x={lerp(1100, 820, visitor)} y={1400} s={0.6} female shirt="#8fb08a" shorts="#5a6b4a" shortsLen={1} mouth="grin" armL={[14, 0]} armR={[60, -60]}>
+            <rect x={70} y={-500} width={60} height={80} rx={8} fill="#d9405a" stroke={C.ink} strokeWidth={5} />
+          </Person>
+        </g>
+        <BigCal x={300} y={480} s={0.9} month="LOHUSA" day={day} />
+      </CamK>
+      <BbSepia o={1 - split * 0.5} />
+      {split > 0 ? (
+        <g opacity={split}>
+          <rect x={540} y={0} width={540} height={1920} fill="#e3eef2" />
+          <path d="M540 0 V1920" stroke={C.ink} strokeWidth={10} />
+          <g transform={`translate(810 900) scale(${lerp(1.6, 0.7, shrink)})`} stroke={C.ink} strokeLinejoin="round">
+            <path d="M-110 -120 Q0 -170 110 -120 Q120 60 30 140 L20 210 L-20 210 L-30 140 Q-120 60 -110 -120 Z" fill="#e58f8f" strokeWidth={8} />
+            <path d="M-110 -110 Q-170 -150 -200 -100 M110 -110 Q170 -150 200 -100" fill="none" strokeWidth={8} />
+          </g>
+          <text x={810} y={420} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={96} fill={YAS_OK}>
+            {week}. hafta
+          </text>
+          <text x={810} y={1350} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={54} fill={C.ink}>
+            rahim
+          </text>
+        </g>
+      ) : null}
+      {eq > 0 ? (
+        <g transform={`translate(540 1540) scale(${eq})`}>
+          <rect x={-380} y={-80} width={760} height={160} rx={40} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <text x={0} y={26} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={76} fill={YAS_OK}>
+            40 gün ≈ 6 hafta
+          </text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// Nabız ekranı (EKG çizgisi akar), limit çizgisi
+const DgMonitor: React.FC<{ x: number; y: number; f: number; bpm: number; limit: number; crack: number }> = ({ x, y, f, bpm, limit, crack }) => {
+  const pts = Array.from({ length: 30 }, (_, i) => {
+    const t = (i + f * 0.6) % 10;
+    const yy = t > 4 && t < 5 ? -90 : t >= 5 && t < 5.6 ? 50 : 0;
+    return `${-260 + i * 18} ${yy}`;
+  }).join(" L");
+  return (
+    <g transform={`translate(${x} ${y})`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-300} y={-200} width={600} height={400} rx={24} fill="#1e2b24" strokeWidth={8} />
+      <path d={`M${pts}`} fill="none" stroke="#7fe08a" strokeWidth={6} transform="translate(0 40)" />
+      <text x={200} y={-120} textAnchor="end" fontFamily={fontFamily} fontWeight={900} fontSize={70} fill="#7fe08a" strokeWidth={0}>
+        {bpm}
+      </text>
+      {limit > 0 ? (
+        <g opacity={limit}>
+          <path d={`M-280 -40 H${-20 - 40 * crack} M${20 + 40 * crack} ${-40 + 40 * crack} H280`} stroke={C.red} strokeWidth={10} strokeDasharray="22 12" />
+          <text x={-270} y={-60} fontFamily={fontFamily} fontWeight={900} fontSize={44} fill={C.red} strokeWidth={0}>140</text>
+        </g>
+      ) : null}
+    </g>
+  );
+};
+// 4) "Ama dinlenmek kıpırdamamak değil. Bin dokuz yüz seksen beşte hamilelere 'nabzın yüz kırkı geçmesin' dendi."
+const DgSeksen: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const room = tw(f, w(4) - 4, w(4) + 6);
+  const finger = Math.sin(f / 3) * 14 * (f > w(9) ? 1 : 0);
+  return (
+    <>
+      {room < 1 ? (
+        <g opacity={1 - room}>
+          <CamK k={[[0, 1.2, 540, 960], [d, 1.0, 540, 960]]}>
+            <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
+            <rect x={0} y={1380} width={1080} height={540} fill="#b98d5e" />
+            <DgMom x={420} y={1400} s={0.8} f={f} baby={false} mouth="smile" armL={[14, 0]} armR={[14, 0]} />
+            <HandText x={760} y={700} text="kıpırdama ≠ dinlenme" size={60} color={C.red} p={tw(f, w(1), w(3))} rotate={-4} />
+          </CamK>
+          <BbSepia o={0.6} />
+        </g>
+      ) : null}
+      {room > 0 ? (
+        <g opacity={room}>
+          <CamK k={[[w(4), 1, 540, 960], [w(10), 1.15, 620, 900], [d, 1.35, 700, 760]]}>
+            <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
+            <rect x={0} y={1380} width={1080} height={540} fill="#b98d5e" />
+            <HandText x={260} y={300} text="1985" size={140} color={C.ink} p={tw(f, w(4), w(6))} rotate={-3} />
+            <Person x={260} y={1400} s={0.78} shirt="#f4f1ea" shorts="#4b4b55" shortsLen={1} mouth="flat" armL={[14, 0]} armR={[150 + finger, 20]}>
+              <path d="M-100 -578 L-60 -360 M100 -578 L60 -360" stroke={C.ink} strokeWidth={4} />
+              <path d="M-50 -560 Q0 -500 50 -560" fill="none" stroke="#7a8a96" strokeWidth={6} />
+            </Person>
+            <Person x={820} y={1400} s={0.72} female belly={1} shirt="#f2c6a0" shorts="#6d6a8c" shortsLen={0.95} mouth="worry" armL={[20, -60]} armR={[20, -60]} />
+            <DgMonitor x={700} y={650} f={f} bpm={132 + Math.round(6 * Math.sin(f / 8))} limit={pop(f, w(10) - 2, 12)} crack={0} />
+          </CamK>
+          <BbSepia o={1} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 5) "O kural kalktı; bugün hamilelikte hareket edenin daha kolay toparlandığı biliniyor."
+const DgBugun: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const crack = tw(f, w(1), w(2) + 4);
+  const color = tw(f, w(2), w(3) + 4);
+  const park = tw(f, w(3), w(4) + 4);
+  const after = tw(f, w(7), w(8) + 4);
+  const sw = Math.sin(f / 5);
+  return (
+    <>
+      {park < 1 ? (
+        <g opacity={1 - park}>
+          <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
+          <DgMonitor x={540} y={800} f={f} bpm={135} limit={1} crack={crack} />
+          <BbSepia o={1 - color} />
+        </g>
+      ) : null}
+      {park > 0 ? (
+        <g opacity={park}>
+          <CamK k={[[w(3), 1.0, 540, 960], [w(7), 1.15, 400, 1000], [w(8) + 4, 1.0, 620, 980], [d, 1.1, 700, 980]]}>
+            <rect x={0} y={0} width={1080} height={1920} fill="#cfe6f2" />
+            <rect x={0} y={1300} width={1080} height={620} fill="#8fb08a" />
+            <path d="M0 1500 Q540 1420 1080 1500 L1080 1600 Q540 1520 0 1600 Z" fill="#d9c7a7" />
+            {[120, 360, 900].map((tx, i) => (
+              <g key={i} stroke={C.ink} strokeWidth={6}>
+                <path d={`M${tx} 1300 V1050`} />
+                <circle cx={tx} cy={1000} r={90} fill="#6f9a4c" />
+              </g>
+            ))}
+            {after < 1 ? (
+              <g opacity={1 - after}>
+                <Person x={420 + (f % 60) * 2} y={1540} s={0.72} female belly={1} shirt="#f2c6a0" shorts="#3b3b44" mouth="grin" armL={[14 + 18 * sw, 0]} armR={[14 - 18 * sw, 0]} legL={{ lift: Math.max(0, sw) * 0.4 }} legR={{ lift: Math.max(0, -sw) * 0.4 }} />
+              </g>
+            ) : null}
+            {after > 0 ? (
+              <g opacity={after}>
+                <DgMom x={560 + (f % 60) * 2} y={1540} s={0.72} f={f} baby={false} mouth="grin" armL={[40, -60]} armR={[40, -60]} />
+                <g transform={`translate(${780 + (f % 60) * 2} 1500)`} stroke={C.ink} strokeLinejoin="round">
+                  <path d="M-110 -180 Q-110 -260 0 -260 L110 -260 L110 -80 L-110 -80 Z" fill="#7d9cc4" strokeWidth={7} />
+                  <circle cx={-80} cy={0} r={34} fill="#3b3b44" strokeWidth={6} />
+                  <circle cx={80} cy={0} r={34} fill="#3b3b44" strokeWidth={6} />
+                  <path d="M-110 -80 L-160 -200" strokeWidth={8} />
+                </g>
+              </g>
+            ) : null}
+          </CamK>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 6) "Yine de unutma: onun arkasında koca bir ekip var, senin kucağında bir bebek."
+// Solda podyumdaki model + arkasında ekip (koç, aşçı, makyaj, dadı); "senin"de sağ yarı: kucağında bebekle tek başına anne;
+// arkasındaki yeşil yazı tahtasına tebeşirle "Senin arkanda da VOOM var." yazılır.
+const DG_TEAM = ["koç", "aşçı", "makyaj", "dadı", "stilist"];
+const DgEkip: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const team = tw(f, w(4), w(7) + 6);
+  const right = tw(f, w(9) - 4, w(9) + 6);
+  const chalk = tw(f, w(10), w(12) + 6);
+  return (
+    <CamK k={[[0, 1.2, 300, 960], [w(8), 1.05, 330, 980], [w(9) + 6, 1.15, 790, 980], [d, 1.25, 790, 940]]}>
+      <rect x={0} y={0} width={540} height={1920} fill="#2b2433" />
+      <rect x={0} y={1420} width={540} height={500} fill="#e9e3ea" />
+      {DG_TEAM.map((t, i) => {
+        const p = tw(team, i / 6, i / 6 + 0.3);
+        const x = 70 + i * 100;
+        return (
+          <g key={t} opacity={p}>
+            <MiniW x={x} y={1300 - (i % 2) * 40} s={1.6} c={["#7d9cc4", "#f4f1ea", "#d9705f", "#8fb08a", "#e0b030"][i]} />
+            <text x={x} y={1050 - (i % 2) * 40} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={40} fill={C.cream}>
+              {t}
+            </text>
+          </g>
+        );
+      })}
+      <DgModel x={270} y={1520} s={0.8} f={f} />
+      <g opacity={right}>
+        <rect x={540} y={0} width={540} height={1920} fill="#e6d6c0" />
+        <rect x={540} y={1420} width={540} height={500} fill="#b98d5e" />
+        {/* yeşil yazı tahtası */}
+        <rect x={600} y={360} width={420} height={420} rx={12} fill="#2f5a45" stroke="#8a5a34" strokeWidth={22} />
+        <HandText x={810} y={520} text="Senin arkanda" size={54} color="#f4efe2" p={tw(chalk, 0, 0.5)} rotate={-2} />
+        <HandText x={810} y={640} text="da VOOM var." size={58} color="#f4efe2" p={tw(chalk, 0.5, 1)} rotate={-2} />
+        <DgMom x={810} y={1500} s={0.78} f={f} mouth="smile" />
+      </g>
+      <path d="M540 0 V1920" stroke={C.ink} strokeWidth={10} />
+    </CamK>
+  );
+};
+
+// 7) "Bunu yeni anne olan arkadaşına gönder. Çünkü o da şunu düşünüyor:"
+// Telefonda mesaj (video gönderildi ✓✓ mavi); "Çünkü"de kamera arkadaşın gece ekranına, sonra podyuma geri sarar (döngü).
+const DgGonder: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const chat = pop(f, 0, 10) * (1 - tw(f, w(6), w(7)));
+  const sent = tw(f, w(4), w(5));
+  const read = f > w(5) + 6;
+  const run = tw(f, w(6), d);
+  return (
+    <>
+      {run > 0 ? (
+        <CamK k={[[w(6), 1.0, 540, 1000], [d - 2, DG_START[0], DG_START[1], DG_START[2]], [d, DG_START[0], DG_START[1], DG_START[2]]]}>
+          <DgRunway f={f} />
+          <DgModel x={540} y={1050} s={0.5} f={f} />
+        </CamK>
+      ) : (
+        <rect x={0} y={0} width={1080} height={1920} fill="#3b3a55" />
+      )}
+      {chat > 0 ? (
+        <g transform={`translate(540 900) scale(${chat})`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-260} y={-420} width={520} height={840} rx={56} fill="#1e1f24" strokeWidth={8} />
+          <rect x={-232} y={-388} width={464} height={776} rx={34} fill="#efe7dc" strokeWidth={4} />
+          <rect x={-232} y={-388} width={464} height={90} rx={34} fill="#2f6f5e" strokeWidth={0} />
+          <circle cx={-190} cy={-343} r={26} fill={DG_MOM_TOP} strokeWidth={3} />
+          <text x={-150} y={-330} fontFamily={fontFamily} fontWeight={800} fontSize={36} fill="#fff" strokeWidth={0}>Yeni anne arkadaşım</text>
+          <g transform={`translate(${lerp(300, 50, sent)} 80)`}>
+            <rect x={-170} y={-130} width={340} height={260} rx={24} fill="#d6f2c8" strokeWidth={4} />
+            <rect x={-150} y={-110} width={300} height={160} rx={14} fill="#2b2433" strokeWidth={3} />
+            <path d="M-20 -55 L32 -30 L-20 -5 Z" fill="#fff" strokeWidth={3} />
+            <text x={-150} y={100} fontFamily={handFamily} fontWeight={700} fontSize={36} fill={C.ink} strokeWidth={0}>sen de izle!</text>
+            <text x={150} y={110} textAnchor="end" fontFamily={fontFamily} fontWeight={800} fontSize={30} fill={read ? "#3aa6d9" : "#8a8f96"} strokeWidth={0}>✓✓</text>
+          </g>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "dg-podyum": DgPodyum,
+  "dg-soru": DgSoru,
+  "dg-kirk": DgKirk,
+  "dg-seksen": DgSeksen,
+  "dg-bugun": DgBugun,
+  "dg-ekip": DgEkip,
+  "dg-gonder": DgGonder,
   "bb-kol": BbKol,
   "bb-altmis": BbAltmis,
   "bb-doksan": BbDoksan,
