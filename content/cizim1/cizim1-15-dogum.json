@@ -25,38 +25,38 @@
     },
     {
       "visual": "dg-soru",
-      "voice": "Nasıl mümkün? Cevabın yarısı Anadolu'da saklı.",
-      "say": "Nasıl mümkün? Cevabın yarısı Anadolu'da saklı.",
+      "voice": "Nasıl mümkün? Cevabın yarısı Anadolu'da.",
+      "say": "Nasıl mümkün? Cevabın yarısı Anadolu'da.",
       "keys": [
         "Anadolu'da"
       ]
     },
     {
       "visual": "dg-kirk",
-      "voice": "Lohusa kırk gün dinlenir. Bilim de aynısını söyler: rahim yaklaşık altı haftada eski hâline döner.",
-      "say": "Lohusa kırk gün dinlenir. Bilim de aynısını söyler: rahim yaklaşık altı haftada eski hâline döner.",
+      "voice": "Lohusa kırk gün dinlenir. Çin'de otuz gün, Latin Amerika'da yine kırk. Bilim de aynısını söyler: rahim yaklaşık altı haftada eski hâline döner.",
+      "say": "Lohusa kırk gün dinlenir. Çin'de otuz gün, Latin Amerika'da yine kırk. Bilim de aynısını söyler: rahim yaklaşık altı haftada eski hâline döner.",
       "keys": [
         "kırk",
-        "gün",
+        "otuz",
         "altı",
         "haftada"
       ]
     },
     {
       "visual": "dg-seksen",
-      "voice": "Ama dinlenmek kıpırdamamak değil. Bin dokuz yüz seksen beşte hamilelere “nabzın yüz kırkı geçmesin” dendi.",
-      "say": "Ama ıı, dinlenmek kıpırdamamak değil. Bin dokuz yüz seksen beşte hamilelere “nabzın yüz kırkı geçmesin” dendi.",
+      "voice": "Ama dinlenmek kıpırdamamak değil. Seksen beşte bile hamilelere “nabzın yüz kırkı geçmesin” dendi.",
+      "say": "Ama ıı, dinlenmek kıpırdamamak değil. Seksen beşte bile hamilelere “nabzın yüz kırkı geçmesin” dendi.",
       "keys": [
         "kıpırdamamak"
       ]
     },
     {
       "visual": "dg-bugun",
-      "voice": "O kural kalktı; bugün hamilelikte hareket edenin daha kolay toparlandığı biliniyor.",
-      "say": "O kural kalktı; bugün hamilelikte hareket edenin daha kolay toparlandığı biliniyor.",
+      "voice": "O kural kalktı. İki bin on yedide bir tenisçi, hamileyken büyük bir turnuvayı kazandı.",
+      "say": "O kural kalktı. İki bin on yedide bir tenisçi, hamileyken büyük bir turnuvayı kazandı.",
       "keys": [
-        "kalktı",
-        "kolay"
+        "hamileyken",
+        "kazandı"
       ]
     },
     {

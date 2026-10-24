@@ -181,9 +181,9 @@ const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "dg-podyum": (w) => [[0, "pirilti", 0.3], [w(1) - 2, "pop", 0.3], [w(5) - 2, "whoosh", 0.4], [w(12) - 2, "agir-dusme", 0.2]],
   "dg-soru": (w) => [[0, "pop", 0.35], [w(3), "whoosh", 0.3], [w(4), "kagit", 0.3]],
-  "dg-kirk": (w) => [...ticks(w(0), w(3), 6, 0.2), [w(4) - 2, "whoosh", 0.3], [w(12), "ding", 0.4]],
-  "dg-seksen": (w) => [[w(1), "kalem", 0.3], [w(4) - 4, "whoosh", 0.3], [w(10) - 2, "bip", 0.35]],
-  "dg-bugun": (w) => [[w(1), "cizik", 0.4], [w(2), "pirilti", 0.3], [w(7), "whoosh", 0.25]],
+  "dg-kirk": (w) => [...ticks(w(0), w(3), 6, 0.2), [w(4) - 2, "pop", 0.35], [w(7) - 2, "pop", 0.35], [w(11) - 2, "whoosh", 0.3], [w(19), "ding", 0.4]],
+  "dg-seksen": (w) => [[w(1), "kalem", 0.3], [w(4) - 4, "whoosh", 0.3], [w(8) - 2, "bip", 0.35]],
+  "dg-bugun": (w) => [[w(1), "cizik", 0.4], [w(2), "pirilti", 0.3], [w(3), "whoosh", 0.25], [w(13), "ding", 0.4]],
   "dg-ekip": (w) => [[w(4), "pop", 0.3], [w(9) - 4, "whoosh", 0.3], [w(10), "kalem", 0.35]],
   "dg-gonder": (w, d) => [[0, "pop", 0.35], [w(4), "whoosh", 0.3], [w(5) + 6, "ding", 0.3], [w(6), "whoosh", 0.3]],
   "bb-kol": (w) => [[0, "nefes", 0.35], [w(4) - 2, "sihir", 0.35], [w(6), "whoosh", 0.3], [w(8) - 2, "pirilti", 0.35]],
@@ -20148,8 +20148,12 @@ const DgModel: React.FC<{ x: number; y: number; s: number; f: number }> = ({ x, 
       <ellipse cx={x} cy={y + 6} rx={140 * s} ry={20 * s} fill="#000" opacity={0.3} />
       <Person x={x} y={y} s={s} female belly={0} shirt="#f08bb8" shorts={C.skin} shortsLen={0.2} limbW={0.9} mouth="smile" armL={DG_HIPS} armR={DG_HIPS} legL={{ lift: Math.max(0, sw) * 0.35 }} legR={{ lift: Math.max(0, -sw) * 0.35 }}>
         {/* gür dalgalı saç (omuzlara dökülür) */}
-        <path d="M-92 -760 Q-150 -640 -120 -520 Q-150 -470 -110 -430 M92 -760 Q150 -640 120 -520 Q150 -470 110 -430" fill="none" stroke="#5a3a24" strokeWidth={46} strokeLinecap="round" />
-        <path d="M-80 -790 Q0 -860 80 -790" fill="none" stroke="#5a3a24" strokeWidth={30} strokeLinecap="round" />
+        {[-1, 1].map((k) => (
+          <path key={k} d={`M${-70 * k} -800 Q${-150 * k} -760 ${-150 * k} -640 Q${-172 * k} -540 ${-140 * k} -460 Q${-164 * k} -400 ${-118 * k} -350 Q${-98 * k} -420 ${-104 * k} -480 Q${-92 * k} -560 ${-88 * k} -650 Q${-90 * k} -720 ${-60 * k} -762 Z`} fill="#5a3a24" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+        ))}
+        <path d="M-92 -760 Q-62 -862 30 -852 Q102 -832 100 -756 Q60 -800 10 -798 Q-46 -806 -92 -760 Z" fill="#5a3a24" stroke={C.ink} strokeWidth={5} />
+        <path d="M-130 -600 Q-150 -540 -128 -480 M130 -600 Q150 -540 128 -480" fill="none" stroke="#7a5236" strokeWidth={8} strokeLinecap="round" opacity={0.8} />
+        <path d="M-16 -664 Q0 -652 16 -664 Q0 -672 -16 -664 Z" fill="#d9507a" stroke="none" />
         {/* dantel kısa elbise: ince askı, fırfırlı yaka, asimetrik etek */}
         <path d="M-60 -578 L-70 -530 M60 -578 L70 -530" stroke="#f08bb8" strokeWidth={6} />
         <path d={`M-90 -540 Q0 -500 90 -540 L96 -370 Q${120 + 10 * sw} -280 ${110 + 14 * sw} -250 Q60 -280 10 -230 Q-40 -270 ${-100 - 10 * sw} -280 Q-110 -330 -96 -370 Z`} fill="#f08bb8" stroke={C.ink} strokeWidth={5} />
@@ -20289,16 +20293,19 @@ const DgSoru: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-// 3) "Lohusa kırk gün dinlenir. Bilim de aynısını söyler: rahim yaklaşık altı haftada eski hâline döner."
+// 3) "Lohusa kırk gün dinlenir. Çin'de otuz gün, Latin Amerika'da yine kırk. Bilim de aynısını söyler: rahim yaklaşık
+// altı haftada eski hâline döner." — kültür kartları (Çin 30 gün / Latin Amerika 40 gün) sırayla açılır.
 // Sepya oda: yatakta başında kırmızı lohusa kurdelesi olan anne, misafir lohusa şerbeti getirir, takvim 1 → 40;
 // "Bilim"de sağ yarı renklenir: rahim simgesi küçülür, 1 → 6 hafta; sonda iki sayaç buluşur "40 gün ≈ 6 hafta".
 const DgKirk: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const day = Math.max(1, Math.round(lerp(1, 40, tw(f, w(0), w(3)))));
-  const split = tw(f, w(4) - 2, w(4) + 8);
-  const week = Math.max(1, Math.round(lerp(1, 6, tw(f, w(8), w(11)))));
-  const shrink = tw(f, w(8), w(14));
-  const eq = pop(f, w(12), 12);
+  const split = tw(f, w(11) - 2, w(11) + 8);
+  const week = Math.max(1, Math.round(lerp(1, 6, tw(f, w(15), w(18)))));
+  const shrink = tw(f, w(15), w(21));
+  const eq = pop(f, w(19), 12);
+  const c1 = pop(f, w(4) - 2, 12) * (1 - tw(f, w(11) - 4, w(11)));
+  const c2 = pop(f, w(7) - 2, 12) * (1 - tw(f, w(11) - 4, w(11)));
   const visitor = tw(f, w(1), w(3));
   return (
     <>
@@ -20323,6 +20330,23 @@ const DgKirk: React.FC<SceneProps> = ({ w, d }) => {
         <BigCal x={300} y={480} s={0.9} month="LOHUSA" day={day} />
       </CamK>
       <BbSepia o={1 - split * 0.5} />
+      {[
+        [c1, 300, "ÇİN", "30 gün", "#c4462f"],
+        [c2, 780, "LATİN AMERİKA", "40 gün", "#3a8a5a"],
+      ].map(([p, x, t, n, col], i) =>
+        (p as number) > 0 ? (
+          <g key={i} transform={`translate(${x} 1020) scale(${p}) rotate(${i ? 3 : -3})`} stroke={C.ink} strokeLinejoin="round">
+            <rect x={-220} y={-150} width={440} height={300} rx={26} fill={C.cream} strokeWidth={8} />
+            <rect x={-220} y={-150} width={440} height={90} rx={26} fill={col as string} strokeWidth={8} />
+            <text x={0} y={-90} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={i ? 44 : 56} fill={C.cream} strokeWidth={0}>
+              {t as string}
+            </text>
+            <text x={0} y={70} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={96} fill={C.ink} strokeWidth={0}>
+              {n as string}
+            </text>
+          </g>
+        ) : null,
+      )}
       {split > 0 ? (
         <g opacity={split}>
           <rect x={540} y={0} width={540} height={1920} fill="#e3eef2" />
@@ -20378,7 +20402,7 @@ const DgMonitor: React.FC<{ x: number; y: number; f: number; bpm: number; limit:
 const DgSeksen: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const room = tw(f, w(4) - 4, w(4) + 6);
-  const finger = Math.sin(f / 3) * 14 * (f > w(9) ? 1 : 0);
+  const finger = Math.sin(f / 3) * 14 * (f > w(7) ? 1 : 0);
   return (
     <>
       {room < 1 ? (
@@ -20394,7 +20418,7 @@ const DgSeksen: React.FC<SceneProps> = ({ w, d }) => {
       ) : null}
       {room > 0 ? (
         <g opacity={room}>
-          <CamK k={[[w(4), 1, 540, 960], [w(10), 1.15, 620, 900], [d, 1.35, 700, 760]]}>
+          <CamK k={[[w(4), 1, 540, 960], [w(8), 1.15, 620, 900], [d, 1.35, 700, 760]]}>
             <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
             <rect x={0} y={1380} width={1080} height={540} fill="#b98d5e" />
             <HandText x={260} y={300} text="1985" size={140} color={C.ink} p={tw(f, w(4), w(6))} rotate={-3} />
@@ -20403,7 +20427,7 @@ const DgSeksen: React.FC<SceneProps> = ({ w, d }) => {
               <path d="M-50 -560 Q0 -500 50 -560" fill="none" stroke="#7a8a96" strokeWidth={6} />
             </Person>
             <Person x={820} y={1400} s={0.72} female belly={1} shirt="#f2c6a0" shorts="#6d6a8c" shortsLen={0.95} mouth="worry" armL={[20, -60]} armR={[20, -60]} />
-            <DgMonitor x={700} y={650} f={f} bpm={132 + Math.round(6 * Math.sin(f / 8))} limit={pop(f, w(10) - 2, 12)} crack={0} />
+            <DgMonitor x={700} y={650} f={f} bpm={132 + Math.round(6 * Math.sin(f / 8))} limit={pop(f, w(8) - 2, 12)} crack={0} />
           </CamK>
           <BbSepia o={1} />
         </g>
@@ -20412,52 +20436,59 @@ const DgSeksen: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-// 5) "O kural kalktı; bugün hamilelikte hareket edenin daha kolay toparlandığı biliniyor."
+// 5) "O kural kalktı. İki bin on yedide bir tenisçi, hamileyken büyük bir turnuvayı kazandı."
+// Nabız ekranındaki kırmızı 140 çizgisi kırılır, renk gelir; tenis kortu: servis atan sporcu, "2017" etiketi; "kazandı"da
+// kupayı kaldırır, konfeti. (İsim yok.)
 const DgBugun: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const crack = tw(f, w(1), w(2) + 4);
   const color = tw(f, w(2), w(3) + 4);
-  const park = tw(f, w(3), w(4) + 4);
-  const after = tw(f, w(7), w(8) + 4);
-  const sw = Math.sin(f / 5);
+  const court = tw(f, w(3) - 2, w(3) + 6);
+  const serve = 0.5 + 0.5 * Math.sin(f / 6);
+  const win = tw(f, w(12), w(13));
   return (
     <>
-      {park < 1 ? (
-        <g opacity={1 - park}>
+      {court < 1 ? (
+        <g opacity={1 - court}>
           <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
           <DgMonitor x={540} y={800} f={f} bpm={135} limit={1} crack={crack} />
           <BbSepia o={1 - color} />
         </g>
       ) : null}
-      {park > 0 ? (
-        <g opacity={park}>
-          <CamK k={[[w(3), 1.0, 540, 960], [w(7), 1.15, 400, 1000], [w(8) + 4, 1.0, 620, 980], [d, 1.1, 700, 980]]}>
-            <rect x={0} y={0} width={1080} height={1920} fill="#cfe6f2" />
-            <rect x={0} y={1300} width={1080} height={620} fill="#8fb08a" />
-            <path d="M0 1500 Q540 1420 1080 1500 L1080 1600 Q540 1520 0 1600 Z" fill="#d9c7a7" />
-            {[120, 360, 900].map((tx, i) => (
-              <g key={i} stroke={C.ink} strokeWidth={6}>
-                <path d={`M${tx} 1300 V1050`} />
-                <circle cx={tx} cy={1000} r={90} fill="#6f9a4c" />
-              </g>
+      {court > 0 ? (
+        <g opacity={court}>
+          <CamK k={[[w(3), 1.2, 540, 1000], [w(9), 1.0, 540, 980], [w(12), 1.3, 540, 900], [d, 1.35, 540, 880]]} shake={hit(f, w(13), 10) * 0.4}>
+            <rect x={0} y={0} width={1080} height={1920} fill="#6aa0c8" />
+            <rect x={0} y={700} width={1080} height={300} fill="#2c4a6a" />
+            {Array.from({ length: 30 }, (_, i) => (
+              <circle key={i} cx={20 + (i % 15) * 72} cy={760 + Math.floor(i / 15) * 90} r={22} fill={["#e0b030", "#d9705f", "#f4f1ea", "#8fb08a"][i % 4]} opacity={0.8} />
             ))}
-            {after < 1 ? (
-              <g opacity={1 - after}>
-                <Person x={420 + (f % 60) * 2} y={1540} s={0.72} female belly={1} shirt="#f2c6a0" shorts="#3b3b44" mouth="grin" armL={[14 + 18 * sw, 0]} armR={[14 - 18 * sw, 0]} legL={{ lift: Math.max(0, sw) * 0.4 }} legR={{ lift: Math.max(0, -sw) * 0.4 }} />
-              </g>
-            ) : null}
-            {after > 0 ? (
-              <g opacity={after}>
-                <DgMom x={560 + (f % 60) * 2} y={1540} s={0.72} f={f} baby={false} mouth="grin" armL={[40, -60]} armR={[40, -60]} />
-                <g transform={`translate(${780 + (f % 60) * 2} 1500)`} stroke={C.ink} strokeLinejoin="round">
-                  <path d="M-110 -180 Q-110 -260 0 -260 L110 -260 L110 -80 L-110 -80 Z" fill="#7d9cc4" strokeWidth={7} />
-                  <circle cx={-80} cy={0} r={34} fill="#3b3b44" strokeWidth={6} />
-                  <circle cx={80} cy={0} r={34} fill="#3b3b44" strokeWidth={6} />
-                  <path d="M-110 -80 L-160 -200" strokeWidth={8} />
+            <path d="M0 1000 L1080 1000 L1080 1920 L0 1920 Z" fill="#3a7ab8" />
+            <path d="M140 1920 L300 1000 M940 1920 L780 1000 M300 1000 H780 M210 1500 H870" stroke="#fff" strokeWidth={10} />
+            <Person x={540} y={1560} s={0.78} female shirt="#f4f1ea" shorts="#f4f1ea" shortsLen={0.5} mouth={win > 0.5 ? "grin" : "flat"} armL={win > 0 ? [lerp(30, 170, win), 0] : [60, -40]} armR={win > 0 ? [lerp(30, 170, win), 0] : [lerp(120, 175, serve), lerp(60, 0, serve)]}>
+              {win < 0.5 ? (
+                (() => {
+                  const h = armPoints(1, [lerp(120, 175, serve), lerp(60, 0, serve)])[2];
+                  return (
+                    <g transform={`translate(${h[0]} ${h[1]}) rotate(${lerp(-20, 20, serve)})`} stroke={C.ink}>
+                      <path d="M0 0 L0 -90" strokeWidth={14} />
+                      <ellipse cx={0} cy={-170} rx={56} ry={80} fill="none" strokeWidth={12} />
+                      <ellipse cx={0} cy={-170} rx={44} ry={68} fill="none" stroke="#9a9a9a" strokeWidth={3} />
+                    </g>
+                  );
+                })()
+              ) : (
+                <g transform="translate(0 -1010)" stroke={C.ink} strokeLinejoin="round">
+                  <path d="M-80 -60 Q-80 60 0 70 Q80 60 80 -60 Z" fill="#e8b923" strokeWidth={7} />
+                  <path d="M-30 70 L-40 140 L40 140 L30 70" fill="#c9a23a" strokeWidth={6} />
                 </g>
-              </g>
-            ) : null}
+              )}
+              <path d="M-60 -770 Q0 -800 60 -770" fill="none" stroke="#fff" strokeWidth={16} />
+            </Person>
+            {win < 0.5 ? <circle cx={720} cy={600 + 300 * serve} r={22} fill="#d9ef4a" stroke={C.ink} strokeWidth={4} /> : null}
           </CamK>
+          <KTag x={540} y={330} p={pop(f, w(3), 12)} text="2017 · hamileyken" color={C.red} rot={-3} />
+          {win > 0.5 ? <Confetti start={w(13)} n={30} /> : null}
         </g>
       ) : null}
     </>
