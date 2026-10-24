@@ -15,8 +15,8 @@
   "scenes": [
     {
       "visual": "ba-ayna",
-      "voice": "Sen aynada kolunu kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.",
-      "say": "Sen aynada kolunu kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.",
+      "voice": "Sen aynada pazını kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.",
+      "say": "Sen aynada pazını kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.",
       "keys": [
         "kandırdı"
       ]

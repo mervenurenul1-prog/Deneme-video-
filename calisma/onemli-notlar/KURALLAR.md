@@ -29,7 +29,8 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
 4) gerçek, DOĞRULANMIŞ tarihçe + vücuttaki yeri (hücre/kas içi) 5) bağla + döngü (`"loop": true`, son kare = ilk kare).
 - İlk cümle tarihle başlamaz; soru + şaşırtıcı cevap. Tek kahraman, tek zaman çizgisi, her cümle öncekinin sonucu.
 - Bilinmeyen iddiayı "duydun" diye varsayma. Tek ana fikir. Teknik terim/derece yok. "Antrenör" değil **KOÇ**.
-- Kadın-erkek çatışması çıkaran konular iyi izlendi (04, 09). Konu dar: antrenman + sağlık.
+- Kadın-erkek çatışması çıkaran konular iyi izlendi (04, 09). AMA her seferinde yalnız kadınlara hitap etme (24 Ekim):
+  hem erkeğe hem kadına hitap eden konular/cümleler de olsun. Konu dar: antrenman + sağlık.
 - 12 madde tablosu: izlesin (hook/merak/tempo/his) · yorum (taraf/tartışma/söylenecek/kendini görmek) ·
   paylaş ("ona atmalıyım"/replik/"tam ben"/kısa-net). Acıya dokunsun, tarih içersin, VOOM'a bağlansın.
 

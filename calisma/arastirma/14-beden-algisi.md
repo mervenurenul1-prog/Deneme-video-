@@ -30,3 +30,4 @@ Kaynaklar (doğrulandı):
 1 Sen aynada kolunu kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.
 2 (v3 aynı) 3 (v3 aynı)
 4 Yani aynadaki kusur sende değil, kıyasladığın şeyde. Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi? (→ 1)
+- 24 Ekim: kullanıcı vazgeçti → ilk cümle "Sen aynada PAZINI kastın, beğenmedin…"
