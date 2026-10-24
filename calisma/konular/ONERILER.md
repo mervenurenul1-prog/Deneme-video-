@@ -67,9 +67,27 @@ F. "Kadınlar ağırlıkla erkek kadar gelişemez" — oransal kas/güç artış
 G. "Erkek daha çok yağ yakar" — egzersizde kadın daha çok yağ kullanır (Tarnopolsky 1990).
 H. "Hamileyken spor yapılmaz" — 1985 ACOG katı sınırlar (nabız 140, 15 dk) → bugün haftada 150 dk önerilir.
 I. (sınırda, spor dışı) Ofis klima kavgası: termostat standardı 1960'larda 40 yaş/70 kg erkeğe göre (Kingma 2015).
-- E-I reddedildi ("yeni konu bul"). Yeni (DOĞRULA):
-J. "Erkekler zayıf kadın sever / kadınlar iri kaslı erkek sever" — 1985 Pennsylvania (Fallon & Rozin): kadınlar erkeklerin
+
+## 23 Ekim gece (yeni sohbet) — VOOM'suz sıra için yeni öneriler (seçilince DOĞRULA → arastirma/)
+J. Koşu bandı işkence gibi geliyor — 1818 William Cubitt'in hapishane "ayak değirmeni" (tread-wheel), mahkûmlar saatlerce
+   basamak çevirdi; İngiltere 1898 yasasıyla kaldırdı. Bilim: dışarıda aynı efor daha kolay/keyifli algılanıyor
+   (2011 "yeşil egzersiz" derlemesi, Thompson Coon). Tavsiye: dışarı çık / tempoyu böl. Kanca: "sorun sen değilsin, makine ceza için yapıldı".
+K. "Pilates kadın sporu" diyen erkek — Joseph Pilates I. Dünya Savaşı'nda Man Adası esir kampında erkek tutsaklara çalıştırdı;
+   yatak yaylarından alet (reformer'ın atası, kısmen efsane — doğrula); sonra New York'ta dansçılar. Bilim: derin karın kası.
+   Kadın-erkek tartışması.
+L. "Kardiyo/aerobik kız işi" — "Aerobik" kelimesi 1968'de ABD Hava Kuvvetleri doktoru Kenneth Cooper'ın askerler/pilotlar için
+   kitabı; kadın aerobik dansı (Jackie Sorensen) sonradan. Kadın-erkek tartışması.
+M. "Kilo veriyorum ama önce yüzümden/göğsümden gidiyor, basen yerinde" — bölgesel incelme yok: 1971 tenisçilerin iki kolu
+   (raket kolunda kas fazla, yağ aynı; Gwinup, Ann Intern Med); 2013 tek bacak 12 hafta pres → yağ çalışan bacaktan değil
+   üst vücuttan gitti (Ramírez-Campillo). Not: "mekik" genel konu olarak reddedilmişti; bu açı farklı (acı + kadın).
+N. Hep aynı ağırlıkta takılmak / "yapamam" duvarı — 1954 Bannister 4 dk mil; 46 gün sonra Landy de kırdı. DİKKAT: "doktorlar
+   kalbi patlar dedi" anlatısı tartışmalı, doğrulanmadan kullanılmaz. En zayıf aday.
+- Kullanıcı (24 Ekim): K-L okey, "daha ilgi çekici nasıl yaparız" → öneri: K+L tek videoda birleştir ("kadın sporu" dediğin
+  pilates/aerobik/zumba erkekler için doğdu), avatar alay edip derse giren erkek, 10. dk titrer; isim sonda "Pilates" diye
+  açılır; Cooper 12 dk testiyle meydan okuma kapanışı. Zumba (Beto Pérez kaseti unuttu) DOĞRULA. Seçim bekleniyor.
+- E-I reddedildi ("yeni konu bul"). Yeni (DOĞRULA; paralel sohbetin J-N'siyle karışmasın diye O-P):
+O. "Erkekler zayıf kadın sever / kadınlar iri kaslı erkek sever" — 1985 Pennsylvania (Fallon & Rozin): kadınlar erkeklerin
    istediğinden daha zayıf olmaları gerektiğini sandı; erkekler kadınların istediğinden daha kaslı olmaları gerektiğini
    sandı. İki taraf da yanılıyor. (Sonrası: Lynch & Zellner 1999 erkekler/kas.)
-K. "Atlar terler, erkekler ter döker, kadınlar parlar" (Viktorya dönemi sözü) — Osaka 2010 (Ichinose/Kondo, J Appl
+P. "Atlar terler, erkekler ter döker, kadınlar parlar" (Viktorya dönemi sözü) — Osaka 2010 (Ichinose/Kondo, J Appl
    Physiol): kadınlar terlemeye daha geç başlar; antrenman terlemeyi artırır. Kadın-erkek eğlenceli çatışma.
