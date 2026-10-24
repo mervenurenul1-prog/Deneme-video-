@@ -10,3 +10,4 @@ Anadolu'da lohusalık 40 gün (gelenek). Mankenin hamilelikte spor yaptığı DO
 5 O kural kalktı; bugün hamilelikte hareket edenin daha kolay toparlandığı biliniyor.
 6 Yine de unutma: onun arkasında koca bir ekip var, senin kucağında bir bebek.
 7 Bunu yeni anne olan arkadaşına gönder. Çünkü o da şunu düşünüyor: (→ 1)
+- 24 Ekim: model referansı `animasyon/referans/defile-elbise.png` (pembe dantel kısa elbise, eller belde, mor-pembe ışık); kişiye BENZETME, yalnız kıyafet/poz/ışık. Bebek gerçek gibi tutulur (baş sol dirsekte, sağ el poposunda). Foto-gerçekçilik kod çizimle mümkün değil (ücretli AI gerekir) — kullanıcıya söylendi.
