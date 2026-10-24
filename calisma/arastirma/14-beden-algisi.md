@@ -26,3 +26,7 @@ Kaynaklar (doğrulandı):
 2 Çocukken oynadığın oyuncak askerin kolu, insan boyuna çevrilince altmışlarda otuz santimdi. Doksanlarda altmış sekiz: dünyada böyle bir kol yok.
 3 Güzellik kraliçeleri ise her yıl biraz daha eridi; sonunda çoğu tıbben "yetersiz beslenme" sınırına indi. [chuckles] Ve biz bunlara bakarak büyüdük.
 4 Yani aynadaki kusur sende değil, kıyasladığın şeyde. Hani… bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi? (→ 1)
+## METİN v4 (24 Ekim, onaylandı: yalnız iki düzeltme) — "pazı" → "kolunu kastın"; sondaki "Hani…" ÇIKTI
+1 Sen aynada kolunu kastın, beğenmedin. O karnını içine çekti, beğenmedi. İkinizi de aynı şey kandırdı.
+2 (v3 aynı) 3 (v3 aynı)
+4 Yani aynadaki kusur sende değil, kıyasladığın şeyde. Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi? (→ 1)

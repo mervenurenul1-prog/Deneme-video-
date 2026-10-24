@@ -1,6 +1,9 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (23 Ekim gece) <<<
+- **24 Ekim: 14 BEDEN ALGISI** (`cizim1-14-beden`, sahneler `ba-*`, VOOM'SUZ, kaynak `arastirma/14-beden-algisi.md`): metin v4
+  onaylandı (oyuncak asker kolu 30→68 cm, Pope 1999; güzellik kraliçeleri JAMA 2000; "Bunu sevgiline gönder ve sor: kim daha
+  çok kandırıldı?"). Sessiz önizleme `14-beden-sessiz.mp4` → onay → seslendirme (~520 kr) → 1.2x → render.
 - **İLK İŞ: sporla ilgili YENİ KONU bul ve öner** (kullanıcı). Sıradaki video **VOOM'SUZ** (sıra: bir VOOM'lu, bir VOOM'suz;
   son video 12 VOOM'luydu). Öneriler KURALLAR.md'deki 5 adımlı formülle + 12 madde tablosuyla gelsin; selülit tarzı
   (kimsenin bilmediği, gerçek tarih + bilim, acıya vuran kanca). Konuyu kullanıcı seçer.
