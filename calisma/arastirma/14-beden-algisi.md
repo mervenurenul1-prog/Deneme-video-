@@ -42,3 +42,4 @@ Kaynaklar (doğrulandı):
 5 Bin dokuz yüz yirmi birde güzellik kraliçesi sağlıklı bir kızdı; seksen yıl sonra kazananların çoğu yetersiz beslenme sınırındaydı.
 6 Ve bugün ikiniz de aynanın önünde tişörtünüzü çekiştiriyorsunuz.
 7 Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi? (→ 1)
+- 24 Ekim düzeltmeleri: açılışta tek kol kasıp başını koluna çevirir; "tişört çekiştirme" yapılamadı → cümle "yan dönüp karnınızı tutuyorsunuz" (yandan profil, el karında); kraliçe: çan etek, korse, kabarık omuz, kürk yakalı kırmızı pelerin, asa, taç, buket; "gönder" = mesaj ekranı (kâğıt uçak YOK).

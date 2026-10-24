@@ -58,8 +58,8 @@
     },
     {
       "visual": "bb-bugun",
-      "voice": "Ve bugün ikiniz de aynanın önünde tişörtünüzü çekiştiriyorsunuz.",
-      "say": "[chuckles] Ve bugün ikiniz de aynanın önünde tişörtünüzü çekiştiriyorsunuz.",
+      "voice": "Ve bugün ikiniz de aynanın önünde yan dönüp karnınızı tutuyorsunuz.",
+      "say": "[chuckles] Ve bugün ikiniz de aynanın önünde yan dönüp karnınızı tutuyorsunuz.",
       "keys": [
         "ikiniz"
       ]

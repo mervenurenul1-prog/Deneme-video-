@@ -19342,9 +19342,9 @@ const BA_CRACKS = Array.from({ length: 9 }, (_, i) => {
 // Gerçekçi poz parçaları (Person koordinatları). Çift pazı kasma: üst kol yana-hafif yukarı, ön kol dik yukarı;
 // üst kolun ortasında kabaran pazı + yumruk. Tişört çekiştirme: eller karnın önünde kumaşı tutup ileri çeker (kırışıklar).
 const BB_FLEX: Arm = [100, 80];
-const BbBicep: React.FC<{ arm: Arm; size: number; skin?: string }> = ({ arm, size, skin = C.skin }) => (
+const BbBicep: React.FC<{ arm: Arm; size: number; skin?: string; sides?: number[] }> = ({ arm, size, skin = C.skin, sides = [-1, 1] }) => (
   <g stroke={C.ink} strokeLinejoin="round">
-    {[-1, 1].map((side) => {
+    {sides.map((side) => {
       const [sp, e, h] = armPoints(side, arm);
       const mx = (sp[0] + e[0]) / 2;
       const my = (sp[1] + e[1]) / 2;
@@ -19404,9 +19404,8 @@ const BaMirror: React.FC<{ f: number; flex: number; suck: number; crack: number;
             </Person>
           </g>
         ) : null}
-        <Person x={BA_AV.x} y={BA_AV.y} s={BA_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} mouth={smile > 0.5 ? "grin" : flex > 0.5 || tug > 0.5 ? "worry" : "flat"} lookY={smile > 0.5 ? 0 : tug > 0.5 ? 0.8 : 0.2} armL={tug > 0 ? BB_TUG : [lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]} armR={tug > 0 ? BB_TUG : [lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]}>
-          {flex > 0.6 && tug === 0 ? <BbBicep arm={[lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]} size={(flex - 0.6) / 0.4} /> : null}
-          <BbShirtTug p={tug} shirt="#3a3a42" f={f} />
+        <Person x={BA_AV.x} y={BA_AV.y} s={BA_AV.s} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe={C.skin} mouth={smile > 0.5 ? "grin" : flex > 0.5 ? "worry" : "flat"} lookY={smile > 0.5 ? 0 : 2} tilt={-14 * flex} armL={[12, 0]} armR={[lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]}>
+          {flex > 0.6 ? <BbBicep arm={[lerp(12, BB_FLEX[0], flex), lerp(0, BB_FLEX[1], flex)]} size={(flex - 0.6) / 0.4} sides={[1]} /> : null}
         </Person>
         <Person x={BA_WO.x} y={BA_WO.y} s={BA_WO.s} female belly={lerp(0.55, 0.05, suck) + breath} shirt={BA_WO_TOP} shorts="#3b3b44" shortsLen={0.9} shoe={C.skin} mouth={smile > 0.5 ? "grin" : suck > 0.5 ? "flat" : "smile"} eyes={suck > 0.5 && smile < 0.5 ? "closed" : "open"} blush={0.3 + 0.5 * suck * (1 - smile)} armL={tug > 0 ? BB_HEM : [18, 0]} armR={tug > 0 ? BB_HEM : [18, 0]}>
           <BbHemTug p={tug} f={f} />
@@ -19828,20 +19827,53 @@ const BbAyni: React.FC<SceneProps> = ({ w, d }) => {
 
 // Güzellik kraliçesi: uzun abiye (bel incelir), omuzdan kuşak, mücevherli taç, kolunda gül buketi
 const BbQueen: React.FC<{ x: number; y: number; s: number; thin: number; f: number }> = ({ x, y, s, thin, f }) => {
-  const wst = lerp(1, 0.6, thin);
+  const wst = lerp(1, 0.55, thin);
+  const sway = Math.sin(f / 12) * 4;
   return (
     <g>
-      <Person x={x} y={y} s={s} female shirt="#f3c6d6" shorts="#f3c6d6" shortsLen={1} limbW={lerp(1.05, 0.55, thin)} belly={lerp(0.3, 0, thin)} mouth="smile" armL={[30, -70]} armR={[150, 25 + 6 * Math.sin(f / 9)]}>
-        <path d={`M${-80 * wst} -380 Q${-120 * wst} -200 ${-190 * wst} -10 L${190 * wst} -10 Q${120 * wst} -200 ${80 * wst} -380 Z`} fill="#f3c6d6" stroke={C.ink} strokeWidth={6} />
-        {Array.from({ length: 7 }, (_, i) => (
-          <circle key={i} cx={(random(`qx${i}`) - 0.5) * 220 * wst} cy={-60 - random(`qy${i}`) * 280} r={5} fill="#fff" opacity={0.5 + 0.5 * Math.sin(f / 4 + i)} />
+      {/* pelerin (arkada) */}
+      <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+        <path d={`M-110 -590 Q-260 -300 ${-290 + sway} 0 L${290 + sway} 0 Q260 -300 110 -590 Z`} fill="#9c1f2e" strokeWidth={6} />
+        <path d="M-120 -600 Q0 -540 120 -600 L110 -560 Q0 -500 -110 -560 Z" fill="#fbf7ec" strokeWidth={5} />
+        {[-80, -40, 0, 40, 80].map((cx, i) => (
+          <circle key={i} cx={cx} cy={-566 + Math.abs(cx) * 0.2} r={5} fill={C.ink} stroke="none" />
         ))}
-        <path d={`M${-90 * wst} -575 L${80 * wst} -360`} stroke="#fbf3e2" strokeWidth={34} />
-        <path d={`M${-90 * wst} -575 L${80 * wst} -360`} stroke={C.red} strokeWidth={22} />
+      </g>
+      <Person x={x} y={y} s={s} female shirt="#f3c6d6" shorts="#f3c6d6" shortsLen={1} limbW={lerp(1.05, 0.55, thin)} belly={lerp(0.3, 0, thin)} mouth="smile" armL={[30, -70]} armR={[160, 10 + 6 * Math.sin(f / 9)]}>
+        {/* çan etek + fırfırlar */}
+        <path d={`M${-70 * wst} -380 Q${-140} -220 ${-230 + sway} -10 L${230 + sway} -10 Q140 -220 ${70 * wst} -380 Z`} fill="#f3c6d6" stroke={C.ink} strokeWidth={6} />
+        {[-250, -160, -70].map((yy, i) => (
+          <path key={i} d={`M${-120 - i * 40} ${yy} Q0 ${yy + 40} ${120 + i * 40} ${yy}`} fill="none" stroke="#d98aa8" strokeWidth={6} />
+        ))}
+        {/* korse + kabarık omuzlar */}
+        <path d={`M${-70 * wst} -380 L${-90 * wst} -560 L${90 * wst} -560 L${70 * wst} -380 Z`} fill="#e9a9c0" stroke={C.ink} strokeWidth={5} />
+        {[-1, 1].map((k) => (
+          <ellipse key={k} cx={k * 100} cy={-560} rx={40} ry={30} fill="#f3c6d6" stroke={C.ink} strokeWidth={5} />
+        ))}
+        {Array.from({ length: 8 }, (_, i) => (
+          <circle key={i} cx={(random(`qx${i}`) - 0.5) * 300} cy={-60 - random(`qy${i}`) * 260} r={5} fill="#fff" opacity={0.5 + 0.5 * Math.sin(f / 4 + i)} />
+        ))}
+        {/* kuşak */}
+        <path d={`M${-90 * wst} -560 L${70 * wst} -380`} stroke="#fbf3e2" strokeWidth={34} />
+        <path d={`M${-90 * wst} -560 L${70 * wst} -380`} stroke={C.red} strokeWidth={22} />
+        {/* taç */}
         <path d="M-62 -788 L-46 -850 L-22 -806 L0 -866 L22 -806 L46 -850 L62 -788 Z" fill="#e8b923" stroke={C.ink} strokeWidth={6} />
         {[-46, 0, 46].map((cx, i) => (
           <circle key={i} cx={cx} cy={i === 1 ? -846 : -830} r={8} fill={["#d9405a", "#3aa6d9", "#d9405a"][i]} stroke={C.ink} strokeWidth={3} />
         ))}
+        {/* asa (sağ elde) */}
+        {(() => {
+          const h = armPoints(1, [160, 10])[2];
+          return (
+            <g stroke={C.ink}>
+              <path d={`M${h[0]} ${h[1] - 60} L${h[0] + 10} ${h[1] + 260}`} strokeWidth={12} />
+              <path d={`M${h[0]} ${h[1] - 60} L${h[0] + 10} ${h[1] + 260}`} stroke="#e8b923" strokeWidth={6} />
+              <circle cx={h[0]} cy={h[1] - 80} r={24} fill="#e8b923" strokeWidth={5} />
+              <circle cx={h[0]} cy={h[1] - 80} r={10} fill="#3aa6d9" strokeWidth={3} />
+            </g>
+          );
+        })()}
+        {/* gül buketi (sol kolda) */}
         {(() => {
           const h = armPoints(-1, [30, -70])[2];
           return (
@@ -19904,24 +19936,21 @@ const BbKralice: React.FC<SceneProps> = ({ w, d }) => {
 // 6) "Ve bugün ikiniz de aynanın önünde tişörtünüzü çekiştiriyorsunuz."
 // Renkli bugün: ayna; ikisi de tişörtünün eteğini çekiştirir (titrer); aynanın içinde arkalarında dev asker ve ince
 // kraliçe hayaletleri; kamera yavaşça ikisinin arasına itilir.
-const BbProfile: React.FC<{ x: number; f: number; female?: boolean; shirt: string; tug: number; mirror?: boolean }> = ({ x, f, female = false, shirt, tug, mirror = false }) => {
+const BbProfile: React.FC<{ x: number; f: number; female?: boolean; shirt: string; tug: number }> = ({ x, f, female = false, shirt, tug }) => {
   const sc = 0.78;
   const y = 1420;
   const stand = runPose(0, 0);
-  const pose: SidePose = female
-    ? { ...stand, armF: [lerp(0, 8, tug), lerp(10, -4, tug)], armB: [lerp(0, 8, tug), lerp(10, -4, tug)] }
-    : { ...stand, armF: [lerp(0, 22, tug), lerp(10, 72, tug)], armB: [lerp(0, 22, tug), lerp(10, 72, tug)] };
-  const pull = tug * (14 + 6 * Math.sin(f / 3));
+  const pinch: [number, number] = [lerp(0, -20, tug), lerp(10, 114, tug)];
+  const pose: SidePose = { ...stand, armF: pinch, armB: [0, 10] };
+  const sq = tug * (0.5 + 0.5 * Math.sin(f / 4));
   return (
-    <g transform={mirror ? `translate(${2 * x} 0) scale(-1 1)` : undefined}>
+    <g>
       <SideRunner f={f} x={x} y={y} s={sc} pose={pose} shirt={shirt} female={female} face={tug > 0.5 ? "worry" : "smile"} />
-      {tug > 0 ? (
-        <g transform={`translate(${x} ${y}) scale(${sc})`} stroke={C.ink} strokeLinejoin="round">
-          {female ? (
-            <path d={`M70 -330 L${96 + pull * 0.3} ${-300 + pull} L-60 ${-300 + pull} L-60 -330`} fill={shirt} strokeWidth={5} opacity={tug} />
-          ) : (
-            <path d={`M78 -520 Q${150 + pull * 2} -470 ${172 + pull} -470 Q${150 + pull * 2} -460 78 -420 Z`} fill={shirt} strokeWidth={5} opacity={tug} />
-          )}
+      {tug > 0.4 ? (
+        <g transform={`translate(${x} ${y}) scale(${sc})`} stroke={C.ink} strokeLinejoin="round" opacity={(tug - 0.4) / 0.6}>
+          {/* karın tutamı: parmakların arasında sıkışan kumaş/yağ katı */}
+          <path d={`M70 -500 Q${100 + 10 * sq} -480 ${96 + 6 * sq} -455 Q80 -450 70 -460 Z`} fill={shirt} strokeWidth={4} />
+          <path d={`M74 -488 q14 6 18 18`} fill="none" stroke="#000" strokeWidth={3} opacity={0.4} />
         </g>
       ) : null}
     </g>
