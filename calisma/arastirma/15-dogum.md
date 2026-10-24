@@ -19,3 +19,9 @@ Anadolu'da lohusalık 40 gün (gelenek). Mankenin hamilelikte spor yaptığı DO
 - 5: "O kural kalktı. İki bin on yedide bir tenisçi, hamileyken büyük bir turnuvayı kazandı." (2017 Avustralya Açık, ~8 haftalık
   hamileyken; İSİM YOK). Tuhaf hamile yürüyüşü sahnesi çıktı → tenis kortu + kupa.
 - 2: "Nasıl mümkün? Cevabın yarısı Anadolu'da." Süre: sessiz 36,7 sn, hızlı sesle ~34,6 (max 35).
+## v3 (24 Ekim): kullanıcı "podyum ışığı + kanat, hangi ünlü olduğu anlaşılsın, giriş ve son daha çarpıcı"
+1 Altı hafta önce doğum yaptı; bu gece sırtında kanatlarla podyumdaydı. Sen altı haftada bir duş bile alamadın.
+3 …Rahim de yaklaşık altı haftada eski hâline döner. ("Bilim de aynısını söyler" çıktı, süre)
+4 Ama dinlenmek kıpırdamamak değil; seksen beşte bile "nabzın yüz kırkı geçmesin" denirdi.
+6 Onun arkasında koca bir ekip, sırtında kanatlar vardı. Seninse kucağında bir melek. (bebeğe hale; yeşil tahtada VOOM)
+Görsel: melek kanatları (DgWings) "kanatlarla"da açılır, flaş; isim/logo YOK (risk kullanıcıya bildirildi).

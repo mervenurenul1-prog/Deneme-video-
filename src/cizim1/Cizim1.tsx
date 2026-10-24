@@ -179,12 +179,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
-  "dg-podyum": (w) => [[0, "pirilti", 0.3], [w(1) - 2, "pop", 0.3], [w(5) - 2, "whoosh", 0.4], [w(12) - 2, "agir-dusme", 0.2]],
+  "dg-podyum": (w) => [[0, "pirilti", 0.4], [w(0), "pop", 0.3], [w(5), "pop", 0.3], [w(7) - 4, "sihir", 0.4], [w(10) - 2, "whoosh", 0.4], [w(15) - 2, "agir-dusme", 0.2]],
   "dg-soru": (w) => [[0, "pop", 0.35], [w(3), "whoosh", 0.3], [w(4), "kagit", 0.3]],
-  "dg-kirk": (w) => [...ticks(w(0), w(3), 6, 0.2), [w(4) - 2, "pop", 0.35], [w(7) - 2, "pop", 0.35], [w(11) - 2, "whoosh", 0.3], [w(19), "ding", 0.4]],
-  "dg-seksen": (w) => [[w(1), "kalem", 0.3], [w(4) - 4, "whoosh", 0.3], [w(8) - 2, "bip", 0.35]],
+  "dg-kirk": (w) => [...ticks(w(0), w(3), 6, 0.2), [w(4) - 2, "pop", 0.35], [w(7) - 2, "pop", 0.35], [w(11) - 2, "whoosh", 0.3], [w(16), "ding", 0.4]],
+  "dg-seksen": (w) => [[w(1), "kalem", 0.3], [w(4) - 4, "whoosh", 0.3], [w(7) - 2, "bip", 0.35]],
   "dg-bugun": (w) => [[w(1), "cizik", 0.4], [w(2), "pirilti", 0.3], [w(3), "whoosh", 0.25], [w(13), "ding", 0.4]],
-  "dg-ekip": (w) => [[w(4), "pop", 0.3], [w(9) - 4, "whoosh", 0.3], [w(10), "kalem", 0.35]],
+  "dg-ekip": (w) => [[w(1), "pop", 0.3], [w(5), "sihir", 0.35], [w(8) - 4, "whoosh", 0.3], [w(9), "kalem", 0.3], [w(11) - 2, "pirilti", 0.45]],
   "dg-gonder": (w, d) => [[0, "pop", 0.35], [w(4), "whoosh", 0.3], [w(5) + 6, "ding", 0.3], [w(6), "whoosh", 0.3]],
   "bb-kol": (w) => [[0, "nefes", 0.35], [w(4) - 2, "sihir", 0.35], [w(6), "whoosh", 0.3], [w(8) - 2, "pirilti", 0.35]],
   "bb-altmis": (w) => [[0, "kagit", 0.3], [w(8) - 4, "whoosh", 0.3], [w(10), "ding", 0.35]],
@@ -20140,12 +20140,31 @@ const DgMom: React.FC<{ x: number; y: number; s: number; f: number; cry?: number
   );
 };
 // Podyum modeli (genel): uzun, akan elbise, uzun saç
+// Melek kanatları (podyum): tüy katmanları, p 0..1 açılma
+const DgWings: React.FC<{ p: number; f: number }> = ({ p, f }) =>
+  p > 0 ? (
+    <g stroke={C.ink} strokeLinejoin="round">
+      {[-1, 1].map((k) => (
+        <g key={k} transform={`rotate(${k * (lerp(-40, 0, p) + 3 * Math.sin(f / 10))} 0 -560) scale(${k * lerp(0.3, 1, p)} ${lerp(0.5, 1, p)})`}>
+          {[0, 1, 2, 3].map((r) => (
+            <path key={r} d={`M20 -560 Q${180 + r * 40} ${-880 + r * 40} ${330 - r * 20} ${-780 + r * 90} Q${300 - r * 30} ${-560 + r * 60} ${240 - r * 40} ${-380 + r * 70} Q120 -440 20 -480 Z`} fill={["#ffffff", "#fbf3fa", "#f4e6f0", "#ead7e6"][r]} strokeWidth={4} />
+          ))}
+          {Array.from({ length: 6 }, (_, i) => (
+            <path key={i} d={`M${60 + i * 40} ${-560 - i * 30} q${30 + i * 6} 40 ${20 + i * 10} 120`} fill="none" stroke="#d9c3d6" strokeWidth={3} />
+          ))}
+        </g>
+      ))}
+    </g>
+  ) : null;
 const DG_HIPS: Arm = [40, -93];
-const DgModel: React.FC<{ x: number; y: number; s: number; f: number }> = ({ x, y, s, f }) => {
+const DgModel: React.FC<{ x: number; y: number; s: number; f: number; wings?: number }> = ({ x, y, s, f, wings = 1 }) => {
   const sw = Math.sin(f / 5);
   return (
     <g>
       <ellipse cx={x} cy={y + 6} rx={140 * s} ry={20 * s} fill="#000" opacity={0.3} />
+      <g transform={`translate(${x} ${y}) scale(${s})`}>
+        <DgWings p={wings} f={f} />
+      </g>
       <Person x={x} y={y} s={s} female belly={0} shirt="#f08bb8" shorts={C.skin} shortsLen={0.2} limbW={0.9} mouth="smile" armL={DG_HIPS} armR={DG_HIPS} legL={{ lift: Math.max(0, sw) * 0.35 }} legR={{ lift: Math.max(0, -sw) * 0.35 }}>
         {/* gür dalgalı saç (omuzlara dökülür) */}
         {[-1, 1].map((k) => (
@@ -20234,28 +20253,31 @@ const DgNight: React.FC<{ f: number; door: number }> = ({ f, door }) => (
 const DG_START: [number, number, number] = [1.6, 540, 900];
 const DgPodyum: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const cut = f >= w(5) - 2;
-  const walk = tw(f, 0, w(5));
-  const go = tw(f, w(8), w(11));
-  const cry = tw(f, w(12) - 4, w(12) + 2);
-  const back = tw(f, w(12), w(13) + 6);
+  const cut = f >= w(10) - 2;
+  const walk = tw(f, 0, w(10));
+  const wing = tw(f, w(7) - 4, w(8) + 4);
+  const go = tw(f, w(12), w(14));
+  const cry = tw(f, w(15) - 4, w(15) + 2);
+  const back = tw(f, w(15), w(16) + 6);
   const mx = lerp(lerp(300, 620, go), 420, back);
-  const tag = pop(f, w(1) - 2, 12) * (1 - tw(f, w(5) - 6, w(5) - 2));
+  const flash = hit(f, 0, 10) + hit(f, w(8), 8);
   return (
     <>
       {!cut ? (
-        <CamK k={[[0, DG_START[0], DG_START[1], DG_START[2]], [w(4), 1.15, 540, 1000], [w(5), 1.1, 540, 1000]]}>
+        <CamK k={[[0, DG_START[0], DG_START[1], DG_START[2]], [w(4), 1.3, 540, 960], [w(8), 1.1, 540, 1000], [w(10), 1.15, 540, 1000]]} shake={hit(f, w(8), 8) * 0.4}>
           <DgRunway f={f} />
-          <DgModel x={540} y={lerp(1050, 1650, walk)} s={lerp(0.5, 0.95, walk)} f={f} />
+          <DgModel x={540} y={lerp(1050, 1650, walk)} s={lerp(0.5, 0.95, walk)} f={f} wings={wing} />
         </CamK>
       ) : (
-        <CamK k={[[w(5), 1.25, 400, 1000], [w(9), 1.1, 600, 1000], [w(12), 1.35, 700, 900], [d, 1.2, 520, 960]]} shake={hit(f, w(12), 10) * 0.5}>
+        <CamK k={[[w(10), 1.25, 400, 1000], [w(13), 1.1, 600, 1000], [w(15), 1.35, 700, 900], [d, 1.2, 520, 960]]} shake={hit(f, w(15), 10) * 0.5}>
           <DgNight f={f} door={go * (1 - back)} />
           <DgMom x={mx} y={1440} s={0.82} f={f} cry={cry} />
         </CamK>
       )}
-      <KTag x={540} y={330} p={tag} text="6 hafta sonra" color={C.red} rot={-3} />
-      {cut ? <KTag x={540} y={330} p={pop(f, w(6) - 2, 12)} text="sen: 6 hafta" color={C.ink} rot={-3} /> : null}
+      {flash > 0 && !cut ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={Math.min(1, flash) * 0.8} /> : null}
+      {!cut ? <KTag x={540} y={300} p={pop(f, w(0), 12)} text="6 hafta önce: doğum" color={C.ink} rot={-3} /> : null}
+      {!cut ? <KTag x={540} y={420} p={pop(f, w(5), 12)} text="bu gece: podyum" color={C.red} rot={2} /> : null}
+      {cut ? <KTag x={540} y={330} p={pop(f, w(11) - 2, 12)} text="sen: 6 hafta" color={C.ink} rot={-3} /> : null}
       {cry > 0 && back < 1 ? <HandText x={300} y={760} text="ıngaa!" size={90} color={C.red} p={cry} rotate={-8} /> : null}
     </>
   );
@@ -20301,9 +20323,9 @@ const DgKirk: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const day = Math.max(1, Math.round(lerp(1, 40, tw(f, w(0), w(3)))));
   const split = tw(f, w(11) - 2, w(11) + 8);
-  const week = Math.max(1, Math.round(lerp(1, 6, tw(f, w(15), w(18)))));
-  const shrink = tw(f, w(15), w(21));
-  const eq = pop(f, w(19), 12);
+  const week = Math.max(1, Math.round(lerp(1, 6, tw(f, w(13), w(16)))));
+  const shrink = tw(f, w(13), w(18));
+  const eq = pop(f, w(16), 12);
   const c1 = pop(f, w(4) - 2, 12) * (1 - tw(f, w(11) - 4, w(11)));
   const c2 = pop(f, w(7) - 2, 12) * (1 - tw(f, w(11) - 4, w(11)));
   const visitor = tw(f, w(1), w(3));
@@ -20402,7 +20424,7 @@ const DgMonitor: React.FC<{ x: number; y: number; f: number; bpm: number; limit:
 const DgSeksen: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const room = tw(f, w(4) - 4, w(4) + 6);
-  const finger = Math.sin(f / 3) * 14 * (f > w(7) ? 1 : 0);
+  const finger = Math.sin(f / 3) * 14 * (f > w(6) ? 1 : 0);
   return (
     <>
       {room < 1 ? (
@@ -20418,7 +20440,7 @@ const DgSeksen: React.FC<SceneProps> = ({ w, d }) => {
       ) : null}
       {room > 0 ? (
         <g opacity={room}>
-          <CamK k={[[w(4), 1, 540, 960], [w(8), 1.15, 620, 900], [d, 1.35, 700, 760]]}>
+          <CamK k={[[w(4), 1, 540, 960], [w(7), 1.15, 620, 900], [d, 1.35, 700, 760]]}>
             <rect x={0} y={0} width={1080} height={1920} fill="#e8d5b0" />
             <rect x={0} y={1380} width={1080} height={540} fill="#b98d5e" />
             <HandText x={260} y={300} text="1985" size={140} color={C.ink} p={tw(f, w(4), w(6))} rotate={-3} />
@@ -20427,7 +20449,7 @@ const DgSeksen: React.FC<SceneProps> = ({ w, d }) => {
               <path d="M-50 -560 Q0 -500 50 -560" fill="none" stroke="#7a8a96" strokeWidth={6} />
             </Person>
             <Person x={820} y={1400} s={0.72} female belly={1} shirt="#f2c6a0" shorts="#6d6a8c" shortsLen={0.95} mouth="worry" armL={[20, -60]} armR={[20, -60]} />
-            <DgMonitor x={700} y={650} f={f} bpm={132 + Math.round(6 * Math.sin(f / 8))} limit={pop(f, w(8) - 2, 12)} crack={0} />
+            <DgMonitor x={700} y={650} f={f} bpm={132 + Math.round(6 * Math.sin(f / 8))} limit={pop(f, w(7) - 2, 12)} crack={0} />
           </CamK>
           <BbSepia o={1} />
         </g>
@@ -20501,11 +20523,13 @@ const DgBugun: React.FC<SceneProps> = ({ w, d }) => {
 const DG_TEAM = ["koç", "aşçı", "makyaj", "dadı", "stilist"];
 const DgEkip: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const team = tw(f, w(4), w(7) + 6);
-  const right = tw(f, w(9) - 4, w(9) + 6);
-  const chalk = tw(f, w(10), w(12) + 6);
+  const team = tw(f, w(1), w(4) + 6);
+  const glow = tw(f, w(5), w(7));
+  const right = tw(f, w(8) - 4, w(8) + 6);
+  const chalk = tw(f, w(9), w(11));
+  const halo = pop(f, w(11) - 2, 14);
   return (
-    <CamK k={[[0, 1.2, 300, 960], [w(8), 1.05, 330, 980], [w(9) + 6, 1.15, 790, 980], [d, 1.25, 790, 940]]}>
+    <CamK k={[[0, 1.2, 300, 960], [w(7), 1.05, 330, 980], [w(8) + 6, 1.15, 790, 980], [w(11), 1.5, 790, 1060], [d, 1.55, 790, 1060]]}>
       <rect x={0} y={0} width={540} height={1920} fill="#2b2433" />
       <rect x={0} y={1420} width={540} height={500} fill="#e9e3ea" />
       {DG_TEAM.map((t, i) => {
@@ -20520,15 +20544,21 @@ const DgEkip: React.FC<SceneProps> = ({ w, d }) => {
           </g>
         );
       })}
+      {glow > 0 ? <circle cx={270} cy={1050} r={300} fill="#fff0fa" opacity={0.25 * glow} /> : null}
       <DgModel x={270} y={1520} s={0.8} f={f} />
       <g opacity={right}>
         <rect x={540} y={0} width={540} height={1920} fill="#e6d6c0" />
         <rect x={540} y={1420} width={540} height={500} fill="#b98d5e" />
-        {/* yeşil yazı tahtası */}
         <rect x={600} y={360} width={420} height={420} rx={12} fill="#2f5a45" stroke="#8a5a34" strokeWidth={22} />
         <HandText x={810} y={520} text="Senin arkanda" size={54} color="#f4efe2" p={tw(chalk, 0, 0.5)} rotate={-2} />
         <HandText x={810} y={640} text="da VOOM var." size={58} color="#f4efe2" p={tw(chalk, 0.5, 1)} rotate={-2} />
-        <DgMom x={810} y={1500} s={0.78} f={f} mouth="smile" />
+        <DgMom x={810} y={1500} s={0.78} f={f} mouth="smile" tired={0.3} />
+        {halo > 0 ? (
+          <g transform={`translate(${810 - 0.78 * 20} ${1500 - 0.78 * 520}) scale(${halo})`}>
+            <circle r={140} fill="#fff3b0" opacity={0.35} />
+            <ellipse cx={-50} cy={-70} rx={50} ry={14} fill="none" stroke="#e8b923" strokeWidth={8} />
+          </g>
+        ) : null}
       </g>
       <path d="M540 0 V1920" stroke={C.ink} strokeWidth={10} />
     </CamK>

@@ -15,11 +15,11 @@
   "scenes": [
     {
       "visual": "dg-podyum",
-      "voice": "Doğumdan altı hafta sonra podyumdaydı. Sen altı haftada bebek uyurken bir duş bile alamadın.",
-      "say": "Doğumdan altı hafta sonra podyumdaydı. Sen altı haftada bebek uyurken bir duş bile alamadın.",
+      "voice": "Altı hafta önce doğum yaptı; bu gece sırtında kanatlarla podyumdaydı. Sen altı haftada bir duş bile alamadın.",
+      "say": "Altı hafta önce doğum yaptı; bu gece sırtında kanatlarla podyumdaydı. Sen altı haftada bir duş bile alamadın.",
       "keys": [
-        "altı",
-        "hafta",
+        "doğum",
+        "kanatlarla",
         "duş"
       ]
     },
@@ -33,8 +33,8 @@
     },
     {
       "visual": "dg-kirk",
-      "voice": "Lohusa kırk gün dinlenir. Çin'de otuz gün, Latin Amerika'da yine kırk. Bilim de aynısını söyler: rahim yaklaşık altı haftada eski hâline döner.",
-      "say": "Lohusa kırk gün dinlenir. Çin'de otuz gün, Latin Amerika'da yine kırk. Bilim de aynısını söyler: rahim yaklaşık altı haftada eski hâline döner.",
+      "voice": "Lohusa kırk gün dinlenir. Çin'de otuz gün, Latin Amerika'da yine kırk. Rahim de yaklaşık altı haftada eski hâline döner.",
+      "say": "Lohusa kırk gün dinlenir. Çin'de otuz gün, Latin Amerika'da yine kırk. Rahim de yaklaşık altı haftada eski hâline döner.",
       "keys": [
         "kırk",
         "otuz",
@@ -44,8 +44,8 @@
     },
     {
       "visual": "dg-seksen",
-      "voice": "Ama dinlenmek kıpırdamamak değil. Seksen beşte bile hamilelere “nabzın yüz kırkı geçmesin” dendi.",
-      "say": "Ama ıı, dinlenmek kıpırdamamak değil. Seksen beşte bile hamilelere “nabzın yüz kırkı geçmesin” dendi.",
+      "voice": "Ama dinlenmek kıpırdamamak değil; seksen beşte bile “nabzın yüz kırkı geçmesin” denirdi.",
+      "say": "Ama ıı, dinlenmek kıpırdamamak değil; seksen beşte bile “nabzın yüz kırkı geçmesin” denirdi.",
       "keys": [
         "kıpırdamamak"
       ]
@@ -61,11 +61,11 @@
     },
     {
       "visual": "dg-ekip",
-      "voice": "Yine de unutma: onun arkasında koca bir ekip var, senin kucağında bir bebek.",
-      "say": "Yine de... unutma: onun arkasında koca bir ekip var, senin kucağında bir bebek.",
+      "voice": "Onun arkasında koca bir ekip, sırtında kanatlar vardı. Seninse kucağında bir melek.",
+      "say": "Onun arkasında koca bir ekip, sırtında kanatlar vardı. Seninse... kucağında bir melek.",
       "keys": [
-        "ekip",
-        "bebek"
+        "kanatlar",
+        "melek"
       ]
     },
     {
