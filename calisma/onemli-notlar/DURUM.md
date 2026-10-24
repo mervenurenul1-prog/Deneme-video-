@@ -1,19 +1,16 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
-## >>> YENİ SOHBET BURADAN (23 Ekim gece) <<<
+## >>> YENİ SOHBET BURADAN (24 Ekim) <<<
 - **24 Ekim: 14 BEDEN ALGISI** (`cizim1-14-beden`, sahneler `ba-*`, VOOM'SUZ, kaynak `arastirma/14-beden-algisi.md`): metin v4
   onaylandı (oyuncak asker kolu 30→68 cm, Pope 1999; güzellik kraliçeleri JAMA 2000; "Bunu sevgiline gönder ve sor: kim daha
   çok kandırıldı?"). Sessiz önizleme `14-beden-sessiz.mp4` → onay → seslendirme (~520 kr) → 1.2x → render.
-- **İLK İŞ: sporla ilgili YENİ KONU bul ve öner** (kullanıcı). Sıradaki video **VOOM'SUZ** (sıra: bir VOOM'lu, bir VOOM'suz;
-  son video 12 VOOM'luydu). Öneriler KURALLAR.md'deki 5 adımlı formülle + 12 madde tablosuyla gelsin; selülit tarzı
-  (kimsenin bilmediği, gerçek tarih + bilim, acıya vuran kanca). Konuyu kullanıcı seçer.
 - Cepteki adaylar (`konular/ONERILER.md`): 8 (1990, 90 yaşında halter), 2 (1953 Londra otobüsü), 7 (2017 hafta sonu
   sporcusu — VOOM'lu sıraya bekliyor, notları ONERILER'de), 5 (kahvaltı reklamı — VOOM bağı yok, beslenme planı YOK).
 - **24 Ekim: 13 KARDİYO KIZ İŞİ BİTTİ** (`cizim1-13-kardiyo`, sahneler `kd-*`, VOOM'suz, kaynak `arastirma/13-kardiyo.md`):
   merdivende nefes nefese → "kardiyo kız işi" → aerobik bir askeri doktordan (1968) → Brezilya 70, en iyi futbolcu "çok iyi"
   alamadı (not cetveli) → kupa işi → kalp de kas, haftada 2 gün +15 dk, kaydet → "…gönder. Çünkü o da:" (döngü).
   Modern salon `KdGym` (kullanıcının salon fotoğraflarından). Yunus 1.2x, 30,7 sn → `ornek-videolar/cizim1-pilot/13-kardiyo.mp4`.
-  Kullanıcı: hiçbir sahne durağan olmasın (her sahnede kamera hareketi). Sıradaki video VOOM'lu (aday: 7 hafta sonu sporcusu).
+  Kullanıcı: hiçbir sahne durağan olmasın (her sahnede kamera hareketi).
 - Kalan ElevenLabs kredisi 12.422 (24 Ekim).
 
 ## 23 Ekim'de bitenler
