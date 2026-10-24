@@ -6,10 +6,12 @@
   (kimsenin bilmediği, gerçek tarih + bilim, acıya vuran kanca). Konuyu kullanıcı seçer.
 - Cepteki adaylar (`konular/ONERILER.md`): 8 (1990, 90 yaşında halter), 2 (1953 Londra otobüsü), 7 (2017 hafta sonu
   sporcusu — VOOM'lu sıraya bekliyor, notları ONERILER'de), 5 (kahvaltı reklamı — VOOM bağı yok, beslenme planı YOK).
-- **24 Ekim: 13 KARDİYO KIZ İŞİ** (`cizim1-13-kardiyo`, sahneler `kd-*`, VOOM'suz, kaynak `arastirma/13-kardiyo.md`).
-  Metin onaylandı ("kaydet" güçlendirildi: haftada 2 gün + 15 dk, "Kaydet, salonda aç"). Sessiz önizleme
-  `13-kardiyo-sessiz.mp4` v3 gönderildi (modern salon `KdGym`, kapanış "Çünkü o da:"; v3: ~490 karakter, "iyi" → not cetveli "çok iyi alamadı", her sahnede kamera hareketi — kullanıcı: "hiçbir alan durağan olmasın") → onay → seslendirme (~490 karakter) → 1.2x → render. Avatar salon kıyafeti.
-- Kalan ElevenLabs kredisi 12.633 (23 Ekim).
+- **24 Ekim: 13 KARDİYO KIZ İŞİ BİTTİ** (`cizim1-13-kardiyo`, sahneler `kd-*`, VOOM'suz, kaynak `arastirma/13-kardiyo.md`):
+  merdivende nefes nefese → "kardiyo kız işi" → aerobik bir askeri doktordan (1968) → Brezilya 70, en iyi futbolcu "çok iyi"
+  alamadı (not cetveli) → kupa işi → kalp de kas, haftada 2 gün +15 dk, kaydet → "…gönder. Çünkü o da:" (döngü).
+  Modern salon `KdGym` (kullanıcının salon fotoğraflarından). Yunus 1.2x, 30,7 sn → `ornek-videolar/cizim1-pilot/13-kardiyo.mp4`.
+  Kullanıcı: hiçbir sahne durağan olmasın (her sahnede kamera hareketi). Sıradaki video VOOM'lu (aday: 7 hafta sonu sporcusu).
+- Kalan ElevenLabs kredisi 12.422 (24 Ekim).
 
 ## 23 Ekim'de bitenler
 - **12 SPOT IŞIĞI BİTTİ** (`cizim1-12-spot`, sahneler `sp3-*`; eski denemeler `sp-*`, `sp2-*` arşiv): "Salonda kırk kişi var.
@@ -25,4 +27,4 @@ start/end /1.2, manifeste `"speed": 1.2` → `npm run render -- <id>` → `out/<
 
 ## Biten videolar (`ornek-videolar/cizim1-pilot/`)
 01 yağ nereye · 02 tartı · 03 on bin adım · 04 kadın-ağırlık · 05 boyun(-b) · 06 diz · 07 yaş · 09 kilo-hangimiz ·
-10 selülit (EN BEĞENİLEN) · 12 spot ışığı. Beklemede: 08 sauna.
+10 selülit (EN BEĞENİLEN) · 12 spot ışığı · 13 kardiyo. Beklemede: 08 sauna.
