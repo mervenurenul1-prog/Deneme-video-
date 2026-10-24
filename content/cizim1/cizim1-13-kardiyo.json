@@ -1,0 +1,56 @@
+{
+  "id": "cizim1-13-kardiyo",
+  "title": "Kardiyo kız işi mi?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "kd-kanca",
+      "voice": "Salonda yüz kilo kaldırıyor… ama üç kat merdivende nefes nefese.",
+      "say": "Salonda yüz kilo kaldırıyor… ama üç kat merdivende nefes nefese.",
+      "keys": ["yüz", "kilo", "üç", "kat", "nefes", "nefese."]
+    },
+    {
+      "visual": "kd-sebep",
+      "voice": "Çünkü koşu bandına yaklaşmıyor. Ona göre kardiyo kız işi.",
+      "say": "Çünkü koşu bandına yaklaşmıyor. Hani, ona göre... kardiyo kız işi.",
+      "keys": ["kardiyo", "kız", "işi."]
+    },
+    {
+      "visual": "kd-tarih",
+      "voice": "Oysa aerobik kelimesini altmış sekizde bir askeri doktor buldu; kadınlar için değil, pilotlar için.",
+      "say": "Oysa ıı, aerobik kelimesini altmış sekizde bir askeri doktor buldu; kadınlar için değil... pilotlar için.",
+      "keys": ["aerobik", "askeri", "doktor", "pilotlar"]
+    },
+    {
+      "visual": "kd-kupa",
+      "voice": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakika testinde dünyanın en iyi futbolcusu bile sadece “iyi” aldı. Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil; kupa işi.",
+      "say": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakika testinde dünyanın en iyi futbolcusu bile... sadece “iyi” aldı. [chuckles] Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil; kupa işi.",
+      "keys": ["Brezilya", "On", "iki", "“iyi”", "Dünya", "Kupası'nı", "kupa", "işi."]
+    },
+    {
+      "visual": "kd-kalp",
+      "voice": "Kalp de bir kas, onu da çalıştır: haftada iki gün, antrenman sonuna on beş dakika koşu. Kaydet, salonda aç.",
+      "say": "Kalp de bir kas, onu da çalıştır: hani haftada iki gün, antrenman sonuna on beş dakika koşu. Kaydet, salonda aç.",
+      "keys": ["Kalp", "kas,", "iki", "gün,", "on", "beş", "Kaydet,"]
+    },
+    {
+      "visual": "kd-dongu",
+      "voice": "Bunu “kardiyo kız işi” diyen arkadaşına gönder. Yoksa onu hep böyle görürsün:",
+      "say": "Bunu “kardiyo kız işi” diyen arkadaşına gönder. Yoksa onu hep böyle görürsün:",
+      "keys": ["gönder."],
+      "hold": 0.2
+    }
+  ],
+  "caption": "Aerobik kelimesi 1968'de bir Hava Kuvvetleri doktorunun kitabından geldi; Brezilya 1970 kadrosu bu yöntemle hazırlandı.",
+  "hashtags": ["spor", "fitness", "kardiyo", "salon"]
+}

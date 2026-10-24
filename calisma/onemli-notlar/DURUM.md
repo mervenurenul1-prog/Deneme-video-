@@ -6,7 +6,9 @@
   (kimsenin bilmediği, gerçek tarih + bilim, acıya vuran kanca). Konuyu kullanıcı seçer.
 - Cepteki adaylar (`konular/ONERILER.md`): 8 (1990, 90 yaşında halter), 2 (1953 Londra otobüsü), 7 (2017 hafta sonu
   sporcusu — VOOM'lu sıraya bekliyor, notları ONERILER'de), 5 (kahvaltı reklamı — VOOM bağı yok, beslenme planı YOK).
-- **24 Ekim: kullanıcı L "kardiyo kız işi"ni seçti** (VOOM'suz, 30 sn). Kaynak `arastirma/13-kardiyo.md`. Metin v1 sohbette → onay → sessiz önizleme.
+- **24 Ekim: 13 KARDİYO KIZ İŞİ** (`cizim1-13-kardiyo`, sahneler `kd-*`, VOOM'suz, kaynak `arastirma/13-kardiyo.md`).
+  Metin onaylandı ("kaydet" güçlendirildi: haftada 2 gün + 15 dk, "Kaydet, salonda aç"). Sessiz önizleme
+  `13-kardiyo-sessiz.mp4` gönderildi → onay → seslendirme (~575 karakter) → 1.2x → render. Avatar salon kıyafeti.
 - Kalan ElevenLabs kredisi 12.633 (23 Ekim).
 
 ## 23 Ekim'de bitenler

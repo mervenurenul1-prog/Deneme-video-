@@ -179,6 +179,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "kd-kanca": (w) => [[w(2), "agir-dusme", 0.4], [w(4) - 1, "whoosh", 0.4], ...steps(w(4), w(8), 7, 0.3), [w(6), "whoosh", 0.3], [w(8), "nefes", 0.6]],
+  "kd-sebep": (w) => [[w(3), "whoosh", 0.3], [w(6), "boom", 0.4]],
+  "kd-tarih": (w) => [[2, "cizik", 0.4], [8, "agir-dusme", 0.3], [w(1), "kalem", 0.35], [w(11), "cizik", 0.35], [w(12) - 2, "havalanma", 0.4]],
+  "kd-kupa": (w) => [[w(1), "kalem", 0.3], [w(7), "tik", 0.3], [w(10) + 10, "ding", 0.35], [w(17), "boom", 0.35], [w(19), "kacing", 0.4], [w(19) + 4, "pirilti", 0.35], [w(26), "cizik", 0.35], [w(28), "ding", 0.4]],
+  "kd-kalp": (w) => [[2, "kalp", 0.5], [w(3), "yuksel", 0.35], [w(8), "kalem", 0.3], [w(16), "pop", 0.4]],
+  "kd-dongu": (w, d) => [[w(5) - 4, "kagit", 0.35], [w(6) + 6, "ding", 0.3], [w(7), "whoosh", 0.35], [d - 14, "whoosh", 0.3]],
   "sp3-kirk": (w) => [[0, "whoosh", 0.35], ...ticks(2, w(3), 6, 0.2), [w(4) + 2, "whoosh", 0.3], [w(5) - 2, "pop", 0.35], [w(5), "kalp", 0.5]],
   "sp3-balon": (w) => [[w(0), "pop", 0.4], [w(3), "pop", 0.4], [w(6), "pop", 0.4], [w(10), "whoosh", 0.3], [w(12), "sonme", 0.35]],
   "sp3-tarih": (w) => [[w(1), "cizik", 0.25], [w(7), "whoosh", 0.3], [w(11) - 4, "whoosh", 0.3], [w(11), "kalem", 0.3], [w(14), "kagit", 0.3], [w(24) - 2, "kagit", 0.35], [w(28), "klavye", 0.3]],
@@ -797,6 +803,12 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "kd-kanca": { to: 1.0, x: 540, y: 960 },
+  "kd-sebep": { to: 1.0, x: 540, y: 960 },
+  "kd-tarih": { to: 1.0, x: 540, y: 960 },
+  "kd-kupa": { to: 1.0, x: 540, y: 960 },
+  "kd-kalp": { to: 1.0, x: 540, y: 960 },
+  "kd-dongu": { to: 1.0, x: 540, y: 960 },
   "sp3-kirk": { to: 1.0, x: 540, y: 960 },
   "sp3-balon": { to: 1.0, x: 540, y: 960 },
   "sp3-tarih": { to: 1.0, x: 540, y: 960 },
@@ -18715,7 +18727,485 @@ const Sp3Voom: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 13 KARDİYO KIZ İŞİ — "Salonda yüz kilo kaldırıyor… ama üç kat merdivende nefes nefese" (VOOM'suz) =====
+// Avatar: salon kıyafeti (siyah tişört, gri şort). Kız arkadaşı: mercan tişört, at kuyruğu.
+const KD_LIFT = { x: 540, y: S2F + 160, s: 0.95 };
+// Halter başın üstünde: kolların açısı 0 (göğüs) … 1 (yukarıda)
+const kdArms = (t: number): Arm => [lerp(70, 168, t), lerp(110, -8, t)];
+const kdLiftT = (t: number) => 0.5 + 0.5 * Math.sin(t / 8);
+const kdBar = (t: number) => {
+  const a = kdArms(kdLiftT(t));
+  const h1 = armPoints(-1, a)[2];
+  const h2 = armPoints(1, a)[2];
+  return { x: KD_LIFT.x + ((h1[0] + h2[0]) / 2) * KD_LIFT.s, y: KD_LIFT.y + ((h1[1] + h2[1]) / 2) * KD_LIFT.s };
+};
+// Açılış (ve döngünün son) kamerası: halterin ve yüzün yakın planı
+const KD_START: [number, number, number] = [1.7, KD_LIFT.x, KD_LIFT.y - 640];
+const KdPlate: React.FC<{ x: number; y: number; p?: number }> = ({ x, y, p = 1 }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p}) rotate(-4)`}>
+      <rect x={-130} y={-50} width={260} height={100} rx={20} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+      <text x={0} y={24} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={66} fill={C.ink}>
+        100 KG
+      </text>
+    </g>
+  ) : null;
+// Ağırlık bölgesi (kimse yok): ayna duvarı, dambıl rafı, lambalar
+const KdGymBg: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-1000} y={-1400} width={3200} height={S2F + 1400} fill="#cdbb98" strokeWidth={0} />
+    <rect x={-1000} y={S2F} width={3200} height={1600} fill="#3f3b38" strokeWidth={0} />
+    <path d={`M-1000 ${S2F} H2200`} strokeWidth={7} />
+    <rect x={-1000} y={-1400} width={3200} height={1560} fill="#5a4a3c" opacity={0.85} strokeWidth={0} />
+    {[-300, 0, 270, 540, 810, 1080].map((x, i) => (
+      <g key={i}>
+        <rect x={x} y={470} width={260} height={720} rx={8} fill="#dfeef2" strokeWidth={7} />
+        <path d={`M${x + 30} 560 L${x + 110} 500 M${x + 30} 660 L${x + 190} 540`} stroke="#fff" strokeWidth={11} opacity={0.6} />
+      </g>
+    ))}
+    {[60, 540, 1020].map((lx, i) => (
+      <g key={i}>
+        <path d={`M${lx} 160 V250`} strokeWidth={5} />
+        <path d={`M${lx - 60} 300 Q${lx} 230 ${lx + 60} 300 Z`} fill="#2b2b30" strokeWidth={6} />
+        <path d={`M${lx - 44} 304 L${lx - 170} 700 L${lx + 170} 700 L${lx + 44} 304 Z`} fill="#fff3b0" opacity={0.12} stroke="none" />
+      </g>
+    ))}
+    <text x={540} y={420} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={70} fill={C.cream} opacity={0.8} letterSpacing={6} stroke="none">
+      AĞIRLIK
+    </text>
+    <rect x={-560} y={1040} width={420} height={20} fill="#6b6b6b" strokeWidth={5} />
+    {[0, 1, 2, 3].map((i) => (
+      <Dumbbell key={i} x={-520 + i * 105} y={1010} s={0.28 + i * 0.04} />
+    ))}
+    {[0, 1, 2, 3].map((i) => (
+      <Kettlebell key={i} x={1000 + i * 90} y={S2F + 300} s={0.42 + i * 0.05} />
+    ))}
+  </g>
+);
+// Salonda halteri başının üstüne kaldıran avatar (t: animasyon zamanı)
+const KdLift: React.FC<{ f: number; t: number }> = ({ f, t }) => {
+  const a = kdArms(kdLiftT(t));
+  const h1 = armPoints(-1, a)[2];
+  const h2 = armPoints(1, a)[2];
+  const bar = kdBar(t);
+  return (
+    <g>
+      <KdGymBg />
+      <Person x={KD_LIFT.x} y={KD_LIFT.y} s={KD_LIFT.s} belly={0.35} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#f4f1ea" armL={a} armR={a} mouth="grin" legL={{ spread: 10 }} legR={{ spread: 10 }}>
+        <Barbell x={(h1[0] + h2[0]) / 2} y={(h1[1] + h2[1]) / 2} s={0.75} />
+      </Person>
+      <KdPlate x={bar.x + 150} y={bar.y - 150} />
+    </g>
+  );
+};
+
+// Merdiven: basamaklar sağa doğru yükselir
+const KD_STEP = { w: 150, h: 100, x0: -300, y0: 1900 };
+const kdStairY = (x: number) => KD_STEP.y0 - ((x - KD_STEP.x0) / KD_STEP.w) * KD_STEP.h;
+const KdStairs: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-1000} y={-1000} width={3200} height={4000} fill="#d9c7a3" strokeWidth={0} />
+    {/* duvar şeridi + kat tabelası */}
+    <path d={`M-1000 ${kdStairY(-1000) - 520} L2200 ${kdStairY(2200) - 520}`} stroke="#b9a07a" strokeWidth={60} />
+    <g transform="translate(860 300) rotate(-3)">
+      <rect x={-130} y={-80} width={260} height={160} rx={16} fill="#3f5a45" strokeWidth={8} />
+      <text x={0} y={30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={84} fill="#f4efe2">
+        3. KAT
+      </text>
+    </g>
+    {Array.from({ length: 24 }, (_, i) => {
+      const x = KD_STEP.x0 + i * KD_STEP.w;
+      const y = KD_STEP.y0 - i * KD_STEP.h;
+      return <path key={i} d={`M${x} ${y} H${x + KD_STEP.w} V${y - KD_STEP.h}`} fill="none" strokeWidth={8} />;
+    })}
+    <path d={`M${KD_STEP.x0} ${KD_STEP.y0} ${Array.from({ length: 24 }, (_, i) => `H${KD_STEP.x0 + (i + 1) * KD_STEP.w} V${KD_STEP.y0 - (i + 1) * KD_STEP.h}`).join(" ")} L2400 3000 L-1000 3000 Z`} fill="#b8935f" strokeWidth={8} />
+    {/* tırabzan */}
+    <path d={`M-1000 ${kdStairY(-1000) - 330} L2200 ${kdStairY(2200) - 330}`} stroke="#6b4a33" strokeWidth={20} strokeLinecap="round" />
+    {Array.from({ length: 16 }, (_, i) => {
+      const x = -600 + i * 220;
+      return <path key={i} d={`M${x} ${kdStairY(x) - 330} V${kdStairY(x) - 30}`} strokeWidth={8} />;
+    })}
+  </g>
+);
+const KdPuff: React.FC<{ x: number; y: number; f: number; o: number }> = ({ x, y, f, o }) =>
+  o > 0 ? (
+    <g opacity={o}>
+      {[0, 1, 2].map((k) => {
+        const t = ((f / 14 + k / 3) % 1);
+        return <ellipse key={k} cx={x + 40 + 120 * t} cy={y - 30 * t} rx={26 + 30 * t} ry={18 + 20 * t} fill="#fff" stroke={C.ink} strokeWidth={4} opacity={1 - t} />;
+      })}
+    </g>
+  ) : null;
+
+// 1) "Salonda yüz kilo kaldırıyor… ama üç kat merdivende nefes nefese."
+// Halter + "100 KG" yakın planı, "kilo"da geri çekilir (kaslı, gururlu); "ama"da sert kesme: merdiven, avatar ağır ağır
+// çıkar, "merdivende" kız arkadaşı koşarak yanından geçer; "nefes"te durur, elleri dizinde, ağzından buhar, ter.
+const KdKanca: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const stairs = f >= w(4) - 1;
+  const climb = tw(f, w(4), w(8));
+  const ax = lerp(120, 470, climb);
+  const tired = tw(f, w(8) - 4, w(8) + 6);
+  const pose = mixPose({ ...runPose(f / 7, 0.4), lean: 26 }, bendPose, tired);
+  const gx = lerp(-260, 1300, tw(f, w(6), w(9) + 8));
+  const gpose = runPose(f / 3, 1);
+  if (!stairs)
+    return (
+      <SpCam k={[[0, ...KD_START], [w(1), ...KD_START], [w(3), 1.05, KD_LIFT.x, KD_LIFT.y - 520], [w(4), 1.0, KD_LIFT.x, KD_LIFT.y - 500]]}>
+        <KdLift f={f} t={f} />
+      </SpCam>
+    );
+  return (
+    <>
+      <SpCam k={[[w(4) - 1, 1.45, ax + 160, kdStairY(ax) - 360], [w(8), 1.45, ax + 160, kdStairY(ax) - 360], [w(8) + 10, 1.6, ax + 200, kdStairY(ax) - 360], [d, 1.65, ax + 200, kdStairY(ax) - 360]]} shake={hit(f, w(4) - 1, 8) * 0.6}>
+        <KdStairs />
+        <SideRunner f={f} x={ax} y={kdStairY(ax)} s={0.85} pose={pose} reach={tired} face={tired > 0.5 ? "pain" : "worry"} shirt={SEL_AV_TOP} sweat={tired > 0.2} />
+        <KdPuff x={ax + 240} y={kdStairY(ax) - 380} f={f} o={tired} />
+        {gx > -250 && gx < 1300 ? <SideRunner f={f} x={gx} y={kdStairY(gx)} s={0.85} pose={{ ...gpose, lean: 18 }} face="grin" shirt="#d9705f" female /> : null}
+      </SpCam>
+      {f < w(4) + 4 ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={1 - tw(f, w(4) - 1, w(4) + 4)} /> : null}
+    </>
+  );
+};
+
+// 2) "Çünkü koşu bandına yaklaşmıyor. Ona göre kardiyo kız işi."
+// Bantlarda koşan iki kadın; kamera ağırlık bölgesine kayar: avatar dambılla, banda bakıp sırıtır;
+// "kardiyo"da kırmızı damga iner: "KARDİYO = KIZ İŞİ".
+const KdSebep: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return (
+    <>
+      <SpCam k={[[0, 1.25, 260, 1000], [w(2), 1.25, 260, 1000], [w(3) + 6, 1.35, 1130, 1060], [w(5), 1.35, 1130, 1060], [w(6) + 6, 0.95, 760, 1000], [d, 0.95, 760, 1000]]} shake={hit(f, w(6) + 4, 10) * 0.5}>
+        <S2Gym f={f} />
+        <SideRunner f={f} x={48} y={S2F - 2} s={0.56} pose={runPose(f / 3.4, 1)} shirt="#d9705f" female face="grin" />
+        <SideRunner f={f + 9} x={438} y={S2F - 2} s={0.56} pose={runPose((f + 9) / 3.4, 1)} shirt="#e0b030" female face="grin" />
+        <S2Avatar f={f} x={1130} worry={0} phone={false} arms={0.5 + 0.5 * Math.sin(f / 6)} />
+      </SpCam>
+      <KiloStamp p={pop(f, w(6), 10)} text="KARDİYO = KIZ İŞİ" x={540} y={420} half={390} />
+    </>
+  );
+};
+
+// Askeri jet (yan görünüş)
+const KdJet: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={7} strokeLinejoin="round">
+    <path d="M-260 0 L180 -20 Q260 -14 280 0 Q260 14 180 20 L-260 20 Z" fill="#8c9096" />
+    <path d="M-40 0 L-140 -110 L-90 -110 L60 -6 Z" fill="#6f747a" />
+    <path d="M-40 18 L-120 90 L-80 90 L40 22 Z" fill="#6f747a" />
+    <path d="M-250 0 L-300 -90 L-250 -90 L-190 -4 Z" fill="#6f747a" />
+    <path d="M150 -18 Q190 -50 230 -10 Z" fill="#9fd0e8" />
+  </g>
+);
+// Sepya fotoğraf tonu (geçmiş)
+const KdSepia: React.FC<{ o?: number }> = ({ o = 1 }) => <rect x={-2000} y={-2000} width={6000} height={6000} fill="#8a5a2b" opacity={0.22 * o} style={{ mixBlendMode: "multiply" }} />;
+
+// 3) "Oysa aerobik kelimesini altmış sekizde bir askeri doktor buldu; kadınlar için değil, pilotlar için."
+// Damga çatlayıp düşer; sepya oda: tahtada 1968, beyaz önlüklü asker doktor tahtaya AEROBİK yazar;
+// "kadınlar için"de pembe kart + kırmızı çarpı; "pilotlar"da pist: arkada jet, tulumlu pilotlar sıra hâlinde koşar.
+const KdTarih: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const office = tw(f, 8, 16);
+  const base = f >= w(12) - 2;
+  const write = tw(f, w(1) - 2, w(2) + 6);
+  const card = pop(f, w(9) - 2, 10) * (1 - tw(f, w(12) - 4, w(12)));
+  const xm = tw(f, w(11) - 2, w(11) + 6);
+  const arm: Arm = [lerp(150, 120, 0.5 + 0.5 * Math.sin(f / 3)) * (write > 0 && write < 1 ? 1 : 0.2), 30];
+  if (base)
+    return (
+      <SpCam k={[[w(12) - 2, 1.15, 640, 1050], [d, 1.0, 560, 1000]]} shake={hit(f, w(12) - 2, 10) * 0.4}>
+        <rect x={-1000} y={-1000} width={3200} height={2320} fill="#cfe0ea" />
+        <rect x={-1000} y={1320} width={3200} height={1600} fill="#8a8a84" />
+        <path d="M-1000 1440 H2200" stroke="#f4f1ea" strokeWidth={16} strokeDasharray="90 70" />
+        <KdJet x={760 - (f - w(12)) * 3} y={760} s={1.2} />
+        {[0, 1, 2, 3].map((k) => (
+          <SideRunner key={k} f={f + k * 5} x={-40 + k * 260} y={1330} s={0.62} pose={runPose((f + k * 5) / 3.3, 1)} suit="#6b7a4a" face="worry" />
+        ))}
+        <HandText x={820} y={470} text="1968" size={130} p={1} color={C.ink} rotate={-4} />
+        <KdSepia />
+      </SpCam>
+    );
+  return (
+    <>
+      {office < 1 ? (
+        <g opacity={1 - office}>
+          <S2Gym f={f} />
+          <KiloStamp p={1} crack={tw(f, 0, 6)} fall={tw(f, 6, 14)} text="KARDİYO = KIZ İŞİ" x={540} y={420} half={390} />
+        </g>
+      ) : null}
+      {office > 0 ? (
+        <g opacity={office}>
+          <SpCam k={[[8, 1.0, 540, 960], [w(3), 1.0, 540, 960], [w(8), 1.15, 600, 900], [d, 1.2, 600, 880]]}>
+            <rect x={-500} y={-500} width={2100} height={1820} fill="#dcc196" />
+            <rect x={-500} y={1320} width={2100} height={900} fill="#b8935f" />
+            <rect x={150} y={260} width={800} height={460} rx={10} fill="#3f5a45" stroke={C.ink} strokeWidth={10} />
+            <HandText x={550} y={540} text="AEROBİK" size={150} color="#f4efe2" p={write} rotate={-2} />
+            <HandText x={800} y={350} text="1968" size={76} color="#f4efe2" p={tw(f, w(3), w(4) + 6)} rotate={-4} />
+            <Person x={260} y={1330} s={0.82} belly={0.25} shirt="#f4f1ea" pants="#6b7a4a" armR={arm} mouth="smile" lookY={-0.2} />
+            <KdSepia />
+          </SpCam>
+          {card > 0 ? (
+            <g transform={`translate(560 980) scale(${card}) rotate(-3)`}>
+              <rect x={-260} y={-90} width={520} height={180} rx={24} fill="#f3c6cc" stroke={C.ink} strokeWidth={8} />
+              <text x={0} y={26} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={84} fill={C.ink}>
+                kadınlar için
+              </text>
+              <path d="M-230 -70 L230 70 M230 -70 L-230 70" stroke={C.red} strokeWidth={22} strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - xm} />
+            </g>
+          ) : null}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// Kupa (genel altın kupa)
+const KdCup: React.FC<{ x: number; y: number; s?: number; f: number }> = ({ x, y, s = 1, f }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={8} strokeLinejoin="round">
+    <path d="M-90 -260 Q-100 -120 -20 -60 L-30 40 L30 40 L20 -60 Q100 -120 90 -260 Z" fill="#e8b923" />
+    <path d="M-90 -230 Q-170 -230 -150 -160 Q-130 -110 -70 -110" fill="none" strokeWidth={14} stroke="#c9961c" />
+    <path d="M90 -230 Q170 -230 150 -160 Q130 -110 70 -110" fill="none" strokeWidth={14} stroke="#c9961c" />
+    <rect x={-80} y={40} width={160} height={70} rx={10} fill="#5e9a3c" />
+    <path d="M-50 -230 Q-60 -150 -20 -100" fill="none" stroke="#fff3b0" strokeWidth={10} opacity={0.5 + 0.5 * Math.sin(f / 4)} />
+  </g>
+);
+// Rio kumsalı: deniz, şeker somunu dağı, kum; off: kaydırma (koşu hissi)
+const KdBeach: React.FC<{ off: number }> = ({ off }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-1000} y={-1000} width={3200} height={2000} fill="#bfe0ea" strokeWidth={0} />
+    <g transform={`translate(${-(off * 0.2) % 2400} 0)`}>
+      {[0, 2400].map((dx) => (
+        <path key={dx} d={`M${dx - 300} 1000 Q${dx - 200} 560 ${dx + 20} 520 Q${dx + 160} 520 ${dx + 240} 760 Q${dx + 300} 700 ${dx + 380} 760 L${dx + 520} 1000 Z`} fill="#6f9a4c" strokeWidth={8} />
+      ))}
+    </g>
+    <rect x={-1000} y={980} width={3200} height={190} fill="#4f97c2" strokeWidth={8} />
+    <rect x={-1000} y={1160} width={3200} height={1500} fill="#ecd29a" strokeWidth={8} />
+    {Array.from({ length: 14 }, (_, i) => {
+      const x = ((i * 260 - off) % 3640 + 3640) % 3640 - 1000;
+      return <path key={i} d={`M${x} 1420 q20 -12 40 0`} fill="none" strokeWidth={5} opacity={0.5} />;
+    })}
+  </g>
+);
+const KD_TEAM = [0, 1, 2, 3, 4];
+
+// 4) "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakika testinde dünyanın en iyi futbolcusu bile sadece
+// 'iyi' aldı. Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil; kupa işi."
+// Rio kumsalında sarı formalı takım koşar; "On iki"de dev kronometre 12:00'a döner; "en iyi"de kamera 10 numaraya
+// yaklaşır, karnesine "İYİ" damgası; "Ve yetmişte" kupa havaya kalkar + konfeti; "Kardiyo"da replik: "kız işi" çizilir,
+// "KUPA İŞİ" lacivert yazılır.
+const KdKupa: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const off = f * 9;
+  const watch = pop(f, w(7) - 2, 12) * (1 - tw(f, w(11), w(11) + 6));
+  const secs = Math.round(720 * tw(f, w(7), w(10) + 10));
+  const card = pop(f, w(15) - 2, 12);
+  const stamp = pop(f, w(17), 10);
+  const cupOn = f >= w(19) - 2;
+  const rise = tw(f, w(19), w(22));
+  const line = f >= w(24) - 2;
+  const strike = tw(f, w(26) - 2, w(27) + 4);
+  return (
+    <>
+      {!cupOn ? (
+        <SpCam k={[[0, 0.95, 560, 1050], [w(10), 0.95, 560, 1050], [w(11) + 8, 1.7, 600 + 2 * 180, 1010], [d, 1.7, 960, 1010]]}>
+          <KdBeach off={off} />
+          {KD_TEAM.map((k) => {
+            const x = 60 + k * 180;
+            return (
+              <g key={k}>
+                <SideRunner f={f + k * 4} x={x} y={1330} s={0.6} pose={runPose((f + k * 4) / 3.2, 1)} shirt="#f2c230" face="grin" />
+                {k === 2 ? (
+                  <text x={x - 6} y={1330 - 300} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={44} fill="#2f7a3a">
+                    10
+                  </text>
+                ) : null}
+              </g>
+            );
+          })}
+          <HandText x={560} y={330} text="BREZİLYA" size={110} color="#2f7a3a" p={tw(f, w(1) - 2, w(3) + 4)} rotate={-3} />
+        </SpCam>
+      ) : (
+        <>
+          <rect x={0} y={0} width={1080} height={1920} fill="#2f7a3a" />
+          {Array.from({ length: 12 }, (_, i) => (
+            <path key={i} d={`M540 900 L${540 + Math.cos((i / 12) * Math.PI * 2 + f / 60) * 1600} ${900 + Math.sin((i / 12) * Math.PI * 2 + f / 60) * 1600} L${540 + Math.cos(((i + 0.5) / 12) * Math.PI * 2 + f / 60) * 1600} ${900 + Math.sin(((i + 0.5) / 12) * Math.PI * 2 + f / 60) * 1600} Z`} fill="#f2c230" opacity={0.25} />
+          ))}
+          <KdCup x={540} y={lerp(1300, line ? 1180 : 1000, line ? 1 : rise)} s={line ? 1.0 : 1.5} f={f} />
+          <HandText x={540} y={340} text="1970" size={150} color={C.cream} p={tw(f, w(20) - 2, w(20) + 8)} rotate={-3} />
+          <Confetti start={w(19)} />
+          {line ? (
+            <g>
+              <g transform="rotate(-3 540 560)">
+                <text x={540} y={600} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={140} fill={C.cream}>
+                  kız işi
+                </text>
+                <path d="M300 560 L780 560" stroke={C.red} strokeWidth={22} strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - strike} />
+              </g>
+              <g transform={`translate(540 800) scale(${pop(f, w(28) - 2, 12)}) rotate(-4)`}>
+                <rect x={-360} y={-100} width={720} height={190} rx={30} fill={C.cream} stroke={YAS_OK} strokeWidth={14} />
+                <text x={0} y={50} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={130} fill={YAS_OK}>
+                  KUPA İŞİ
+                </text>
+              </g>
+            </g>
+          ) : null}
+        </>
+      )}
+      {watch > 0 ? (
+        <g transform={`translate(540 700) scale(${watch})`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-40} y={-250} width={80} height={60} rx={10} fill="#9a9a9a" strokeWidth={7} />
+          <circle r={210} fill={C.cream} strokeWidth={12} />
+          <path d={`M0 0 L${Math.sin((secs / 60) * Math.PI * 2) * 150} ${-Math.cos((secs / 60) * Math.PI * 2) * 150}`} stroke={C.red} strokeWidth={10} strokeLinecap="round" />
+          <text x={0} y={110} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={86} fill={C.ink} stroke="none">
+            {`${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`}
+          </text>
+        </g>
+      ) : null}
+      {card > 0 && !cupOn ? (
+        <g transform={`translate(560 520) scale(${card}) rotate(-3)`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-300} y={-220} width={600} height={440} rx={18} fill="#fbf7ec" strokeWidth={9} />
+          <text x={0} y={-130} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={56} fill={C.ink} stroke="none">
+            12 DK TESTİ · No 10
+          </text>
+          {[0, 1].map((i) => (
+            <rect key={i} x={-240} y={-80 + i * 60} width={[460, 380][i]} height={18} rx={9} fill="#d8c8a6" stroke="none" />
+          ))}
+          <text x={-240} y={110} fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink} opacity={0.35} stroke="none">
+            çok iyi
+          </text>
+          {stamp > 0 ? (
+            <g transform={`translate(110 120) rotate(-12) scale(${stamp})`}>
+              <rect x={-150} y={-80} width={300} height={140} rx={14} fill="none" stroke={C.red} strokeWidth={12} />
+              <text x={0} y={30} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={110} fill={C.red} stroke="none">
+                İYİ
+              </text>
+            </g>
+          ) : null}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// Pazılı kalp: "kalp de bir kas"
+const KdHeart: React.FC<{ f: number; flex: number }> = ({ f, flex }) => {
+  const beat = Math.max(0, Math.sin(f / 4)) ** 4;
+  const s = 7.5 * (1 + 0.1 * beat);
+  const curl = 30 + 70 * flex * (0.6 + 0.4 * Math.sin(f / 6));
+  return (
+    <g>
+      {[-1, 1].map((side) => {
+        const sh = { x: side * 160, y: -40 };
+        const el = { x: sh.x + side * 110, y: sh.y + 40 };
+        const ang = (side * curl * Math.PI) / 180;
+        const hd = { x: el.x + side * Math.cos(ang) * 0 + Math.sin(ang) * 90 * side * side, y: el.y - Math.cos(ang) * 100 };
+        return (
+          <g key={side} opacity={flex} stroke={C.ink} strokeLinecap="round" strokeLinejoin="round">
+            <path d={`M${sh.x} ${sh.y} L${el.x} ${el.y} L${hd.x} ${hd.y}`} fill="none" strokeWidth={46} />
+            <path d={`M${sh.x} ${sh.y} L${el.x} ${el.y} L${hd.x} ${hd.y}`} fill="none" stroke={C.red} strokeWidth={34} />
+            <ellipse cx={(sh.x + el.x) / 2} cy={(sh.y + el.y) / 2 - 22 * flex} rx={44} ry={30 * flex + 6} fill={C.red} strokeWidth={6} />
+            <circle cx={hd.x} cy={hd.y} r={26} fill={C.red} strokeWidth={6} />
+          </g>
+        );
+      })}
+      <Heart x={0} y={0} s={s} />
+      <path d="M-120 -120 Q-80 -170 -30 -150" fill="none" stroke="#fff" strokeWidth={14} strokeLinecap="round" opacity={0.5} />
+    </g>
+  );
+};
+
+// 5) "Kalp de bir kas, onu da çalıştır: haftada iki gün, antrenman sonuna on beş dakika koşu. Kaydet, salonda aç."
+// Avatar koşu bandında; göğsünden büyüteçte atan kalp, "kas"ta pazılarını şişirir; "haftada"da hafta kartı (iki gün
+// lacivert tik) + 15:00; "Kaydet"te kaydet işareti zıplar.
+const KdKalp: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const lens = pop(f, 0, 12) * (1 - tw(f, w(7) - 4, w(7) + 2));
+  const flex = tw(f, w(3) - 2, w(3) + 8);
+  const plan = pop(f, w(7) - 2, 12);
+  const days = ["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"];
+  const save = pop(f, w(16) - 2, 12);
+  return (
+    <>
+      <SpCam k={[[0, 1.2, 600, 820], [w(7), 1.2, 600, 820], [w(7) + 10, 1.1, 560, 800], [d, 1.15, 560, 790]]}>
+        <rect x={-1000} y={-1000} width={3200} height={2320} fill="#e6d6b4" />
+        <rect x={-1000} y={1320} width={3200} height={1600} fill="#a19a90" />
+        <g transform={`translate(540 ${S2F}) scale(1.1) translate(-540 ${-S2F})`}>
+          <Treadmill x={540} y={S2F} f={f} />
+          <SideRunner f={f} x={470} y={S2F - 6} s={0.8} pose={runPose(f / 3.2, 0.9)} shirt={SEL_AV_TOP} face="grin" sweat />
+        </g>
+      </SpCam>
+      {lens > 0 ? (
+        <g transform={`translate(540 440) scale(${lens * 0.85})`}>
+          <circle r={300} fill="#f6e3d3" stroke={C.ink} strokeWidth={12} />
+          <KdHeart f={f} flex={flex} />
+        </g>
+      ) : null}
+      {plan > 0 ? (
+        <g transform={`translate(540 400) scale(${plan * 0.9}) rotate(-2)`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-440} y={-230} width={880} height={460} rx={30} fill={C.cream} strokeWidth={9} />
+          {days.map((t, i) => {
+            const on = i === 1 || i === 3;
+            const tick = on ? tw(f, w(8) + (i === 3 ? 6 : 0), w(8) + (i === 3 ? 14 : 8)) : 0;
+            return (
+              <g key={t}>
+                <rect x={-400 + i * 116} y={-180} width={100} height={110} rx={16} fill={on ? "#dbe5f2" : "#efe4cc"} strokeWidth={6} />
+                <text x={-350 + i * 116} y={-112} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={40} fill={C.ink} stroke="none">
+                  {t}
+                </text>
+                {tick > 0 ? <path d={`M${-380 + i * 116} -40 l22 22 l40 -44`} fill="none" stroke={YAS_OK} strokeWidth={12} strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tick} /> : null}
+              </g>
+            );
+          })}
+          <text x={-60} y={150} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={120} fill={YAS_OK} stroke="none" opacity={tw(f, w(12) - 2, w(14))}>
+            + 15:00
+          </text>
+          {save > 0 ? (
+            <g transform={`translate(340 120) scale(${save})`}>
+              <circle r={80} fill="#fff" strokeWidth={8} />
+              <path d="M-30 -42 H30 V44 L0 18 L-30 44 Z" fill={YAS_OK} strokeWidth={6} />
+            </g>
+          ) : null}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 6) "Bunu 'kardiyo kız işi' diyen arkadaşına gönder. Yoksa onu hep böyle görürsün:"
+// Avatar telefonundan kâğıt uçak gönderir; "Yoksa"da salonda halter kaldıran adama döner, kamera açılıştaki
+// halter + 100 KG yakın planına iner (son kare = ilk kare).
+const KdDongu: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const plane = tw(f, w(5) - 4, w(6) + 6);
+  const sw = tw(f, w(7) - 2, w(7) + 6);
+  return (
+    <>
+      {sw < 1 ? (
+        <g opacity={1 - sw}>
+          <SpCam k={[[0, 1.1, 1100, 960], [d, 1.0, 1150, 960]]}>
+            <S2Gym f={f} />
+            <S2Avatar f={f} x={780} worry={0} />
+          </SpCam>
+          <VsPaperPlane p={plane} a={[420, 900]} b={[1000, 640]} />
+        </g>
+      ) : null}
+      {sw > 0 ? (
+        <g opacity={sw}>
+          <SpCam k={[[w(7) - 2, 0.9, KD_LIFT.x, KD_LIFT.y - 480], [w(9), 0.9, KD_LIFT.x, KD_LIFT.y - 480], [d - 2, ...KD_START], [d, ...KD_START]]}>
+            <KdLift f={f} t={f - d} />
+          </SpCam>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kd-kanca": KdKanca,
+  "kd-sebep": KdSebep,
+  "kd-tarih": KdTarih,
+  "kd-kupa": KdKupa,
+  "kd-kalp": KdKalp,
+  "kd-dongu": KdDongu,
   "sp3-kirk": Sp3Kirk,
   "sp3-balon": Sp3Balon,
   "sp3-tarih": Sp3Tarih,
