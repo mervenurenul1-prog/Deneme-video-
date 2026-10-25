@@ -1,5 +1,16 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> YENİ SOHBET BURADAN (25 Ekim akşam — EN GÜNCEL) <<<
+- **ŞU ANKİ İŞ: 16 HAFTA SONU** (`cizim1-16-hafta-sonu`, sahneler `hs-*`, kaynak ONERILER 7 + gündem). Metin ONAYLI:
+  "Vincent Kompany bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda
+  yere yığıldı." → gazetelerin 4 maddesi (az uyku, çok kahve, düzensiz yemek, neredeyse hiç spor) → "Son madde çoğumuza tanıdık:
+  Spora vaktim yok." → 2017, 63.591 kişi, hafta sonu −%30 / düzenli −%35 → "hafta sonu da sayılır, yeter ki sıfır olmasın" →
+  "Bunu 'vaktim yok' diyen arkadaşına gönder ve ona şunu anlat:" (→1). İSİM kullanıcı isteğiyle seste (kural istisnası; ekrana
+  isim yazılmadı). Kompany: siyah şapka, beyaz kapüşonlu, lacivert ceket, sakal (Person `skin` prop eklendi); geçmişte açık
+  mavi forma + kaptan bandı + kupa. Avatar: hafta içi açık mavi gömlek, hafta sonu siyah tişört + gri şort. VOOM bankta telefonda.
+  Sessiz önizleme `16-hafta-sonu-sessiz.mp4` → onay → seslendirme (~500 kr).
+- 15 DOĞUM BİTTİ: `ornek-videolar/cizim1-pilot/15-dogum.mp4` (38,8 sn). Kalan kredi ≈ 11.870.
+
 ## >>> YENİ SOHBET BURADAN (25 Ekim — EN GÜNCEL) <<<
 - **ŞU ANKİ İŞ: 15 DOĞUM** (`cizim1-15-dogum`, `dg-*`, kaynak + tüm sürüm geçmişi `arastirma/15-dogum.md`). Metin v5 (iki sebep:
   1 vücut / 2 ekip) JSON'da; kod hazır (DgSebep, DgKirk, DgEkip3, DgYalniz, DgGonder2; tek bağ = gece 3 annenin telefonu).

@@ -179,6 +179,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "hs-kanca": (w) => [[0, "pirilti", 0.35], [w(9) - 2, "whoosh", 0.4], [w(18), "agir-dusme", 0.35]],
+  "hs-liste": (w) => [[0, "kagit", 0.4], [w(6) - 2, "pop", 0.3], [w(8) - 2, "pop", 0.3], [w(10) - 2, "pop", 0.3], [w(13) - 2, "pop", 0.4]],
+  "hs-vakit": (w) => [[w(2), "kalem", 0.3], [w(4) - 2, "pop", 0.35]],
+  "hs-arastirma": (w) => [[w(0), "kalem", 0.35], [w(4), "yuksel", 0.3], [w(10), "pop", 0.3], [w(18) - 4, "whoosh", 0.3], [w(22), "ding", 0.35], [w(29), "ding", 0.35]],
+  "hs-yeter": (w) => [[w(4), "pop", 0.3], [w(10), "cizik", 0.35], [w(11) + 2, "ding", 0.35]],
+  "hs-gonder": (w) => [[w(5) - 4, "whoosh", 0.35], [w(8) - 2, "pirilti", 0.35]],
   "dg-podyum": (w) => [[0, "pirilti", 0.4], [w(0), "pop", 0.3], [w(5), "pop", 0.3], [w(7) - 4, "sihir", 0.4], [w(10) - 2, "whoosh", 0.4], [w(15) - 2, "agir-dusme", 0.2]],
   "dg-soru": (w) => [[0, "klavye", 0.3], [w(2), "pop", 0.35], [w(4) - 2, "pop", 0.4], [w(5), "whoosh", 0.35]],
   "dg-kirk": (w) => [[0, "pop", 0.35], ...ticks(w(3), w(6), 6, 0.2), [w(9) - 2, "pop", 0.35], [w(11) - 2, "whoosh", 0.3], [w(20), "ding", 0.4]],
@@ -822,6 +828,12 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "hs-kanca": { to: 1.0, x: 540, y: 960 },
+  "hs-liste": { to: 1.0, x: 540, y: 960 },
+  "hs-vakit": { to: 1.0, x: 540, y: 960 },
+  "hs-arastirma": { to: 1.0, x: 540, y: 960 },
+  "hs-yeter": { to: 1.0, x: 540, y: 960 },
+  "hs-gonder": { to: 1.0, x: 540, y: 960 },
   "dg-podyum": { to: 1.0, x: 540, y: 960 },
   "dg-soru": { to: 1.0, x: 540, y: 960 },
   "dg-kirk": { to: 1.0, x: 540, y: 960 },
@@ -1149,6 +1161,7 @@ type PersonProps = {
   shoe?: string; // ayakkabı rengi
   realLegs?: boolean; // gerçekçi bacak: kalçada geniş, dizde ince, baldır kabarık, gölgeli ten
   cellulite?: number; // (arkadan görünüş, realLegs) uyluğun arkasında selülit 0..1
+  skin?: string; // ten rengi (varsayılan C.skin)
   fitted?: boolean; // realLegs ile: ince bel + yüksek belli tayt (false: eski gövde ve tişört/şort)
   children?: React.ReactNode; // karakterin koordinatlarında ek çizimler
 };
@@ -1341,6 +1354,7 @@ const Person: React.FC<PersonProps> = ({
   realLegs = false,
   cellulite = 0,
   fitted = true,
+  skin = C.skin,
   children,
 }) => {
   const pid = svgId(useId());
@@ -1383,8 +1397,8 @@ const Person: React.FC<PersonProps> = ({
         <RealLegs legs={[lL, lR]} id={pid} cellulite={cellulite} from={shortsLen} shorts={shorts ?? C.shorts} />
       ) : (
         <>
-          <Limb p={lL} w={52 * limbW} color={suit ?? pants ?? C.skin} />
-          <Limb p={lR} w={52 * limbW} color={suit ?? pants ?? C.skin} />
+          <Limb p={lL} w={52 * limbW} color={suit ?? pants ?? skin} />
+          <Limb p={lR} w={52 * limbW} color={suit ?? pants ?? skin} />
         </>
       )}
       {legGlow > 0 ? (
@@ -1440,17 +1454,17 @@ const Person: React.FC<PersonProps> = ({
         />
       ) : null}
       {sleeveless ? (
-        <path d="M-99 -592 Q-80 -606 -52 -604 Q-58 -560 -96 -536 Z M99 -592 Q80 -606 52 -604 Q58 -560 96 -536 Z M-52 -604 Q0 -540 52 -604 Q0 -616 -52 -604 Z" fill={C.skin} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+        <path d="M-99 -592 Q-80 -606 -52 -604 Q-58 -560 -96 -536 Z M99 -592 Q80 -606 52 -604 Q58 -560 96 -536 Z M-52 -604 Q0 -540 52 -604 Q0 -616 -52 -604 Z" fill={skin} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
       ) : (
         <path d="M-34 -603 Q0 -566 34 -603" stroke={C.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
       )}
       {lungs > 0 ? <Lungs o={lungs} breath={breath} /> : null}
       {/* kollar */}
-      <Limb p={aL} w={44 * limbW} color={suit ?? C.skin} sleeve={suit || sleeveless ? undefined : top} />
-      <Limb p={aR} w={44 * limbW} color={suit ?? C.skin} sleeve={suit || sleeveless ? undefined : top} />
+      <Limb p={aL} w={44 * limbW} color={suit ?? skin} sleeve={suit || sleeveless ? undefined : top} />
+      <Limb p={aR} w={44 * limbW} color={suit ?? skin} sleeve={suit || sleeveless ? undefined : top} />
       {suit ? <path d="M-60 -560 Q-40 -500 -50 -430 M50 -575 Q66 -520 58 -470" stroke="#fff" strokeWidth={10} fill="none" opacity={0.55} strokeLinecap="round" /> : null}
       {[aL, aR].map((p, i) => (
-        <circle key={i} cx={p[2][0]} cy={p[2][1]} r={27} fill={C.skin} stroke={C.ink} strokeWidth={6} />
+        <circle key={i} cx={p[2][0]} cy={p[2][1]} r={27} fill={skin} stroke={C.ink} strokeWidth={6} />
       ))}
       {/* baş */}
       <g transform={`rotate(${tilt} 0 -630)`}>
@@ -1461,10 +1475,10 @@ const Person: React.FC<PersonProps> = ({
             <circle cx={62} cy={-736} r={11} fill={C.red} stroke={C.ink} strokeWidth={4} />
           </g>
         ) : null}
-        <rect x={-24} y={-650} width={48} height={52} fill={C.skin} stroke={C.ink} strokeWidth={6} />
-        <circle cx={-80} cy={-700} r={17} fill={C.skin} stroke={C.ink} strokeWidth={6} />
-        <circle cx={80} cy={-700} r={17} fill={C.skin} stroke={C.ink} strokeWidth={6} />
-        <circle cx={0} cy={-700} r={80} fill={C.skin} stroke={C.ink} strokeWidth={7} />
+        <rect x={-24} y={-650} width={48} height={52} fill={skin} stroke={C.ink} strokeWidth={6} />
+        <circle cx={-80} cy={-700} r={17} fill={skin} stroke={C.ink} strokeWidth={6} />
+        <circle cx={80} cy={-700} r={17} fill={skin} stroke={C.ink} strokeWidth={6} />
+        <circle cx={0} cy={-700} r={80} fill={skin} stroke={C.ink} strokeWidth={7} />
         <path
           d="M-84 -698 C-96 -812 96 -812 84 -698 C74 -742 34 -756 2 -750 C-30 -758 -72 -744 -84 -698 Z"
           fill={C.hair}
@@ -21090,7 +21104,486 @@ const DgGonder3: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 16 HAFTA SONU SPORCUSU (`hs-*`) — gündem: antrenmanda fenalaşan teknik direktör + 2017 (63.591 kişi) =====
+// Sebep iddiası YOK: gazetelerin yazdığı dört madde yalnız örnek. VOOM sesle yok; parktaki bankta telefonda görünür.
+const HS_SKIN = "#8a5a3c";
+const HS_SHOT = staticFile("app/program.jpg");
+// Futbol sahası: gece + yağmur (bugün) ya da gündüz stadyum (geçmiş)
+const HsPitch: React.FC<{ f: number; night?: boolean }> = ({ f, night = false }) => (
+  <g>
+    <rect x={-600} y={-600} width={2280} height={1400} fill={night ? "#1d2638" : "#bfe0ea"} />
+    {/* tribün */}
+    <rect x={-600} y={480} width={2280} height={300} fill={night ? "#262d3d" : "#5a6478"} />
+    {night
+      ? null
+      : Array.from({ length: 90 }, (_, i) => (
+          <circle key={i} cx={-560 + (i % 30) * 76} cy={520 + Math.floor(i / 30) * 80 + 6 * Math.sin(f / 5 + i)} r={20} fill={["#e0b030", "#f4f1ea", "#8cc8ea", "#d9705f"][i % 4]} />
+        ))}
+    {/* projektörler */}
+    {[60, 1020].map((x) => (
+      <g key={x}>
+        <path d={`M${x} 760 V160`} stroke="#3a3f4a" strokeWidth={16} />
+        <rect x={x - 70} y={110} width={140} height={70} rx={10} fill="#fff6d0" stroke={C.ink} strokeWidth={6} />
+        {night ? <path d={`M${x - 60} 180 L${540 - 400} 1920 L${540 + 400} 1920 L${x + 60} 180 Z`} fill="#fff6d0" opacity={0.07} /> : null}
+      </g>
+    ))}
+    {/* çim + çizgiler */}
+    <rect x={-600} y={780} width={2280} height={1700} fill={night ? "#2f6b3a" : "#4a9650"} />
+    {Array.from({ length: 8 }, (_, i) => (
+      <rect key={i} x={-600} y={780 + i * 180} width={2280} height={90} fill="#fff" opacity={0.05} />
+    ))}
+    <path d="M-600 840 H1680" stroke="#f4f1ea" strokeWidth={10} opacity={0.8} />
+    <ellipse cx={540} cy={1120} rx={300} ry={90} fill="none" stroke="#f4f1ea" strokeWidth={8} opacity={0.6} />
+    {night
+      ? Array.from({ length: 70 }, (_, i) => {
+          const x = ((i * 137 + f * 4) % 1300) - 100;
+          const y = (i * 251 + f * 46) % 2000;
+          return <path key={i} d={`M${x} ${y} l-10 46`} stroke="#cfe0ea" strokeWidth={4} opacity={0.35} />;
+        })
+      : null}
+  </g>
+);
+// Teknik direktör (gündemdeki kıyafet: siyah şapka, beyaz kapüşonlu, lacivert ceket) ya da geçmişte kaptan (açık mavi forma)
+const HsCoach: React.FC<{ x: number; y: number; s: number; f: number; young?: boolean; fall?: number; sway?: number; cup?: boolean; mouth?: Mouth; eyes?: Eyes; armR?: Arm; lookY?: number }> = ({
+  x,
+  y,
+  s,
+  f,
+  young = false,
+  fall = 0,
+  sway = 0,
+  cup = false,
+  mouth = "flat",
+  eyes = "open",
+  armR,
+  lookY = 0,
+}) => {
+  const up: Arm = [165, 10 + 6 * Math.sin(f / 5)];
+  const aL: Arm = cup ? [165, -10 - 6 * Math.sin(f / 5)] : young ? [14, 0] : [10, 20];
+  const aR: Arm = armR ?? (cup ? up : young ? [14, 0] : [10, 20]);
+  const band = armPoints(-1, aL);
+  const rot = -86 * Easing.in(Easing.quad)(fall) + sway;
+  return (
+    <g transform={`rotate(${rot} ${x} ${y})`}>
+      <Person x={x} y={y + 40 * fall * s} s={s} belly={young ? 0 : 0.15} skin={HS_SKIN} shirt={young ? "#8cc8ea" : "#1f2a44"} shorts="#f4f1ea" pants={young ? undefined : "#2a2d36"} shoe={young ? "#f4f1ea" : "#151515"} mouth={mouth} eyes={eyes} lookY={lookY} blush={0.1} armL={aL} armR={aR}>
+        {young ? (
+          <g>
+            {/* kaptan pazubendi */}
+            <circle cx={(band[0][0] + band[1][0]) / 2} cy={(band[0][1] + band[1][1]) / 2} r={26} fill="#f2c230" stroke={C.ink} strokeWidth={5} />
+            <text x={(band[0][0] + band[1][0]) / 2} y={(band[0][1] + band[1][1]) / 2 + 12} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={32} fill={C.ink}>C</text>
+            <text x={0} y={-450} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={110} fill="#f4f1ea" stroke={C.ink} strokeWidth={4}>4</text>
+            {cup ? <KdCup x={0} y={-940} s={0.75} f={f} /> : null}
+          </g>
+        ) : (
+          <g>
+            {/* açık ceketin içinde beyaz kapüşonlu */}
+            <path d="M-38 -598 L38 -598 L34 -372 L-34 -372 Z" fill="#eef0f2" stroke={C.ink} strokeWidth={5} />
+            <path d="M-104 -594 Q-74 -632 -30 -606 L30 -606 Q74 -632 104 -594 Q60 -576 0 -582 Q-60 -576 -104 -594 Z" fill="#eef0f2" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+            <path d="M-14 -588 V-520 M14 -588 V-520" stroke="#b9bec6" strokeWidth={5} strokeLinecap="round" />
+            <path d="M-38 -598 V-372 M38 -598 V-372" stroke="#0f1626" strokeWidth={6} />
+            {/* sakal + bıyık */}
+            <path d="M-72 -694 Q-66 -618 0 -606 Q66 -618 72 -694 Q56 -646 0 -644 Q-56 -646 -72 -694 Z" fill="#1d1712" stroke={C.ink} strokeWidth={3} />
+            <path d="M-24 -672 Q0 -684 24 -672" fill="none" stroke="#1d1712" strokeWidth={9} strokeLinecap="round" />
+            {/* siyah şapka */}
+            <path d="M-88 -716 Q-88 -814 0 -816 Q88 -814 88 -716 Z" fill="#1b1b1f" stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+            <path d="M-96 -718 Q0 -700 96 -718 Q86 -690 0 -682 Q-86 -690 -96 -718 Z" fill="#26262c" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+          </g>
+        )}
+      </Person>
+    </g>
+  );
+};
+// Avatar (seri): hafta içi açık mavi gömlek + gri pantolon, hafta sonu spor (siyah tişört + gri şort)
+const HS_SHIRT = "#cfe0f0";
+
+// 1) "Vincent Kompany bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta
+// antrenmanda yere yığıldı."
+// Sepya stadyum: kaptan kupayı başının üstünde tutar, konfeti (yakın plan → geri çekilir); "Bugün"de beyaz parlama:
+// yağmurlu gece antrenmanı, saha kenarında şapkalı, kapüşonlu hoca; "antrenmanda" başını tutar, sallanır; "yığıldı"da
+// yere düşer, sarsıntı, iki görevli koşar.
+const HS_START: [number, number, number] = [1.8, 540, 760];
+const HsFlash: React.FC<{ f: number }> = ({ f }) => (
+  <>
+    <HsPitch f={f} />
+    <Confetti start={-40} n={36} />
+    <HsCoach x={540} y={1560} s={0.95} f={f} young cup mouth="grin" lookY={-6} />
+    <KdSepia />
+  </>
+);
+const HsKanca: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const now = f >= w(9) - 2;
+  const dizzy = tw(f, w(16), w(17));
+  const fall = tw(f, w(17), w(18) + 4);
+  const run = tw(f, w(18), d);
+  if (!now)
+    return (
+      <CamK k={[[0, ...HS_START], [w(2), 1.4, 540, 860], [w(6), 1.05, 540, 960], [w(9), 1.0, 540, 960]]} shake={hit(f, 0, 8) * 0.3}>
+        <HsFlash f={f} />
+        {f > w(5) ? <DgSpark x={760} y={760} r={40} o={Math.max(0, Math.sin(f / 4))} /> : null}
+      </CamK>
+    );
+  return (
+    <>
+      <CamK k={[[w(9) - 2, 1.45, 540, 1000], [w(12), 1.0, 540, 980], [w(16), 1.2, 540, 1080], [w(17) + 4, 1.2, 380, 1350], [d, 1.25, 360, 1380]]} shake={hit(f, w(18), 12) * 0.8}>
+        <HsPitch f={f} night />
+        {[0, 1, 2].map((k) => (
+          <SideRunner key={k} f={f + k * 6} x={((f * 7 + k * 380) % 1400) - 200} y={980} s={0.36} pose={runPose((f + k * 6) / 3.2, 0.9)} shirt="#d43a3a" face="grin" />
+        ))}
+        <HsCoach x={540} y={1560} s={0.95} f={f} fall={fall} sway={6 * Math.sin(f / 3) * dizzy * (1 - fall)} mouth={dizzy > 0 ? "worry" : "flat"} eyes={fall > 0.3 ? "closed" : "open"} armR={dizzy > 0 && fall < 0.5 ? [150, -150] : undefined} />
+        {run > 0
+          ? [0, 1].map((k) => <SideRunner key={k} f={f + k * 4} x={lerp(1300 + k * 160, 860 + k * 130, run)} y={1560} s={0.8} pose={runPose((f + k * 4) / 2.6, 1)} shirt="#d43a3a" face="worry" look={-1} />)
+          : null}
+      </CamK>
+      {f < w(9) + 6 ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={1 - tw(f, w(9) - 2, w(9) + 6)} /> : null}
+      {fall > 0.9 ? <rect x={0} y={0} width={1080} height={1920} fill={C.red} opacity={0.18 * hit(f, w(18), 14)} /> : null}
+      <KTag x={540} y={300} p={pop(f, w(12) - 2, 12)} text="teknik direktör" color={C.ink} rot={-3} />
+    </>
+  );
+};
+
+// Gece ofisi: pencerede şehir ışıkları, duvarda taktik tahtası, masa + dizüstü
+const HsNightOffice: React.FC<{ f: number }> = ({ f }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-600} y={-600} width={2280} height={3200} fill="#2a2c3e" strokeWidth={0} />
+    <rect x={620} y={260} width={380} height={420} fill="#141a2e" strokeWidth={10} />
+    {Array.from({ length: 18 }, (_, i) => (
+      <rect key={i} x={650 + (i % 6) * 56} y={300 + Math.floor(i / 6) * 120} width={30} height={60} fill="#ffcf7a" opacity={(i * 7) % 3 ? 0.8 : 0.15} strokeWidth={0} />
+    ))}
+    <rect x={80} y={260} width={460} height={340} rx={10} fill="#e9efe9" strokeWidth={8} />
+    <path d="M140 330 l30 30 m0 -30 l-30 30 M260 420 l30 30 m0 -30 l-30 30 M380 340 l30 30 m0 -30 l-30 30" stroke={C.red} strokeWidth={8} />
+    {[[180, 520], [330, 500], [450, 470]].map(([x, y], i) => (
+      <circle key={i} cx={x} cy={y} r={18} fill="none" stroke="#2f5fa8" strokeWidth={8} />
+    ))}
+    <path d="M200 500 Q300 420 390 360" fill="none" stroke="#2f5fa8" strokeWidth={6} strokeDasharray="16 12" />
+    <rect x={-600} y={1380} width={2280} height={600} fill="#1e1f2c" strokeWidth={0} />
+    <rect x={160} y={1300} width={760} height={60} fill="#6b4a33" strokeWidth={8} />
+    <rect x={220} y={1360} width={40} height={400} fill="#5a3e2b" strokeWidth={6} />
+    <rect x={820} y={1360} width={40} height={400} fill="#5a3e2b" strokeWidth={6} />
+    <path d="M420 1300 L460 1180 L700 1180 L660 1300 Z" fill="#9aa3ad" strokeWidth={6} />
+    <ellipse cx={560} cy={1180} rx={160} ry={40} fill="#bcd4ff" opacity={0.15 + 0.05 * Math.sin(f / 6)} strokeWidth={0} />
+  </g>
+);
+// Madde kartı (ikon + yazı)
+const HsItem: React.FC<{ x: number; y: number; p: number; t: string; kind: "uyku" | "kahve" | "yemek" | "spor"; red?: boolean; f: number }> = ({ x, y, p, t, kind, red = false, f }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p}) rotate(${red ? 3 : -2})`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+      <rect x={-230} y={-160} width={460} height={320} rx={30} fill={C.cream} stroke={red ? C.red : C.ink} strokeWidth={red ? 14 : 8} />
+      <g transform="translate(0 -40)" strokeWidth={7}>
+        {kind === "uyku" ? (
+          <g>
+            <path d="M-30 -70 A70 70 0 1 0 40 30 A56 56 0 1 1 -30 -70 Z" fill="#f2d16b" />
+            <text x={60} y={-20} fontFamily={fontFamily} fontWeight={900} fontSize={44} fill="#ff6b5a" stroke="none">02:40</text>
+          </g>
+        ) : kind === "kahve" ? (
+          <g>
+            {[-110, 0, 110].map((dx, i) => (
+              <g key={i} transform={`translate(${dx} ${-10 * i})`}>
+                <path d="M-36 -30 H36 L28 50 H-28 Z" fill="#f4f1ea" />
+                <path d="M36 -10 Q60 -6 54 20 Q48 34 32 30" fill="none" />
+                <path d={`M-10 -44 q8 -${14 + 4 * Math.sin(f / 5 + i)} 0 -28 M10 -44 q8 -14 0 -28`} fill="none" stroke="#9a8f86" strokeWidth={5} />
+              </g>
+            ))}
+          </g>
+        ) : kind === "yemek" ? (
+          <g>
+            <path d="M-80 -10 Q0 -80 80 -10 Z" fill="#d9a441" />
+            <rect x={-86} y={-10} width={172} height={20} rx={8} fill="#6b3a1e" />
+            <rect x={-84} y={14} width={168} height={14} fill="#7fb34a" />
+            <path d="M-80 30 H80 Q80 60 0 60 Q-80 60 -80 30 Z" fill="#d9a441" />
+            <circle cx={120} cy={-50} r={34} fill="#fff" />
+            <path d="M120 -50 L120 -72 M120 -50 L136 -40" stroke={C.red} strokeWidth={6} />
+          </g>
+        ) : (
+          <g>
+            <path d="M-110 30 Q-110 -10 -70 -20 L10 -30 Q50 -10 90 0 Q120 10 120 40 H-110 Z" fill="#e9e3d6" />
+            <path d="M-110 40 H120" strokeWidth={10} />
+            <path d="M-130 -70 L-60 -20 M-130 -70 L-100 30 M-130 -70 L-20 -60 M-110 -40 Q-90 -50 -86 -30 M-100 -10 Q-70 -20 -66 0" fill="none" stroke="#9a9a9a" strokeWidth={3} />
+          </g>
+        )}
+      </g>
+      <text x={0} y={120} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={t.length > 10 ? 44 : red ? 60 : 54} fill={red ? C.red : C.ink} stroke="none">
+        {t}
+      </text>
+    </g>
+  ) : null;
+
+// 2) "Gazeteler onun için dört şey yazdı: az uyku, çok kahve, düzensiz yemek ve neredeyse hiç spor."
+// Gazete sayfası dönerek gelir (manşet + şapkalı silüet, büyük "4"); "az uyku"dan itibaren gece ofisinde hoca masada,
+// dört kart sözcük sözcük belirir; "hiç spor" kırmızı çerçeveyle büyür.
+const HsListe: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const paper = tw(f, 0, 12) * (1 - tw(f, w(6) - 4, w(6) + 2));
+  const last = tw(f, w(15), w(15) + 10);
+  return (
+    <>
+      <CamK k={[[0, 1.0, 540, 960], [w(6), 1.0, 540, 960], [d, 1.08, 540, 1000]]}>
+        <HsNightOffice f={f} />
+        <HsCoach x={540} y={1700} s={0.78} f={f} mouth="flat" lookY={6} armR={[60, 40]} />
+        <rect x={160} y={1300} width={760} height={60} fill="#6b4a33" stroke={C.ink} strokeWidth={8} />
+      </CamK>
+      {paper > 0 ? (
+        <g transform={`translate(540 860) scale(${paper * 1.05}) rotate(${(1 - paper) * 540 - 3})`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-420} y={-560} width={840} height={1120} fill="#f2efe6" strokeWidth={8} />
+          {[0, 1, 2].map((i) => (
+            <rect key={i} x={-370} y={-500 + i * 70} width={740 - i * 120} height={44} fill="#2b2b30" strokeWidth={0} />
+          ))}
+          <rect x={-370} y={-260} width={440} height={420} fill="#9aa3ad" strokeWidth={6} />
+          <g transform="translate(-150 160) scale(0.5)">
+            <circle cx={0} cy={-560} r={110} fill="#2b2b30" />
+            <rect x={-170} y={-450} width={340} height={450} rx={60} fill="#2b2b30" />
+            <path d="M-120 -620 Q0 -720 120 -620 Z M-140 -620 H140" fill="#1b1b1f" stroke="#1b1b1f" strokeWidth={14} />
+          </g>
+          <text x={260} y={-40} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={300} fill={C.red} stroke="none" opacity={tw(f, w(3) - 2, w(3) + 4)}>
+            4
+          </text>
+          {Array.from({ length: 8 }, (_, i) => (
+            <rect key={i} x={-370} y={200 + i * 40} width={i % 3 ? 740 : 560} height={16} fill="#b9b3a6" strokeWidth={0} />
+          ))}
+        </g>
+      ) : null}
+      <HsItem x={290} y={300} p={pop(f, w(6) - 2, 12)} t="az uyku" kind="uyku" f={f} />
+      <HsItem x={790} y={300} p={pop(f, w(8) - 2, 12)} t="çok kahve" kind="kahve" f={f} />
+      <HsItem x={290} y={680} p={pop(f, w(10) - 2, 12)} t="düzensiz yemek" kind="yemek" f={f} />
+      <HsItem x={790} y={680} p={pop(f, w(13) - 2, 12) * (1 + 0.15 * last)} t="hiç spor" kind="spor" red f={f} />
+    </>
+  );
+};
+
+// Gündüz ofis: avatar masada (hafta içi gömlek), dizüstü
+const HsDayOffice: React.FC<{ f: number; children?: React.ReactNode }> = ({ f, children }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-600} y={-600} width={2280} height={3200} fill="#e6dccb" strokeWidth={0} />
+    <rect x={620} y={300} width={360} height={380} fill="#bfe0ea" strokeWidth={10} />
+    <path d="M800 300 V680 M620 490 H980" strokeWidth={8} />
+    <rect x={-600} y={1380} width={2280} height={600} fill="#b98d5e" strokeWidth={0} />
+    {children}
+    <rect x={160} y={1300} width={760} height={60} fill="#8a6a4a" strokeWidth={8} />
+    <rect x={220} y={1360} width={40} height={400} fill="#6b4a33" strokeWidth={6} />
+    <rect x={820} y={1360} width={40} height={400} fill="#6b4a33" strokeWidth={6} />
+    <path d="M420 1300 L460 1180 L700 1180 L660 1300 Z" fill="#9aa3ad" strokeWidth={6} />
+    {[0, 1, 2].map((i) => (
+      <rect key={i} x={760 + i * 6} y={1250 - i * 20} width={120} height={20} fill={["#f4f1ea", "#e9e3d6", "#f4f1ea"][i]} strokeWidth={4} />
+    ))}
+    <text x={540} y={1100} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={1} fill="none" stroke="none">
+      {f}
+    </text>
+  </g>
+);
+// Hafta şeridi: Pt..Pz; iş günleri kırmızı "iş", hafta sonu lacivert tik (wk 0..1)
+const HS_DAYS = ["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"];
+const HsWeek: React.FC<{ x: number; y: number; p: number; work: number; wk: number }> = ({ x, y, p, work, wk }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-470} y={-110} width={940} height={220} rx={30} fill={C.cream} strokeWidth={8} />
+      {HS_DAYS.map((t, i) => {
+        const end = i >= 5;
+        const on = end ? tw(wk, (i - 5) / 2, (i - 4) / 2) : tw(work, i / 5, (i + 1) / 5);
+        return (
+          <g key={t}>
+            <rect x={-440 + i * 126} y={-80} width={110} height={160} rx={16} fill={end ? (on > 0 ? "#dbe5f2" : "#efe4cc") : on > 0 ? "#f3c6cc" : "#efe4cc"} strokeWidth={6} />
+            <text x={-385 + i * 126} y={-30} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={40} fill={C.ink} stroke="none">
+              {t}
+            </text>
+            {!end && on > 0 ? (
+              <text x={-385 + i * 126} y={50} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={50} fill={C.red} stroke="none" opacity={on}>
+                iş
+              </text>
+            ) : null}
+            {end && on > 0 ? <path d={`M${-415 + i * 126} 30 l22 22 l40 -44`} fill="none" stroke={YAS_OK} strokeWidth={12} strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - on} /> : null}
+          </g>
+        );
+      })}
+    </g>
+  ) : null;
+
+// 3) "Son madde çoğumuza tanıdık: 'Spora vaktim yok.'"
+// Kırmızı "hiç spor" kartı ortada; kamera ofisteki avatara iner (gömlek, masada); hafta şeridinde iş günleri kırmızı
+// "iş" ile dolar; "Spora vaktim yok"ta avatarın balonu.
+const HsVakit: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const card = 1 - tw(f, w(1), w(2) + 2);
+  return (
+    <>
+      <CamK k={[[0, 1.0, 540, 960], [w(3), 1.0, 540, 1000], [w(4), 1.2, 540, 1080], [d, 1.28, 540, 1100]]}>
+        <HsDayOffice f={f}>
+          <Person x={540} y={1700} s={0.82} belly={0.4} shirt={HS_SHIRT} pants="#6f7480" mouth={f > w(4) ? "flat" : "worry"} armL={[30, 50]} armR={[30, 50]} />
+        </HsDayOffice>
+      </CamK>
+      <HsItem x={540} y={lerp(680, 400, 1 - card)} p={card} t="hiç spor" kind="spor" red f={f} />
+      <HsWeek x={540} y={330} p={pop(f, w(2) - 2, 12)} work={tw(f, w(2), w(4))} wk={0} />
+      <SayBubble x={540} y={640} p={pop(f, w(4) - 2, 12)} text="Spora vaktim yok." tail={[560, 780]} size={78} />
+    </>
+  );
+};
+
+// 4) "İki bin on yedide altmış üç bin kişi incelendi. Sadece hafta sonu, haftada bir iki gün spor yapanlarda erken ölüm
+// riski yüzde otuz düşük çıktı. Düzenli yapanlarda da yüzde otuz beş."
+// Kâğıt zemin: "2017", insan ikonları dolar + sayaç 63.591; "hafta sonu"nda hafta şeridi (Ct, Pz lacivert tik);
+// "erken ölüm riski"nde üç sütun: hiç (kırmızı, tam boy) / hafta sonu (−%30) / düzenli (−%35).
+const fmtTr = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const HsArastirma: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const ppl = tw(f, w(4), w(8));
+  const grid = 1 - tw(f, w(9) - 4, w(9) + 4);
+  const bars = tw(f, w(18) - 4, w(18) + 6);
+  const b1 = tw(f, w(21), w(23) + 4);
+  const b2 = tw(f, w(28), w(30) + 4);
+  const H = 420;
+  const B = 1250;
+  const cols: [string, number, number, string, string][] = [
+    ["hiç", 1, 1, C.red, ""],
+    ["hafta sonu", lerp(1, 0.7, b1), b1, YAS_OK, "−%30"],
+    ["düzenli", lerp(1, 0.65, b2), b2, YAS_OK, "−%35"],
+  ];
+  return (
+    <CamK k={[[0, 1.15, 540, 900], [w(8), 1.0, 540, 960], [w(18), 1.0, 540, 960], [d, 1.08, 540, 1020]]}>
+      <rect x={-600} y={-600} width={2280} height={3200} fill="#efe4cc" />
+      <HandText x={540} y={300} text="2017" size={170} color={C.ink} p={tw(f, w(0) - 2, w(3) + 4)} rotate={-3} />
+      {grid > 0 ? (
+        <g opacity={grid}>
+          {Array.from({ length: 60 }, (_, i) => (
+            <g key={i} opacity={i / 60 < ppl ? 1 : 0}>
+              <MiniW x={130 + (i % 10) * 92} y={760 + Math.floor(i / 10) * 100} s={0.8} c={["#7d9cc4", "#d9705f", "#8fb08a", "#e0b030"][i % 4]} />
+            </g>
+          ))}
+          <text x={540} y={600} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={120} fill={C.ink}>
+            {fmtTr(Math.round(63591 * ppl))} kişi
+          </text>
+        </g>
+      ) : null}
+      <HsWeek x={540} y={560} p={pop(f, w(9) - 2, 12)} work={0} wk={tw(f, w(10), w(15))} />
+      {bars > 0 ? (
+        <g opacity={bars}>
+          <text x={540} y={740} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={62} fill={C.ink}>
+            erken ölüm riski
+          </text>
+          {cols.map(([t, h, p, c, lab], i) => {
+            const x = 220 + i * 320;
+            const top = B - H * h;
+            return (
+              <g key={t} stroke={C.ink} strokeLinejoin="round">
+                <rect x={x - 100} y={top} width={200} height={B - top} rx={16} fill={c} strokeWidth={8} />
+                {i > 0 ? <rect x={x - 100} y={B - H} width={200} height={top - (B - H)} rx={16} fill="none" strokeWidth={5} strokeDasharray="14 12" opacity={0.6} /> : null}
+                <text x={x} y={B + 70} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={50} fill={C.ink} stroke="none">
+                  {t}
+                </text>
+                {lab && p > 0.3 ? (
+                  <text x={x} y={top - 30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={76} fill={YAS_OK} stroke="none" opacity={p}>
+                    {lab}
+                  </text>
+                ) : null}
+              </g>
+            );
+          })}
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
+// Park: gökyüzü, ağaçlar, çim, bank; bankta VOOM'lu telefon (arka planda)
+const HsPark: React.FC<{ f: number; voom?: number }> = ({ f, voom = 1 }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-600} y={-600} width={2280} height={1700} fill="#cfe8f2" strokeWidth={0} />
+    <circle cx={880} cy={260} r={90} fill="#f6d26b" strokeWidth={6} />
+    {[[-80, 820], [140, 760], [980, 800], [1160, 760]].map(([x, y], i) => (
+      <g key={i}>
+        <rect x={x - 22} y={y} width={44} height={300} fill="#7a5236" strokeWidth={6} />
+        <circle cx={x} cy={y - 40} r={150} fill={["#6f9a4c", "#5e8a3c"][i % 2]} strokeWidth={7} />
+      </g>
+    ))}
+    <rect x={-600} y={1060} width={2280} height={1500} fill="#7fb35a" strokeWidth={0} />
+    <path d="M-600 1060 H1680" strokeWidth={6} />
+    {/* bank + telefon */}
+    <rect x={640} y={1160} width={360} height={30} fill="#9a6a3e" strokeWidth={6} />
+    <rect x={640} y={1100} width={360} height={26} fill="#9a6a3e" strokeWidth={6} />
+    <path d="M670 1190 V1260 M970 1190 V1260" strokeWidth={10} />
+    {voom > 0 ? (
+      <g transform={`translate(820 1080) scale(${voom * 0.62}) rotate(-8)`}>
+        <rect x={-104} y={-180} width={208} height={360} rx={30} fill="#1e1f24" strokeWidth={6} />
+        <clipPath id="hsShot">
+          <rect x={-92} y={-166} width={184} height={332} rx={20} />
+        </clipPath>
+        <image href={HS_SHOT} x={-92} y={-166} width={184} height={(184 * 2622) / 1290} clipPath="url(#hsShot)" preserveAspectRatio="xMidYMin slice" />
+      </g>
+    ) : null}
+    <text x={0} y={0} fontSize={1} fill="none" stroke="none">{f}</text>
+  </g>
+);
+
+// 5) "Yani hafta içi yetişemiyorsan, hafta sonu da sayılır. Yeter ki sıfır olmasın."
+// Hafta şeridi: iş günleri kırmızı, "hafta sonu"nda Ct-Pz lacivert tik; parkta avatar (spor kıyafeti) koşar, bankta
+// VOOM'lu telefon; "sıfır"da büyük kırmızı "0 gün" çizilir, yerine lacivert "1 gün ✓".
+const HsYeter: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(HS_SHOT);
+  const f = useCurrentFrame();
+  const x = ((f * 9) % 1500) - 250;
+  const zero = pop(f, w(10) - 2, 12);
+  const strike = tw(f, w(10) + 4, w(11) + 2);
+  const one = pop(f, w(11) + 2, 12);
+  return (
+    <>
+      <CamK k={[[0, 1.1, 540, 1000], [w(4), 1.0, 540, 960], [d, 1.12, 560, 1000]]}>
+        <HsPark f={f} />
+        <SideRunner f={f} x={x} y={1500} s={0.78} pose={runPose(f / 3, 1)} shirt={SEL_AV_TOP} face="grin" />
+      </CamK>
+      <HsWeek x={540} y={330} p={pop(f, 0, 10) * (1 - tw(f, w(9), w(10)))} work={tw(f, 2, w(3))} wk={tw(f, w(4), w(7))} />
+      {zero > 0 ? (
+        <g transform={`translate(540 420) scale(${zero}) rotate(-3)`}>
+          <text x={-170} y={60} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={170} fill={C.red}>
+            0 gün
+          </text>
+          <path d="M-380 -40 L40 40" stroke={C.red} strokeWidth={22} strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - strike} />
+          {one > 0 ? (
+            <text x={250} y={60} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={170 * one} fill={YAS_OK}>
+              1 gün
+            </text>
+          ) : null}
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 6) "Bunu 'vaktim yok' diyen arkadaşına gönder ve ona şunu anlat:" (→ açılış)
+// Avatar bankta oturur, telefondan kâğıt uçak arkadaşına uçar; "şunu anlat"ta beyaz parlama: sepya stadyum, kupalı
+// kaptanın yakın planı (= açılış karesi, döngü).
+const HsGonder: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(HS_SHOT);
+  const f = useCurrentFrame();
+  const plane = tw(f, w(5) - 4, w(6) + 8);
+  const back = f >= w(8) - 2;
+  if (back)
+    return (
+      <>
+        <CamK k={[[w(8) - 2, 1.0, 540, 960], [d - 2, ...HS_START], [d, ...HS_START]]}>
+          <HsFlash f={f - d} />
+        </CamK>
+        <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={1 - tw(f, w(8) - 2, w(8) + 6)} />
+      </>
+    );
+  return (
+    <>
+      <CamK k={[[0, 1.25, 600, 1100], [w(5), 1.1, 620, 1060], [d, 1.0, 600, 1000]]}>
+        <HsPark f={f} voom={0} />
+        <Person x={760} y={1420} s={0.62} belly={0.4} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#f4f1ea" mouth="grin" lookY={2} armR={[25, 135]} armL={[12, 0]}>
+          <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.6} />
+        </Person>
+      </CamK>
+      <VsPaperPlane p={plane} a={[760, 1000]} b={[100, 300]} />
+      <SayBubble x={540} y={420} p={pop(f, w(1) - 2, 12) * (1 - tw(f, w(5), w(6)))} text="vaktim yok" tail={[300, 560]} size={72} color={C.red} />
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "hs-kanca": HsKanca,
+  "hs-liste": HsListe,
+  "hs-vakit": HsVakit,
+  "hs-arastirma": HsArastirma,
+  "hs-yeter": HsYeter,
+  "hs-gonder": HsGonder,
   "dg-podyum": DgPodyum,
   "dg-soru": DgSebep,
   "dg-kirk": DgKirkIn,
