@@ -7,7 +7,7 @@
   2017, 63.591 kişi, −%30 / −%35 → "hafta sonu da sayılır, yeter ki sıfır olmasın" → "Bunu 'vaktim yok' diyen arkadaşına
   gönder ve ona şunu anlat:" (→1). Döngü: "ona"da kâğıt uçak kameraya uçup ekranı kaplar → kupa yakın planı (= ilk kare).
   Parkta bankta büyük VOOM telefonu + düşünce bulutu "VOOM'la hayalindeki vücut / tek tuşla cebinde" (kullanıcı isteği).
-  Ölçülü hareket (göz yorulmasın). Hoca: siyah şapka, beyaz kapüşonlu, lacivert ceket, sakal (`Person skin`).
+  Ölçülü hareket (göz yorulmasın). Girişte "Bu adamı tanıdın mı? Yorumlara yaz" etiketi (izleyici adı yoruma yazsın), genç kaptana sakal. Hoca: siyah şapka, beyaz kapüşonlu, lacivert ceket, sakal (`Person skin`).
   Sessiz önizleme v3 → onay → seslendirme (~470 kr).
 - 15 DOĞUM BİTTİ: `ornek-videolar/cizim1-pilot/15-dogum.mp4` (38,8 sn). Kalan kredi ≈ 11.870.
 

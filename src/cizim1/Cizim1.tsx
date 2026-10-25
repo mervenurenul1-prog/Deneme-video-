@@ -21179,6 +21179,9 @@ const HsCoach: React.FC<{ x: number; y: number; s: number; f: number; young?: bo
             <circle cx={(band[0][0] + band[1][0]) / 2} cy={(band[0][1] + band[1][1]) / 2} r={26} fill="#f2c230" stroke={C.ink} strokeWidth={5} />
             <text x={(band[0][0] + band[1][0]) / 2} y={(band[0][1] + band[1][1]) / 2 + 12} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={32} fill={C.ink}>C</text>
             <text x={0} y={-450} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={110} fill="#f4f1ea" stroke={C.ink} strokeWidth={4}>4</text>
+            {/* kısa sakal (tanınsın) */}
+            <path d="M-70 -692 Q-64 -626 0 -616 Q64 -626 70 -692 Q54 -650 0 -648 Q-54 -650 -70 -692 Z" fill="#2a1f18" stroke={C.ink} strokeWidth={3} opacity={0.9} />
+            {mouth === "grin" ? <path d="M-28 -666 Q0 -630 28 -666 Z" fill="#8a2f26" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" /> : null}
             {cup ? <KdCup x={0} y={-940} s={0.75} f={f} /> : null}
           </g>
         ) : (
@@ -21217,6 +21220,20 @@ const HsFlash: React.FC<{ f: number }> = ({ f }) => (
     <KdSepia />
   </>
 );
+// "Bu adamı tanıdın mı? Yorumlara yaz" (izleyici adı yoruma yazsın; ilk karede de var → döngü karesiyle aynı)
+const HsWho: React.FC<{ p: number; f: number }> = ({ p, f }) =>
+  p > 0 ? (
+    <g opacity={p} transform={`rotate(-3 540 250)`}>
+      <rect x={130} y={150} width={820} height={200} rx={36} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+      <text x={540} y={240} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={68} fill={C.red}>
+        Bu adamı tanıdın mı?
+      </text>
+      <text x={540} y={316} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={58} fill={C.ink}>
+        Yorumlara yaz
+      </text>
+      <path d={`M880 300 l0 ${50 + 8 * Math.sin(f / 5)} m-18 -20 l18 20 l18 -20`} fill="none" stroke={C.ink} strokeWidth={8} strokeLinecap="round" strokeLinejoin="round" />
+    </g>
+  ) : null;
 const HsKanca: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const now = f >= w(7) - 2;
@@ -21225,10 +21242,13 @@ const HsKanca: React.FC<SceneProps> = ({ w, d }) => {
   const run = tw(f, w(16), d);
   if (!now)
     return (
+      <>
       <CamK k={[[0, ...HS_START], [w(1), 1.4, 540, 860], [w(4), 1.05, 540, 960], [w(7), 1.0, 540, 960]]} shake={hit(f, 0, 8) * 0.3}>
         <HsFlash f={f} />
         {f > w(3) ? <DgSpark x={760} y={760} r={40} o={Math.max(0, Math.sin(f / 4))} /> : null}
       </CamK>
+      <HsWho p={1 - tw(f, w(6), w(7) - 2)} f={f} />
+      </>
     );
   return (
     <>
