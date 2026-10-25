@@ -55,7 +55,7 @@
     {
       "visual": "dg-bugun",
       "voice": "Seninse kucağında bebeğin var ve onu her gece sen büyütüyorsun. Bunu kimse alkışlamıyor ama yaptığın iş o podyumdan çok daha zor.",
-      "say": "Seninse kucağında bebeğin var... ve onu her gece sen büyütüyorsun. Bunu kimse alkışlamıyor... ama yaptığın iş o podyumdan çok daha zor.",
+      "say": "Seninse kucağında bebeğin var ve onu her gece sen büyütüyorsun. Bunu kimse alkışlamıyor... ama yaptığın iş o podyumdan çok daha zor.",
       "keys": [
         "alkışlamıyor",
         "çok",
