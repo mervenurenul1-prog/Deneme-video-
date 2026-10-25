@@ -9,6 +9,9 @@
   VOOM SESLE YOK; yalnız duvardaki büyük yeşil tahtada "Senin arkanda da VOOM var." (baştan boş, 5. sahnede yazılır).
   İsim/marka YOK (manken genel çizim: pembe dantel elbise, melek kanatları, mor-pembe podyum). Max 35 sn. Son sessiz önizleme
   dosyası (`15-dogum-sessiz.mp4`) v4'e ait; v5 henüz render EDİLMEDİ.
+- **25 Ekim (yeni sohbet):** kullanıcı yön değiştirdi: video EŞİN/DOSTLARIN yeni anneye ATACAĞI bir DESTEK videosu olsun
+  (lohusanın motivasyon ve ilgi açlığı var, "onlar da bebek olur"). Önce METİN: A/B/C seçenekleri sunuldu, onay bekleniyor;
+  render YOK. C'deki 1973 Dana Raphael "matrescence" bilgisi doğrulanmadı.
 - Kalan kredi ≈ 12.633 (23 Ekim; seslendirmeden önce kontrol).
 - Bu sohbetin kalıcı dersleri KURALLAR.md'de: açık/ders gibi anlatım (kelime oyunu yok), tablo dürüst + "ben izler miyim?",
   her 1-1,5 sn olay, gerçekçi pozlar (referanslar `animasyon/referans/`), parçalı tarih değil tek hikâye/tek bağ, çıplaklık yok.
