@@ -15,8 +15,8 @@
   "scenes": [
     {
       "visual": "hs-kanca",
-      "voice": "Vincent Kompany bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda yere yığıldı.",
-      "say": "Vincent Kompany bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda yere yığıldı.",
+      "voice": "Bayern Münih'in hocası bir zamanlar dünyanın en formda adamlarından biriydi. Geçen hafta antrenmanda yere yığıldı.",
+      "say": "Bayern Münih'in hocası bir zamanlar dünyanın en formda adamlarından biriydi. Geçen hafta antrenmanda yere yığıldı.",
       "keys": [
         "formda",
         "yığıldı"
@@ -67,8 +67,7 @@
       "keys": [
         "vaktim",
         "yok"
-      ],
-      "hold": 0.2
+      ]
     }
   ],
   "caption": "O'Donovan 2017 JAMA Intern Med (63.591 kişi): hafta sonu sporcusu ~%30, düzenli ~%35 düşük ölüm riski.",

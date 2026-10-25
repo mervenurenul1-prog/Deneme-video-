@@ -179,12 +179,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
-  "hs-kanca": (w) => [[0, "pirilti", 0.35], [w(9) - 2, "whoosh", 0.4], [w(18), "agir-dusme", 0.35]],
+  "hs-kanca": (w) => [[w(3) - 2, "pirilti", 0.35], [w(10) - 2, "whoosh", 0.35], [w(14), "agir-dusme", 0.35]],
   "hs-liste": (w) => [[0, "kagit", 0.4], [w(6) - 2, "pop", 0.3], [w(8) - 2, "pop", 0.3], [w(10) - 2, "pop", 0.3], [w(13) - 2, "pop", 0.4]],
   "hs-vakit": (w) => [[w(2), "kalem", 0.3], [w(4) - 2, "pop", 0.35]],
   "hs-arastirma": (w) => [[w(0), "kalem", 0.35], [w(4), "yuksel", 0.3], [w(10), "pop", 0.3], [w(18) - 4, "whoosh", 0.3], [w(22), "ding", 0.35], [w(29), "ding", 0.35]],
   "hs-yeter": (w) => [[w(4), "pop", 0.3], [w(10), "cizik", 0.35], [w(11) + 2, "ding", 0.35]],
-  "hs-gonder": (w) => [[w(5) - 4, "whoosh", 0.35], [w(8) - 2, "pirilti", 0.35]],
+  "hs-gonder": (w) => [[w(5) - 4, "whoosh", 0.3], [w(7), "whoosh", 0.35]],
   "dg-podyum": (w) => [[0, "pirilti", 0.4], [w(0), "pop", 0.3], [w(5), "pop", 0.3], [w(7) - 4, "sihir", 0.4], [w(10) - 2, "whoosh", 0.4], [w(15) - 2, "agir-dusme", 0.2]],
   "dg-soru": (w) => [[0, "klavye", 0.3], [w(2), "pop", 0.35], [w(4) - 2, "pop", 0.4], [w(5), "whoosh", 0.35]],
   "dg-kirk": (w) => [[0, "pop", 0.35], ...ticks(w(3), w(6), 6, 0.2), [w(9) - 2, "pop", 0.35], [w(11) - 2, "whoosh", 0.3], [w(20), "ding", 0.4]],
@@ -21111,7 +21111,13 @@ const HS_SHOT = staticFile("app/program.jpg");
 // Futbol sahası: gece + yağmur (bugün) ya da gündüz stadyum (geçmiş)
 const HsPitch: React.FC<{ f: number; night?: boolean }> = ({ f, night = false }) => (
   <g>
-    <rect x={-600} y={-600} width={2280} height={1400} fill={night ? "#1d2638" : "#bfe0ea"} />
+    <defs>
+      <linearGradient id="hsSky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stopColor={night ? "#141a2a" : "#a9d4e6"} />
+        <stop offset="1" stopColor={night ? "#33405a" : "#e3f1f6"} />
+      </linearGradient>
+    </defs>
+    <rect x={-600} y={-600} width={2280} height={1400} fill="url(#hsSky)" />
     {/* tribün */}
     <rect x={-600} y={480} width={2280} height={300} fill={night ? "#262d3d" : "#5a6478"} />
     {night
@@ -21133,6 +21139,7 @@ const HsPitch: React.FC<{ f: number; night?: boolean }> = ({ f, night = false })
       <rect key={i} x={-600} y={780 + i * 180} width={2280} height={90} fill="#fff" opacity={0.05} />
     ))}
     <path d="M-600 840 H1680" stroke="#f4f1ea" strokeWidth={10} opacity={0.8} />
+    {night ? <ellipse cx={540} cy={800} rx={900} ry={120} fill="#cfd8e8" opacity={0.12} /> : null}
     <ellipse cx={540} cy={1120} rx={300} ry={90} fill="none" stroke="#f4f1ea" strokeWidth={8} opacity={0.6} />
     {night
       ? Array.from({ length: 70 }, (_, i) => {
@@ -21196,11 +21203,10 @@ const HsCoach: React.FC<{ x: number; y: number; s: number; f: number; young?: bo
 // Avatar (seri): hafta içi açık mavi gömlek + gri pantolon, hafta sonu spor (siyah tişört + gri şort)
 const HS_SHIRT = "#cfe0f0";
 
-// 1) "Vincent Kompany bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta
-// antrenmanda yere yığıldı."
-// Sepya stadyum: kaptan kupayı başının üstünde tutar, konfeti (yakın plan → geri çekilir); "Bugün"de beyaz parlama:
-// yağmurlu gece antrenmanı, saha kenarında şapkalı, kapüşonlu hoca; "antrenmanda" başını tutar, sallanır; "yığıldı"da
-// yere düşer, sarsıntı, iki görevli koşar.
+// 1) "Bayern Münih'in hocası bir zamanlar dünyanın en formda adamlarından biriydi. Geçen hafta antrenmanda yere yığıldı."
+// Yağmurlu gece antrenmanı: saha kenarında şapkalı, kapüşonlu hoca (yüzüne yakın plan → geri çekilir); "bir zamanlar"da
+// beyaz parlama: sepya stadyumda kaptan kupayı kaldırır; "Geçen hafta" yine gece sahası, "antrenmanda" başını tutar,
+// sallanır; "yığıldı"da yere düşer, kısa sarsıntı, iki görevli koşar. (İsim yok; takım adı yalnız seste.)
 const HS_START: [number, number, number] = [1.8, 540, 760];
 const HsFlash: React.FC<{ f: number }> = ({ f }) => (
   <>
@@ -21210,34 +21216,43 @@ const HsFlash: React.FC<{ f: number }> = ({ f }) => (
     <KdSepia />
   </>
 );
+// Bugün: gece sahası, arkada koşan oyuncular, kenarda hoca
+const HsNow: React.FC<{ f: number; fall?: number; dizzy?: number }> = ({ f, fall = 0, dizzy = 0 }) => (
+  <>
+    <HsPitch f={f} night />
+    {[0, 1, 2].map((k) => (
+      <SideRunner key={k} f={f + k * 6} x={((((f * 7 + k * 380) % 1400) + 1400) % 1400) - 200} y={980} s={0.36} pose={runPose((f + k * 6) / 3.2, 0.9)} shirt="#d43a3a" face="grin" />
+    ))}
+    <HsCoach x={540} y={1560} s={0.95} f={f} fall={fall} sway={6 * Math.sin(f / 3) * dizzy * (1 - fall)} mouth={dizzy > 0 ? "worry" : "flat"} eyes={fall > 0.3 ? "closed" : "open"} armR={dizzy > 0 && fall < 0.5 ? [150, -150] : undefined} />
+  </>
+);
 const HsKanca: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const now = f >= w(9) - 2;
-  const dizzy = tw(f, w(16), w(17));
-  const fall = tw(f, w(17), w(18) + 4);
-  const run = tw(f, w(18), d);
-  if (!now)
-    return (
-      <CamK k={[[0, ...HS_START], [w(2), 1.4, 540, 860], [w(6), 1.05, 540, 960], [w(9), 1.0, 540, 960]]} shake={hit(f, 0, 8) * 0.3}>
-        <HsFlash f={f} />
-        {f > w(5) ? <DgSpark x={760} y={760} r={40} o={Math.max(0, Math.sin(f / 4))} /> : null}
-      </CamK>
-    );
+  const past = f >= w(3) - 2 && f < w(10) - 2;
+  const dizzy = tw(f, w(12), w(13));
+  const fall = tw(f, w(13), w(14) + 4);
+  const run = tw(f, w(14), d);
+  const flash = f >= w(3) - 2 && f < w(3) + 6 ? 1 - tw(f, w(3) - 2, w(3) + 6) : f >= w(10) - 2 && f < w(10) + 6 ? 1 - tw(f, w(10) - 2, w(10) + 6) : 0;
   return (
     <>
-      <CamK k={[[w(9) - 2, 1.45, 540, 1000], [w(12), 1.0, 540, 980], [w(16), 1.2, 540, 1080], [w(17) + 4, 1.2, 380, 1350], [d, 1.25, 360, 1380]]} shake={hit(f, w(18), 12) * 0.8}>
-        <HsPitch f={f} night />
-        {[0, 1, 2].map((k) => (
-          <SideRunner key={k} f={f + k * 6} x={((f * 7 + k * 380) % 1400) - 200} y={980} s={0.36} pose={runPose((f + k * 6) / 3.2, 0.9)} shirt="#d43a3a" face="grin" />
-        ))}
-        <HsCoach x={540} y={1560} s={0.95} f={f} fall={fall} sway={6 * Math.sin(f / 3) * dizzy * (1 - fall)} mouth={dizzy > 0 ? "worry" : "flat"} eyes={fall > 0.3 ? "closed" : "open"} armR={dizzy > 0 && fall < 0.5 ? [150, -150] : undefined} />
-        {run > 0
-          ? [0, 1].map((k) => <SideRunner key={k} f={f + k * 4} x={lerp(1300 + k * 160, 860 + k * 130, run)} y={1560} s={0.8} pose={runPose((f + k * 4) / 2.6, 1)} shirt="#d43a3a" face="worry" look={-1} />)
-          : null}
-      </CamK>
-      {f < w(9) + 6 ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={1 - tw(f, w(9) - 2, w(9) + 6)} /> : null}
-      {fall > 0.9 ? <rect x={0} y={0} width={1080} height={1920} fill={C.red} opacity={0.18 * hit(f, w(18), 14)} /> : null}
-      <KTag x={540} y={300} p={pop(f, w(12) - 2, 12)} text="teknik direktör" color={C.ink} rot={-3} />
+      {f < w(3) - 2 ? (
+        <CamK k={[[0, ...HS_START], [w(3), 1.25, 540, 900]]}>
+          <HsNow f={f} />
+        </CamK>
+      ) : past ? (
+        <CamK k={[[w(3) - 2, 1.35, 540, 860], [w(10), 1.05, 540, 960]]}>
+          <HsFlash f={f} />
+        </CamK>
+      ) : (
+        <CamK k={[[w(10) - 2, 1.0, 540, 960], [w(12), 1.15, 540, 1060], [w(13) + 4, 1.2, 380, 1350], [d, 1.25, 360, 1380]]} shake={hit(f, w(14), 12) * 0.6}>
+          <HsNow f={f} fall={fall} dizzy={dizzy} />
+          {run > 0
+            ? [0, 1].map((k) => <SideRunner key={k} f={f + k * 4} x={lerp(1300 + k * 160, 860 + k * 130, run)} y={1560} s={0.8} pose={runPose((f + k * 4) / 2.6, 1)} shirt="#d43a3a" face="worry" look={-1} />)
+            : null}
+        </CamK>
+      )}
+      {flash > 0 ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={flash} /> : null}
+      {fall > 0.9 ? <rect x={0} y={0} width={1080} height={1920} fill={C.red} opacity={0.15 * hit(f, w(14), 14)} /> : null}
     </>
   );
 };
@@ -21319,7 +21334,7 @@ const HsListe: React.FC<SceneProps> = ({ w, d }) => {
     <>
       <CamK k={[[0, 1.0, 540, 960], [w(6), 1.0, 540, 960], [d, 1.08, 540, 1000]]}>
         <HsNightOffice f={f} />
-        <HsCoach x={540} y={1700} s={0.78} f={f} mouth="flat" lookY={6} armR={[60, 40]} />
+        <HsCoach x={540} y={1700} s={0.78} f={f} mouth="flat" lookY={6} armR={[60, 40 + 8 * Math.sin(f / 4)]} />
         <rect x={160} y={1300} width={760} height={60} fill="#6b4a33" stroke={C.ink} strokeWidth={8} />
       </CamK>
       {paper > 0 ? (
@@ -21407,7 +21422,7 @@ const HsVakit: React.FC<SceneProps> = ({ w, d }) => {
     <>
       <CamK k={[[0, 1.0, 540, 960], [w(3), 1.0, 540, 1000], [w(4), 1.2, 540, 1080], [d, 1.28, 540, 1100]]}>
         <HsDayOffice f={f}>
-          <Person x={540} y={1700} s={0.82} belly={0.4} shirt={HS_SHIRT} pants="#6f7480" mouth={f > w(4) ? "flat" : "worry"} armL={[30, 50]} armR={[30, 50]} />
+          <Person x={540} y={1700} s={0.82} belly={0.4} shirt={HS_SHIRT} pants="#6f7480" mouth={f > w(4) ? "flat" : "worry"} armL={[30, 50 + 6 * Math.sin(f / 4)]} armR={[30, 50 - 6 * Math.sin(f / 4)]} />
         </HsDayOffice>
       </CamK>
       <HsItem x={540} y={lerp(680, 400, 1 - card)} p={card} t="hiç spor" kind="spor" red f={f} />
@@ -21437,7 +21452,7 @@ const HsArastirma: React.FC<SceneProps> = ({ w, d }) => {
     ["düzenli", lerp(1, 0.65, b2), b2, YAS_OK, "−%35"],
   ];
   return (
-    <CamK k={[[0, 1.15, 540, 900], [w(8), 1.0, 540, 960], [w(18), 1.0, 540, 960], [d, 1.08, 540, 1020]]}>
+    <CamK k={[[0, 1.15, 540, 760], [w(8), 1.0, 540, 900], [w(9), 1.05, 540, 820], [w(16), 1.0, 540, 900], [w(18), 1.0, 540, 960], [d, 1.08, 540, 1000]]}>
       <rect x={-600} y={-600} width={2280} height={3200} fill="#efe4cc" />
       <HandText x={540} y={300} text="2017" size={170} color={C.ink} p={tw(f, w(0) - 2, w(3) + 4)} rotate={-3} />
       {grid > 0 ? (
@@ -21553,26 +21568,33 @@ const HsGonder: React.FC<SceneProps> = ({ w, d }) => {
   useImgReady(HS_SHOT);
   const f = useCurrentFrame();
   const plane = tw(f, w(5) - 4, w(6) + 8);
-  const back = f >= w(8) - 2;
-  if (back)
-    return (
-      <>
-        <CamK k={[[w(8) - 2, 1.0, 540, 960], [d - 2, ...HS_START], [d, ...HS_START]]}>
-          <HsFlash f={f - d} />
-        </CamK>
-        <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={1 - tw(f, w(8) - 2, w(8) + 6)} />
-      </>
-    );
+  // "şunu"da kâğıt uçak kameraya doğru uçar, ekranı kaplar; "anlat"ta açılır: gece sahası, hocanın yakın planı (= ilk kare)
+  const wipe = tw(f, w(7), w(8) + 2);
+  const open = tw(f, w(8) + 2, w(8) + 8);
+  const back = f >= w(8) + 2;
   return (
     <>
-      <CamK k={[[0, 1.25, 600, 1100], [w(5), 1.1, 620, 1060], [d, 1.0, 600, 1000]]}>
-        <HsPark f={f} voom={0} />
-        <Person x={760} y={1420} s={0.62} belly={0.4} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#f4f1ea" mouth="grin" lookY={2} armR={[25, 135]} armL={[12, 0]}>
-          <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.6} />
-        </Person>
-      </CamK>
-      <VsPaperPlane p={plane} a={[760, 1000]} b={[100, 300]} />
-      <SayBubble x={540} y={420} p={pop(f, w(1) - 2, 12) * (1 - tw(f, w(5), w(6)))} text="vaktim yok" tail={[300, 560]} size={72} color={C.red} />
+      {back ? (
+        <CamK k={[[w(8) + 2, 1.55, 540, 820], [d, ...HS_START]]}>
+          <HsNow f={f - d} />
+        </CamK>
+      ) : (
+        <CamK k={[[0, 1.25, 600, 1100], [w(5), 1.1, 620, 1060], [d, 1.0, 600, 1000]]}>
+          <HsPark f={f} voom={0} />
+          <Person x={760} y={1420} s={0.62} belly={0.4} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#f4f1ea" mouth="grin" lookY={2} armR={[25, 135]} armL={[12, 0]}>
+            <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.6} />
+          </Person>
+        </CamK>
+      )}
+      {!back ? <VsPaperPlane p={plane} a={[760, 1000]} b={[100, 300]} /> : null}
+      {!back ? <SayBubble x={540} y={420} p={pop(f, w(1) - 2, 12) * (1 - tw(f, w(5), w(6)))} text="vaktim yok" tail={[300, 560]} size={72} color={C.red} /> : null}
+      {wipe > 0 && open < 1 ? (
+        <g transform={`translate(${lerp(760, 540, wipe)} ${lerp(1000, 960, wipe)}) scale(${lerp(0.3, 14, Easing.in(Easing.cubic)(wipe))}) rotate(${lerp(-20, 0, wipe)})`} opacity={1 - open}>
+          <path d="M-160 0 L180 -70 L-40 30 Z" fill="#fbf7ec" stroke={C.ink} strokeWidth={6 / Math.max(1, wipe * 6)} strokeLinejoin="round" />
+          <path d="M-40 30 L180 -70 L-10 90 Z" fill="#e9e3d6" stroke={C.ink} strokeWidth={6 / Math.max(1, wipe * 6)} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {wipe >= 1 && open < 1 ? <rect x={0} y={0} width={1080} height={1920} fill="#fbf7ec" opacity={1 - open} /> : null}
     </>
   );
 };
