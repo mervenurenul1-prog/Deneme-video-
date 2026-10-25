@@ -20,6 +20,7 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
 - Sıra: metin (12 madde tablosuyla) onayı → sessiz önizleme → onay → TEK SEFERDE seslendirme → müzikle render.
 - Emin değilsen SOR. Instagram açıklaması YAZMA. Her işten sonra commit + push (çalışma dalı + main).
 - Kullanıcının örnek cümlelerini birebir koyma; kendi doğal cümleni yaz.
+- **ANLATIM DERS GİBİ, AÇIK (kullanıcı, 25 Ekim):** ucu açık kelime oyunu, muğlak mecaz YOK ("cevabın öbür yarısı ekranda görünmüyor" gibi). Birinci, ikinci diye sırala; izleyici ilk dinleyişte anlasın.
 
 ## Hangi videolar tuttu (kullanıcı, 23 Ekim)
 - EN BEĞENİLEN: 10 selülit. EN AZ SEVİLEN: 03 on bin adım ve 06 diz/koşu. Selülit tarzında ilerle.

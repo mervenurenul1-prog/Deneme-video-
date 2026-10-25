@@ -26,3 +26,10 @@ Anadolu'da lohusalık 40 gün (gelenek). Mankenin hamilelikte spor yaptığı DO
 6 Onun arkasında koca bir ekip, sırtında kanatlar vardı. Seninse kucağında bir melek. (bebeğe hale; yeşil tahtada VOOM)
 Görsel: melek kanatları (DgWings) "kanatlarla"da açılır, flaş; isim/logo YOK (risk kullanıcıya bildirildi).
 - v4 (24 Ekim): TEK BAĞ = gece 3 annenin telefonu. Podyum/tarih/tenis onun ekranında (DgScreen); kamera ekrana dalar (DgZoom), 4-5 Reels gibi alttan kayar (DgSwipe); "Seninse"de ekrandan çıkılır, anne beşikteki bebeğe bakar (hale), duvardaki tahtada VOOM; son mesaj aynı telefondan, ekrana dalış = açılış (döngü).
+## METİN v5 (25 Ekim) — ders anlatır gibi, kelime oyunu yok; 1985 ve tenis ÇIKTI
+1 Altı hafta önce doğum yaptı; bu gece sırtında kanatlarla podyumdaydı. Sen altı haftada bir duş bile alamadın.
+2 Peki bu nasıl mümkün? İki sebebi var.
+3 Birincisi vücut. Anadolu'da lohusa kırk gün dinlenir; Çin'de otuz, Latin Amerika'da yine kırk gün. Çünkü rahim yaklaşık altı haftada eski hâline döner.
+4 İkincisi ekip. Onun arkasında koçu, aşçısı, bakıcısı vardı.
+5 Seninse kucağında bebeğin var ve çoğu zaman yanında kimse yok. Kendini onunla kıyaslama.
+6 Bunu yeni anne olan arkadaşına gönder. Çünkü o da şunu düşünüyor: (→ 1)
