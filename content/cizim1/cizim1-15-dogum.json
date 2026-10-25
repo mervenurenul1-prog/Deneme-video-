@@ -34,13 +34,13 @@
     },
     {
       "visual": "dg-kirk",
-      "voice": "Birincisi vücut. Anadolu'da lohusa kırk gün dinlenir; Çin'de otuz, Latin Amerika'da yine kırk gün. Çünkü rahim yaklaşık altı haftada eski hâline döner.",
-      "say": "Birincisi vücut. Anadolu'da lohusa kırk gün dinlenir; Çin'de otuz, Latin Amerika'da, ıı, yine kırk gün. Çünkü rahim yaklaşık altı haftada eski hâline döner.",
+      "voice": "Birincisi vücut. Anadolu'da lohusalık kırk gün sürer, yani yaklaşık altı hafta. Rahim de doğumdan sonra aşağı yukarı bu sürede eski hâline döner.",
+      "say": "Birincisi vücut. Anadolu'da lohusalık kırk gün sürer, yani yaklaşık altı hafta. Rahim de doğumdan sonra aşağı yukarı bu sürede eski hâline döner.",
       "keys": [
         "Birincisi",
         "vücut",
         "altı",
-        "haftada"
+        "hafta"
       ]
     },
     {
@@ -54,26 +54,36 @@
     },
     {
       "visual": "dg-bugun",
-      "voice": "Seninse kucağında bebeğin var ve çoğu zaman yanında kimse yok. Kendini onunla kıyaslama.",
-      "say": "Seninse kucağında bebeğin var... ve çoğu zaman yanında kimse yok. Kendini onunla kıyaslama.",
+      "voice": "Seninse kucağında bebeğin var ve onu her gece sen büyütüyorsun. Bunu kimse alkışlamıyor ama yaptığın iş o podyumdan çok daha zor.",
+      "say": "Seninse kucağında bebeğin var... ve onu her gece sen büyütüyorsun. Bunu kimse alkışlamıyor... ama yaptığın iş o podyumdan çok daha zor.",
       "keys": [
-        "kimse",
-        "yok",
-        "kıyaslama"
+        "alkışlamıyor",
+        "çok",
+        "zor"
+      ]
+    },
+    {
+      "visual": "dg-voom",
+      "voice": "Doktorun izin verdiğinde, bir telefon kadar yakınındayız: evde ya da salonda, aletli ya da aletsiz.",
+      "say": "Doktorun izin verdiğinde, bir telefon kadar yakınındayız: evde ya da salonda, aletli ya da aletsiz.",
+      "keys": [
+        "telefon",
+        "yakınındayız"
       ]
     },
     {
       "visual": "dg-gonder",
-      "voice": "Bunu yeni anne olan arkadaşına gönder. Çünkü o da şunu düşünüyor:",
-      "say": "Bunu yeni anne olan arkadaşına gönder. Çünkü o da şunu düşünüyor:",
+      "voice": "Bu video sana gönderildiyse, biri seni görüyor demektir. Çünkü senin de şunu düşündüğünü biliyor:",
+      "say": "Bu video sana gönderildiyse, biri seni görüyor demektir. Çünkü senin de şunu düşündüğünü biliyor:",
       "keys": [
-        "yeni",
-        "anne"
+        "biri",
+        "seni",
+        "görüyor"
       ],
       "hold": 0.2
     }
   ],
-  "caption": "Lohusalık 40 gün, rahim ~6 haftada; ACOG 1985 → bugün.",
+  "caption": "Lohusalık 40 gün, rahim ~6 haftada; yeni anneye destek.",
   "hashtags": [
     "anne",
     "lohusa",

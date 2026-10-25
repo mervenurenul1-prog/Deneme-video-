@@ -9,9 +9,16 @@
   VOOM SESLE YOK; yalnız duvardaki büyük yeşil tahtada "Senin arkanda da VOOM var." (baştan boş, 5. sahnede yazılır).
   İsim/marka YOK (manken genel çizim: pembe dantel elbise, melek kanatları, mor-pembe podyum). Max 35 sn. Son sessiz önizleme
   dosyası (`15-dogum-sessiz.mp4`) v4'e ait; v5 henüz render EDİLMEDİ.
-- **25 Ekim (yeni sohbet):** kullanıcı yön değiştirdi: video EŞİN/DOSTLARIN yeni anneye ATACAĞI bir DESTEK videosu olsun
-  (lohusanın motivasyon ve ilgi açlığı var, "onlar da bebek olur"). Önce METİN: A/B/C seçenekleri sunuldu, onay bekleniyor;
-  render YOK. C'deki 1973 Dana Raphael "matrescence" bilgisi doğrulanmadı.
+- **25 Ekim (yeni sohbet) — METİN v7 ONAYLANDI (destek videosu: eşin/dostların yeni anneye atacağı):** 1-2-4 aynı;
+  3 "Birincisi vücut. Anadolu'da lohusalık kırk gün sürer, yani yaklaşık altı hafta. Rahim de doğumdan sonra aşağı yukarı bu
+  sürede eski hâline döner." (Çin/Latin Amerika ÇIKTI); 5 "Seninse kucağında bebeğin var ve onu her gece sen büyütüyorsun.
+  Bunu kimse alkışlamıyor ama yaptığın iş o podyumdan çok daha zor."; 6 (yeni `dg-voom`) "Doktorun izin verdiğinde, bir
+  telefon kadar yakınındayız: evde ya da salonda, aletli ya da aletsiz." (dakika YOK); 7 "Bu video sana gönderildiyse,
+  biri seni görüyor demektir. Çünkü senin de şunu düşündüğünü biliyor:" (→1).
+  Görsel: model yeniden (gür dalgalı uzun kahverengi saç, dantel pembe elbise, fırfırlı yaka, kolye, topuklu, büyük kanat,
+  ışıltı — kullanıcı "ihtişamlı, azıcık Barbara'ya benzet"); 5'te "42. gece" + "alkış: 0" + altın spot; 6'da yeşil tahtaya
+  VOOM + yanında gerçek VOOM koç ekranı (`app/koc.jpg`, kısa telefon `DgVoomPhone`) + ev/salon/aletli/aletsiz kartları;
+  7'de "Eşim" mesajı (video + "seninle gurur duyuyorum"), ekrana dalış = açılış. Sessiz önizleme v7 → onay → seslendirme.
 - Kalan kredi ≈ 12.633 (23 Ekim; seslendirmeden önce kontrol).
 - Bu sohbetin kalıcı dersleri KURALLAR.md'de: açık/ders gibi anlatım (kelime oyunu yok), tablo dürüst + "ben izler miyim?",
   her 1-1,5 sn olay, gerçekçi pozlar (referanslar `animasyon/referans/`), parçalı tarih değil tek hikâye/tek bağ, çıplaklık yok.
