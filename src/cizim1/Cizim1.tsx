@@ -21179,9 +21179,6 @@ const HsCoach: React.FC<{ x: number; y: number; s: number; f: number; young?: bo
             <circle cx={(band[0][0] + band[1][0]) / 2} cy={(band[0][1] + band[1][1]) / 2} r={26} fill="#f2c230" stroke={C.ink} strokeWidth={5} />
             <text x={(band[0][0] + band[1][0]) / 2} y={(band[0][1] + band[1][1]) / 2 + 12} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={32} fill={C.ink}>C</text>
             <text x={0} y={-450} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={110} fill="#f4f1ea" stroke={C.ink} strokeWidth={4}>4</text>
-            {/* kısa sakal (tanınsın) */}
-            <path d="M-70 -692 Q-64 -626 0 -616 Q64 -626 70 -692 Q54 -650 0 -648 Q-54 -650 -70 -692 Z" fill="#2a1f18" stroke={C.ink} strokeWidth={3} opacity={0.9} />
-            {mouth === "grin" ? <path d="M-28 -666 Q0 -630 28 -666 Z" fill="#8a2f26" stroke={C.ink} strokeWidth={5} strokeLinejoin="round" /> : null}
             {cup ? <KdCup x={0} y={-940} s={0.75} f={f} /> : null}
           </g>
         ) : (
