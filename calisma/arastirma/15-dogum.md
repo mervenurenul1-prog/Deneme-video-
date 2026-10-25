@@ -33,3 +33,8 @@ Görsel: melek kanatları (DgWings) "kanatlarla"da açılır, flaş; isim/logo Y
 4 İkincisi ekip. Onun arkasında koçu, aşçısı, bakıcısı vardı.
 5 Seninse kucağında bebeğin var ve çoğu zaman yanında kimse yok. Kendini onunla kıyaslama.
 6 Bunu yeni anne olan arkadaşına gönder. Çünkü o da şunu düşünüyor: (→ 1)
+## METİN v6 (25 Ekim) — kullanıcı: VOOM açıkça ("biz senin yanındayız… dakikalar içinde telefonunda planın")
+5 Seninse kucağında bebeğin var ve çoğu zaman yanında kimse yok.
+6 Ama yalnız değilsin. Doktorun izin verdiğinde VOOM, hayalindeki vücut için planını dakikalar içinde telefonuna hazırlar.
+7 Bunu yeni anne olan arkadaşına gönder. Çünkü o da şunu düşünüyor: (→ 1)
+("Doktorun izin verdiğinde" = doğum sonrası sağlık güvencesi; kullanıcıya söylendi.)
