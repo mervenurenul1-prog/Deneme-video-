@@ -52,4 +52,4 @@ start/end /1.2, manifeste `"speed": 1.2` → `npm run render -- <id>` → `out/<
 
 ## Biten videolar (`ornek-videolar/cizim1-pilot/`)
 01 yağ nereye · 02 tartı · 03 on bin adım · 04 kadın-ağırlık · 05 boyun(-b) · 06 diz · 07 yaş · 09 kilo-hangimiz ·
-10 selülit (EN BEĞENİLEN) · 12 spot ışığı · 13 kardiyo. Beklemede: 08 sauna.
+10 selülit (EN BEĞENİLEN) · 12 spot ışığı · 13 kardiyo. 08 sauna paylaşıldı (dosyaları silindi, 25 Ekim).
