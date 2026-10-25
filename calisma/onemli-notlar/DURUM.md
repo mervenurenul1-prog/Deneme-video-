@@ -1,14 +1,14 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (25 Ekim akşam — EN GÜNCEL) <<<
-- **ŞU ANKİ İŞ: 16 HAFTA SONU** (`cizim1-16-hafta-sonu`, `hs-*`). Metin: "Bayern Münih'in hocası bir zamanlar dünyanın en formda
-  adamlarından biriydi. Geçen hafta antrenmanda yere yığıldı." (KİŞİ ADI YOK — kullanıcı: "takımdan bahset kişiden değil") →
-  gazetelerin 4 maddesi → "Son madde çoğumuza tanıdık: Spora vaktim yok." → 2017, 63.591 kişi, −%30 / −%35 → "hafta sonu da
-  sayılır, yeter ki sıfır olmasın" → "Bunu 'vaktim yok' diyen arkadaşına gönder ve ona şunu anlat:" (→1).
-  Açılış = gece yağmurlu sahada hocanın yakın planı; döngü: "ona"da kâğıt uçak kameraya uçup ekranı kaplar → aynı yakın plan.
-  Kullanıcı: aşırı hareket koyma (göz yoruluyor), ölçülü; görüntü kalitesi (gökyüzü geçişi, sis). Hoca: siyah şapka, beyaz
-  kapüşonlu, lacivert ceket, sakal (`Person skin`). Avatar: hafta içi açık mavi gömlek, hafta sonu siyah tişört + gri şort.
-  VOOM yalnız bankta telefonda. Sessiz önizleme v2 → onay → seslendirme (~480 kr).
+- **ŞU ANKİ İŞ: 16 HAFTA SONU** (`cizim1-16-hafta-sonu`, `hs-*`). Metin: "Bir zamanlar dünyanın en formda adamlarından biriydi.
+  Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda yere yığıldı." (KİŞİ ADI YOK; kullanıcı ilk girişi beğendi: önce sepya
+  kupa anısı, sonra gece sahası, "çok değiştirme") → gazetelerin 4 maddesi → "Son madde çoğumuza tanıdık: Spora vaktim yok." →
+  2017, 63.591 kişi, −%30 / −%35 → "hafta sonu da sayılır, yeter ki sıfır olmasın" → "Bunu 'vaktim yok' diyen arkadaşına
+  gönder ve ona şunu anlat:" (→1). Döngü: "ona"da kâğıt uçak kameraya uçup ekranı kaplar → kupa yakın planı (= ilk kare).
+  Parkta bankta büyük VOOM telefonu + düşünce bulutu "VOOM'la hayalindeki vücut / tek tuşla cebinde" (kullanıcı isteği).
+  Ölçülü hareket (göz yorulmasın). Hoca: siyah şapka, beyaz kapüşonlu, lacivert ceket, sakal (`Person skin`).
+  Sessiz önizleme v3 → onay → seslendirme (~470 kr).
 - 15 DOĞUM BİTTİ: `ornek-videolar/cizim1-pilot/15-dogum.mp4` (38,8 sn). Kalan kredi ≈ 11.870.
 
 ## >>> YENİ SOHBET BURADAN (25 Ekim — EN GÜNCEL) <<<

@@ -15,8 +15,8 @@
   "scenes": [
     {
       "visual": "hs-kanca",
-      "voice": "Bayern Münih'in hocası bir zamanlar dünyanın en formda adamlarından biriydi. Geçen hafta antrenmanda yere yığıldı.",
-      "say": "Bayern Münih'in hocası bir zamanlar dünyanın en formda adamlarından biriydi. Geçen hafta antrenmanda yere yığıldı.",
+      "voice": "Bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda yere yığıldı.",
+      "say": "Bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda yere yığıldı.",
       "keys": [
         "formda",
         "yığıldı"
