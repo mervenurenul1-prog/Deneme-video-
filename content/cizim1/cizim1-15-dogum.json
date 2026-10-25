@@ -34,8 +34,8 @@
     },
     {
       "visual": "dg-kirk",
-      "voice": "Birincisi vücut. Anadolu'da lohusalık kırk gün sürer, yani yaklaşık altı hafta. Rahim de doğumdan sonra aşağı yukarı bu sürede eski hâline döner.",
-      "say": "Birincisi vücut. Anadolu'da lohusalık kırk gün sürer, yani yaklaşık altı hafta. Rahim de doğumdan sonra aşağı yukarı bu sürede eski hâline döner.",
+      "voice": "Birincisi vücut. Anadolu'da lohusalık kırk gün, yani altı hafta. Rahim de aşağı yukarı bu sürede toparlanır.",
+      "say": "Birincisi vücut. Anadolu'da lohusalık kırk gün, yani altı hafta. Rahim de aşağı yukarı bu sürede toparlanır.",
       "keys": [
         "Birincisi",
         "vücut",
@@ -64,8 +64,8 @@
     },
     {
       "visual": "dg-voom",
-      "voice": "Doktorun izin verdiğinde, bir telefon kadar yakınındayız: evde ya da salonda, aletli ya da aletsiz.",
-      "say": "Doktorun izin verdiğinde, bir telefon kadar yakınındayız: evde ya da salonda, aletli ya da aletsiz.",
+      "voice": "Doktorun izin verdiğinde, bir telefon kadar yakınındayız: aletli ya da aletsiz.",
+      "say": "Doktorun izin verdiğinde, bir telefon kadar yakınındayız: aletli ya da aletsiz.",
       "keys": [
         "telefon",
         "yakınındayız"

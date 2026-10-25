@@ -181,10 +181,10 @@ const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "dg-podyum": (w) => [[0, "pirilti", 0.4], [w(0), "pop", 0.3], [w(5), "pop", 0.3], [w(7) - 4, "sihir", 0.4], [w(10) - 2, "whoosh", 0.4], [w(15) - 2, "agir-dusme", 0.2]],
   "dg-soru": (w) => [[0, "klavye", 0.3], [w(2), "pop", 0.35], [w(4) - 2, "pop", 0.4], [w(5), "whoosh", 0.35]],
-  "dg-kirk": (w) => [[0, "pop", 0.35], ...ticks(w(3), w(6), 6, 0.2), [w(9) - 2, "pop", 0.35], [w(11) - 2, "whoosh", 0.3], [w(20), "ding", 0.4]],
+  "dg-kirk": (w) => [[0, "pop", 0.35], ...ticks(w(3), w(5) + 6, 6, 0.2), [w(7) - 2, "pop", 0.35], [w(9) - 2, "whoosh", 0.3], [w(15), "ding", 0.4]],
   "dg-seksen": (w) => [[0, "whoosh", 0.35], [4, "pop", 0.35], [w(4) - 2, "pop", 0.3], [w(5) - 2, "pop", 0.3], [w(6) - 2, "pop", 0.3]],
   "dg-bugun": (w) => [[0, "whoosh", 0.3], [w(6), "tik", 0.25], [w(11), "sonme", 0.3], [w(13), "pirilti", 0.4]],
-  "dg-voom": (w) => [[w(0), "kalem", 0.4], [w(4), "pop", 0.35], [w(7), "pop", 0.3], [w(10), "pop", 0.3], [w(11) + 4, "pop", 0.3], [w(14), "pop", 0.3]],
+  "dg-voom": (w) => [[w(0), "kalem", 0.4], [w(4), "pop", 0.35], [w(7), "pop", 0.3], [w(10), "pop", 0.3]],
   "dg-ekip": (w) => [[w(1), "pop", 0.3], [w(5), "sihir", 0.35], [w(8) - 4, "whoosh", 0.3], [w(9), "kalem", 0.3], [w(11) - 2, "pirilti", 0.45]],
   "dg-gonder": (w, d) => [[w(1), "whoosh", 0.3], [w(4), "ding", 0.35], [w(8), "whoosh", 0.3]],
   "bb-kol": (w) => [[0, "nefes", 0.35], [w(4) - 2, "sihir", 0.35], [w(6), "whoosh", 0.3], [w(8) - 2, "pirilti", 0.35]],
@@ -20311,12 +20311,12 @@ const DG_START: [number, number, number] = [1.6, 540, 900];
 // "Bilim"de sağ yarı renklenir: rahim simgesi küçülür, 1 → 6 hafta; sonda iki sayaç buluşur "40 gün ≈ 6 hafta".
 const DgKirk: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const day = Math.max(1, Math.round(lerp(1, 40, tw(f, w(3), w(6)))));
-  const split = tw(f, w(11) - 2, w(11) + 8);
-  const week = Math.max(1, Math.round(lerp(1, 6, tw(f, w(13), w(18)))));
-  const shrink = tw(f, w(13), w(21));
-  const eq = pop(f, w(20), 12);
-  const six = pop(f, w(9) - 2, 12) * (1 - split);
+  const day = Math.max(1, Math.round(lerp(1, 40, tw(f, w(3), w(5) + 6))));
+  const split = tw(f, w(9) - 2, w(9) + 8);
+  const week = Math.max(1, Math.round(lerp(1, 6, tw(f, w(10), w(14)))));
+  const shrink = tw(f, w(10), w(15));
+  const eq = pop(f, w(15), 12);
+  const six = pop(f, w(7) - 2, 12) * (1 - split);
   const visitor = tw(f, w(2), w(5));
   const card1 = pop(f, 0, 10) * (1 - tw(f, w(2) - 4, w(2)));
   return (
@@ -21034,13 +21034,11 @@ const DgVoom: React.FC<SceneProps> = ({ w, d }) => {
         <DgBedroom f={f} mouth="smile" hold={1} chalk={tw(f, w(0), w(4))} voom={pop(f, w(4) - 2, 14)} />
         {(
           [
-            [150, 7, "evde", "ev"],
-            [400, 10, "salonda", "salon"],
-            [680, 11, "aletli", "aletli"],
-            [930, 14, "aletsiz", "aletsiz"],
+            [400, 7, "aletli", "aletli"],
+            [680, 10, "aletsiz", "aletsiz"],
           ] as [number, number, string, "ev" | "salon" | "aletli" | "aletsiz"][]
         ).map(([x, wi, t, k]) => (
-          <DgPlace key={k} x={x} y={160} p={pop(f, w(wi) - 2 + (k === "aletli" ? 4 : 0), 12)} t={t} kind={k} />
+          <DgPlace key={k} x={x} y={160} p={pop(f, w(wi) - 2, 12)} t={t} kind={k} />
         ))}
       </CamK>
     </>
