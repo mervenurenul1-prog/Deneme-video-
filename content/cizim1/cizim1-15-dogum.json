@@ -25,47 +25,41 @@
     },
     {
       "visual": "dg-soru",
-      "voice": "Nasıl mümkün? Cevabın yarısı Anadolu'da.",
-      "say": "Nasıl mümkün? Cevabın yarısı Anadolu'da.",
+      "voice": "Peki bu nasıl mümkün? İki sebebi var.",
+      "say": "Peki bu nasıl mümkün? İki sebebi var.",
       "keys": [
-        "Anadolu'da"
+        "İki",
+        "sebebi"
       ]
     },
     {
       "visual": "dg-kirk",
-      "voice": "Lohusa kırk gün dinlenir. Çin'de otuz gün, Latin Amerika'da yine kırk. Rahim de yaklaşık altı haftada eski hâline döner.",
-      "say": "Lohusa kırk gün dinlenir. Çin'de otuz gün, Latin Amerika'da yine kırk. Rahim de yaklaşık altı haftada eski hâline döner.",
+      "voice": "Birincisi vücut. Anadolu'da lohusa kırk gün dinlenir; Çin'de otuz, Latin Amerika'da yine kırk gün. Çünkü rahim yaklaşık altı haftada eski hâline döner.",
+      "say": "Birincisi vücut. Anadolu'da lohusa kırk gün dinlenir; Çin'de otuz, Latin Amerika'da, ıı, yine kırk gün. Çünkü rahim yaklaşık altı haftada eski hâline döner.",
       "keys": [
-        "kırk",
-        "otuz",
+        "Birincisi",
+        "vücut",
         "altı",
         "haftada"
       ]
     },
     {
       "visual": "dg-seksen",
-      "voice": "Ama dinlenmek kıpırdamamak değil; seksen beşte bile “nabzın yüz kırkı geçmesin” denirdi.",
-      "say": "Ama ıı, dinlenmek kıpırdamamak değil; seksen beşte bile “nabzın yüz kırkı geçmesin” denirdi.",
+      "voice": "İkincisi ekip. Onun arkasında koçu, aşçısı, bakıcısı vardı.",
+      "say": "İkincisi ekip. Onun arkasında koçu, aşçısı, bakıcısı vardı.",
       "keys": [
-        "kıpırdamamak"
+        "İkincisi",
+        "ekip"
       ]
     },
     {
       "visual": "dg-bugun",
-      "voice": "O kural kalktı. İki bin on yedide bir tenisçi, hamileyken büyük bir turnuvayı kazandı.",
-      "say": "O kural kalktı. İki bin on yedide bir tenisçi, hamileyken büyük bir turnuvayı kazandı.",
+      "voice": "Seninse kucağında bebeğin var ve çoğu zaman yanında kimse yok. Kendini onunla kıyaslama.",
+      "say": "Seninse kucağında bebeğin var... ve çoğu zaman yanında kimse yok. Kendini onunla kıyaslama.",
       "keys": [
-        "hamileyken",
-        "kazandı"
-      ]
-    },
-    {
-      "visual": "dg-ekip",
-      "voice": "Onun arkasında koca bir ekip, sırtında kanatlar vardı. Seninse kucağında bir melek.",
-      "say": "Onun arkasında koca bir ekip, sırtında kanatlar vardı. Seninse... kucağında bir melek.",
-      "keys": [
-        "kanatlar",
-        "melek"
+        "kimse",
+        "yok",
+        "kıyaslama"
       ]
     },
     {
