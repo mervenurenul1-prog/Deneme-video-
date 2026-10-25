@@ -18,7 +18,8 @@
   Görsel: model yeniden (gür dalgalı uzun kahverengi saç, dantel pembe elbise, fırfırlı yaka, kolye, topuklu, büyük kanat,
   ışıltı — kullanıcı "ihtişamlı, azıcık Barbara'ya benzet"); 5'te "42. gece" + "alkış: 0" + altın spot; 6'da yeşil tahtaya
   VOOM + yanında gerçek VOOM koç ekranı (`app/koc.jpg`, kısa telefon `DgVoomPhone`) + ev/salon/aletli/aletsiz kartları;
-  7'de "Eşim" mesajı (video + "seninle gurur duyuyorum"), ekrana dalış = açılış. Sessiz önizleme v7 → onay → seslendirme.
+  7'de "Eşim" mesajı (video + "seninle gurur duyuyorum"), ekrana dalış = açılış. SESLENDİRİLDİ (Yunus 1.2x, ses 38,3 sn;
+  kullanıcı "kalsın, iyi" — 35 sn aşımı kabul), müzikle render → `ornek-videolar/cizim1-pilot/15-dogum.mp4`. Kalan kredi ≈ 11.870.
 - Kalan kredi ≈ 12.633 (23 Ekim; seslendirmeden önce kontrol).
 - Bu sohbetin kalıcı dersleri KURALLAR.md'de: açık/ders gibi anlatım (kelime oyunu yok), tablo dürüst + "ben izler miyim?",
   her 1-1,5 sn olay, gerçekçi pozlar (referanslar `animasyon/referans/`), parçalı tarih değil tek hikâye/tek bağ, çıplaklık yok.
