@@ -21543,12 +21543,12 @@ const HsPark: React.FC<{ f: number; voom?: number }> = ({ f, voom = 1 }) => (
 // 5) "Yani hafta içi yetişemiyorsan, hafta sonu da sayılır. Yeter ki sıfır olmasın."
 // Hafta şeridi: iş günleri kırmızı, "hafta sonu"nda Ct-Pz lacivert tik; parkta avatar (spor kıyafeti) koşar, bankta
 // VOOM'lu telefon; "sıfır"da büyük kırmızı "0 gün" çizilir, yerine lacivert "1 gün ✓".
-// Düşünce bulutu: "VOOM'la hayalindeki vücut tek tuşla cebinde" (telefondan yükselen kabarcıklar)
+// Küçük düşünce bulutu: "Hayalindeki vücut / VOOM'la bir dokunuş uzakta" (telefondan yükselen kabarcıklar)
 const HS_CLOUD: [number, number, number][] = [[-250, 10, 110], [-120, -60, 130], [40, -80, 140], [200, -40, 120], [290, 40, 100], [150, 90, 120], [-30, 100, 130], [-190, 90, 110]];
 const HsCloud: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =>
   p > 0 ? (
     <g>
-      {[[x + 180, y + 300, 22], [x + 230, y + 380, 14]].map(([cx, cy, r], i) => (
+      {[[x + 120 * p, y + 180 * p, 22], [x + 150 * p, y + 240 * p, 14]].map(([cx, cy, r], i) => (
         <circle key={i} cx={cx} cy={cy} r={r * p} fill={C.cream} stroke={C.ink} strokeWidth={6} />
       ))}
       <g transform={`translate(${x} ${y}) scale(${p})`}>
@@ -21558,11 +21558,11 @@ const HsCloud: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =>
         {HS_CLOUD.map(([cx, cy, r], i) => (
           <circle key={`f${i}`} cx={cx} cy={cy} r={r - 4} fill={C.cream} />
         ))}
-        <text x={20} y={-10} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={50} fill={YAS_OK}>
-          VOOM'la hayalindeki vücut
+        <text x={20} y={-10} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={54} fill={C.ink}>
+          Hayalindeki vücut
         </text>
-        <text x={20} y={70} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={52} fill={C.ink}>
-          tek tuşla cebinde
+        <text x={20} y={70} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={42} fill={YAS_OK}>
+          VOOM'la bir dokunuş uzakta
         </text>
       </g>
     </g>
@@ -21582,7 +21582,7 @@ const HsYeter: React.FC<SceneProps> = ({ w, d }) => {
         <SideRunner f={f} x={x} y={1500} s={0.78} pose={runPose(f / 3, 1)} shirt={SEL_AV_TOP} face="grin" />
       </CamK>
       <HsWeek x={540} y={330} p={pop(f, 0, 10) * (1 - tw(f, w(9), w(10)))} work={tw(f, 2, w(3))} wk={tw(f, w(4), w(7))} />
-      <HsCloud x={560} y={720} p={pop(f, w(5), 14)} />
+      <HsCloud x={640} y={800} p={pop(f, w(5), 14) * 0.62} />
       {zero > 0 ? (
         <g transform={`translate(540 420) scale(${zero}) rotate(-3)`}>
           <text x={-170} y={60} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={170} fill={C.red}>
