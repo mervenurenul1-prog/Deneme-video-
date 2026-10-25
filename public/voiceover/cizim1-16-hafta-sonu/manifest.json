@@ -1,0 +1,524 @@
+{
+  "scenes": [
+    {
+      "voice": "Bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda yere yığıldı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-16-hafta-sonu/1-mvoegfwe.mp3",
+      "durationInSeconds": 6.687347,
+      "words": [
+        {
+          "word": "Bir",
+          "start": 0.0,
+          "end": 0.1333
+        },
+        {
+          "word": "zamanlar",
+          "start": 0.2,
+          "end": 0.6
+        },
+        {
+          "word": "dünyanın",
+          "start": 0.7333,
+          "end": 1.2667
+        },
+        {
+          "word": "en",
+          "start": 1.3667,
+          "end": 1.4667
+        },
+        {
+          "word": "formda",
+          "start": 1.5667,
+          "end": 1.7333
+        },
+        {
+          "word": "adamlarından",
+          "start": 1.8,
+          "end": 2.3333
+        },
+        {
+          "word": "biriydi.",
+          "start": 2.4,
+          "end": 2.8
+        },
+        {
+          "word": "Bugün",
+          "start": 2.8394,
+          "end": 3.106
+        },
+        {
+          "word": "Bayern",
+          "start": 3.2394,
+          "end": 3.506
+        },
+        {
+          "word": "Münih'in",
+          "start": 3.5394,
+          "end": 3.7727
+        },
+        {
+          "word": "hocası",
+          "start": 3.8394,
+          "end": 4.2394
+        },
+        {
+          "word": "ve",
+          "start": 4.4394,
+          "end": 4.506
+        },
+        {
+          "word": "geçen",
+          "start": 4.6394,
+          "end": 4.8394
+        },
+        {
+          "word": "hafta",
+          "start": 4.906,
+          "end": 5.1727
+        },
+        {
+          "word": "antrenmanda",
+          "start": 5.306,
+          "end": 5.8394
+        },
+        {
+          "word": "yere",
+          "start": 5.906,
+          "end": 6.106
+        },
+        {
+          "word": "yığıldı.",
+          "start": 6.1394,
+          "end": 6.706
+        }
+      ]
+    },
+    {
+      "voice": "Gazeteler onun için dört şey yazdı: az uyku, çok kahve, düzensiz yemek ve neredeyse hiç spor.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-16-hafta-sonu/2-mvoeghqo.mp3",
+      "durationInSeconds": 5.773061,
+      "words": [
+        {
+          "word": "Gazeteler",
+          "start": 0.0,
+          "end": 0.5333
+        },
+        {
+          "word": "onun",
+          "start": 0.6,
+          "end": 0.7333
+        },
+        {
+          "word": "için",
+          "start": 0.8,
+          "end": 1.0
+        },
+        {
+          "word": "dört",
+          "start": 1.0667,
+          "end": 1.2667
+        },
+        {
+          "word": "şey",
+          "start": 1.3,
+          "end": 1.4
+        },
+        {
+          "word": "yazdı:",
+          "start": 1.4667,
+          "end": 1.9049
+        },
+        {
+          "word": "az",
+          "start": 2.0049,
+          "end": 2.1049
+        },
+        {
+          "word": "uyku,",
+          "start": 2.1715,
+          "end": 2.5049
+        },
+        {
+          "word": "çok",
+          "start": 2.5943,
+          "end": 2.7943
+        },
+        {
+          "word": "kahve,",
+          "start": 2.8943,
+          "end": 3.2769
+        },
+        {
+          "word": "düzensiz",
+          "start": 3.3232,
+          "end": 3.7232
+        },
+        {
+          "word": "yemek",
+          "start": 3.7899,
+          "end": 4.0565
+        },
+        {
+          "word": "ve",
+          "start": 4.1899,
+          "end": 4.2565
+        },
+        {
+          "word": "neredeyse",
+          "start": 4.3899,
+          "end": 4.9232
+        },
+        {
+          "word": "hiç",
+          "start": 4.9899,
+          "end": 5.1899
+        },
+        {
+          "word": "spor.",
+          "start": 5.2899,
+          "end": 5.7899
+        }
+      ]
+    },
+    {
+      "voice": "Son madde çoğumuza tanıdık: \"Spora vaktim yok.\"",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-16-hafta-sonu/3-mvoegitd.mp3",
+      "durationInSeconds": 3.004082,
+      "words": [
+        {
+          "word": "Son",
+          "start": 0.0,
+          "end": 0.2
+        },
+        {
+          "word": "madde",
+          "start": 0.3,
+          "end": 0.6
+        },
+        {
+          "word": "çoğumuza",
+          "start": 0.8,
+          "end": 1.1333
+        },
+        {
+          "word": "tanıdık:",
+          "start": 1.2,
+          "end": 1.7089
+        },
+        {
+          "word": "\"Spora",
+          "start": 1.7982,
+          "end": 2.0648
+        },
+        {
+          "word": "vaktim",
+          "start": 2.1315,
+          "end": 2.4648
+        },
+        {
+          "word": "yok.\"",
+          "start": 2.4982,
+          "end": 2.9982
+        }
+      ]
+    },
+    {
+      "voice": "İki bin on yedide altmış üç bin kişi incelendi. Sadece hafta sonu, haftada bir iki gün spor yapanlarda erken ölüm riski yüzde otuz düşük çıktı. Düzenli yapanlarda da yüzde otuz beş.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-16-hafta-sonu/4-mvoegl52.mp3",
+      "durationInSeconds": 9.560816,
+      "words": [
+        {
+          "word": "İki",
+          "start": 0.0,
+          "end": 0.1
+        },
+        {
+          "word": "bin",
+          "start": 0.1333,
+          "end": 0.2442
+        },
+        {
+          "word": "on",
+          "start": 0.2667,
+          "end": 0.3667
+        },
+        {
+          "word": "yedide",
+          "start": 0.4,
+          "end": 0.7108
+        },
+        {
+          "word": "altmış",
+          "start": 0.8,
+          "end": 1.1333
+        },
+        {
+          "word": "üç",
+          "start": 1.2,
+          "end": 1.2667
+        },
+        {
+          "word": "bin",
+          "start": 1.3333,
+          "end": 1.4
+        },
+        {
+          "word": "kişi",
+          "start": 1.4667,
+          "end": 1.6
+        },
+        {
+          "word": "incelendi.",
+          "start": 1.6667,
+          "end": 2.2137
+        },
+        {
+          "word": "Sadece",
+          "start": 2.3197,
+          "end": 2.6531
+        },
+        {
+          "word": "hafta",
+          "start": 2.7197,
+          "end": 2.9864
+        },
+        {
+          "word": "sonu,",
+          "start": 3.0864,
+          "end": 3.4531
+        },
+        {
+          "word": "haftada",
+          "start": 3.5531,
+          "end": 3.7864
+        },
+        {
+          "word": "bir",
+          "start": 3.8531,
+          "end": 3.9864
+        },
+        {
+          "word": "iki",
+          "start": 4.0531,
+          "end": 4.1197
+        },
+        {
+          "word": "gün",
+          "start": 4.1864,
+          "end": 4.2531
+        },
+        {
+          "word": "spor",
+          "start": 4.3197,
+          "end": 4.5197
+        },
+        {
+          "word": "yapanlarda",
+          "start": 4.5864,
+          "end": 5.1197
+        },
+        {
+          "word": "erken",
+          "start": 5.3197,
+          "end": 5.5864
+        },
+        {
+          "word": "ölüm",
+          "start": 5.6531,
+          "end": 5.7864
+        },
+        {
+          "word": "riski",
+          "start": 5.8531,
+          "end": 6.1197
+        },
+        {
+          "word": "yüzde",
+          "start": 6.1864,
+          "end": 6.4531
+        },
+        {
+          "word": "otuz",
+          "start": 6.5531,
+          "end": 6.7197
+        },
+        {
+          "word": "düşük",
+          "start": 6.7864,
+          "end": 6.9864
+        },
+        {
+          "word": "çıktı.",
+          "start": 7.0531,
+          "end": 7.5777
+        },
+        {
+          "word": "Düzenli",
+          "start": 7.6002,
+          "end": 7.8777
+        },
+        {
+          "word": "yapanlarda",
+          "start": 7.9111,
+          "end": 8.3777
+        },
+        {
+          "word": "da",
+          "start": 8.4777,
+          "end": 8.5777
+        },
+        {
+          "word": "yüzde",
+          "start": 8.6444,
+          "end": 8.8111
+        },
+        {
+          "word": "otuz",
+          "start": 8.8444,
+          "end": 9.0444
+        },
+        {
+          "word": "beş.",
+          "start": 9.1111,
+          "end": 9.5777
+        }
+      ]
+    },
+    {
+      "voice": "Yani hafta içi yetişemiyorsan, hafta sonu da sayılır. Yeter ki sıfır olmasın.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-16-hafta-sonu/5-mvoegmk5.mp3",
+      "durationInSeconds": 4.257959,
+      "words": [
+        {
+          "word": "Yani",
+          "start": 0.0,
+          "end": 0.3333
+        },
+        {
+          "word": "hafta",
+          "start": 0.5333,
+          "end": 0.7667
+        },
+        {
+          "word": "içi",
+          "start": 0.8,
+          "end": 0.9333
+        },
+        {
+          "word": "yetişemiyorsan,",
+          "start": 1.0,
+          "end": 1.8667
+        },
+        {
+          "word": "hafta",
+          "start": 1.9333,
+          "end": 2.1667
+        },
+        {
+          "word": "sonu",
+          "start": 2.2,
+          "end": 2.3667
+        },
+        {
+          "word": "da",
+          "start": 2.4,
+          "end": 2.4667
+        },
+        {
+          "word": "sayılır.",
+          "start": 2.5333,
+          "end": 2.971
+        },
+        {
+          "word": "Yeter",
+          "start": 2.9942,
+          "end": 3.2609
+        },
+        {
+          "word": "ki",
+          "start": 3.3275,
+          "end": 3.3942
+        },
+        {
+          "word": "sıfır",
+          "start": 3.4609,
+          "end": 3.6275
+        },
+        {
+          "word": "olmasın.",
+          "start": 3.6608,
+          "end": 4.2609
+        }
+      ]
+    },
+    {
+      "voice": "Bunu \"vaktim yok\" diyen arkadaşına gönder ve ona şunu anlat:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-16-hafta-sonu/6-mvoegnom.mp3",
+      "durationInSeconds": 3.578776,
+      "words": [
+        {
+          "word": "Bunu",
+          "start": 0.0,
+          "end": 0.2667
+        },
+        {
+          "word": "\"vaktim",
+          "start": 0.4667,
+          "end": 0.8
+        },
+        {
+          "word": "yok\"",
+          "start": 0.8667,
+          "end": 1.0225
+        },
+        {
+          "word": "diyen",
+          "start": 1.0442,
+          "end": 1.2
+        },
+        {
+          "word": "arkadaşına",
+          "start": 1.2667,
+          "end": 1.6667
+        },
+        {
+          "word": "gönder",
+          "start": 1.7,
+          "end": 2.0667
+        },
+        {
+          "word": "ve",
+          "start": 2.2667,
+          "end": 2.4
+        },
+        {
+          "word": "ona",
+          "start": 2.6,
+          "end": 2.7333
+        },
+        {
+          "word": "şunu",
+          "start": 2.8,
+          "end": 3.0
+        },
+        {
+          "word": "anlat:",
+          "start": 3.0667,
+          "end": 3.6
+        }
+      ]
+    }
+  ],
+  "speed": 1.2
+}
