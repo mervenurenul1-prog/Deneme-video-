@@ -39,3 +39,4 @@ Görsel: melek kanatları (DgWings) "kanatlarla"da açılır, flaş; isim/logo Y
 7 Bunu yeni anne olan arkadaşına gönder. Çünkü o da şunu düşünüyor: (→ 1)
 ("Doktorun izin verdiğinde" = doğum sonrası sağlık güvencesi; kullanıcıya söylendi.)
 - v5 görsel (25 Ekim): VOOM sesle YOK (kullanıcı); duvarda baştan beri büyük yeşil tahta, "Seninse… yanında kimse yok"ta yazılır, kamera tahtaya. Sahneler: dg-soru=DgSebep (1 VÜCUT / 2 EKİP kartları), dg-kirk=DgKirk (1 VÜCUT), dg-seksen=DgEkip3 (2 EKİP, koç/aşçı/bakıcı), dg-bugun=DgYalniz (bebeği kucağa alır, tahta), dg-gonder=DgGonder2.
+- 25 Ekim: kullanıcı 5. cümle için motivasyon istedi ("telefona değil anneliğinin güzelliğine ve motivasyona ihtiyacın var") ya da eşine gönderme → YENİ SOHBETTE yapılacak.

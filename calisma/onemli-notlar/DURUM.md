@@ -1,5 +1,18 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> YENİ SOHBET BURADAN (25 Ekim — EN GÜNCEL) <<<
+- **ŞU ANKİ İŞ: 15 DOĞUM** (`cizim1-15-dogum`, `dg-*`, kaynak + tüm sürüm geçmişi `arastirma/15-dogum.md`). Metin v5 (iki sebep:
+  1 vücut / 2 ekip) JSON'da; kod hazır (DgSebep, DgKirk, DgEkip3, DgYalniz, DgGonder2; tek bağ = gece 3 annenin telefonu).
+  **İLK İŞ (kullanıcı, 25 Ekim):** 5. cümlenin sonunu ("Kendini onunla kıyaslama.") MOTİVASYONLA değiştir — fikir: "telefona
+  değil, anneliğinin güzelliğine ve motivasyona ihtiyacın var" (kendi cümlenle yaz, birebir koyma) ve/veya kapanışta EŞİNE
+  gönderme. 2-3 seçenek sun → onay → sessiz önizleme render → gönder → onay → seslendirme (~520 kr, 1.2x) → render.
+  VOOM SESLE YOK; yalnız duvardaki büyük yeşil tahtada "Senin arkanda da VOOM var." (baştan boş, 5. sahnede yazılır).
+  İsim/marka YOK (manken genel çizim: pembe dantel elbise, melek kanatları, mor-pembe podyum). Max 35 sn. Son sessiz önizleme
+  dosyası (`15-dogum-sessiz.mp4`) v4'e ait; v5 henüz render EDİLMEDİ.
+- Kalan kredi ≈ 12.633 (23 Ekim; seslendirmeden önce kontrol).
+- Bu sohbetin kalıcı dersleri KURALLAR.md'de: açık/ders gibi anlatım (kelime oyunu yok), tablo dürüst + "ben izler miyim?",
+  her 1-1,5 sn olay, gerçekçi pozlar (referanslar `animasyon/referans/`), parçalı tarih değil tek hikâye/tek bağ, çıplaklık yok.
+
 ## >>> YENİ SOHBET BURADAN (24 Ekim) <<<
 - **14 BEDEN İPTAL (24 Ekim)** — acıya dokunmadı. Eski not:
   14 BEDEN ALGISI (`cizim1-14-beden`, sahneler `ba-*`, VOOM'SUZ, kaynak `arastirma/14-beden-algisi.md`): metin v4
