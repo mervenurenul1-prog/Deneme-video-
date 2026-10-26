@@ -46,6 +46,9 @@ export type Cizim1Props = { cizim: Cizim; voiceover: PostVoiceover | null };
 // w(i): i. kelimenin başladığı kare (sahneye göre)
 type SceneProps = { d: number; w: (i: number) => number };
 
+// Önceki sahneden kararmadan, aynı karede devam eden sahneler (sahne sonu = bu sahnenin ilk karesi)
+const SEAMLESS = new Set(["ig-tarih"]);
+
 // Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
 const LOOP_FRAMES = 14;
 
@@ -80,7 +83,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         const Visual = SCENES[scene.visual] ?? Missing;
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.visual}`}>
-            <Shot d={durations[i]} zoom={ZOOM[scene.visual]} noIn={loop && i === 0} noOut={loop && i === last}>
+            <Shot d={durations[i]} zoom={ZOOM[scene.visual]} noIn={(loop && i === 0) || SEAMLESS.has(scene.visual)} noOut={(loop && i === last) || (i < last && SEAMLESS.has(cizim.scenes[i + 1].visual))}>
               <Visual d={durations[i]} w={w} />
             </Shot>
             <Captions words={words} keys={scene.keys} hideFrom={loop && i === last ? durations[i] - LOOP_FRAMES : undefined} />
@@ -91,7 +94,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
               </Sequence>
             ) : null}
             {/* sahne geçişi + o sahnedeki olayların efekt sesleri */}
-            {i > 0 ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
+            {i > 0 && !SEAMLESS.has(scene.visual) ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
             {tidySfx(SFX[scene.visual]?.(w, durations[i]) ?? []).map(([at, file, vol], k) =>
               at >= 0 && at < durations[i] ? (
                 <Sequence key={k} from={Math.round(at)} layout="none">
@@ -21989,13 +21992,20 @@ const IgTarih: React.FC<SceneProps> = ({ w, d }) => {
       </>
     );
   }
-  const walkX = lerp(-40, 200, tw(f, 0, w(8)));
+  // kancanın son karesiyle aynı kare: iğne yumuşakça kaybolur, kertenkele ağzını kapatıp yürümeye başlar
+  const walkX = lerp(IG_LIZ.x, IG_LIZ.x + 160, tw(f, 6, w(8)));
+  const penOut = tw(f, 0, 14);
   return (
     <>
-      <CamK k={[[0, 1.35, 560, 1150], [w(2), 1.15, 540, 1120], [w(8), 1.1, 560, 1100]]}>
+      <CamK k={[[0, 1.06, 620, 1120], [w(2), 1.18, 600, 1080], [w(8), 1.12, 620, 1060]]}>
         <IgDesert f={f} />
-        <IgLizard x={walkX} y={1330} s={1.35} f={f} walk={mealOn ? 0 : 1} jaw={mealOn ? 1 : 0} />
-        {mealOn ? <IgEgg x={walkX + 600} y={1300} s={1.8} /> : null}
+        <IgLizard x={walkX} y={IG_LIZ.y} s={IG_LIZ.s} f={f} walk={mealOn ? 0 : tw(f, 4, 12)} jaw={mealOn ? 1 : 1 - tw(f, 0, 8)} />
+        {mealOn ? <IgEgg x={walkX + 520} y={IG_LIZ.y - 20} s={1.7} /> : null}
+        {penOut < 1 ? (
+          <g opacity={1 - penOut}>
+            <IgPen x={IG_PEN[0]} y={IG_PEN[1] + 120 * penOut} s={1.05} rot={-8} fill={1} glow={1 - penOut} />
+          </g>
+        ) : null}
       </CamK>
       <IgMonths x={540} y={420} p={pop(f, w(1), 12)} cur={cur} />
     </>
@@ -22116,19 +22126,6 @@ const IgTers: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-// Tarak + takılmış saç tutamı (yan etki ipucu; seste yok)
-const IgComb: React.FC<{ x: number; y: number; p: number; f: number }> = ({ x, y, p, f }) =>
-  p > 0 ? (
-    <g transform={`translate(${x} ${y}) scale(${p}) rotate(-10)`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
-      <rect x={-120} y={-34} width={240} height={34} rx={10} fill="#d98aa0" strokeWidth={6} />
-      {Array.from({ length: 13 }, (_, i) => (
-        <rect key={i} x={-112 + i * 18} y={0} width={9} height={56} rx={3} fill="#d98aa0" strokeWidth={4} />
-      ))}
-      {[0, 1, 2, 3, 4].map((i) => (
-        <path key={`h${i}`} d={`M${-70 + i * 22} 10 q${-40 + 6 * Math.sin(f / 9 + i)} 60 ${-10 + i * 6} 120 q20 30 ${-20 - i * 4} 70`} stroke={C.hair} strokeWidth={5} fill="none" />
-      ))}
-    </g>
-  ) : null;
 // Protein tabağı: yumurta, tavuk budu, yoğurt
 const IgProtein: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =>
   p > 0 ? (
@@ -22208,7 +22205,6 @@ const IgTavsiye: React.FC<SceneProps> = ({ w, d }) => {
         {thick > 0.9 && f < w(8) ? <path d="M760 1240 l30 30 l60 -64" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" /> : null}
         <IgProtein x={720} y={1380} p={plate} />
         {pen > 0 ? <IgPen x={620} y={850} s={0.5 * pen} rot={-90} fill={1} /> : null}
-        <IgComb x={850} y={830} p={pop(f, w(13), 12)} f={f} />
       </CamK>
       <KTag x={620} y={700} p={pen} text="doktorunla konuş" color={YAS_OK} rot={-3} />
     </>
