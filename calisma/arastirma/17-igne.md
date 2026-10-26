@@ -10,3 +10,6 @@
 - Gila canavarı (ABD güneybatı çölü, yılda birkaç kez yer): John Eng (VA) 1992'de zehrinden exendin-4'ü ayırdı (J Biol Chem
   1992); insan GLP-1'ine benzer ama saatlerce etkili → semaglutid ailesine model (Nautilus). 1992'de "iştah" iddiası yok.
 - Tavsiye: ağırlık antrenmanı + yeterli protein kilo verirken yağsız kütleyi korur (genel, yerleşik).
+- v5 ek kaynaklar: Rodriguez ve ark. 2025 JAMA Netw Open 8(1):e2457349 (125.474 kişi; diyabetsizlerde 1 yılda bırakma %64,8).
+  Wilding 2022 Diabetes Obes Metab (STEP 1 uzatma: bırakınca 1 yılda kaybın ⅔'ü geri). STEP 1 yan etki (clinicaltrials):
+  bulantı %44 vs %17, ishal %31 vs %16, kusma %25 vs %7, kabızlık %23 vs %9. Vitamin D/demir eksikliği: 2026 derleme (rakam doğrulanmadı).

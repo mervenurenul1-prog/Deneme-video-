@@ -1,12 +1,14 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (26 Ekim — EN GÜNCEL) <<<
-- **17 ZAYIFLAMA İĞNESİ** (`cizim1-17-igne`, sahneler `ig-*`, kaynak `arastirma/17-igne.md`): metin v2 onaylandı (kanca
-  "Zayıflama iğnen, bir kertenkelenin zehrinden çıktı." → yılda birkaç öğün + 1992 doktor → "her on kilonun dördü yağ
-  değildi" → "sorun iğne değil" (iğnesiz diyetçi kadın) → 1) ağırlık 2) protein, ilacı bırakma (tarakta saç = yan etki,
-  seste yok) → "Kilo vermek işin yarısı…" + "Sen kullandın mı? Yorumlara yaz" + kâğıt uçak → kertenkele gözü (döngü)).
-  Avatar salon kıyafeti. Sessiz önizleme `17-igne-sessiz.mp4` (39,8 sn tahmini; sesli ~38 sn → 32 sınırı aşılıyor,
-  kısaltma kullanıcıya soruldu) → onay → seslendirme (~660 kr) → 1.2x → render.
+- **17 ZAYIFLAMA İĞNESİ v5** (`cizim1-17-igne`, sahneler `ig2-*`; eski `ig-*` kertenkeleli sürüm kodda duruyor, kullanılmıyor;
+  kaynak `arastirma/17-igne.md`): "Zayıflama iğnesi kullanıyorsun ama sabah tarakta saç, öğlen bulantı, akşam merdivende
+  soluk soluğa" (bir gün, köşede düşen tartı) → her 10 kilonun 4'ü yağ değil → bıraktığın gün: %65 1 yılda bırakır
+  (Rodriguez 2025), bırakınca 1 yılda ⅔ geri (Wilding 2022) → "kilo geri gelir, kas gelmez" → ağırlık + protein + doktor →
+  "İğne kiloyu verir, kası korumak senin işin… ona şunu söyle:" (döngü, kâğıt uçak yumuşak geçiş). Sessiz önizleme
+  `17-igne-sessiz.mp4` (~35 sn) → ONAY bekleniyor → seslendirme (~575 kr) → 1.2x → render.
+  Kullanıcı dersleri: kertenkele (yandan/tepeden) beğenilmedi; tarak yemeğin yanında çirkin; yumuşak geçiş; bilgi listesi
+  değil "tam ben" hikâyesi.
 - Kalan ElevenLabs kredisi **11.788** (26 Ekim, ölçüldü).
 - **16 HAFTA SONU BİTTİ** (`cizim1-16-hafta-sonu`, `hs-*`, 33,1 sn → `ornek-videolar/cizim1-pilot/16-hafta-sonu.mp4`).
   Gündem (Bayern hocası 23 Ekim antrenmanda fenalaştı; BILD: az uyku, çok kahve, düzensiz yemek, neredeyse hiç spor) +
