@@ -1,10 +1,12 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (26 Ekim — EN GÜNCEL) <<<
-- **17 ZAYIFLAMA İĞNESİ seçildi** (gündem: EADV 2026 saç/tırnak; STEP 1 kas kaybı; Gila kertenkelesi 1992). Kaynak
-  `arastirma/17-igne.md`. Metin v1 sohbette → METİN ONAYI bekleniyor (sonra sessiz önizleme).
-- **Elde iş YOK.** 15 ve 16 bitti, ikisi de gönderildi. Sıradaki: kullanıcıya yeni konu önerileri (5 adımlı formül +
-  gündem varsa ona bağla) → kullanıcı seçer → metin → sessiz önizleme → onay → seslendirme.
+- **17 ZAYIFLAMA İĞNESİ** (`cizim1-17-igne`, sahneler `ig-*`, kaynak `arastirma/17-igne.md`): metin v2 onaylandı (kanca
+  "Zayıflama iğnen, bir kertenkelenin zehrinden çıktı." → yılda birkaç öğün + 1992 doktor → "her on kilonun dördü yağ
+  değildi" → "sorun iğne değil" (iğnesiz diyetçi kadın) → 1) ağırlık 2) protein, ilacı bırakma (tarakta saç = yan etki,
+  seste yok) → "Kilo vermek işin yarısı…" + "Sen kullandın mı? Yorumlara yaz" + kâğıt uçak → kertenkele gözü (döngü)).
+  Avatar salon kıyafeti. Sessiz önizleme `17-igne-sessiz.mp4` (39,8 sn tahmini; sesli ~38 sn → 32 sınırı aşılıyor,
+  kısaltma kullanıcıya soruldu) → onay → seslendirme (~660 kr) → 1.2x → render.
 - Kalan ElevenLabs kredisi **11.788** (26 Ekim, ölçüldü).
 - **16 HAFTA SONU BİTTİ** (`cizim1-16-hafta-sonu`, `hs-*`, 33,1 sn → `ornek-videolar/cizim1-pilot/16-hafta-sonu.mp4`).
   Gündem (Bayern hocası 23 Ekim antrenmanda fenalaştı; BILD: az uyku, çok kahve, düzensiz yemek, neredeyse hiç spor) +
