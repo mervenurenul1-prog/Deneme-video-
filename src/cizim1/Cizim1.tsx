@@ -183,8 +183,8 @@ const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "ig-kanca": (w) => [[w(2), "whoosh", 0.35], [w(4) + 4, "damla", 0.4], [w(5) + 6, "sihir", 0.4]],
-  "ig-tarih": (w) => [[w(8) - 2, "pirilti", 0.35], [w(15), "kalem", 0.3], [w(17) - 2, "sihir", 0.35], [w(21), "pop", 0.3], [w(27), "sonme", 0.3]],
-  "ig-kilo": (w) => [[w(0), "ding", 0.3], [w(5), "sonme", 0.35], [w(9), "agir-dusme", 0.25], [w(13), "cizik", 0.35], [w(18), "sonme", 0.3]],
+  "ig-tarih": (w) => [[w(8) - 2, "pirilti", 0.35], [w(15), "kalem", 0.3], [w(17) - 2, "sihir", 0.35], [w(21), "pop", 0.3]],
+  "ig-kilo": (w) => [[w(0), "ding", 0.3], [w(5), "sonme", 0.35], [w(9), "agir-dusme", 0.25], [w(13), "cizik", 0.35], [w(18), "pop", 0.3], [w(23), "sonme", 0.3]],
   "ig-ters": (w) => [[w(3), "whoosh", 0.35], [w(4), "adim", 0.3], [w(9), "agir-dusme", 0.25]],
   "ig-tavsiye": (w) => [[0, "kalem", 0.3], [w(5), "ding", 0.35], [w(8) - 2, "pop", 0.35], [w(12), "kalem", 0.3]],
   "ig-gonder": (w) => [[w(3), "pop", 0.3], [w(7), "ding", 0.35], [w(13) - 4, "whoosh", 0.3], [w(15), "whoosh", 0.35]],
@@ -21912,18 +21912,6 @@ const IgLab: React.FC<{ f: number; look: number; mol: number }> = ({ f, look, mo
   );
 };
 
-// Mutfak: duvar + pencere + masa; masa önü (bacakları gizler) ayrı çizilir
-const IgKitchen: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-  <g stroke={C.ink} strokeLinejoin="round">
-    <rect x={-600} y={-600} width={2280} height={3200} fill="#e9dcc4" strokeWidth={0} />
-    <rect x={640} y={300} width={340} height={360} fill="#bfe0ea" strokeWidth={10} />
-    <path d="M810 300 V660 M640 480 H980" strokeWidth={8} />
-    <rect x={-600} y={1500} width={2280} height={600} fill="#c79a6a" strokeWidth={0} />
-    {children}
-    <rect x={80} y={1290} width={920} height={60} fill="#9a6a3e" strokeWidth={8} />
-    <rect x={120} y={1350} width={840} height={260} fill="#b07d4f" strokeWidth={7} />
-  </g>
-);
 // Tabak: food 0..1 (yemek yığını küçülür)
 const IgPlate: React.FC<{ x: number; y: number; food: number; s?: number }> = ({ x, y, food, s = 1 }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
@@ -21940,35 +21928,20 @@ const IgPlate: React.FC<{ x: number; y: number; food: number; s?: number }> = ({
 );
 
 // 2) "Bu kertenkele yılda yalnızca birkaç kez yemek yer. Bin dokuz yüz doksan ikide bir doktor zehrinde bir madde buldu;
-// bugünkü iğneler ondan örnek alınarak yapıldı. İğne de iştahını kısar: az yersin."
+// bugünkü iğneler ondan örnek alınarak yapıldı."
 // Çölde kertenkele yürür, üstte 12 aylık şerit: imleç ay ay ilerler, yalnız üç ayda yumurta (öğün) çıkar, o anlarda
 // kertenkele ağzını açar. "Bin"de sepya laboratuvar: "1992", doktor büyüteçle zehir damlasına bakar; "madde"de büyüteçte
-// parlayan molekül zinciri. "bugünkü"de renk gelir: molekül uçar, üç iğne yan yana dolar. "İğne de"de mutfak: avatarın
-// önündeki dolu tabak küçülür, avatar tabağı iter.
+// parlayan molekül zinciri. "bugünkü"de renk gelir: molekül uçar, üç iğne yan yana dolar.
 const IgTarih: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const lab = f >= w(8) - 2 && f < w(19);
-  const pens = f >= w(19) && f < w(25);
-  const kitchen = f >= w(25);
+  const pens = f >= w(19);
   const cur = lerp(-1, 11.99, tw(f, w(2), w(7) + 4, 0, 1));
   const mealOn = IG_MEALS.some((m) => Math.abs(cur - m - 0.4) < 0.5);
-  if (kitchen) {
-    const food = 1 - tw(f, w(27), w(29) + 6);
-    const push = tw(f, w(29), w(30) + 4);
-    return (
-      <CamK k={[[w(25), 1.25, 540, 1150], [w(27), 1.1, 540, 1150], [w(29), 1.35, 560, 1280], [d, 1.4, 560, 1280]]}>
-        <IgKitchen>
-          <Person x={540} y={1690} s={0.85} belly={0.35} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth={push > 0.3 ? "flat" : "smile"} lookY={8} armL={[18, 30]} armR={[lerp(30, 62, push), lerp(80, 20, push)]} />
-        </IgKitchen>
-        <IgPlate x={lerp(540, 620, push)} y={1300} food={food} />
-        <IgPen x={250} y={1262} s={0.42} rot={-90} fill={1} />
-      </CamK>
-    );
-  }
   if (pens) {
     const p = tw(f, w(19), w(21));
     return (
-      <CamK k={[[w(19), 1.25, 540, 1000], [w(22), 1.0, 540, 980], [w(25), 1.05, 540, 980]]}>
+      <CamK k={[[w(19), 1.25, 540, 1000], [w(22), 1.0, 540, 980], [d, 1.05, 540, 980]]}>
         <rect x={-600} y={-600} width={2280} height={3200} fill="#efe4cc" />
         <KdSepia o={1 - tw(f, w(19), w(20) + 4)} />
         <IgMol x={lerp(540, 540, p)} y={lerp(700, 980, p)} s={1.3 * (1 - tw(f, w(21), w(22)))} f={f} />
@@ -22048,22 +22021,24 @@ const IgBath: React.FC = () => (
   </g>
 );
 
-// 3) "Herkes 'ne güzel zayıflamışsın' diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Az yiyen
-// vücut, kası da yakar."
+// 3) "Herkes 'ne güzel zayıflamışsın' diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Çünkü iğne
+// iştahını kısar, az yiyen vücut kası da yakar."
 // Banyoda tartıda avatar (−10 kg), iki yandan övgü balonları, kalpler; "Ama"da balonlar söner; "verilen"den itibaren tartıdan
-// 10 kiloluk blok düşer; "dördü"nde son dördü titreyip kırmızıya döner: "yağ değil"; "Az yiyen"de kol merceği:
-// kas lifleri incelir, kırmızı alev.
+// 10 kiloluk blok düşer; "dördü"nde son dördü titreyip kırmızıya döner: "yağ değil"; "iştahını kısar"da önde dolu tabak
+// belirip küçülür; "az yiyen"de kol merceği: "kası da yakar"da kas lifleri incelir, kırmızı alev.
 const IgKilo: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const praise = pop(f, w(0), 12) * (1 - tw(f, w(5), w(5) + 6));
   const praise2 = pop(f, w(2), 12) * (1 - tw(f, w(5), w(5) + 6));
   const drop = tw(f, w(9), w(12) + 4);
   const red = tw(f, w(13), w(15));
-  const lens = pop(f, w(16) - 2, 14);
-  const thin = tw(f, w(18), w(21) + 4);
+  const plate = pop(f, w(17) - 2, 12) * (1 - tw(f, w(21), w(22)));
+  const food = 1 - tw(f, w(18), w(20) + 2);
+  const lens = pop(f, w(20), 14);
+  const thin = tw(f, w(23), w(25) + 6);
   return (
     <>
-      <CamK k={[[0, 1.3, 540, 1250], [w(4), 1.1, 540, 1150], [w(5), 1.0, 540, 1000], [w(9), 1.0, 540, 900], [w(13), 1.25, 540, 760], [w(16), 1.05, 600, 1000], [d, 1.12, 640, 1000]]}>
+      <CamK k={[[0, 1.3, 540, 1250], [w(4), 1.1, 540, 1150], [w(5), 1.0, 540, 1000], [w(9), 1.0, 540, 900], [w(13), 1.25, 540, 760], [w(16), 1.05, 540, 1050], [w(20), 1.05, 600, 1000], [d, 1.12, 640, 1000]]}>
         <IgBath />
         <Bathroom x={540} y={1716} value="−10 kg" />
         <Person x={540} y={1658} s={0.85} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} limbW={lerp(1, 0.78, thin)} mouth={praise > 0.3 ? "grin" : thin > 0 ? "worry" : "flat"} eyes={red > 0.5 && thin < 0.3 ? "wide" : "open"} armL={[14, 0]} armR={[14, 0]} />
@@ -22072,6 +22047,11 @@ const IgKilo: React.FC<SceneProps> = ({ w, d }) => {
           <g opacity={tw(red, 0.5, 1)}>
             <text x={340} y={960} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.fatDark}>yağ</text>
             <text x={720} y={960} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>yağ değil</text>
+          </g>
+        ) : null}
+        {plate > 0 ? (
+          <g transform={`translate(310 1330) scale(${plate}) translate(-310 -1330)`}>
+            <IgPlate x={310} y={1330} food={food} s={0.8} />
           </g>
         ) : null}
         <MuscleLens x={840} y={1290} r={140} p={lens} thick={lerp(1, 0.45, thin)} glow={thin} label="kas" />
