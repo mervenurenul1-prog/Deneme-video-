@@ -22,6 +22,17 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
 - Kullanıcının örnek cümlelerini birebir koyma; kendi doğal cümleni yaz.
 - **ANLATIM DERS GİBİ, AÇIK (kullanıcı, 25 Ekim):** ucu açık kelime oyunu, muğlak mecaz YOK ("cevabın öbür yarısı ekranda görünmüyor" gibi). Birinci, ikinci diye sırala; izleyici ilk dinleyişte anlasın.
 
+- **25-26 Ekim dersleri (kullanıcı):**
+  - Kullanıcı "sadece metni at" derse ÖNİZLEME/KOD YAPMA, yalnız metni yaz. Beğenilmiş hâli "çok değiştirme"; geri al dediğinde eski hâle dön.
+  - Gündem haberi kullanılabilir ama gerçek kişinin adı söylenmez (takımdan/rolden bahset); tanınması için görsel ipucu +
+    "Bu adamı tanıdın mı? Yorumlara yaz" (yorum çeker). Doğrulanmamış sebep iddiası yok ("örnek verdik").
+  - VOOM sesle söylenmez; arka planda (tahta, telefon, küçük bulut) görünür, göze sokulmaz.
+  - Döngü kusursuz ve HIZLI olsun (ör. kâğıt uçak kameraya uçup ekranı kaplar → ilk kare). Sonda bekleme (`hold`) koyma.
+  - Hareket ölçülü: aşırı hareket göz yorar; her sahnede yumuşak kamera + küçük canlılık yeter.
+  - Seste baştaki sessizliği kırp (ilk kelime hemen başlasın). Ekrandaki yazılar seslendirmeye eklenmez.
+  - Kullanıcının istediği ekran yazısını da birebir koyma, geliştir (ör. "tek tuşla cebinde" → "VOOM'la bir dokunuş uzakta").
+  - Gerçek kişi çizilirken kıyafet haberdeki gibi (ör. şapka, kapüşon); emin olmadığın fiziksel ayrıntıyı (gençlikte sakal) ekleme.
+
 ## Hangi videolar tuttu (kullanıcı, 23 Ekim)
 - EN BEĞENİLEN: 10 selülit. EN AZ SEVİLEN: 03 on bin adım ve 06 diz/koşu. Selülit tarzında ilerle.
 

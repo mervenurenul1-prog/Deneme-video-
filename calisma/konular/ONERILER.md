@@ -47,7 +47,7 @@ C. Salonda herkes bana bakıyor: 2000 Cornell utanç tişörtü deneyi, tahmin ~
 - 7 doğrulandı: O'Donovan ve ark. 2017 JAMA Intern Med (doi 10.1001/jamainternmed.2016.8014), İngiltere+İskoçya 63.591
   yetişkin (40+), 1994-2012; haftada 1-2 gün (hafta sonu sporcusu) tüm nedenlere bağlı ölüm ~%30 düşük, 3+ gün ~%35 (basın
   rakamları; HR KVH 0,53 / 0,51).
-- **25 Ekim: 7 SEÇİLDİ** + gündem (Kompany 23 Ekim antrenmanda fenalaştı; BILD: az uyku, çok kahve, düzensiz yemek,
+- **25 Ekim: 7 KULLANILDI → 16 hafta sonu (bitti).** Eski not: + gündem (Kompany 23 Ekim antrenmanda fenalaştı; BILD: az uyku, çok kahve, düzensiz yemek,
   neredeyse hiç spor; virüs de vardı, sebep belli değil → sebep diye SUNMA). Kanca A+B (ya da A+C), VOOM sesle yok. Metin onayı bekleniyor.
 - 7 BEKLEMEDE (VOOM'lu sıraya kalsın). Notlar: sonda da bir dolgu olabilir; "erken ölüm riski"; VOOM bağı geliştirilecek:
   "evde, salonda, nerede nasıl hayal edersen" programın oraya göre. Metin v1 sohbette (hafta içi bıraktın → 2017 → %30/%35 →

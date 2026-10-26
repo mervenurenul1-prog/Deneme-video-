@@ -1,39 +1,20 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
-## >>> YENİ SOHBET BURADAN (25 Ekim akşam — EN GÜNCEL) <<<
-- **ŞU ANKİ İŞ: 16 HAFTA SONU** (`cizim1-16-hafta-sonu`, `hs-*`). Metin: "Bir zamanlar dünyanın en formda adamlarından biriydi.
-  Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda yere yığıldı." (KİŞİ ADI YOK; kullanıcı ilk girişi beğendi: önce sepya
-  kupa anısı, sonra gece sahası, "çok değiştirme") → gazetelerin 4 maddesi → "Son madde çoğumuza tanıdık: Spora vaktim yok." →
-  2017, 63.591 kişi, −%30 / −%35 → "hafta sonu da sayılır, yeter ki sıfır olmasın" → "Bunu 'vaktim yok' diyen arkadaşına
-  gönder ve ona şunu anlat:" (→1). Döngü: "ona"da kâğıt uçak kameraya uçup ekranı kaplar → kupa yakın planı (= ilk kare).
-  Parkta bankta büyük VOOM telefonu + küçük bulut "Hayalindeki vücut / VOOM'la bir dokunuş uzakta" (sesle YOK; göze sokma).
-  Ölçülü hareket (göz yorulmasın). Girişte "Bu adamı tanıdın mı? Yorumlara yaz" etiketi (izleyici adı yoruma yazsın), genç kaptanda sakal YOK (sakal yalnız bugünkü hâlinde). Hoca: siyah şapka, beyaz kapüşonlu, lacivert ceket, sakal (`Person skin`).
-  SESLENDİRİLDİ (Yunus 1.2x, ses 32,9 sn), müzikle render → `16-hafta-sonu.mp4`. Kalan kredi ≈ 11.550.
-- 15 DOĞUM BİTTİ: `ornek-videolar/cizim1-pilot/15-dogum.mp4` (38,8 sn). Kalan kredi ≈ 11.870.
-
-## >>> YENİ SOHBET BURADAN (25 Ekim — EN GÜNCEL) <<<
-- **ŞU ANKİ İŞ: 15 DOĞUM** (`cizim1-15-dogum`, `dg-*`, kaynak + tüm sürüm geçmişi `arastirma/15-dogum.md`). Metin v5 (iki sebep:
-  1 vücut / 2 ekip) JSON'da; kod hazır (DgSebep, DgKirk, DgEkip3, DgYalniz, DgGonder2; tek bağ = gece 3 annenin telefonu).
-  **İLK İŞ (kullanıcı, 25 Ekim):** 5. cümlenin sonunu ("Kendini onunla kıyaslama.") MOTİVASYONLA değiştir — fikir: "telefona
-  değil, anneliğinin güzelliğine ve motivasyona ihtiyacın var" (kendi cümlenle yaz, birebir koyma) ve/veya kapanışta EŞİNE
-  gönderme. 2-3 seçenek sun → onay → sessiz önizleme render → gönder → onay → seslendirme (~520 kr, 1.2x) → render.
-  VOOM SESLE YOK; yalnız duvardaki büyük yeşil tahtada "Senin arkanda da VOOM var." (baştan boş, 5. sahnede yazılır).
-  İsim/marka YOK (manken genel çizim: pembe dantel elbise, melek kanatları, mor-pembe podyum). Max 35 sn. Son sessiz önizleme
-  dosyası (`15-dogum-sessiz.mp4`) v4'e ait; v5 henüz render EDİLMEDİ.
-- **25 Ekim (yeni sohbet) — METİN v7 ONAYLANDI (destek videosu: eşin/dostların yeni anneye atacağı):** 1-2-4 aynı;
-  3 "Birincisi vücut. Anadolu'da lohusalık kırk gün sürer, yani yaklaşık altı hafta. Rahim de doğumdan sonra aşağı yukarı bu
-  sürede eski hâline döner." (Çin/Latin Amerika ÇIKTI); 5 "Seninse kucağında bebeğin var ve onu her gece sen büyütüyorsun.
-  Bunu kimse alkışlamıyor ama yaptığın iş o podyumdan çok daha zor."; 6 (yeni `dg-voom`) "Doktorun izin verdiğinde, bir
-  telefon kadar yakınındayız: evde ya da salonda, aletli ya da aletsiz." (dakika YOK); 7 "Bu video sana gönderildiyse,
-  biri seni görüyor demektir. Çünkü senin de şunu düşündüğünü biliyor:" (→1).
-  Görsel: model yeniden (gür dalgalı uzun kahverengi saç, dantel pembe elbise, fırfırlı yaka, kolye, topuklu, büyük kanat,
-  ışıltı — kullanıcı "ihtişamlı, azıcık Barbara'ya benzet"); 5'te "42. gece" + "alkış: 0" + altın spot; 6'da yeşil tahtaya
-  VOOM + yanında gerçek VOOM koç ekranı (`app/koc.jpg`, kısa telefon `DgVoomPhone`) + ev/salon/aletli/aletsiz kartları;
-  7'de "Eşim" mesajı (video + "seninle gurur duyuyorum"), ekrana dalış = açılış. SESLENDİRİLDİ (Yunus 1.2x, ses 38,3 sn;
-  kullanıcı "kalsın, iyi" — 35 sn aşımı kabul), müzikle render → `ornek-videolar/cizim1-pilot/15-dogum.mp4`. Kalan kredi ≈ 11.870.
-- Kalan kredi ≈ 12.633 (23 Ekim; seslendirmeden önce kontrol).
-- Bu sohbetin kalıcı dersleri KURALLAR.md'de: açık/ders gibi anlatım (kelime oyunu yok), tablo dürüst + "ben izler miyim?",
-  her 1-1,5 sn olay, gerçekçi pozlar (referanslar `animasyon/referans/`), parçalı tarih değil tek hikâye/tek bağ, çıplaklık yok.
+## >>> YENİ SOHBET BURADAN (26 Ekim — EN GÜNCEL) <<<
+- **Elde iş YOK.** 15 ve 16 bitti, ikisi de gönderildi. Sıradaki: kullanıcıya yeni konu önerileri (5 adımlı formül +
+  gündem varsa ona bağla) → kullanıcı seçer → metin → sessiz önizleme → onay → seslendirme.
+- Kalan ElevenLabs kredisi **11.788** (26 Ekim, ölçüldü).
+- **16 HAFTA SONU BİTTİ** (`cizim1-16-hafta-sonu`, `hs-*`, 33,1 sn → `ornek-videolar/cizim1-pilot/16-hafta-sonu.mp4`).
+  Gündem (Bayern hocası 23 Ekim antrenmanda fenalaştı; BILD: az uyku, çok kahve, düzensiz yemek, neredeyse hiç spor) +
+  2017 O'Donovan (63.591 kişi; hafta sonu −%30, düzenli −%35). KİŞİ ADI YOK (yalnız "Bayern Münih'in hocası"), ekranda
+  "Bu adamı tanıdın mı? Yorumlara yaz" (izleyici adı yoruma yazsın). Sebep iddiası yok, 4 madde "örnek". Döngü: kâğıt uçak
+  kameraya uçup ekranı kaplar → kupa yakın planı (kullanıcı beğendi). VOOM: bankta telefon + küçük bulut "Hayalindeki
+  vücut / VOOM'la bir dokunuş uzakta" (sesle yok).
+- **15 DOĞUM BİTTİ** (`cizim1-15-dogum`, `dg-*`, 38,8 sn → `15-dogum.mp4`). Eşin/dostların yeni anneye atacağı DESTEK
+  videosu ("Bunu kimse alkışlamıyor ama yaptığın iş o podyumdan çok daha zor" / "Bu video sana gönderildiyse, biri seni
+  görüyor demektir"). Manken: gür dalgalı saç, dantel pembe elbise, kanat (`DgModel`). VOOM: yeşil tahta + gerçek koç
+  ekranı (`DgVoomPhone`, `app/koc.jpg`) + aletli/aletsiz kartları. Ayrıntı `arastirma/15-dogum.md`.
+- 08 sauna paylaşıldı (dosyaları silindi). 90 yaşında halter ve 1953 otobüs/biletçi REDDEDİLDİ.
 
 ## >>> YENİ SOHBET BURADAN (24 Ekim) <<<
 - **14 BEDEN İPTAL (24 Ekim)** — acıya dokunmadı. Eski not:
@@ -63,4 +44,4 @@ start/end /1.2, manifeste `"speed": 1.2` → `npm run render -- <id>` → `out/<
 
 ## Biten videolar (`ornek-videolar/cizim1-pilot/`)
 01 yağ nereye · 02 tartı · 03 on bin adım · 04 kadın-ağırlık · 05 boyun(-b) · 06 diz · 07 yaş · 09 kilo-hangimiz ·
-10 selülit (EN BEĞENİLEN) · 12 spot ışığı · 13 kardiyo. 08 sauna paylaşıldı (dosyaları silindi, 25 Ekim).
+10 selülit (EN BEĞENİLEN) · 12 spot ışığı · 13 kardiyo · 15 doğum · 16 hafta sonu. 08 sauna paylaşıldı (dosyaları silindi, 25 Ekim).
