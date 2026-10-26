@@ -1,6 +1,8 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (26 Ekim — EN GÜNCEL) <<<
+- **17 ZAYIFLAMA İĞNESİ seçildi** (gündem: EADV 2026 saç/tırnak; STEP 1 kas kaybı; Gila kertenkelesi 1992). Kaynak
+  `arastirma/17-igne.md`. Metin v1 sohbette → METİN ONAYI bekleniyor (sonra sessiz önizleme).
 - **Elde iş YOK.** 15 ve 16 bitti, ikisi de gönderildi. Sıradaki: kullanıcıya yeni konu önerileri (5 adımlı formül +
   gündem varsa ona bağla) → kullanıcı seçer → metin → sessiz önizleme → onay → seslendirme.
 - Kalan ElevenLabs kredisi **11.788** (26 Ekim, ölçüldü).
