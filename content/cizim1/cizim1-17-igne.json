@@ -38,7 +38,7 @@
     {
       "visual": "ig2-birak",
       "voice": "Asıl tuzak, iğneyi bıraktığın gün başlıyor: çoğu kişi bir yıl dolmadan bırakıyor ve kilonun üçte ikisi geri geliyor.",
-      "say": "Asıl tuzak, iğneyi bıraktığın gün başlıyor: çoğu kişi bir yıl dolmadan bırakıyor ve kilonun üçte ikisi geri geliyor.",
+      "say": "Asıl tuzak, ıı, iğneyi bıraktığın gün başlıyor: çoğu kişi bir yıl dolmadan bırakıyor ve kilonun üçte ikisi geri geliyor.",
       "keys": [
         "tuzak",
         "bıraktığın",
@@ -49,7 +49,7 @@
     {
       "visual": "ig2-kas",
       "voice": "Kilo kendiliğinden döner; giden kası ise ancak çalışarak geri alırsın.",
-      "say": "Kilo kendiliğinden döner; giden kası ise ancak çalışarak geri alırsın.",
+      "say": "Kilo kendiliğinden döner; giden kası ise... hani, ancak çalışarak geri alırsın.",
       "keys": [
         "kası",
         "çalışarak"

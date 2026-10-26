@@ -182,12 +182,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
-  "ig2-gun": (w) => [[w(4), "kagit", 0.3], [w(7), "sonme", 0.3], [w(10), "nefes", 0.35]],
-  "ig2-kilo": (w) => [[w(3), "kalem", 0.3], [w(10), "agir-dusme", 0.25], [w(13), "cizik", 0.35]],
-  "ig2-birak": (w) => [[w(1), "pop", 0.3], [w(6), "whoosh", 0.3], [w(11), "agir-dusme", 0.25], [w(13), "yuksel", 0.35]],
-  "ig2-kas": (w) => [[w(0), "whoosh", 0.3], [w(8), "pop", 0.3], [w(9) + 4, "ding", 0.35]],
-  "ig2-tavsiye": (w) => [[w(5), "pop", 0.3], [w(7), "kalem", 0.3], [w(12), "ding", 0.35], [w(13) - 2, "pop", 0.35], [w(17), "kalem", 0.3]],
-  "ig2-gonder": (w) => [[w(3), "pop", 0.3], [w(8), "ding", 0.35], [w(12), "whoosh", 0.3], [w(15), "whoosh", 0.35]],
+  "ig2-gun": (w) => [[w(4), "kagit", 0.18], [w(7), "sonme", 0.18], [w(10), "nefes", 0.21]],
+  "ig2-kilo": (w) => [[w(3), "kalem", 0.18], [w(10), "agir-dusme", 0.15], [w(13), "cizik", 0.21]],
+  "ig2-birak": (w) => [[w(1), "pop", 0.18], [w(6), "whoosh", 0.18], [w(11), "agir-dusme", 0.15], [w(13), "yuksel", 0.21]],
+  "ig2-kas": (w) => [[w(0), "whoosh", 0.18], [w(8), "pop", 0.18], [w(9) + 4, "ding", 0.21]],
+  "ig2-tavsiye": (w) => [[w(5), "pop", 0.18], [w(7), "kalem", 0.18], [w(12), "ding", 0.21], [w(13) - 2, "pop", 0.21], [w(17), "kalem", 0.18]],
+  "ig2-gonder": (w) => [[w(3), "pop", 0.18], [w(8), "ding", 0.21], [w(12), "whoosh", 0.18], [w(15), "whoosh", 0.21]],
   "ig-kanca": (w) => [[w(2), "whoosh", 0.35], [w(4) + 4, "damla", 0.4], [w(5) + 6, "sihir", 0.4]],
   "ig-tarih": (w) => [[w(8) - 2, "pirilti", 0.35], [w(15), "kalem", 0.3], [w(17) - 2, "sihir", 0.35], [w(21), "pop", 0.3]],
   "ig-kilo": (w) => [[w(0), "ding", 0.3], [w(5), "sonme", 0.35], [w(9), "agir-dusme", 0.25], [w(13), "cizik", 0.35], [w(18), "pop", 0.3], [w(23), "sonme", 0.3]],
