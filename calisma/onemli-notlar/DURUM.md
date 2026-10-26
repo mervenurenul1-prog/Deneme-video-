@@ -1,15 +1,12 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (26 Ekim — EN GÜNCEL) <<<
-- **17 ZAYIFLAMA İĞNESİ v6** (metin v6: "Yine de iğneyi tercih edeceksen kasını koru", "ilacın onay aldığı iki bin kişilik deneyde"; ekip incelemesinde) — eski v5 notu: (`cizim1-17-igne`, sahneler `ig2-*`; eski `ig-*` kertenkeleli sürüm kodda duruyor, kullanılmıyor;
-  kaynak `arastirma/17-igne.md`): "Zayıflama iğnesi kullanıyorsun ama sabah tarakta saç, öğlen bulantı, akşam merdivende
-  soluk soluğa" (bir gün, köşede düşen tartı) → her 10 kilonun 4'ü yağ değil → bıraktığın gün: %65 1 yılda bırakır
-  (Rodriguez 2025), bırakınca 1 yılda ⅔ geri (Wilding 2022) → "kilo geri gelir, kas gelmez" → ağırlık + protein + doktor →
-  "İğne kiloyu verir, kası korumak senin işin… ona şunu söyle:" (döngü, kâğıt uçak yumuşak geçiş). Sessiz önizleme
-  `17-igne-sessiz.mp4` (~35 sn) → ONAY bekleniyor → seslendirme (~575 kr) → 1.2x → render.
-  Kullanıcı dersleri: kertenkele (yandan/tepeden) beğenilmedi; tarak yemeğin yanında çirkin; yumuşak geçiş; bilgi listesi
-  değil "tam ben" hikâyesi.
-- Kalan ElevenLabs kredisi **11.788** (26 Ekim, ölçüldü).
+- **17 ZAYIFLAMA İĞNESİ BİTTİ (v6, 26 Ekim)** (`cizim1-17-igne`, sahneler `ig2-*`; eski kertenkeleli `ig-*` kodda duruyor,
+  kullanılmıyor; kaynak `arastirma/17-igne.md`). Yunus 1.2x (orta sahnelerde "ıı", "hani"), efektler bu videoda %40 kısık
+  (kullanıcı: "sesle yarışmasın"), 35,7 sn → `ornek-videolar/cizim1-pilot/17-igne.mp4`. Ekip incelemesi kullanıcıda.
+  Dersler: kertenkele (yandan/tepeden) beğenilmedi; iğneye YÖNLENDİRME yok ("Yine de iğneyi tercih edeceksen"); bilgi
+  listesi değil "tam ben" hikâyesi; deneyin adını kısaca söyle ("ilacın onay aldığı iki bin kişilik deneyde").
+- Kalan ElevenLabs kredisi **11.531** (26 Ekim akşam, ölçüldü).
 - **16 HAFTA SONU BİTTİ** (`cizim1-16-hafta-sonu`, `hs-*`, 33,1 sn → `ornek-videolar/cizim1-pilot/16-hafta-sonu.mp4`).
   Gündem (Bayern hocası 23 Ekim antrenmanda fenalaştı; BILD: az uyku, çok kahve, düzensiz yemek, neredeyse hiç spor) +
   2017 O'Donovan (63.591 kişi; hafta sonu −%30, düzenli −%35). KİŞİ ADI YOK (yalnız "Bayern Münih'in hocası"), ekranda
