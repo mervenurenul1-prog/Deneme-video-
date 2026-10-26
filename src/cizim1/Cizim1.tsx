@@ -182,6 +182,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "ig2-gun": (w) => [[w(4), "kagit", 0.3], [w(7), "sonme", 0.3], [w(10), "nefes", 0.35]],
+  "ig2-kilo": (w) => [[w(3), "agir-dusme", 0.25], [w(7), "cizik", 0.35]],
+  "ig2-birak": (w) => [[w(3), "pop", 0.3], [w(8), "whoosh", 0.3], [w(14), "agir-dusme", 0.25], [w(17), "yuksel", 0.35]],
+  "ig2-kas": (w) => [[w(0), "whoosh", 0.3], [w(5) - 2, "cizik", 0.35]],
+  "ig2-tavsiye": (w) => [[w(4), "kalem", 0.3], [w(9), "ding", 0.35], [w(10) - 2, "pop", 0.35], [w(14), "kalem", 0.3]],
+  "ig2-gonder": (w) => [[w(2), "pop", 0.3], [w(6), "ding", 0.35], [w(10), "whoosh", 0.3], [w(13), "whoosh", 0.35]],
   "ig-kanca": (w) => [[w(2), "whoosh", 0.35], [w(4) + 4, "damla", 0.4], [w(5) + 6, "sihir", 0.4]],
   "ig-tarih": (w) => [[w(8) - 2, "pirilti", 0.35], [w(15), "kalem", 0.3], [w(17) - 2, "sihir", 0.35], [w(21), "pop", 0.3]],
   "ig-kilo": (w) => [[w(0), "ding", 0.3], [w(5), "sonme", 0.35], [w(9), "agir-dusme", 0.25], [w(13), "cizik", 0.35], [w(18), "pop", 0.3], [w(23), "sonme", 0.3]],
@@ -837,6 +843,12 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "ig2-gun": { to: 1.0, x: 540, y: 960 },
+  "ig2-kilo": { to: 1.0, x: 540, y: 960 },
+  "ig2-birak": { to: 1.0, x: 540, y: 960 },
+  "ig2-kas": { to: 1.0, x: 540, y: 960 },
+  "ig2-tavsiye": { to: 1.0, x: 540, y: 960 },
+  "ig2-gonder": { to: 1.0, x: 540, y: 960 },
   "ig-kanca": { to: 1.0, x: 540, y: 960 },
   "ig-tarih": { to: 1.0, x: 540, y: 960 },
   "ig-kilo": { to: 1.0, x: 540, y: 960 },
@@ -22197,8 +22209,7 @@ const IgProtein: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =
     </g>
   ) : null;
 // Salon duvarı: yeşil tahta (tebeşir maddeler) + köşede VOOM programı açık telefon
-const IgGymWall: React.FC<{ f: number; chalk: number[]; voom: number }> = ({ f, chalk, voom }) => {
-  const lines = ["1) ağırlık: haftada 2-3 gün", "2) her öğünde protein", "3) ilacını doktorunla konuş"];
+const IgGymWall: React.FC<{ f: number; chalk: number[]; voom: number; lines?: string[] }> = ({ f, chalk, voom, lines = ["1) ağırlık: haftada 2-3 gün", "2) her öğünde protein", "3) ilacını doktorunla konuş"] }) => {
   return (
     <g stroke={C.ink} strokeLinejoin="round">
       <rect x={-600} y={-600} width={2280} height={3200} fill="#e3d6bf" strokeWidth={0} />
@@ -22266,7 +22277,7 @@ const IgTavsiye: React.FC<SceneProps> = ({ w, d }) => {
 // "Bu videoyu"dan sonra avatar telefonla; sağda elinde iğne olan arkadaşı; ekranda "Sen kullandın mı? Yorumlara yaz"
 // (seste yok). "gönder"de kâğıt uçak arkadaşa uçar; "şunu"da kameraya uçup ekranı kaplar; "söyle"de açılır: kertenkele
 // gözü yakın planı (= ilk kare, döngü).
-const IgHalf: React.FC<{ x: number; y: number; r: number; a: number; b: number }> = ({ x, y, r, a, b }) => (
+const IgHalf: React.FC<{ x: number; y: number; r: number; a: number; b: number; la?: string; lb?: string }> = ({ x, y, r, a, b, la = "kilo vermek", lb = "kası korumak" }) => (
   <g stroke={C.ink} strokeLinejoin="round">
     <circle cx={x} cy={y} r={r} fill={C.cream} strokeWidth={8} />
     <clipPath id="igHalfL">
@@ -22279,10 +22290,10 @@ const IgHalf: React.FC<{ x: number; y: number; r: number; a: number; b: number }
     <circle cx={x} cy={y} r={r - 6} fill={YAS_OK} clipPath="url(#igHalfR)" strokeWidth={0} />
     <path d={`M${x} ${y - r} V${y + r}`} strokeWidth={8} />
     <text x={x - r / 2} y={y + 20} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink} opacity={a > 0.3 ? 1 : 0}>
-      kilo vermek
+      {la}
     </text>
     <text x={x + r / 2} y={y + 20} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.cream} opacity={b > 0.3 ? 1 : 0}>
-      kası korumak
+      {lb}
     </text>
   </g>
 );
@@ -22350,7 +22361,349 @@ const IgGonder: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 17 İĞNE v5 (`ig2-*`) — bir günün hikâyesi + "iğneyi bıraktığın gün" =====
+// Kaynaklar `arastirma/17-igne.md`: STEP 1 (verilen kilonun ~%38'i yağsız), Rodriguez 2025 JAMA Netw Open (diyabetsiz
+// kullanıcıların %65'i 1 yılda bırakıyor), Wilding 2022 (bırakınca 1 yılda kaybın 2/3'ü geri). İlaç/marka adı yok.
+// Avatar salon kıyafeti; ellerini karnına koyma: kollar [10, −110] (el göbekte).
+const IG2_BELLY: Arm = [10, -110];
+const IG2_BELLY_L: Arm = [10, -110];
+// Köşedeki tartı göstergesi (ekran koordinatı): kilo her sahnede biraz düşer, yeşil aşağı ok
+const Ig2Scale: React.FC<{ kg: number; p?: number; up?: boolean }> = ({ kg, p = 1, up = false }) =>
+  p > 0 ? (
+    <g transform={`translate(860 230) scale(${p}) rotate(3)`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-150} y={-70} width={300} height={140} rx={30} fill="#dcd6c8" strokeWidth={8} />
+      <rect x={-110} y={-44} width={220} height={88} rx={12} fill="#26332b" strokeWidth={5} />
+      <text x={-10} y={26} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={66} fill="#b8f28a" stroke="none">
+        {kg}
+      </text>
+      <text x={64} y={24} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={36} fill="#b8f28a" stroke="none">kg</text>
+      <path d={up ? "M-190 30 l0 -70 m-20 24 l20 -24 l20 24" : "M-190 -40 l0 70 m-20 -24 l20 24 l20 -24"} fill="none" stroke={up ? C.red : "#3c9a4a"} strokeWidth={12} strokeLinecap="round" />
+    </g>
+  ) : null;
+// Tarak + saç tutamı
+const Ig2Comb: React.FC<{ x: number; y: number; s?: number; rot?: number; f: number }> = ({ x, y, s = 1, rot = -10, f }) => (
+  <g transform={`translate(${x} ${y}) scale(${s}) rotate(${rot})`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+    <rect x={-120} y={-34} width={240} height={34} rx={10} fill="#7d9cc4" strokeWidth={6} />
+    {Array.from({ length: 13 }, (_, i) => (
+      <rect key={i} x={-112 + i * 18} y={0} width={9} height={56} rx={3} fill="#7d9cc4" strokeWidth={4} />
+    ))}
+    {[0, 1, 2, 3, 4, 5].map((i) => (
+      <path key={i} d={`M${-80 + i * 24} 14 q${-30 + 6 * Math.sin(f / 9 + i)} 60 ${-6 + i * 4} 120 q20 30 ${-14 - i * 4} 70`} stroke={C.hair} strokeWidth={6} fill="none" />
+    ))}
+  </g>
+);
+// Banyo: fayans + lavabo + ayna
+const Ig2Bath: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <IgBath />
+    <rect x={300} y={360} width={480} height={520} rx={40} fill="#e8f2f6" strokeWidth={9} />
+    <path d="M360 440 L470 400 M380 540 L560 470" stroke="#fff" strokeWidth={14} opacity={0.8} />
+    <rect x={240} y={1180} width={600} height={70} rx={20} fill="#f4f4f0" strokeWidth={8} />
+    <path d="M300 1250 Q540 1420 780 1250" fill="#f4f4f0" strokeWidth={8} />
+    <path d="M540 1180 V1120 h50" fill="none" strokeWidth={14} />
+  </g>
+);
+// Merdiven (akşam): çapraz basamaklar + tırabzan, turuncu-mor akşam ışığı
+const Ig2Stairs: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-600} y={-600} width={2280} height={3200} fill="#e9c9a8" strokeWidth={0} />
+    <rect x={700} y={260} width={300} height={360} fill="#f0a868" strokeWidth={10} />
+    <circle cx={850} cy={520} r={70} fill="#f6d06a" strokeWidth={0} />
+    <path d="M700 440 H1000 M850 260 V620" strokeWidth={8} />
+    {Array.from({ length: 9 }, (_, i) => (
+      <path key={i} d={`M${-200 + i * 150} ${1900 - i * 110} h150 v-110`} fill="none" strokeWidth={8} />
+    ))}
+    <path d="M-200 1900 L1150 910 L1600 910 L1600 2400 L-200 2400 Z" fill="#b9895a" strokeWidth={0} opacity={0.9} />
+    {Array.from({ length: 9 }, (_, i) => (
+      <path key={`s${i}`} d={`M${-200 + i * 150} ${1900 - i * 110} h150 v-110`} fill="none" stroke={C.ink} strokeWidth={8} />
+    ))}
+    <path d="M-200 1500 L1150 510" strokeWidth={14} />
+    {Array.from({ length: 6 }, (_, i) => (
+      <path key={`b${i}`} d={`M${i * 220 - 100} ${1430 - i * 162} v200`} strokeWidth={8} />
+    ))}
+    <rect x={-2000} y={-2000} width={6000} height={6000} fill="#6a3a7a" opacity={0.12} strokeWidth={0} />
+  </g>
+);
+
+// 1) "Zayıflama iğnesi kullanıyorsun ama sabah tarakta saç, öğlen midende bulantı, akşam merdivende soluk soluğa."
+// İlk kare: avatarın karnına dayanmış iğne yakın planı (köşede tartı). "sabah"ta banyo: elinde saçlı tarak; "öğlen"de
+// ofis: elleri midesinde, başının üstünde bulantı kıvrımları; "akşam"da merdiven: nefes nefese, ter, nefes bulutları.
+// Her kesmede köşedeki tartı biraz daha düşer (84 → 83 → 82 → 81).
+const Ig2GunFirst: React.FC<{ f: number }> = ({ f }) => {
+  const hand = armPoints(1, IG2_BELLY)[2];
+  return (
+    <>
+      <IgBath />
+      <Person x={540} y={1760} s={0.9} belly={0.3} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="flat" lookY={8} armL={[14, 0]} armR={IG2_BELLY}>
+        <IgPen x={hand[0] - 10} y={hand[1] - 40} s={0.62} rot={-55} fill={1} glow={0.5} />
+      </Person>
+    </>
+  );
+};
+const IG2_START: [number, number, number] = [1.9, 520, 1685];
+const Ig2Gun: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const seg = f < w(4) ? 0 : f < w(7) ? 1 : f < w(10) ? 2 : 3;
+  const kg = [84, 83, 82, 81][seg];
+  let body: React.ReactNode;
+  if (seg === 0) {
+    body = (
+      <CamK k={[[0, ...IG2_START], [w(4), 1.75, 520, 1685]]}>
+        <Ig2GunFirst f={f} />
+      </CamK>
+    );
+  } else if (seg === 1) {
+    const hand = armPoints(1, [20, -70])[2];
+    body = (
+      <CamK k={[[w(4), 1.45, 600, 1500], [w(7), 1.6, 620, 1480]]}>
+        <Ig2Bath />
+        <Person x={540} y={1760} s={0.9} belly={0.3} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="worry" eyes="wide" lookY={10} armL={[14, 0]} armR={[20, -70]}>
+          <Ig2Comb x={hand[0] + 40} y={hand[1] - 60} s={0.8} f={f} />
+        </Person>
+      </CamK>
+    );
+  } else if (seg === 2) {
+    body = (
+      <CamK k={[[w(7), 1.2, 540, 1250], [w(10), 1.35, 540, 1200]]}>
+        <HsDayOffice f={f} />
+        <Person x={540} y={1760} s={0.9} belly={0.3} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="worry" eyes="closed" armL={IG2_BELLY_L} armR={IG2_BELLY} />
+        {[0, 1, 2].map((i) => (
+          <path key={i} d={`M${440 + i * 90} ${880 - 20 * Math.sin(f / 4 + i)} q20 -30 0 -60 q-20 -30 0 -60`} fill="none" stroke="#7fb34a" strokeWidth={10} strokeLinecap="round" />
+        ))}
+      </CamK>
+    );
+  } else {
+    const pant = Math.abs(Math.sin(f / 4));
+    body = (
+      <CamK k={[[w(10), 1.25, 520, 1150], [d, 1.4, 500, 1100]]}>
+        <Ig2Stairs />
+        <Person x={500} y={1570} s={0.85} belly={0.3} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="open" eyes="closed" lookY={6} armL={[14, 0]} armR={[70, 30]} />
+        {[0, 1].map((i) => (
+          <ellipse key={i} cx={620 + i * 40 + 30 * pant} cy={950 - i * 30} rx={30 + 20 * pant} ry={18 + 10 * pant} fill="#fff" stroke={C.ink} strokeWidth={4} opacity={0.8 * pant} />
+        ))}
+        {[0, 1, 2].map((i) => (
+          <Drop key={`d${i}`} x={420 + i * 70} y={920 + ((f * 3 + i * 30) % 80)} s={0.5} />
+        ))}
+      </CamK>
+    );
+  }
+  return (
+    <>
+      {body}
+      <Ig2Scale kg={kg} />
+    </>
+  );
+};
+
+// 2) "Kimse söylemiyor ama verdiğin her on kilonun dördü yağ değil."
+// Banyoda tartı (−10 kg); "verdiğin"den itibaren 10 blok düşer; "dördü"nde son dördü kırmızıya döner: "yağ değil".
+const Ig2Kilo: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const drop = tw(f, w(3), w(6) + 4);
+  const red = tw(f, w(7), w(9));
+  return (
+    <CamK k={[[0, 1.15, 540, 1300], [w(3), 1.0, 540, 1000], [w(7), 1.2, 540, 760], [d, 1.25, 540, 760]]}>
+      <IgBath />
+      <Bathroom x={540} y={1716} value="−10 kg" />
+      <Person x={540} y={1658} s={0.85} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth={red > 0.5 ? "worry" : "smile"} eyes={red > 0.5 ? "wide" : "open"} armL={[14, 0]} armR={[14, 0]} />
+      <IgBlocks x={540} y={700} drop={drop} red={red} f={f} />
+      {red > 0.5 ? (
+        <g opacity={tw(red, 0.5, 1)}>
+          <text x={340} y={960} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.fatDark}>yağ</text>
+          <text x={720} y={960} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>yağ değil</text>
+        </g>
+      ) : null}
+    </CamK>
+  );
+};
+
+// 3) "Asıl soru şu: iğneyi bıraktığın gün ne olacak? Kullananların üçte ikisi bir yıl dolmadan bırakıyor ve bırakınca
+// kilonun üçte ikisi bir yılda geri geliyor."
+// Avatar elindeki iğneye bakar, üstünde sallanan "?" kutusu. "Kullananların"da üç kişi yan yana, her birinin elinde iğne;
+// "bırakıyor"da yandaki ikisinin iğnesi yere düşer, ikisi griye döner ("3 kişiden 2'si"). "bırakınca"da avatar tartıda:
+// kilo 74 → 81'e çıkar, göbeği geri gelir, kırmızı yukarı ok "⅔ geri".
+const Ig2Birak: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const crowd = f >= w(8) && f < w(16);
+  const back = f >= w(16);
+  if (back) {
+    const up = tw(f, w(17), w(23));
+    return (
+      <>
+        <CamK k={[[w(16), 1.05, 540, 1100], [d, 1.2, 540, 1150]]}>
+          <IgBath />
+          <Bathroom x={540} y={1716} value={`${Math.round(lerp(74, 81, up))} kg`} />
+          <Person x={540} y={1658} s={0.85} belly={lerp(0.15, 0.55, up)} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="worry" eyes="wide" lookY={10} armL={[14, 0]} armR={[14, 0]} />
+        </CamK>
+        <path d={`M880 ${lerp(1100, 700, up)} V1150 M840 ${lerp(1140, 740, up)} l40 -40 l40 40`} fill="none" stroke={C.red} strokeWidth={18} strokeLinecap="round" strokeLinejoin="round" opacity={up > 0 ? 1 : 0} />
+        <KTag x={540} y={420} p={pop(f, w(18), 12)} text="⅔ geri geliyor" color={C.red} rot={-3} />
+      </>
+    );
+  }
+  if (crowd) {
+    const fall = tw(f, w(14) - 2, w(14) + 8);
+    const people: [number, boolean, boolean][] = [[220, true, false], [540, false, true], [860, true, true]];
+    return (
+      <>
+        <CamK k={[[w(8), 1.15, 540, 1250], [w(12), 1.0, 540, 1100], [w(16), 1.05, 540, 1100]]}>
+          <rect x={-600} y={-600} width={2280} height={3200} fill="#efe4cc" />
+          <rect x={-600} y={1600} width={2280} height={600} fill="#d9c9a8" />
+          {people.map(([x, quits, fem], i) => {
+            const hand = armPoints(1, [30, 60])[2];
+            const g = quits ? fall : 0;
+            return (
+              <g key={i} opacity={1 - 0.55 * g}>
+                <Person x={x} y={1660} s={0.62} belly={0.25} female={fem && i !== 1} shirt={i === 1 ? SEL_AV_TOP : fem ? undefined : "#7d9cc4"} shorts={i === 1 ? IG_SHORTS : "#4b3f5e"} mouth={g > 0.5 ? "flat" : "smile"} armL={[14, 0]} armR={g > 0.5 ? [14, 0] : [30, 60]}>
+                  {g < 0.5 ? <IgPen x={hand[0]} y={hand[1] - 90} s={0.45} rot={-10} fill={1} /> : null}
+                </Person>
+                {g >= 0.5 ? <IgPen x={x + 80} y={lerp(1400, 1630, tw(g, 0.5, 1))} s={0.3} rot={lerp(-10, 85, tw(g, 0.5, 1))} fill={1} /> : null}
+              </g>
+            );
+          })}
+        </CamK>
+        <KTag x={540} y={420} p={pop(f, w(9) - 2, 12)} text="3 kişiden 2'si" color={C.ink} rot={-3} />
+        <KTag x={540} y={600} p={pop(f, w(11), 12)} text="1 yıl dolmadan" color={C.red} rot={3} />
+      </>
+    );
+  }
+  const hand = armPoints(1, [30, 60])[2];
+  return (
+    <CamK k={[[0, 1.35, 560, 1150], [w(3), 1.25, 600, 1100], [w(8), 1.15, 600, 1100]]}>
+      <IgBath />
+      <Person x={540} y={1700} s={0.82} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="flat" lookY={8} armL={[14, 0]} armR={[30, 60]}>
+        <IgPen x={hand[0]} y={hand[1] - 90} s={0.5} rot={-10} fill={1} />
+      </Person>
+      <MysteryBox x={540} y={720} s={1.1} p={pop(f, w(3) - 2, 14)} open={0} rays={false} shake={Math.sin(f / 2.4) * 6} />
+    </CamK>
+  );
+};
+
+// 4) "Kilo geri gelir, giden kas gelmez."
+// Sarı yağ blokları uçup avatarın göbeğine döner (göbek şişer); kırmızı kas bloklarının yerinde kesik çizgili boş
+// kutular kalır; "gelmez"de kırmızı çarpı.
+const Ig2Kas: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const fly = tw(f, w(0), w(2) + 4);
+  const x = pop(f, w(5) - 2, 10);
+  return (
+    <>
+      <CamK k={[[0, 1.1, 540, 900], [w(3), 1.05, 540, 960], [d, 1.15, 540, 900]]}>
+        <IgBath />
+        <Person x={540} y={1658} s={0.85} belly={lerp(0.15, 0.55, fly)} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="worry" armL={[14, 0]} armR={[14, 0]} />
+        {Array.from({ length: 10 }, (_, i) => {
+          const bx = 540 - 330 + (i % 5) * 132;
+          const by = 700 + Math.floor(i / 5) * 110;
+          if (i >= 6)
+            return (
+              <g key={i}>
+                <rect x={bx} y={by} width={120} height={96} rx={14} fill="none" stroke={C.red} strokeWidth={6} strokeDasharray="14 10" />
+                <text x={bx + 60} y={by + 62} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={40} fill={C.red}>kas</text>
+              </g>
+            );
+          const t = tw(fly, i / 12, i / 12 + 0.45);
+          return t < 1 ? (
+            <g key={i} transform={`translate(${lerp(bx, 480, t)} ${lerp(by, 1260, t)}) scale(${1 - 0.6 * t})`} opacity={1 - t * 0.6}>
+              <rect x={0} y={0} width={120} height={96} rx={14} fill={C.fat} stroke={C.ink} strokeWidth={7} />
+              <text x={60} y={64} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={40} fill={C.ink}>1 kg</text>
+            </g>
+          ) : null;
+        })}
+        {x > 0 ? <path d={`M${780 - 200 * x} 680 L780 ${680 + 260 * x} M780 680 L${780 - 200 * x} ${680 + 260 * x}`} stroke={C.red} strokeWidth={22} strokeLinecap="round" /> : null}
+      </CamK>
+    </>
+  );
+};
+
+// 5) "O yüzden iğne sürerken haftada iki üç gün ağırlık çalış, her öğünde protein ye. İlacı bırakmadan da doktorunla konuş."
+// Salon: tahtaya maddeler sırayla; avatar dambıl çalışır, kas merceği kalınlaşır (lacivert tik); "her öğünde"de protein
+// tabağı; "İlacı"nda 3. madde + lacivert "doktorunla konuş" etiketi. Tahtanın köşesinde VOOM'lu telefon.
+const Ig2Tavsiye: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(IG_SHOT);
+  const f = useCurrentFrame();
+  const curl = f >= w(4) && f < w(10) + 6 ? (1 - Math.cos((f - w(4)) / 5)) / 2 : 0;
+  const thick = tw(f, w(5), w(9) + 4);
+  const plate = pop(f, w(10) - 2, 14);
+  const doc = pop(f, w(14) - 2, 12);
+  const arm: Arm = [14, lerp(10, 145, curl)];
+  const hand = armPoints(1, arm)[2];
+  return (
+    <>
+      <CamK k={[[0, 1.2, 420, 560], [w(4), 1.0, 540, 900], [w(8), 1.15, 640, 1150], [w(10), 1.0, 540, 1000], [w(14), 1.15, 540, 760], [d, 1.05, 540, 900]]}>
+        <IgGymWall f={f} chalk={[tw(f, w(4), w(9)), tw(f, w(10), w(13) + 4), tw(f, w(14), w(18))]} voom={pop(f, w(2), 14)} lines={["1) ağırlık: haftada 2-3 gün", "2) her öğünde protein", "3) bırakmadan: doktor"]} />
+        <Person x={430} y={1700} s={0.82} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} limbW={lerp(0.85, 1.05, thick)} mouth={curl > 0.6 ? "grin" : "smile"} armL={[14, 0]} armR={arm}>
+          {plate < 0.5 ? <Dumbbell x={hand[0]} y={hand[1]} s={0.9} rot={90} /> : null}
+        </Person>
+        <MuscleLens x={800} y={1020} r={140} p={pop(f, w(5), 14) * (1 - tw(f, w(10), w(11)))} thick={lerp(0.5, 1.2, thick)} glow={thick} label="kas" />
+        {thick > 0.9 && f < w(10) ? <path d="M760 1240 l30 30 l60 -64" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" /> : null}
+        <IgProtein x={720} y={1380} p={plate} />
+        {doc > 0 ? <IgPen x={620} y={850} s={0.5 * doc} rot={-90} fill={1} /> : null}
+      </CamK>
+      <KTag x={620} y={700} p={doc} text="doktorunla konuş" color={YAS_OK} rot={-3} />
+    </>
+  );
+};
+
+// 6) "İğne kiloyu verir, kası korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:" (→ açılış)
+// İki yarım daire: sol sarı "kilo: iğne", sağ lacivert "kas: sen"; avatar kollarını kasar. "Bunu"dan sonra telefonla
+// arkadaşına kâğıt uçak gönderir (ekranda "Sen kullandın mı? Yorumlara yaz"). "şunu"da uçak kameraya gelir; uçak
+// ekranı kaplarken açılış karesi (iğne yakın planı) içinden yumuşakça belirir.
+const Ig2Gonder: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const send = f >= w(7) - 2;
+  const a = tw(f, w(0), w(2));
+  const b = tw(f, w(3), w(6));
+  const flex = tw(f, w(4), w(6));
+  const plane = tw(f, w(10), w(11) + 6);
+  const wipe = tw(f, w(13), w(14) + 4);
+  const reveal = tw(f, w(14), w(14) + 10);
+  const hand = armPoints(-1, [40, 70])[2];
+  return (
+    <>
+      {send ? (
+        <CamK k={[[w(7) - 2, 1.15, 600, 1200], [w(11), 1.0, 600, 1100], [d, 1.05, 600, 1100]]}>
+          <IgGymWall f={f} chalk={[1, 1, 1]} voom={1} lines={["1) ağırlık: haftada 2-3 gün", "2) her öğünde protein", "3) bırakmadan: doktor"]} />
+          <Person x={330} y={1690} s={0.78} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="grin" lookY={2} armR={[25, 135]} armL={[12, 0]}>
+            <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.6} />
+          </Person>
+          <Person x={800} y={1690} s={0.78} belly={0.35} shirt="#7d9cc4" shorts="#4b3f5e" mouth={plane >= 1 ? "o" : "flat"} eyes={plane >= 1 ? "wide" : "open"} armL={[40, 70]} armR={[12, 0]}>
+            <IgPen x={hand[0] - 20} y={hand[1] - 120} s={0.5} rot={-10} fill={1} />
+          </Person>
+        </CamK>
+      ) : (
+        <CamK k={[[0, 1.15, 540, 700], [w(3), 1.0, 540, 900], [w(6), 1.1, 540, 1100], [w(7), 1.1, 540, 1100]]}>
+          <rect x={-600} y={-600} width={2280} height={3200} fill="#efe4cc" />
+          <rect x={-600} y={1600} width={2280} height={600} fill="#d9c9a8" />
+          <IgHalf x={540} y={620} r={330} a={a} b={b} la="kilo: iğne" lb="kas: sen" />
+          <Person x={540} y={1700} s={0.72} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} limbW={lerp(1, 1.12, flex)} mouth={flex > 0.4 ? "grin" : "smile"} armL={[lerp(14, 95, flex), lerp(0, -120, flex)]} armR={[lerp(14, 95, flex), lerp(0, -120, flex)]} />
+        </CamK>
+      )}
+      {send ? <VsPaperPlane p={plane} a={[400, 1050]} b={[760, 1000]} /> : null}
+      {send ? <IgAsk p={tw(f, w(7), w(8)) * (1 - tw(f, w(12), w(13)))} f={f} /> : null}
+      {wipe > 0 && wipe < 1 ? (
+        <g transform={`translate(${lerp(760, 540, wipe)} ${lerp(1000, 960, wipe)}) scale(${lerp(0.3, 12, Easing.in(Easing.cubic)(wipe))}) rotate(${lerp(-20, 0, wipe)})`} opacity={1 - reveal}>
+          <path d="M-160 0 L180 -70 L-40 30 Z" fill="#fbf7ec" stroke={C.ink} strokeWidth={6 / Math.max(1, wipe * 6)} strokeLinejoin="round" />
+          <path d="M-40 30 L180 -70 L-10 90 Z" fill="#e9e3d6" stroke={C.ink} strokeWidth={6 / Math.max(1, wipe * 6)} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {reveal > 0 ? (
+        <g opacity={reveal}>
+          <CamK k={[[0, ...IG2_START]]}>
+            <Ig2GunFirst f={0} />
+          </CamK>
+          <Ig2Scale kg={84} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "ig2-gun": Ig2Gun,
+  "ig2-kilo": Ig2Kilo,
+  "ig2-birak": Ig2Birak,
+  "ig2-kas": Ig2Kas,
+  "ig2-tavsiye": Ig2Tavsiye,
+  "ig2-gonder": Ig2Gonder,
   "ig-kanca": IgKanca,
   "ig-tarih": IgTarih,
   "ig-kilo": IgKilo,

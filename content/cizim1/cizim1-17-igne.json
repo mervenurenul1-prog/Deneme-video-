@@ -14,64 +14,67 @@
   "speed": 1.2,
   "scenes": [
     {
-      "visual": "ig-kanca",
-      "voice": "Zayıflama iğnen, bir kertenkelenin zehrinden çıktı.",
-      "say": "Zayıflama iğnen, bir kertenkelenin zehrinden çıktı.",
+      "visual": "ig2-gun",
+      "voice": "Zayıflama iğnesi kullanıyorsun ama sabah tarakta saç, öğlen midende bulantı, akşam merdivende soluk soluğa.",
+      "say": "Zayıflama iğnesi kullanıyorsun ama sabah tarakta saç, öğlen midende bulantı, akşam merdivende soluk soluğa.",
       "keys": [
-        "kertenkelenin",
-        "zehrinden"
+        "iğnesi",
+        "saç",
+        "bulantı",
+        "soluk"
       ]
     },
     {
-      "visual": "ig-tarih",
-      "voice": "Bu kertenkele yılda yalnızca birkaç kez yemek yer. Bin dokuz yüz doksan ikide bir doktor zehrinde bir madde buldu; bugünkü iğneler ondan örnek alınarak yapıldı.",
-      "say": "Bu kertenkele yılda yalnızca birkaç kez yemek yer. Bin dokuz yüz doksan ikide bir doktor zehrinde bir madde buldu; bugünkü iğneler ondan örnek alınarak yapıldı.",
-      "keys": [
-        "birkaç",
-        "madde"
-      ]
-    },
-    {
-      "visual": "ig-kilo",
-      "voice": "Herkes \"ne güzel zayıflamışsın\" diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Çünkü iğne iştahını keser, az yiyen vücut kası da yakar.",
-      "say": "Herkes \"ne güzel zayıflamışsın\" diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Çünkü iğne iştahını keser, az yiyen vücut kası da yakar.",
+      "visual": "ig2-kilo",
+      "voice": "Kimse söylemiyor ama verdiğin her on kilonun dördü yağ değil.",
+      "say": "Kimse söylemiyor ama verdiğin her on kilonun dördü yağ değil.",
       "keys": [
         "dördü",
         "yağ",
-        "değildi",
-        "iştahını",
-        "kası"
+        "değil"
       ]
     },
     {
-      "visual": "ig-ters",
-      "voice": "Ve sorun iğne değil: iğnesiz, hızlı diyet yapan da kas kaybeder.",
-      "say": "Ve sorun iğne değil: iğnesiz, hızlı diyet yapan da kas kaybeder.",
+      "visual": "ig2-birak",
+      "voice": "Asıl soru şu: iğneyi bıraktığın gün ne olacak? Kullananların üçte ikisi bir yıl dolmadan bırakıyor ve bırakınca kilonun üçte ikisi bir yılda geri geliyor.",
+      "say": "Asıl soru şu: iğneyi bıraktığın gün ne olacak? Kullananların üçte ikisi bir yıl dolmadan bırakıyor ve bırakınca kilonun üçte ikisi bir yılda geri geliyor.",
       "keys": [
-        "değil",
-        "kas"
+        "bıraktığın",
+        "üçte",
+        "ikisi",
+        "geri"
       ]
     },
     {
-      "visual": "ig-tavsiye",
-      "voice": "Birincisi: haftada iki üç gün ağırlık çalış. İkincisi: her öğünde protein al. İlacını da kendi başına bırakma.",
-      "say": "Birincisi: haftada iki üç gün ağırlık çalış. İkincisi: her öğünde protein al. İlacını da kendi başına bırakma.",
+      "visual": "ig2-kas",
+      "voice": "Kilo geri gelir, giden kas gelmez.",
+      "say": "Kilo geri gelir, giden kas gelmez.",
+      "keys": [
+        "kas",
+        "gelmez"
+      ]
+    },
+    {
+      "visual": "ig2-tavsiye",
+      "voice": "O yüzden iğne sürerken haftada iki üç gün ağırlık çalış, her öğünde protein ye. İlacı bırakmadan da doktorunla konuş.",
+      "say": "O yüzden iğne sürerken haftada iki üç gün ağırlık çalış, her öğünde protein ye. İlacı bırakmadan da doktorunla konuş.",
       "keys": [
         "ağırlık",
-        "protein"
+        "protein",
+        "doktorunla"
       ]
     },
     {
-      "visual": "ig-gonder",
-      "voice": "Kilo vermek işin yarısı. Öbür yarısı, kası korumak. Bu videoyu iğneye başlayan arkadaşına gönder ve şunu söyle:",
-      "say": "Kilo vermek işin yarısı. Öbür yarısı, kası korumak. Bu videoyu iğneye başlayan arkadaşına gönder ve şunu söyle:",
+      "visual": "ig2-gonder",
+      "voice": "İğne kiloyu verir, kası korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:",
+      "say": "İğne kiloyu verir, kası korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:",
       "keys": [
-        "yarısı",
+        "kası",
         "korumak"
       ]
     }
   ],
-  "caption": "STEP 1 (semaglutid 2,4 mg, 68 hafta, DXA): yağ −9,3 kg, yağsız kütle −5,8 kg. Exendin-4: Eng 1992, Gila kertenkelesi.",
+  "caption": "STEP 1 (yağsız kütle ~%38), Rodriguez 2025 JAMA Netw Open (%65 1 yılda bırakır), Wilding 2022 (bırakınca 1 yılda kaybın 2/3'ü geri).",
   "hashtags": [
     "saglik",
     "kas",
