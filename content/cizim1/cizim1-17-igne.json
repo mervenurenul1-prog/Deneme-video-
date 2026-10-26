@@ -26,39 +26,41 @@
     },
     {
       "visual": "ig2-kilo",
-      "voice": "Kimse söylemiyor ama verdiğin her on kilonun dördü yağ değil.",
-      "say": "Kimse söylemiyor ama verdiğin her on kilonun dördü yağ değil.",
+      "voice": "Tartı düşüyor ama ilacın onay aldığı iki bin kişilik deneyde her on kilonun dördü yağ değildi.",
+      "say": "Tartı düşüyor ama ilacın onay aldığı iki bin kişilik deneyde her on kilonun dördü yağ değildi.",
       "keys": [
+        "onay",
         "dördü",
         "yağ",
-        "değil"
+        "değildi"
       ]
     },
     {
       "visual": "ig2-birak",
-      "voice": "Asıl soru şu: iğneyi bıraktığın gün ne olacak? Kullananların üçte ikisi bir yıl dolmadan bırakıyor ve bırakınca kilonun üçte ikisi bir yılda geri geliyor.",
-      "say": "Asıl soru şu: iğneyi bıraktığın gün ne olacak? Kullananların üçte ikisi bir yıl dolmadan bırakıyor ve bırakınca kilonun üçte ikisi bir yılda geri geliyor.",
+      "voice": "Asıl tuzak, iğneyi bıraktığın gün başlıyor: çoğu kişi bir yıl dolmadan bırakıyor ve kilonun üçte ikisi geri geliyor.",
+      "say": "Asıl tuzak, iğneyi bıraktığın gün başlıyor: çoğu kişi bir yıl dolmadan bırakıyor ve kilonun üçte ikisi geri geliyor.",
       "keys": [
+        "tuzak",
         "bıraktığın",
         "üçte",
-        "ikisi",
-        "geri"
+        "ikisi"
       ]
     },
     {
       "visual": "ig2-kas",
-      "voice": "Kilo geri gelir, giden kas gelmez.",
-      "say": "Kilo geri gelir, giden kas gelmez.",
+      "voice": "Kilo kendiliğinden döner; giden kası ise ancak çalışarak geri alırsın.",
+      "say": "Kilo kendiliğinden döner; giden kası ise ancak çalışarak geri alırsın.",
       "keys": [
-        "kas",
-        "gelmez"
+        "kası",
+        "çalışarak"
       ]
     },
     {
       "visual": "ig2-tavsiye",
-      "voice": "O yüzden iğne sürerken haftada iki üç gün ağırlık çalış, her öğünde protein ye. İlacı bırakmadan da doktorunla konuş.",
-      "say": "O yüzden iğne sürerken haftada iki üç gün ağırlık çalış, her öğünde protein ye. İlacı bırakmadan da doktorunla konuş.",
+      "voice": "Yine de iğneyi tercih edeceksen kasını koru: haftada iki üç gün ağırlık çalış, her öğünde protein ye, ilacı doktorunla planla.",
+      "say": "Yine de iğneyi tercih edeceksen kasını koru: haftada iki üç gün ağırlık çalış, her öğünde protein ye, ilacı doktorunla planla.",
       "keys": [
+        "koru",
         "ağırlık",
         "protein",
         "doktorunla"
@@ -66,10 +68,11 @@
     },
     {
       "visual": "ig2-gonder",
-      "voice": "İğne kiloyu verir, kası korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:",
-      "say": "İğne kiloyu verir, kası korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:",
+      "voice": "Çünkü iğne sadece kilonu alır; kasını korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:",
+      "say": "Çünkü iğne sadece kilonu alır; kasını korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:",
       "keys": [
-        "kası",
+        "kilonu",
+        "kasını",
         "korumak"
       ]
     }
