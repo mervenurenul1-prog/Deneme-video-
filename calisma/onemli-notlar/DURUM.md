@@ -1,7 +1,7 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (26 Ekim — EN GÜNCEL) <<<
-- **17 ZAYIFLAMA İĞNESİ v5** (`cizim1-17-igne`, sahneler `ig2-*`; eski `ig-*` kertenkeleli sürüm kodda duruyor, kullanılmıyor;
+- **17 ZAYIFLAMA İĞNESİ v6** (metin v6: "Yine de iğneyi tercih edeceksen kasını koru", "ilacın onay aldığı iki bin kişilik deneyde"; ekip incelemesinde) — eski v5 notu: (`cizim1-17-igne`, sahneler `ig2-*`; eski `ig-*` kertenkeleli sürüm kodda duruyor, kullanılmıyor;
   kaynak `arastirma/17-igne.md`): "Zayıflama iğnesi kullanıyorsun ama sabah tarakta saç, öğlen bulantı, akşam merdivende
   soluk soluğa" (bir gün, köşede düşen tartı) → her 10 kilonun 4'ü yağ değil → bıraktığın gün: %65 1 yılda bırakır
   (Rodriguez 2025), bırakınca 1 yılda ⅔ geri (Wilding 2022) → "kilo geri gelir, kas gelmez" → ağırlık + protein + doktor →
