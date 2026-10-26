@@ -21658,96 +21658,69 @@ const IG_SHOE = "#f4f1ea";
 const IG_VENOM = "#c9d94a";
 const IG_SHOT = staticFile("app/program.jpg");
 
-// Çöl: sıcak gökyüzü, güneş, kayalık tepeler, kum tepeleri, dev kaktüsler
-const IgCactus: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
-  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={7} strokeLinejoin="round" fill="#5f9a52">
-    <rect x={-150} y={-340} width={64} height={180} rx={32} />
-    <rect x={-130} y={-200} width={100} height={52} rx={26} />
-    <rect x={86} y={-420} width={64} height={200} rx={32} />
-    <rect x={30} y={-270} width={100} height={52} rx={26} />
-    <rect x={-44} y={-520} width={88} height={520} rx={44} />
-    <path d="M-14 -480 V-40 M14 -470 V-40" stroke="#3f7a3a" strokeWidth={6} fill="none" />
+// Kumtaşı kaya: yuvarlak hatlı, üstü açık, altı gölgeli
+const IgRock: React.FC<{ x: number; y: number; w: number; h: number }> = ({ x, y, w: ww, h }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <path d={`M${x - ww / 2} ${y} Q${x - ww / 2 - 10} ${y - h} ${x - ww / 4} ${y - h} L${x + ww / 4} ${y - h} Q${x + ww / 2 + 10} ${y - h} ${x + ww / 2} ${y} Z`} fill="#dba66e" strokeWidth={6} />
+    <path d={`M${x - ww / 2 + 14} ${y - h * 0.62} Q${x} ${y - h * 0.56} ${x + ww / 2 - 10} ${y - h * 0.64}`} stroke="#c58b55" strokeWidth={5} fill="none" />
+    <path d={`M${x - ww / 4} ${y - h + 6} L${x + ww / 4} ${y - h + 6}`} stroke="#f1cf98" strokeWidth={10} fill="none" strokeLinecap="round" />
   </g>
 );
-// Yassı yapraklı kaktüs (opuntia): oval yapraklar, sarı-kırmızı meyveler
-const IgPear: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
-  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={6} strokeLinejoin="round">
-    {[[0, -70, 0], [-70, -150, -25], [60, -160, 20], [-10, -240, 5], [110, -250, 30]].map(([px, py, r], i) => (
-      <g key={i} transform={`translate(${px} ${py}) rotate(${r})`}>
-        <ellipse cx={0} cy={0} rx={52} ry={74} fill={i % 2 ? "#7fa85a" : "#6f9a4c"} />
-        {[[-18, -30], [16, -10], [-8, 22], [20, 34]].map(([dx, dy], k) => (
-          <path key={k} d={`M${dx} ${dy} l-8 -6 M${dx} ${dy} l8 -6`} strokeWidth={3} />
-        ))}
-      </g>
-    ))}
-    {[[-30, -300], [10, -312], [150, -312]].map(([fx, fy], i) => (
-      <ellipse key={`m${i}`} cx={fx} cy={fy} rx={14} ry={18} fill="#c43a5a" strokeWidth={4} />
+// İnce sütun kaktüs (kolsuz/tek kollu)
+const IgColumn: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" fill="#6aa04e">
+    <rect x={-22} y={-300} width={44} height={300} rx={22} />
+    <rect x={30} y={-210} width={36} height={130} rx={18} />
+    <rect x={10} y={-110} width={50} height={32} rx={16} />
+    <path d="M-6 -280 V-20 M8 -276 V-20" stroke="#4f8a3c" strokeWidth={4} fill="none" />
+  </g>
+);
+// Kuru ot öbeği
+const IgGrass: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke="#8a7a3a" strokeWidth={5} strokeLinecap="round" fill="none">
+    {[-40, -25, -10, 5, 20, 35].map((a, i) => (
+      <path key={i} d={`M0 0 Q${a * 0.6} -40 ${a * 1.6} ${-60 - (i % 2) * 20}`} />
     ))}
   </g>
 );
-// Ocotillo: ince, dalgalı uzun dallar, uçlarında kırmızı çiçek
-const IgOcotillo: React.FC<{ x: number; y: number; s?: number; f: number }> = ({ x, y, s = 1, f }) => (
-  <g transform={`translate(${x} ${y}) scale(${s})`} strokeLinecap="round" fill="none">
-    {[-34, -20, -8, 6, 20, 34].map((a, i) => {
-      const r = (a * Math.PI) / 180;
-      const tx = Math.sin(r) * 420 + 6 * Math.sin(f / 14 + i);
-      const ty = -Math.cos(r) * 420;
-      return (
-        <g key={i}>
-          <path d={`M0 0 Q${tx * 0.4 + 14} ${ty * 0.5} ${tx} ${ty}`} stroke={C.ink} strokeWidth={14} />
-          <path d={`M0 0 Q${tx * 0.4 + 14} ${ty * 0.5} ${tx} ${ty}`} stroke="#7d8a4a" strokeWidth={7} />
-          <path d={`M${tx} ${ty} l${Math.sin(r) * 34} -34`} stroke="#d4452e" strokeWidth={12} />
-        </g>
-      );
-    })}
-  </g>
-);
-// Kreozot çalısı: zeytin yeşili küçük top
-const IgBush: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
-  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={5}>
-    {[[-40, -30, 40], [0, -50, 48], [40, -28, 38]].map(([cx, cy, r], i) => (
-      <circle key={i} cx={cx} cy={cy} r={r} fill={i === 1 ? "#8a9a52" : "#7a8a46"} />
-    ))}
-  </g>
-);
-// Arizona/Sonora çölü (Gila kertenkelesinin yaşadığı yer): açık mavi gök, mor uzak dağlar, kızıl kaya tepeler,
-// dev saguaro kaktüsleri, yassı kaktüs, ocotillo, kreozot çalıları, çakıllı kuru zemin
+// Çizgi film çölü (kullanıcının referansı: açık mavi gök, beyaz bulutlar, açık sarı kum tepeleri, uzakta katmanlı kumtaşı
+// tepeler, yuvarlak kayalar, ince sütun kaktüsler, kuru ot öbekleri)
 const IgDesert: React.FC<{ f: number }> = ({ f }) => {
   const id = svgId(useId());
   return (
     <g stroke={C.ink} strokeLinejoin="round">
       <defs>
         <linearGradient id={`igs${id}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#8fc1dd" />
-          <stop offset="0.7" stopColor="#f3dcb2" />
-          <stop offset="1" stopColor="#f6c98e" />
+          <stop offset="0" stopColor="#4f86d8" />
+          <stop offset="0.75" stopColor="#a9cbee" />
+          <stop offset="1" stopColor="#e6eef2" />
         </linearGradient>
       </defs>
       <rect x={-600} y={-600} width={2280} height={1800} fill={`url(#igs${id})`} strokeWidth={0} />
-      <circle cx={820} cy={300} r={90} fill="#fff1b8" strokeWidth={6} />
-      <circle cx={820} cy={300} r={130 + 8 * Math.sin(f / 8)} fill="#fff1b8" opacity={0.3} strokeWidth={0} />
-      {/* uzak mor dağlar */}
-      <path d="M-600 900 L-420 780 L-300 840 L-140 700 L20 830 L200 740 L380 860 L560 760 L760 850 L940 720 L1120 830 L1300 760 L1680 880 V1100 H-600 Z" fill="#a98aa6" strokeWidth={6} />
-      {/* kızıl kaya tepeler (mesa) */}
-      <path d="M-600 1000 L-380 1000 L-330 830 L-60 830 L-10 1000 L520 1000 L560 900 L600 880 L660 880 L700 900 L740 1000 L1680 1000 V1200 H-600 Z" fill="#c4643c" strokeWidth={7} />
-      <path d="M-330 870 H-60 M-320 920 H-40 M570 930 H720" stroke="#a24e2e" strokeWidth={6} fill="none" />
-      <path d="M1020 1000 L1060 820 L1140 790 L1200 820 L1240 1000 Z" fill="#b85a36" strokeWidth={7} />
-      {/* uzak küçük saguarolar */}
-      <IgCactus x={460} y={1040} s={0.28} />
-      <IgCactus x={880} y={1030} s={0.22} />
-      {/* zemin: çakıllı kuru toprak */}
-      <path d="M-600 1040 Q0 1010 540 1050 Q1100 1080 1680 1030 V2700 H-600 Z" fill="#e2b47c" strokeWidth={7} />
-      {Array.from({ length: 60 }, (_, i) => (
-        <circle key={i} cx={-500 + ((i * 197) % 2100)} cy={1080 + ((i * 131) % 900)} r={4 + (i % 3) * 2} fill="#b9895a" strokeWidth={0} />
+      {[[180, 380, 1], [760, 250, 0.8], [1020, 520, 0.7]].map(([cx, cy, k], i) => (
+        <g key={i} transform={`translate(${cx + 10 * Math.sin(f / 40 + i)} ${cy}) scale(${k})`} fill="#fff" strokeWidth={0} opacity={0.9}>
+          <ellipse cx={0} cy={0} rx={110} ry={34} />
+          <ellipse cx={-50} cy={-20} rx={56} ry={34} />
+          <ellipse cx={40} cy={-26} rx={64} ry={40} />
+        </g>
       ))}
-      <IgOcotillo x={940} y={1110} s={0.9} f={f} />
-      <IgCactus x={60} y={1130} s={1.05} />
-      <IgBush x={760} y={1120} s={0.9} />
-      <IgBush x={-80} y={1240} s={1.1} />
-      <IgPear x={1010} y={1330} s={0.9} />
-      <IgBush x={540} y={1420} s={0.8} />
-      {[[300, 1380], [780, 1500], [150, 1620], [920, 1660]].map(([x, y], i) => (
-        <path key={i} d={`M${x - 50} ${y} Q${x - 40} ${y - 36} ${x} ${y - 38} Q${x + 46} ${y - 34} ${x + 52} ${y} Z`} fill="#a8916f" strokeWidth={5} />
+      {/* uzakta katmanlı kumtaşı tepeler */}
+      <path d="M-600 1000 L-480 1000 L-450 900 L-240 900 L-210 1000 L620 1000 L650 930 L700 910 L1000 910 L1040 960 L1680 960 V1100 H-600 Z" fill="#e3a77a" strokeWidth={6} />
+      <path d="M-450 935 H-240 M680 940 H1010" stroke="#c98a5e" strokeWidth={5} fill="none" />
+      <IgColumn x={300} y={1010} s={0.3} />
+      {/* kum tepeleri */}
+      <path d="M-600 1060 Q-200 990 200 1040 Q600 1090 900 1020 Q1200 970 1680 1040 V2700 H-600 Z" fill="#efd9a2" strokeWidth={7} />
+      <path d="M-100 1040 Q200 1000 420 1050 M640 1060 Q820 1020 1000 1035" stroke="#d9bd80" strokeWidth={6} fill="none" />
+      <IgColumn x={60} y={1110} s={1.0} />
+      <IgRock x={900} y={1130} w={260} h={170} />
+      <IgColumn x={1000} y={1090} s={0.75} />
+      <IgGrass x={760} y={1120} s={1} />
+      <IgGrass x={-40} y={1260} s={1.2} />
+      <path d="M-600 1300 Q0 1250 540 1310 Q1100 1360 1680 1290 V2700 H-600 Z" fill="#f2e0b0" strokeWidth={0} opacity={0.7} />
+      <IgRock x={1000} y={1420} w={200} h={110} />
+      <IgGrass x={560} y={1440} s={0.9} />
+      {Array.from({ length: 40 }, (_, i) => (
+        <circle key={i} cx={-500 + ((i * 197) % 2100)} cy={1100 + ((i * 131) % 900)} r={3 + (i % 3)} fill="#d6b97c" strokeWidth={0} />
       ))}
     </g>
   );
