@@ -22116,6 +22116,19 @@ const IgTers: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// Tarak + takılmış saç tutamı (yan etki ipucu; seste yok)
+const IgComb: React.FC<{ x: number; y: number; p: number; f: number }> = ({ x, y, p, f }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p}) rotate(-10)`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+      <rect x={-120} y={-34} width={240} height={34} rx={10} fill="#d98aa0" strokeWidth={6} />
+      {Array.from({ length: 13 }, (_, i) => (
+        <rect key={i} x={-112 + i * 18} y={0} width={9} height={56} rx={3} fill="#d98aa0" strokeWidth={4} />
+      ))}
+      {[0, 1, 2, 3, 4].map((i) => (
+        <path key={`h${i}`} d={`M${-70 + i * 22} 10 q${-40 + 6 * Math.sin(f / 9 + i)} 60 ${-10 + i * 6} 120 q20 30 ${-20 - i * 4} 70`} stroke={C.hair} strokeWidth={5} fill="none" />
+      ))}
+    </g>
+  ) : null;
 // Protein tabağı: yumurta, tavuk budu, yoğurt
 const IgProtein: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =>
   p > 0 ? (
@@ -22195,6 +22208,7 @@ const IgTavsiye: React.FC<SceneProps> = ({ w, d }) => {
         {thick > 0.9 && f < w(8) ? <path d="M760 1240 l30 30 l60 -64" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" /> : null}
         <IgProtein x={720} y={1380} p={plate} />
         {pen > 0 ? <IgPen x={620} y={850} s={0.5 * pen} rot={-90} fill={1} /> : null}
+        <IgComb x={850} y={830} p={pop(f, w(13), 12)} f={f} />
       </CamK>
       <KTag x={620} y={700} p={pen} text="doktorunla konuş" color={YAS_OK} rot={-3} />
     </>
