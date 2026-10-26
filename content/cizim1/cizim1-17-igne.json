@@ -33,8 +33,8 @@
     },
     {
       "visual": "ig-kilo",
-      "voice": "Herkes \"ne güzel zayıflamışsın\" diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Çünkü iğne iştahını kısar, az yiyen vücut kası da yakar.",
-      "say": "Herkes \"ne güzel zayıflamışsın\" diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Çünkü iğne iştahını kısar, az yiyen vücut kası da yakar.",
+      "voice": "Herkes \"ne güzel zayıflamışsın\" diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Çünkü iğne iştahını keser, az yiyen vücut kası da yakar.",
+      "say": "Herkes \"ne güzel zayıflamışsın\" diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Çünkü iğne iştahını keser, az yiyen vücut kası da yakar.",
       "keys": [
         "dördü",
         "yağ",

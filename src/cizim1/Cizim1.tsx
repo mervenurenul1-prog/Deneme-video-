@@ -21669,25 +21669,85 @@ const IgCactus: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 
     <path d="M-14 -480 V-40 M14 -470 V-40" stroke="#3f7a3a" strokeWidth={6} fill="none" />
   </g>
 );
+// Yassı yapraklı kaktüs (opuntia): oval yapraklar, sarı-kırmızı meyveler
+const IgPear: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={6} strokeLinejoin="round">
+    {[[0, -70, 0], [-70, -150, -25], [60, -160, 20], [-10, -240, 5], [110, -250, 30]].map(([px, py, r], i) => (
+      <g key={i} transform={`translate(${px} ${py}) rotate(${r})`}>
+        <ellipse cx={0} cy={0} rx={52} ry={74} fill={i % 2 ? "#7fa85a" : "#6f9a4c"} />
+        {[[-18, -30], [16, -10], [-8, 22], [20, 34]].map(([dx, dy], k) => (
+          <path key={k} d={`M${dx} ${dy} l-8 -6 M${dx} ${dy} l8 -6`} strokeWidth={3} />
+        ))}
+      </g>
+    ))}
+    {[[-30, -300], [10, -312], [150, -312]].map(([fx, fy], i) => (
+      <ellipse key={`m${i}`} cx={fx} cy={fy} rx={14} ry={18} fill="#c43a5a" strokeWidth={4} />
+    ))}
+  </g>
+);
+// Ocotillo: ince, dalgalı uzun dallar, uçlarında kırmızı çiçek
+const IgOcotillo: React.FC<{ x: number; y: number; s?: number; f: number }> = ({ x, y, s = 1, f }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} strokeLinecap="round" fill="none">
+    {[-34, -20, -8, 6, 20, 34].map((a, i) => {
+      const r = (a * Math.PI) / 180;
+      const tx = Math.sin(r) * 420 + 6 * Math.sin(f / 14 + i);
+      const ty = -Math.cos(r) * 420;
+      return (
+        <g key={i}>
+          <path d={`M0 0 Q${tx * 0.4 + 14} ${ty * 0.5} ${tx} ${ty}`} stroke={C.ink} strokeWidth={14} />
+          <path d={`M0 0 Q${tx * 0.4 + 14} ${ty * 0.5} ${tx} ${ty}`} stroke="#7d8a4a" strokeWidth={7} />
+          <path d={`M${tx} ${ty} l${Math.sin(r) * 34} -34`} stroke="#d4452e" strokeWidth={12} />
+        </g>
+      );
+    })}
+  </g>
+);
+// Kreozot çalısı: zeytin yeşili küçük top
+const IgBush: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={5}>
+    {[[-40, -30, 40], [0, -50, 48], [40, -28, 38]].map(([cx, cy, r], i) => (
+      <circle key={i} cx={cx} cy={cy} r={r} fill={i === 1 ? "#8a9a52" : "#7a8a46"} />
+    ))}
+  </g>
+);
+// Arizona/Sonora çölü (Gila kertenkelesinin yaşadığı yer): açık mavi gök, mor uzak dağlar, kızıl kaya tepeler,
+// dev saguaro kaktüsleri, yassı kaktüs, ocotillo, kreozot çalıları, çakıllı kuru zemin
 const IgDesert: React.FC<{ f: number }> = ({ f }) => {
   const id = svgId(useId());
   return (
     <g stroke={C.ink} strokeLinejoin="round">
       <defs>
         <linearGradient id={`igs${id}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#f2b56b" />
-          <stop offset="1" stopColor="#fbe6b8" />
+          <stop offset="0" stopColor="#8fc1dd" />
+          <stop offset="0.7" stopColor="#f3dcb2" />
+          <stop offset="1" stopColor="#f6c98e" />
         </linearGradient>
       </defs>
       <rect x={-600} y={-600} width={2280} height={1800} fill={`url(#igs${id})`} strokeWidth={0} />
-      <circle cx={820} cy={330} r={110} fill="#ffd56a" strokeWidth={6} />
-      <circle cx={820} cy={330} r={150 + 8 * Math.sin(f / 8)} fill="#ffd56a" opacity={0.25} strokeWidth={0} />
-      <path d="M-600 960 L-260 960 L-210 820 L120 820 L170 960 L640 960 L700 860 L980 860 L1040 960 L1680 960 V1300 H-600 Z" fill="#d38c56" strokeWidth={6} />
-      <IgCactus x={80} y={1170} s={0.9} />
-      <path d="M-600 1150 Q0 1060 540 1130 Q1100 1200 1680 1110 V2700 H-600 Z" fill="#eec58a" strokeWidth={7} />
-      <IgCactus x={1000} y={1260} s={0.7} />
-      {[[300, 1380], [760, 1460], [180, 1600], [900, 1640]].map(([x, y], i) => (
-        <ellipse key={i} cx={x} cy={y} rx={40 + 10 * (i % 2)} ry={18} fill="#c49a68" strokeWidth={5} />
+      <circle cx={820} cy={300} r={90} fill="#fff1b8" strokeWidth={6} />
+      <circle cx={820} cy={300} r={130 + 8 * Math.sin(f / 8)} fill="#fff1b8" opacity={0.3} strokeWidth={0} />
+      {/* uzak mor dağlar */}
+      <path d="M-600 900 L-420 780 L-300 840 L-140 700 L20 830 L200 740 L380 860 L560 760 L760 850 L940 720 L1120 830 L1300 760 L1680 880 V1100 H-600 Z" fill="#a98aa6" strokeWidth={6} />
+      {/* kızıl kaya tepeler (mesa) */}
+      <path d="M-600 1000 L-380 1000 L-330 830 L-60 830 L-10 1000 L520 1000 L560 900 L600 880 L660 880 L700 900 L740 1000 L1680 1000 V1200 H-600 Z" fill="#c4643c" strokeWidth={7} />
+      <path d="M-330 870 H-60 M-320 920 H-40 M570 930 H720" stroke="#a24e2e" strokeWidth={6} fill="none" />
+      <path d="M1020 1000 L1060 820 L1140 790 L1200 820 L1240 1000 Z" fill="#b85a36" strokeWidth={7} />
+      {/* uzak küçük saguarolar */}
+      <IgCactus x={460} y={1040} s={0.28} />
+      <IgCactus x={880} y={1030} s={0.22} />
+      {/* zemin: çakıllı kuru toprak */}
+      <path d="M-600 1040 Q0 1010 540 1050 Q1100 1080 1680 1030 V2700 H-600 Z" fill="#e2b47c" strokeWidth={7} />
+      {Array.from({ length: 60 }, (_, i) => (
+        <circle key={i} cx={-500 + ((i * 197) % 2100)} cy={1080 + ((i * 131) % 900)} r={4 + (i % 3) * 2} fill="#b9895a" strokeWidth={0} />
+      ))}
+      <IgOcotillo x={940} y={1110} s={0.9} f={f} />
+      <IgCactus x={60} y={1130} s={1.05} />
+      <IgBush x={760} y={1120} s={0.9} />
+      <IgBush x={-80} y={1240} s={1.1} />
+      <IgPear x={1010} y={1330} s={0.9} />
+      <IgBush x={540} y={1420} s={0.8} />
+      {[[300, 1380], [780, 1500], [150, 1620], [920, 1660]].map(([x, y], i) => (
+        <path key={i} d={`M${x - 50} ${y} Q${x - 40} ${y - 36} ${x} ${y - 38} Q${x + 46} ${y - 34} ${x + 52} ${y} Z`} fill="#a8916f" strokeWidth={5} />
       ))}
     </g>
   );
@@ -22022,7 +22082,7 @@ const IgBath: React.FC = () => (
 );
 
 // 3) "Herkes 'ne güzel zayıflamışsın' diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Çünkü iğne
-// iştahını kısar, az yiyen vücut kası da yakar."
+// iştahını keser, az yiyen vücut kası da yakar."
 // Banyoda tartıda avatar (−10 kg), iki yandan övgü balonları, kalpler; "Ama"da balonlar söner; "verilen"den itibaren tartıdan
 // 10 kiloluk blok düşer; "dördü"nde son dördü titreyip kırmızıya döner: "yağ değil"; "iştahını kısar"da önde dolu tabak
 // belirip küçülür; "az yiyen"de kol merceği: "kası da yakar"da kas lifleri incelir, kırmızı alev.
