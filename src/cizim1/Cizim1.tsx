@@ -21726,67 +21726,80 @@ const IgDesert: React.FC<{ f: number }> = ({ f }) => {
   );
 };
 
-// Gila kertenkelesi (yandan, başı sağda): siyah gövde, pembe-turuncu boncuklu bantlar, kalın kuyruk.
-// Göz başın üstünde (x+360·s, y−132·s): kanca yakın planı gözden başlar.
+// Gila kertenkelesi (yandan, başı sağda; çizgi film): küçük yuvarlak kafa, kısa burun, boyun, ince gövde, yana açılan
+// dirsekli bacaklar, ince uzun kıvrık kuyruk; pembe-turuncu üstüne siyah benekli bantlar, büyük göz.
+// Göz (x+352·s, y−150·s): kanca yakın planı gözden başlar. Ağız ucu (x+418·s, y−98·s).
 const IgLizard: React.FC<{ x: number; y: number; s: number; f: number; walk?: number; jaw?: number; tongue?: number; blink?: boolean }> = ({ x, y, s, f, walk = 0, jaw = 0, tongue = 0, blink = false }) => {
   const id = svgId(useId());
   const ph = walk * Math.sin(f / 3);
-  const body = "M-200 -40 Q-200 -150 0 -150 Q200 -150 250 -110 L260 -40 Q200 0 0 0 Q-150 0 -200 -40 Z";
-  const tail = "M-190 -110 Q-330 -110 -480 -40 Q-500 -26 -470 -22 Q-330 -30 -190 -20 Z";
-  const legs: [number, number][] = [[170, 1], [-120, -1]];
+  const body = "M-190 -84 Q-180 -136 -40 -138 Q110 -140 200 -118 Q236 -104 214 -80 Q140 -60 -40 -62 Q-176 -60 -190 -84 Z";
+  const tail = "M-178 -116 Q-320 -112 -430 -76 Q-500 -52 -548 -66 Q-560 -60 -540 -50 Q-490 -34 -420 -50 Q-300 -70 -178 -64 Z";
+  const head = "M196 -112 Q222 -170 318 -176 Q402 -178 428 -128 Q434 -104 412 -96 Q340 -88 262 -92 Q214 -94 196 -112 Z";
+  // bacak: kalça → dirsek (yukarı-dışarı) → ayak; k = adım yönü
+  const leg = (hx: number, back: boolean, k: number) => {
+    const sw = 26 * ph * k;
+    const ex = hx + (back ? -34 : 40) + sw * 0.4;
+    const fx = hx + (back ? -20 : 30) + sw;
+    return { d: `M${hx} -74 L${ex} -46 L${fx} -4`, fx };
+  };
+  const legs = [leg(140, false, 1), leg(-120, true, -1)];
+  const far = [leg(160, false, -1), leg(-100, true, 1)];
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
-      <ellipse cx={0} cy={6} rx={360} ry={22} fill={C.ink} opacity={0.18} stroke="none" />
+      <ellipse cx={-60} cy={4} rx={380} ry={18} fill={C.ink} opacity={0.15} stroke="none" />
       {/* arkadaki bacaklar */}
-      {legs.map(([lx, k], i) => (
-        <path key={`b${i}`} d={`M${lx + 20} -50 L${lx + 20 - 26 * ph * k} 0`} stroke="#141012" strokeWidth={34} fill="none" />
+      {far.map((l, i) => (
+        <path key={`b${i}`} d={l.d} stroke="#b8644a" strokeWidth={22} fill="none" />
       ))}
       <clipPath id={`igl${id}`}>
         <path d={body} />
         <path d={tail} />
+        <path d={head} />
       </clipPath>
-      <path d={tail} fill="#1f1a1c" strokeWidth={7} />
-      <path d={body} fill="#1f1a1c" strokeWidth={7} />
+      <path d={tail} fill="#ee9a6c" strokeWidth={6} />
+      <path d={body} fill="#ee9a6c" strokeWidth={6} />
+      <path d={head} fill="#ee9a6c" strokeWidth={6} />
       <g clipPath={`url(#igl${id})`} stroke="none">
-        {[-420, -330, -250, -160, -70, 20, 110, 190].map((bx, i) => (
-          <path key={i} d={`M${bx} -160 q${30 + (i % 2) * 14} 50 ${-6} 100 q-10 40 ${24} 70 l46 0 q-20 -40 -4 -80 q10 -50 -16 -90 Z`} fill={i % 2 ? "#f0a070" : "#e47f5c"} />
+        {/* siyah bantlar (düzensiz) */}
+        {[-500, -420, -340, -260, -170, -80, 10, 100, 180].map((bx, i) => (
+          <path key={i} d={`M${bx} -190 q${18 + (i % 2) * 10} 40 -4 80 q-14 30 10 60 l${34 + (i % 3) * 6} 0 q-16 -30 -2 -60 q14 -44 -8 -80 Z`} fill="#2a2224" />
         ))}
-        {Array.from({ length: 70 }, (_, i) => (
-          <circle key={`d${i}`} cx={-470 + (i % 14) * 52} cy={-150 + Math.floor(i / 14) * 32} r={9} fill="#fff" opacity={0.12} />
+        <path d="M230 -180 q30 30 10 70 l50 0 q-10 -40 10 -70 Z" fill="#2a2224" />
+        {Array.from({ length: 80 }, (_, i) => (
+          <circle key={`d${i}`} cx={-540 + (i % 16) * 62} cy={-176 + Math.floor(i / 16) * 30} r={7} fill="#fff" opacity={0.13} />
         ))}
+        {/* açık karın çizgisi */}
+        <path d="M-180 -66 Q0 -58 210 -84" stroke="#f6c9a2" strokeWidth={10} fill="none" />
       </g>
-      {/* öndeki bacaklar + parmaklar */}
-      {legs.map(([lx, k], i) => {
-        const fx = lx - 26 * -ph * k;
-        return (
-          <g key={`f${i}`}>
-            <path d={`M${lx} -50 L${fx} 0`} stroke={C.ink} strokeWidth={46} fill="none" />
-            <path d={`M${lx} -50 L${fx} 0`} stroke="#2a2224" strokeWidth={34} fill="none" />
-            <path d={`M${fx - 10} 4 l-22 8 M${fx} 6 l0 14 M${fx + 10} 4 l22 8`} strokeWidth={6} fill="none" />
-          </g>
-        );
-      })}
-      {/* alt çene (açılır) + dil */}
-      <g transform={`rotate(${28 * jaw} 230 -70)`}>
-        <path d="M230 -80 Q320 -60 400 -66 Q400 -40 330 -34 Q270 -34 230 -50 Z" fill="#1f1a1c" strokeWidth={6} />
+      {/* öndeki bacaklar + yayılan parmaklar */}
+      {legs.map((l, i) => (
+        <g key={`f${i}`}>
+          <path d={l.d} stroke={C.ink} strokeWidth={34} fill="none" />
+          <path d={l.d} stroke="#ee9a6c" strokeWidth={22} fill="none" />
+          <path d={`M${l.fx} -2 l-20 6 M${l.fx} -2 l-6 16 M${l.fx} -2 l10 14 M${l.fx} -2 l22 4`} strokeWidth={6} fill="none" />
+        </g>
+      ))}
+      {/* alt çene (açılır) + ağız içi + dil */}
+      {jaw > 0 ? <path d={`M300 -98 Q370 ${-92 + 26 * jaw} 420 -100 Z`} fill="#c94f63" strokeWidth={4} /> : null}
+      <g transform={`rotate(${22 * jaw} 300 -96)`}>
+        <path d="M300 -98 Q370 -92 420 -100 Q416 -82 378 -78 Q330 -78 300 -90 Z" fill="#ee9a6c" strokeWidth={5} />
       </g>
-      {jaw > 0 ? <path d={`M240 -76 Q320 ${-70 + 30 * jaw} 392 -70 Z`} fill="#d9667a" strokeWidth={4} /> : null}
       {tongue > 0 ? (
-        <path d={`M380 -70 L${380 + 90 * tongue} -66 l18 -12 M${380 + 90 * tongue} -66 l18 10`} stroke="#3b4a9a" strokeWidth={8} fill="none" />
+        <path d={`M410 -98 L${410 + 80 * tongue} -96 l16 -10 M${410 + 80 * tongue} -96 l16 8`} stroke="#c94f63" strokeWidth={7} fill="none" />
       ) : null}
-      {/* baş */}
-      <path d="M220 -70 Q220 -170 320 -168 Q400 -164 410 -80 Q330 -66 220 -70 Z" fill="#1f1a1c" strokeWidth={7} />
-      <path d="M300 -150 q20 -6 40 0 M330 -120 q20 -6 40 0" stroke="#e47f5c" strokeWidth={8} fill="none" />
-      <circle cx={392} cy={-96} r={5} fill="#000" stroke="none" />
-      {/* göz */}
-      <circle cx={360} cy={-132} r={20} fill="#c7702e" strokeWidth={5} />
+      <path d="M300 -98 Q370 -92 420 -100" strokeWidth={5} fill="none" />
+      <circle cx={414} cy={-126} r={4} fill={C.ink} stroke="none" />
+      <path d="M392 -98 Q402 -90 412 -100" strokeWidth={4} fill="none" opacity={jaw > 0 ? 0 : 1} />
+      {/* büyük göz */}
+      <circle cx={352} cy={-150} r={30} fill="#fffaf0" strokeWidth={6} />
       {blink ? (
-        <path d="M340 -132 Q360 -118 380 -132" fill="#1f1a1c" strokeWidth={5} />
+        <path d="M322 -150 Q352 -128 382 -150 Q352 -176 322 -150 Z" fill="#ee9a6c" strokeWidth={5} />
       ) : (
         <g>
-          <circle cx={362} cy={-132} r={10} fill="#0b0b0b" stroke="none" />
-          <circle cx={356} cy={-138} r={4} fill="#fff" stroke="none" />
-          <path d="M344 -146 Q360 -156 378 -146" stroke="#e8a060" strokeWidth={3} fill="none" opacity={0.7} />
+          <circle cx={360} cy={-148} r={15} fill="#7a8a3a" stroke={C.ink} strokeWidth={3} />
+          <circle cx={362} cy={-148} r={8} fill="#0b0b0b" stroke="none" />
+          <circle cx={356} cy={-154} r={4} fill="#fff" stroke="none" />
+          <path d="M320 -166 Q352 -192 384 -168" stroke={C.ink} strokeWidth={6} fill="none" />
         </g>
       )}
       <text x={0} y={0} fontSize={1} fill="none" stroke="none">{f}</text>
@@ -21794,8 +21807,8 @@ const IgLizard: React.FC<{ x: number; y: number; s: number; f: number; walk?: nu
   );
 };
 const IG_LIZ = { x: 200, y: 1180, s: 1.2 };
-const IG_EYE: [number, number] = [IG_LIZ.x + 360 * IG_LIZ.s, IG_LIZ.y - 132 * IG_LIZ.s];
-const IG_MOUTH: [number, number] = [IG_LIZ.x + 395 * IG_LIZ.s, IG_LIZ.y - 50 * IG_LIZ.s];
+const IG_EYE: [number, number] = [IG_LIZ.x + 352 * IG_LIZ.s, IG_LIZ.y - 150 * IG_LIZ.s];
+const IG_MOUTH: [number, number] = [IG_LIZ.x + 418 * IG_LIZ.s, IG_LIZ.y - 98 * IG_LIZ.s];
 const IG_START: [number, number, number] = [3.6, IG_EYE[0], IG_EYE[1]];
 
 // Zehir damlası
