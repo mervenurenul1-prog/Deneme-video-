@@ -179,6 +179,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "ig-kanca": (w) => [[w(2), "whoosh", 0.35], [w(4) + 4, "damla", 0.4], [w(5) + 6, "sihir", 0.4]],
+  "ig-tarih": (w) => [[w(8) - 2, "pirilti", 0.35], [w(15), "kalem", 0.3], [w(17) - 2, "sihir", 0.35], [w(21), "pop", 0.3], [w(27), "sonme", 0.3]],
+  "ig-kilo": (w) => [[w(0), "ding", 0.3], [w(5), "sonme", 0.35], [w(9), "agir-dusme", 0.25], [w(13), "cizik", 0.35], [w(18), "sonme", 0.3]],
+  "ig-ters": (w) => [[w(3), "whoosh", 0.35], [w(4), "adim", 0.3], [w(9), "agir-dusme", 0.25]],
+  "ig-tavsiye": (w) => [[0, "kalem", 0.3], [w(5), "ding", 0.35], [w(8) - 2, "pop", 0.35], [w(12), "kalem", 0.3]],
+  "ig-gonder": (w) => [[w(3), "pop", 0.3], [w(7), "ding", 0.35], [w(13) - 4, "whoosh", 0.3], [w(15), "whoosh", 0.35]],
   "hs-kanca": (w) => [[0, "pirilti", 0.35], [w(7) - 2, "whoosh", 0.4], [w(16), "agir-dusme", 0.35]],
   "hs-liste": (w) => [[0, "kagit", 0.4], [w(6) - 2, "pop", 0.3], [w(8) - 2, "pop", 0.3], [w(10) - 2, "pop", 0.3], [w(13) - 2, "pop", 0.4]],
   "hs-vakit": (w) => [[w(2), "kalem", 0.3], [w(4) - 2, "pop", 0.35]],
@@ -828,6 +834,12 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "ig-kanca": { to: 1.0, x: 540, y: 960 },
+  "ig-tarih": { to: 1.0, x: 540, y: 960 },
+  "ig-kilo": { to: 1.0, x: 540, y: 960 },
+  "ig-ters": { to: 1.0, x: 540, y: 960 },
+  "ig-tavsiye": { to: 1.0, x: 540, y: 960 },
+  "ig-gonder": { to: 1.0, x: 540, y: 960 },
   "hs-kanca": { to: 1.0, x: 540, y: 960 },
   "hs-liste": { to: 1.0, x: 540, y: 960 },
   "hs-vakit": { to: 1.0, x: 540, y: 960 },
@@ -21635,7 +21647,656 @@ const HsGonder: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 17 ZAYIFLAMA İĞNESİ (`ig-*`) — Gila kertenkelesi (1992) + büyük deney: verilen her 10 kilonun ~4'ü yağ değil =====
+// İlaç/marka adı YOK, kullananı suçlama yok. VOOM sesle yok: salondaki yeşil tahtanın köşesinde telefonda görünür.
+// Avatar bütün videoda salon kıyafetinde (siyah tişört + gri şort).
+const IG_SHORTS = "#8c8c90";
+const IG_SHOE = "#f4f1ea";
+const IG_VENOM = "#c9d94a";
+const IG_SHOT = staticFile("app/program.jpg");
+
+// Çöl: sıcak gökyüzü, güneş, kayalık tepeler, kum tepeleri, dev kaktüsler
+const IgCactus: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeWidth={7} strokeLinejoin="round" fill="#5f9a52">
+    <rect x={-150} y={-340} width={64} height={180} rx={32} />
+    <rect x={-130} y={-200} width={100} height={52} rx={26} />
+    <rect x={86} y={-420} width={64} height={200} rx={32} />
+    <rect x={30} y={-270} width={100} height={52} rx={26} />
+    <rect x={-44} y={-520} width={88} height={520} rx={44} />
+    <path d="M-14 -480 V-40 M14 -470 V-40" stroke="#3f7a3a" strokeWidth={6} fill="none" />
+  </g>
+);
+const IgDesert: React.FC<{ f: number }> = ({ f }) => {
+  const id = svgId(useId());
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      <defs>
+        <linearGradient id={`igs${id}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#f2b56b" />
+          <stop offset="1" stopColor="#fbe6b8" />
+        </linearGradient>
+      </defs>
+      <rect x={-600} y={-600} width={2280} height={1800} fill={`url(#igs${id})`} strokeWidth={0} />
+      <circle cx={820} cy={330} r={110} fill="#ffd56a" strokeWidth={6} />
+      <circle cx={820} cy={330} r={150 + 8 * Math.sin(f / 8)} fill="#ffd56a" opacity={0.25} strokeWidth={0} />
+      <path d="M-600 960 L-260 960 L-210 820 L120 820 L170 960 L640 960 L700 860 L980 860 L1040 960 L1680 960 V1300 H-600 Z" fill="#d38c56" strokeWidth={6} />
+      <IgCactus x={80} y={1170} s={0.9} />
+      <path d="M-600 1150 Q0 1060 540 1130 Q1100 1200 1680 1110 V2700 H-600 Z" fill="#eec58a" strokeWidth={7} />
+      <IgCactus x={1000} y={1260} s={0.7} />
+      {[[300, 1380], [760, 1460], [180, 1600], [900, 1640]].map(([x, y], i) => (
+        <ellipse key={i} cx={x} cy={y} rx={40 + 10 * (i % 2)} ry={18} fill="#c49a68" strokeWidth={5} />
+      ))}
+    </g>
+  );
+};
+
+// Gila kertenkelesi (yandan, başı sağda): siyah gövde, pembe-turuncu boncuklu bantlar, kalın kuyruk.
+// Göz başın üstünde (x+360·s, y−132·s): kanca yakın planı gözden başlar.
+const IgLizard: React.FC<{ x: number; y: number; s: number; f: number; walk?: number; jaw?: number; tongue?: number; blink?: boolean }> = ({ x, y, s, f, walk = 0, jaw = 0, tongue = 0, blink = false }) => {
+  const id = svgId(useId());
+  const ph = walk * Math.sin(f / 3);
+  const body = "M-200 -40 Q-200 -150 0 -150 Q200 -150 250 -110 L260 -40 Q200 0 0 0 Q-150 0 -200 -40 Z";
+  const tail = "M-190 -110 Q-330 -110 -480 -40 Q-500 -26 -470 -22 Q-330 -30 -190 -20 Z";
+  const legs: [number, number][] = [[170, 1], [-120, -1]];
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+      <ellipse cx={0} cy={6} rx={360} ry={22} fill={C.ink} opacity={0.18} stroke="none" />
+      {/* arkadaki bacaklar */}
+      {legs.map(([lx, k], i) => (
+        <path key={`b${i}`} d={`M${lx + 20} -50 L${lx + 20 - 26 * ph * k} 0`} stroke="#141012" strokeWidth={34} fill="none" />
+      ))}
+      <clipPath id={`igl${id}`}>
+        <path d={body} />
+        <path d={tail} />
+      </clipPath>
+      <path d={tail} fill="#1f1a1c" strokeWidth={7} />
+      <path d={body} fill="#1f1a1c" strokeWidth={7} />
+      <g clipPath={`url(#igl${id})`} stroke="none">
+        {[-420, -330, -250, -160, -70, 20, 110, 190].map((bx, i) => (
+          <path key={i} d={`M${bx} -160 q${30 + (i % 2) * 14} 50 ${-6} 100 q-10 40 ${24} 70 l46 0 q-20 -40 -4 -80 q10 -50 -16 -90 Z`} fill={i % 2 ? "#f0a070" : "#e47f5c"} />
+        ))}
+        {Array.from({ length: 70 }, (_, i) => (
+          <circle key={`d${i}`} cx={-470 + (i % 14) * 52} cy={-150 + Math.floor(i / 14) * 32} r={9} fill="#fff" opacity={0.12} />
+        ))}
+      </g>
+      {/* öndeki bacaklar + parmaklar */}
+      {legs.map(([lx, k], i) => {
+        const fx = lx - 26 * -ph * k;
+        return (
+          <g key={`f${i}`}>
+            <path d={`M${lx} -50 L${fx} 0`} stroke={C.ink} strokeWidth={46} fill="none" />
+            <path d={`M${lx} -50 L${fx} 0`} stroke="#2a2224" strokeWidth={34} fill="none" />
+            <path d={`M${fx - 10} 4 l-22 8 M${fx} 6 l0 14 M${fx + 10} 4 l22 8`} strokeWidth={6} fill="none" />
+          </g>
+        );
+      })}
+      {/* alt çene (açılır) + dil */}
+      <g transform={`rotate(${28 * jaw} 230 -70)`}>
+        <path d="M230 -80 Q320 -60 400 -66 Q400 -40 330 -34 Q270 -34 230 -50 Z" fill="#1f1a1c" strokeWidth={6} />
+      </g>
+      {jaw > 0 ? <path d={`M240 -76 Q320 ${-70 + 30 * jaw} 392 -70 Z`} fill="#d9667a" strokeWidth={4} /> : null}
+      {tongue > 0 ? (
+        <path d={`M380 -70 L${380 + 90 * tongue} -66 l18 -12 M${380 + 90 * tongue} -66 l18 10`} stroke="#3b4a9a" strokeWidth={8} fill="none" />
+      ) : null}
+      {/* baş */}
+      <path d="M220 -70 Q220 -170 320 -168 Q400 -164 410 -80 Q330 -66 220 -70 Z" fill="#1f1a1c" strokeWidth={7} />
+      <path d="M300 -150 q20 -6 40 0 M330 -120 q20 -6 40 0" stroke="#e47f5c" strokeWidth={8} fill="none" />
+      <circle cx={392} cy={-96} r={5} fill="#000" stroke="none" />
+      {/* göz */}
+      <circle cx={360} cy={-132} r={20} fill="#c7702e" strokeWidth={5} />
+      {blink ? (
+        <path d="M340 -132 Q360 -118 380 -132" fill="#1f1a1c" strokeWidth={5} />
+      ) : (
+        <g>
+          <circle cx={362} cy={-132} r={10} fill="#0b0b0b" stroke="none" />
+          <circle cx={356} cy={-138} r={4} fill="#fff" stroke="none" />
+          <path d="M344 -146 Q360 -156 378 -146" stroke="#e8a060" strokeWidth={3} fill="none" opacity={0.7} />
+        </g>
+      )}
+      <text x={0} y={0} fontSize={1} fill="none" stroke="none">{f}</text>
+    </g>
+  );
+};
+const IG_LIZ = { x: 200, y: 1180, s: 1.2 };
+const IG_EYE: [number, number] = [IG_LIZ.x + 360 * IG_LIZ.s, IG_LIZ.y - 132 * IG_LIZ.s];
+const IG_MOUTH: [number, number] = [IG_LIZ.x + 395 * IG_LIZ.s, IG_LIZ.y - 50 * IG_LIZ.s];
+const IG_START: [number, number, number] = [3.6, IG_EYE[0], IG_EYE[1]];
+
+// Zehir damlası
+const IgDrop: React.FC<{ x: number; y: number; s: number; glow?: number }> = ({ x, y, s, glow = 0 }) =>
+  s > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      {glow > 0 ? <circle cx={0} cy={4} r={46} fill={IG_VENOM} opacity={0.35 * glow} /> : null}
+      <path d="M0 -34 C14 -12 26 4 26 18 C26 34 14 44 0 44 C-14 44 -26 34 -26 18 C-26 4 -14 -12 0 -34 Z" fill={IG_VENOM} stroke={C.ink} strokeWidth={5} />
+      <ellipse cx={-8} cy={14} rx={6} ry={10} fill="#fff" opacity={0.6} />
+    </g>
+  ) : null;
+
+// Zayıflama iğnesi (kalem tipi): dikey, merkez (x, y); fill = penceredeki sıvı
+const IgPen: React.FC<{ x: number; y: number; s?: number; rot?: number; fill?: number; glow?: number }> = ({ x, y, s = 1, rot = 0, fill = 1, glow = 0 }) => (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+    {glow > 0 ? <ellipse cx={0} cy={-10} rx={130} ry={300} fill={IG_VENOM} opacity={0.22 * glow} stroke="none" /> : null}
+    <rect x={-30} y={-318} width={60} height={44} rx={12} fill="#3a5a8c" strokeWidth={6} />
+    <rect x={-46} y={-282} width={92} height={70} rx={18} fill="#7d9cc4" strokeWidth={6} />
+    <path d="M-30 -262 V-232 M-10 -262 V-232 M10 -262 V-232 M30 -262 V-232" stroke="#3a5a8c" strokeWidth={5} />
+    <rect x={-46} y={-220} width={92} height={400} rx={34} fill="#eef2f5" strokeWidth={7} />
+    <rect x={-28} y={-120} width={56} height={170} rx={16} fill="#dfe9ee" strokeWidth={5} />
+    {fill > 0 ? <rect x={-24} y={46 - 162 * fill} width={48} height={162 * fill} rx={12} fill={IG_VENOM} stroke="none" /> : null}
+    <path d="M-30 100 H30 M-30 130 H30" stroke="#b9c4cc" strokeWidth={6} />
+    <rect x={-26} y={180} width={52} height={40} rx={8} fill="#cfd6dc" strokeWidth={6} />
+    <path d="M0 220 V292" stroke="#8d969e" strokeWidth={6} />
+    <path d="M-12 -200 V150" stroke="#fff" strokeWidth={10} opacity={0.7} strokeLinecap="round" />
+  </g>
+);
+
+// 1) "Zayıflama iğnen, bir kertenkelenin zehrinden çıktı."
+// İlk kare: kertenkele gözü çok yakın planda (göz kırpar). "bir"de hızlı geri çekilme: çölde benekli kertenkele, dili
+// çıkar; "zehrinden"de ağzı açılır, dişinden zehir damlası düşer; "çıktı"da pat diye geri çekilir: damla, önde duran
+// iğnenin penceresine düşer, iğne dolar ve parlar (kısa sarsıntı).
+const IgKancaFrame: React.FC<{ f: number; jaw?: number; tongue?: number; walk?: number }> = ({ f, jaw = 0, tongue = 0, walk = 0 }) => (
+  <>
+    <IgDesert f={f} />
+    <IgLizard x={IG_LIZ.x} y={IG_LIZ.y} s={IG_LIZ.s} f={f} jaw={jaw} tongue={tongue} walk={walk} blink={f % 70 > 62} />
+  </>
+);
+const IG_PEN: [number, number] = [790, 1390];
+const IgKanca: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const tongue = Math.max(0, Math.sin((f - w(2)) / 3)) * tw(f, w(2), w(2) + 4) * (1 - tw(f, w(3) + 6, w(3) + 10));
+  const jaw = tw(f, w(4) - 4, w(4) + 4);
+  const fall = tw(f, w(4) + 4, w(5) + 4);
+  const pen = pop(f, w(5) - 4, 12);
+  const fill = tw(f, w(5) + 4, w(5) + 14);
+  const dropY = lerp(IG_MOUTH[1] + 30, IG_PEN[1] - 120, Easing.in(Easing.quad)(fall));
+  const dropX = lerp(IG_MOUTH[0] + 10, IG_PEN[0], fall);
+  return (
+    <CamK
+      k={[
+        [0, ...IG_START],
+        [w(2), 3.3, IG_EYE[0], IG_EYE[1]],
+        [w(3) + 4, 1.6, IG_EYE[0] - 40, IG_EYE[1] + 20],
+        [w(4) + 2, 1.8, IG_MOUTH[0], IG_MOUTH[1] + 40],
+        [w(5) - 2, 1.5, 680, 1200],
+        [w(5) + 6, 1.0, 600, 1100],
+        [d, 1.06, 620, 1120],
+      ]}
+      shake={hit(f, w(5) + 6, 12) * 0.6}
+    >
+      <IgKancaFrame f={f} jaw={jaw} tongue={tongue} />
+      {jaw > 0.5 && fill < 1 ? <IgDrop x={dropX} y={dropY} s={fall > 0 ? 0.9 : tw(f, w(4), w(4) + 6) * 0.9} glow={0.6} /> : null}
+      {pen > 0 ? <IgPen x={IG_PEN[0]} y={IG_PEN[1]} s={1.05 * pen} rot={-8} fill={fill} glow={fill} /> : null}
+    </CamK>
+  );
+};
+
+// Ay şeridi: 12 ay, yalnız birkaçında yumurta (kertenkelenin öğünü); imleç ay ay ilerler
+const IG_MONTHS = ["O", "Ş", "M", "N", "M", "H", "T", "A", "E", "E", "K", "A"];
+const IG_MEALS = [2, 6, 9];
+const IgEgg: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <ellipse cx={0} cy={0} rx={22} ry={28} fill="#fbf6ea" stroke={C.ink} strokeWidth={5} />
+    <ellipse cx={-6} cy={-8} rx={5} ry={8} fill="#fff" />
+  </g>
+);
+const IgMonths: React.FC<{ x: number; y: number; p: number; cur: number }> = ({ x, y, p, cur }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-490} y={-90} width={980} height={180} rx={28} fill={C.cream} strokeWidth={8} />
+      {IG_MONTHS.map((t, i) => {
+        const bx = -455 + i * 78;
+        const meal = IG_MEALS.includes(i);
+        const on = cur >= i;
+        return (
+          <g key={i}>
+            <rect x={bx} y={-60} width={66} height={120} rx={12} fill={on ? (meal ? "#f6dfa0" : "#e9e1d0") : "#efe4cc"} strokeWidth={5} />
+            <text x={bx + 33} y={-20} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={30} fill={C.ink} stroke="none">
+              {t}
+            </text>
+            {on && meal ? <IgEgg x={bx + 33} y={26} s={0.8} /> : on ? <path d={`M${bx + 20} 26 h26`} stroke="#9a8f86" strokeWidth={6} strokeLinecap="round" /> : null}
+          </g>
+        );
+      })}
+      {cur >= 0 && cur < 12 ? <rect x={-461 + Math.floor(cur) * 78} y={-66} width={78} height={132} rx={14} fill="none" stroke={C.red} strokeWidth={8} /> : null}
+    </g>
+  ) : null;
+
+// Molekül zinciri (zehirdeki madde): parlayan halkalar
+const IgMol: React.FC<{ x: number; y: number; s: number; f: number }> = ({ x, y, s, f }) =>
+  s > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${s}) rotate(${6 * Math.sin(f / 10)})`} stroke={C.ink} strokeWidth={6}>
+      <path d="M-100 20 L-50 -20 L0 20 L50 -20 L100 20" fill="none" strokeWidth={10} />
+      {[[-100, 20], [-50, -20], [0, 20], [50, -20], [100, 20]].map(([cx, cy], i) => (
+        <circle key={i} cx={cx} cy={cy} r={22} fill={i % 2 ? "#9fd36a" : IG_VENOM} />
+      ))}
+    </g>
+  ) : null;
+
+// Laboratuvar (1992, sepya): masa, cam kap, doktor büyüteçle bakar
+const IgLab: React.FC<{ f: number; look: number; mol: number }> = ({ f, look, mol }) => {
+  const hand = armPoints(1, [70, 60])[2];
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      <rect x={-600} y={-600} width={2280} height={3200} fill="#d9cdb6" strokeWidth={0} />
+      <rect x={680} y={260} width={300} height={360} fill="#c2b49a" strokeWidth={7} />
+      {[0, 1, 2].map((i) => (
+        <path key={i} d={`M700 ${340 + i * 100} H960`} strokeWidth={6} />
+      ))}
+      {[[730, 330], [790, 320], [860, 420], [920, 410], [750, 520]].map(([bx, by], i) => (
+        <rect key={i} x={bx} y={by - 50} width={34} height={50} rx={6} fill={["#9fb8c8", "#c8a87d", "#b5c99a"][i % 3]} strokeWidth={5} />
+      ))}
+      <Person x={330} y={1660} s={0.9} belly={0.3} shirt="#f4f4f0" pants="#5a5a62" mouth="o" eyes="wide" lookY={10} armL={[14, 0]} armR={[70, 60]}>
+        <g transform={`translate(${hand[0]} ${hand[1]})`}>
+          <path d="M0 0 L60 -60" stroke={C.ink} strokeWidth={22} strokeLinecap="round" />
+          <path d="M0 0 L60 -60" stroke="#6b4a33" strokeWidth={12} strokeLinecap="round" />
+        </g>
+        <path d="M-80 -750 L-40 -700 M80 -750 L40 -700" stroke="none" />
+      </Person>
+      <rect x={300} y={1230} width={760} height={50} fill="#8a6a4a" strokeWidth={8} />
+      <rect x={360} y={1280} width={36} height={420} fill="#6b4a33" strokeWidth={6} />
+      <rect x={960} y={1280} width={36} height={420} fill="#6b4a33" strokeWidth={6} />
+      <ellipse cx={720} cy={1222} rx={110} ry={20} fill="#e6eef0" strokeWidth={6} />
+      <IgDrop x={720} y={1196} s={0.7} glow={look} />
+      {/* büyüteç: doktorun elinden kabın üstüne */}
+      <g transform={`translate(${lerp(560, 700, look)} ${lerp(980, 1000, look)})`}>
+        <circle cx={0} cy={0} r={130} fill="#e9f4f8" opacity={0.55} strokeWidth={14} />
+        <circle cx={0} cy={0} r={130} fill="none" strokeWidth={14} />
+        <path d="M-92 92 L-180 180" strokeWidth={30} strokeLinecap="round" />
+        <path d="M-92 92 L-180 180" stroke="#6b4a33" strokeWidth={18} strokeLinecap="round" />
+        {look > 0 ? <IgDrop x={10} y={30} s={2.2 * look} glow={look} /> : null}
+        <IgMol x={0} y={-30} s={mol} f={f} />
+      </g>
+    </g>
+  );
+};
+
+// Mutfak: duvar + pencere + masa; masa önü (bacakları gizler) ayrı çizilir
+const IgKitchen: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-600} y={-600} width={2280} height={3200} fill="#e9dcc4" strokeWidth={0} />
+    <rect x={640} y={300} width={340} height={360} fill="#bfe0ea" strokeWidth={10} />
+    <path d="M810 300 V660 M640 480 H980" strokeWidth={8} />
+    <rect x={-600} y={1500} width={2280} height={600} fill="#c79a6a" strokeWidth={0} />
+    {children}
+    <rect x={80} y={1290} width={920} height={60} fill="#9a6a3e" strokeWidth={8} />
+    <rect x={120} y={1350} width={840} height={260} fill="#b07d4f" strokeWidth={7} />
+  </g>
+);
+// Tabak: food 0..1 (yemek yığını küçülür)
+const IgPlate: React.FC<{ x: number; y: number; food: number; s?: number }> = ({ x, y, food, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+    <ellipse cx={0} cy={0} rx={190} ry={40} fill="#f4f1ea" strokeWidth={7} />
+    {food > 0.02 ? (
+      <g transform={`scale(${0.3 + 0.7 * food})`}>
+        <path d="M-130 -10 Q-120 -110 -20 -120 Q90 -130 130 -20 Q0 6 -130 -10 Z" fill="#e0a24a" strokeWidth={6} />
+        <circle cx={-50} cy={-70} r={26} fill="#7fb34a" strokeWidth={5} />
+        <circle cx={40} cy={-80} r={30} fill="#c4542f" strokeWidth={5} />
+        <path d="M-80 -30 q30 -20 60 0 M10 -36 q30 -16 60 2" stroke="#fff" strokeWidth={5} fill="none" opacity={0.6} />
+      </g>
+    ) : null}
+  </g>
+);
+
+// 2) "Bu kertenkele yılda yalnızca birkaç kez yemek yer. Bin dokuz yüz doksan ikide bir doktor zehrinde bir madde buldu;
+// bugünkü iğneler ondan örnek alınarak yapıldı. İğne de iştahını kısar: az yersin."
+// Çölde kertenkele yürür, üstte 12 aylık şerit: imleç ay ay ilerler, yalnız üç ayda yumurta (öğün) çıkar, o anlarda
+// kertenkele ağzını açar. "Bin"de sepya laboratuvar: "1992", doktor büyüteçle zehir damlasına bakar; "madde"de büyüteçte
+// parlayan molekül zinciri. "bugünkü"de renk gelir: molekül uçar, üç iğne yan yana dolar. "İğne de"de mutfak: avatarın
+// önündeki dolu tabak küçülür, avatar tabağı iter.
+const IgTarih: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const lab = f >= w(8) - 2 && f < w(19);
+  const pens = f >= w(19) && f < w(25);
+  const kitchen = f >= w(25);
+  const cur = lerp(-1, 11.99, tw(f, w(2), w(7) + 4, 0, 1));
+  const mealOn = IG_MEALS.some((m) => Math.abs(cur - m - 0.4) < 0.5);
+  if (kitchen) {
+    const food = 1 - tw(f, w(27), w(29) + 6);
+    const push = tw(f, w(29), w(30) + 4);
+    return (
+      <CamK k={[[w(25), 1.25, 540, 1150], [w(27), 1.1, 540, 1150], [w(29), 1.35, 560, 1280], [d, 1.4, 560, 1280]]}>
+        <IgKitchen>
+          <Person x={540} y={1690} s={0.85} belly={0.35} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth={push > 0.3 ? "flat" : "smile"} lookY={8} armL={[18, 30]} armR={[lerp(30, 62, push), lerp(80, 20, push)]} />
+        </IgKitchen>
+        <IgPlate x={lerp(540, 620, push)} y={1300} food={food} />
+        <IgPen x={250} y={1262} s={0.42} rot={-90} fill={1} />
+      </CamK>
+    );
+  }
+  if (pens) {
+    const p = tw(f, w(19), w(21));
+    return (
+      <CamK k={[[w(19), 1.25, 540, 1000], [w(22), 1.0, 540, 980], [w(25), 1.05, 540, 980]]}>
+        <rect x={-600} y={-600} width={2280} height={3200} fill="#efe4cc" />
+        <KdSepia o={1 - tw(f, w(19), w(20) + 4)} />
+        <IgMol x={lerp(540, 540, p)} y={lerp(700, 980, p)} s={1.3 * (1 - tw(f, w(21), w(22)))} f={f} />
+        {[-1, 0, 1].map((k) => (
+          <IgPen key={k} x={540 + k * 250} y={1060} s={0.95 * pop(f, w(21) - 2 + (k + 1) * 4, 12)} rot={k * 6} fill={tw(f, w(22) + (k + 1) * 4, w(24))} glow={tw(f, w(23), w(24))} />
+        ))}
+      </CamK>
+    );
+  }
+  if (lab) {
+    const look = tw(f, w(15) - 4, w(15) + 6);
+    const mol = pop(f, w(17) - 2, 14);
+    return (
+      <>
+        <CamK k={[[w(8) - 2, 1.0, 540, 960], [w(13), 1.05, 540, 1000], [w(15), 1.45, 640, 1000], [w(19), 1.6, 660, 990]]}>
+          <IgLab f={f} look={look} mol={mol} />
+          <KdSepia />
+        </CamK>
+        <HandText x={300} y={330} text="1992" size={170} color={C.ink} p={tw(f, w(8) - 2, w(12) + 2)} rotate={-4} />
+        {f < w(8) + 4 ? <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={1 - tw(f, w(8) - 2, w(8) + 4)} /> : null}
+      </>
+    );
+  }
+  const walkX = lerp(-40, 200, tw(f, 0, w(8)));
+  return (
+    <>
+      <CamK k={[[0, 1.35, 560, 1150], [w(2), 1.15, 540, 1120], [w(8), 1.1, 560, 1100]]}>
+        <IgDesert f={f} />
+        <IgLizard x={walkX} y={1330} s={1.35} f={f} walk={mealOn ? 0 : 1} jaw={mealOn ? 1 : 0} />
+        {mealOn ? <IgEgg x={walkX + 600} y={1300} s={1.8} /> : null}
+      </CamK>
+      <IgMonths x={540} y={420} p={pop(f, w(1), 12)} cur={cur} />
+    </>
+  );
+};
+
+// Kilo blokları: 10 blok (5×2), sırayla düşer; son 4'ü kırmızıya döner ("yağ değil"), ilk 6'sı sarı ("yağ")
+const IgBlocks: React.FC<{ x: number; y: number; drop: number; red: number; f: number }> = ({ x, y, drop, red, f }) => (
+  <g transform={`translate(${x} ${y})`} stroke={C.ink} strokeLinejoin="round">
+    {Array.from({ length: 10 }, (_, i) => {
+      const t = tw(drop, i / 10, (i + 1) / 10);
+      if (t <= 0) return null;
+      const bx = -330 + (i % 5) * 132;
+      const by = Math.floor(i / 5) * 110 - 400 * (1 - Easing.out(Easing.bounce)(t));
+      const r = i >= 6 ? red : 0;
+      const sh = r > 0 && r < 1 ? 6 * Math.sin(f * 1.7 + i) : 0;
+      return (
+        <g key={i} transform={`translate(${bx + sh} ${by})`} opacity={Math.min(1, t * 3)}>
+          <rect x={0} y={0} width={120} height={96} rx={14} fill={r > 0.5 ? C.red : C.fat} strokeWidth={7} />
+          <text x={60} y={64} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={40} fill={r > 0.5 ? C.cream : C.ink} stroke="none">
+            1 kg
+          </text>
+        </g>
+      );
+    })}
+  </g>
+);
+// Banyo: fayans duvar
+const IgBath: React.FC = () => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-600} y={-600} width={2280} height={3200} fill="#d8e6e6" strokeWidth={0} />
+    {Array.from({ length: 14 }, (_, i) => (
+      <path key={i} d={`M-600 ${-200 + i * 120} H1680`} stroke="#b9cccc" strokeWidth={4} />
+    ))}
+    {Array.from({ length: 16 }, (_, i) => (
+      <path key={`v${i}`} d={`M${-560 + i * 120} -600 V1450`} stroke="#b9cccc" strokeWidth={4} />
+    ))}
+    <rect x={-600} y={1450} width={2280} height={800} fill="#a9b8b8" strokeWidth={0} />
+    <path d="M-600 1450 H1680" strokeWidth={6} />
+  </g>
+);
+
+// 3) "Herkes 'ne güzel zayıflamışsın' diyor. Ama büyük bir deneyde verilen her on kilonun dördü yağ değildi. Az yiyen
+// vücut, kası da yakar."
+// Banyoda tartıda avatar (−10 kg), iki yandan övgü balonları, kalpler; "Ama"da balonlar söner; "verilen"den itibaren tartıdan
+// 10 kiloluk blok düşer; "dördü"nde son dördü titreyip kırmızıya döner: "yağ değil"; "Az yiyen"de kol merceği:
+// kas lifleri incelir, kırmızı alev.
+const IgKilo: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const praise = pop(f, w(0), 12) * (1 - tw(f, w(5), w(5) + 6));
+  const praise2 = pop(f, w(2), 12) * (1 - tw(f, w(5), w(5) + 6));
+  const drop = tw(f, w(9), w(12) + 4);
+  const red = tw(f, w(13), w(15));
+  const lens = pop(f, w(16) - 2, 14);
+  const thin = tw(f, w(18), w(21) + 4);
+  return (
+    <>
+      <CamK k={[[0, 1.3, 540, 1250], [w(4), 1.1, 540, 1150], [w(5), 1.0, 540, 1000], [w(9), 1.0, 540, 900], [w(13), 1.25, 540, 760], [w(16), 1.05, 600, 1000], [d, 1.12, 640, 1000]]}>
+        <IgBath />
+        <Bathroom x={540} y={1716} value="−10 kg" />
+        <Person x={540} y={1658} s={0.85} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} limbW={lerp(1, 0.78, thin)} mouth={praise > 0.3 ? "grin" : thin > 0 ? "worry" : "flat"} eyes={red > 0.5 && thin < 0.3 ? "wide" : "open"} armL={[14, 0]} armR={[14, 0]} />
+        <IgBlocks x={540} y={700} drop={drop} red={red} f={f} />
+        {red > 0.5 ? (
+          <g opacity={tw(red, 0.5, 1)}>
+            <text x={340} y={960} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.fatDark}>yağ</text>
+            <text x={720} y={960} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.red}>yağ değil</text>
+          </g>
+        ) : null}
+        <MuscleLens x={840} y={1290} r={140} p={lens} thick={lerp(1, 0.45, thin)} glow={thin} label="kas" />
+        {thin > 0
+          ? [0, 1, 2].map((i) => (
+              <path key={i} d={`M${800 + i * 40} ${1410 - 40 * Math.abs(Math.sin(f / 4 + i))} q-14 -40 0 -70 q14 30 0 70`} fill={C.red} opacity={0.7 * thin} stroke="none" />
+            ))
+          : null}
+      </CamK>
+      <SayBubble x={520} y={330} p={praise} text="ne güzel zayıflamışsın!" tail={[600, 520]} size={58} />
+      <SayBubble x={560} y={520} p={praise2} text="çok yakışmış!" tail={[540, 720]} size={58} />
+    </>
+  );
+};
+
+// 4) "Ve sorun iğne değil: iğnesiz, hızlı diyet yapan da kas kaybeder."
+// Yakın planda iğne, üstünde kırmızı "SORUN?" damgası; "değil"de damga düşüp gider. Geri çekilir: avatarın yanına
+// elinde "diyet" listesi olan bir kadın gelir; "kas kaybeder"de ikisinin de kolları incelir, başlarının üstünde "−kas".
+const IgTers: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const stamp = pop(f, w(0), 12);
+  const off = tw(f, w(3), w(4) + 2);
+  const wo = tw(f, w(4) - 2, w(6) + 2);
+  const lose = tw(f, w(9), w(10) + 6);
+  const hand = armPoints(-1, [40, 70])[2];
+  const penHand = armPoints(1, [30, 60])[2];
+  return (
+    <>
+      <CamK k={[[0, 1.6, 540, 700], [w(3), 1.6, 540, 700], [w(4) + 2, 1.0, 540, 960], [w(9), 1.0, 540, 960], [d, 1.12, 540, 900]]} shake={hit(f, w(9), 10) * 0.4}>
+        <rect x={-600} y={-600} width={2280} height={3200} fill="#efe4cc" />
+        <rect x={-600} y={1600} width={2280} height={600} fill="#d9c9a8" />
+        <IgPen x={lerp(540, 330 + 0.78 * penHand[0], off)} y={lerp(700, 1660 + 0.78 * penHand[1] - 60, off)} s={lerp(0.9, 0.3, off)} rot={lerp(-8, 10, off)} fill={1} />
+        <g transform={`translate(${540 + 500 * off} ${520 + 300 * off}) rotate(${-10 + 70 * off}) scale(${stamp})`} opacity={1 - off}>
+          <rect x={-190} y={-70} width={380} height={140} rx={16} fill="none" stroke={C.red} strokeWidth={12} />
+          <text x={0} y={30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={90} fill={C.red}>SORUN?</text>
+        </g>
+        <Person x={330} y={1660} s={0.78} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} limbW={lerp(1, 0.75, lose)} mouth={lose > 0.3 ? "worry" : "flat"} armL={[14, 0]} armR={[lerp(14, 30, off), lerp(0, 60, off)]} />
+        {wo > 0 ? (
+          <Person x={lerp(1300, 770, wo)} y={1660} s={0.78} belly={0.2} female limbW={lerp(1, 0.75, lose)} mouth={lose > 0.3 ? "worry" : "smile"} armL={[40, 70]} armR={[14, 0]}>
+            <g transform={`translate(${hand[0]} ${hand[1] - 90}) rotate(-8)`} stroke={C.ink} strokeLinejoin="round">
+              <rect x={-90} y={-110} width={180} height={220} rx={10} fill="#fbf7ec" strokeWidth={6} />
+              <text x={0} y={-56} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={48} fill={C.red} stroke="none">diyet</text>
+              <path d="M-60 -10 H60 M-60 30 H40 M-60 70 H50" strokeWidth={5} />
+            </g>
+          </Person>
+        ) : null}
+      </CamK>
+      <KTag x={330} y={760} p={pop(f, w(9), 12)} text="−kas" color={C.red} rot={-4} />
+      <KTag x={770} y={760} p={pop(f, w(9) + 4, 12)} text="−kas" color={C.red} rot={4} />
+      <KTag x={770} y={420} p={pop(f, w(4), 12) * (1 - tw(f, w(9) - 4, w(9)))} text="iğnesiz" color={C.ink} rot={3} />
+    </>
+  );
+};
+
+// Protein tabağı: yumurta, tavuk budu, yoğurt
+const IgProtein: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`} stroke={C.ink} strokeLinejoin="round">
+      <ellipse cx={0} cy={0} rx={220} ry={56} fill="#f4f1ea" strokeWidth={7} />
+      <g transform="translate(-110 -30)">
+        <ellipse cx={0} cy={0} rx={70} ry={40} fill="#fff" strokeWidth={6} />
+        <circle cx={6} cy={-4} r={22} fill="#f2b630" strokeWidth={5} />
+      </g>
+      <g transform="translate(40 -50) rotate(-20)">
+        <path d="M-60 0 Q-70 -60 0 -56 Q60 -50 50 0 Q30 30 -20 30 Q-50 28 -60 0 Z" fill="#c07a3a" strokeWidth={6} />
+        <path d="M40 10 L90 40" strokeWidth={18} strokeLinecap="round" />
+        <path d="M40 10 L90 40" stroke="#f4f1ea" strokeWidth={8} strokeLinecap="round" />
+      </g>
+      <g transform="translate(160 -40)">
+        <path d="M-50 -30 H50 L40 30 H-40 Z" fill="#9fc3e0" strokeWidth={6} />
+        <ellipse cx={0} cy={-30} rx={50} ry={14} fill="#fffaf0" strokeWidth={5} />
+      </g>
+    </g>
+  ) : null;
+// Salon duvarı: yeşil tahta (tebeşir maddeler) + köşede VOOM programı açık telefon
+const IgGymWall: React.FC<{ f: number; chalk: number[]; voom: number }> = ({ f, chalk, voom }) => {
+  const lines = ["1) ağırlık: haftada 2-3 gün", "2) her öğünde protein", "3) ilacını doktorunla konuş"];
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      <rect x={-600} y={-600} width={2280} height={3200} fill="#e3d6bf" strokeWidth={0} />
+      <rect x={-600} y={1480} width={2280} height={800} fill="#3d3a40" strokeWidth={0} />
+      <path d="M-600 1480 H1680" strokeWidth={6} />
+      <rect x={60} y={170} width={720} height={420} rx={14} fill="#2f5d48" strokeWidth={12} />
+      <rect x={60} y={170} width={720} height={420} rx={14} fill="none" stroke="#8a6a4a" strokeWidth={6} />
+      {lines.map((t, i) =>
+        chalk[i] > 0 ? (
+          <HandText key={i} x={100} y={280 + i * 120} text={t} size={52} color={i === 2 ? "#bfe0ff" : "#f4f1ea"} p={chalk[i]} anchor="start" rotate={-1} />
+        ) : null,
+      )}
+      {voom > 0 ? (
+        <g transform={`translate(905 410) scale(${voom * 0.62}) rotate(4)`}>
+          <circle r={250} fill="#bfe8c8" opacity={0.25} stroke="none" />
+          <rect x={-104} y={-180} width={208} height={360} rx={30} fill="#1e1f24" strokeWidth={6} />
+          <clipPath id="igShot">
+            <rect x={-92} y={-166} width={184} height={332} rx={20} />
+          </clipPath>
+          <image href={IG_SHOT} x={-92} y={-166} width={184} height={(184 * 2622) / 1290} clipPath="url(#igShot)" preserveAspectRatio="xMidYMin slice" />
+        </g>
+      ) : null}
+      <rect x={760} y={1140} width={300} height={24} fill="#6b6b6b" strokeWidth={5} />
+      {[800, 880, 960].map((x) => (
+        <Dumbbell key={x} x={x} y={1120} s={0.4} />
+      ))}
+      <path d="M780 1164 V1480 M1040 1164 V1480" strokeWidth={10} />
+      <text x={0} y={0} fontSize={1} fill="none" stroke="none">{f}</text>
+    </g>
+  );
+};
+
+// 5) "Birincisi: haftada iki üç gün ağırlık çalış. İkincisi: her öğünde protein al. İlacını da kendi başına bırakma."
+// Salon: tahtaya maddeler sırayla tebeşirle yazılır; avatar dambılla biceps çalışır, kol merceğinde lifler kalınlaşır,
+// lacivert tik; "İkincisi"nde protein tabağı (yumurta, tavuk, yoğurt) önüne gelir; "İlacını"da tahtadaki 3. madde
+// açık mavi yazılır, iğne yanında lacivert "doktorunla konuş" etiketi. Tahtanın köşesinde VOOM'lu telefon.
+const IgTavsiye: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(IG_SHOT);
+  const f = useCurrentFrame();
+  const curl = tw(f, w(1), w(7)) > 0 && f < w(7) + 6 ? (1 - Math.cos((f - w(1)) / 5)) / 2 : 0;
+  const thick = tw(f, w(2), w(6) + 4);
+  const plate = pop(f, w(8) - 2, 14);
+  const pen = pop(f, w(12) - 2, 12);
+  const arm: Arm = [14, lerp(10, 145, curl)];
+  const hand = armPoints(1, arm)[2];
+  return (
+    <>
+      <CamK k={[[0, 1.25, 420, 520], [w(1), 1.0, 540, 900], [w(5), 1.15, 640, 1150], [w(7), 1.0, 540, 1000], [w(12), 1.15, 540, 760], [d, 1.05, 540, 900]]}>
+        <IgGymWall f={f} chalk={[tw(f, 0, w(6)), tw(f, w(7), w(11) + 4), tw(f, w(12), w(16))]} voom={pop(f, w(3), 14)} />
+        <Person x={430} y={1700} s={0.82} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} limbW={lerp(0.85, 1.05, thick)} mouth={curl > 0.6 ? "grin" : "smile"} armL={[14, 0]} armR={arm}>
+          {plate < 0.5 ? <Dumbbell x={hand[0]} y={hand[1]} s={0.9} rot={90} /> : null}
+        </Person>
+        <MuscleLens x={800} y={1020} r={140} p={pop(f, w(2), 14) * (1 - tw(f, w(7), w(8)))} thick={lerp(0.5, 1.2, thick)} glow={thick} label="kas" />
+        {thick > 0.9 && f < w(8) ? <path d="M760 1240 l30 30 l60 -64" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" /> : null}
+        <IgProtein x={720} y={1380} p={plate} />
+        {pen > 0 ? <IgPen x={620} y={850} s={0.5 * pen} rot={-90} fill={1} /> : null}
+      </CamK>
+      <KTag x={620} y={700} p={pen} text="doktorunla konuş" color={YAS_OK} rot={-3} />
+    </>
+  );
+};
+
+// 6) "Kilo vermek işin yarısı. Öbür yarısı, kası korumak. Bu videoyu iğneye başlayan arkadaşına gönder ve şunu söyle:"
+// İki yarım daire: sol yarı sarı "kilo vermek", sağ yarı lacivert "kası korumak" dolar; altta avatar kollarını kasar.
+// "Bu videoyu"dan sonra avatar telefonla; sağda elinde iğne olan arkadaşı; ekranda "Sen kullandın mı? Yorumlara yaz"
+// (seste yok). "gönder"de kâğıt uçak arkadaşa uçar; "şunu"da kameraya uçup ekranı kaplar; "söyle"de açılır: kertenkele
+// gözü yakın planı (= ilk kare, döngü).
+const IgHalf: React.FC<{ x: number; y: number; r: number; a: number; b: number }> = ({ x, y, r, a, b }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <circle cx={x} cy={y} r={r} fill={C.cream} strokeWidth={8} />
+    <clipPath id="igHalfL">
+      <rect x={x - r} y={y + r - 2 * r * a} width={r} height={2 * r * a} />
+    </clipPath>
+    <clipPath id="igHalfR">
+      <rect x={x} y={y + r - 2 * r * b} width={r} height={2 * r * b} />
+    </clipPath>
+    <circle cx={x} cy={y} r={r - 6} fill={C.fat} clipPath="url(#igHalfL)" strokeWidth={0} />
+    <circle cx={x} cy={y} r={r - 6} fill={YAS_OK} clipPath="url(#igHalfR)" strokeWidth={0} />
+    <path d={`M${x} ${y - r} V${y + r}`} strokeWidth={8} />
+    <text x={x - r / 2} y={y + 20} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink} opacity={a > 0.3 ? 1 : 0}>
+      kilo vermek
+    </text>
+    <text x={x + r / 2} y={y + 20} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.cream} opacity={b > 0.3 ? 1 : 0}>
+      kası korumak
+    </text>
+  </g>
+);
+const IgAsk: React.FC<{ p: number; f: number }> = ({ p, f }) =>
+  p > 0 ? (
+    <g opacity={p} transform="rotate(-3 540 250)">
+      <rect x={130} y={150} width={820} height={200} rx={36} fill={C.cream} stroke={C.ink} strokeWidth={9} />
+      <text x={540} y={240} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={68} fill={C.red}>
+        Sen kullandın mı?
+      </text>
+      <text x={540} y={316} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={58} fill={C.ink}>
+        Yorumlara yaz
+      </text>
+      <path d={`M880 300 l0 ${50 + 8 * Math.sin(f / 5)} m-18 -20 l18 20 l18 -20`} fill="none" stroke={C.ink} strokeWidth={8} strokeLinecap="round" strokeLinejoin="round" />
+    </g>
+  ) : null;
+const IgGonder: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const send = f >= w(8) - 2;
+  const a = tw(f, w(0), w(3));
+  const b = tw(f, w(4), w(7));
+  const flex = tw(f, w(5), w(7));
+  const plane = tw(f, w(13) - 4, w(14) + 6);
+  const wipe = tw(f, w(15), w(16) + 2);
+  const open = tw(f, w(16) + 2, w(16) + 8);
+  const back = f >= w(16) + 2;
+  const hand = armPoints(-1, [40, 70])[2];
+  if (back)
+    return (
+      <CamK k={[[w(16) + 2, 3.0, IG_EYE[0], IG_EYE[1]], [d, ...IG_START]]}>
+        <IgKancaFrame f={f - d} />
+        {open < 1 ? <rect x={-2000} y={-2000} width={6000} height={6000} fill="#fbf7ec" opacity={1 - open} /> : null}
+      </CamK>
+    );
+  return (
+    <>
+      {send ? (
+        <CamK k={[[w(8) - 2, 1.15, 600, 1200], [w(12), 1.0, 600, 1100], [d, 1.05, 600, 1100]]}>
+          <IgGymWall f={f} chalk={[1, 1, 1]} voom={1} />
+          <Person x={330} y={1690} s={0.78} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="grin" lookY={2} armR={[25, 135]} armL={[12, 0]}>
+            <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.6} />
+          </Person>
+          <Person x={800} y={1690} s={0.78} belly={0.35} shirt="#7d9cc4" shorts="#4b3f5e" mouth={plane >= 1 ? "o" : "flat"} eyes={plane >= 1 ? "wide" : "open"} armL={[40, 70]} armR={[12, 0]}>
+            <IgPen x={hand[0] - 20} y={hand[1] - 120} s={0.5} rot={-10} fill={1} />
+          </Person>
+        </CamK>
+      ) : (
+        <CamK k={[[0, 1.15, 540, 700], [w(4), 1.0, 540, 900], [w(7), 1.1, 540, 1100], [w(8), 1.1, 540, 1100]]}>
+          <rect x={-600} y={-600} width={2280} height={3200} fill="#efe4cc" />
+          <rect x={-600} y={1600} width={2280} height={600} fill="#d9c9a8" />
+          <IgHalf x={540} y={620} r={330} a={a} b={b} />
+          <Person x={540} y={1700} s={0.72} belly={0.15} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} limbW={lerp(1, 1.12, flex)} mouth={flex > 0.4 ? "grin" : "smile"} armL={[lerp(14, 95, flex), lerp(0, -120, flex)]} armR={[lerp(14, 95, flex), lerp(0, -120, flex)]} />
+        </CamK>
+      )}
+      {send ? <VsPaperPlane p={plane} a={[400, 1050]} b={[760, 1000]} /> : null}
+      {send ? <IgAsk p={tw(f, w(8), w(9)) * (1 - tw(f, w(14), w(15)))} f={f} /> : null}
+      {wipe > 0 ? (
+        <g transform={`translate(${lerp(760, 540, wipe)} ${lerp(1000, 960, wipe)}) scale(${lerp(0.3, 14, Easing.in(Easing.cubic)(wipe))}) rotate(${lerp(-20, 0, wipe)})`}>
+          <path d="M-160 0 L180 -70 L-40 30 Z" fill="#fbf7ec" stroke={C.ink} strokeWidth={6 / Math.max(1, wipe * 6)} strokeLinejoin="round" />
+          <path d="M-40 30 L180 -70 L-10 90 Z" fill="#e9e3d6" stroke={C.ink} strokeWidth={6 / Math.max(1, wipe * 6)} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {wipe >= 1 ? <rect x={0} y={0} width={1080} height={1920} fill="#fbf7ec" /> : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "ig-kanca": IgKanca,
+  "ig-tarih": IgTarih,
+  "ig-kilo": IgKilo,
+  "ig-ters": IgTers,
+  "ig-tavsiye": IgTavsiye,
+  "ig-gonder": IgGonder,
   "hs-kanca": HsKanca,
   "hs-liste": HsListe,
   "hs-vakit": HsVakit,
