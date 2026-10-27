@@ -1,5 +1,15 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> YENİ SOHBET BURADAN (27 Ekim — EN GÜNCEL) <<<
+- **18 SALONUN EN SADIK MÜŞTERİSİ** (`cizim1-18-fark`, sahneler `fk-*`): ekipten bir arkadaşın "3 hırsız" videosu
+  (sesi + avatarı onun) bizim formülle yeniden kuruldu; bu önizleme arkadaşın Claude'una REFERANS olarak gidecek.
+  Kanca KULLANICININ CÜMLESİ, birebir: "Salonun en sadık müşterisi kim biliyor musun? Hiç değişmeyenler. Çünkü hep geri
+  gelirler." → "Ama bu senin suçun değil… üç şey eksik" → 1 yük (Selye 1936, sepya defter grafiği) → 2 protein (Morton 2018,
+  49 deney) → 3 uyku (Nedeltcheva 2010, aynı kişiler, yağ 1,4 → 0,6 kg) → tavsiye → "Yoksa şu sorunun cevabı sen olursun:"
+  (döngü). Görsel: turnike + giriş sayacı, AYIN ÜYESİ panosu (6 aynı fotoğraf, "HEP AYNI"). Sessiz önizleme v2 gönderildi
+  (`18-fark-sessiz.mp4`, 34,5 sn). Dersler: aynı hareketi tekrarlama (durağan), çizgi film fare beğenilmedi, kanca
+  arayışında kullanıcı "acıya dokun, ilk 3 sn durdursun" dedi; hırsız/buzağı/1945 asker örneği reddedildi.
+
 ## >>> YENİ SOHBET BURADAN (26 Ekim — EN GÜNCEL) <<<
 - **17 ZAYIFLAMA İĞNESİ BİTTİ (v6, 26 Ekim)** (`cizim1-17-igne`, sahneler `ig2-*`; eski kertenkeleli `ig-*` kodda duruyor,
   kullanılmıyor; kaynak `arastirma/17-igne.md`). Yunus 1.2x (orta sahnelerde "ıı", "hani"), efektler bu videoda %40 kısık

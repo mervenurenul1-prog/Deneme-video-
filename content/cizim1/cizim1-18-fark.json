@@ -1,6 +1,6 @@
 {
   "id": "cizim1-18-fark",
-  "title": "Arkadaşın değişti, sen aynısın",
+  "title": "Salonun en sadık müşterisi",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
   "voiceSettings": {
@@ -15,31 +15,33 @@
   "scenes": [
     {
       "visual": "fk-kanca",
-      "voice": "Seninle aynı gün salona başlayan arkadaşın değişti. Sen hâlâ aynısın.",
-      "say": "Seninle aynı gün salona başlayan arkadaşın değişti. Sen hâlâ aynısın.",
+      "voice": "Salonun en sadık müşterisi kim biliyor musun? Hiç değişmeyenler. Çünkü hep geri gelirler.",
+      "say": "Salonun en sadık müşterisi kim biliyor musun? Hiç değişmeyenler. Çünkü hep geri gelirler.",
       "keys": [
-        "değişti",
-        "aynısın"
+        "sadık",
+        "değişmeyenler",
+        "geri"
       ]
     },
     {
       "visual": "fk-sebep",
-      "voice": "Aynı salon, aynı program. Fark üç şeyde.",
-      "say": "Aynı salon, aynı program. Fark üç şeyde.",
+      "voice": "Ama bu senin suçun değil. Vücudun şekillenmiyorsa üç şey eksik.",
+      "say": "Ama bu senin suçun değil. Vücudun şekillenmiyorsa üç şey eksik.",
       "keys": [
-        "Fark",
+        "suçun",
+        "değil",
         "üç"
       ]
     },
     {
       "visual": "fk-yuk",
-      "voice": "Birincisi: aynı yük. 1936'da bir doktor fareleri zorlarken gördü: vücut önce sarsılır, sonra alışır. Aylardır aynı dambılsa, vücudun çoktan alıştı.",
-      "say": "Birincisi: aynı yük. 1936'da bir doktor fareleri zorlarken gördü: vücut önce sarsılır, sonra alışır. Aylardır aynı dambılsa, vücudun çoktan alıştı.",
+      "voice": "Birincisi: yük. 1936'da bir doktor gördü: vücut zorlanınca değişir, alışınca durur. Aylardır aynı ağırlıksa, vücudun çoktan alıştı.",
+      "say": "Birincisi: yük. 1936'da bir doktor gördü: vücut zorlanınca değişir, alışınca durur. Aylardır aynı ağırlıksa, vücudun çoktan alıştı.",
       "keys": [
         "yük",
         "1936'da",
-        "sarsılır",
-        "alışır",
+        "değişir",
+        "durur",
         "alıştı"
       ]
     },
@@ -67,8 +69,8 @@
     },
     {
       "visual": "fk-son",
-      "voice": "Yükü her hafta artır, her öğünde protein ye, erken uyu. Yoksa yine bunu izlersin:",
-      "say": "Yükü her hafta artır, her öğünde protein ye, erken uyu. Yoksa yine bunu izlersin:",
+      "voice": "Yükü artır, protein ye, erken uyu. Yoksa şu sorunun cevabı sen olursun:",
+      "say": "Yükü artır, protein ye, erken uyu. Yoksa şu sorunun cevabı sen olursun:",
       "keys": [
         "artır",
         "protein",
