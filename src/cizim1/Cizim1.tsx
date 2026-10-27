@@ -22776,7 +22776,7 @@ const FkPair: React.FC<{ f: number; grow: number; sad: number; flex?: number; st
   const hA = armPoints(1, armA)[2];
   return (
     <>
-      <Person x={290} y={1720} s={0.82} belly={lerp(0.4, 0.02, grow)} limbW={lerp(0.9, 1.22, grow)} shirt={FK_FRIEND} shorts={FK_FRIEND_SH} mouth={grow > 0.5 ? "grin" : "smile"} armL={flex > 0.5 ? armF : [14, 0]} armR={armF}>
+      <Person x={290} y={1720} s={0.82} belly={lerp(0.7, 0.0, grow)} limbW={lerp(0.85, 1.4, grow)} shirt={FK_FRIEND} shorts={FK_FRIEND_SH} mouth={grow > 0.5 ? "grin" : "smile"} armL={flex > 0.5 ? armF : [14, 0]} armR={armF}>
         {flex > 0.5 ? null : <Dumbbell x={hF[0]} y={hF[1]} s={0.9} rot={90} />}
       </Person>
       <Person x={790} y={1720} s={0.82} belly={0.4} limbW={0.9} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth={sad > 0.5 ? "worry" : "smile"} eyes={sad > 0.8 ? "wide" : "open"} lookY={sad * 8} armL={[14, 0]} armR={armA}>
@@ -22827,7 +22827,7 @@ const FkSebep: React.FC<SceneProps> = ({ w, d }) => {
         <KTag x={780} y={640} p={pop(f, w(2) - 2, 12) * (1 - tw(f, w(4), w(4) + 4))} text="aynı program" color={C.ink} rot={4} />
       </CamK>
       {[0, 1, 2].map((i) => (
-        <MysteryBox key={i} x={250 + i * 290} y={560} s={0.8} p={pop(f, w(5) - 2 + i * 4, 12)} open={0} rays={false} shake={Math.sin(f / 2.2 + i) * 6}>
+        <MysteryBox key={i} x={210 + i * 330} y={640} s={1.25} p={pop(f, w(4) + i * 4, 10)} open={0} rays={false} shake={Math.sin(f / 2.2 + i) * 6}>
           <text x={0} y={150} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={70} fill={C.red}>{i + 1}</text>
         </MysteryBox>
       ))}
@@ -22857,7 +22857,7 @@ const FkLab: React.FC<{ f: number; shake: number; calm: number }> = ({ f, shake,
         ))}
       </g>
       <g transform={`translate(${760 + sx} 1250)`}>
-        <LabMouse x={0} y={-30} p={1} f={f} sleepy={calm} />
+        <LabMouse x={0} y={-60} p={1.6} f={f} sleepy={calm} />
         {shake > 0.3
           ? [0, 1, 2].map((i) => <Drop key={i} x={-60 + i * 50} y={-150 - ((f * 4 + i * 20) % 50)} s={0.4} />)
           : null}
@@ -22879,7 +22879,7 @@ const FkYuk: React.FC<SceneProps> = ({ w, d }) => {
     const calm = tw(f, w(12), w(13) + 4);
     return (
       <>
-        <CamK k={[[w(3), 1.25, 640, 1100], [w(6), 1.05, 600, 1050], [w(10), 1.3, 760, 1150], [w(13), 1.45, 760, 1180], [w(14), 1.5, 760, 1180]]} shake={hit(f, w(11), 10) * 0.5}>
+        <CamK k={[[w(3), 1.4, 640, 1100], [w(6), 1.2, 640, 1080], [w(10), 1.6, 760, 1150], [w(13), 1.8, 760, 1180], [w(14), 1.85, 760, 1180]]} shake={hit(f, w(11), 10) * 0.5}>
           <FkLab f={f} shake={shake} calm={calm} />
         </CamK>
         <OldPhoto o={1} />
