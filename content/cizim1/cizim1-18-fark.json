@@ -1,0 +1,79 @@
+{
+  "id": "cizim1-18-fark",
+  "title": "Arkadaşın değişti, sen aynısın",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "fk-kanca",
+      "voice": "Seninle aynı gün salona başlayan arkadaşın değişti. Sen hâlâ aynısın.",
+      "say": "Seninle aynı gün salona başlayan arkadaşın değişti. Sen hâlâ aynısın.",
+      "keys": [
+        "değişti",
+        "aynısın"
+      ]
+    },
+    {
+      "visual": "fk-sebep",
+      "voice": "Aynı salon, aynı program. Fark üç şeyde.",
+      "say": "Aynı salon, aynı program. Fark üç şeyde.",
+      "keys": [
+        "Fark",
+        "üç"
+      ]
+    },
+    {
+      "visual": "fk-yuk",
+      "voice": "Birincisi: aynı yük. 1936'da bir doktor fareleri zorlarken gördü: vücut önce sarsılır, sonra alışır. Aylardır aynı dambılsa, vücudun çoktan alıştı.",
+      "say": "Birincisi: aynı yük. 1936'da bir doktor fareleri zorlarken gördü: vücut önce sarsılır, sonra alışır. Aylardır aynı dambılsa, vücudun çoktan alıştı.",
+      "keys": [
+        "yük",
+        "1936'da",
+        "sarsılır",
+        "alışır",
+        "alıştı"
+      ]
+    },
+    {
+      "visual": "fk-protein",
+      "voice": "İkincisi: protein. 2018'de kırk dokuz deney incelendi: proteinini artıranlar daha çok kas kazandı.",
+      "say": "İkincisi: protein. 2018'de kırk dokuz deney incelendi: proteinini artıranlar daha çok kas kazandı.",
+      "keys": [
+        "protein",
+        "kırk",
+        "dokuz",
+        "kas"
+      ]
+    },
+    {
+      "visual": "fk-uyku",
+      "voice": "Üçüncüsü: uyku. 2010'da aynı insanlar aynı diyeti iki kez yaptı. Az uyudukları haftalarda verdikleri yağ yarıdan aza düştü.",
+      "say": "Üçüncüsü: uyku. 2010'da aynı insanlar aynı diyeti iki kez yaptı. Az uyudukları haftalarda verdikleri yağ yarıdan aza düştü.",
+      "keys": [
+        "uyku",
+        "2010'da",
+        "yarıdan",
+        "aza"
+      ]
+    },
+    {
+      "visual": "fk-son",
+      "voice": "Yükü her hafta artır, her öğünde protein ye, erken uyu. Yoksa yine bunu izlersin:",
+      "say": "Yükü her hafta artır, her öğünde protein ye, erken uyu. Yoksa yine bunu izlersin:",
+      "keys": [
+        "artır",
+        "protein",
+        "uyu"
+      ]
+    }
+  ]
+}

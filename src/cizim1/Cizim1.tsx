@@ -182,6 +182,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "fk-kanca": (w) => [[w(6), "pirilti", 0.18], [w(7) + 6, "agir-dusme", 0.15]],
+  "fk-sebep": (w) => [[w(5) - 2, "pop", 0.18]],
+  "fk-yuk": (w) => [[w(3), "kagit", 0.18], [w(11), "cizik", 0.18], [w(19) - 2, "sonme", 0.18]],
+  "fk-protein": (w) => [[w(2), "kagit", 0.18], [w(10) - 2, "ding", 0.21]],
+  "fk-uyku": (w) => [[w(2), "whoosh", 0.15], [w(15), "agir-dusme", 0.15]],
+  "fk-son": (w) => [[w(1), "pop", 0.18], [w(10), "whoosh", 0.18], [w(12), "whoosh", 0.21]],
   "ig2-gun": (w) => [[w(4), "kagit", 0.18], [w(7), "sonme", 0.18], [w(10), "nefes", 0.21]],
   "ig2-kilo": (w) => [[w(3), "kalem", 0.18], [w(10), "agir-dusme", 0.15], [w(13), "cizik", 0.21]],
   "ig2-birak": (w) => [[w(1), "pop", 0.18], [w(6), "whoosh", 0.18], [w(11), "agir-dusme", 0.15], [w(13), "yuksel", 0.21]],
@@ -843,6 +849,12 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "fk-kanca": { to: 1.0, x: 540, y: 960 },
+  "fk-sebep": { to: 1.0, x: 540, y: 960 },
+  "fk-yuk": { to: 1.0, x: 540, y: 960 },
+  "fk-protein": { to: 1.0, x: 540, y: 960 },
+  "fk-uyku": { to: 1.0, x: 540, y: 960 },
+  "fk-son": { to: 1.0, x: 540, y: 960 },
   "ig2-gun": { to: 1.0, x: 540, y: 960 },
   "ig2-kilo": { to: 1.0, x: 540, y: 960 },
   "ig2-birak": { to: 1.0, x: 540, y: 960 },
@@ -22709,7 +22721,446 @@ const Ig2Gonder: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 18 FARK (`fk-*`) — "Seninle aynı gün salona başlayan arkadaşın değişti. Sen hâlâ aynısın." =====
+// Ekipten bir arkadaşın "3 hırsız" videosundan uyarlama (hırsız yok; anlatım kasın içinde). Kaynaklar:
+// Selye 1936 (Nature; vücut strese önce sarsılır, sonra uyum sağlar), Morton 2018 (Br J Sports Med; 49 deney, protein
+// takviyesi kas kazancını artırır), Nedeltcheva 2010 (Ann Intern Med; aynı kişiler, aynı diyet, 8,5 / 5,5 saat uyku:
+// verilen yağ 1,4 → 0,6 kg). Avatar salon kıyafeti; arkadaşı mavi tişört.
+const FK_FRIEND = "#7d9cc4";
+const FK_FRIEND_SH = "#4b3f5e";
+const fkCurl = (f: number, start: number, per = 4.5, phase = 0): Arm => {
+  const c = f >= start ? (1 - Math.cos((f - start) / per + phase)) / 2 : 0;
+  return [14, lerp(10, 145, c)];
+};
+// Salon: arka duvar, ayna şeridi, dambıl rafı, koyu zemin
+const FkGym: React.FC<{ f: number; dim?: number }> = ({ f, dim = 0 }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-800} y={-800} width={2680} height={3400} fill="#e3d6bf" strokeWidth={0} />
+    <rect x={-800} y={1480} width={2680} height={1000} fill="#3d3a40" strokeWidth={0} />
+    <path d="M-800 1480 H1880" strokeWidth={6} />
+    <rect x={-60} y={430} width={1200} height={930} fill="#dfeef2" strokeWidth={10} />
+    {[0, 1, 2].map((i) => (
+      <path key={i} d={`M${60 + i * 380 + ((f * 2) % 40)} 470 l-120 300`} stroke="#fff" strokeWidth={18} opacity={0.6} />
+    ))}
+    <path d="M330 430 V1360 M700 430 V1360" strokeWidth={5} opacity={0.5} />
+    <rect x={-60} y={1360} width={1200} height={30} fill="#6b6b6b" strokeWidth={5} />
+    <rect x={40} y={180} width={280} height={140} rx={14} fill="#2f5d48" strokeWidth={8} />
+    <text x={180} y={270} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={56} fill="#f4f1ea" stroke="none">GYM</text>
+    {dim > 0 ? <rect x={-800} y={-800} width={2680} height={3400} fill="#1d1c30" opacity={dim} strokeWidth={0} /> : null}
+  </g>
+);
+// Üstte ay kartı (1. AY → 6. AY), sayfa değişirken küçük sallanma
+const FkMonth: React.FC<{ x: number; y: number; m: number; f: number; s?: number }> = ({ x, y, m, f, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s}) rotate(${3 * Math.sin(f / 3)})`} stroke={C.ink} strokeLinejoin="round">
+    <rect x={-130} y={-120} width={260} height={240} rx={18} fill={C.cream} strokeWidth={8} />
+    <path d="M-130 -60 V-102 Q-130 -120 -112 -120 H112 Q130 -120 130 -102 V-60 Z" fill={C.red} strokeWidth={8} />
+    <text x={0} y={60} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={110} fill={C.ink} stroke="none">{m}</text>
+    <text x={0} y={104} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={34} fill={C.ink} stroke="none">AY</text>
+  </g>
+);
+// Numara rozeti (1, 2, 3)
+const FkBadge: React.FC<{ x: number; y: number; p: number; n: number; text: string }> = ({ x, y, p, n, text }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p}) rotate(-4)`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-280} y={-70} width={560} height={140} rx={30} fill={C.cream} strokeWidth={8} />
+      <circle cx={-200} cy={0} r={52} fill={C.red} strokeWidth={6} />
+      <text x={-200} y={22} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={64} fill={C.cream} stroke="none">{n}</text>
+      <text x={50} y={26} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink} stroke="none">{text}</text>
+    </g>
+  ) : null;
+// İki kişi yan yana dambıl çalışır: solda arkadaş (gelişir), sağda avatar (aynı kalır)
+const FkPair: React.FC<{ f: number; grow: number; sad: number; flex?: number; start?: number }> = ({ f, grow, sad, flex = 0, start = 0 }) => {
+  const armF: Arm = flex > 0.5 ? [lerp(14, 95, flex), lerp(0, -120, flex)] : fkCurl(f, start, 4.5, 0);
+  const armA: Arm = fkCurl(f, start, 4.5, 0);
+  const hF = armPoints(1, armF)[2];
+  const hA = armPoints(1, armA)[2];
+  return (
+    <>
+      <Person x={290} y={1720} s={0.82} belly={lerp(0.4, 0.02, grow)} limbW={lerp(0.9, 1.22, grow)} shirt={FK_FRIEND} shorts={FK_FRIEND_SH} mouth={grow > 0.5 ? "grin" : "smile"} armL={flex > 0.5 ? armF : [14, 0]} armR={armF}>
+        {flex > 0.5 ? null : <Dumbbell x={hF[0]} y={hF[1]} s={0.9} rot={90} />}
+      </Person>
+      <Person x={790} y={1720} s={0.82} belly={0.4} limbW={0.9} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth={sad > 0.5 ? "worry" : "smile"} eyes={sad > 0.8 ? "wide" : "open"} lookY={sad * 8} armL={[14, 0]} armR={armA}>
+        <Dumbbell x={hA[0]} y={hA[1]} s={0.9} rot={90} />
+      </Person>
+    </>
+  );
+};
+
+// 1) "Seninle aynı gün salona başlayan arkadaşın değişti. Sen hâlâ aynısın."
+// İlk kare: arkadaşın dambıl kaldıran koluna yakın plan, ay kartı dönmeye başlamış. Kamera geri çekilir: ikisi yan yana.
+// Ay 1 → 6 döner; arkadaş incelir, kolları kalınlaşır, "değişti"de kollarını kasar (lacivert "değişti"). "Sen"de avatarın
+// yüzüne hızlı yakınlaşma + sarsıntı; yüzü düşer, kırmızı "aynı".
+const FK_START: [number, number, number] = [1.7, 330, 1100];
+const FkKancaFrame: React.FC<{ f: number; w: (i: number) => number; d: number }> = ({ f, w, d }) => {
+  const m = Math.min(6, 1 + Math.floor(tw(f, 0, w(6)) * 5.99));
+  const grow = tw(f, 0, w(6));
+  const flex = tw(f, w(6) - 2, w(6) + 6);
+  const sad = tw(f, w(7), w(8));
+  return (
+    <>
+      <CamK k={[[0, ...FK_START], [w(3), 1.05, 540, 1050], [w(6), 1.0, 540, 1000], [w(7), 1.0, 540, 1000], [w(7) + 8, 1.75, 800, 820], [d, 1.85, 800, 800]]} shake={hit(f, w(7) + 6, 12) * 0.7}>
+        <FkGym f={f} />
+        <FkPair f={f} grow={grow} sad={sad} flex={flex} />
+        <KTag x={290} y={560} p={pop(f, w(6), 12)} text="değişti" color={YAS_OK} rot={-4} />
+        <KTag x={800} y={560} p={pop(f, w(9) - 2, 12)} text="aynı" color={C.red} rot={4} />
+      </CamK>
+      <FkMonth x={540} y={330} m={m} f={f < w(6) ? f : 0} s={1} />
+    </>
+  );
+};
+const FkKanca: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return <FkKancaFrame f={f} w={w} d={d} />;
+};
+
+// 2) "Aynı salon, aynı program. Fark üç şeyde."
+// İkisi aynı anda dambıl kaldırır; "aynı salon" / "aynı program" etiketleri sırayla; "Fark"ta kamera avatarın koluna
+// dalar, "üç"te üç "?" kutusu (1, 2, 3) sırayla zıplar.
+const FkSebep: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return (
+    <>
+      <CamK k={[[0, 1.15, 540, 1100], [w(2), 1.0, 540, 1000], [w(4), 1.0, 540, 1000], [w(4) + 8, 1.35, 700, 1000], [d, 1.4, 700, 980]]}>
+        <FkGym f={f} />
+        <FkPair f={f} grow={1} sad={1} start={0} />
+        <KTag x={300} y={520} p={pop(f, w(0) - 2, 12) * (1 - tw(f, w(4), w(4) + 4))} text="aynı salon" color={C.ink} rot={-4} />
+        <KTag x={780} y={640} p={pop(f, w(2) - 2, 12) * (1 - tw(f, w(4), w(4) + 4))} text="aynı program" color={C.ink} rot={4} />
+      </CamK>
+      {[0, 1, 2].map((i) => (
+        <MysteryBox key={i} x={250 + i * 290} y={560} s={0.8} p={pop(f, w(5) - 2 + i * 4, 12)} open={0} rays={false} shake={Math.sin(f / 2.2 + i) * 6}>
+          <text x={0} y={150} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={70} fill={C.red}>{i + 1}</text>
+        </MysteryBox>
+      ))}
+    </>
+  );
+};
+
+// Laboratuvar (sepya, 1936): masa, kafes içinde fare, yanında koşu çarkı
+const FkLab: React.FC<{ f: number; shake: number; calm: number }> = ({ f, shake, calm }) => {
+  const sx = shake * Math.sin(f * 2.1) * 10;
+  const spin = f * (12 * (1 - calm) + 2);
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      <rect x={-800} y={-800} width={2680} height={3400} fill="#e7d9bb" strokeWidth={0} />
+      <rect x={-800} y={1300} width={2680} height={60} fill="#a07850" strokeWidth={6} />
+      <rect x={-800} y={1360} width={2680} height={1200} fill="#c9b08a" strokeWidth={0} />
+      {[0, 1, 2].map((i) => (
+        <g key={i} transform={`translate(${130 + i * 100} 1180)`}>
+          <rect x={-26} y={-110} width={52} height={120} rx={10} fill="#d7ecf2" strokeWidth={5} />
+          <rect x={-24} y={-40} width={48} height={48} fill={["#c96a5a", "#8fb07a", "#d8b45a"][i]} strokeWidth={0} opacity={0.8} />
+        </g>
+      ))}
+      <g transform={`translate(${760} ${1060}) rotate(${spin})`}>
+        <circle r={200} fill="none" strokeWidth={10} />
+        {Array.from({ length: 10 }, (_, i) => (
+          <path key={i} d={`M0 0 L${200 * Math.cos((i * Math.PI) / 5)} ${200 * Math.sin((i * Math.PI) / 5)}`} strokeWidth={4} opacity={0.6} />
+        ))}
+      </g>
+      <g transform={`translate(${760 + sx} 1250)`}>
+        <LabMouse x={0} y={-30} p={1} f={f} sleepy={calm} />
+        {shake > 0.3
+          ? [0, 1, 2].map((i) => <Drop key={i} x={-60 + i * 50} y={-150 - ((f * 4 + i * 20) % 50)} s={0.4} />)
+          : null}
+      </g>
+    </g>
+  );
+};
+
+// 3) "Birincisi: aynı yük. 1936'da bir doktor fareleri zorlarken gördü: vücut önce sarsılır, sonra alışır.
+//     Aylardır aynı dambılsa, vücudun çoktan alıştı."
+// Rozet "1 aynı yük" + avatar dambıl kaldırır. "1936"da sepya laboratuvar: fare çarkta koşar; "sarsılır"da titrer, terler
+// (kırmızı "sarsılır"); "alışır"da sakinleşir, esner (lacivert "alışır"). "Aylardır"da salona dönülür: dambılın üstünde
+// "10 kg", ay kartları 1 · 3 · 6 hep 10 kg; "vücudun"da kol merceği: lifler hiç kalınlaşmaz, "alıştı"da merceğe Zzz.
+const FkYuk: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const lab = f >= w(3) && f < w(14);
+  if (lab) {
+    const shake = tw(f, w(10), w(11)) * (1 - tw(f, w(12), w(13)));
+    const calm = tw(f, w(12), w(13) + 4);
+    return (
+      <>
+        <CamK k={[[w(3), 1.25, 640, 1100], [w(6), 1.05, 600, 1050], [w(10), 1.3, 760, 1150], [w(13), 1.45, 760, 1180], [w(14), 1.5, 760, 1180]]} shake={hit(f, w(11), 10) * 0.5}>
+          <FkLab f={f} shake={shake} calm={calm} />
+        </CamK>
+        <OldPhoto o={1} />
+        <KTag x={300} y={420} p={pop(f, w(3), 12)} text="1936" color={C.ink} rot={-5} />
+        <KTag x={540} y={640} p={pop(f, w(11) - 2, 12) * (1 - tw(f, w(12), w(12) + 4))} text="sarsılır" color={C.red} rot={3} />
+        <KTag x={540} y={640} p={pop(f, w(13) - 2, 12)} text="sonra alışır" color={YAS_OK} rot={-3} />
+      </>
+    );
+  }
+  if (f >= w(14)) {
+    const arm = fkCurl(f, w(14));
+    const hand = armPoints(1, arm)[2];
+    const lens = pop(f, w(17) - 2, 14);
+    return (
+      <>
+        <CamK k={[[w(14), 1.0, 540, 1000], [w(17), 1.1, 620, 1050], [d, 1.25, 700, 1080]]}>
+          <FkGym f={f} />
+          <Person x={420} y={1720} s={0.85} belly={0.4} limbW={0.9} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="flat" armL={[14, 0]} armR={arm}>
+            <Dumbbell x={hand[0]} y={hand[1]} s={0.9} rot={90} />
+            <text x={hand[0]} y={hand[1] - 70} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={52} fill={C.red}>10 kg</text>
+          </Person>
+          <MuscleLens x={820} y={1050} r={150} p={lens} thick={0.5} label="kas" />
+          {f >= w(19) - 2 ? <Zzz x={900} y={880} f={f} o={tw(f, w(19) - 2, w(19) + 6)} /> : null}
+        </CamK>
+        {["1. ay: 10 kg", "3. ay: 10 kg", "6. ay: 10 kg"].map((t, i) => (
+          <KTag key={i} x={i === 1 ? 600 : 420} y={330 + i * 130} p={pop(f, w(14) + i * 7, 10)} text={t} color={i === 2 ? C.red : C.ink} rot={i % 2 ? 3 : -3} />
+        ))}
+        <KTag x={760} y={1420} p={pop(f, w(19) - 2, 12)} text="alıştı" color={C.red} rot={-4} />
+      </>
+    );
+  }
+  const arm = fkCurl(f, 0);
+  const hand = armPoints(1, arm)[2];
+  return (
+    <>
+      <CamK k={[[0, 1.35, 540, 1150], [w(3), 1.15, 540, 1080]]}>
+        <FkGym f={f} />
+        <Person x={540} y={1720} s={0.85} belly={0.4} limbW={0.9} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="flat" armL={[14, 0]} armR={arm}>
+          <Dumbbell x={hand[0]} y={hand[1]} s={0.9} rot={90} />
+        </Person>
+      </CamK>
+      <FkBadge x={540} y={380} p={pop(f, 0, 10)} n={1} text="aynı yük" />
+    </>
+  );
+};
+
+// Uçuşan araştırma kâğıtları: 49 kâğıt dört yandan masadaki yığına iner
+const FkPapers: React.FC<{ f: number; a: number; b: number }> = ({ f, a, b }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    {Array.from({ length: 49 }, (_, i) => {
+      const t = tw(f, lerp(a, b, i / 49), lerp(a, b, i / 49) + 8);
+      if (t <= 0) return null;
+      const ang = (i * 137.5 * Math.PI) / 180;
+      const sx = 540 + Math.cos(ang) * 900;
+      const sy = 900 + Math.sin(ang) * 900;
+      const x = lerp(sx, 540 + ((i * 13) % 30) - 15, t);
+      const y = lerp(sy, 1180 - i * 5, t);
+      return (
+        <g key={i} transform={`translate(${x} ${y}) rotate(${lerp(i * 40, (i % 7) - 3, t)})`}>
+          <rect x={-110} y={-70} width={220} height={140} rx={6} fill="#fbf7ec" strokeWidth={4} />
+          <path d="M-80 -30 H80 M-80 0 H60 M-80 30 H70" strokeWidth={4} opacity={0.5} />
+        </g>
+      );
+    })}
+  </g>
+);
+
+// 4) "İkincisi: protein. 2018'de kırk dokuz deney incelendi: proteinini artıranlar daha çok kas kazandı."
+// Rozet "2 protein"; avatarın önünde boş tabak. "2018"de 49 kâğıt dört yandan uçup yığılır, sayaç 49. "proteinini"de
+// iki kişi: arkadaşın önünde protein tabağı, avatarınki boş; arkadaşın kolları kalınlaşır, "kas"ta lacivert "daha çok kas".
+const FkProtein: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  if (f < w(2)) {
+    return (
+      <>
+        <CamK k={[[0, 1.25, 540, 1250], [w(2), 1.1, 540, 1200]]}>
+          <FkGym f={f} />
+          <Person x={540} y={1720} s={0.85} belly={0.4} limbW={0.9} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="worry" lookY={10} armL={[14, 0]} armR={[14, 0]} />
+          <IgPlate x={540} y={1560} food={0} s={1.1} />
+        </CamK>
+        <FkBadge x={540} y={380} p={pop(f, 0, 10)} n={2} text="protein" />
+      </>
+    );
+  }
+  if (f < w(7)) {
+    const n = Math.round(tw(f, w(2), w(6)) * 49);
+    return (
+      <>
+        <CamK k={[[w(2), 1.0, 540, 1000], [w(7), 1.15, 540, 1080]]}>
+          <rect x={-800} y={-800} width={2680} height={3400} fill="#efe4cc" />
+          <rect x={-800} y={1260} width={2680} height={1400} fill="#b08a62" />
+          <path d="M-800 1260 H1880" stroke={C.ink} strokeWidth={6} />
+          <FkPapers f={f} a={w(2)} b={w(6)} />
+        </CamK>
+        <KTag x={300} y={400} p={pop(f, w(2), 12)} text="2018" color={C.ink} rot={-5} />
+        <g transform="translate(540 700)">
+          <text x={0} y={0} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={200} fill={C.ink}>{n}</text>
+          <text x={0} y={80} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.ink}>deney</text>
+        </g>
+      </>
+    );
+  }
+  const grow = tw(f, w(8), w(11));
+  const armF = fkCurl(f, w(7));
+  const armA = fkCurl(f, w(7), 4.5, 1.2);
+  const hF = armPoints(1, armF)[2];
+  const hA = armPoints(1, armA)[2];
+  return (
+    <>
+      <CamK k={[[w(7), 1.1, 540, 1150], [w(10), 1.0, 540, 1050], [d, 1.15, 380, 1000]]}>
+        <FkGym f={f} />
+        <Person x={290} y={1720} s={0.82} belly={lerp(0.3, 0.05, grow)} limbW={lerp(0.95, 1.22, grow)} shirt={FK_FRIEND} shorts={FK_FRIEND_SH} mouth="grin" armL={[14, 0]} armR={armF}>
+          <Dumbbell x={hF[0]} y={hF[1]} s={0.9} rot={90} />
+        </Person>
+        <Person x={790} y={1720} s={0.82} belly={0.4} limbW={0.9} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="worry" armL={[14, 0]} armR={armA}>
+          <Dumbbell x={hA[0]} y={hA[1]} s={0.9} rot={90} />
+        </Person>
+        <IgProtein x={290} y={1620} p={pop(f, w(7), 12) * 0.8} />
+        <IgPlate x={790} y={1620} food={0} s={0.9} />
+        {grow > 0.3 ? <path d="M180 760 l0 -90 m-30 30 l30 -30 l30 30" stroke={YAS_OK} strokeWidth={14} fill="none" strokeLinecap="round" opacity={grow} /> : null}
+      </CamK>
+      <KTag x={330} y={480} p={pop(f, w(10) - 2, 12)} text="daha çok kas" color={YAS_OK} rot={-4} />
+    </>
+  );
+};
+
+// Gece yatak odası: yatak, yorgan, yastıkta baş (yatarken), komodin saati
+const FkBed: React.FC<{ x: number; y: number; s?: number; f: number; sleep: number; phone?: number; hours?: string; clock?: string }> = ({ x, y, s = 1, f, sleep, phone = 0, hours, clock }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+    <rect x={-330} y={-60} width={660} height={160} rx={18} fill="#8a5a34" strokeWidth={7} />
+    <rect x={-360} y={-200} width={50} height={300} rx={14} fill="#8a5a34" strokeWidth={7} />
+    <ellipse cx={-230} cy={-80} rx={90} ry={44} fill="#f4f1ea" strokeWidth={6} />
+    <g transform="translate(-220 -120)">
+      <circle r={62} fill={C.skin} strokeWidth={6} />
+      <path d="M-60 -10 Q-58 -76 0 -70 Q58 -74 60 -16 Q30 -50 -10 -46 Q-40 -44 -60 -10 Z" fill={C.hair} strokeWidth={5} />
+      {sleep > 0.5 ? (
+        <path d="M-30 10 q10 8 20 0 M14 10 q10 8 20 0" fill="none" strokeWidth={5} />
+      ) : (
+        <>
+          <circle cx={-20} cy={8} r={7} fill={C.ink} stroke="none" />
+          <circle cx={24} cy={8} r={7} fill={C.ink} stroke="none" />
+        </>
+      )}
+    </g>
+    <path d="M-170 -140 Q50 -190 320 -110 L320 60 L-170 60 Z" fill="#5f86c4" strokeWidth={7} />
+    {phone > 0 ? (
+      <g transform="translate(-100 -230) rotate(-15)">
+        <ellipse cx={-40} cy={70} rx={150} ry={110} fill="#bfe0ff" opacity={0.35 * phone} stroke="none" />
+        <rect x={-36} y={-60} width={72} height={124} rx={12} fill="#1e1f24" strokeWidth={5} />
+        <rect x={-28} y={-50} width={56} height={100} rx={6} fill="#bfe0ff" stroke="none" />
+      </g>
+    ) : null}
+    {sleep > 0.5 ? <Zzz x={-150} y={-230} f={f} o={1} /> : null}
+    {clock ? (
+      <g transform="translate(250 -170)">
+        <rect x={-110} y={-50} width={220} height={100} rx={14} fill="#1e1f24" strokeWidth={6} />
+        <text x={0} y={30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={70} fill="#ff6b5a" stroke="none">{clock}</text>
+      </g>
+    ) : null}
+    {hours ? (
+      <text x={0} y={200} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={80} fill={C.cream} stroke="none">{hours}</text>
+    ) : null}
+  </g>
+);
+const FkNight: React.FC<{ f: number }> = ({ f }) => (
+  <g>
+    <rect x={-800} y={-800} width={2680} height={3400} fill="#2f2e48" />
+    <rect x={-800} y={1500} width={2680} height={1200} fill="#24233a" />
+    <rect x={640} y={260} width={300} height={300} fill="#3f4a78" stroke={C.ink} strokeWidth={8} />
+    <circle cx={800} cy={380} r={60 + 2 * Math.sin(f / 8)} fill="#f4e7b0" />
+    <path d="M640 410 H940 M790 260 V560" stroke={C.ink} strokeWidth={8} />
+  </g>
+);
+
+// 5) "Üçüncüsü: uyku. 2010'da aynı insanlar aynı diyeti iki kez yaptı. Az uyudukları haftalarda verdikleri yağ yarıdan aza
+//     düştü." Rozet "3 uyku": gece 03:00, avatar yatakta telefonla. "2010"da ekran ikiye bölünür: aynı avatar iki yatakta
+//     (sol 8,5 saat uyur, sağ 5,5 saat telefonda), "aynı diyet" tabakları; "verdikleri yağ"da sarı yağ çubukları: sol 1,4 kg,
+//     sağ 0,6 kg; "yarıdan aza"da sağ çubuk kırmızı.
+const FkUyku: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  if (f < w(2)) {
+    return (
+      <>
+        <CamK k={[[0, 1.3, 540, 1300], [w(2), 1.15, 540, 1250]]}>
+          <FkNight f={f} />
+          <FkBed x={540} y={1450} s={1.2} f={f} sleep={0} phone={1} clock="03:00" />
+        </CamK>
+        <FkBadge x={540} y={380} p={pop(f, 0, 10)} n={3} text="uyku" />
+      </>
+    );
+  }
+  const diet = pop(f, w(5) - 2, 12) * (1 - tw(f, w(10), w(10) + 4));
+  const bars = tw(f, w(13), w(16));
+  const red = tw(f, w(15), w(16) + 4);
+  return (
+    <>
+      <CamK k={[[w(2), 1.1, 540, 1100], [w(5), 1.0, 540, 1000], [w(13), 1.0, 540, 1000], [d, 1.08, 760, 1000]]}>
+        <FkNight f={f} />
+        <rect x={538} y={-800} width={6} height={3400} fill={C.cream} />
+        <FkBed x={270} y={1400} s={0.72} f={f} sleep={1} hours="8,5 saat" />
+        <FkBed x={810} y={1400} s={0.72} f={f} sleep={0} phone={1} hours="5,5 saat" />
+        {diet > 0 ? (
+          <>
+            <IgPlate x={270} y={1700} food={1} s={0.6 * diet} />
+            <IgPlate x={810} y={1700} food={1} s={0.6 * diet} />
+          </>
+        ) : null}
+        {bars > 0 ? (
+          <g stroke={C.ink} strokeLinejoin="round">
+            <rect x={190} y={1000 - 420 * bars} width={160} height={420 * bars} rx={14} fill={C.fat} strokeWidth={7} />
+            <rect x={730} y={1000 - 180 * bars} width={160} height={180 * bars} rx={14} fill={red > 0.5 ? C.red : C.fat} strokeWidth={7} />
+            <text x={270} y={1000 - 420 * bars - 30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={58} fill={C.cream} stroke="none">−1,4 kg yağ</text>
+            <text x={810} y={1000 - 180 * bars - 30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={58} fill={C.cream} stroke="none">−0,6 kg yağ</text>
+          </g>
+        ) : null}
+      </CamK>
+      <KTag x={300} y={330} p={pop(f, w(2), 12)} text="2010" color={C.ink} rot={-5} />
+      <KTag x={700} y={330} p={pop(f, w(3) - 2, 12) * (1 - tw(f, w(12), w(12) + 4))} text="aynı kişiler" color={C.ink} rot={4} />
+      <KTag x={540} y={500} p={diet} text="aynı diyet" color={C.ink} rot={-3} />
+      <KTag x={760} y={460} p={pop(f, w(15), 12)} text="yarıdan az" color={C.red} rot={4} />
+    </>
+  );
+};
+
+// 6) "Yükü her hafta artır, her öğünde protein ye, erken uyu. Yoksa yine bunu izlersin:"
+// Salon tahtası (köşede VOOM programı açık telefon): "Yükü"de dambıla plaka eklenir (+2,5 kg, lacivert ok); "her öğünde"de
+// protein tabağı; "erken uyu"da ışık kısılır, ay belirir. Tahtada maddeler tebeşirle; ekranda "Sende hangisi eksik? 1·2·3".
+// "Yoksa"da avatar kâğıt uçak fırlatır, "bunu"da uçak kameraya gelip ekranı kaplar, "izlersin"de açılış karesi (döngü).
+const FK_LINES = ["1) yükü her hafta artır", "2) her öğünde protein", "3) erken uyu"];
+const FkSon: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(IG_SHOT);
+  const f = useCurrentFrame();
+  const arm = f < w(10) ? fkCurl(f, 0) : ([25, 135] as Arm);
+  const hand = armPoints(1, arm)[2];
+  const plate = pop(f, w(4) - 2, 12);
+  const bigger = tw(f, w(0), w(2));
+  const dim = tw(f, w(8) - 2, w(9)) * 0.45;
+  const plane = tw(f, w(10), w(12));
+  const wipe = tw(f, w(12), w(13) + 2);
+  const reveal = tw(f, w(13), w(13) + 8);
+  return (
+    <>
+      <CamK k={[[0, 1.15, 540, 1100], [w(4), 1.0, 540, 960], [w(8), 1.05, 540, 900], [w(10), 1.0, 540, 960], [d, 1.0, 540, 960]]}>
+        <IgGymWall f={f} chalk={[tw(f, 0, w(3)), tw(f, w(4), w(7)), tw(f, w(8), w(9) + 4)]} voom={pop(f, w(1), 14)} lines={FK_LINES} />
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#1d1c30" opacity={dim} />
+        {dim > 0.05 ? <circle cx={960} cy={160} r={60} fill="#f4e7b0" opacity={dim * 2} /> : null}
+        <Person x={430} y={1700} s={0.82} belly={0.3} limbW={1} shirt={SEL_AV_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth="grin" armL={[14, 0]} armR={arm}>
+          {f < w(10) ? <Dumbbell x={hand[0]} y={hand[1]} s={0.9 + 0.25 * bigger} rot={90} /> : null}
+        </Person>
+        {bigger > 0 && f < w(4) ? <path d="M740 980 l0 -110 m-34 34 l34 -34 l34 34" stroke={YAS_OK} strokeWidth={16} fill="none" strokeLinecap="round" /> : null}
+        <IgProtein x={760} y={1560} p={plate * 0.8} />
+      </CamK>
+      <KTag x={780} y={1040} p={pop(f, w(1), 10) * (1 - tw(f, w(4), w(4) + 4))} text="+2,5 kg" color={YAS_OK} rot={-4} />
+      <g opacity={tw(f, w(9), w(10)) * (1 - tw(f, w(12), w(12) + 4))}>
+        <rect x={140} y={760} width={800} height={180} rx={28} fill={C.cream} stroke={C.ink} strokeWidth={7} />
+        <text x={540} y={835} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={54} fill={C.ink}>SENDE HANGİSİ EKSİK?</text>
+        <text x={540} y={910} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={54} fill={C.red}>1 · 2 · 3 YORUMLARA YAZ</text>
+      </g>
+      <VsPaperPlane p={plane} a={[520, 1000]} b={[700, 900]} />
+      {wipe > 0 && wipe < 1 ? (
+        <g transform={`translate(${lerp(700, 540, wipe)} ${lerp(900, 960, wipe)}) scale(${lerp(0.3, 12, Easing.in(Easing.cubic)(wipe))}) rotate(${lerp(-20, 0, wipe)})`} opacity={1 - reveal}>
+          <path d="M-160 0 L180 -70 L-40 30 Z" fill="#fbf7ec" stroke={C.ink} strokeWidth={2} strokeLinejoin="round" />
+          <path d="M-40 30 L180 -70 L-10 90 Z" fill="#e9e3d6" stroke={C.ink} strokeWidth={2} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {reveal > 0 ? (
+        <g opacity={reveal}>
+          <FkKancaFrame f={0} w={() => 9999} d={9999} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "fk-kanca": FkKanca,
+  "fk-sebep": FkSebep,
+  "fk-yuk": FkYuk,
+  "fk-protein": FkProtein,
+  "fk-uyku": FkUyku,
+  "fk-son": FkSon,
   "ig2-gun": Ig2Gun,
   "ig2-kilo": Ig2Kilo,
   "ig2-birak": Ig2Birak,
