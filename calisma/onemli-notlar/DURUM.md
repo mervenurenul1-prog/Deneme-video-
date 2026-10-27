@@ -1,6 +1,13 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (27 Ekim — EN GÜNCEL) <<<
+- **19 TÜP MİDE** (`cizim1-19-tup-mide`, `tm-*`): ekip arkadaşının "tartı her şeyi söylemiyor" videosundan uyarlama
+  (referans olarak gidecek). Onaylı metin: "Tüp mide oldun, kırk kilo verdin ama el sallarken kolunun altı hâlâ
+  sallanıyor." → tuzluk akımı ("Yoksa sana da mı biri 'Tuzu uzatır mısın?' dedi?") → tarih 1988 (ilk adım, ikinci adıma
+  gerek kalmadı) → bilim 2022 (iki bin hasta, kilonun sekizi yağ değil) → deney + kola/karna/bacağa ağırlık ("deriyi
+  tamamen toplamaz") → VOOM SESLE (kullanıcı istedi: "VOOM'daki koçun sarkan bölgene göre planlar") → gönder, döngü.
+  Kol altı sarkma `TmFlap`, kol kesiti `TmArmLens`. Sessiz önizleme `19-tup-mide-sessiz.mp4` (~37 sn) gönderildi.
+  Dersler: kullanıcı "protein/yemek herkes biliyor, asıl dert sarkma"; tarih + BİLİMSEL KANIT (rakamlı çalışma) ikisi de şart.
 - **18 SALONUN EN SADIK MÜŞTERİSİ** (`cizim1-18-fark`, sahneler `fk-*`): ekipten bir arkadaşın "3 hırsız" videosu
   (sesi + avatarı onun) bizim formülle yeniden kuruldu; bu önizleme arkadaşın Claude'una REFERANS olarak gidecek.
   Kanca KULLANICININ CÜMLESİ, birebir: "Salonun en sadık müşterisi kim biliyor musun? Hiç değişmeyenler. Çünkü hep geri

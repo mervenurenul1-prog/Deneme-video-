@@ -182,6 +182,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "tm-kanca": (w) => [[w(3), "ding", 0.18], [w(11), "cizik", 0.18]],
+  "tm-tuz": (w) => [[w(5) - 2, "pop", 0.18]],
+  "tm-tarih": (w) => [[w(2), "kagit", 0.18], [w(7), "kalem", 0.18], [w(17) - 2, "agir-dusme", 0.15]],
+  "tm-bilim": (w) => [[w(5), "pop", 0.18], [w(8) - 2, "cizik", 0.18], [w(12), "sonme", 0.18]],
+  "tm-tavsiye": (w) => [[w(6) - 2, "yuksel", 0.18], [w(9), "ding", 0.18], [w(20) - 2, "pirilti", 0.18]],
+  "tm-son": (w) => [[w(5), "pop", 0.18], [w(12), "whoosh", 0.18], [w(14), "whoosh", 0.21]],
   "fk-kanca": (w) => [[2, "bip", 0.18], [w(7), "pop", 0.18], [w(8) + 6, "agir-dusme", 0.15]],
   "fk-sebep": (w) => [[w(7) - 2, "pop", 0.18]],
   "fk-yuk": (w) => [[w(2), "kagit", 0.18], [w(6), "kalem", 0.18], [w(16) - 2, "sonme", 0.18]],
@@ -849,6 +855,12 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "tm-kanca": { to: 1.0, x: 540, y: 960 },
+  "tm-tuz": { to: 1.0, x: 540, y: 960 },
+  "tm-tarih": { to: 1.0, x: 540, y: 960 },
+  "tm-bilim": { to: 1.0, x: 540, y: 960 },
+  "tm-tavsiye": { to: 1.0, x: 540, y: 960 },
+  "tm-son": { to: 1.0, x: 540, y: 960 },
   "fk-kanca": { to: 1.0, x: 540, y: 960 },
   "fk-sebep": { to: 1.0, x: 540, y: 960 },
   "fk-yuk": { to: 1.0, x: 540, y: 960 },
@@ -23277,7 +23289,455 @@ const FkSon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 19 TÜP MİDE (`tm-*`) — "Tüp mide oldun, kırk kilo verdin ama el sallarken kolunun altı hâlâ sallanıyor." =====
+// Ekipten bir arkadaşın "tartı her şeyi söylemiyor" videosundan uyarlama. Kaynaklar: tüp mide 1988'de (Ohio) duodenal
+// switch'in ilk adımı; 1999-2000'de çok kilolu hastalarda iki aşamalı ameliyatın ilk aşaması, sonra tek başına ameliyat
+// (Bariatric Times; Relias). Nuijten 2022 Obes Rev (59 çalışma, 2.270 hasta: ilk yıl ~8 kg yağsız kütle). Oppert 2018
+// Obesity (ameliyat sonrası protein + ağırlık: güç ↑). Ameliyat sonrası avatar zayıf (göbek yok), kolsuz atlet.
+const TM_TOP = SEL_AV_TOP;
+// Üst kolun altında sarkan deri: kolun omuz-dirsek çizgisinin "alt" yanında şişkin hilal, f ile sallanır
+const TmFlap: React.FC<{ side: number; arm: Arm; amp: number; f: number; jig?: number }> = ({ side, arm, amp, f, jig = 1 }) => {
+  if (amp <= 0) return null;
+  const [s, e] = armPoints(side, arm);
+  const dx = e[0] - s[0];
+  const dy = e[1] - s[1];
+  const L = Math.hypot(dx, dy) || 1;
+  let nx = -dy / L;
+  let ny = dx / L;
+  if (ny < 0 || (Math.abs(ny) < 0.2 && nx * side > 0)) {
+    nx = -nx;
+    ny = -ny;
+  }
+  const depth = amp * (58 + jig * 26 * Math.sin(f * 1.15));
+  const sway = jig * 14 * Math.sin(f * 1.15 + 0.8) * amp;
+  const a = [s[0] + nx * 16 + dx * 0.12, s[1] + ny * 16 + dy * 0.12];
+  const b = [e[0] + nx * 16 - dx * 0.1, e[1] + ny * 16 - dy * 0.1];
+  const m = [(a[0] + b[0]) / 2 + nx * depth * 1.1 + (dx / L) * sway, (a[1] + b[1]) / 2 + ny * depth * 1.1 + depth * 1.4 + (dy / L) * sway * 0.4];
+  return (
+    <g>
+      <path d={`M${pt(a)} Q${pt(m)} ${pt(b)} Z`} fill={C.skin} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+      <path d={`M${pt([a[0] + (m[0] - a[0]) * 0.35, a[1] + (m[1] - a[1]) * 0.35])} Q${pt([(a[0] + b[0]) / 2 + nx * depth, (a[1] + b[1]) / 2 + ny * depth])} ${pt([b[0] + (m[0] - b[0]) * 0.35, b[1] + (m[1] - b[1]) * 0.35])}`} fill="none" stroke="#c98c66" strokeWidth={4} />
+    </g>
+  );
+};
+// Zayıflamış avatar (kolsuz atlet); sağ kolda isteğe bağlı sarkma
+const TmAvatar: React.FC<{ x: number; y: number; s: number; f: number; armR?: Arm; armL?: Arm; flap?: number; jig?: number; mouth?: Mouth; eyes?: Eyes; belly?: number; lookY?: number; limbW?: number; children?: React.ReactNode }> = ({ x, y, s, f, armR = [14, 0], armL = [14, 0], flap = 0, jig = 1, mouth = "smile", eyes = "open", belly = 0, lookY = 0, limbW = 0.86, children }) => (
+  <Person x={x} y={y} s={s} belly={belly} limbW={limbW} shirt={TM_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} sleeveless mouth={mouth} eyes={eyes} lookY={lookY} armL={armL} armR={armR}>
+    <TmFlap side={1} arm={armR} amp={flap} f={f} jig={jig} />
+    <TmFlap side={-1} arm={armL} amp={flap * 0.8} f={f + 3} jig={jig * 0.6} />
+    {children}
+  </Person>
+);
+// Park: gökyüzü, çimen, ağaçlar, bank
+const TmPark: React.FC<{ f: number }> = ({ f }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={-800} y={-800} width={2680} height={3400} fill="#bfe0ef" strokeWidth={0} />
+    <circle cx={880} cy={260} r={80} fill="#ffe08a" strokeWidth={0} />
+    {[[-80, 1250, 260], [1100, 1220, 300], [180, 1300, 180]].map(([cx, cy, r], i) => (
+      <g key={i}>
+        <rect x={cx - 26} y={cy} width={52} height={360} fill="#8a5a34" strokeWidth={6} />
+        <circle cx={cx} cy={cy - r * 0.4 + 4 * Math.sin(f / 20 + i)} r={r} fill={i % 2 ? "#7fb069" : "#6aa25a"} strokeWidth={7} />
+      </g>
+    ))}
+    <rect x={-800} y={1560} width={2680} height={1200} fill="#8cc06a" strokeWidth={0} />
+    <path d="M-800 1560 H1880" strokeWidth={6} />
+    <rect x={-800} y={1700} width={2680} height={140} fill="#d9c9a8" strokeWidth={5} />
+  </g>
+);
+// Tuzluk: gövde + delikli kapak; ağzı aşağı bakınca birkaç tane tuz düşer
+const TmSalt: React.FC<{ x: number; y: number; rot: number; f: number; pour: number }> = ({ x, y, rot, f, pour }) => (
+  <g>
+    <g transform={`translate(${x} ${y}) rotate(${rot})`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-34} y={-50} width={68} height={100} rx={14} fill="#f4f4f0" strokeWidth={6} />
+      <path d="M-34 -50 Q0 -92 34 -50 Z" fill="#b9bcc4" strokeWidth={6} />
+      {[-12, 0, 12].map((dx) => (
+        <circle key={dx} cx={dx} cy={-64} r={3} fill={C.ink} stroke="none" />
+      ))}
+    </g>
+    {pour > 0
+      ? [0, 1].map((i) => {
+          const t = ((f * 2 + i * 23) % 40) / 40;
+          return <circle key={i} cx={x + 6 + i * 8} cy={y + 70 + t * 160} r={5} fill="#fff" stroke={C.ink} strokeWidth={2} opacity={1 - t} />;
+        })
+      : null}
+  </g>
+);
+
+// 1) Banyoda tartı: ilk kare ekran yakın planı, rakam 120 → 80 akar (avatarın göbeği erir); "kırk kilo"da lacivert "−40 kg".
+// "ama"da parka kesme: avatar arkadaşına el sallar; "kolunun altı"nda kamera üst kola yakınlaşır, deri sallanır; "hâlâ"da
+// kırmızı "hâlâ sallanıyor", yüzü düşer, eli yavaşça iner.
+const TM_START: [number, number, number] = [2.4, 540, 1680];
+const TmKancaFrame: React.FC<{ f: number; w: (i: number) => number; d: number }> = ({ f, w, d }) => {
+  if (f < w(6)) {
+    const t = tw(f, 0, w(5));
+    return (
+      <>
+        <CamK k={[[0, ...TM_START], [w(2), 1.6, 540, 1450], [w(4), 1.0, 540, 1100], [w(6), 1.05, 540, 1050]]}>
+          <IgBath />
+          <TmAvatar x={540} y={1658} s={0.85} f={f} belly={lerp(0.9, 0, t)} limbW={lerp(1.15, 0.86, t)} mouth={t > 0.8 ? "grin" : "smile"} />
+          <Bathroom x={540} y={1716} value={`${Math.round(lerp(120, 80, t))} kg`} />
+        </CamK>
+        <KTag x={540} y={420} p={pop(f, w(3) - 2, 12)} text="−40 kg" color={YAS_OK} rot={-4} />
+      </>
+    );
+  }
+  const wave = Math.sin((f - w(6)) / 3.2);
+  const down = tw(f, w(12), d);
+  const arm: Arm = [lerp(115, 20, down), lerp(45 + 28 * wave, 0, down)];
+  const flap = 0.5 + tw(f, w(7), w(9)) * 0.9;
+  return (
+    <>
+      <CamK k={[[w(6), 1.0, 540, 1000], [w(8), 1.05, 600, 1050], [w(9) + 6, 2.0, 700, 1240], [w(12), 2.0, 700, 1240], [d, 1.3, 600, 1100]]} shake={hit(f, w(11), 10) * 0.5}>
+        <TmPark f={f} />
+        <TmAvatar x={540} y={1760} s={0.9} f={f} armR={arm} flap={flap} jig={1.4} mouth={f > w(11) ? "worry" : "grin"} eyes={f > w(11) ? "wide" : "open"} lookY={down * 8} />
+      </CamK>
+      <KTag x={540} y={380} p={pop(f, w(11) - 2, 12)} text="hâlâ sallanıyor" color={C.red} rot={-3} />
+    </>
+  );
+};
+const TmKanca: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return <TmKancaFrame f={f} w={w} d={d} />;
+};
+
+// 2) "Yoksa sana da mı biri 'Tuzu uzatır mısın?' dedi?" — sofra: karşıdaki arkadaş "Tuzu uzatır mısın?" der; avatar tuzluğu
+// sallar, birkaç tane tuz düşer ama kolunun altı dalga dalga sallanır (kamera kola yakınlaşır); arkadaş gülmemeye çalışır.
+const TmTuz: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const shaking = f >= w(7);
+  const sh = shaking ? Math.sin((f - w(7)) / 1.6) : 0;
+  const arm: Arm = shaking ? [lerp(100, 112, (sh + 1) / 2), -30] : [30, 60];
+  const hand = armPoints(1, arm)[2];
+  const laugh = f >= w(8);
+  return (
+    <>
+      <CamK k={[[0, 1.25, 540, 1100], [w(4), 1.0, 540, 1000], [w(7), 1.05, 480, 1000], [w(7) + 8, 1.8, 420, 1160], [d, 1.85, 430, 1160]]}>
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#f1e1c4" />
+        <rect x={120} y={300} width={360} height={300} fill="#bfe0ef" stroke={C.ink} strokeWidth={8} />
+        <path d="M300 300 V600 M120 450 H480" stroke={C.ink} strokeWidth={6} />
+        <TmAvatar x={300} y={1560} s={0.8} f={f} armR={arm} flap={1.3} jig={shaking ? 2.2 : 0.3} mouth={shaking ? "flat" : "smile"}>
+          {shaking ? <TmSalt x={hand[0] + 20} y={hand[1] - 10} rot={180 + 12 * sh} f={f} pour={1} /> : null}
+        </TmAvatar>
+        <Person x={800} y={1560} s={0.8} belly={0.3} shirt={FK_FRIEND} shorts={FK_FRIEND_SH} mouth={laugh ? "grin" : "smile"} eyes={laugh ? "closed" : "open"} armL={[14, 0]} armR={laugh ? [40, 150] : [14, 0]} />
+        <g stroke={C.ink} strokeLinejoin="round">
+          <rect x={-800} y={1300} width={2680} height={40} fill="#a87448" strokeWidth={6} />
+          <rect x={-800} y={1340} width={2680} height={1200} fill="#8a5a34" strokeWidth={6} />
+        </g>
+        <IgPlate x={300} y={1300} food={1} s={0.7} />
+        <IgPlate x={800} y={1300} food={1} s={0.7} />
+        {!shaking ? <TmSalt x={560} y={1250} rot={0} f={f} pour={0} /> : null}
+      </CamK>
+      <SayBubble x={720} y={560} p={pop(f, w(5) - 2, 12)} text="Tuzu uzatır mısın?" tail={[780, 720]} size={60} />
+    </>
+  );
+};
+
+// Mide çizimi: k 0 = büyük mide (fasulye), 1 = ince tüp; kesik çizgi cut ile çizilir
+const TmStomach: React.FC<{ x: number; y: number; s?: number; k: number; cut: number }> = ({ x, y, s = 1, k, cut }) => {
+  const tube = "M-40 -330 C-40 -150 -60 40 40 170 C120 260 230 250 300 190";
+  const big = "M-70 -330 L-10 -330 C10 -200 60 -80 120 -20 C200 50 280 120 320 190 L290 230 C200 330 10 330 -140 220 C-280 110 -260 -120 -70 -330 Z";
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+      <path d={big} fill="#e58f8f" strokeWidth={9} opacity={1 - k} />
+      {cut > 0 && k < 1 ? <path d="M-60 -300 C-60 -140 -70 40 30 170 C100 240 200 250 290 200" fill="none" strokeWidth={8} strokeDasharray="22 16" opacity={cut * (1 - k)} /> : null}
+      <g opacity={tw(k, 0, 0.6)}>
+        <path d={tube} fill="none" stroke={C.ink} strokeWidth={96} />
+        <path d={tube} fill="none" stroke="#e58f8f" strokeWidth={80} />
+      </g>
+      <path d="M-70 -330 L-80 -420 M-10 -330 L0 -420" strokeWidth={9} />
+    </g>
+  );
+};
+// İki adımlı ameliyat planı kartı
+const TmStepCard: React.FC<{ x: number; y: number; p: number; n: number; text: string; on: number; stamp: number }> = ({ x, y, p, n, text, on, stamp }) =>
+  p > 0 ? (
+    <g transform={`translate(${x} ${y}) scale(${p})`} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-210} y={-90} width={420} height={180} rx={18} fill="#efe2c2" stroke={on > 0.5 ? YAS_OK : C.ink} strokeWidth={on > 0.5 ? 12 : 7} />
+      <text x={0} y={-20} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={44} fill={C.ink} stroke="none">{`${n}. ADIM`}</text>
+      <text x={0} y={50} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink} stroke="none">{text}</text>
+      {stamp > 0 ? (
+        <g transform={`scale(${lerp(2, 1, stamp)}) rotate(-12)`} opacity={stamp}>
+          <rect x={-215} y={-50} width={430} height={100} rx={14} fill="none" stroke={C.red} strokeWidth={10} />
+          <text x={0} y={22} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={56} fill={C.red} stroke="none">GEREK KALMADI</text>
+        </g>
+      ) : null}
+    </g>
+  ) : null;
+
+// 3) "Tüp mide 1988'de büyük bir ameliyatın sadece ilk adımıydı. Hastalar o kadar kilo verdi ki ikinci adıma gerek kalmadı."
+// Sepya: ortada büyük mide; "1988"; "büyük bir ameliyatın"da üstte iki adım kartı (1 mide, 2 bağırsak); "ilk adımıydı"da 1. kart
+// lacivert, mideye kesik çizgi, mide tüpe döner. "Hastalar"da hasta tartıda, göbeği erir (140 → 90); "ikinci adıma"da 2. kart,
+// "gerek kalmadı"da kırmızı damga.
+const TmTarih: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const patient = f >= w(9) && f < w(15);
+  const k = tw(f, w(8), w(9));
+  const cards = (
+    <>
+      <TmStepCard x={290} y={430} p={pop(f, w(3), 12)} n={1} text="mide" on={f >= w(7) ? 1 : 0} stamp={0} />
+      <TmStepCard x={790} y={430} p={pop(f, w(4), 12)} n={2} text="bağırsak" on={0} stamp={tw(f, w(17) - 2, w(17) + 6)} />
+    </>
+  );
+  if (patient) {
+    const t = tw(f, w(9), w(14));
+    return (
+      <>
+        <CamK k={[[w(9), 1.15, 540, 1250], [w(15), 1.05, 540, 1150]]}>
+          <rect x={-800} y={-800} width={2680} height={3400} fill="#e7d9bb" />
+          <rect x={-800} y={1560} width={2680} height={1200} fill="#c9b08a" />
+          {[-1, 1].map((side) => (
+            <Person key={side} x={540 + side * 280} y={1740} s={0.62} belly={lerp(1, 0.15, t)} limbW={lerp(1.25, 0.9, t)} shirt="#e9e3d6" shorts="#9fb3c8" mouth={t > 0.6 ? "grin" : "flat"} armL={[14, 0]} armR={[14, 0]} />
+          ))}
+          <TmAvatar x={540} y={1740} s={0.72} f={f} belly={lerp(1, 0.1, t)} limbW={lerp(1.25, 0.86, t)} mouth={t > 0.6 ? "grin" : "flat"} />
+          <Bathroom x={540} y={1790} value={`${Math.round(lerp(140, 90, t))} kg`} />
+        </CamK>
+        <OldPhoto o={0.8} />
+        <KTag x={540} y={420} p={pop(f, w(12) - 2, 12)} text="−50 kg" color={YAS_OK} rot={-3} />
+      </>
+    );
+  }
+  return (
+    <>
+      <CamK k={[[0, 1.2, 540, 1050], [w(3), 1.0, 540, 960], [w(7), 1.1, 400, 900], [w(9), 1.15, 540, 1050], [w(15), 1.0, 540, 900], [d, 1.15, 790, 700]]}>
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#e7d9bb" />
+        <rect x={-800} y={1560} width={2680} height={1200} fill="#c9b08a" />
+        <TmStomach x={540} y={1150} s={1.05} k={k} cut={tw(f, w(7), w(8))} />
+        {k > 0.9 ? <KTag x={540} y={1560} p={pop(f, w(8) + 6, 12)} text="tüp mide" color={YAS_OK} rot={-3} /> : null}
+        {cards}
+      </CamK>
+      <OldPhoto o={0.8} />
+      <KTag x={300} y={250} p={pop(f, w(2), 12)} text="1988" color={C.ink} rot={-5} />
+    </>
+  );
+};
+
+// Kol kesiti merceği: dış halka deri, içte kırmızı kas; mus küçülünce aradaki boşluk açılır, sag ile deri aşağı sarkar
+const TmArmLens: React.FC<{ x: number; y: number; r: number; p: number; mus: number; sag: number; f: number; label?: string }> = ({ x, y, r, p, mus, sag, f, label = "kol" }) => {
+  if (p <= 0) return null;
+  const sk = r * 0.82;
+  const skin = `M${-sk} 0 C${-sk} ${-sk * 0.55} ${-sk * 0.55} ${-sk} 0 ${-sk} C${sk * 0.55} ${-sk} ${sk} ${-sk * 0.55} ${sk} 0 C${sk} ${sk * (0.55 + sag * 0.9)} ${sk * 0.55} ${sk * (1 + sag * 0.75) + 4 * sag * Math.sin(f / 3)} 0 ${sk * (1 + sag * 0.75) + 4 * sag * Math.sin(f / 3)} C${-sk * 0.55} ${sk * (1 + sag * 0.75)} ${-sk} ${sk * (0.55 + sag * 0.9)} ${-sk} 0 Z`;
+  const mr = sk * mus * 0.9;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p})`} stroke={C.ink} strokeLinejoin="round">
+      <circle r={r} fill="#fbf3e2" strokeWidth={10} />
+      <path d={skin} fill="#f6d9c2" stroke="#c98c66" strokeWidth={14} />
+      <g transform={`translate(0 ${-sk * (1 - mus) * 0.5})`}>
+        <circle r={mr} fill="#d9645a" strokeWidth={6} />
+        {[-0.5, -0.17, 0.17, 0.5].map((k) => (
+          <path key={k} d={`M${-mr * Math.sqrt(1 - k * k) * 0.9} ${k * mr} H${mr * Math.sqrt(1 - k * k) * 0.9}`} stroke="#f2a59a" strokeWidth={6} />
+        ))}
+        <circle r={mr * 0.18} fill="#f4f1ea" strokeWidth={5} />
+      </g>
+      <text x={0} y={-r - 24} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink} stroke="none">{label}</text>
+    </g>
+  );
+};
+
+// 4) "2022'de iki bin hasta incelendi: verilen kilonun sekizi yağ değildi. Kas gidince deri boşta kalır."
+// Küçük hasta ikonları ekrana dolar (sayaç 2.000); "verilen kilonun"da 10 blokluk "−40 kg" yığını, "sekizi"nde iki blok kırmızı
+// "8 kg yağ değil". "Kas"ta kol kesiti merceği: kas küçülür, deri boşta kalır ve sarkar (kırmızı "boşta").
+const TmBilim: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  if (f < w(5)) {
+    const n = tw(f, 0, w(4));
+    return (
+      <>
+        <CamK k={[[0, 1.15, 540, 1000], [w(5), 1.0, 540, 960]]}>
+          <rect x={-800} y={-800} width={2680} height={3400} fill="#efe4cc" />
+          {Array.from({ length: 160 }, (_, i) => {
+            const on = i / 160 < n;
+            if (!on) return null;
+            const cx = 120 + (i % 10) * 94;
+            const cy = 560 + Math.floor(i / 10) * 66;
+            return (
+              <g key={i} stroke={C.ink} strokeWidth={3}>
+                <circle cx={cx} cy={cy - 14} r={13} fill={C.skin} />
+                <path d={`M${cx - 18} ${cy + 18} Q${cx} ${cy - 6} ${cx + 18} ${cy + 18} Z`} fill={i % 3 ? "#9fb3c8" : "#e58f8f"} />
+              </g>
+            );
+          })}
+        </CamK>
+        <KTag x={300} y={330} p={pop(f, 0, 10)} text="2022" color={C.ink} rot={-5} />
+        <KTag x={720} y={330} p={pop(f, w(2) - 4, 10)} text={`${Math.round(lerp(0, 2000, n)).toLocaleString("tr-TR")} hasta`} color={C.ink} rot={4} />
+      </>
+    );
+  }
+  if (f < w(10)) {
+    const red = tw(f, w(7), w(8));
+    return (
+      <>
+        <CamK k={[[w(5), 1.0, 540, 1000], [w(10), 1.12, 540, 1000]]}>
+          <rect x={-800} y={-800} width={2680} height={3400} fill="#efe4cc" />
+          {Array.from({ length: 10 }, (_, i) => {
+            const t = tw(f, w(5) + i * 2, w(5) + i * 2 + 8);
+            const bx = 270 + (i % 2) * 290;
+            const by = 1500 - Math.floor(i / 2) * 150;
+            const r = i >= 8 ? red : 0;
+            return t > 0 ? (
+              <g key={i} transform={`translate(${bx} ${lerp(by - 500, by, t)})`} stroke={C.ink} strokeLinejoin="round" opacity={t}>
+                <rect x={0} y={0} width={250} height={130} rx={18} fill={r > 0.5 ? C.red : C.fat} strokeWidth={7} />
+                <text x={125} y={86} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={56} fill={r > 0.5 ? C.cream : C.ink} stroke="none">4 kg</text>
+              </g>
+            ) : null;
+          })}
+        </CamK>
+        <KTag x={540} y={420} p={pop(f, w(5), 10)} text="−40 kg" color={YAS_OK} rot={-3} />
+        <KTag x={540} y={600} p={pop(f, w(8) - 2, 12)} text="8 kg yağ değil" color={C.red} rot={3} />
+      </>
+    );
+  }
+  const mus = lerp(1, 0.55, tw(f, w(10), w(11) + 6));
+  const sag = tw(f, w(12), w(13) + 6);
+  return (
+    <>
+      <CamK k={[[w(10), 1.0, 540, 960], [d, 1.1, 540, 1000]]}>
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#efe4cc" />
+        <TmArmLens x={540} y={1000} r={380} p={pop(f, w(10) - 4, 12)} mus={mus} sag={sag} f={f} />
+      </CamK>
+      <KTag x={540} y={1560} p={pop(f, w(13) - 2, 12)} text="deri boşta" color={C.red} rot={-3} />
+    </>
+  );
+};
+
+// 5) "Bir deneyde ağırlık çalışan hastalar daha güçlü çıktı. Doktorun izin verince kola, karna, bacağa ağırlık çalış; deriyi
+// tamamen toplamaz ama altını kas doldurur." İki hasta: soldaki dambıl çalışır, güç çubuğu yükselir ("daha güçlü"). "Doktorun"da
+// doktor lacivert tik ile onay verir. "kola, karna, bacağa"da salonda avatar çalışır, sırayla kol / karın / bacak halkaları
+// yanar; "deriyi"de kol kesiti: kas büyür, deri hafif gevşek kalır, "altını kas doldurur" lacivert. Kolundaki sarkma azalır.
+const TmPowerBar: React.FC<{ x: number; y: number; v: number; color: string; label: string }> = ({ x, y, v, color, label }) => (
+  <g stroke={C.ink} strokeLinejoin="round">
+    <rect x={x - 40} y={y - 360} width={80} height={360} rx={14} fill="#fbf3e2" strokeWidth={6} />
+    <rect x={x - 40} y={y - 360 * v} width={80} height={360 * v} rx={14} fill={color} strokeWidth={6} />
+    <text x={x} y={y + 60} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={48} fill={C.ink} stroke="none">{label}</text>
+  </g>
+);
+const TmTavsiye: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  if (f < w(8)) {
+    const arm = fkCurl(f, w(2));
+    const hand = armPoints(1, arm)[2];
+    const up = tw(f, w(3), w(7));
+    return (
+      <>
+        <CamK k={[[0, 1.15, 540, 1100], [w(3), 1.0, 540, 1000], [w(8), 1.08, 540, 980]]}>
+          <FkGym f={f} />
+          <TmAvatar x={300} y={1720} s={0.72} f={f} armR={arm} flap={0.6} jig={0.6} mouth="grin">
+            <Dumbbell x={hand[0]} y={hand[1]} s={0.9} rot={90} />
+          </TmAvatar>
+          <Person x={780} y={1720} s={0.72} belly={0.1} limbW={0.86} shirt="#e9e3d6" shorts="#9fb3c8" mouth="flat" armL={[14, 0]} armR={[14, 0]} />
+          <TmPowerBar x={470} y={1080} v={lerp(0.3, 0.85, up)} color={YAS_OK} label="güç" />
+          <TmPowerBar x={950} y={1080} v={0.3} color="#b9b0a0" label="güç" />
+        </CamK>
+        <KTag x={540} y={330} p={pop(f, 0, 10)} text="bir deney" color={C.ink} rot={-4} />
+        <KTag x={330} y={500} p={pop(f, w(6) - 2, 12)} text="daha güçlü" color={YAS_OK} rot={-3} />
+      </>
+    );
+  }
+  if (f < w(11)) {
+    return (
+      <>
+        <CamK k={[[w(8), 1.2, 540, 1100], [w(11), 1.1, 540, 1050]]}>
+          <rect x={-800} y={-800} width={2680} height={3400} fill="#e8f2f6" />
+          <rect x={-800} y={1560} width={2680} height={1200} fill="#c9d6dc" />
+          <Doctor x={360} y={1720} s={0.8} arm={[60, 120]} mouth="smile" />
+          <TmAvatar x={760} y={1720} s={0.8} f={f} flap={0.8} jig={0.4} mouth="smile" />
+        </CamK>
+        {pop(f, w(9), 12) > 0 ? (
+          <g transform={`translate(380 640) scale(${pop(f, w(9), 12)})`}>
+            <circle r={90} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+            <path d="M-40 0 l28 30 l56 -64" stroke={YAS_OK} strokeWidth={18} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          </g>
+        ) : null}
+        <KTag x={700} y={420} p={pop(f, w(9) - 2, 12)} text="doktor onayı" color={YAS_OK} rot={3} />
+      </>
+    );
+  }
+  if (f < w(16)) {
+    const arm = fkCurl(f, w(11), 4);
+    const hand = armPoints(1, arm)[2];
+    const zones: [number, number, number, string][] = [[w(11), 760, 1080, "kol"], [w(12), 540, 1330, "karın"], [w(13), 600, 1600, "bacak"]];
+    return (
+      <CamK k={[[w(11), 1.1, 640, 1100], [w(12), 1.1, 560, 1250], [w(13), 1.1, 560, 1450], [w(16), 1.0, 540, 1150]]}>
+        <FkGym f={f} />
+        <TmAvatar x={540} y={1760} s={0.9} f={f} armR={arm} flap={lerp(1, 0.6, tw(f, w(11), w(16)))} jig={0.7} mouth="grin">
+          <Dumbbell x={hand[0]} y={hand[1]} s={0.9} rot={90} />
+        </TmAvatar>
+        {zones.map(([t, x, y, label], i) =>
+          f >= t - 2 ? (
+            <g key={i} transform={`translate(${x} ${y}) scale(${pop(f, t - 2, 10)})`}>
+              <circle r={110} fill="none" stroke={YAS_OK} strokeWidth={12} strokeDasharray="22 12" opacity={0.85} />
+              <text x={i === 0 ? 170 : 200} y={14} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={YAS_OK}>{label}</text>
+            </g>
+          ) : null,
+        )}
+      </CamK>
+    );
+  }
+  const mus = lerp(0.55, 0.92, tw(f, w(19), w(22)));
+  return (
+    <>
+      <CamK k={[[w(16), 1.0, 540, 960], [d, 1.1, 540, 1000]]}>
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#efe4cc" />
+        <TmArmLens x={540} y={1000} r={380} p={pop(f, w(16) - 4, 12)} mus={mus} sag={lerp(1, 0.35, tw(f, w(19), w(22)))} f={f} />
+      </CamK>
+      <KTag x={540} y={330} p={pop(f, w(17), 12) * (1 - tw(f, w(19), w(19) + 4))} text="tamamen değil" color={C.red} rot={-3} />
+      <KTag x={540} y={1560} p={pop(f, w(20) - 2, 12)} text="altını kas doldurur" color={YAS_OK} rot={-3} />
+    </>
+  );
+};
+
+// 6) "Nereye ne çalışacağını, VOOM'daki koçun sarkan bölgene göre planlar. Bunu tüp mide olan birine gönder. Çünkü:"
+// Büyük telefonda VOOM koç ekranı; yanında "kol · karın · bacak" bölge kartları sırayla lacivert tik alır. "Bunu"da avatar
+// telefondan kâğıt uçak gönderir; "Çünkü"de uçak kameraya gelip ekranı kaplar → açılış karesi (tartı ekranı yakın planı).
+const TmSon: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(DG_SHOT);
+  const f = useCurrentFrame();
+  const send = f >= w(9) - 2;
+  const plane = tw(f, w(12), w(14));
+  const wipe = tw(f, w(14), w(15) + 2);
+  const reveal = tw(f, w(15), w(15) + 8);
+  return (
+    <>
+      <CamK k={[[0, 1.2, 420, 900], [w(3), 1.0, 540, 960], [w(9), 1.05, 540, 1000], [d, 1.0, 540, 1000]]}>
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#e3d6bf" />
+        <rect x={-800} y={1560} width={2680} height={1200} fill="#3d3a40" />
+        <DgVoomPhone x={330} y={820} s={pop(f, w(3) - 4, 14) * 1.25} />
+        {["kol", "karın", "bacak"].map((t, i) => {
+          const p = pop(f, w(5) + i * 5, 10);
+          return p > 0 ? (
+            <g key={t} transform={`translate(780 ${620 + i * 190}) scale(${p})`} stroke={C.ink} strokeLinejoin="round">
+              <rect x={-170} y={-70} width={340} height={140} rx={24} fill={C.cream} strokeWidth={7} />
+              <text x={-30} y={22} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={64} fill={C.ink} stroke="none">{t}</text>
+              <path d="M90 0 l20 22 l44 -50" stroke={YAS_OK} strokeWidth={14} fill="none" strokeLinecap="round" />
+            </g>
+          ) : null;
+        })}
+        <TmAvatar x={send ? 360 : 760} y={1760} s={0.72} f={f} armR={send ? [25, 135] : [14, 0]} flap={0.4} jig={0.3} mouth="grin">
+          {send ? <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.6} /> : null}
+        </TmAvatar>
+      </CamK>
+      <VsPaperPlane p={plane} a={[420, 1200]} b={[760, 1000]} />
+      {wipe > 0 && wipe < 1 ? (
+        <g transform={`translate(${lerp(760, 540, wipe)} ${lerp(1000, 960, wipe)}) scale(${lerp(0.3, 12, Easing.in(Easing.cubic)(wipe))}) rotate(${lerp(-20, 0, wipe)})`} opacity={1 - reveal}>
+          <path d="M-160 0 L180 -70 L-40 30 Z" fill="#fbf7ec" stroke={C.ink} strokeWidth={2} strokeLinejoin="round" />
+          <path d="M-40 30 L180 -70 L-10 90 Z" fill="#e9e3d6" stroke={C.ink} strokeWidth={2} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {reveal > 0 ? (
+        <g opacity={reveal}>
+          <TmKancaFrame f={0} w={() => 9999} d={9999} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "tm-kanca": TmKanca,
+  "tm-tuz": TmTuz,
+  "tm-tarih": TmTarih,
+  "tm-bilim": TmBilim,
+  "tm-tavsiye": TmTavsiye,
+  "tm-son": TmSon,
   "fk-kanca": FkKanca,
   "fk-sebep": FkSebep,
   "fk-yuk": FkYuk,

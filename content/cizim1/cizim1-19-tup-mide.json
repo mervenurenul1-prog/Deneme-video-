@@ -1,0 +1,82 @@
+{
+  "id": "cizim1-19-tup-mide",
+  "title": "Tüp mide ve sarkma",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "tm-kanca",
+      "voice": "Tüp mide oldun, kırk kilo verdin ama el sallarken kolunun altı hâlâ sallanıyor.",
+      "say": "Tüp mide oldun, kırk kilo verdin ama el sallarken kolunun altı hâlâ sallanıyor.",
+      "keys": [
+        "Tüp",
+        "mide",
+        "kırk",
+        "sallanıyor."
+      ]
+    },
+    {
+      "visual": "tm-tuz",
+      "voice": "Yoksa sana da mı biri 'Tuzu uzatır mısın?' dedi?",
+      "say": "Yoksa sana da mı biri 'Tuzu uzatır mısın?' dedi?",
+      "keys": [
+        "'Tuzu",
+        "uzatır"
+      ]
+    },
+    {
+      "visual": "tm-tarih",
+      "voice": "Tüp mide 1988'de büyük bir ameliyatın sadece ilk adımıydı. Hastalar o kadar kilo verdi ki ikinci adıma gerek kalmadı.",
+      "say": "Tüp mide 1988'de büyük bir ameliyatın sadece ilk adımıydı. Hastalar o kadar kilo verdi ki ikinci adıma gerek kalmadı.",
+      "keys": [
+        "1988'de",
+        "ilk",
+        "adımıydı.",
+        "gerek",
+        "kalmadı."
+      ]
+    },
+    {
+      "visual": "tm-bilim",
+      "voice": "2022'de iki bin hasta incelendi: verilen kilonun sekizi yağ değildi. Kas gidince deri boşta kalır.",
+      "say": "2022'de iki bin hasta incelendi: verilen kilonun sekizi yağ değildi. Kas gidince deri boşta kalır.",
+      "keys": [
+        "2022'de",
+        "sekizi",
+        "değildi.",
+        "boşta"
+      ]
+    },
+    {
+      "visual": "tm-tavsiye",
+      "voice": "Bir deneyde ağırlık çalışan hastalar daha güçlü çıktı. Doktorun izin verince kola, karna, bacağa ağırlık çalış; deriyi tamamen toplamaz ama altını kas doldurur.",
+      "say": "Bir deneyde ağırlık çalışan hastalar daha güçlü çıktı. Doktorun izin verince kola, karna, bacağa ağırlık çalış; deriyi tamamen toplamaz ama altını kas doldurur.",
+      "keys": [
+        "güçlü",
+        "kola,",
+        "karna,",
+        "bacağa",
+        "kas"
+      ]
+    },
+    {
+      "visual": "tm-son",
+      "voice": "Nereye ne çalışacağını, VOOM'daki koçun sarkan bölgene göre planlar. Bunu tüp mide olan birine gönder. Çünkü:",
+      "say": "Nereye ne çalışacağını, VOOM'daki koçun sarkan bölgene göre planlar. Bunu tüp mide olan birine gönder. Çünkü:",
+      "keys": [
+        "VOOM'daki",
+        "koçun",
+        "gönder."
+      ]
+    }
+  ]
+}
