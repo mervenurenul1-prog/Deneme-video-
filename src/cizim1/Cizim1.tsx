@@ -23766,35 +23766,66 @@ const krHip = (belly: number) => 86 + 20 * belly;
 // Bel korsesi: kum saati, kişinin koordinatlarında. hooks 0..1 = kapanan kopça oranı (yukarıdan aşağı), off 0..1 = düşer,
 // back = arkadan görünüş (bağcıklar)
 const KrCorset: React.FC<{ belly: number; hooks?: number; off?: number; back?: boolean; glow?: number }> = ({ belly, hooks = 1, off = 0, back = false, glow = 0 }) => {
+  const id = svgId(useId());
   if (off >= 1) return null;
-  // göğüs altından (−515) kalçaya (−394): göğüs ve omuzlar açıkta kalır
-  const t = 90;
-  const wst = krWaist(belly) + 6;
-  const hb = krHip(belly) + 12;
-  const outline = `M${-t} -515 C${-t + 2} -492 ${-wst} -480 ${-wst} -462 C${-wst} -436 ${-hb} -420 ${-hb} -394 L${hb} -394 C${hb} -420 ${wst} -436 ${wst} -462 C${wst} -480 ${t - 2} -492 ${t} -515 Q0 -530 ${-t} -515 Z`;
-  const N = 6;
+  // Referans (gerçek bel korsesi): siyah, düz; göğüs altından (−520) başlar, belde iyice daralır, alt kenarı kalçanın üstüne
+  // geniş yayılır (−368). Önde ortada tek sıra metal kopça, ince dikey kumaş dokusu, renkli kenar yok.
+  const t = 88;
+  const wst = krWaist(belly) + 4;
+  const hb = krHip(belly) + 24;
+  const X = (k: number, y: number) => {
+    // y'deki yarı genişlik (kum saati): üst → bel → alt
+    const a = y <= -458 ? (y + 520) / 62 : 0;
+    if (y <= -458) return k * lerp(t, wst, Math.sin((a * Math.PI) / 2));
+    const b = (y + 458) / 90;
+    return k * lerp(wst, hb, b * b);
+  };
+  const ys = Array.from({ length: 13 }, (_, i) => -520 + i * (152 / 12));
+  const edge = (k: number) => ys.map((y) => `${X(k, y).toFixed(1)} ${y.toFixed(1)}`);
+  const L = edge(-1);
+  const R = edge(1).reverse();
+  const outline = `M${L[0]} L${L.slice(1).join(" L")} Q0 -356 ${R[0]} L${R.slice(1).join(" L")} Q0 -530 ${L[0]} Z`;
+  const N = 10;
   return (
     <g transform={`translate(${off * 30} ${off * 380}) rotate(${off * 24})`} opacity={1 - off * 0.3} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+      <defs>
+        <linearGradient id={`cg${id}`} x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stopColor="#121014" />
+          <stop offset="0.3" stopColor="#2c282e" />
+          <stop offset="0.55" stopColor="#353036" />
+          <stop offset="1" stopColor="#141216" />
+        </linearGradient>
+        <clipPath id={`cc${id}`}>
+          <path d={outline} />
+        </clipPath>
+      </defs>
       {glow > 0 ? <path d={outline} fill="none" stroke={C.red} strokeWidth={30} opacity={0.35 * glow} /> : null}
-      <path d={outline} fill={KR_CORSET} strokeWidth={7} />
-      {[-0.72, -0.4, 0.4, 0.72].map((k) => (
-        <path key={k} d={`M${k * t} -512 C${k * t} -495 ${k * wst} -482 ${k * wst} -462 C${k * wst} -436 ${k * hb} -420 ${k * hb} -400`} stroke="#5a4b55" strokeWidth={5} fill="none" />
-      ))}
-      <path d={`M${-t + 6} -514 Q0 -527 ${t - 6} -514 M${-hb + 6} -397 H${hb - 6}`} stroke={KR_TRIM} strokeWidth={9} fill="none" />
+      <path d={outline} fill={`url(#cg${id})`} strokeWidth={6} />
+      <g clipPath={`url(#cc${id})`} fill="none">
+        {/* ince dikey kumaş dokusu: kenar eğrisini izler */}
+        {Array.from({ length: 21 }, (_, i) => {
+          const k = -1 + (i + 0.5) * (2 / 21);
+          return <path key={i} d={`M${ys.map((y) => `${X(k, y).toFixed(1)} ${y.toFixed(1)}`).join(" L")}`} stroke="#4a444c" strokeWidth={2} opacity={0.55} />;
+        })}
+        {/* belde hafif yatay dikiş */}
+        <path d={`M${X(-1, -470)} -470 Q0 -462 ${X(1, -470)} -470 M${X(-1, -420)} -420 Q0 -412 ${X(1, -420)} -420`} stroke="#4a444c" strokeWidth={2.5} opacity={0.6} strokeDasharray="6 5" />
+        <path d={`M${-wst * 0.45} -505 Q${-wst * 0.2} -460 ${-wst * 0.4} -380`} stroke="#5b555e" strokeWidth={10} opacity={0.35} />
+      </g>
       {back ? (
-        <g stroke="#e9d6c0" strokeWidth={4} fill="none">
-          {Array.from({ length: 5 }, (_, i) => {
-            const y = -508 + i * 22;
-            return <path key={i} d={`M-14 ${y} L14 ${y + 20} M14 ${y} L-14 ${y + 20}`} />;
-          })}
+        <g stroke="#3f3a42" strokeWidth={4} fill="none">
+          <path d="M0 -516 V-362" stroke="#0e0c10" strokeWidth={6} />
         </g>
       ) : (
         <g>
-          <rect x={-9} y={-521} width={18} height={126} fill="#e7d9c4" strokeWidth={4} />
+          <path d="M-7 -522 V-360 M7 -522 V-360" stroke="#0e0c10" strokeWidth={4} fill="none" />
           {Array.from({ length: N }, (_, i) => {
-            const y = -512 + i * 19;
+            const y = -512 + i * 15.5;
             const on = hooks * N > i;
-            return <rect key={i} x={on ? -12 : -6} y={y} width={on ? 24 : 12} height={9} rx={3} fill={on ? "#b9bcc4" : "#7d7f86"} strokeWidth={3} />;
+            return on ? (
+              <path key={i} d={`M3 ${y} q-8 0 -8 4 q0 4 8 4`} stroke="#c9ccd3" strokeWidth={3} fill="none" />
+            ) : (
+              <path key={i} d={`M${-12} ${y + 4} h-6 M12 ${y + 4} h6`} stroke="#9a9ca3" strokeWidth={3} />
+            );
           })}
         </g>
       )}
@@ -23854,7 +23885,7 @@ const KR_GRIP: Arm = [35, -125]; // iki el belde (korseyi çeker)
 // kızıl-lacivert, lamba; "çıkarınca" kopçalar açılır, korse yere düşer, derin nefes; "incecik"te aynada parıltı, pembe yazı.
 const KrSabahFrame: React.FC<{ f: number; w: (i: number) => number; d: number }> = ({ f, w, d }) => {
   const hooks = tw(f, w(1) - 2, w(2) + 8);
-  const belly = lerp(0.42, -0.25, hooks);
+  const belly = lerp(0.2, -0.25, hooks);
   const day = tw(f, w(3), w(6));
   const eve = tw(f, w(7) - 4, w(7) + 6);
   const unhook = tw(f, w(8) - 2, w(8) + 8);
