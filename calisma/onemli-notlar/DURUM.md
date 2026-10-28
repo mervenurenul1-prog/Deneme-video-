@@ -1,13 +1,24 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (28 Ekim akşam — EN GÜNCEL) <<<
-- **AVATAR ARAYIŞI → 1930'lar "rubber hose" stili DENENİYOR** (kullanıcı: "yurtdışında olan ama Türkiye'ye gelmemiş bir avatar";
-  5 stil önerildi: rubber hose, claymation, kâğıt kolaj, maskot, defter karalaması → "1'i dene, bize de benzet"). Kod
-  `src/avatar2/Hose.tsx`: `HoseChar` (who yunus/merve, lastik kollar `armL/armR` = [x, y, büküm], beyaz eldiven, pasta dilimi göz,
-  `bounce` ezilip-uzama, `wink`, `happyEyes`, `beret`), `OldFilm` (sepya, gren, titreşim, çizik, kaynayan çizgi, iris geçişi),
-  `Stage` (perde + ışın fonu). Kompozisyonlar `hose-sayfa`, `hose-klip` (8 sn, ikişer kare = 12 fps hissi). Çıktı
-  `ornek-videolar/avatar2/hose-*`. Onay bekleniyor. Aşağıdaki Yunus v2/Merve (yarı gerçekçi) taslağı kullanıcıya göre "olmadı".
-- **YENİ AVATAR (Yunus v2) TASLAĞI** — kullanıcı karakter sayfası attı (Merve + erkek "Ekip"): Yunus o erkeğe benzesin
+- **YENİ SERİ AVATARLARI ONAYLANDI (kullanıcı: "çok iyi, yeni avatar bu"): 1930'lar "rubber hose" stili YUNUS + DURU.**
+  (Kullanıcı "yurtdışında olan ama Türkiye'ye gelmemiş bir avatar" istedi; 5 stil önerildi, 1'i seçti, "bize de benzet".)
+  - **Yunus** (erkek, anlatıcı): siyah şapka, iki yana kıvırcık bukle, çenede noktalı kirli sakal, gri kapüşonlu + siyah ceket,
+    kot, siyah ayakkabı. Ses: Yunus `Q5n6GDIjpN0pLOlycRFT`.
+  - **Duru** (kız; eski taslakta adı "Merve" idi): kâküllü uzun kahverengi saç, halka küpe, kırmızı bere, kırmızı dudak, beyaz
+    tişört + siyah ceket, kot, beyaz ayakkabı. **Sesi = kullanıcının kendi sesi** (klon v2 `kd6P2yodCccO2OzNoqOD`).
+  - **Sibel** yalnız ANNE sesi olarak kalır (Duru değil).
+  - Kod `src/avatar2/Hose.tsx`: `HoseChar` (who "yunus" | "duru"), `OldFilm` (sepya, gren, titreşim, çizik, kaynayan çizgi,
+    iris), `Stage`. **İnsansı davranışlar (kullanıcı: "hareket ve insansı davranışlar sende")**: `live` (düzensiz/çift göz
+    kırpma, kendiliğinden bakış kayması, nefes, ağırlık aktarma, saç gecikmesi), `talk` (hece ritminde ağız, vurguda baş, kaş),
+    `nod` (dinlerken onay), `surprise` (göz büyür, O ağız, şapka/bere havalanır, sıçrar), `laugh` (sarsılır, gözler kapanır),
+    `lid` (yarım kapak), jestler `gesture` + `gT = gestureT(f, başla, bitir)` (hazırlık → taşmalı çıkış → dönüş): wave, point,
+    explain, think, hips, shrug, thumbs, cheer, facepalm; `gSide` tek kollu jestin kolu. Hareket "ikişer kare" (12 fps hissi).
+  - Kompozisyonlar: `hose-sayfa` (karakter sayfası), `hose-klip` (8 sn perde + "VOOM sunar"), `hose-davranis` (12 sn sessiz
+    sohbet: anlatır/dinler, şaşırır, güler, omuz silker, düşünür, işaret, başparmak, el sallar). Çıktılar `ornek-videolar/avatar2/hose-*`.
+  - SIRADAKİ: kullanıcı davranış klibine bakar → bu stili bir konunun ilk 2-3 sahnesinde sessiz önizleme olarak dene
+    (Cizim1 sahneleri yerine `HoseChar`; konuşma `talk` kelime zamanlarından). Müzik gerekiyorsa ücretsiz 1930'lar müziği üret.
+- (eski) **Yunus v2 yarı gerçekçi taslak — kullanılmayacak, rubber hose seçildi.** **YENİ AVATAR (Yunus v2) TASLAĞI** — kullanıcı karakter sayfası attı (Merve + erkek "Ekip"): Yunus o erkeğe benzesin
   (siyah şapka, kıvırcık koyu saç, kirli sakal, gri kapüşonlu + siyah ceket, kot) + taslaktaki ışık, kamera açıları,
   doğal hareket. "Gerçek insan" İSTEMİYOR (yalnız örnek taslak verdi), çizim kalır. Kod `src/avatar2/Hero.tsx`
   (`Hero`: ifade `mouth/brow/look/turn/talk`, `outfit` sokak/salon, `pockets`, `rim`, `live` = nefes, ağırlık aktarma,

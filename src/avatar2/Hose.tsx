@@ -1,7 +1,7 @@
 // 1930'lar çizgi film stili ("rubber hose"): lastik gibi bükülen kollar/bacaklar, beyaz eldiven, pasta dilimi gözler,
 // ritimle zıplama, eski film efekti (gren, titreşim, çizik, "ikişer kare" hareket, iris geçişi).
 // Karakterler kullanıcının gönderdiği sayfadaki ikiliye benzer: Yunus (şapka, kıvırcık saç, kirli sakal, kapüşonlu + ceket)
-// ve Merve (uzun dalgalı saç, kâkül, halka küpe, kırmızı bere).
+// ve Duru (uzun dalgalı saç, kâkül, halka küpe, kırmızı bere).
 import React, { useId } from "react";
 import { AbsoluteFill, interpolate, Easing, useCurrentFrame } from "remotion";
 import { fontFamily, handFamily } from "../fonts";
@@ -24,8 +24,14 @@ const K = {
   tee: "#fbf7ee",
 };
 
-type HoseArm = [number, number, number]; // el hedefi (omuza göre x, y) + büküm
-export type HoseFace = "smile" | "grin" | "o" | "smirk" | "kiss";
+type HoseArm = [number, number, number];
+type HandKind = "open" | "fist" | "point" | "thumb"; // el hedefi (omuza göre x, y) + büküm
+export type HoseFace = "smile" | "grin" | "o" | "smirk" | "kiss" | "talk";
+
+const rnd = (n: number) => {
+  const v = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+  return v - Math.floor(v);
+};
 
 const noodle = (s: number[], e: number[], bend: number) => {
   const dx = e[0] - s[0];
@@ -49,11 +55,15 @@ const Hose: React.FC<{ s: number[]; e: number[]; bend: number; w: number; color:
 };
 
 // dört parmaklı beyaz eldiven (manşetli); open = açık el / el sallama, fist = yumruk, point = işaret
-const Glove: React.FC<{ x: number; y: number; r?: number; side: number; kind?: "open" | "fist" | "point" }> = ({ x, y, r = 0, side, kind = "open" }) => (
+const Glove: React.FC<{ x: number; y: number; r?: number; side: number; kind?: HandKind }> = ({ x, y, r = 0, side, kind = "open" }) => (
   <g transform={`translate(${x} ${y}) rotate(${r}) scale(${side} 1)`} stroke={K.ink} strokeWidth={5} strokeLinejoin="round">
     <path d="M-16 18 Q-22 30 -14 38 L14 38 Q22 30 16 18 Z" fill={K.white} />
-    {kind === "fist" ? (
-      <path d="M-26 -4 Q-30 -32 0 -34 Q30 -32 26 -4 Q26 18 0 20 Q-26 18 -26 -4 Z" fill={K.white} />
+    {kind === "fist" || kind === "thumb" ? (
+      <>
+        <path d="M-26 -4 Q-30 -32 0 -34 Q30 -32 26 -4 Q26 18 0 20 Q-26 18 -26 -4 Z" fill={K.white} />
+        <path d="M-14 -30 q8 -6 14 0 M2 -32 q8 -6 14 0" fill="none" strokeWidth={3} />
+        {kind === "thumb" ? <path d="M20 -24 Q22 -70 36 -68 Q48 -66 40 -24 Z" fill={K.white} /> : null}
+      </>
     ) : (
       <>
         {(kind === "point" ? [[-6, -66, 9]] : [[-22, -52, 8], [-8, -62, 8], [6, -62, 8], [20, -52, 8]]).map(([fx, fy, fw], i) => (
@@ -68,7 +78,7 @@ const Glove: React.FC<{ x: number; y: number; r?: number; side: number; kind?: "
 );
 
 // pasta dilimi göz: beyaz oval + kesik dilimli siyah bebek
-const PieEye: React.FC<{ x: number; y: number; look: [number, number]; closed?: boolean; happy?: boolean; lashes?: boolean; side: number }> = ({ x, y, look, closed, happy, lashes, side }) => {
+const PieEye: React.FC<{ x: number; y: number; look: [number, number]; closed?: boolean; happy?: boolean; lashes?: boolean; side: number; lid?: number; big?: number; uid: string }> = ({ x, y, look, closed, happy, lashes, side, lid = 0, big = 1, uid }) => {
   if (closed || happy) {
     return (
       <g stroke={K.ink} strokeWidth={6} fill="none" strokeLinecap="round">
@@ -79,11 +89,19 @@ const PieEye: React.FC<{ x: number; y: number; look: [number, number]; closed?: 
   }
   const px = x + look[0] * 6;
   const py = y + 4 + look[1] * 6;
+  const cid = `pe${uid}${side > 0 ? "r" : "l"}`;
   return (
-    <g>
+    <g transform={`translate(${x} ${y}) scale(${big}) translate(${-x} ${-y})`}>
+      <clipPath id={cid}>
+        <ellipse cx={x} cy={y} rx={17} ry={27} />
+      </clipPath>
       <ellipse cx={x} cy={y} rx={17} ry={27} fill={K.white} stroke={K.ink} strokeWidth={5} />
-      <ellipse cx={px} cy={py} rx={9} ry={16} fill={K.ink} />
-      <path d={`M${px} ${py - 4} L${px + 5} ${py - 17} L${px + 10} ${py - 9} Z`} fill={K.white} />
+      <g clipPath={`url(#${cid})`}>
+        <ellipse cx={px} cy={py} rx={9} ry={16} fill={K.ink} />
+        <path d={`M${px} ${py - 4} L${px + 5} ${py - 17} L${px + 10} ${py - 9} Z`} fill={K.white} />
+        {lid > 0 ? <rect x={x - 20} y={y - 30} width={40} height={lid * 40} fill={K.skin} /> : null}
+      </g>
+      {lid > 0 ? <path d={`M${x - 18} ${y - 27 + lid * 40} L${x + 18} ${y - 27 + lid * 40}`} stroke={K.ink} strokeWidth={6} strokeLinecap="round" /> : null}
       {lashes ? (
         <path d={`M${x + side * 10} ${y - 22} l${side * 10} -12 M${x + side * 16} ${y - 12} l${side * 13} -7 M${x + side * 2} ${y - 27} l${side * 4} -13`} stroke={K.ink} strokeWidth={5} strokeLinecap="round" />
       ) : null}
@@ -91,7 +109,18 @@ const PieEye: React.FC<{ x: number; y: number; look: [number, number]; closed?: 
   );
 };
 
-const Mouth: React.FC<{ y: number; face: HoseFace; w?: number; girl?: boolean }> = ({ y, face, w = 44, girl }) => {
+const Mouth: React.FC<{ y: number; face: HoseFace; w?: number; girl?: boolean; open?: number }> = ({ y, face, w = 44, girl, open = 0 }) => {
+  if (face === "talk") {
+    const o = 6 + open * 30;
+    const ww = 30 + open * 10;
+    return (
+      <g stroke={K.ink} strokeWidth={5} strokeLinejoin="round">
+        <path d={`M${-ww / 2} ${y - 4} Q0 ${y - 10} ${ww / 2} ${y - 4} Q${ww / 2} ${y + o} 0 ${y + o} Q${-ww / 2} ${y + o} ${-ww / 2} ${y - 4} Z`} fill="#4a1512" />
+        {open > 0.35 ? <path d={`M${-ww * 0.25} ${y + o * 0.7} Q0 ${y + o * 0.4} ${ww * 0.25} ${y + o * 0.7} Q0 ${y + o + 1} ${-ww * 0.25} ${y + o * 0.7} Z`} fill={K.tongue} strokeWidth={3} /> : null}
+        {girl ? <path d={`M${-ww / 2} ${y - 4} Q0 ${y - 12} ${ww / 2} ${y - 4}`} stroke={K.red} strokeWidth={6} fill="none" /> : null}
+      </g>
+    );
+  }
   if (face === "kiss") {
     return (
       <g stroke={K.ink} strokeWidth={4}>
@@ -127,23 +156,84 @@ const Mouth: React.FC<{ y: number; face: HoseFace; w?: number; girl?: boolean }>
   );
 };
 
+export type HoseGesture = "rest" | "wave" | "point" | "explain" | "think" | "hips" | "shrug" | "thumbs" | "cheer" | "facepalm";
+
+// Jest kütüphanesi (sağ kol için; "L" verilirse aynalanır). [x, y, büküm] omuza göre el hedefi.
+const GEST: Record<HoseGesture, { a?: HoseArm; b?: HoseArm; ha?: HandKind; hb?: HandKind }> = {
+  rest: {},
+  wave: { a: [120, -120, -60], ha: "open" },
+  point: { a: [165, -30, -20], ha: "point" },
+  explain: { a: [110, 30, -60], ha: "open" },
+  think: { a: [-40, -30, 90], ha: "fist" },
+  hips: { a: [10, 170, -100], b: [10, 170, -100], ha: "fist", hb: "fist" },
+  shrug: { a: [110, 30, 60], b: [110, 30, 60], ha: "open", hb: "open" },
+  thumbs: { a: [80, -60, -70], ha: "thumb" },
+  cheer: { a: [70, -170, -30], b: [70, -170, -30], ha: "fist", hb: "fist" },
+  facepalm: { a: [-50, -90, 60], ha: "open" },
+};
+const REST: HoseArm = [70, 150, -40];
+const mirror = (a: HoseArm): HoseArm => [-a[0], a[1], -a[2]];
+const mix = (a: HoseArm, b: HoseArm, t: number): HoseArm => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+
+// Jest zamanlaması: hazırlık (hafif geri) → hızlı çıkış + taşma → tutma → yumuşak dönüş
+export const gestureT = (f: number, start: number, end: number, rise = 9) => {
+  if (f < start - 3 || f > end + rise) return 0;
+  if (f < start) return -0.12 * ((f - (start - 3)) / 3); // hazırlık
+  if (f < start + rise) return interpolate(f, [start, start + rise], [0, 1], { easing: Easing.out(Easing.back(2.2)) });
+  if (f <= end) return 1;
+  return interpolate(f, [end, end + rise], [1, 0], { easing: Easing.inOut(Easing.quad) });
+};
+
+const blinkAt = (f: number, seed: number) => {
+  let t = 18 + (seed % 23);
+  let i = 0;
+  while (t < f + 12) {
+    const dbl = (i * 7 + seed) % 5 === 0; // ara sıra çift kırpma
+    if ((f >= t && f < t + 4) || (dbl && f >= t + 8 && f < t + 12)) return true;
+    i++;
+    t += 62 + ((i * 41 + seed * 17) % 80);
+  }
+  return false;
+};
+// gözler kendi kendine etrafa kayar (1,5–3 sn'de bir), yumuşak geçişle
+const saccade = (f: number, seed: number): [number, number] => {
+  const step = 48 + (seed % 5) * 9;
+  const k = Math.floor(f / step);
+  const t = Math.min(1, (f - k * step) / 4);
+  const at = (n: number): [number, number] => [(rnd(n * 3.1 + seed) - 0.5) * 0.7, (rnd(n * 5.7 + seed) - 0.5) * 0.4];
+  const p0 = at(k - 1);
+  const p1 = at(k);
+  return [p0[0] + (p1[0] - p0[0]) * t, p0[1] + (p1[1] - p0[1]) * t];
+};
+
 export type HoseCharProps = {
   x: number;
   y: number;
   s?: number;
-  who: "yunus" | "merve";
+  who: "yunus" | "duru";
   face?: HoseFace;
   look?: [number, number];
   wink?: boolean;
   happyEyes?: boolean;
   armL?: HoseArm;
   armR?: HoseArm;
-  handL?: "open" | "fist" | "point";
-  handR?: "open" | "fist" | "point";
-  bounce?: number; // 0..1 (zıplama evresi; 0 = yere değer)
+  handL?: HandKind;
+  handR?: HandKind;
+  bounce?: number; // verilirse ritimle zıplar (0 = yere değer); verilmezse doğal duruş
   tilt?: number;
   blink?: boolean;
   beret?: boolean;
+  // insansı davranışlar
+  live?: boolean; // kendiliğinden göz kırpma, etrafa bakma, nefes, ağırlık aktarma, saç gecikmesi
+  talk?: number; // 0..1 konuşma (ağız sesle oynar, vurguda baş sallanır, kaş kalkar)
+  gesture?: HoseGesture;
+  gT?: number; // jest ilerlemesi (gestureT)
+  gSide?: "L" | "R"; // tek kollu jest hangi kolla
+  lid?: number; // yarım kapak 0..1 (şüphe)
+  surprise?: number; // 0..1: gözler büyür, ağız O, şapka/bere havalanır, sıçrar
+  laugh?: number; // 0..1: kahkahayla sarsılır
+  nod?: number; // 0..1: dinlerken onaylayarak baş sallama
+  seed?: number;
 };
 
 export const HoseChar: React.FC<HoseCharProps> = ({
@@ -155,32 +245,96 @@ export const HoseChar: React.FC<HoseCharProps> = ({
   look = [0, 0],
   wink = false,
   happyEyes = false,
-  armL = [-70, 150, 40],
-  armR = [70, 150, -40],
-  handL = "open",
-  handR = "open",
-  bounce = 0,
+  armL,
+  armR,
+  handL,
+  handR,
+  bounce: bounceIn,
   tilt = 0,
-  blink = false,
+  blink: blinkIn = false,
   beret = false,
+  live = true,
+  talk = 0,
+  gesture = "rest",
+  gT = 0,
+  gSide = "R",
+  lid = 0,
+  surprise = 0,
+  laugh = 0,
+  nod = 0,
+  seed = 3,
 }) => {
   const id = useId().replace(/[^a-zA-Z0-9]/g, "");
-  const girl = who === "merve";
+  const fr = useCurrentFrame();
+  const q = Math.floor(fr / 2) * 2; // ikişer kare
+  const girl = who === "duru";
+  const idle = bounceIn === undefined;
+  const bounce = (bounceIn ?? 0) + surprise * 0.9;
+
+  // kendiliğinden canlılık
+  const blink = blinkIn || (live && surprise < 0.3 && blinkAt(q, seed));
+  const sac = live ? saccade(q, seed) : [0, 0];
+  const lk: [number, number] = [look[0] + sac[0] * (1 - surprise), look[1] + sac[1] * (1 - surprise)];
+  const breath = live ? Math.sin(q / 24 + seed) : 0;
+  const sway = live && idle ? Math.sin(q / 71 + seed) : 0;
+  // konuşma: ağız açıklığı hece ritminde, vurgularda baş sallanır, ara ara kaş kalkar
+  const flap = talk > 0 ? Math.min(1, Math.abs(Math.sin(q / 2.3 + seed)) * (0.45 + 0.55 * Math.abs(Math.sin(q / 5.3 + seed * 2))) * 1.5) * talk : 0;
+  const talkNod = talk * 4 * Math.sin(q / 7.5 + seed);
+  const listenNod = nod * 6 * Math.max(0, Math.sin(q / 9 + seed));
+  const shake = laugh * 5 * Math.sin(fr * 1.7);
+  const headRot = (live && idle ? 2 * Math.sin(q / 53 + seed * 2) : 0) + talk * 2.5 * Math.sin(q / 13 + seed) + laugh * 6;
+  const hairLag = (live && idle ? 2 * Math.sin((q - 8) / 53 + seed * 2) : 0) + laugh * 3 * Math.sin((fr - 3) * 1.7);
+
+  // kollar: jest ↔ duruş karışımı (taşmalı)
+  const G = GEST[gesture];
+  const t = gT;
+  let aR = armR ?? REST;
+  let aL = armL ?? mirror(REST);
+  let hR: HandKind = handR ?? "open";
+  let hL: HandKind = handL ?? "open";
+  if (gesture !== "rest" && G.a) {
+    let ga = G.a;
+    if (gesture === "wave") ga = [ga[0] + 24 * Math.sin(q / 3), ga[1] - 8 * Math.sin(q / 3), ga[2] - 30 * Math.sin(q / 3)];
+    const one = gSide === "R";
+    if (one || G.b) aR = mix(aR, ga, t);
+    if (!one || G.b) aL = mix(aL, mirror(G.b && one ? G.b : ga), t);
+    if (t > 0.5) {
+      if (one || G.b) hR = G.ha ?? hR;
+      if (!one || G.b) hL = (G.b ? G.hb : G.ha) ?? hL;
+    }
+  }
+  // omuz silkme: omuzlar ve baş yukarı
+  const shrugUp = gesture === "shrug" ? 14 * t : 0;
+  // nefes + ağırlık aktarma: kollar hafif sallanır
+  aR = [aR[0] + sway * 4, aR[1] + breath * 3, aR[2]];
+  aL = [aL[0] + sway * 4, aL[1] + breath * 3, aL[2]];
+
+  const tiltAll = tilt + headRot + (gesture === "shrug" ? 8 * t : 0) + (gesture === "think" ? -6 * t : 0);
+  let faceUse: HoseFace = face;
+  if (talk > 0 && flap > 0.12) faceUse = "talk";
+  if (laugh > 0.3) faceUse = "grin";
+  if (surprise > 0.4) faceUse = "o";
+  const happy = happyEyes || laugh > 0.3;
+  const lidUse = Math.max(lid, gesture === "think" ? 0.35 * t : 0);
+  const browUp = talk > 0 && Math.sin(q / 23 + seed) > 0.7 ? 1 : 0;
+
   // ezilip-uzama: yere değerken basık ve geniş, havadayken ince ve uzun
-  const lift = bounce * 26;
-  const sq = 1 - (1 - bounce) * 0.06 + bounce * 0.04;
+  const lift = bounce * 26 + shake * 0.6;
+  const sq = 1 - (1 - Math.min(1, bounce)) * (idle ? 0.01 : 0.06) + bounce * 0.04 + breath * 0.008;
   const sx = 2 - sq;
   const shY = -390;
-  const shL = [-62, shY + 14];
-  const shR = [62, shY + 14];
+  const shL = [-62, shY + 14 - shrugUp];
+  const shR = [62, shY + 14 - shrugUp];
   const hipY = -196;
-  const knee = (1 - bounce) * 26; // basınca dizler dışa kıvrılır
+  const knee = (idle ? 6 : (1 - Math.min(1, bounce)) * 26) + sway * 4; // basınca dizler dışa kıvrılır
   const headY = -496;
+  const headDy = -lift * 1.15 - shrugUp * 0.7 + listenNod + talkNod * 0.5;
+  const hatPop = surprise * 70;
 
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <ellipse cx={0} cy={4} rx={120 - bounce * 30} ry={16} fill={K.ink} opacity={0.3} />
-      <g transform={`translate(0 ${-lift}) scale(${sx} ${sq})`}>
+      <g transform={`translate(${sway * 5} ${-lift}) rotate(${sway * 1.5} 0 0) scale(${sx} ${sq})`}>
         {/* bacaklar */}
         {[-1, 1].map((sd) => (
           <g key={sd}>
@@ -215,28 +369,30 @@ export const HoseChar: React.FC<HoseCharProps> = ({
         )}
         {/* kollar + eldivenler */}
         {[
-          [shL, armL, handL, -1],
-          [shR, armR, handR, 1],
+          [shL, aL, hL, -1],
+          [shR, aR, hR, 1],
         ].map(([sh, a, hk, sd], i) => {
           const shp = sh as number[];
           const ar = a as HoseArm;
           const side = sd as number;
+          void hk;
           const e = [shp[0] + ar[0], shp[1] + ar[1]];
           const ang = (Math.atan2(ar[1], ar[0]) * 180) / Math.PI - 90;
           return (
             <g key={i}>
               <Hose s={shp} e={e} bend={ar[2]} w={26} color={K.jacket} />
-              <Glove x={e[0]} y={e[1]} r={ang} side={-side} kind={hk as "open" | "fist" | "point"} />
+              <Glove x={e[0]} y={e[1]} r={ang} side={-side} kind={(i ? hR : hL) as HandKind} />
             </g>
           );
         })}
       </g>
 
       {/* baş (gövdeden biraz gecikmeli zıplar) */}
-      <g transform={`translate(0 ${-lift * 1.15}) rotate(${tilt} 0 ${headY + 90})`}>
+      <g transform={`translate(${sway * 6} ${headDy}) rotate(${tiltAll} 0 ${headY + 90})`}>
         {girl ? (
-          // arka saç: uzun, uçları kıvrık
+          // arka saç: uzun, uçları kıvrık; başın hareketini gecikmeyle izler
           <path
+            transform={`rotate(${hairLag - headRot * 0.6} 0 ${headY})`}
             d={`M-96 ${headY - 20} Q-120 ${headY + 120} -96 ${headY + 200} Q-70 ${headY + 230} -60 ${headY + 196} Q-40 ${headY + 230} -16 ${headY + 200} L16 ${headY + 200} Q40 ${headY + 230} 60 ${headY + 196} Q70 ${headY + 230} 96 ${headY + 200} Q120 ${headY + 120} 96 ${headY - 20} Z`}
             fill={K.mHair}
             stroke={K.ink}
@@ -284,14 +440,16 @@ export const HoseChar: React.FC<HoseCharProps> = ({
           </g>
         ) : null}
         {/* gözler */}
-        <PieEye x={-32} y={headY - 18} look={look} closed={blink} happy={happyEyes} lashes={girl} side={-1} />
-        <PieEye x={32} y={headY - 18} look={look} closed={blink || wink} happy={happyEyes} lashes={girl} side={1} />
+        <PieEye x={-32} y={headY - 18} look={lk} closed={blink} happy={happy} lashes={girl} side={-1} lid={lidUse} big={1 + surprise * 0.25} uid={id} />
+        <PieEye x={32} y={headY - 18} look={lk} closed={blink || wink} happy={happy} lashes={girl} side={1} lid={lidUse * 0.6} big={1 + surprise * 0.25} uid={id} />
         {/* kaşlar */}
-        {!girl ? <path d={`M-52 ${headY - 58} q20 -12 36 -2 M16 ${headY - 60} q20 -10 36 2`} stroke={K.ink} strokeWidth={9} fill="none" strokeLinecap="round" /> : null}
+        {girl ? (
+          <path d={`M-48 ${headY - 58 - browUp * 6 - surprise * 14} q16 -10 32 -2 M16 ${headY - 60 - browUp * 6 - surprise * 14} q16 -8 32 2`} stroke={K.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
+        ) : null}
         {/* burun */}
         <ellipse cx={0} cy={headY + 14} rx={girl ? 9 : 14} ry={girl ? 7 : 11} fill={girl ? K.skinD : "#c98b66"} stroke={K.ink} strokeWidth={4} />
         <ellipse cx={-3} cy={headY + 10} rx={4} ry={3} fill="#fff" opacity={0.7} />
-        <Mouth y={headY + 46} face={face} girl={girl} />
+        <Mouth y={headY + 46} face={faceUse} girl={girl} open={flap} />
         {/* üst saç / şapka */}
         {girl ? (
           <g stroke={K.ink} strokeWidth={6} strokeLinejoin="round">
@@ -299,7 +457,7 @@ export const HoseChar: React.FC<HoseCharProps> = ({
             <path d={`M-104 ${headY - 6} Q-110 ${headY - 112} 0 ${headY - 112} Q110 ${headY - 112} 104 ${headY - 6} Q92 ${headY - 40} 70 ${headY - 52} Q58 ${headY - 40} 40 ${headY - 58} Q22 ${headY - 46} 4 ${headY - 70} Q-16 ${headY - 46} -36 ${headY - 58} Q-56 ${headY - 40} -70 ${headY - 52} Q-92 ${headY - 40} -104 ${headY - 6} Z`} fill={K.mHair} />
             <path d={`M-40 ${headY - 96} Q-60 ${headY - 70} -64 ${headY - 56} M40 ${headY - 96} Q60 ${headY - 70} 64 ${headY - 56}`} stroke="#8a5a3a" strokeWidth={5} fill="none" />
             {beret ? (
-              <g transform={`rotate(-12 0 ${headY - 110})`}>
+              <g transform={`translate(0 ${-hatPop}) rotate(${-12 + surprise * 18} 0 ${headY - 110})`}>
                 <ellipse cx={-10} cy={headY - 112} rx={92} ry={34} fill={K.red} />
                 <path d={`M-96 ${headY - 104} Q-10 ${headY - 80} 76 ${headY - 104}`} fill="none" stroke="#7a1414" strokeWidth={6} />
                 <path d={`M-12 ${headY - 146} l0 -16`} strokeWidth={8} strokeLinecap="round" />
@@ -308,7 +466,7 @@ export const HoseChar: React.FC<HoseCharProps> = ({
             ) : null}
           </g>
         ) : (
-          <g stroke={K.ink} strokeWidth={6} strokeLinejoin="round">
+          <g stroke={K.ink} strokeWidth={6} strokeLinejoin="round" transform={`translate(0 ${-hatPop}) rotate(${surprise * -10} 0 ${headY - 40})`}>
             <path d={`M-98 ${headY - 44} Q-102 ${headY - 136} 0 ${headY - 138} Q102 ${headY - 136} 98 ${headY - 44} Z`} fill={K.cap} />
             <path d={`M0 ${headY - 138} L0 ${headY - 46} M-48 ${headY - 128} Q-60 ${headY - 90} -56 ${headY - 46} M48 ${headY - 128} Q60 ${headY - 90} 56 ${headY - 46}`} stroke="#3a3634" strokeWidth={3} fill="none" />
             <circle cx={0} cy={headY - 138} r={8} fill={K.cap} />
@@ -318,21 +476,12 @@ export const HoseChar: React.FC<HoseCharProps> = ({
           </g>
         )}
       </g>
-      <defs>
-        <filter id={`n${id}`}>
-          <feGaussianBlur stdDeviation="0" />
-        </filter>
-      </defs>
     </g>
   );
 };
 
 /* ---------- eski film katmanı ---------- */
 
-const rnd = (n: number) => {
-  const v = Math.sin(n * 127.1 + 311.7) * 43758.5453;
-  return v - Math.floor(v);
-};
 
 export const OldFilm: React.FC<{ f: number; children: React.ReactNode; iris?: number }> = ({ f, children, iris = 1 }) => {
   const q = Math.floor(f / 2); // "ikişer kare" titreşim
@@ -425,29 +574,29 @@ export const HoseSheet: React.FC = () => {
   return (
     <OldFilm f={f}>
       <rect width={1080} height={1920} fill={K.paper} />
-      <Lbl x={60} y={120} t="Yunus & Merve · 1930'lar stili" s={70} />
+      <Lbl x={60} y={120} t="Yunus & Duru · 1930'lar stili" s={70} />
       {/* yüzler */}
       {(
         [
           ["yunus", "grin", false, false, "güler"],
           ["yunus", "smirk", false, false, "şüpheci"],
-          ["merve", "smile", true, false, "göz kırpar"],
-          ["merve", "kiss", false, true, "öpücük"],
+          ["duru", "smile", true, false, "göz kırpar"],
+          ["duru", "kiss", false, true, "öpücük"],
         ] as const
       ).map(([w, fc, wk, hp, n], i) => (
         <g key={i}>
           <rect x={30 + i * 258} y={170} width={246} height={300} rx={18} fill="#f6ecd4" stroke={K.ink} strokeWidth={5} />
           <svg x={30 + i * 258} y={170} width={246} height={300} viewBox="-150 -656 300 366">
-            <HoseChar x={0} y={0} who={w} face={fc} wink={wk} happyEyes={hp} look={fc === "smirk" ? [0.8, 0] : [0, 0]} tilt={fc === "smirk" ? -6 : 0} beret={w === "merve"} />
+            <HoseChar x={0} y={0} who={w} face={fc} wink={wk} happyEyes={hp} look={fc === "smirk" ? [0.8, 0] : [0, 0]} tilt={fc === "smirk" ? -6 : 0} beret={w === "duru"} />
           </svg>
           <Lbl x={56 + i * 258} y={515} t={n} s={40} />
         </g>
       ))}
       {/* tam boy */}
       <HoseChar x={300} y={1500} s={1.35} who="yunus" face="grin" armL={[-90, 120, 50]} armR={[120, -120, -70]} handR="open" />
-      <HoseChar x={780} y={1500} s={1.35} who="merve" face="smile" wink beret armL={[-110, -110, 70]} armR={[70, 140, -40]} handL="point" />
+      <HoseChar x={780} y={1500} s={1.35} who="duru" face="smile" wink beret armL={[-110, -110, 70]} armR={[70, 140, -40]} handL="point" />
       <Lbl x={210} y={1640} t="Yunus" s={56} />
-      <Lbl x={700} y={1640} t="Merve" s={56} />
+      <Lbl x={700} y={1640} t="Duru" s={56} />
       <Lbl x={70} y={1760} t="lastik kollar · beyaz eldiven · pasta dilimi göz" s={40} />
       <Lbl x={70} y={1820} t="ritimle zıplar · eski film greni" s={40} />
     </OldFilm>
@@ -491,7 +640,7 @@ export const HoseClip: React.FC = () => {
         x={790}
         y={1650}
         s={1.55}
-        who="merve"
+        who="duru"
         beret
         bounce={bounce2}
         face={cheer ? "grin" : wink ? "smile" : lookEach ? "smile" : "smile"}
@@ -514,6 +663,80 @@ export const HoseClip: React.FC = () => {
         <text x={540} y={380} textAnchor="middle" fontFamily={handFamily} fontSize={34} fill={K.ink}>
           sunar
         </text>
+      </g>
+    </OldFilm>
+  );
+};
+
+/* ---------- 3) davranış denemesi: sessiz sohbet (konuşma, dinleme, şaşırma, gülme, jestler) ---------- */
+
+const on = (f: number, a: number, b: number) => (f >= a && f < b ? 1 : 0);
+const ramp = (f: number, a: number, b: number, len = 6) =>
+  interpolate(f, [a - len, a, b, b + len], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+export const HoseBehave: React.FC = () => {
+  const f = useCurrentFrame();
+  const q = Math.floor(f / 2) * 2;
+  const iris = interpolate(f, [0, 18, 342, 360], [0, 1, 1, 0.06], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
+
+  // Yunus: anlatır (24–100) → omuz silker (160–205) → düşünür (220–268) → başparmak (278–318) → el sallar (325–350)
+  const yTalk = on(q, 24, 100) + on(q, 160, 200) * 0.6;
+  const yG =
+    q < 110 ? { g: "explain" as const, t: gestureT(q, 30, 96) } :
+    q < 215 ? { g: "shrug" as const, t: gestureT(q, 160, 200) } :
+    q < 274 ? { g: "think" as const, t: gestureT(q, 222, 264) } :
+    q < 322 ? { g: "thumbs" as const, t: gestureT(q, 280, 314) } :
+    { g: "wave" as const, t: gestureT(q, 326, 352) };
+  // Duru: dinler + başını sallar (24–100) → şaşırır (112–140) → güler (148–196) → anlatıp işaret eder (214–266) → eller belde (278–318) → el sallar
+  const dSurp = ramp(q, 114, 136, 5);
+  const dLaugh = ramp(q, 148, 192, 6);
+  const dTalk = on(q, 214, 266);
+  const dG =
+    q < 272 ? { g: "point" as const, t: gestureT(q, 220, 262) } :
+    q < 322 ? { g: "hips" as const, t: gestureT(q, 280, 316) } :
+    { g: "wave" as const, t: gestureT(q, 330, 352) };
+  const toCam = q >= 274;
+
+  // kamera: konuşana doğru yavaşça kayar, şaşkınlıkta küçük yakınlaşma
+  const camX = interpolate(q, [0, 100, 140, 210, 270, 360], [0, -40, 50, 20, 40, 0], { extrapolateRight: "clamp" });
+  const camZ = 1 + 0.06 * ramp(q, 114, 140, 8) + 0.03 * Math.sin(q / 90);
+
+  return (
+    <OldFilm f={f} iris={iris}>
+      <g transform={`translate(540 1100) scale(${camZ}) translate(${-540 + camX} -1100)`}>
+        <Stage f={q} />
+        <HoseChar
+          x={275}
+          y={1650}
+          s={1.55}
+          who="yunus"
+          seed={4}
+          talk={yTalk}
+          gesture={yG.g}
+          gT={yG.t}
+          gSide={yG.g === "wave" ? "L" : "R"}
+          face={q >= 160 && q < 215 ? "smirk" : q >= 278 ? "grin" : "smile"}
+          look={toCam ? [0, 0] : yG.g === "think" ? [0.4, -0.8] : [1, 0]}
+          nod={on(q, 214, 266) * 0.8}
+        />
+        <HoseChar
+          x={810}
+          y={1650}
+          s={1.55}
+          who="duru"
+          beret
+          seed={9}
+          talk={dTalk}
+          gesture={dG.g}
+          gT={dG.t}
+          gSide={dG.g === "point" ? "L" : "R"}
+          surprise={dSurp}
+          laugh={dLaugh}
+          face={toCam ? "smile" : "smile"}
+          look={toCam ? [0, 0] : [-1, 0]}
+          nod={on(q, 30, 100)}
+          wink={on(q, 300, 312) === 1}
+        />
       </g>
     </OldFilm>
   );

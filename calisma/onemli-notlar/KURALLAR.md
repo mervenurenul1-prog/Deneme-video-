@@ -15,6 +15,12 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
 - **Marka/dergi/kişi adı ekrana YAZILMAZ** (telif/şikâyet riski, hesap yeni): "bir moda dergisi", "bir podcast" de.
 
 
+## SERİ AVATARLARI (kullanıcı, 28 Ekim — EN GÜNCEL)
+- Yeni seri avatarları 1930'lar "rubber hose" stili **Yunus** (erkek) ve **Duru** (kız) — `src/avatar2/Hose.tsx`.
+  Kullanıcıya ve ekip arkadaşına benzetildi. Eski sepya sade avatar (Cizim1 `Person`) yalnız eski videolar için.
+- Sesler: Yunus = Yunus sesi; Duru = kullanıcının kendi sesi (`kd6P2yodCccO2OzNoqOD`); Sibel = yalnız anne.
+- Karakterler hiç donmaz: canlılık (`live`), konuşurken `talk`, dinlerken `nod`, duyguya göre `surprise`/`laugh`/jest.
+
 ## Çalışma
 - Konuyu kullanıcı seçer; Claude öneri getirir. Tek tek video, toplu yok.
 - Sıra: metin (12 madde tablosuyla) onayı → sessiz önizleme → onay → TEK SEFERDE seslendirme → müzikle render.

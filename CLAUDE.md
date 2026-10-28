@@ -15,6 +15,9 @@ dosyayı aç; eski uzun not (887 satır) `calisma/onemli-notlar/arsiv-CLAUDE-23e
 | `calisma/sesler/` | Yunus/Sibel/Aslı, seslendirme, müzik/efekt, kredi |
 | `calisma/voom/` | Strateji, hedef kitle, gerçek VOOM ekranları |
 
+**YENİ SERİ AVATARLARI (28 Ekim):** 1930'lar "rubber hose" stili Yunus + Duru (`src/avatar2/Hose.tsx`); Duru'nun sesi
+kullanıcının kendi sesi, Sibel yalnız anne. Ayrıntı DURUM.md.
+
 **İlk iş:** `calisma/onemli-notlar/DURUM.md` + KURALLAR.md başındaki 5 ADIMLI FORMÜL (her video, her öneri). En kritik kurallar:
 sessiz önizleme → onaydan sonra seslendirme (kredi!) · kendi kafana göre iş yapma, sor.
 Her oturum sonunda DURUM.md'yi güncelle (kısa tut, eski maddeyi sil).
