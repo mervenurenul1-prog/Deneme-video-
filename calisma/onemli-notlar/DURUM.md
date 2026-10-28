@@ -1,6 +1,12 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (28 Ekim akşam — EN GÜNCEL) <<<
+- **AVATAR ARAYIŞI → 1930'lar "rubber hose" stili DENENİYOR** (kullanıcı: "yurtdışında olan ama Türkiye'ye gelmemiş bir avatar";
+  5 stil önerildi: rubber hose, claymation, kâğıt kolaj, maskot, defter karalaması → "1'i dene, bize de benzet"). Kod
+  `src/avatar2/Hose.tsx`: `HoseChar` (who yunus/merve, lastik kollar `armL/armR` = [x, y, büküm], beyaz eldiven, pasta dilimi göz,
+  `bounce` ezilip-uzama, `wink`, `happyEyes`, `beret`), `OldFilm` (sepya, gren, titreşim, çizik, kaynayan çizgi, iris geçişi),
+  `Stage` (perde + ışın fonu). Kompozisyonlar `hose-sayfa`, `hose-klip` (8 sn, ikişer kare = 12 fps hissi). Çıktı
+  `ornek-videolar/avatar2/hose-*`. Onay bekleniyor. Aşağıdaki Yunus v2/Merve (yarı gerçekçi) taslağı kullanıcıya göre "olmadı".
 - **YENİ AVATAR (Yunus v2) TASLAĞI** — kullanıcı karakter sayfası attı (Merve + erkek "Ekip"): Yunus o erkeğe benzesin
   (siyah şapka, kıvırcık koyu saç, kirli sakal, gri kapüşonlu + siyah ceket, kot) + taslaktaki ışık, kamera açıları,
   doğal hareket. "Gerçek insan" İSTEMİYOR (yalnız örnek taslak verdi), çizim kalır. Kod `src/avatar2/Hero.tsx`

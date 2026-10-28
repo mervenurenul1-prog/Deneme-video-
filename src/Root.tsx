@@ -4,6 +4,7 @@ import { ExplainerVideo, type ExplainerProps } from "./explainer/Explainer";
 import { Deneme3D } from "./deneme3d/Deneme3D";
 import { HeroCinema, HeroSheet } from "./avatar2/Hero";
 import { MerveSheet } from "./avatar2/Merve";
+import { HoseClip, HoseSheet } from "./avatar2/Hose";
 import { CizimVideo, type CizimProps } from "./cizim/Cizim";
 import { Cizim1Video, type Cizim1Props } from "./cizim1/Cizim1";
 import { cizimler, cizimler1, explainers, posts, promos, stories, ucler } from "./posts";
@@ -141,6 +142,8 @@ export const RemotionRoot: React.FC = () => {
       {/* Yeni avatar (Yunus v2) denemesi: karakter sayfası + sinematik klip */}
       <Composition id="avatar2-sayfa" component={HeroSheet} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} durationInFrames={1} />
       <Composition id="avatar2-merve" component={MerveSheet} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} durationInFrames={1} />
+      <Composition id="hose-sayfa" component={HoseSheet} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} durationInFrames={1} />
+      <Composition id="hose-klip" component={HoseClip} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} durationInFrames={240} />
       <Composition id="avatar2-sinema" component={HeroCinema} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} durationInFrames={300} />
       <Composition id="deneme-3d" component={Deneme3D} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} durationInFrames={142} />
     </>
