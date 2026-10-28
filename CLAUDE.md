@@ -80,6 +80,10 @@ Seslendirme betiği artık sahne başına `voiceId`/`voiceSettings` destekliyor 
 - **08 sauna (`cizim1-08-sauna`):** v2 sessiz önizleme gönderildi, kullanıcı "bu bi kalsın" dedi (BEKLEMEDE, seslendirilmedi).
 - Kalan ElevenLabs kredisi ≈ 13.700. Çalışma dalı `claude/claude-md-continuation-e39del` + `main` (ikisine push).
 - Kullanıcı CEFF'e "videoları stoklayalım mı" diye sordu (günde 3, aralar 12 saatten kısa olunca keşfete çıkmıyor).
+- **!!! KONU ÖNERİSİ DERSİ (28 Ekim, kullanıcı defalarca söyledi):** herkesin bildiği/herkesin yaptığı efsane
+  konularını (selülit, metabolizma 30'dan sonra, mekikle göbek, laktik asit, kas yağa dönüşür, 8 bardak su, esneme)
+  ÖNERME. Kullanıcı "iğneli selülit videosu" gibi viral, taze, şaşırtıcı konu istiyor → önce GÜNCEL haber/yeni
+  araştırma tara (ScienceDaily vb.), az bilinen + çarpıcı görsel anı olan konu öner.
 - **DERSLER:** kullanıcının örnek cümlelerini birebir metne koyma, kendin doğal yaz; önce metni onaylat; renkler: doğru =
   lacivert, yanlış = kırmızı; hareket gösterirken doğru form (sporcu kullanıcı).
 
