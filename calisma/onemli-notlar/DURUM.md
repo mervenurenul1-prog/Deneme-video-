@@ -1,5 +1,15 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> YENİ SOHBET BURADAN (28 Ekim — EN GÜNCEL) <<<
+- **20 BEL KORSESİ SEÇİLDİ** (kullanıcı: "aferin"). Sıradaki video: **KREATİN SAÇ DÖKER Mİ** (2009 G. Afrika 20 ragbi
+  oyuncusu, saç ölçülmedi yalnız DHT; 2025 12 haftalık deney fark yok — DOĞRULA).
+- Korse kaynakları (aranan): Gibson, *The Corseted Skeleton* (Springer; Londra St Bride's 1700-1900 iskeletleri, kaburga
+  içe bükülmesi); korse + düşük kalori deneyi (CNN 2015 haberi: çoğu bıraktı, etki ölçülemedi; asıl makale BULUNAMADI);
+  doktorlar: korse yağ hücresi yok etmez, çıkan su/ter. Metin v1 kullanıcıya sunuldu, onay bekleniyor.
+- Kullanıcının attığı haber (BPT): "Elon Musk: Hiçbir kız karın kaslarını 6 arabaya tercih etmez, salonu bırak işe git" +
+  bir TV sunucusu "katılıyorum". Söz KAYNAKTA BULUNAMADI (uydurma olabilir). Kullanıcı "bunlardan birinde yer verelim mi,
+  bilmiyorum". Karşı bilim: Kosteas 2012 (J Labor Res 33(2)), haftada 3+ spor yapanlar %6-10 daha çok kazanıyor.
+
 ## >>> YENİ SOHBET BURADAN (27 Ekim — EN GÜNCEL) <<<
 - **19 TÜP MİDE** (`cizim1-19-tup-mide`, `tm-*`): ekip arkadaşının "tartı her şeyi söylemiyor" videosundan uyarlama
   (referans olarak gidecek). Onaylı metin: "Tüp mide oldun, kırk kilo verdin ama el sallarken kolunun altı hâlâ
