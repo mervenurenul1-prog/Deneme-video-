@@ -113,6 +113,10 @@ export type Cizim = {
   padding?: number;
   // Ses seslendirmeden sonra bu oranda hızlandırılır (ör. 1.2); sessiz önizleme süresi de buna göre
   speed?: number;
+  // sessiz önizlemede sahnenin en kısa süresi (sn); kısa diyalog replikleri için
+  minEstimate?: number;
+  // "hose": 1930'lar çizgi film stili (Yunus + Duru, eski film katmanı)
+  style?: "hose";
   scenes: CizimScene[];
   caption: string;
   hashtags: string[];

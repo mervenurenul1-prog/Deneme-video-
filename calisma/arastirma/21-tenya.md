@@ -1,4 +1,4 @@
-# 21 Tenya hapı — araştırma (28 Ekim) — SIRADAKİ VİDEO, metin ONAY BEKLİYOR
+# 21 Tenya hapı — araştırma (28 Ekim) — metin v4 ONAYLANDI, sessiz önizleme yapıldı (metin JSON'da: content/cizim1/cizim1-21-tenya.json)
 Kullanıcı: "dün tenya bugün iğne gibi çarpıcı" — iğne videosunun (17) devamı gibi. Kullanıcı bu konuyu ilk "Kenya muhabbeti"
 diye hatırladı (bağı aşağıda).
 

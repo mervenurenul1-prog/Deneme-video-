@@ -2,7 +2,7 @@ import { useCurrentFrame, useVideoConfig } from "remotion";
 import { VIDEO } from "./brand";
 import type { PostVoiceover, SceneAudio, WordTiming } from "./types";
 
-type Voiced = { scenes: { voice: string; lead?: number; hold?: number; intro?: { voice: string } }[]; padding?: number; speed?: number };
+type Voiced = { scenes: { voice: string; lead?: number; hold?: number; intro?: { voice: string } }[]; padding?: number; speed?: number; minEstimate?: number };
 
 // Instagram arayüzünün (alt açıklama, sağ butonlar) kapattığı alanlar
 export const SAFE = { top: 220, bottom: 420, side: 90 };
@@ -15,7 +15,8 @@ export const audioFor = (item: Voiced, vo: PostVoiceover | null, i: number): Sce
 
 // Ses yokken metnin okunma süresi tahmini (Türkçe seslendirme ~14 karakter/sn)
 // speed: seslendirme sonradan hızlandırılacaksa (ör. 1.2) sessiz önizleme de o hızda akar
-const estimateSeconds = (voice: string, speed = 1) => Math.max(VIDEO.fallbackSeconds, voice.length / 14 / speed);
+// min: sessiz önizlemede bir sahnenin en kısa süresi (kısa diyalog replikleri için videoya özel düşürülebilir)
+const estimateSeconds = (voice: string, speed = 1, min: number = VIDEO.fallbackSeconds) => Math.max(min, voice.length / 14 / speed);
 
 // Sahnenin başındaki kanca sesi (intro); metni değiştiyse eski ses kullanılmaz
 export const introFor = (item: Voiced, vo: PostVoiceover | null, i: number) => {
@@ -36,15 +37,15 @@ export const introWords = (item: Voiced, vo: PostVoiceover | null, i: number): W
 
 export const sceneDurations = (item: Voiced, vo: PostVoiceover | null, fps: number) =>
   item.scenes.map((s, i) => {
-    const seconds = audioFor(item, vo, i)?.durationInSeconds ?? estimateSeconds(s.voice, item.speed);
+    const seconds = audioFor(item, vo, i)?.durationInSeconds ?? estimateSeconds(s.voice, item.speed, item.minEstimate);
     return Math.ceil((leadSeconds(item, vo, i) + seconds + (s.hold ?? 0) + (item.padding ?? VIDEO.paddingSeconds)) * fps);
   });
 
 // Ses yokken kelime zamanlamalarını kelime uzunluğuna göre tahmin eder (sessiz önizleme için)
-export const wordsFor = (voice: string, audio: { words: WordTiming[] } | null, speed = 1): WordTiming[] => {
+export const wordsFor = (voice: string, audio: { words: WordTiming[] } | null, speed = 1, min?: number): WordTiming[] => {
   if (audio) return audio.words;
   const words = voice.split(/\s+/).filter(Boolean);
-  const total = estimateSeconds(voice, speed);
+  const total = estimateSeconds(voice, speed, min);
   const weight = words.reduce((a, w) => a + w.length + 1, 0);
   let t = 0;
   return words.map((word) => {

@@ -1,6 +1,17 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
-## >>> YENİ SOHBET BURADAN (28 Ekim akşam — EN GÜNCEL) <<<
+## >>> YENİ SOHBET BURADAN (28 Ekim gece — EN GÜNCEL) <<<
+- **21 TENYA HAPI — YENİ STİLDE İLK VİDEO** (`cizim1-21-tenya`, JSON `"style": "hose"`, sahneler `src/hose/Tenya.tsx` `tn-*`).
+  Metin v4 kullanıcı onaylı ("önizleme oluştur"): Yunus "Zayıflamak için kurt yutar mıydın?" → Duru "Asla!" → "Yüz yıl önce bunu
+  hap diye sattılar." → tarih (tenya hapı; kurt var mıydı tartışmalı) → 2014 İngiliz doktor Kenya'da ineğin dilinden kist yuttu,
+  6 hafta → Duru "Kaç kilo verdi?" → "Bir kilo aldı." (+ ekranda "Sen yutar mıydın? Yorumlara yaz") → "Kurt da iğne de aynı
+  şeyi vaat ediyor…haftada iki gün ağırlık" (VOOM yalnız arka planda telefon) → MOTİVASYON (kullanıcı istedi): "Ve acele etme.
+  Seni sevenler tartıya bakmaz, sana bakar." → "Bunu, aynaya bakıp kendine kızan arkadaşına gönder. Ve ona da sor:" (döngü).
+  Duru replikleri KULLANICININ SESİ (sahne `voiceId` kd6P2…, stability 0.45 / similarity 0.95). Yan karakterler `doktor`
+  (safari şapkası, gözlük, bıyık; gerçek kişi değil, ad yok) ve `arkadas` (sarı saç). Sessiz önizleme
+  `ornek-videolar/cizim1-pilot/21-tenya-sessiz.mp4` (~38 sn tahmin; gerçek sesle değişir) → ONAY → seslendirme (~560 karakter).
+  Altyapı: `Cizim1Video` `style: "hose"` → kâğıt/toz yerine `OldFilm`, sert kesme; JSON `minEstimate` (kısa repliklerin
+  sessiz önizleme süresi). Efekt sesi (SFX) henüz yok; müzik merak-gerilim (1930'lar müziği ücretsiz üretilebilir — sor).
 - **YENİ SERİ AVATARLARI ONAYLANDI (kullanıcı: "çok iyi, yeni avatar bu"): 1930'lar "rubber hose" stili YUNUS + DURU.**
   (Kullanıcı "yurtdışında olan ama Türkiye'ye gelmemiş bir avatar" istedi; 5 stil önerildi, 1'i seçti, "bize de benzet".)
   - **Yunus** (erkek, anlatıcı): siyah şapka, iki yana kıvırcık bukle, çenede noktalı kirli sakal, gri kapüşonlu + siyah ceket,

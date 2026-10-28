@@ -1,4 +1,6 @@
 import { useEffect, useId, useState } from "react";
+import { OldFilm } from "../avatar2/Hose";
+import { TENYA_SCENES } from "../hose/Tenya";
 import {
   AbsoluteFill,
   Audio,
@@ -61,7 +63,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
   // Sahnenin sessiz açılışı (lead): kelimeler ve ses o kadar kaydırılır
   const leadOf = (i: number) => leadSeconds(cizim, voiceover, i);
   const mainWords = (i: number) =>
-    wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i), cizim.speed).map((x) => ({ ...x, start: x.start + leadOf(i), end: x.end + leadOf(i) }));
+    wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i), cizim.speed, cizim.minEstimate).map((x) => ({ ...x, start: x.start + leadOf(i), end: x.end + leadOf(i) }));
   // altyazı: varsa kanca (intro) kelimeleri + asıl kelimeler; w(i) yalnız asıl kelimeleri sayar
   const wordsAt = (i: number) => [...introWords(cizim, voiceover, i), ...mainWords(i)];
   const wOf = (i: number) => {
@@ -69,10 +71,12 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
     return (k: number) => Math.round((words[Math.min(k, words.length - 1)]?.start ?? 0) * fps);
   };
   const First = SCENES[cizim.scenes[0].visual] ?? Missing;
+  // 1930'lar stili: kâğıt/ışık/toz yerine eski film katmanı, sahneler arası sert kesme (çizgi film kurgusu)
+  const hose = cizim.style === "hose";
   return (
     <AbsoluteFill style={{ backgroundColor: C.paper, fontFamily }}>
-      <Paper />
-      <Beams />
+      {hose ? null : <Paper />}
+      {hose ? null : <Beams />}
       {cizim.scenes.map((scene, i) => {
         const start = from;
         from += durations[i];
@@ -83,9 +87,9 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         const Visual = SCENES[scene.visual] ?? Missing;
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.visual}`}>
-            <Shot d={durations[i]} zoom={ZOOM[scene.visual]} noIn={(loop && i === 0) || SEAMLESS.has(scene.visual)} noOut={(loop && i === last) || (i < last && SEAMLESS.has(cizim.scenes[i + 1].visual))}>
+            <Frame hose={hose} d={durations[i]} scene={scene.visual} noIn={(loop && i === 0) || SEAMLESS.has(scene.visual)} noOut={(loop && i === last) || (i < last && SEAMLESS.has(cizim.scenes[i + 1].visual))}>
               <Visual d={durations[i]} w={w} />
-            </Shot>
+            </Frame>
             <Captions words={words} keys={scene.keys} hideFrom={loop && i === last ? durations[i] - LOOP_FRAMES : undefined} />
             {intro ? <Audio src={staticFile(intro.file)} /> : null}
             {audio ? (
@@ -94,7 +98,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
               </Sequence>
             ) : null}
             {/* sahne geçişi + o sahnedeki olayların efekt sesleri */}
-            {i > 0 && !SEAMLESS.has(scene.visual) ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
+            {i > 0 && !SEAMLESS.has(scene.visual) && !hose ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
             {tidySfx(SFX[scene.visual]?.(w, durations[i]) ?? []).map(([at, file, vol], k) =>
               at >= 0 && at < durations[i] ? (
                 <Sequence key={k} from={Math.round(at)} layout="none">
@@ -109,20 +113,29 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         <Sequence from={durationInFrames - LOOP_FRAMES} durationInFrames={LOOP_FRAMES} name="dongu">
           <LoopIn>
             <Freeze frame={0}>
-              <Paper />
-              <Beams />
-              <Shot d={durations[0]} zoom={ZOOM[cizim.scenes[0].visual]} noIn>
+              {hose ? null : <Paper />}
+              {hose ? null : <Beams />}
+              <Frame hose={hose} d={durations[0]} scene={cizim.scenes[0].visual} noIn>
                 <First d={durations[0]} w={wOf(0)} />
-              </Shot>
+              </Frame>
               <Captions words={wordsAt(0)} keys={cizim.scenes[0].keys} />
             </Freeze>
           </LoopIn>
         </Sequence>
       ) : null}
       {cizim.music ? <Music src={cizim.music} loop={loop} /> : null}
-      <Dust loop={loop} />
+      {hose ? null : <Dust loop={loop} />}
     </AbsoluteFill>
   );
+};
+
+const Frame: React.FC<{ hose: boolean; d: number; scene: string; noIn?: boolean; noOut?: boolean; children: React.ReactNode }> = ({ hose, d, scene, noIn, noOut, children }) =>
+  hose ? <FilmFrame>{children}</FilmFrame> : <Shot d={d} zoom={ZOOM[scene]} noIn={noIn} noOut={noOut}>{children}</Shot>;
+
+// 1930'lar stili sahne çerçevesi: sepya, gren, titreşim, çizik, kaynayan çizgi
+const FilmFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const f = useCurrentFrame();
+  return <OldFilm f={f}>{children}</OldFilm>;
 };
 
 // Döngü geçişi: ilk kare, kâğıt dahil tam opak olana kadar belirir (son kare = ilk kare)
@@ -24706,6 +24719,7 @@ const KrSon: React.FC<SceneProps> = ({ w: w0, d }) => {
 };
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  ...TENYA_SCENES,
   "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,

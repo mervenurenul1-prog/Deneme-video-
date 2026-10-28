@@ -26,7 +26,7 @@ const K = {
 
 type HoseArm = [number, number, number];
 type HandKind = "open" | "fist" | "point" | "thumb"; // el hedefi (omuza göre x, y) + büküm
-export type HoseFace = "smile" | "grin" | "o" | "smirk" | "kiss" | "talk";
+export type HoseFace = "smile" | "grin" | "o" | "smirk" | "kiss" | "talk" | "sad";
 
 const rnd = (n: number) => {
   const v = Math.sin(n * 127.1 + 311.7) * 43758.5453;
@@ -128,6 +128,9 @@ const Mouth: React.FC<{ y: number; face: HoseFace; w?: number; girl?: boolean; o
       </g>
     );
   }
+  if (face === "sad") {
+    return <path d={`M${-w * 0.4} ${y + 12} Q0 ${y - 8} ${w * 0.4} ${y + 12}`} stroke={K.ink} strokeWidth={6} fill="none" strokeLinecap="round" />;
+  }
   if (face === "o") {
     return <ellipse cx={0} cy={y + 4} rx={13} ry={17} fill="#4a1512" stroke={K.ink} strokeWidth={5} />;
   }
@@ -210,7 +213,7 @@ export type HoseCharProps = {
   x: number;
   y: number;
   s?: number;
-  who: "yunus" | "duru";
+  who: "yunus" | "duru" | "doktor" | "arkadas";
   face?: HoseFace;
   look?: [number, number];
   wink?: boolean;
@@ -233,6 +236,7 @@ export type HoseCharProps = {
   surprise?: number; // 0..1: gözler büyür, ağız O, şapka/bere havalanır, sıçrar
   laugh?: number; // 0..1: kahkahayla sarsılır
   nod?: number; // 0..1: dinlerken onaylayarak baş sallama
+  hairColor?: string;
   seed?: number;
 };
 
@@ -263,11 +267,18 @@ export const HoseChar: React.FC<HoseCharProps> = ({
   laugh = 0,
   nod = 0,
   seed = 3,
+  hairColor,
 }) => {
   const id = useId().replace(/[^a-zA-Z0-9]/g, "");
   const fr = useCurrentFrame();
   const q = Math.floor(fr / 2) * 2; // ikişer kare
-  const girl = who === "duru";
+  const girl = who === "duru" || who === "arkadas";
+  const doc = who === "doktor"; // safari şapkalı, gözlüklü, bıyıklı yan karakter (gerçek kişi değil)
+  const hairC = hairColor ?? (who === "arkadas" ? "#c98f3a" : K.mHair);
+  const teeC = who === "arkadas" ? "#e8a0ae" : K.tee;
+  const legC = doc ? "#a8864f" : K.jeans;
+  const jackC = doc ? "#b8955c" : K.jacket;
+  const hoodC = doc ? "#d4b47c" : K.hood;
   const idle = bounceIn === undefined;
   const bounce = (bounceIn ?? 0) + surprise * 0.9;
 
@@ -338,7 +349,7 @@ export const HoseChar: React.FC<HoseCharProps> = ({
         {/* bacaklar */}
         {[-1, 1].map((sd) => (
           <g key={sd}>
-            <Hose s={[sd * 34, hipY]} e={[sd * 46, -26]} bend={-sd * (knee + 6)} w={30} color={K.jeans} />
+            <Hose s={[sd * 34, hipY]} e={[sd * 46, -26]} bend={-sd * (knee + 6)} w={30} color={legC} />
             {/* koca ayakkabı */}
             <path
               d={`M${sd * 20} -34 Q${sd * 20} -60 ${sd * 52} -58 Q${sd * 100} -54 ${sd * 104} -18 Q${sd * 106} 2 ${sd * 70} 2 L${sd * 26} 2 Q${sd * 14} 2 ${sd * 20} -34 Z`}
@@ -352,18 +363,24 @@ export const HoseChar: React.FC<HoseCharProps> = ({
         {/* gövde: armut biçimi */}
         {girl ? (
           <g stroke={K.ink} strokeWidth={6} strokeLinejoin="round">
-            <path d={`M-58 ${shY} Q-84 -260 -60 ${hipY} Q0 ${hipY + 26} 60 ${hipY} Q84 -260 58 ${shY} Q0 ${shY - 20} -58 ${shY} Z`} fill={K.tee} />
+            <path d={`M-58 ${shY} Q-84 -260 -60 ${hipY} Q0 ${hipY + 26} 60 ${hipY} Q84 -260 58 ${shY} Q0 ${shY - 20} -58 ${shY} Z`} fill={teeC} />
             <path d={`M-58 ${shY} Q-84 -260 -60 ${hipY} L-26 ${hipY + 6} Q-36 -300 -20 ${shY - 8} Z`} fill={K.jacket} />
             <path d={`M58 ${shY} Q84 -260 60 ${hipY} L26 ${hipY + 6} Q36 -300 20 ${shY - 8} Z`} fill={K.jacket} />
             <path d={`M-60 ${hipY - 6} Q0 ${hipY + 16} 60 ${hipY - 6}`} fill="none" stroke={K.ink} strokeWidth={8} />
           </g>
         ) : (
           <g stroke={K.ink} strokeWidth={6} strokeLinejoin="round">
-            <path d={`M-62 ${shY} Q-92 -260 -66 ${hipY} Q0 ${hipY + 26} 66 ${hipY} Q92 -260 62 ${shY} Q0 ${shY - 20} -62 ${shY} Z`} fill={K.hood} />
-            <path d={`M-62 ${shY} Q-92 -260 -66 ${hipY} L-28 ${hipY + 8} Q-40 -300 -24 ${shY - 8} Z`} fill={K.jacket} />
-            <path d={`M62 ${shY} Q92 -260 66 ${hipY} L28 ${hipY + 8} Q40 -300 24 ${shY - 8} Z`} fill={K.jacket} />
-            {/* kapüşon ipleri */}
-            <path d={`M-10 ${shY + 4} q-3 40 0 70 M10 ${shY + 4} q3 40 0 66`} stroke={K.white} strokeWidth={5} fill="none" strokeLinecap="round" />
+            <path d={`M-62 ${shY} Q-92 -260 -66 ${hipY} Q0 ${hipY + 26} 66 ${hipY} Q92 -260 62 ${shY} Q0 ${shY - 20} -62 ${shY} Z`} fill={hoodC} />
+            <path d={`M-62 ${shY} Q-92 -260 -66 ${hipY} L-28 ${hipY + 8} Q-40 -300 -24 ${shY - 8} Z`} fill={jackC} />
+            <path d={`M62 ${shY} Q92 -260 66 ${hipY} L28 ${hipY + 8} Q40 -300 24 ${shY - 8} Z`} fill={jackC} />
+            {/* kapüşon ipleri (doktorda cep + düğmeler) */}
+            {doc ? (
+              <g>
+                <path d={`M0 ${shY + 6} L0 ${hipY}`} stroke={K.ink} strokeWidth={3} />
+                {[0, 1, 2].map((k) => <circle key={k} cx={6} cy={shY + 40 + k * 50} r={4} fill={K.ink} />)}
+              </g>
+            ) : null}
+            <path opacity={doc ? 0 : 1} d={`M-10 ${shY + 4} q-3 40 0 70 M10 ${shY + 4} q3 40 0 66`} stroke={K.white} strokeWidth={5} fill="none" strokeLinecap="round" />
             <path d={`M-10 ${shY + 4} q-3 40 0 70 M10 ${shY + 4} q3 40 0 66`} stroke={K.ink} strokeWidth={1.5} fill="none" />
           </g>
         )}
@@ -380,7 +397,7 @@ export const HoseChar: React.FC<HoseCharProps> = ({
           const ang = (Math.atan2(ar[1], ar[0]) * 180) / Math.PI - 90;
           return (
             <g key={i}>
-              <Hose s={shp} e={e} bend={ar[2]} w={26} color={K.jacket} />
+              <Hose s={shp} e={e} bend={ar[2]} w={26} color={jackC} />
               <Glove x={e[0]} y={e[1]} r={ang} side={-side} kind={(i ? hR : hL) as HandKind} />
             </g>
           );
@@ -394,13 +411,13 @@ export const HoseChar: React.FC<HoseCharProps> = ({
           <path
             transform={`rotate(${hairLag - headRot * 0.6} 0 ${headY})`}
             d={`M-96 ${headY - 20} Q-120 ${headY + 120} -96 ${headY + 200} Q-70 ${headY + 230} -60 ${headY + 196} Q-40 ${headY + 230} -16 ${headY + 200} L16 ${headY + 200} Q40 ${headY + 230} 60 ${headY + 196} Q70 ${headY + 230} 96 ${headY + 200} Q120 ${headY + 120} 96 ${headY - 20} Z`}
-            fill={K.mHair}
+            fill={hairC}
             stroke={K.ink}
             strokeWidth={6}
           />
         ) : (
-          // kıvırcık saç: şapkanın altından iki yana taşan bukleler
-          <g fill={K.hair} stroke={K.ink} strokeWidth={5}>
+          // kıvırcık saç: şapkanın altından iki yana taşan bukleler (doktorda kısa kır saç)
+          <g fill={doc ? "#9a948c" : K.hair} stroke={K.ink} strokeWidth={5} opacity={doc ? 0.9 : 1} transform={doc ? "scale(0.85 0.6) translate(0 -330)" : undefined}>
             {[-1, 1].map((sd) =>
               [
                 [96, headY - 40, 22],
@@ -429,7 +446,10 @@ export const HoseChar: React.FC<HoseCharProps> = ({
         <circle cx={-56} cy={headY + 34} r={16} fill={girl ? "#ee7d76" : "#e79a83"} opacity={0.55} />
         <circle cx={56} cy={headY + 34} r={16} fill={girl ? "#ee7d76" : "#e79a83"} opacity={0.55} />
         {/* kirli sakal: çenede nokta hilali */}
-        {!girl ? (
+        {doc ? (
+          <path d={`M-40 ${headY + 34} Q-20 ${headY + 22} 0 ${headY + 30} Q20 ${headY + 22} 40 ${headY + 34} Q20 ${headY + 46} 0 ${headY + 38} Q-20 ${headY + 46} -40 ${headY + 34} Z`} fill="#6b4a30" stroke={K.ink} strokeWidth={4} />
+        ) : null}
+        {!girl && !doc ? (
           <g fill={K.ink} opacity={0.55}>
             {[...Array(26)].map((_, i) => {
               const t = i / 25;
@@ -443,6 +463,13 @@ export const HoseChar: React.FC<HoseCharProps> = ({
         <PieEye x={-32} y={headY - 18} look={lk} closed={blink} happy={happy} lashes={girl} side={-1} lid={lidUse} big={1 + surprise * 0.25} uid={id} />
         <PieEye x={32} y={headY - 18} look={lk} closed={blink || wink} happy={happy} lashes={girl} side={1} lid={lidUse * 0.6} big={1 + surprise * 0.25} uid={id} />
         {/* kaşlar */}
+        {doc ? (
+          <g fill="none" stroke={K.ink} strokeWidth={6}>
+            <circle cx={-32} cy={headY - 18} r={30} />
+            <circle cx={32} cy={headY - 18} r={30} />
+            <path d={`M-2 ${headY - 22} L2 ${headY - 22} M-62 ${headY - 24} L-96 ${headY - 10} M62 ${headY - 24} L96 ${headY - 10}`} />
+          </g>
+        ) : null}
         {girl ? (
           <path d={`M-48 ${headY - 58 - browUp * 6 - surprise * 14} q16 -10 32 -2 M16 ${headY - 60 - browUp * 6 - surprise * 14} q16 -8 32 2`} stroke={K.ink} strokeWidth={6} fill="none" strokeLinecap="round" />
         ) : null}
@@ -454,7 +481,7 @@ export const HoseChar: React.FC<HoseCharProps> = ({
         {girl ? (
           <g stroke={K.ink} strokeWidth={6} strokeLinejoin="round">
             {/* tepe + perdeli kâkül (dalgalı kenar) */}
-            <path d={`M-104 ${headY - 6} Q-110 ${headY - 112} 0 ${headY - 112} Q110 ${headY - 112} 104 ${headY - 6} Q92 ${headY - 40} 70 ${headY - 52} Q58 ${headY - 40} 40 ${headY - 58} Q22 ${headY - 46} 4 ${headY - 70} Q-16 ${headY - 46} -36 ${headY - 58} Q-56 ${headY - 40} -70 ${headY - 52} Q-92 ${headY - 40} -104 ${headY - 6} Z`} fill={K.mHair} />
+            <path d={`M-104 ${headY - 6} Q-110 ${headY - 112} 0 ${headY - 112} Q110 ${headY - 112} 104 ${headY - 6} Q92 ${headY - 40} 70 ${headY - 52} Q58 ${headY - 40} 40 ${headY - 58} Q22 ${headY - 46} 4 ${headY - 70} Q-16 ${headY - 46} -36 ${headY - 58} Q-56 ${headY - 40} -70 ${headY - 52} Q-92 ${headY - 40} -104 ${headY - 6} Z`} fill={hairC} />
             <path d={`M-40 ${headY - 96} Q-60 ${headY - 70} -64 ${headY - 56} M40 ${headY - 96} Q60 ${headY - 70} 64 ${headY - 56}`} stroke="#8a5a3a" strokeWidth={5} fill="none" />
             {beret ? (
               <g transform={`translate(0 ${-hatPop}) rotate(${-12 + surprise * 18} 0 ${headY - 110})`}>
@@ -466,6 +493,14 @@ export const HoseChar: React.FC<HoseCharProps> = ({
             ) : null}
           </g>
         ) : (
+          doc ? (
+          <g stroke={K.ink} strokeWidth={6} strokeLinejoin="round" transform={`translate(0 ${-hatPop}) rotate(${surprise * -10} 0 ${headY - 40})`}>
+            <ellipse cx={0} cy={headY - 50} rx={136} ry={30} fill="#e2cf9c" />
+            <path d={`M-96 ${headY - 54} Q-100 ${headY - 160} 0 ${headY - 162} Q100 ${headY - 160} 96 ${headY - 54} Z`} fill="#eadbb0" />
+            <path d={`M-96 ${headY - 70} Q0 ${headY - 90} 96 ${headY - 70} L96 ${headY - 54} Q0 ${headY - 74} -96 ${headY - 54} Z`} fill="#7a5a32" />
+            <circle cx={0} cy={headY - 162} r={8} fill="#eadbb0" />
+          </g>
+          ) : (
           <g stroke={K.ink} strokeWidth={6} strokeLinejoin="round" transform={`translate(0 ${-hatPop}) rotate(${surprise * -10} 0 ${headY - 40})`}>
             <path d={`M-98 ${headY - 44} Q-102 ${headY - 136} 0 ${headY - 138} Q102 ${headY - 136} 98 ${headY - 44} Z`} fill={K.cap} />
             <path d={`M0 ${headY - 138} L0 ${headY - 46} M-48 ${headY - 128} Q-60 ${headY - 90} -56 ${headY - 46} M48 ${headY - 128} Q60 ${headY - 90} 56 ${headY - 46}`} stroke="#3a3634" strokeWidth={3} fill="none" />
@@ -474,6 +509,7 @@ export const HoseChar: React.FC<HoseCharProps> = ({
             {/* siperlik */}
             <path d={`M-110 ${headY - 46} Q0 ${headY - 74} 110 ${headY - 46} Q100 ${headY - 16} 0 ${headY - 20} Q-100 ${headY - 16} -110 ${headY - 46} Z`} fill={K.cap} />
           </g>
+          )
         )}
       </g>
     </g>
