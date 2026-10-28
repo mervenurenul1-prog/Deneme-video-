@@ -24,24 +24,25 @@
     },
     {
       "visual": "kr-tarih",
-      "voice": "1995'te İngiltere Kraliçesi Elizabeth'in balmumu heykelini onarırken giysilerinin altından 1603'ten kalma bir korse çıktı. Korse yüzyıllarca takıldı; iskeletlerde kaburgalar içe bükülmüş çıktı: yağ gitmemiş, kemik yer değiştirmiş.",
-      "say": "1995'te İngiltere Kraliçesi Elizabeth'in balmumu heykelini onarırken giysilerinin altından 1603'ten kalma bir korse çıktı. Korse yüzyıllarca takıldı; iskeletlerde kaburgalar içe bükülmüş çıktı: yağ gitmemiş, kemik yer değiştirmiş.",
+      "voice": "1995'te Kraliçe Elizabeth'in balmumu heykeli onarılırken altından 1603'ten kalma bir korse çıktı. Daha eskisi 1598'de bir mezardan çıktı. Korseli kadınların iskeletlerinde kaburgalar içe bükülmüş: yağ gitmemiş, kemik yer değiştirmiş.",
+      "say": "1995'te Kraliçe Elizabeth'in balmumu heykeli onarılırken altından 1603'ten kalma bir korse çıktı. Daha eskisi, ıı, 1598'de bir mezardan çıktı. Korseli kadınların iskeletlerinde kaburgalar içe bükülmüş: yağ gitmemiş, kemik yer değiştirmiş.",
       "keys": [
         "Elizabeth'in",
         "1603'ten",
-        "korse",
+        "1598'de",
+        "mezardan",
         "kaburgalar",
         "kemik"
       ]
     },
     {
       "visual": "kr-sebep",
-      "voice": "Çünkü korse yağ eritmez, sadece sıkıştırır. Giden şey terdi; ilk bardak suyla geri gelir.",
-      "say": "Çünkü korse yağ eritmez, sadece sıkıştırır. Giden şey terdi; ilk bardak suyla geri gelir.",
+      "voice": "Çünkü korse yağ eritmez, sadece sıkıştırır; giden şey ter, ilk bardak suyla geri gelir.",
+      "say": "Çünkü korse yağ eritmez, sadece sıkıştırır; giden şey, hani, ter, ilk bardak suyla geri gelir.",
       "keys": [
         "eritmez,",
-        "sıkıştırır.",
-        "terdi;",
+        "sıkıştırır;",
+        "ter,",
         "bardak"
       ]
     },
@@ -57,8 +58,8 @@
     },
     {
       "visual": "kr-tavsiye",
-      "voice": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda biz buna vakum diyoruz.",
-      "say": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda biz buna vakum diyoruz.",
+      "voice": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda buna vakum diyoruz.",
+      "say": "Senin zaten doğuştan bir korsen var: ıı, karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda buna vakum diyoruz.",
       "keys": [
         "doğuştan",
         "korsen",
@@ -70,8 +71,8 @@
     },
     {
       "visual": "kr-son",
-      "voice": "İnce bel hedefini VOOM'daki koçuna söyle; vakumu programına o eklesin. Bunu korseyle spora giden arkadaşına gönder ve ona şunu söyle:",
-      "say": "İnce bel hedefini VOOM'daki koçuna söyle; vakumu programına o eklesin. Bunu korseyle spora giden arkadaşına gönder ve ona şunu söyle:",
+      "voice": "İnce bel hedefini VOOM'daki koçuna söyle, vakumu programına eklesin. Bunu korse takan arkadaşına gönder ve şunu söyle:",
+      "say": "İnce bel hedefini VOOM'daki koçuna söyle, vakumu programına eklesin. Bunu korse takan arkadaşına gönder ve şunu söyle:",
       "keys": [
         "VOOM'daki",
         "koçuna",
