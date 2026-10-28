@@ -6,6 +6,12 @@
 - Korse kaynakları (aranan): Gibson, *The Corseted Skeleton* (Springer; Londra St Bride's 1700-1900 iskeletleri, kaburga
   içe bükülmesi); korse + düşük kalori deneyi (CNN 2015 haberi: çoğu bıraktı, etki ölçülemedi; asıl makale BULUNAMADI);
   doktorlar: korse yağ hücresi yok etmez, çıkan su/ter. Metin v1 kullanıcıya sunuldu, onay bekleniyor.
+- **"Kenya muhabbeti" = TENYA HAPI** (kullanıcı hatırladı): korse döneminde (1800'ler sonu-1900'ler başı) "tenya hapı"
+  reklamları — bağırsakta kalan kurt yemeği yer, sen zayıflarsın. Haplarda gerçekten kurt var mıydı TARTIŞMALI (ünlü
+  "sanitized tape worms" reklamı sahte olabilir; 1912 Peoria vakası, Snopes/hoaxes.org belirsiz) → "iddia" diye anlat.
+  Kenya bağı: 2014 BBC belgeseli, İngiliz doktor-sunucu Nairobi mezbahasında inek dilinden 3 tenya kisti yuttu,
+  ~6 hafta taşıdı, ZAYIFLAMADI ~1 kg ALDI ("kurt iştahı açıyor olabilir"). İSİM YAZMA ("bir İngiliz doktor").
+  Korseye mi eklenecek, ayrı video mu — kullanıcıya soruldu.
 - Kullanıcının attığı haber (BPT): "Elon Musk: Hiçbir kız karın kaslarını 6 arabaya tercih etmez, salonu bırak işe git" +
   bir TV sunucusu "katılıyorum". Söz KAYNAKTA BULUNAMADI (uydurma olabilir). Kullanıcı "bunlardan birinde yer verelim mi,
   bilmiyorum". Karşı bilim: Kosteas 2012 (J Labor Res 33(2)), haftada 3+ spor yapanlar %6-10 daha çok kazanıyor.
