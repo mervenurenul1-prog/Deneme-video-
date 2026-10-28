@@ -23767,31 +23767,32 @@ const krHip = (belly: number) => 86 + 20 * belly;
 // back = arkadan görünüş (bağcıklar)
 const KrCorset: React.FC<{ belly: number; hooks?: number; off?: number; back?: boolean; glow?: number }> = ({ belly, hooks = 1, off = 0, back = false, glow = 0 }) => {
   if (off >= 1) return null;
-  const t = 102;
+  // göğüs altından (−515) kalçaya (−394): göğüs ve omuzlar açıkta kalır
+  const t = 90;
   const wst = krWaist(belly) + 6;
   const hb = krHip(belly) + 12;
-  const outline = `M${-t} -566 C${-t + 4} -520 ${-wst} -490 ${-wst} -462 C${-wst} -436 ${-hb} -420 ${-hb} -394 L${hb} -394 C${hb} -420 ${wst} -436 ${wst} -462 C${wst} -490 ${t - 4} -520 ${t} -566 Q0 -580 ${-t} -566 Z`;
-  const N = 8;
+  const outline = `M${-t} -515 C${-t + 2} -492 ${-wst} -480 ${-wst} -462 C${-wst} -436 ${-hb} -420 ${-hb} -394 L${hb} -394 C${hb} -420 ${wst} -436 ${wst} -462 C${wst} -480 ${t - 2} -492 ${t} -515 Q0 -530 ${-t} -515 Z`;
+  const N = 6;
   return (
     <g transform={`translate(${off * 30} ${off * 380}) rotate(${off * 24})`} opacity={1 - off * 0.3} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
       {glow > 0 ? <path d={outline} fill="none" stroke={C.red} strokeWidth={30} opacity={0.35 * glow} /> : null}
       <path d={outline} fill={KR_CORSET} strokeWidth={7} />
       {[-0.72, -0.4, 0.4, 0.72].map((k) => (
-        <path key={k} d={`M${k * t} -562 C${k * t} -520 ${k * wst} -490 ${k * wst} -462 C${k * wst} -436 ${k * hb} -420 ${k * hb} -400`} stroke="#5a4b55" strokeWidth={5} fill="none" />
+        <path key={k} d={`M${k * t} -512 C${k * t} -495 ${k * wst} -482 ${k * wst} -462 C${k * wst} -436 ${k * hb} -420 ${k * hb} -400`} stroke="#5a4b55" strokeWidth={5} fill="none" />
       ))}
-      <path d={`M${-t + 6} -565 Q0 -578 ${t - 6} -565 M${-hb + 6} -397 H${hb - 6}`} stroke={KR_TRIM} strokeWidth={9} fill="none" />
+      <path d={`M${-t + 6} -514 Q0 -527 ${t - 6} -514 M${-hb + 6} -397 H${hb - 6}`} stroke={KR_TRIM} strokeWidth={9} fill="none" />
       {back ? (
         <g stroke="#e9d6c0" strokeWidth={4} fill="none">
-          {Array.from({ length: 7 }, (_, i) => {
-            const y = -560 + i * 23;
+          {Array.from({ length: 5 }, (_, i) => {
+            const y = -508 + i * 22;
             return <path key={i} d={`M-14 ${y} L14 ${y + 20} M14 ${y} L-14 ${y + 20}`} />;
           })}
         </g>
       ) : (
         <g>
-          <rect x={-9} y={-570} width={18} height={176} fill="#e7d9c4" strokeWidth={4} />
+          <rect x={-9} y={-521} width={18} height={126} fill="#e7d9c4" strokeWidth={4} />
           {Array.from({ length: N }, (_, i) => {
-            const y = -560 + i * 21;
+            const y = -512 + i * 19;
             const on = hooks * N > i;
             return <rect key={i} x={on ? -12 : -6} y={y} width={on ? 24 : 12} height={9} rx={3} fill={on ? "#b9bcc4" : "#7d7f86"} strokeWidth={3} />;
           })}
@@ -24273,17 +24274,17 @@ const KrTarih: React.FC<SceneProps> = ({ w, d }) => {
 // Doğal korse (derin karın kası): korse biçiminde lacivert, yatay lifli şerit; glow ile parlar
 const KrMuscleBelt: React.FC<{ belly: number; p: number; glow: number }> = ({ belly, p, glow }) => {
   if (p <= 0) return null;
-  const t = 92;
+  const t = 86;
   const wst = krWaist(belly) - 2;
   const hb = krHip(belly) - 2;
-  const outline = `M${-t} -560 Q${-wst - 2} -500 ${-wst} -455 Q${-hb + 4} -420 ${-hb} -400 L${hb} -400 Q${hb - 4} -420 ${wst} -455 Q${wst + 2} -500 ${t} -560 Q0 -572 ${-t} -560 Z`;
+  const outline = `M${-t} -512 C${-t + 2} -490 ${-wst} -480 ${-wst} -460 C${-wst} -436 ${-hb + 4} -420 ${-hb} -400 L${hb} -400 C${hb - 4} -420 ${wst} -436 ${wst} -460 C${wst} -480 ${t - 2} -490 ${t} -512 Q0 -524 ${-t} -512 Z`;
   return (
     <g opacity={p}>
       {glow > 0 ? <path d={outline} fill="none" stroke="#7fb2ff" strokeWidth={34} opacity={0.45 * glow} /> : null}
       <path d={outline} fill={YAS_OK} stroke={C.ink} strokeWidth={6} opacity={0.88} />
-      {Array.from({ length: 7 }, (_, i) => {
-        const y = -548 + i * 22;
-        const hw = i < 4 ? lerp(t - 6, wst - 4, i / 4) : lerp(wst - 4, hb - 6, (i - 4) / 3);
+      {Array.from({ length: 5 }, (_, i) => {
+        const y = -500 + i * 22;
+        const hw = i < 2 ? lerp(t - 6, wst - 4, i / 2) : lerp(wst - 4, hb - 6, (i - 2) / 3);
         return <path key={i} d={`M${-hw + 6} ${y} Q0 ${y + 8} ${hw - 6} ${y}`} stroke="#9fc0ea" strokeWidth={5} fill="none" strokeLinecap="round" />;
       })}
     </g>
@@ -24315,7 +24316,7 @@ const KrTavsiye: React.FC<SceneProps> = ({ w, d }) => {
         <KrWoman belly={belly} mouth={breath > 0 && breath < 1 ? "o" : inn > 0.5 ? "flat" : "smile"} eyes={inn > 0.5 ? "closed" : "open"} armL={[12, 0]} armR={[12, 0]}>
           {xray > 0 ? (
             <g opacity={xray * 0.55}>
-              <path d={`M-104 -590 Q${-krWaist(belly) - 14} -470 ${-krWaist(belly)} -455 Q${-krHip(belly)} -410 ${-krHip(belly) - 6} -380 H${krHip(belly) + 6} Q${krHip(belly)} -410 ${krWaist(belly)} -455 Q${krWaist(belly) + 14} -470 104 -590 Z`} fill="#22313a" />
+              <path d={`M-96 -525 Q${-krWaist(belly) - 14} -480 ${-krWaist(belly)} -455 Q${-krHip(belly)} -410 ${-krHip(belly) - 6} -380 H${krHip(belly) + 6} Q${krHip(belly)} -410 ${krWaist(belly)} -455 Q${krWaist(belly) + 14} -480 96 -525 Z`} fill="#22313a" />
             </g>
           ) : null}
           <KrMuscleBelt belly={belly} p={xray} glow={inn} />
