@@ -5,7 +5,8 @@
   oyuncusu, saç ölçülmedi yalnız DHT; 2025 12 haftalık deney fark yok — DOĞRULA).
 - Korse kaynakları (aranan): Gibson, *The Corseted Skeleton* (Springer; Londra St Bride's 1700-1900 iskeletleri, kaburga
   içe bükülmesi); korse + düşük kalori deneyi (CNN 2015 haberi: çoğu bıraktı, etki ölçülemedi; asıl makale BULUNAMADI);
-  doktorlar: korse yağ hücresi yok etmez, çıkan su/ter. Metin v1 kullanıcıya sunuldu, onay bekleniyor.
+  doktorlar: korse yağ hücresi yok etmez, çıkan su/ter. Metin v3 (6 sahne `kr-*`, 33,5 sn) → sessiz önizleme `20-korse-sessiz.mp4` gönderildi, ONAY bekleniyor.
+  Sıradaki: TENYA metni (önce metin onayı), sonra kreatin.
 - **"Kenya muhabbeti" = TENYA HAPI** (kullanıcı hatırladı): korse döneminde (1800'ler sonu-1900'ler başı) "tenya hapı"
   reklamları — bağırsakta kalan kurt yemeği yer, sen zayıflarsın. Haplarda gerçekten kurt var mıydı TARTIŞMALI (ünlü
   "sanitized tape worms" reklamı sahte olabilir; 1912 Peoria vakası, Snopes/hoaxes.org belirsiz) → "iddia" diye anlat.
