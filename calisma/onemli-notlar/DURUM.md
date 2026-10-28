@@ -1,38 +1,31 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
-## >>> YENİ SOHBET BURADAN (28 Ekim akşam — EN GÜNCEL) <<<
-- **20 KORSE SESLENDİRİLDİ** (`cizim1-20-korse`, `kr-*`): kanca `kr-kanca2` "Korse takıyorsun…" → tarih (1995 Kraliçe Elizabeth'in
-  balmumu heykelinden 1603 korsesi, zengin kostüm; "Daha eskisi 1598'de bir mezardan çıktı" taş tabut; korseli kadın iskeletleri)
-  → sebep → ters köşe "Tek faydası: mideni sıkar, az yersin." → tavsiye + "Salonda buna vakum diyoruz." → VOOM sesle ("İnce bel
-  hedefini VOOM'daki koçuna söyle…", kullanıcı istedi) → "…gönder ve şunu söyle:" döngü. Yunus 1.2x, 40,5 sn →
-  `ornek-videolar/cizim1-pilot/20-korse.mp4`. Kullanıcıya 1.3x (≈37,5 sn) seçeneği sunuldu. Kalan kredi ≈ 10.785.
-- Dersler: tarih HASSAS — kesin olmayanı kesin söyleme (heykelin korsesi ≠ kraliçenin giydiği; Girit/Medici efsane);
-  kullanıcı reddettiği komut bazen yine de çalışıyor → diff'i kontrol et ve SÖYLE.
-- Sıradaki: TENYA (metin onayı bekliyor), sonra KREATİN SAÇ DÖKER Mİ.
-
 ## >>> YENİ SOHBET BURADAN (28 Ekim — EN GÜNCEL) <<<
-- **20 BEL KORSESİ SEÇİLDİ** (kullanıcı: "aferin"). Sıradaki video: **KREATİN SAÇ DÖKER Mİ** (2009 G. Afrika 20 ragbi
-  oyuncusu, saç ölçülmedi yalnız DHT; 2025 12 haftalık deney fark yok — DOĞRULA).
-- Korse kaynakları (aranan): Gibson, *The Corseted Skeleton* (Springer; Londra St Bride's 1700-1900 iskeletleri, kaburga
-  içe bükülmesi); korse + düşük kalori deneyi (CNN 2015 haberi: çoğu bıraktı, etki ölçülemedi; asıl makale BULUNAMADI);
-  doktorlar: korse yağ hücresi yok etmez, çıkan su/ter. v1 görüntüsü REDDEDİLDİ ("korse belden ince olur, Yunus'un beli açık saçma, görüntü berbat"). v2: selülit dünyası, KADIN ana
-  karakter (oda+ayna), kum saati korse (kopçalı, kıyafet üstünde), 8 sahne; ilk 3 cümle yeni (iç ses = KULLANICININ SESİ
-  `MalkCL6Ms3mHRGDVY6vZ`), sonrası onaylı eski metin ("yarın akşam"→"yarın sabah" döngü için). 37,8 sn (uzun, kullanıcı karar
-  verecek). Sessiz önizleme v2 gönderildi.
-  v3 (28 Ekim): korse referansa göre (göğüs altı→kalça, kopça sırası); kullanıcı "giriş uzun, kısa bilgi ver, hemen
-  tarihe geç, sonra tavsiye, düzeni bozma" → kanca `kr-kanca2` "Her gün korse takıyorsun ama sabah aynaya bakınca bel yine
-  aynı." → tarih → sebep → ters köşe → tavsiye → "…gönder ve ona şunu söyle:" (iç ses çıktı). ~31 sn, sessiz önizleme
-  `20-korse-sessiz.mp4`; eski sıra `20-korse-sessiz-eski-sira.mp4`. Onay → seslendirme. DERS: metni onaylandıysa DEĞİŞTİRME; şikâyet görüntüdeyse yalnız görüntüyü düzelt.
-  Sıradaki: TENYA metni (önce metin onayı), sonra kreatin.
-- **"Kenya muhabbeti" = TENYA HAPI** (kullanıcı hatırladı): korse döneminde (1800'ler sonu-1900'ler başı) "tenya hapı"
-  reklamları — bağırsakta kalan kurt yemeği yer, sen zayıflarsın. Haplarda gerçekten kurt var mıydı TARTIŞMALI (ünlü
-  "sanitized tape worms" reklamı sahte olabilir; 1912 Peoria vakası, Snopes/hoaxes.org belirsiz) → "iddia" diye anlat.
-  Kenya bağı: 2014 BBC belgeseli, İngiliz doktor-sunucu Nairobi mezbahasında inek dilinden 3 tenya kisti yuttu,
-  ~6 hafta taşıdı, ZAYIFLAMADI ~1 kg ALDI ("kurt iştahı açıyor olabilir"). İSİM YAZMA ("bir İngiliz doktor").
-  Korseye mi eklenecek, ayrı video mu — kullanıcıya soruldu.
-- Kullanıcının attığı haber (BPT): "Elon Musk: Hiçbir kız karın kaslarını 6 arabaya tercih etmez, salonu bırak işe git" +
-  bir TV sunucusu "katılıyorum". Söz KAYNAKTA BULUNAMADI (uydurma olabilir). Kullanıcı "bunlardan birinde yer verelim mi,
-  bilmiyorum". Karşı bilim: Kosteas 2012 (J Labor Res 33(2)), haftada 3+ spor yapanlar %6-10 daha çok kazanıyor.
+- **20 BEL KORSESİ BİTTİ** (`cizim1-20-korse`, sahneler `kr-*`; kaynaklar `arastirma/20-korse.md`). Son video
+  `ornek-videolar/cizim1-pilot/20-korse.mp4` (Yunus 1.2x + müzik + efekt, 40,8 sn). Onay bekliyor; kullanıcıya kredisiz
+  kısaltma önerildi: sesi 1.3x yap (≈37,5 sn; manifestteki mp3'lere ek atempo, süre/kelime zamanları buna göre).
+  Son metin (sırası kullanıcı onaylı: KISA KANCA → hemen TARİH → sebep → ters köşe → tavsiye → VOOM → döngü):
+  1 `kr-kanca2` "Korse takıyorsun ama sabah aynaya bakınca bel yine aynı."
+  2 `kr-tarih` "1995'te Kraliçe Elizabeth'in balmumu heykeli onarılırken altından 1603'ten kalma bir korse çıktı. Daha eskisi
+    1598'de bir mezardan çıktı. Korseli kadınların iskeletlerinde kaburgalar içe bükülmüş: yağ gitmemiş, kemik yer değiştirmiş."
+  3 `kr-sebep` "Çünkü korse yağ eritmez, sadece sıkıştırır; giden şey ter, ilk bardak suyla geri gelir."
+  4 `kr-terskose` "Tek faydası: mideni sıkar, az yersin." (kullanıcı: ters köşe KALSIN ama kısa)
+  5 `kr-tavsiye` "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut.
+    Salonda buna vakum diyoruz." (kullanıcı: hareketin salondaki adı VAKUM söylensin; ekranda büyük lacivert VAKUM)
+  6 `kr-son` "İnce bel hedefini VOOM'daki koçuna söyle, vakumu programına eklesin. Bunu korse takan arkadaşına gönder ve
+    şunu söyle:" (VOOM SESLE — kullanıcı istedi; telefonda "+ Vakum · 10 sn" satırı + tik) → ilk kareye döngü.
+  Görsel: selülit dünyası (SelRoom/SelMirror), KADIN ana karakter (`KrWoman`, kıyafet üstünde gerçek bel korsesi `KrCorset`:
+  göğüs altı → kalça, belde daralır, ön kopça sırası, dikey doku; kullanıcının attığı mağaza fotoğrafı referans). Müze: zengin
+  kostümlü Elizabeth balmumu heykeli (`KrQueen`: bordo kadife, altın brokar, inci, mücevherli göğüslük, dantel yaka, taç),
+  beyaz eldivenli el göğüslüğü kaldırır → 1603 korsesi; `KrTomb` mum ışığında taş tabut "1598 · en eski korse"; iskelet vitrini
+  `KrRibs` (alt kaburgalar içe büküp kırmızı). Eski/kullanılmayan sahneler kodda duruyor (`kr-sabah`, `kr-ertesi`, `kr-ic`).
+  Elizabeth adı SESTE ve EKRANDA (kullanıcı onayı; 400 yıllık tarihî kişi — kural istisnası).
+- Kalan ElevenLabs kredisi ≈ 10.785 (28 Ekim, korse sonrası).
+- **SIRADAKİ:** 21 TENYA (metin onay bekliyor, `arastirma/21-tenya.md`), sonra 22 KREATİN SAÇ DÖKER Mİ (`konular/ONERILER.md`).
+- Kullanıcının attığı haber (BPT/Kafa TV): "Elon Musk: Hiçbir kız karın kaslarını 6 arabaya tercih etmez, salonu bırak işe git"
+  + bir TV sunucusu "katılıyorum". Söz hiçbir kaynakta BULUNAMADI (uydurma olabilir) → korseye konmadı. İleride ayrı video
+  olabilir: "Salonu bırak işe git" diyenlere cevap — Kosteas 2012 (J Labor Res 33(2):225-250, NLSY79): haftada 3+ gün spor
+  yapanlar %6-10 daha çok kazanıyor (isim vermeden).
 
 ## >>> YENİ SOHBET BURADAN (27 Ekim — EN GÜNCEL) <<<
 - **19 TÜP MİDE** (`cizim1-19-tup-mide`, `tm-*`): ekip arkadaşının "tartı her şeyi söylemiyor" videosundan uyarlama
@@ -98,4 +91,4 @@ start/end /1.2, manifeste `"speed": 1.2` → `npm run render -- <id>` → `out/<
 
 ## Biten videolar (`ornek-videolar/cizim1-pilot/`)
 01 yağ nereye · 02 tartı · 03 on bin adım · 04 kadın-ağırlık · 05 boyun(-b) · 06 diz · 07 yaş · 09 kilo-hangimiz ·
-10 selülit (EN BEĞENİLEN) · 12 spot ışığı · 13 kardiyo · 15 doğum · 16 hafta sonu. 08 sauna paylaşıldı (dosyaları silindi, 25 Ekim).
+10 selülit (EN BEĞENİLEN) · 12 spot ışığı · 13 kardiyo · 15 doğum · 16 hafta sonu · 17 iğne · 20 korse. 08 sauna paylaşıldı (dosyaları silindi, 25 Ekim).

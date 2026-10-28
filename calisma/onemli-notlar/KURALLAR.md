@@ -33,6 +33,17 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
   - Kullanıcının istediği ekran yazısını da birebir koyma, geliştir (ör. "tek tuşla cebinde" → "VOOM'la bir dokunuş uzakta").
   - Gerçek kişi çizilirken kıyafet haberdeki gibi (ör. şapka, kapüşon); emin olmadığın fiziksel ayrıntıyı (gençlikte sakal) ekleme.
 
+- **28 Ekim dersleri (korse):**
+  - Konu önerisi: klişe/herkesin yaptığı konular YOK; önce `konular/ONERILER.md` reddedilenlere bak.
+  - Onaylanmış metni DEĞİŞTİRME; şikâyet görüntüdeyse yalnız görüntüyü düzelt. Metin değişikliğini sor.
+  - Giriş KISA (tek cümle), hemen TARİHE geç (izleyiciyi tarih tutar), sonra sebep/tavsiye; düzeni bozma.
+  - Görüntü kalitesi = selülit seviyesi: dolu, yaşanmış mekân (oda, ayna, müze), kadın konusunda kadın ana karakter,
+    nesneler GERÇEKÇİ (korse göğüs altından kalçaya, belde daralır; referans görsel gelirse birebir uy). Avatarın belini/
+    vücudunu açma.
+  - Tarih HASSAS: kesin olmayanı kesin söyleme; efsaneleri (Girit, Medici) kullanma; her ifadenin dayanağını yaz.
+  - Seslendirmede tahmin süresi gerçek sesten kısa çıkabiliyor (korse: tahmin ~37, gerçek 40,5) → payı hesaba kat.
+  - Kullanıcının reddettiği (durdurduğu) komut bazen yine de çalışmış oluyor → `git diff` ile kontrol et ve kullanıcıya SÖYLE.
+
 ## Hangi videolar tuttu (kullanıcı, 23 Ekim)
 - EN BEĞENİLEN: 10 selülit. EN AZ SEVİLEN: 03 on bin adım ve 06 diz/koşu. Selülit tarzında ilerle.
 
