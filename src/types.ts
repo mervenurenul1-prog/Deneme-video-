@@ -93,7 +93,8 @@ export type Explainer = {
 // lead: ses başlamadan önce sahnenin sessiz açılış süresi (saniye), ör. konuşmadan önce koşu
 // hold: ses bittikten sonra sahnenin kısa süre daha devam etmesi (saniye), ör. hareketin son tekrarı
 // intro: sahnenin başında, asıl sesten önce çalan ayrı kısa seslendirme (ör. kanca cümlesi); asıl ses onun ardından başlar
-export type CizimScene = { visual: string; voice: string; say?: string; lead?: number; hold?: number; intro?: { voice: string; say?: string }; data?: Record<string, unknown> };
+// keys: altyazıda farklı renkte vurgulanan önemli kelimeler
+export type CizimScene = { visual: string; voice: string; say?: string; lead?: number; hold?: number; intro?: { voice: string; say?: string }; keys?: string[]; data?: Record<string, unknown> };
 
 export type Cizim = {
   id: string;
@@ -110,6 +111,8 @@ export type Cizim = {
   loop?: boolean;
   // Sahne sonunda ses bittikten sonra bırakılan boşluk (saniye); yoksa VIDEO.paddingSeconds. Tempo için kısalt
   padding?: number;
+  // Ses seslendirmeden sonra bu oranda hızlandırılır (ör. 1.2); sessiz önizleme süresi de buna göre
+  speed?: number;
   scenes: CizimScene[];
   caption: string;
   hashtags: string[];

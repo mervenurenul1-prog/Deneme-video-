@@ -1,0 +1,451 @@
+{
+  "scenes": [
+    {
+      "voice": "Salonda yüz kilo kaldırıyor… ama üç kat merdivende nefes nefese.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-13-kardiyo/1-mvmsnp6h.mp3",
+      "durationInSeconds": 3.896598333333334,
+      "words": [
+        {
+          "word": "Salonda",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "yüz",
+          "start": 0.46666666666666673,
+          "end": 0.6
+        },
+        {
+          "word": "kilo",
+          "start": 0.6666666666666667,
+          "end": 0.8
+        },
+        {
+          "word": "kaldırıyor…",
+          "start": 0.8666666666666667,
+          "end": 1.6666666666666667
+        },
+        {
+          "word": "ama",
+          "start": 1.8000000000000003,
+          "end": 1.9333333333333333
+        },
+        {
+          "word": "üç",
+          "start": 2.1333333333333333,
+          "end": 2.2333333333333334
+        },
+        {
+          "word": "kat",
+          "start": 2.266666666666667,
+          "end": 2.4
+        },
+        {
+          "word": "merdivende",
+          "start": 2.466666666666667,
+          "end": 2.9333333333333336
+        },
+        {
+          "word": "nefes",
+          "start": 3,
+          "end": 3.2666666666666666
+        },
+        {
+          "word": "nefese.",
+          "start": 3.3333333333333335,
+          "end": 3.933333333333333
+        }
+      ]
+    },
+    {
+      "voice": "Çünkü ona göre kardiyo kız işi.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-13-kardiyo/2-mvmtod16.mp3",
+      "durationInSeconds": 2.329251666666667,
+      "words": [
+        {
+          "word": "Çünkü",
+          "start": 0.0,
+          "end": 0.33333333333333337
+        },
+        {
+          "word": "ona",
+          "start": 0.5333333333333333,
+          "end": 0.7333333333333334
+        },
+        {
+          "word": "göre",
+          "start": 0.7666666666666667,
+          "end": 1.0
+        },
+        {
+          "word": "kardiyo",
+          "start": 1.2182000000000002,
+          "end": 1.6182
+        },
+        {
+          "word": "kız",
+          "start": 1.6848666666666667,
+          "end": 1.8181999999999998
+        },
+        {
+          "word": "işi.",
+          "start": 1.8515333333333333,
+          "end": 2.3515333333333333
+        }
+      ]
+    },
+    {
+      "voice": "Oysa aerobik kelimesini bir askeri doktor buldu, pilotlar için.",
+      "say": "Oysa ıı, aerobik kelimesini bir askeri doktor buldu... pilotlar için.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-13-kardiyo/3-mvmsns0e.mp3",
+      "durationInSeconds": 4.157823333333334,
+      "words": [
+        {
+          "word": "Oysa",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "aerobik",
+          "start": 1,
+          "end": 1.3333333333333335
+        },
+        {
+          "word": "kelimesini",
+          "start": 1.4,
+          "end": 1.9333333333333333
+        },
+        {
+          "word": "bir",
+          "start": 2,
+          "end": 2.1333333333333333
+        },
+        {
+          "word": "askeri",
+          "start": 2.2,
+          "end": 2.5333333333333337
+        },
+        {
+          "word": "doktor",
+          "start": 2.566666666666667,
+          "end": 2.8666666666666667
+        },
+        {
+          "word": "buldu,",
+          "start": 2.9333333333333336,
+          "end": 3.313283333333334
+        },
+        {
+          "word": "pilotlar",
+          "start": 3.3466166666666672,
+          "end": 3.6466166666666666
+        },
+        {
+          "word": "için.",
+          "start": 3.7132833333333335,
+          "end": 4.179950000000001
+        }
+      ]
+    },
+    {
+      "voice": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakikalık testte dünyanın en iyi futbolcusu bile ‘çok iyi’ alamadı. Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil; kupa işi.",
+      "say": "Sonra Brezilya milli takımı bu yöntemle koştu. On iki dakikalık testte dünyanın en iyi futbolcusu bile... ‘çok iyi’ alamadı. [chuckles] Ve yetmişte Dünya Kupası'nı kaldırdılar. Kardiyo kız işi değil... [confident] Kupa işi!",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-13-kardiyo/4-mvmtofwa.mp3",
+      "durationInSeconds": 10.971428333333334,
+      "words": [
+        {
+          "word": "Sonra",
+          "start": 0.0,
+          "end": 0.33333333333333337
+        },
+        {
+          "word": "Brezilya",
+          "start": 0.46666666666666673,
+          "end": 0.8
+        },
+        {
+          "word": "milli",
+          "start": 0.8666666666666667,
+          "end": 1.0
+        },
+        {
+          "word": "takımı",
+          "start": 1.0666666666666667,
+          "end": 1.3333333333333335
+        },
+        {
+          "word": "bu",
+          "start": 1.3666666666666667,
+          "end": 1.4
+        },
+        {
+          "word": "yöntemle",
+          "start": 1.4666666666666668,
+          "end": 1.866666666666667
+        },
+        {
+          "word": "koştu.",
+          "start": 1.9333333333333333,
+          "end": 2.331325
+        },
+        {
+          "word": "On",
+          "start": 2.4774000000000003,
+          "end": 2.544066666666667
+        },
+        {
+          "word": "iki",
+          "start": 2.6107333333333336,
+          "end": 2.6774000000000004
+        },
+        {
+          "word": "dakikalık",
+          "start": 2.744066666666667,
+          "end": 3.144066666666667
+        },
+        {
+          "word": "testte",
+          "start": 3.2774000000000005,
+          "end": 3.5440666666666676
+        },
+        {
+          "word": "dünyanın",
+          "start": 3.6773999999999996,
+          "end": 4.144066666666667
+        },
+        {
+          "word": "en",
+          "start": 4.210733333333334,
+          "end": 4.2774
+        },
+        {
+          "word": "iyi",
+          "start": 4.310733333333334,
+          "end": 4.410733333333334
+        },
+        {
+          "word": "futbolcusu",
+          "start": 4.444066666666668,
+          "end": 4.944066666666668
+        },
+        {
+          "word": "bile",
+          "start": 5.0332333333333334,
+          "end": 5.423866666666668
+        },
+        {
+          "word": "‘çok",
+          "start": 5.446366666666668,
+          "end": 5.623866666666668
+        },
+        {
+          "word": "iyi’",
+          "start": 5.690533333333335,
+          "end": 5.890533333333336
+        },
+        {
+          "word": "alamadı.",
+          "start": 6.023866666666668,
+          "end": 6.401366666666668
+        },
+        {
+          "word": "Ve",
+          "start": 7.090533333333335,
+          "end": 7.157200000000001
+        },
+        {
+          "word": "yetmişte",
+          "start": 7.223866666666667,
+          "end": 7.690533333333334
+        },
+        {
+          "word": "Dünya",
+          "start": 7.823866666666667,
+          "end": 8.023866666666668
+        },
+        {
+          "word": "Kupası'nı",
+          "start": 8.090533333333335,
+          "end": 8.3572
+        },
+        {
+          "word": "kaldırdılar.",
+          "start": 8.423866666666669,
+          "end": 9.023866666666667
+        },
+        {
+          "word": "Kardiyo",
+          "start": 9.148616666666667,
+          "end": 9.48195
+        },
+        {
+          "word": "kız",
+          "start": 9.548616666666668,
+          "end": 9.68195
+        },
+        {
+          "word": "işi",
+          "start": 9.715283333333334,
+          "end": 9.815283333333333
+        },
+        {
+          "word": "değil;",
+          "start": 9.88195,
+          "end": 10.202033333333333
+        },
+        {
+          "word": "kupa",
+          "start": 10.259533333333334,
+          "end": 10.4687
+        },
+        {
+          "word": "işi.",
+          "start": 10.535366666666667,
+          "end": 11.002033333333333
+        }
+      ]
+    },
+    {
+      "voice": "Kalp de bir kas: haftada iki gün, antrenman sonuna on beş dakika koşu.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-13-kardiyo/5-mvmtohbk.mp3",
+      "durationInSeconds": 3.983673333333334,
+      "words": [
+        {
+          "word": "Kalp",
+          "start": 0.0,
+          "end": 0.23333333333333336
+        },
+        {
+          "word": "de",
+          "start": 0.26666666666666666,
+          "end": 0.33333333333333337
+        },
+        {
+          "word": "bir",
+          "start": 0.4,
+          "end": 0.46666666666666673
+        },
+        {
+          "word": "kas:",
+          "start": 0.5333333333333333,
+          "end": 0.9495333333333333
+        },
+        {
+          "word": "haftada",
+          "start": 1.0289666666666666,
+          "end": 1.3623
+        },
+        {
+          "word": "iki",
+          "start": 1.4289666666666665,
+          "end": 1.5623
+        },
+        {
+          "word": "gün,",
+          "start": 1.6289666666666667,
+          "end": 1.9623
+        },
+        {
+          "word": "antrenman",
+          "start": 2.028966666666667,
+          "end": 2.428966666666667
+        },
+        {
+          "word": "sonuna",
+          "start": 2.4956333333333336,
+          "end": 2.8289666666666666
+        },
+        {
+          "word": "on",
+          "start": 2.8956333333333335,
+          "end": 2.9623
+        },
+        {
+          "word": "beş",
+          "start": 3.028966666666667,
+          "end": 3.128966666666667
+        },
+        {
+          "word": "dakika",
+          "start": 3.1623,
+          "end": 3.495633333333334
+        },
+        {
+          "word": "koşu.",
+          "start": 3.5623000000000005,
+          "end": 4.028966666666667
+        }
+      ]
+    },
+    {
+      "voice": "Bunu “kardiyo kız işi” diyen arkadaşına gönder. Çünkü o da:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-13-kardiyo/6-mvmsnxy6.mp3",
+      "durationInSeconds": 3.2653058333333336,
+      "words": [
+        {
+          "word": "Bunu",
+          "start": 0,
+          "end": 0.26666666666666666
+        },
+        {
+          "word": "“kardiyo",
+          "start": 0.46666666666666673,
+          "end": 0.8
+        },
+        {
+          "word": "kız",
+          "start": 0.9333333333333335,
+          "end": 1.0666666666666667
+        },
+        {
+          "word": "işi”",
+          "start": 1.1,
+          "end": 1.2666666666666668
+        },
+        {
+          "word": "diyen",
+          "start": 1.3,
+          "end": 1.4
+        },
+        {
+          "word": "arkadaşına",
+          "start": 1.4666666666666668,
+          "end": 1.9333333333333333
+        },
+        {
+          "word": "gönder.",
+          "start": 1.9666666666666666,
+          "end": 2.4330583333333333
+        },
+        {
+          "word": "Çünkü",
+          "start": 2.496125,
+          "end": 2.7627916666666668
+        },
+        {
+          "word": "o",
+          "start": 2.796125,
+          "end": 2.8294583333333336
+        },
+        {
+          "word": "da:",
+          "start": 2.896125,
+          "end": 3.2961250000000004
+        }
+      ]
+    }
+  ],
+  "speed": 1.2
+}

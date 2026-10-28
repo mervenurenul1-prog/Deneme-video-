@@ -1,0 +1,541 @@
+{
+  "scenes": [
+    {
+      "voice": "Zayıflama iğnesi kullanıyorsun ama sabah tarakta saç, öğlen midende bulantı, akşam merdivende soluk soluğa.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-17-igne/1-mvpgc9m4.mp3",
+      "durationInSeconds": 6.029932,
+      "words": [
+        {
+          "word": "Zayıflama",
+          "start": 0.0,
+          "end": 0.4667
+        },
+        {
+          "word": "iğnesi",
+          "start": 0.5,
+          "end": 0.7333
+        },
+        {
+          "word": "kullanıyorsun",
+          "start": 0.7667,
+          "end": 1.3333
+        },
+        {
+          "word": "ama",
+          "start": 1.5333,
+          "end": 1.7333
+        },
+        {
+          "word": "sabah",
+          "start": 1.8,
+          "end": 2.0
+        },
+        {
+          "word": "tarakta",
+          "start": 2.0667,
+          "end": 2.4667
+        },
+        {
+          "word": "saç,",
+          "start": 2.5667,
+          "end": 3.0
+        },
+        {
+          "word": "öğlen",
+          "start": 3.0667,
+          "end": 3.2667
+        },
+        {
+          "word": "midende",
+          "start": 3.3667,
+          "end": 3.6667
+        },
+        {
+          "word": "bulantı,",
+          "start": 3.7333,
+          "end": 4.4
+        },
+        {
+          "word": "akşam",
+          "start": 4.4667,
+          "end": 4.7333
+        },
+        {
+          "word": "merdivende",
+          "start": 4.8,
+          "end": 5.2
+        },
+        {
+          "word": "soluk",
+          "start": 5.2667,
+          "end": 5.4667
+        },
+        {
+          "word": "soluğa.",
+          "start": 5.5333,
+          "end": 6.0667
+        }
+      ]
+    },
+    {
+      "voice": "Tartı düşüyor ama ilacın onay aldığı iki bin kişilik deneyde her on kilonun dördü yağ değildi.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-17-igne/2-mvpgcbo1.mp3",
+      "durationInSeconds": 5.768708,
+      "words": [
+        {
+          "word": "Tartı",
+          "start": 0.0,
+          "end": 0.3
+        },
+        {
+          "word": "düşüyor",
+          "start": 0.3333,
+          "end": 0.7333
+        },
+        {
+          "word": "ama",
+          "start": 1.0,
+          "end": 1.2
+        },
+        {
+          "word": "ilacın",
+          "start": 1.4,
+          "end": 1.7333
+        },
+        {
+          "word": "onay",
+          "start": 1.8,
+          "end": 1.9333
+        },
+        {
+          "word": "aldığı",
+          "start": 2.0,
+          "end": 2.2667
+        },
+        {
+          "word": "iki",
+          "start": 2.3333,
+          "end": 2.4667
+        },
+        {
+          "word": "bin",
+          "start": 2.5333,
+          "end": 2.6
+        },
+        {
+          "word": "kişilik",
+          "start": 2.6667,
+          "end": 2.9333
+        },
+        {
+          "word": "deneyde",
+          "start": 3.0,
+          "end": 3.4
+        },
+        {
+          "word": "her",
+          "start": 3.6,
+          "end": 3.8
+        },
+        {
+          "word": "on",
+          "start": 3.8667,
+          "end": 4.0
+        },
+        {
+          "word": "kilonun",
+          "start": 4.0667,
+          "end": 4.4
+        },
+        {
+          "word": "dördü",
+          "start": 4.4667,
+          "end": 4.8
+        },
+        {
+          "word": "yağ",
+          "start": 5.0,
+          "end": 5.1333
+        },
+        {
+          "word": "değildi.",
+          "start": 5.2,
+          "end": 5.8
+        }
+      ]
+    },
+    {
+      "voice": "Asıl tuzak, iğneyi bıraktığın gün başlıyor: çoğu kişi bir yıl dolmadan bırakıyor ve kilonun üçte ikisi geri geliyor.",
+      "say": "Asıl tuzak, ıı, iğneyi bıraktığın gün başlıyor: çoğu kişi bir yıl dolmadan bırakıyor ve kilonun üçte ikisi geri geliyor.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-17-igne/3-mvpgce33.mp3",
+      "durationInSeconds": 6.530613,
+      "words": [
+        {
+          "word": "Asıl",
+          "start": 0.0,
+          "end": 0.2667
+        },
+        {
+          "word": "tuzak,",
+          "start": 0.3333,
+          "end": 0.8
+        },
+        {
+          "word": "iğneyi",
+          "start": 1.1333,
+          "end": 1.4333
+        },
+        {
+          "word": "bıraktığın",
+          "start": 1.4667,
+          "end": 1.8667
+        },
+        {
+          "word": "gün",
+          "start": 1.9333,
+          "end": 2.0667
+        },
+        {
+          "word": "başlıyor:",
+          "start": 2.1333,
+          "end": 2.6162
+        },
+        {
+          "word": "çoğu",
+          "start": 2.6829,
+          "end": 2.8162
+        },
+        {
+          "word": "kişi",
+          "start": 2.8829,
+          "end": 3.1495
+        },
+        {
+          "word": "bir",
+          "start": 3.2829,
+          "end": 3.4162
+        },
+        {
+          "word": "yıl",
+          "start": 3.4829,
+          "end": 3.5495
+        },
+        {
+          "word": "dolmadan",
+          "start": 3.6162,
+          "end": 4.0162
+        },
+        {
+          "word": "bırakıyor",
+          "start": 4.0829,
+          "end": 4.4829
+        },
+        {
+          "word": "ve",
+          "start": 4.6829,
+          "end": 4.7495
+        },
+        {
+          "word": "kilonun",
+          "start": 4.8162,
+          "end": 5.2162
+        },
+        {
+          "word": "üçte",
+          "start": 5.2495,
+          "end": 5.4829
+        },
+        {
+          "word": "ikisi",
+          "start": 5.5495,
+          "end": 5.7495
+        },
+        {
+          "word": "geri",
+          "start": 5.8162,
+          "end": 5.9495
+        },
+        {
+          "word": "geliyor.",
+          "start": 6.0162,
+          "end": 6.5495
+        }
+      ]
+    },
+    {
+      "voice": "Kilo kendiliğinden döner; giden kası ise ancak çalışarak geri alırsın.",
+      "say": "Kilo kendiliğinden döner; giden kası ise... hani, ancak çalışarak geri alırsın.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-17-igne/4-mvpgcg35.mp3",
+      "durationInSeconds": 4.680273,
+      "words": [
+        {
+          "word": "Kilo",
+          "start": 0.0,
+          "end": 0.2
+        },
+        {
+          "word": "kendiliğinden",
+          "start": 0.2667,
+          "end": 0.8
+        },
+        {
+          "word": "döner;",
+          "start": 0.8667,
+          "end": 1.3992
+        },
+        {
+          "word": "giden",
+          "start": 1.4658,
+          "end": 1.7325
+        },
+        {
+          "word": "kası",
+          "start": 1.8325,
+          "end": 1.9992
+        },
+        {
+          "word": "ise",
+          "start": 2.1658,
+          "end": 2.6659
+        },
+        {
+          "word": "ancak",
+          "start": 3.1325,
+          "end": 3.4659
+        },
+        {
+          "word": "çalışarak",
+          "start": 3.5325,
+          "end": 3.9325
+        },
+        {
+          "word": "geri",
+          "start": 3.9992,
+          "end": 4.1325
+        },
+        {
+          "word": "alırsın.",
+          "start": 4.1658,
+          "end": 4.7325
+        }
+      ]
+    },
+    {
+      "voice": "Yine de iğneyi tercih edeceksen kasını koru: haftada iki üç gün ağırlık çalış, her öğünde protein ye, ilacı doktorunla planla.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-17-igne/5-mvpgcie6.mp3",
+      "durationInSeconds": 6.378232,
+      "words": [
+        {
+          "word": "Yine",
+          "start": 0.0,
+          "end": 0.1558
+        },
+        {
+          "word": "de",
+          "start": 0.2,
+          "end": 0.3333
+        },
+        {
+          "word": "iğneyi",
+          "start": 0.4,
+          "end": 0.8
+        },
+        {
+          "word": "tercih",
+          "start": 0.8333,
+          "end": 1.1333
+        },
+        {
+          "word": "edeceksen",
+          "start": 1.2,
+          "end": 1.6667
+        },
+        {
+          "word": "kasını",
+          "start": 1.7333,
+          "end": 2.0
+        },
+        {
+          "word": "koru:",
+          "start": 2.0667,
+          "end": 2.3594
+        },
+        {
+          "word": "haftada",
+          "start": 2.4594,
+          "end": 2.7594
+        },
+        {
+          "word": "iki",
+          "start": 2.826,
+          "end": 2.8927
+        },
+        {
+          "word": "üç",
+          "start": 2.9594,
+          "end": 3.0594
+        },
+        {
+          "word": "gün",
+          "start": 3.0927,
+          "end": 3.226
+        },
+        {
+          "word": "ağırlık",
+          "start": 3.2927,
+          "end": 3.5594
+        },
+        {
+          "word": "çalış,",
+          "start": 3.626,
+          "end": 4.0348
+        },
+        {
+          "word": "her",
+          "start": 4.1015,
+          "end": 4.1681
+        },
+        {
+          "word": "öğünde",
+          "start": 4.2348,
+          "end": 4.4348
+        },
+        {
+          "word": "protein",
+          "start": 4.5015,
+          "end": 4.8348
+        },
+        {
+          "word": "ye,",
+          "start": 4.9015,
+          "end": 5.0846
+        },
+        {
+          "word": "ilacı",
+          "start": 5.1513,
+          "end": 5.3513
+        },
+        {
+          "word": "doktorunla",
+          "start": 5.4179,
+          "end": 5.8179
+        },
+        {
+          "word": "planla.",
+          "start": 5.9513,
+          "end": 6.4179
+        }
+      ]
+    },
+    {
+      "voice": "Çünkü iğne sadece kilonu alır; kasını korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-17-igne/6-mvpgckrf.mp3",
+      "durationInSeconds": 6.051701,
+      "words": [
+        {
+          "word": "Çünkü",
+          "start": 0.0,
+          "end": 0.2667
+        },
+        {
+          "word": "iğne",
+          "start": 0.3333,
+          "end": 0.6
+        },
+        {
+          "word": "sadece",
+          "start": 0.6333,
+          "end": 1.0
+        },
+        {
+          "word": "kilonu",
+          "start": 1.0333,
+          "end": 1.3
+        },
+        {
+          "word": "alır;",
+          "start": 1.3333,
+          "end": 1.7737
+        },
+        {
+          "word": "kasını",
+          "start": 1.8737,
+          "end": 2.107
+        },
+        {
+          "word": "korumak",
+          "start": 2.1737,
+          "end": 2.4404
+        },
+        {
+          "word": "senin",
+          "start": 2.507,
+          "end": 2.707
+        },
+        {
+          "word": "işin.",
+          "start": 2.7737,
+          "end": 3.0222
+        },
+        {
+          "word": "Bunu",
+          "start": 3.0889,
+          "end": 3.2222
+        },
+        {
+          "word": "iğneye",
+          "start": 3.2556,
+          "end": 3.4889
+        },
+        {
+          "word": "başlayan",
+          "start": 3.5556,
+          "end": 3.8222
+        },
+        {
+          "word": "arkadaşına",
+          "start": 3.8889,
+          "end": 4.2889
+        },
+        {
+          "word": "gönder",
+          "start": 4.3556,
+          "end": 4.6889
+        },
+        {
+          "word": "ve",
+          "start": 4.8889,
+          "end": 5.0222
+        },
+        {
+          "word": "ona",
+          "start": 5.1556,
+          "end": 5.2889
+        },
+        {
+          "word": "şunu",
+          "start": 5.3556,
+          "end": 5.5556
+        },
+        {
+          "word": "söyle:",
+          "start": 5.5889,
+          "end": 6.0889
+        }
+      ]
+    }
+  ],
+  "speed": 1.2
+}

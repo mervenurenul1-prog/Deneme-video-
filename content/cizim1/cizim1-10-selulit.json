@@ -1,0 +1,83 @@
+{
+  "id": "cizim1-10-selulit",
+  "title": "Selülit bir kusur mu?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.05,
+  "scenes": [
+    {
+      "visual": "sel-reklam",
+      "voice": "Yedi günde pürüzsüz bacaklar!",
+      "say": "[excited] Yedi günde pürüzsüz bacaklar!",
+      "hold": 1.2
+    },
+    {
+      "visual": "sel-hook",
+      "voice": "Haftada dört gün spor yapıyorsun ama o portakal kabuğu hâlâ orada.",
+      "say": "Haftada dört gün spor yapıyorsun... ama o portakal kabuğu hâlâ orada."
+    },
+    {
+      "visual": "sel-esi",
+      "voice": "Yanındaki dün başladı, onda yok.",
+      "say": "Yanındaki dün başladı... onda yok."
+    },
+    {
+      "visual": "sel-ic",
+      "voice": "Ben ondan çok çalışıyorum!",
+      "say": "[frustrated] Ben ondan çok çalışıyorum!",
+      "voiceId": "qLdPxFtPuffoxx5gieBJ"
+    },
+    {
+      "visual": "sel-haklisin",
+      "voice": "Haklısın. Sorun derinin altında.",
+      "say": "Haklısın. [curious] Sorun... derinin altında."
+    },
+    {
+      "visual": "sel-kadin",
+      "voice": "Orada yağı bölen ipler var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker.",
+      "say": "Orada, yağı bölen ipler var. Kadınlarda dimdik durur: yağı yukarı iter, deriyi aşağı çeker."
+    },
+    {
+      "visual": "sel-erkek",
+      "voice": "Erkeklerde çapraz örülür, deri düz kalır.",
+      "say": "Erkeklerde çapraz örülür, deri düz kalır."
+    },
+    {
+      "visual": "sel-yaygin",
+      "voice": "Bu yüzden on kadından sekiz-dokuzunda var.",
+      "say": "Bu yüzden on kadından sekiz-dokuzunda var."
+    },
+    {
+      "visual": "sel-dergi",
+      "voice": "Bu kusur fikri mi? Bin dokuz yüz altmış sekizde bir moda dergisinden çıktı.",
+      "say": "[curious] Bu kusur fikri mi? Bin dokuz yüz altmış sekizde... bir moda dergisinden çıktı."
+    },
+    {
+      "visual": "sel-krem",
+      "voice": "Krem de o ipleri değiştiremez.",
+      "say": "Krem de... o ipleri değiştiremez."
+    },
+    {
+      "visual": "sel-son",
+      "voice": "Yıllarca suçu kendinde aradın. Oysa o çukurları ne tembelliğin yaptı ne de emeğin; derinin altındaki ipler yaptı. Sana bunun kusur olduğunu ilk kim söyledi?",
+      "say": "Yıllarca suçu... kendinde aradın. Oysa o çukurları ne tembelliğin yaptı, ne de emeğin; derinin altındaki ipler yaptı. [curious] Sana bunun kusur olduğunu... ilk kim söyledi?",
+      "hold": 1.1
+    }
+  ],
+  "caption": "Selülit bir kusur mu?\n\nKadınların büyük çoğunluğunda görülür, erkeklerde nadirdir. Sebep deri altındaki bağ dokusu bantlarının dizilişi (Nürnberger ve Müller, 1978; Hexsel 2009 MR çalışması). Kelime İngilizce basına 1968'de bir moda dergisiyle girdi. Sürülen kremlerin etkisine dair kanıt zayıf; en fazla geçici ve hafif düzelme (Am J Clin Dermatol derlemesi).",
+  "hashtags": [
+    "selülit",
+    "kadınfitness",
+    "fitness",
+    "sağlıklıyaşam",
+    "bunubiliyormuydun",
+    "voom"
+  ]
+}

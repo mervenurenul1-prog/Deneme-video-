@@ -1,0 +1,86 @@
+{
+  "id": "cizim1-17-igne",
+  "title": "Zayıflama iğnesi ve kas",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "ig2-gun",
+      "voice": "Zayıflama iğnesi kullanıyorsun ama sabah tarakta saç, öğlen midende bulantı, akşam merdivende soluk soluğa.",
+      "say": "Zayıflama iğnesi kullanıyorsun ama sabah tarakta saç, öğlen midende bulantı, akşam merdivende soluk soluğa.",
+      "keys": [
+        "iğnesi",
+        "saç",
+        "bulantı",
+        "soluk"
+      ]
+    },
+    {
+      "visual": "ig2-kilo",
+      "voice": "Tartı düşüyor ama ilacın onay aldığı iki bin kişilik deneyde her on kilonun dördü yağ değildi.",
+      "say": "Tartı düşüyor ama ilacın onay aldığı iki bin kişilik deneyde her on kilonun dördü yağ değildi.",
+      "keys": [
+        "onay",
+        "dördü",
+        "yağ",
+        "değildi"
+      ]
+    },
+    {
+      "visual": "ig2-birak",
+      "voice": "Asıl tuzak, iğneyi bıraktığın gün başlıyor: çoğu kişi bir yıl dolmadan bırakıyor ve kilonun üçte ikisi geri geliyor.",
+      "say": "Asıl tuzak, ıı, iğneyi bıraktığın gün başlıyor: çoğu kişi bir yıl dolmadan bırakıyor ve kilonun üçte ikisi geri geliyor.",
+      "keys": [
+        "tuzak",
+        "bıraktığın",
+        "üçte",
+        "ikisi"
+      ]
+    },
+    {
+      "visual": "ig2-kas",
+      "voice": "Kilo kendiliğinden döner; giden kası ise ancak çalışarak geri alırsın.",
+      "say": "Kilo kendiliğinden döner; giden kası ise... hani, ancak çalışarak geri alırsın.",
+      "keys": [
+        "kası",
+        "çalışarak"
+      ]
+    },
+    {
+      "visual": "ig2-tavsiye",
+      "voice": "Yine de iğneyi tercih edeceksen kasını koru: haftada iki üç gün ağırlık çalış, her öğünde protein ye, ilacı doktorunla planla.",
+      "say": "Yine de iğneyi tercih edeceksen kasını koru: haftada iki üç gün ağırlık çalış, her öğünde protein ye, ilacı doktorunla planla.",
+      "keys": [
+        "koru",
+        "ağırlık",
+        "protein",
+        "doktorunla"
+      ]
+    },
+    {
+      "visual": "ig2-gonder",
+      "voice": "Çünkü iğne sadece kilonu alır; kasını korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:",
+      "say": "Çünkü iğne sadece kilonu alır; kasını korumak senin işin. Bunu iğneye başlayan arkadaşına gönder ve ona şunu söyle:",
+      "keys": [
+        "kilonu",
+        "kasını",
+        "korumak"
+      ]
+    }
+  ],
+  "caption": "STEP 1 (yağsız kütle ~%38), Rodriguez 2025 JAMA Netw Open (%65 1 yılda bırakır), Wilding 2022 (bırakınca 1 yılda kaybın 2/3'ü geri).",
+  "hashtags": [
+    "saglik",
+    "kas",
+    "kilo"
+  ]
+}

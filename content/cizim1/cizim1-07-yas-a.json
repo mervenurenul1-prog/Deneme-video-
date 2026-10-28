@@ -1,0 +1,59 @@
+{
+  "id": "cizim1-07-yas-a",
+  "title": "Önce biraz büyü",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "caption": "",
+  "hashtags": [
+    "fitness",
+    "çocuk",
+    "spor",
+    "ağırlık",
+    "voom"
+  ],
+  "scenes": [
+    {
+      "visual": "a-istek",
+      "voice": "On üç yaşındasın ve spora başlamak istiyorsun. Ama herkes aynı şeyi söylüyor: “Önce biraz büyü.”",
+      "say": "On üç yaşındasın ve spora başlamak istiyorsun. Ama herkes aynı şeyi söylüyor: ... “Önce biraz büyü.”"
+    },
+    {
+      "visual": "a-bekle",
+      "voice": "Sen de bekliyorsun. On dört… on beş… on altı. Her doğum gününde “seneye” diyorsun.",
+      "say": "Sen de bekliyorsun. On dört... on beş... on altı. Her doğum gününde, “seneye” diyorsun."
+    },
+    {
+      "visual": "a-salon",
+      "voice": "On sekizinde sonunda salona gidiyorsun. Ve orada, on üç yaşında başlamış biriyle tanışıyorsun.",
+      "say": "On sekizinde, sonunda salona gidiyorsun. [curious] Ve orada, on üç yaşında başlamış biriyle tanışıyorsun."
+    },
+    {
+      "visual": "a-rapor",
+      "voice": "Peki o erken mi başlamıştı? Amerikan çocuk doktorları iki bin yirmide cevap verdi: spora başlamanın belli bir yaşı yok.",
+      "say": "Peki o erken mi başlamıştı? Amerikan çocuk doktorları, iki bin yirmide cevap verdi: spora başlamanın belli bir yaşı yok."
+    },
+    {
+      "visual": "a-yollar",
+      "voice": "Küçükken oyunla başlanır, büyüdükçe yük yavaş yavaş artar. Her yaşın kendine göre bir sporu var.",
+      "say": "Küçükken oyunla başlanır, büyüdükçe yük, yavaş yavaş artar. Her yaşın kendine göre bir sporu var."
+    },
+    {
+      "visual": "a-cumle",
+      "voice": "Yani seni bekleten yaşın değildi. O tek cümleydi: “Önce biraz büyü.”",
+      "say": "Yani seni bekleten yaşın değildi. [serious] O tek cümleydi: “Önce biraz büyü.”"
+    },
+    {
+      "visual": "a-soru",
+      "voice": "Şimdi on üç yaşında biri sana aynı soruyu sorarsa, ne diyeceksin?",
+      "say": "Şimdi on üç yaşında biri sana aynı soruyu sorarsa, [curious] ne diyeceksin?"
+    }
+  ]
+}

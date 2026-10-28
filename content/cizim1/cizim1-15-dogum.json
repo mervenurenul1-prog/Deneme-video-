@@ -1,0 +1,92 @@
+{
+  "id": "cizim1-15-dogum",
+  "title": "Doğumdan altı hafta sonra",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "dg-podyum",
+      "voice": "Altı hafta önce doğum yaptı; bu gece sırtında kanatlarla podyumdaydı. Sen altı haftada bir duş bile alamadın.",
+      "say": "Altı hafta önce doğum yaptı; bu gece sırtında kanatlarla podyumdaydı. Sen altı haftada bir duş bile alamadın.",
+      "keys": [
+        "doğum",
+        "kanatlarla",
+        "duş"
+      ]
+    },
+    {
+      "visual": "dg-soru",
+      "voice": "Peki bu nasıl mümkün? İki sebebi var.",
+      "say": "Peki bu nasıl mümkün? İki sebebi var.",
+      "keys": [
+        "İki",
+        "sebebi"
+      ]
+    },
+    {
+      "visual": "dg-kirk",
+      "voice": "Birincisi vücut. Anadolu'da lohusalık kırk gün sürer, yani yaklaşık altı hafta. Rahim de doğumdan sonra aşağı yukarı bu sürede eski hâline döner.",
+      "say": "Birincisi vücut. Anadolu'da lohusalık kırk gün sürer, yani yaklaşık altı hafta. Rahim de doğumdan sonra aşağı yukarı bu sürede eski hâline döner.",
+      "keys": [
+        "Birincisi",
+        "vücut",
+        "altı",
+        "hafta"
+      ]
+    },
+    {
+      "visual": "dg-seksen",
+      "voice": "İkincisi ekip. Onun arkasında koçu, aşçısı, bakıcısı vardı.",
+      "say": "İkincisi ekip. Onun arkasında koçu, aşçısı, bakıcısı vardı.",
+      "keys": [
+        "İkincisi",
+        "ekip"
+      ]
+    },
+    {
+      "visual": "dg-bugun",
+      "voice": "Seninse kucağında bebeğin var ve onu her gece sen büyütüyorsun. Bunu kimse alkışlamıyor ama yaptığın iş o podyumdan çok daha zor.",
+      "say": "Seninse kucağında bebeğin var ve onu her gece sen büyütüyorsun. Bunu kimse alkışlamıyor... ama yaptığın iş o podyumdan çok daha zor.",
+      "keys": [
+        "alkışlamıyor",
+        "çok",
+        "zor"
+      ]
+    },
+    {
+      "visual": "dg-voom",
+      "voice": "Doktorun izin verdiğinde, bir telefon kadar yakınındayız: evde ya da salonda, aletli ya da aletsiz.",
+      "say": "Doktorun izin verdiğinde, bir telefon kadar yakınındayız: evde ya da salonda, aletli ya da aletsiz.",
+      "keys": [
+        "telefon",
+        "yakınındayız"
+      ]
+    },
+    {
+      "visual": "dg-gonder",
+      "voice": "Bu video sana gönderildiyse, biri seni görüyor demektir. Çünkü senin de şunu düşündüğünü biliyor:",
+      "say": "Bu video sana gönderildiyse, biri seni görüyor demektir. Çünkü senin de şunu düşündüğünü biliyor:",
+      "keys": [
+        "biri",
+        "seni",
+        "görüyor"
+      ],
+      "hold": 0.2
+    }
+  ],
+  "caption": "Lohusalık 40 gün, rahim ~6 haftada; yeni anneye destek.",
+  "hashtags": [
+    "anne",
+    "lohusa",
+    "spor"
+  ]
+}

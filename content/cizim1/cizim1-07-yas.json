@@ -21,55 +21,39 @@
   ],
   "scenes": [
     {
-      "visual": "yas-hook",
-      "voice": "Spora kaç yaşında başlanır? On sekiz mi? On altı mı? Çocuk doktorlarının cevabı seni şaşırtacak: zıplayabildiğin yaşta.",
-      "say": "Spora kaç yaşında başlanır? On sekiz mi? On altı mı? [curious] Çocuk doktorlarının cevabı seni şaşırtacak: ... zıplayabildiğin yaşta."
+      "visual": "y9-soru",
+      "voice": "On üç yaşındayım, spora başlasam bir sorun olur mu? Kısa cevap: olmaz. Ama yıllarca çocuklara “bekle” dendi.",
+      "say": "On üç yaşındayım, spora başlasam bir sorun olur mu? ... Kısa cevap: olmaz. [serious] Ama yıllarca çocuklara “bekle” dendi."
     },
     {
-      "visual": "yas-rapor",
-      "voice": "Amerikan çocuk doktorları iki bin yirmide yazdı: belli bir başlama yaşı yok. Ama bir sıra var.",
-      "say": "Amerikan çocuk doktorları, iki bin yirmide yazdı: belli bir başlama yaşı yok. [serious] Ama bir sıra var."
+      "visual": "y9-kapi",
+      "voice": "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar salonun kapısında bekletildi.",
+      "say": "Doktorlar şöyle düşünüyordu: çocuk güçlenemez, ağırlık da kemiklerini bozar. Ve çocuklar, salonun kapısında bekletildi."
     },
     {
-      "visual": "yas-bant1",
-      "voice": "Beş ile yedi yaş arası: oyun zamanı. Koşmak, zıplamak, tırmanmak; hepsi antrenman.",
-      "say": "Beş ile yedi yaş arası: oyun zamanı. Koşmak, zıplamak, tırmanmak; [chuckles] hepsi antrenman."
+      "visual": "y9-degisim",
+      "voice": "Sonra araştırmacılar çocukları bilen biriyle çalıştırdı. Sonuç tam tersiydi: güçlendiler, zarar da görülmedi.",
+      "say": "Sonra araştırmacılar, çocukları bilen biriyle çalıştırdı. [curious] Sonuç tam tersiydi: güçlendiler, zarar da görülmedi."
     },
     {
-      "visual": "yas-bant2",
-      "voice": "Sekiz ile on iki: kendi vücut ağırlığıyla çalışır, tekniği öğrenir. Kaslar pek büyümez ama güç artar.",
-      "say": "Sekiz ile on iki: kendi vücut ağırlığıyla çalışır, tekniği öğrenir. Kaslar pek büyümez, ama güç artar."
+      "visual": "y9-rapor",
+      "voice": "Ve iki bin yirmide çocuk doktorları yazdı: spora başlamanın belli bir yaşı yok. On üç de olur, on altı da. Tek şart: yük yavaş yavaş artsın.",
+      "say": "Ve iki bin yirmide çocuk doktorları yazdı: spora başlamanın belli bir yaşı yok. On üç de olur, on altı da. Tek şart: yük, yavaş yavaş artsın."
     },
     {
-      "visual": "yas-bant3",
-      "voice": "On üç on beş: ergenlik başlar, kaslar büyümeye başlar. Sporunun yanına, bilen birinin eşliğinde hafif ağırlık eklenebilir.",
-      "say": "On üç, on beş: ergenlik başlar, kaslar büyümeye başlar. Sporunun yanına, bilen birinin eşliğinde hafif ağırlık eklenebilir."
+      "visual": "y9-hangi",
+      "voice": "Peki hangi spor? Onu yaşın değil, neyi sevdiğin seçer.",
+      "say": "Peki hangi spor? ... Onu yaşın değil, neyi sevdiğin seçer."
     },
     {
-      "visual": "yas-bant4",
-      "voice": "On altıdan sonra: ağırlık yavaş yavaş artırılır; yine teknik önce gelir.",
-      "say": "On altıdan sonra: ağırlık yavaş yavaş artırılır; [serious] yine teknik önce gelir."
+      "visual": "y9-hobi",
+      "voice": "Müzik açılınca yerinde duramıyor musun? Dans. Arkadaşsız yapamıyor musun? Basketbol, voleybol. Hafta sonu hep dışarıda mısın? Bisiklet, koşu. Kendi rekorunu kırmayı mı seviyorsun? Bilen biriyle ağırlık.",
+      "say": "Müzik açılınca yerinde duramıyor musun? Dans. Arkadaşsız yapamıyor musun? Basketbol, voleybol. Hafta sonu hep dışarıda mısın? Bisiklet, koşu. Kendi rekorunu kırmayı mı seviyorsun? Bilen biriyle ağırlık."
     },
     {
-      "visual": "yas-terazi",
-      "voice": "Yani önemli olan kaç yaşında olduğun değil, kaç yıldır doğru yaptığın.",
-      "say": "Yani önemli olan, kaç yaşında olduğun değil... kaç yıldır doğru yaptığın."
-    },
-    {
-      "visual": "yas-guvenlik",
-      "voice": "Bir de önemli bir not: yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur.",
-      "say": "Bir de önemli bir not: [serious] yanında bilen biri olsun; sakatlıkların çoğu evde, tek başına olur."
-    },
-    {
-      "visual": "yas-sporlar",
-      "voice": "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. Üstelik sana bir takım ve arkadaşlar kazandırır.",
-      "say": "Ve spor sadece salondan ibaret değil. Basketbol, voleybol, hentbol, tenis; bunların yaşı yok. [warm] Üstelik sana bir takım ve arkadaşlar kazandırır."
-    },
-    {
-      "visual": "yas-bugun",
-      "voice": "O yüzden en doğru yaş: bugün.",
-      "say": "O yüzden en doğru yaş: ... bugün.",
-      "hold": 0.3
+      "visual": "y9-yorum",
+      "voice": "Sen neyi seviyorsun? Yorumlara yaz, sana uyan sporu söyleyelim.",
+      "say": "Sen neyi seviyorsun? Yorumlara yaz, [chuckles] sana uyan sporu söyleyelim."
     }
   ]
 }

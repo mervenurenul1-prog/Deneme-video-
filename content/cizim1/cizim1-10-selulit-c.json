@@ -1,0 +1,71 @@
+{
+  "id": "cizim1-10-selulit-c",
+  "title": "Selülit: dört yüz yıl önce bir başyapıttı",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "caption": "Selülit bir kusur mu? Rubens Üç Güzeller'de (1630'lar, Prado) kıvrımlı bedenleri olduğu gibi boyadı; o dönem güzellik ölçüsüydü. Kelime İngilizce basına 1968'de bir moda dergisiyle girdi. Sebep: deri altındaki bağ dokusu ipleri kadınlarda dik, erkeklerde çapraz dizilir (Nürnberger & Müller 1978).",
+  "hashtags": [
+    "selülit",
+    "kadınfitness",
+    "fitness",
+    "sağlıklıyaşam",
+    "bunubiliyormuydun",
+    "voom"
+  ],
+  "scenes": [
+    {
+      "visual": "selc-tablo",
+      "voice": "Bacağındaki bu çukurlar, dört yüz yıl önce bir başyapıttı.",
+      "say": "Bacağındaki bu çukurlar... dört yüz yıl önce bir başyapıttı."
+    },
+    {
+      "visual": "selc-ressam",
+      "voice": "Rubens onları saklamadı, özenle boyadı.",
+      "say": "Rubens onları saklamadı... özenle boyadı."
+    },
+    {
+      "visual": "selc-dergi",
+      "voice": "Bin dokuz yüz altmış sekizde bir moda dergisi onlara selülit dedi. Ve bir gecede güzel olan, kusur oldu.",
+      "say": "Bin dokuz yüz altmış sekizde bir moda dergisi onlara selülit dedi. Ve bir gecede... güzel olan, kusur oldu."
+    },
+    {
+      "visual": "selc-bakis",
+      "voice": "Bacaklar aynı kaldı. Değişen sadece bakan gözdü.",
+      "say": "Bacaklar aynı kaldı. [curious] Değişen sadece... bakan gözdü."
+    },
+    {
+      "visual": "selc-bugun",
+      "voice": "Ve bugün sen, haftada dört gün spor yapıyorsun ama plajda hâlâ havluya sarınıyorsun.",
+      "say": "Ve bugün sen... haftada dört gün spor yapıyorsun, ama plajda hâlâ havluya sarınıyorsun."
+    },
+    {
+      "visual": "selc-ip",
+      "voice": "Çünkü sebep spor değil: kadınlarda deriyi bağlayan ipler dimdik durur, yağ aralarından kabarır.",
+      "say": "Çünkü sebep spor değil: kadınlarda deriyi bağlayan ipler dimdik durur; yağ aralarından kabarır."
+    },
+    {
+      "visual": "selc-erkek",
+      "voice": "Erkeklerde ise ipler çapraz örülür, deri düz kalır. Bu bir emek farkı değil, yapı farkı.",
+      "say": "Erkeklerde ise ipler çapraz örülür, deri düz kalır. Bu bir emek farkı değil... yapı farkı."
+    },
+    {
+      "visual": "selc-yaygin",
+      "voice": "Spor yapanda da var, yapmayanda da.",
+      "say": "Spor yapanda da var... yapmayanda da."
+    },
+    {
+      "visual": "selc-son",
+      "voice": "Yani bacakların bozulmadı. Sence bu bir kusur mu, yoksa sana öyle mi öğretildi?",
+      "say": "Yani bacakların bozulmadı. [curious] Sence bu bir kusur mu... yoksa sana öyle mi öğretildi?",
+      "hold": 0.6
+    }
+  ]
+}

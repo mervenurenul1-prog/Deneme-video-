@@ -1,0 +1,45 @@
+{
+  "id": "cizim1-11-ekim",
+  "title": "Ekim Teorisi: ocağı bekleme",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "scenes": [
+    {
+      "visual": "ekim2-soz",
+      "voice": "Her ocak aynı söz: 'Bu yıl başlıyorum.' Üç hafta sonra çanta yine kapının arkasında.",
+      "say": "Her ocak aynı söz: 'Bu yıl başlıyorum.' Üç hafta sonra çanta yine kapının arkasında."
+    },
+    {
+      "visual": "ekim2-teori",
+      "voice": "Bu söz dört bin yıllık; Babilliler bile verirdi. Ama milyonlar artık ocağı beklemiyor: Ekim Teorisi.",
+      "say": "Bu söz dört bin yıllık; Babilliler bile verirdi. Ama milyonlar artık ocağı beklemiyor: Ekim Teorisi."
+    },
+    {
+      "visual": "ekim2-yol",
+      "voice": "Ekimde başlayan, ocak geldiğinde kalabalığın arasında değil, çoktan yolda olur.",
+      "say": "Ekimde başlayan, ocak geldiğinde kalabalığın arasında değil, çoktan yolda olur."
+    },
+    {
+      "visual": "ekim2-voom",
+      "voice": "Haftada iki gün yeter, planını VOOM hazırlar. Sen ocağı mı bekleyeceksin, bugün mü başlayacaksın?",
+      "say": "Haftada iki gün yeter, planını VOOM hazırlar. Sen ocağı mı bekleyeceksin, bugün mü başlayacaksın?",
+      "hold": 0.6
+    }
+  ],
+  "caption": "Ekim Teorisi: yeni yıl kararını ocakta değil bugün başlat. Yeni yıl sözü vermek 4.000 yıllık bir gelenek (Babil).",
+  "hashtags": [
+    "ekimteorisi",
+    "spor",
+    "fitness",
+    "voom",
+    "yeniyıl"
+  ]
+}

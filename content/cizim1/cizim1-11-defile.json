@@ -1,0 +1,53 @@
+{
+  "id": "cizim1-11-defile",
+  "title": "Victoria's Secret defilesi neden iptal edildi?",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.05,
+  "caption": "",
+  "hashtags": [
+    "fitness",
+    "antrenman",
+    "defile",
+    "voom"
+  ],
+  "scenes": [
+    {
+      "visual": "vs-hook",
+      "voice": "Victoria's Secret defilesi yirmi üç yıl boyunca her yıl yapıldı. Sonra bir gün iptal edildi.",
+      "say": "Victoria's Secret defilesi, yirmi üç yıl boyunca her yıl yapıldı. [serious] Sonra bir gün, iptal edildi."
+    },
+    {
+      "visual": "vs-iptal",
+      "voice": "Seyirci düştü, eleştiriler yağdı; podyumun ışıkları söndü.",
+      "say": "Seyirci düştü, eleştiriler yağdı; podyumun ışıkları söndü."
+    },
+    {
+      "visual": "vs-donus",
+      "voice": "Perde yeniden açıldığında, podyumda bir olimpiyat şampiyonu cimnastikçi yürüyordu.",
+      "say": "[curious] Perde yeniden açıldığında, podyumda bir olimpiyat şampiyonu cimnastikçi yürüyordu."
+    },
+    {
+      "visual": "vs-soru",
+      "voice": "Şimdi sen söyle: güzellik ince olmak mı, güçlü olmak mı?",
+      "say": "Şimdi sen söyle: güzellik ince olmak mı, güçlü olmak mı?"
+    },
+    {
+      "visual": "vs-koc",
+      "voice": "O sporcunun arkasında, her antrenmanını yazan bir koç vardı. Bugün o koç cebinde. Adı VOOM.",
+      "say": "O sporcunun arkasında, her antrenmanını yazan bir koç vardı. Bugün o koç cebinde. Adı VOOM."
+    },
+    {
+      "visual": "vs-dongu",
+      "voice": "Bunu, ince olan güzeldir diyen arkadaşına at. Çünkü:",
+      "say": "Bunu, ince olan güzeldir diyen arkadaşına at. Çünkü:"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "cizim1-10-mayisma",
+  "title": "Yemekten sonra çöken ağırlık",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "scenes": [
+    {
+      "visual": "sr-kursun",
+      "voice": "Son lokmayı yuttun. Göz kapakların kurşun gibi… ve günün geri kalanı çöpe gidiyor.",
+      "say": "[tired] Son lokmayı yuttun. Göz kapakların kurşun gibi... ve günün geri kalanı çöpe gidiyor.",
+      "keys": ["kurşun", "çöpe"]
+    },
+    {
+      "visual": "sr-roma",
+      "voice": "Bu his iki bin yıllık. Romalılar öğleye altıncı saat derdi: sexta hora. Siesta oradan gelir.",
+      "say": "Bu his iki bin yıllık. Romalılar öğleye altıncı saat derdi: sexta hora. Siesta oradan gelir.",
+      "keys": ["iki", "bin", "yıllık", "altıncı", "saat", "sexta", "hora", "Siesta"]
+    },
+    {
+      "visual": "sr-kan",
+      "voice": "Peki kanın beyninden mideye mi kaçıyor? Pek sayılmaz.",
+      "say": "[curious] Peki kanın beyninden mideye mi kaçıyor? Pek sayılmaz.",
+      "keys": ["mideye", "sayılmaz"]
+    },
+    {
+      "visual": "sr-sinyal",
+      "voice": "Büyük bir öğünde bağırsakların beynine dinlen sinyali yollar. Üstelik iç saatin öğleden sonra zaten yavaşlar.",
+      "say": "Büyük bir öğünde, bağırsakların beynine dinlen sinyali yollar. Üstelik iç saatin öğleden sonra zaten yavaşlar.",
+      "keys": ["bağırsakların", "dinlen", "iç", "saatin", "yavaşlar"]
+    },
+    {
+      "visual": "sr-cozum",
+      "voice": "Çözüm: dengeli bir tabak, yemekten sonra on dakika yürüyüş. VOOM o tabağı seninle kurar.",
+      "say": "Çözüm: dengeli bir tabak, yemekten sonra on dakika yürüyüş. VOOM o tabağı seninle kurar.",
+      "keys": ["dengeli", "on", "dakika", "yürüyüş", "VOOM"]
+    },
+    {
+      "visual": "sr-son",
+      "voice": "Yani tembel değilsin. Sadece altıncı saattesin.",
+      "say": "Yani tembel değilsin. Sadece altıncı saattesin.",
+      "keys": ["tembel", "değilsin", "altıncı", "saattesin"],
+      "hold": 0.6
+    }
+  ],
+  "caption": "Yemekten sonra çöken ağırlık: altıncı saat.",
+  "hashtags": [
+    "voom",
+    "uyku",
+    "saglik"
+  ]
+}

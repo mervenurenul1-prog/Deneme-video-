@@ -1,0 +1,59 @@
+{
+  "id": "cizim1-07-yas-c",
+  "title": "On üç yaşındaki kendine mektup",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.1,
+  "caption": "",
+  "hashtags": [
+    "fitness",
+    "çocuk",
+    "spor",
+    "ağırlık",
+    "voom"
+  ],
+  "scenes": [
+    {
+      "visual": "c-mektup",
+      "voice": "On üç yaşındaki kendine tek bir cümle yazabilsen, ne yazardın?",
+      "say": "On üç yaşındaki kendine tek bir cümle yazabilsen, [curious] ne yazardın?"
+    },
+    {
+      "visual": "c-cumle",
+      "voice": "Ben şunu yazardım: “Beklemene gerek yok.”",
+      "say": "Ben şunu yazardım: ... “Beklemene gerek yok.”"
+    },
+    {
+      "visual": "c-gecmis",
+      "voice": "Çünkü o yaşta hep aynı şeyi duydum: “Spor için daha küçüksün.” Ve on yıl bekledim.",
+      "say": "Çünkü o yaşta hep aynı şeyi duydum: “Spor için daha küçüksün.” [sighs] Ve on yıl bekledim."
+    },
+    {
+      "visual": "c-rapor",
+      "voice": "Oysa Amerikan çocuk doktorları iki bin yirmide yazdı: spora başlamanın belli bir yaşı yok.",
+      "say": "Oysa Amerikan çocuk doktorları, iki bin yirmide yazdı: spora başlamanın belli bir yaşı yok."
+    },
+    {
+      "visual": "c-not",
+      "voice": "Küçükken oyunla başlanır, büyüdükçe yük yavaş yavaş artar.",
+      "say": "Küçükken oyunla başlanır, büyüdükçe yük, yavaş yavaş artar."
+    },
+    {
+      "visual": "c-zarf",
+      "voice": "Mektubu katlayıp zarfa koyuyorum. Ama o zarf hiçbir zaman ulaşmayacak.",
+      "say": "Mektubu katlayıp zarfa koyuyorum. [sighs] Ama o zarf, hiçbir zaman ulaşmayacak."
+    },
+    {
+      "visual": "c-gonder",
+      "voice": "O yüzden bu videoyu, on üç yaşında birine gönder.",
+      "say": "O yüzden bu videoyu, on üç yaşında birine gönder."
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "cizim1-18-fark",
+  "title": "Salonun en sadık müşterisi",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "fk-kanca",
+      "voice": "Salonun en sadık müşterisi kim biliyor musun? Hiç değişmeyenler. Çünkü hep geri gelirler.",
+      "say": "Salonun en sadık müşterisi kim biliyor musun? Hiç değişmeyenler. Çünkü hep geri gelirler.",
+      "keys": [
+        "sadık",
+        "değişmeyenler",
+        "geri"
+      ]
+    },
+    {
+      "visual": "fk-sebep",
+      "voice": "Ama bu senin suçun değil. Vücudun şekillenmiyorsa üç şey eksik.",
+      "say": "Ama bu senin suçun değil. Vücudun şekillenmiyorsa üç şey eksik.",
+      "keys": [
+        "suçun",
+        "değil",
+        "üç"
+      ]
+    },
+    {
+      "visual": "fk-yuk",
+      "voice": "Birincisi: yük. 1936'da bir doktor gördü: vücut zorlanınca değişir, alışınca durur. Aylardır aynı ağırlıksa, vücudun çoktan alıştı.",
+      "say": "Birincisi: yük. 1936'da bir doktor gördü: vücut zorlanınca değişir, alışınca durur. Aylardır aynı ağırlıksa, vücudun çoktan alıştı.",
+      "keys": [
+        "yük",
+        "1936'da",
+        "değişir",
+        "durur",
+        "alıştı"
+      ]
+    },
+    {
+      "visual": "fk-protein",
+      "voice": "İkincisi: protein. 2018'de kırk dokuz deney incelendi: proteinini artıranlar daha çok kas kazandı.",
+      "say": "İkincisi: protein. 2018'de kırk dokuz deney incelendi: proteinini artıranlar daha çok kas kazandı.",
+      "keys": [
+        "protein",
+        "kırk",
+        "dokuz",
+        "kas"
+      ]
+    },
+    {
+      "visual": "fk-uyku",
+      "voice": "Üçüncüsü: uyku. 2010'da aynı insanlar aynı diyeti iki kez yaptı. Az uyudukları haftalarda verdikleri yağ yarıdan aza düştü.",
+      "say": "Üçüncüsü: uyku. 2010'da aynı insanlar aynı diyeti iki kez yaptı. Az uyudukları haftalarda verdikleri yağ yarıdan aza düştü.",
+      "keys": [
+        "uyku",
+        "2010'da",
+        "yarıdan",
+        "aza"
+      ]
+    },
+    {
+      "visual": "fk-son",
+      "voice": "Yükü artır, protein ye, erken uyu. Yoksa şu sorunun cevabı sen olursun:",
+      "say": "Yükü artır, protein ye, erken uyu. Yoksa şu sorunun cevabı sen olursun:",
+      "keys": [
+        "artır",
+        "protein",
+        "uyu"
+      ]
+    }
+  ]
+}

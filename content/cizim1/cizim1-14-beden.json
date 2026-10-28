@@ -1,0 +1,85 @@
+{
+  "id": "cizim1-14-beden",
+  "title": "Aynadaki kusur",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "bb-kol",
+      "voice": "Aynada beğenmediğin o kol, altmış yıl önce bir kahramanın koluydu.",
+      "say": "Aynada beğenmediğin o kol, altmış yıl önce bir kahramanın koluydu.",
+      "keys": [
+        "kahramanın"
+      ]
+    },
+    {
+      "visual": "bb-altmis",
+      "voice": "Bin dokuz yüz altmış dörtte çocukların oyuncak askeri tam senin kadar kaslıydı.",
+      "say": "Bin dokuz yüz altmış dörtte çocukların oyuncak askeri tam senin kadar kaslıydı.",
+      "keys": [
+        "senin",
+        "kadar"
+      ]
+    },
+    {
+      "visual": "bb-doksan",
+      "voice": "Otuz yıl sonra aynı askerin kolu iki katına çıktı: dünyada hiçbir insanda olmayan bir kol.",
+      "say": "Otuz yıl sonra aynı askerin kolu... iki katına çıktı: dünyada hiçbir insanda olmayan bir kol.",
+      "keys": [
+        "iki",
+        "katına"
+      ]
+    },
+    {
+      "visual": "bb-ayni",
+      "voice": "Kolun aynı kaldı. Değişen sadece oyuncaktı.",
+      "say": "Kolun aynı kaldı. Değişen sadece oyuncaktı.",
+      "keys": [
+        "oyuncaktı"
+      ]
+    },
+    {
+      "visual": "bb-kralice",
+      "voice": "Bin dokuz yüz yirmi birde güzellik kraliçesi sağlıklı bir kızdı; seksen yıl sonra kazananların çoğu yetersiz beslenme sınırındaydı.",
+      "say": "Bin dokuz yüz yirmi birde güzellik kraliçesi sağlıklı bir kızdı; ıı, seksen yıl sonra kazananların çoğu yetersiz beslenme sınırındaydı.",
+      "keys": [
+        "yetersiz",
+        "beslenme"
+      ]
+    },
+    {
+      "visual": "bb-bugun",
+      "voice": "Ve bugün ikiniz de aynanın önünde tişörtü kaldırıp karnınıza bakıyorsunuz.",
+      "say": "[chuckles] Ve bugün ikiniz de aynanın önünde tişörtü kaldırıp karnınıza bakıyorsunuz.",
+      "keys": [
+        "ikiniz",
+        "karnınıza"
+      ]
+    },
+    {
+      "visual": "bb-son",
+      "voice": "Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi?",
+      "say": "Bunu sevgiline gönder ve sor: Sence kim daha çok kandırıldı, kadınlar mı, erkekler mi?",
+      "keys": [
+        "kadınlar",
+        "erkekler"
+      ],
+      "hold": 0.2
+    }
+  ],
+  "caption": "Oyuncak askerin kolu ve güzellik kraliçeleri: beden algısı (Pope 1999; JAMA 2000).",
+  "hashtags": [
+    "spor",
+    "fitness",
+    "bedenalgısı"
+  ]
+}

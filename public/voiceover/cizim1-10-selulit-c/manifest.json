@@ -1,0 +1,590 @@
+{
+  "scenes": [
+    {
+      "voice": "Bacağındaki bu çukurlar, dört yüz yıl önce bir başyapıttı.",
+      "say": "Bacağındaki bu çukurlar... dört yüz yıl önce bir başyapıttı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-10-selulit-c/1-mvfs561d.mp3",
+      "durationInSeconds": 3.504761666666667,
+      "words": [
+        {
+          "word": "Bacağındaki",
+          "start": 0.0,
+          "end": 0.5333333333333333
+        },
+        {
+          "word": "bu",
+          "start": 0.5666666666666668,
+          "end": 0.6
+        },
+        {
+          "word": "çukurlar,",
+          "start": 0.6666666666666667,
+          "end": 1.6
+        },
+        {
+          "word": "dört",
+          "start": 1.6666666666666667,
+          "end": 1.8000000000000003
+        },
+        {
+          "word": "yüz",
+          "start": 1.866666666666667,
+          "end": 1.9333333333333333
+        },
+        {
+          "word": "yıl",
+          "start": 2.0,
+          "end": 2.066666666666667
+        },
+        {
+          "word": "önce",
+          "start": 2.1333333333333333,
+          "end": 2.4
+        },
+        {
+          "word": "bir",
+          "start": 2.466666666666667,
+          "end": 2.6
+        },
+        {
+          "word": "başyapıttı.",
+          "start": 2.666666666666667,
+          "end": 3.5333333333333337
+        }
+      ]
+    },
+    {
+      "voice": "Rubens onları saklamadı, özenle boyadı.",
+      "say": "Rubens onları saklamadı... özenle boyadı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-10-selulit-c/2-mvfs572s.mp3",
+      "durationInSeconds": 2.6340133333333333,
+      "words": [
+        {
+          "word": "Rubens",
+          "start": 0.0,
+          "end": 0.4
+        },
+        {
+          "word": "onları",
+          "start": 0.46666666666666673,
+          "end": 0.7333333333333334
+        },
+        {
+          "word": "saklamadı,",
+          "start": 0.7666666666666667,
+          "end": 1.6187416666666665
+        },
+        {
+          "word": "özenle",
+          "start": 1.6854083333333334,
+          "end": 2.0187416666666667
+        },
+        {
+          "word": "boyadı.",
+          "start": 2.0854083333333335,
+          "end": 2.685408333333333
+        }
+      ]
+    },
+    {
+      "voice": "Bin dokuz yüz altmış sekizde bir moda dergisi onlara selülit dedi. Ve bir gecede güzel olan, kusur oldu.",
+      "say": "Bin dokuz yüz altmış sekizde bir moda dergisi onlara selülit dedi. Ve bir gecede... güzel olan, kusur oldu.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-10-selulit-c/3-mvfs58st.mp3",
+      "durationInSeconds": 6.0952383333333335,
+      "words": [
+        {
+          "word": "Bin",
+          "start": 0.0,
+          "end": 0.13333333333333333
+        },
+        {
+          "word": "dokuz",
+          "start": 0.16666666666666669,
+          "end": 0.33333333333333337
+        },
+        {
+          "word": "yüz",
+          "start": 0.4,
+          "end": 0.46666666666666673
+        },
+        {
+          "word": "altmış",
+          "start": 0.5333333333333333,
+          "end": 0.7333333333333334
+        },
+        {
+          "word": "sekizde",
+          "start": 0.8,
+          "end": 1.2666666666666668
+        },
+        {
+          "word": "bir",
+          "start": 1.3333333333333335,
+          "end": 1.4666666666666668
+        },
+        {
+          "word": "moda",
+          "start": 1.5333333333333334,
+          "end": 1.7333333333333334
+        },
+        {
+          "word": "dergisi",
+          "start": 1.8333333333333335,
+          "end": 2.2
+        },
+        {
+          "word": "onlara",
+          "start": 2.266666666666667,
+          "end": 2.6
+        },
+        {
+          "word": "selülit",
+          "start": 2.666666666666667,
+          "end": 2.9333333333333336
+        },
+        {
+          "word": "dedi.",
+          "start": 3.0,
+          "end": 3.38685
+        },
+        {
+          "word": "Ve",
+          "start": 3.5054666666666674,
+          "end": 3.572133333333334
+        },
+        {
+          "word": "bir",
+          "start": 3.7054666666666667,
+          "end": 3.8388
+        },
+        {
+          "word": "gecede",
+          "start": 3.905466666666667,
+          "end": 4.529708333333335
+        },
+        {
+          "word": "güzel",
+          "start": 4.596375000000001,
+          "end": 4.796375000000001
+        },
+        {
+          "word": "olan,",
+          "start": 4.863041666666668,
+          "end": 5.129708333333335
+        },
+        {
+          "word": "kusur",
+          "start": 5.329708333333334,
+          "end": 5.596375000000001
+        },
+        {
+          "word": "oldu.",
+          "start": 5.6963750000000015,
+          "end": 6.129708333333334
+        }
+      ]
+    },
+    {
+      "voice": "Bacaklar aynı kaldı. Değişen sadece bakan gözdü.",
+      "say": "Bacaklar aynı kaldı. [curious] Değişen sadece... bakan gözdü.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-10-selulit-c/4-mvfs5ab9.mp3",
+      "durationInSeconds": 3.787755,
+      "words": [
+        {
+          "word": "Bacaklar",
+          "start": 0.0,
+          "end": 0.46666666666666673
+        },
+        {
+          "word": "aynı",
+          "start": 0.6,
+          "end": 0.8
+        },
+        {
+          "word": "kaldı.",
+          "start": 0.8666666666666667,
+          "end": 1.2666666666666668
+        },
+        {
+          "word": "Değişen",
+          "start": 1.5614333333333332,
+          "end": 1.9614333333333334
+        },
+        {
+          "word": "sadece",
+          "start": 1.9947666666666668,
+          "end": 2.894766666666667
+        },
+        {
+          "word": "bakan",
+          "start": 2.983933333333333,
+          "end": 3.161433333333333
+        },
+        {
+          "word": "gözdü.",
+          "start": 3.2281,
+          "end": 3.8280999999999996
+        }
+      ]
+    },
+    {
+      "voice": "Ve bugün sen, haftada dört gün spor yapıyorsun ama plajda hâlâ havluya sarınıyorsun.",
+      "say": "Ve bugün sen... haftada dört gün spor yapıyorsun, ama plajda hâlâ havluya sarınıyorsun.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-10-selulit-c/5-mvfs5c1s.mp3",
+      "durationInSeconds": 4.832653333333334,
+      "words": [
+        {
+          "word": "Ve",
+          "start": 0.0,
+          "end": 0.13333333333333333
+        },
+        {
+          "word": "bugün",
+          "start": 0.2,
+          "end": 0.46666666666666673
+        },
+        {
+          "word": "sen,",
+          "start": 0.6333333333333334,
+          "end": 1.0666666666666667
+        },
+        {
+          "word": "haftada",
+          "start": 1.1333333333333335,
+          "end": 1.4666666666666668
+        },
+        {
+          "word": "dört",
+          "start": 1.5333333333333334,
+          "end": 1.6666666666666667
+        },
+        {
+          "word": "gün",
+          "start": 1.7333333333333334,
+          "end": 1.866666666666667
+        },
+        {
+          "word": "spor",
+          "start": 1.9333333333333333,
+          "end": 2.066666666666667
+        },
+        {
+          "word": "yapıyorsun",
+          "start": 2.1333333333333333,
+          "end": 2.8
+        },
+        {
+          "word": "ama",
+          "start": 2.8666666666666667,
+          "end": 3.0
+        },
+        {
+          "word": "plajda",
+          "start": 3.066666666666667,
+          "end": 3.4000000000000004
+        },
+        {
+          "word": "hâlâ",
+          "start": 3.466666666666667,
+          "end": 3.8
+        },
+        {
+          "word": "havluya",
+          "start": 3.8666666666666667,
+          "end": 4.133333333333334
+        },
+        {
+          "word": "sarınıyorsun.",
+          "start": 4.2,
+          "end": 4.866666666666667
+        }
+      ]
+    },
+    {
+      "voice": "Çünkü sebep spor değil: kadınlarda deriyi bağlayan ipler dimdik durur, yağ aralarından kabarır.",
+      "say": "Çünkü sebep spor değil: kadınlarda deriyi bağlayan ipler dimdik durur; yağ aralarından kabarır.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-10-selulit-c/6-mvfs5dfr.mp3",
+      "durationInSeconds": 5.746939166666667,
+      "words": [
+        {
+          "word": "Çünkü",
+          "start": 0.0,
+          "end": 0.26666666666666666
+        },
+        {
+          "word": "sebep",
+          "start": 0.46666666666666673,
+          "end": 0.7333333333333334
+        },
+        {
+          "word": "spor",
+          "start": 0.8333333333333334,
+          "end": 1.0
+        },
+        {
+          "word": "değil:",
+          "start": 1.0666666666666667,
+          "end": 1.5826333333333333
+        },
+        {
+          "word": "kadınlarda",
+          "start": 1.6493,
+          "end": 2.1159666666666666
+        },
+        {
+          "word": "deriyi",
+          "start": 2.1826333333333334,
+          "end": 2.415966666666667
+        },
+        {
+          "word": "bağlayan",
+          "start": 2.4493000000000005,
+          "end": 2.782633333333333
+        },
+        {
+          "word": "ipler",
+          "start": 2.882633333333333,
+          "end": 3.115966666666667
+        },
+        {
+          "word": "dimdik",
+          "start": 3.1826333333333334,
+          "end": 3.5159666666666674
+        },
+        {
+          "word": "durur,",
+          "start": 3.582633333333334,
+          "end": 4.115966666666667
+        },
+        {
+          "word": "yağ",
+          "start": 4.182633333333333,
+          "end": 4.382633333333334
+        },
+        {
+          "word": "aralarından",
+          "start": 4.582633333333334,
+          "end": 5.049300000000001
+        },
+        {
+          "word": "kabarır.",
+          "start": 5.115966666666667,
+          "end": 5.782633333333334
+        }
+      ]
+    },
+    {
+      "voice": "Erkeklerde ise ipler çapraz örülür, deri düz kalır. Bu bir emek farkı değil, yapı farkı.",
+      "say": "Erkeklerde ise ipler çapraz örülür, deri düz kalır. Bu bir emek farkı değil... yapı farkı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-10-selulit-c/7-mvfs5f7c.mp3",
+      "durationInSeconds": 5.485714166666667,
+      "words": [
+        {
+          "word": "Erkeklerde",
+          "start": 0.0,
+          "end": 0.6
+        },
+        {
+          "word": "ise",
+          "start": 0.7333333333333334,
+          "end": 0.8666666666666667
+        },
+        {
+          "word": "ipler",
+          "start": 1.0,
+          "end": 1.2666666666666668
+        },
+        {
+          "word": "çapraz",
+          "start": 1.4,
+          "end": 1.6666666666666667
+        },
+        {
+          "word": "örülür,",
+          "start": 1.7333333333333334,
+          "end": 2.3333333333333335
+        },
+        {
+          "word": "deri",
+          "start": 2.4,
+          "end": 2.6
+        },
+        {
+          "word": "düz",
+          "start": 2.7333333333333334,
+          "end": 2.8666666666666667
+        },
+        {
+          "word": "kalır.",
+          "start": 2.9333333333333336,
+          "end": 3.336433333333334
+        },
+        {
+          "word": "Bu",
+          "start": 3.430950000000001,
+          "end": 3.4976166666666675
+        },
+        {
+          "word": "bir",
+          "start": 3.5642833333333344,
+          "end": 3.6309500000000012
+        },
+        {
+          "word": "emek",
+          "start": 3.697616666666667,
+          "end": 3.8309500000000005
+        },
+        {
+          "word": "farkı",
+          "start": 3.8976166666666674,
+          "end": 4.130950000000001
+        },
+        {
+          "word": "değil,",
+          "start": 4.1642833333333344,
+          "end": 4.689283333333334
+        },
+        {
+          "word": "yapı",
+          "start": 4.73345,
+          "end": 4.889283333333334
+        },
+        {
+          "word": "farkı.",
+          "start": 4.955950000000001,
+          "end": 5.489283333333334
+        }
+      ]
+    },
+    {
+      "voice": "Spor yapanda da var, yapmayanda da.",
+      "say": "Spor yapanda da var... yapmayanda da.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-10-selulit-c/8-mvfsy4gm.mp3",
+      "durationInSeconds": 2.438095,
+      "words": [
+        {
+          "word": "Spor",
+          "start": 0.0,
+          "end": 0.26666666666666666
+        },
+        {
+          "word": "yapanda",
+          "start": 0.33333333333333337,
+          "end": 0.6666666666666667
+        },
+        {
+          "word": "da",
+          "start": 0.7333333333333334,
+          "end": 0.8
+        },
+        {
+          "word": "var,",
+          "start": 0.8666666666666667,
+          "end": 1.5333333333333334
+        },
+        {
+          "word": "yapmayanda",
+          "start": 1.5666666666666667,
+          "end": 2.066666666666667
+        },
+        {
+          "word": "da.",
+          "start": 2.1333333333333333,
+          "end": 2.466666666666667
+        }
+      ]
+    },
+    {
+      "voice": "Yani bacakların bozulmadı. Sence bu bir kusur mu, yoksa sana öyle mi öğretildi?",
+      "say": "Yani bacakların bozulmadı. [curious] Sence bu bir kusur mu... yoksa sana öyle mi öğretildi?",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-10-selulit-c/9-mvfs5htm.mp3",
+      "durationInSeconds": 5.0068025,
+      "words": [
+        {
+          "word": "Yani",
+          "start": 0.0,
+          "end": 0.33333333333333337
+        },
+        {
+          "word": "bacakların",
+          "start": 0.5333333333333333,
+          "end": 1.0
+        },
+        {
+          "word": "bozulmadı.",
+          "start": 1.0666666666666667,
+          "end": 1.6925916666666667
+        },
+        {
+          "word": "Sence",
+          "start": 1.8618833333333333,
+          "end": 2.12855
+        },
+        {
+          "word": "bu",
+          "start": 2.195216666666667,
+          "end": 2.2618833333333335
+        },
+        {
+          "word": "bir",
+          "start": 2.32855,
+          "end": 2.3952166666666668
+        },
+        {
+          "word": "kusur",
+          "start": 2.495216666666667,
+          "end": 2.7285500000000003
+        },
+        {
+          "word": "mu,",
+          "start": 2.7952166666666667,
+          "end": 3.2618833333333335
+        },
+        {
+          "word": "yoksa",
+          "start": 3.2952166666666667,
+          "end": 3.6618833333333343
+        },
+        {
+          "word": "sana",
+          "start": 3.861883333333333,
+          "end": 4.061883333333333
+        },
+        {
+          "word": "öyle",
+          "start": 4.161883333333334,
+          "end": 4.2618833333333335
+        },
+        {
+          "word": "mi",
+          "start": 4.295216666666668,
+          "end": 4.32855
+        },
+        {
+          "word": "öğretildi?",
+          "start": 4.395216666666667,
+          "end": 5.061883333333334
+        }
+      ]
+    }
+  ],
+  "speed": 1.2
+}

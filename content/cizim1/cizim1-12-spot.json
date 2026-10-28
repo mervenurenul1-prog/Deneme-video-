@@ -1,0 +1,74 @@
+{
+  "id": "cizim1-12-spot",
+  "title": "Salonda herkes bana bakıyor",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "sp3-kirk",
+      "voice": "Salonda kırk kişi var. Sence kaçı şu an seni düşünüyor?",
+      "say": "Salonda kırk kişi var. Sence kaçı şu an seni düşünüyor?",
+      "keys": [
+        "kırk",
+        "kişi",
+        "seni",
+        "düşünüyor"
+      ]
+    },
+    {
+      "visual": "sp3-balon",
+      "voice": "Biri göbeğine bakıyor, biri setini sayıyor, biri gelen mesajı bekliyor. Seni düşünen yok.",
+      "say": "Biri göbeğine bakıyor, biri setini sayıyor, biri gelen mesajı bekliyor. [chuckles] Seni düşünen yok.",
+      "keys": [
+        "yok"
+      ]
+    },
+    {
+      "visual": "sp3-tarih",
+      "voice": "Ama sen yine de üyeliğini alıp gitmiyorsun. Hani yalnız da değilsin: iki bin altıda sekiz bin salon üyesini incelediler. Gitmeyen o kadar çoktu ki makalenin adı şu oldu: “Salona gitmemek için para ödemek.”",
+      "say": "Ama sen yine de üyeliğini alıp gitmiyorsun. Hani yalnız da değilsin: ıı, iki bin altıda sekiz bin salon üyesini incelediler. Gitmeyen o kadar çoktu ki... makalenin adı şu oldu: “Salona gitmemek için para ödemek.”",
+      "keys": [
+        "Salona",
+        "gitmemek",
+        "için",
+        "para",
+        "ödemek"
+      ]
+    },
+    {
+      "visual": "sp3-plan",
+      "voice": "Salona ne yapacağını bilerek gir. Planı olan kişi kaybolmaz, kaybolmayan kişiye de kimse bakmaz.",
+      "say": "Salona ne yapacağını bilerek gir. Hani, planı olan kişi kaybolmaz... kaybolmayan kişiye de kimse bakmaz.",
+      "keys": [
+        "Planı",
+        "kaybolmaz"
+      ]
+    },
+    {
+      "visual": "sp3-voom",
+      "voice": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu, yıllık üyelik yaptırıp hiç gitmeyen arkadaşına gönder ve sor:",
+      "say": "O günün programı VOOM'da hazır; sen ne istiyorsan o. Bunu, yıllık üyelik yaptırıp hiç gitmeyen arkadaşına gönder ve sor:",
+      "keys": [
+        "VOOM'da",
+        "gönder"
+      ],
+      "hold": 0.2
+    }
+  ],
+  "caption": "Salonda herkes sana bakmıyor: spot ışığı etkisi (Gilovich, Medvec & Savitsky 2000).",
+  "hashtags": [
+    "spor",
+    "fitness",
+    "salon",
+    "voom"
+  ]
+}

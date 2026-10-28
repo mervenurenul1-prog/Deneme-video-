@@ -1,0 +1,568 @@
+{
+  "scenes": [
+    {
+      "voice": "On üç yaşındayım, spora başlasam bir sorun olur mu? Kısa cevap: olmaz. Ama yıllarca çocuklara “bekle” dendi.",
+      "say": "On üç yaşındayım, spora başlasam bir sorun olur mu? ... Kısa cevap: olmaz. [serious] Ama yıllarca çocuklara “bekle” dendi.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/1-mvdufss2.mp3",
+      "durationInSeconds": 8.306939,
+      "words": [
+        {
+          "word": "On",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "üç",
+          "start": 0.2,
+          "end": 0.32
+        },
+        {
+          "word": "yaşındayım,",
+          "start": 0.36,
+          "end": 1.12
+        },
+        {
+          "word": "spora",
+          "start": 1.2,
+          "end": 1.52
+        },
+        {
+          "word": "başlasam",
+          "start": 1.6,
+          "end": 2.08
+        },
+        {
+          "word": "bir",
+          "start": 2.16,
+          "end": 2.32
+        },
+        {
+          "word": "sorun",
+          "start": 2.36,
+          "end": 2.56
+        },
+        {
+          "word": "olur",
+          "start": 2.64,
+          "end": 2.8
+        },
+        {
+          "word": "mu?",
+          "start": 2.88,
+          "end": 3.04
+        },
+        {
+          "word": "Kısa",
+          "start": 3.3181,
+          "end": 3.5051
+        },
+        {
+          "word": "cevap:",
+          "start": 3.5850999999999997,
+          "end": 4.0651
+        },
+        {
+          "word": "olmaz.",
+          "start": 4.3850999999999996,
+          "end": 4.9451
+        },
+        {
+          "word": "Ama",
+          "start": 5.28359,
+          "end": 5.45959
+        },
+        {
+          "word": "yıllarca",
+          "start": 5.5395900000000005,
+          "end": 6.019590000000001
+        },
+        {
+          "word": "çocuklara",
+          "start": 6.099590000000001,
+          "end": 6.659590000000001
+        },
+        {
+          "word": "“bekle”",
+          "start": 6.979590000000001,
+          "end": 7.45959
+        },
+        {
+          "word": "dendi.",
+          "start": 7.699590000000001,
+          "end": 8.339590000000001
+        }
+      ]
+    },
+    {
+      "voice": "Doktorlar çocuk güçlenemez sanıyordu; çocuklar salonun kapısında bekletildi.",
+      "say": "Doktorlar çocuk güçlenemez sanıyordu; [serious] çocuklar, salonun kapısında bekletildi.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/2-mvdufujp.mp3",
+      "durationInSeconds": 5.381224,
+      "words": [
+        {
+          "word": "Doktorlar",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "word": "çocuk",
+          "start": 0.8,
+          "end": 1.12
+        },
+        {
+          "word": "güçlenemez",
+          "start": 1.2,
+          "end": 1.76
+        },
+        {
+          "word": "sanıyordu;",
+          "start": 1.88,
+          "end": 2.60603
+        },
+        {
+          "word": "çocuklar",
+          "start": 2.7732,
+          "end": 3.4692000000000003
+        },
+        {
+          "word": "salonun",
+          "start": 3.6692,
+          "end": 3.9892000000000003
+        },
+        {
+          "word": "kapısında",
+          "start": 4.0692,
+          "end": 4.5492
+        },
+        {
+          "word": "bekletildi.",
+          "start": 4.6292,
+          "end": 5.4292
+        }
+      ]
+    },
+    {
+      "voice": "Sonra araştırmacılar çocukları bilen biriyle çalıştırdı. Sonuç tam tersiydi: güçlendiler, zarar da görülmedi.",
+      "say": "Sonra araştırmacılar, çocukları bilen biriyle çalıştırdı. [curious] Sonuç tam tersiydi: güçlendiler, zarar da görülmedi.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/3-mvdufwfu.mp3",
+      "durationInSeconds": 7.418776,
+      "words": [
+        {
+          "word": "Sonra",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "word": "araştırmacılar",
+          "start": 0.48,
+          "end": 1.44
+        },
+        {
+          "word": "çocukları",
+          "start": 1.52,
+          "end": 1.92
+        },
+        {
+          "word": "bilen",
+          "start": 2,
+          "end": 2.24
+        },
+        {
+          "word": "biriyle",
+          "start": 2.28,
+          "end": 2.56
+        },
+        {
+          "word": "çalıştırdı.",
+          "start": 2.64,
+          "end": 3.4360299999999997
+        },
+        {
+          "word": "Sonuç",
+          "start": 3.651789999999999,
+          "end": 3.9717899999999995
+        },
+        {
+          "word": "tam",
+          "start": 4.05179,
+          "end": 4.21179
+        },
+        {
+          "word": "tersiydi:",
+          "start": 4.29179,
+          "end": 5.15007
+        },
+        {
+          "word": "güçlendiler,",
+          "start": 5.23007,
+          "end": 6.19007
+        },
+        {
+          "word": "zarar",
+          "start": 6.2700700000000005,
+          "end": 6.51007
+        },
+        {
+          "word": "da",
+          "start": 6.59007,
+          "end": 6.67007
+        },
+        {
+          "word": "görülmedi.",
+          "start": 6.72307,
+          "end": 7.47007
+        }
+      ]
+    },
+    {
+      "voice": "Ve iki bin yirmide çocuk doktorları yazdı: spora başlamanın belli bir yaşı yok. On üç de olur, on altı da. Tek şart: yük yavaş yavaş artsın.",
+      "say": "Ve iki bin yirmide çocuk doktorları yazdı: spora başlamanın belli bir yaşı yok. On üç de olur, on altı da. Tek şart: yük, yavaş yavaş artsın.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/4-mvdufycm.mp3",
+      "durationInSeconds": 9.116735,
+      "words": [
+        {
+          "word": "Ve",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "word": "iki",
+          "start": 0.24,
+          "end": 0.4
+        },
+        {
+          "word": "bin",
+          "start": 0.48,
+          "end": 0.56
+        },
+        {
+          "word": "yirmide",
+          "start": 0.64,
+          "end": 1.04
+        },
+        {
+          "word": "çocuk",
+          "start": 1.12,
+          "end": 1.36
+        },
+        {
+          "word": "doktorları",
+          "start": 1.44,
+          "end": 1.92
+        },
+        {
+          "word": "yazdı:",
+          "start": 1.96,
+          "end": 2.68483
+        },
+        {
+          "word": "spora",
+          "start": 2.76483,
+          "end": 3.00483
+        },
+        {
+          "word": "başlamanın",
+          "start": 3.08483,
+          "end": 3.56483
+        },
+        {
+          "word": "belli",
+          "start": 3.64483,
+          "end": 3.88483
+        },
+        {
+          "word": "bir",
+          "start": 3.92483,
+          "end": 3.96483
+        },
+        {
+          "word": "yaşı",
+          "start": 4.04483,
+          "end": 4.20483
+        },
+        {
+          "word": "yok.",
+          "start": 4.28483,
+          "end": 4.68483
+        },
+        {
+          "word": "On",
+          "start": 4.84483,
+          "end": 4.92483
+        },
+        {
+          "word": "üç",
+          "start": 5.00483,
+          "end": 5.08483
+        },
+        {
+          "word": "de",
+          "start": 5.16483,
+          "end": 5.24483
+        },
+        {
+          "word": "olur,",
+          "start": 5.28483,
+          "end": 5.72483
+        },
+        {
+          "word": "on",
+          "start": 5.76483,
+          "end": 5.80483
+        },
+        {
+          "word": "altı",
+          "start": 5.88483,
+          "end": 6.04483
+        },
+        {
+          "word": "da.",
+          "start": 6.12483,
+          "end": 6.36483
+        },
+        {
+          "word": "Tek",
+          "start": 6.5728800000000005,
+          "end": 6.732880000000001
+        },
+        {
+          "word": "şart:",
+          "start": 6.772880000000001,
+          "end": 7.37288
+        },
+        {
+          "word": "yük",
+          "start": 7.49288,
+          "end": 7.772880000000001
+        },
+        {
+          "word": "yavaş",
+          "start": 7.852880000000001,
+          "end": 8.172880000000001
+        },
+        {
+          "word": "yavaş",
+          "start": 8.21288,
+          "end": 8.412880000000001
+        },
+        {
+          "word": "artsın.",
+          "start": 8.492880000000001,
+          "end": 9.13288
+        }
+      ]
+    },
+    {
+      "voice": "Peki hangi spor? Onu yaşın değil, neyi sevdiğin seçer.",
+      "say": "Peki hangi spor? ... Onu yaşın değil, neyi sevdiğin seçer.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/5-mvdufzmm.mp3",
+      "durationInSeconds": 4.284082,
+      "words": [
+        {
+          "word": "Peki",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "hangi",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "word": "spor?",
+          "start": 0.88,
+          "end": 1.4465999999999999
+        },
+        {
+          "word": "Onu",
+          "start": 1.6477999999999997,
+          "end": 1.7807999999999997
+        },
+        {
+          "word": "yaşın",
+          "start": 1.8607999999999998,
+          "end": 2.1807999999999996
+        },
+        {
+          "word": "değil,",
+          "start": 2.2607999999999997,
+          "end": 2.7880999999999996
+        },
+        {
+          "word": "neyi",
+          "start": 2.8680999999999996,
+          "end": 3.1080999999999994
+        },
+        {
+          "word": "sevdiğin",
+          "start": 3.1880999999999995,
+          "end": 3.5080999999999998
+        },
+        {
+          "word": "seçer.",
+          "start": 3.5880999999999994,
+          "end": 4.3081
+        }
+      ]
+    },
+    {
+      "voice": "Müzik mi seviyorsun? Dans. Arkadaşlarını mı? Basketbol, voleybol. Doğayı mı? Bisiklet, koşu. Rekor kırmayı mı? Koçla ağırlık.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/6-mvdug1tc.mp3",
+      "durationInSeconds": 9.822041,
+      "words": [
+        {
+          "word": "Müzik",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "word": "mi",
+          "start": 0.36,
+          "end": 0.4
+        },
+        {
+          "word": "seviyorsun?",
+          "start": 0.48,
+          "end": 1.04
+        },
+        {
+          "word": "Dans.",
+          "start": 1.3318409999999998,
+          "end": 1.971181
+        },
+        {
+          "word": "Arkadaşlarını",
+          "start": 2.0658109999999996,
+          "end": 2.785811
+        },
+        {
+          "word": "mı?",
+          "start": 2.905811,
+          "end": 3.175861
+        },
+        {
+          "word": "Basketbol,",
+          "start": 3.286991,
+          "end": 4.166991
+        },
+        {
+          "word": "voleybol.",
+          "start": 4.2469909999999995,
+          "end": 4.886831
+        },
+        {
+          "word": "Doğayı",
+          "start": 5.047991,
+          "end": 5.447991
+        },
+        {
+          "word": "mı?",
+          "start": 5.527991,
+          "end": 5.687991
+        },
+        {
+          "word": "Bisiklet,",
+          "start": 5.967771000000001,
+          "end": 6.6077710000000005
+        },
+        {
+          "word": "koşu.",
+          "start": 6.687771000000001,
+          "end": 7.207021000000001
+        },
+        {
+          "word": "Rekor",
+          "start": 7.344961000000001,
+          "end": 7.664961000000002
+        },
+        {
+          "word": "kırmayı",
+          "start": 7.744961000000002,
+          "end": 8.064961000000002
+        },
+        {
+          "word": "mı?",
+          "start": 8.144961000000002,
+          "end": 8.304961000000002
+        },
+        {
+          "word": "Koçla",
+          "start": 8.552311000000001,
+          "end": 8.952311000000002
+        },
+        {
+          "word": "ağırlık.",
+          "start": 9.032311000000002,
+          "end": 9.832311000000002
+        }
+      ]
+    },
+    {
+      "voice": "Sen neyi seviyorsun? Yorumlara yaz, sana uyan sporu söyleyelim.",
+      "say": "Sen neyi seviyorsun? Yorumlara yaz, [chuckles] sana uyan sporu söyleyelim.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-07-yas/7-mvdug331.mp3",
+      "durationInSeconds": 4.519184,
+      "words": [
+        {
+          "word": "Sen",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "word": "neyi",
+          "start": 0.32,
+          "end": 0.44
+        },
+        {
+          "word": "seviyorsun?",
+          "start": 0.48,
+          "end": 1.2
+        },
+        {
+          "word": "Yorumlara",
+          "start": 1.36,
+          "end": 1.84
+        },
+        {
+          "word": "yaz,",
+          "start": 1.92,
+          "end": 2.24
+        },
+        {
+          "word": "sana",
+          "start": 2.96,
+          "end": 3.2
+        },
+        {
+          "word": "uyan",
+          "start": 3.24,
+          "end": 3.44
+        },
+        {
+          "word": "sporu",
+          "start": 3.52,
+          "end": 3.76
+        },
+        {
+          "word": "söyleyelim.",
+          "start": 3.8,
+          "end": 4.56
+        }
+      ]
+    }
+  ]
+}

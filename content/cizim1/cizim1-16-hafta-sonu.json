@@ -1,0 +1,79 @@
+{
+  "id": "cizim1-16-hafta-sonu",
+  "title": "Hafta sonu da sayılır",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "hs-kanca",
+      "voice": "Bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda yere yığıldı.",
+      "say": "Bir zamanlar dünyanın en formda adamlarından biriydi. Bugün Bayern Münih'in hocası ve geçen hafta antrenmanda yere yığıldı.",
+      "keys": [
+        "formda",
+        "yığıldı"
+      ]
+    },
+    {
+      "visual": "hs-liste",
+      "voice": "Gazeteler onun için dört şey yazdı: az uyku, çok kahve, düzensiz yemek ve neredeyse hiç spor.",
+      "say": "Gazeteler onun için dört şey yazdı: az uyku, çok kahve, düzensiz yemek ve neredeyse hiç spor.",
+      "keys": [
+        "dört",
+        "hiç",
+        "spor"
+      ]
+    },
+    {
+      "visual": "hs-vakit",
+      "voice": "Son madde çoğumuza tanıdık: \"Spora vaktim yok.\"",
+      "say": "Son madde çoğumuza tanıdık: \"Spora vaktim yok.\"",
+      "keys": [
+        "vaktim",
+        "yok"
+      ]
+    },
+    {
+      "visual": "hs-arastirma",
+      "voice": "İki bin on yedide altmış üç bin kişi incelendi. Sadece hafta sonu, haftada bir iki gün spor yapanlarda erken ölüm riski yüzde otuz düşük çıktı. Düzenli yapanlarda da yüzde otuz beş.",
+      "say": "İki bin on yedide altmış üç bin kişi incelendi. Sadece hafta sonu, haftada bir iki gün spor yapanlarda erken ölüm riski yüzde otuz düşük çıktı. Düzenli yapanlarda da yüzde otuz beş.",
+      "keys": [
+        "hafta",
+        "sonu",
+        "otuz"
+      ]
+    },
+    {
+      "visual": "hs-yeter",
+      "voice": "Yani hafta içi yetişemiyorsan, hafta sonu da sayılır. Yeter ki sıfır olmasın.",
+      "say": "Yani hafta içi yetişemiyorsan, hafta sonu da sayılır. Yeter ki sıfır olmasın.",
+      "keys": [
+        "sayılır",
+        "sıfır"
+      ]
+    },
+    {
+      "visual": "hs-gonder",
+      "voice": "Bunu \"vaktim yok\" diyen arkadaşına gönder ve ona şunu anlat:",
+      "say": "Bunu \"vaktim yok\" diyen arkadaşına gönder ve ona şunu anlat:",
+      "keys": [
+        "vaktim",
+        "yok"
+      ]
+    }
+  ],
+  "caption": "O'Donovan 2017 JAMA Intern Med (63.591 kişi): hafta sonu sporcusu ~%30, düzenli ~%35 düşük ölüm riski.",
+  "hashtags": [
+    "spor",
+    "haftasonu",
+    "saglik"
+  ]
+}
