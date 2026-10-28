@@ -7,6 +7,8 @@
   (`Hero`: ifade `mouth/brow/look/turn/talk`, `outfit` sokak/salon, `pockets`, `rim`, `live` = nefes, ağırlık aktarma,
   düzensiz göz kırpma, mikro baş hareketi). Kompozisyonlar `avatar2-sayfa` (karakter sayfası) ve `avatar2-sinema`
   (10 sn: gece sokak, lamba ışığı, genel → bel → yakın plan, alan derinliği, renk derecelendirme, film greni).
+  Kız karakter **Merve** de eklendi (`src/avatar2/Merve.tsx`, `avatar2-merve`: uzun dalgalı saç, perdeli kâkül, halka küpe,
+  beyaz tişört + deri ceket + kot, `beret`, salon = topuz + spor üstü + tayt; ifadeler soft/smile/grin/kiss/talk + `wink`).
   Çıktılar `ornek-videolar/avatar2/`. **Kullanıcı onayı bekleniyor**; onaylanırsa Cizim1'deki `Person` yerine
   geçecek (eski videolara dokunma). Avatar kuralı ("yüz değişmez") kullanıcı isteğiyle değişiyor.
 
