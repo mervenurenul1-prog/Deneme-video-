@@ -1,5 +1,15 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> YENİ SOHBET BURADAN (28 Ekim akşam — EN GÜNCEL) <<<
+- **20 KORSE SESLENDİRİLDİ** (`cizim1-20-korse`, `kr-*`): kanca `kr-kanca2` "Korse takıyorsun…" → tarih (1995 Kraliçe Elizabeth'in
+  balmumu heykelinden 1603 korsesi, zengin kostüm; "Daha eskisi 1598'de bir mezardan çıktı" taş tabut; korseli kadın iskeletleri)
+  → sebep → ters köşe "Tek faydası: mideni sıkar, az yersin." → tavsiye + "Salonda buna vakum diyoruz." → VOOM sesle ("İnce bel
+  hedefini VOOM'daki koçuna söyle…", kullanıcı istedi) → "…gönder ve şunu söyle:" döngü. Yunus 1.2x, 40,5 sn →
+  `ornek-videolar/cizim1-pilot/20-korse.mp4`. Kullanıcıya 1.3x (≈37,5 sn) seçeneği sunuldu. Kalan kredi ≈ 10.785.
+- Dersler: tarih HASSAS — kesin olmayanı kesin söyleme (heykelin korsesi ≠ kraliçenin giydiği; Girit/Medici efsane);
+  kullanıcı reddettiği komut bazen yine de çalışıyor → diff'i kontrol et ve SÖYLE.
+- Sıradaki: TENYA (metin onayı bekliyor), sonra KREATİN SAÇ DÖKER Mİ.
+
 ## >>> YENİ SOHBET BURADAN (28 Ekim — EN GÜNCEL) <<<
 - **20 BEL KORSESİ SEÇİLDİ** (kullanıcı: "aferin"). Sıradaki video: **KREATİN SAÇ DÖKER Mİ** (2009 G. Afrika 20 ragbi
   oyuncusu, saç ölçülmedi yalnız DHT; 2025 12 haftalık deney fark yok — DOĞRULA).
