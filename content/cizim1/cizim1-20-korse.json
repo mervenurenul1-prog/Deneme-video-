@@ -24,12 +24,13 @@
     },
     {
       "visual": "kr-tarih",
-      "voice": "İki yüz yıl önce kadınlar korseyi yıllarca taktı. İskeletlerinde kaburgalar içe bükülmüş çıktı: yağ gitmemiş, kemik yer değiştirmiş.",
-      "say": "İki yüz yıl önce kadınlar korseyi yıllarca taktı. İskeletlerinde kaburgalar içe bükülmüş çıktı: yağ gitmemiş, kemik yer değiştirmiş.",
+      "voice": "1995'te İngiltere Kraliçesi Elizabeth'in balmumu heykelini onarırken giysilerinin altından 1603'ten kalma bir korse çıktı. Korse yüzyıllarca takıldı; iskeletlerde kaburgalar içe bükülmüş çıktı: yağ gitmemiş, kemik yer değiştirmiş.",
+      "say": "1995'te İngiltere Kraliçesi Elizabeth'in balmumu heykelini onarırken giysilerinin altından 1603'ten kalma bir korse çıktı. Korse yüzyıllarca takıldı; iskeletlerde kaburgalar içe bükülmüş çıktı: yağ gitmemiş, kemik yer değiştirmiş.",
       "keys": [
-        "yıllarca",
+        "Elizabeth'in",
+        "1603'ten",
+        "korse",
         "kaburgalar",
-        "bükülmüş",
         "kemik"
       ]
     },
@@ -69,11 +70,12 @@
     },
     {
       "visual": "kr-son",
-      "voice": "Bunu korseyle spora giden arkadaşına gönder ve ona şunu söyle:",
-      "say": "Bunu korseyle spora giden arkadaşına gönder ve ona şunu söyle:",
+      "voice": "İnce bel hedefini VOOM'daki koçuna söyle; vakumu programına o eklesin. Bunu korseyle spora giden arkadaşına gönder ve ona şunu söyle:",
+      "say": "İnce bel hedefini VOOM'daki koçuna söyle; vakumu programına o eklesin. Bunu korseyle spora giden arkadaşına gönder ve ona şunu söyle:",
       "keys": [
-        "korseyle",
-        "gönder."
+        "VOOM'daki",
+        "koçuna",
+        "gönder"
       ]
     }
   ]
