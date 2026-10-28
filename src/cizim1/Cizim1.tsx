@@ -182,6 +182,7 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "kr-kanca2": (w) => [[w(0), "cizik", 0.18], [w(3), "pop", 0.15], [w(5), "sihir", 0.1], [w(10) - 2, "agir-dusme", 0.15]],
   "kr-sabah": (w) => [[w(1), "cizik", 0.2], [w(2), "pop", 0.15], [w(3), "nefes", 0.15], [w(7), "whoosh", 0.12], [w(8), "pop", 0.18], [w(10), "pirilti", 0.18]],
   "kr-ertesi": (w) => [[2, "sihir", 0.1], [w(4) - 2, "agir-dusme", 0.15]],
   "kr-ic": (w) => [[2, "pop", 0.15], [w(2), "boom", 0.12]],
@@ -863,6 +864,7 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "kr-kanca2": { to: 1.0, x: 540, y: 960 },
   "kr-sabah": { to: 1.0, x: 540, y: 960 },
   "kr-ertesi": { to: 1.0, x: 540, y: 960 },
   "kr-ic": { to: 1.0, x: 540, y: 960 },
@@ -23933,8 +23935,7 @@ const KrSabah: React.FC<SceneProps> = ({ w, d }) => {
 // 2) "Ertesi sabah aynaya bakıyorsun: aynı bel." Pencerede güneş doğar, kadın gerinir ve aynaya döner; kamera aynadaki
 // yansımaya yaklaşır: dün akşamki ince bel lacivert kesik çizgiyle duruyor, gerçek bel yavaşça taşar; "aynı"da kırmızı
 // "AYNI BEL" damgası, yüz düşer.
-const KrErtesi: React.FC<SceneProps> = ({ w, d }) => {
-  const f = useCurrentFrame();
+const KrErtesiFrame: React.FC<{ f: number; w: (i: number) => number; d: number; tag?: boolean }> = ({ f, w, d, tag = true }) => {
   const rise = tw(f, 0, w(2));
   const stretch = tw(f, 0, 8) * (1 - tw(f, w(1), w(2)));
   const grow = tw(f, w(3) - 4, w(4) + 6);
@@ -23957,9 +23958,50 @@ const KrErtesi: React.FC<SceneProps> = ({ w, d }) => {
         ) : null}
         <KiloStamp p={tw(f, w(4) - 2, w(4) + 6)} text="AYNI BEL" x={RX} y={RY + 150} half={150} />
       </CamK>
-      <KTag x={540} y={300} p={pop(f, 0, 12) * (1 - tw(f, w(3), w(3) + 6))} text="ertesi sabah" color={C.ink} rot={-3} />
+      {tag ? <KTag x={540} y={300} p={pop(f, 0, 12) * (1 - tw(f, w(3), w(3) + 6))} text="ertesi sabah" color={C.ink} rot={-3} /> : null}
     </>
   );
+};
+const KrErtesi: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return <KrErtesiFrame f={f} w={w} d={d} />;
+};
+
+// 1') KISA KANCA: "Her gün korse takıyorsun ama sabah aynaya bakınca bel yine aynı."
+// İlk kare (döngü karesi): bel yakın planı, iki el korsede; "Her gün"de üstte haftanın yedi günü kartları korse simgesiyle
+// tek tek dolar, kopçalar kapanır, bel daralır. "ama sabah"ta pencerede güneş doğar, kadın gerinir; "aynaya bakınca" kamera
+// aynadaki yansımaya yaklaşır: dünkü ince bel lacivert kesik çizgi, gerçek bel taşar; "aynı"da kırmızı "AYNI BEL" damgası.
+const KrKanca2Frame: React.FC<{ f: number; w: (i: number) => number; d: number }> = ({ f, w, d }) => {
+  if (f < w(4)) {
+    const hooks = tw(f, 4, w(3) + 4);
+    const belly = lerp(0.2, -0.25, hooks);
+    const grip: Arm = [KR_GRIP[0] + 6 * Math.sin(f / 3) * (1 - hooks * 0.5), KR_GRIP[1]];
+    return (
+      <>
+        <CamK k={[[0, 2.0, 330, KR_WAIST_Y - 10], [w(3), 1.6, 330, KR_WAIST_Y - 30], [w(4), 1.5, 330, KR_WAIST_Y - 40]]}>
+          <KrRoom sky="#ffe0a8" sun={[KR_WIN.x + 60, KR_WIN.y + 220]} clock={7 * 60} refl={{ belly, corset: 1, hooks, armL: grip, armR: grip }} />
+          <KrWoman belly={belly} corset={1} hooks={hooks} armL={grip} armR={grip} mouth={hooks > 0.2 ? "o" : "flat"} eyes={hooks > 0.5 ? "closed" : "open"} blush={0.5 + 0.4 * hooks} />
+          {hooks > 0 && hooks < 1 ? [-1, 1].map((sd) => <HeadArrow key={sd} x1={SEL_WO.x + sd * 175} y1={KR_WAIST_Y} x2={SEL_WO.x + sd * 110} y2={KR_WAIST_Y} p={1} color={C.red} w={12} />) : null}
+        </CamK>
+        {SEL_DAYS.map((dd, i) => {
+          const p = pop(f, Math.round(lerp(w(0), w(3), i / 6)), 8);
+          return p > 0 ? (
+            <g key={dd} stroke={C.ink}>
+              <rect x={95 + i * 135 - 56} y={250} width={112} height={150} rx={16} fill={C.cream} strokeWidth={6} />
+              <text x={95 + i * 135} y={292} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={32} fill={C.ink} stroke="none">{dd}</text>
+              <KrMini x={95 + i * 135} y={350} s={0.22 * p} />
+            </g>
+          ) : null;
+        })}
+      </>
+    );
+  }
+  const m = [w(4), w(5), w(6), w(8), w(10)];
+  return <KrErtesiFrame f={f - w(4)} w={(i) => (m[i] ?? w(10)) - w(4)} d={d - w(4)} tag={false} />;
+};
+const KrKanca2: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return <KrKanca2Frame f={f} w={w} d={d} />;
 };
 
 // 3) (kadının iç sesi, kullanıcının sesi) "Ama ben her gün takıyorum!" Kadın aynanın önünde, üstünde düşünce bulutu;
@@ -24412,7 +24454,7 @@ const KrSon: React.FC<SceneProps> = ({ w, d }) => {
       ) : null}
       {reveal > 0 ? (
         <g opacity={reveal}>
-          <KrSabahFrame f={0} w={() => 9999} d={9999} />
+          <KrKanca2Frame f={0} w={() => 9999} d={9999} />
         </g>
       ) : null}
     </>
@@ -24420,6 +24462,7 @@ const KrSon: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,
   "kr-ic": KrIc,
