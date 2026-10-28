@@ -5,7 +5,10 @@
   oyuncusu, saç ölçülmedi yalnız DHT; 2025 12 haftalık deney fark yok — DOĞRULA).
 - Korse kaynakları (aranan): Gibson, *The Corseted Skeleton* (Springer; Londra St Bride's 1700-1900 iskeletleri, kaburga
   içe bükülmesi); korse + düşük kalori deneyi (CNN 2015 haberi: çoğu bıraktı, etki ölçülemedi; asıl makale BULUNAMADI);
-  doktorlar: korse yağ hücresi yok etmez, çıkan su/ter. Metin v3 (6 sahne `kr-*`, 33,5 sn) → sessiz önizleme `20-korse-sessiz.mp4` gönderildi, ONAY bekleniyor.
+  doktorlar: korse yağ hücresi yok etmez, çıkan su/ter. v1 görüntüsü REDDEDİLDİ ("korse belden ince olur, Yunus'un beli açık saçma, görüntü berbat"). v2: selülit dünyası, KADIN ana
+  karakter (oda+ayna), kum saati korse (kopçalı, kıyafet üstünde), 8 sahne; ilk 3 cümle yeni (iç ses = KULLANICININ SESİ
+  `MalkCL6Ms3mHRGDVY6vZ`), sonrası onaylı eski metin ("yarın akşam"→"yarın sabah" döngü için). 37,8 sn (uzun, kullanıcı karar
+  verecek). Sessiz önizleme v2 gönderildi. DERS: metni onaylandıysa DEĞİŞTİRME; şikâyet görüntüdeyse yalnız görüntüyü düzelt.
   Sıradaki: TENYA metni (önce metin onayı), sonra kreatin.
 - **"Kenya muhabbeti" = TENYA HAPI** (kullanıcı hatırladı): korse döneminde (1800'ler sonu-1900'ler başı) "tenya hapı"
   reklamları — bağırsakta kalan kurt yemeği yer, sen zayıflarsın. Haplarda gerçekten kurt var mıydı TARTIŞMALI (ünlü
