@@ -182,14 +182,14 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
-  "kr-kanca2": (w) => [[w(0), "cizik", 0.18], [w(3), "pop", 0.15], [w(5), "sihir", 0.1], [w(10) - 2, "agir-dusme", 0.15]],
+  "kr-kanca2": (w) => [[w(0), "cizik", 0.18], [w(1), "pop", 0.15], [w(3), "sihir", 0.1], [w(8) - 2, "agir-dusme", 0.15]],
   "kr-sabah": (w) => [[w(1), "cizik", 0.2], [w(2), "pop", 0.15], [w(3), "nefes", 0.15], [w(7), "whoosh", 0.12], [w(8), "pop", 0.18], [w(10), "pirilti", 0.18]],
   "kr-ertesi": (w) => [[2, "sihir", 0.1], [w(4) - 2, "agir-dusme", 0.15]],
   "kr-ic": (w) => [[2, "pop", 0.15], [w(2), "boom", 0.12]],
   "kr-sebep": (w) => [[0, "whoosh", 0.15], [w(3), "sonme", 0.18], [w(5) - 2, "agir-dusme", 0.15], [w(6), "damla", 0.18], [w(12), "pop", 0.15]],
   "kr-terskose": (w) => [[w(4), "ding", 0.18], [w(5), "zincir", 0.1], [w(9), "pop", 0.15]],
   "kr-tarih": (w) => [[0, "kagit", 0.18], [w(8), "whoosh", 0.15], [w(11), "cizik", 0.15], [w(15), "agir-dusme", 0.12]],
-  "kr-tavsiye": (w) => [[w(4), "sihir", 0.15], [w(9), "nefes", 0.2], [w(14), "pirilti", 0.18]],
+  "kr-tavsiye": (w) => [[w(4), "sihir", 0.15], [w(9), "nefes", 0.2], [w(14), "pirilti", 0.18], [w(20) - 4, "ding", 0.18]],
   "kr-son": (w) => [[w(1), "pop", 0.15], [w(5) - 2, "whoosh", 0.18], [w(6), "whoosh", 0.21]],
   "tm-kanca": (w) => [[w(3), "ding", 0.18], [w(11), "cizik", 0.18]],
   "tm-tuz": (w) => [[w(5) - 2, "pop", 0.18]],
@@ -23972,19 +23972,19 @@ const KrErtesi: React.FC<SceneProps> = ({ w, d }) => {
 // tek tek dolar, kopçalar kapanır, bel daralır. "ama sabah"ta pencerede güneş doğar, kadın gerinir; "aynaya bakınca" kamera
 // aynadaki yansımaya yaklaşır: dünkü ince bel lacivert kesik çizgi, gerçek bel taşar; "aynı"da kırmızı "AYNI BEL" damgası.
 const KrKanca2Frame: React.FC<{ f: number; w: (i: number) => number; d: number }> = ({ f, w, d }) => {
-  if (f < w(4)) {
-    const hooks = tw(f, 4, w(3) + 4);
+  if (f < w(2)) {
+    const hooks = tw(f, 4, w(1) + 4);
     const belly = lerp(0.2, -0.25, hooks);
     const grip: Arm = [KR_GRIP[0] + 6 * Math.sin(f / 3) * (1 - hooks * 0.5), KR_GRIP[1]];
     return (
       <>
-        <CamK k={[[0, 2.0, 330, KR_WAIST_Y - 10], [w(3), 1.6, 330, KR_WAIST_Y - 30], [w(4), 1.5, 330, KR_WAIST_Y - 40]]}>
+        <CamK k={[[0, 2.0, 330, KR_WAIST_Y - 10], [w(1), 1.6, 330, KR_WAIST_Y - 30], [w(2), 1.5, 330, KR_WAIST_Y - 40]]}>
           <KrRoom sky="#ffe0a8" sun={[KR_WIN.x + 60, KR_WIN.y + 220]} clock={7 * 60} refl={{ belly, corset: 1, hooks, armL: grip, armR: grip }} />
           <KrWoman belly={belly} corset={1} hooks={hooks} armL={grip} armR={grip} mouth={hooks > 0.2 ? "o" : "flat"} eyes={hooks > 0.5 ? "closed" : "open"} blush={0.5 + 0.4 * hooks} />
           {hooks > 0 && hooks < 1 ? [-1, 1].map((sd) => <HeadArrow key={sd} x1={SEL_WO.x + sd * 175} y1={KR_WAIST_Y} x2={SEL_WO.x + sd * 110} y2={KR_WAIST_Y} p={1} color={C.red} w={12} />) : null}
         </CamK>
         {SEL_DAYS.map((dd, i) => {
-          const p = pop(f, Math.round(lerp(w(0), w(3), i / 6)), 8);
+          const p = pop(f, Math.round(lerp(2, w(1) + 4, i / 6)), 8);
           return p > 0 ? (
             <g key={dd} stroke={C.ink}>
               <rect x={95 + i * 135 - 56} y={250} width={112} height={150} rx={16} fill={C.cream} strokeWidth={6} />
@@ -23996,8 +23996,8 @@ const KrKanca2Frame: React.FC<{ f: number; w: (i: number) => number; d: number }
       </>
     );
   }
-  const m = [w(4), w(5), w(6), w(8), w(10)];
-  return <KrErtesiFrame f={f - w(4)} w={(i) => (m[i] ?? w(10)) - w(4)} d={d - w(4)} tag={false} />;
+  const m = [w(2), w(3), w(4), w(6), w(8)];
+  return <KrErtesiFrame f={f - w(2)} w={(i) => (m[i] ?? w(8)) - w(2)} d={d - w(2)} tag={false} />;
 };
 const KrKanca2: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
@@ -24372,7 +24372,7 @@ const KrTavsiye: React.FC<SceneProps> = ({ w, d }) => {
   const inn = tw(f, w(11), w(13) + 4);
   const belly = lerp(0.42, 0.12, inn);
   const breath = tw(f, w(9), w(11));
-  const ring = tw(f, w(14), d);
+  const ring = tw(f, w(14), w(17));
   const xray = tw(f, w(4) - 2, w(4) + 8);
   return (
     <>
@@ -24404,7 +24404,13 @@ const KrTavsiye: React.FC<SceneProps> = ({ w, d }) => {
         <PillLabel x={SEL_WO.x + 330} y={KR_WAIST_Y - 120} text="derin karın kası" p={pop(f, w(7) - 2, 10) * (1 - tw(f, w(9) - 4, w(9)))} to={[SEL_WO.x + 20, KR_WAIST_Y + 20]} color={YAS_OK} />
       </CamK>
       <KTag x={540} y={300} p={pop(f, w(2) - 2, 12) * (1 - tw(f, w(9) - 4, w(9)))} text="doğal korse" color={YAS_OK} rot={-4} />
-      {ring > 0 ? (
+      {pop(f, w(20) - 4, 14) > 0 ? (
+        <g transform={`translate(745 720) scale(${0.72 * pop(f, w(20) - 4, 14)}) rotate(-4)`}>
+          <rect x={-300} y={-110} width={600} height={190} rx={34} fill={C.cream} stroke={YAS_OK} strokeWidth={12} />
+          <text y={52} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={150} fill={YAS_OK} letterSpacing={12}>VAKUM</text>
+        </g>
+      ) : null}
+      {ring > 0 && f < w(20) - 4 ? (
         <g transform={`translate(830 380) scale(${pop(f, w(14) - 2, 12)})`}>
           <circle r={120} fill={C.cream} stroke={C.ink} strokeWidth={8} />
           <circle r={98} fill="none" stroke={YAS_OK} strokeWidth={24} strokeDasharray={`${2 * Math.PI * 98 * (1 - ring)} 999`} transform="rotate(-90)" />

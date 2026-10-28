@@ -15,14 +15,12 @@
   "scenes": [
     {
       "visual": "kr-kanca2",
-      "voice": "Her gün korse takıyorsun ama sabah aynaya bakınca bel yine aynı.",
+      "voice": "Korse takıyorsun ama sabah aynaya bakınca bel yine aynı.",
       "keys": [
-        "Her",
-        "gün",
-        "korse",
+        "Korse",
         "aynı."
       ],
-      "say": "Her gün korse takıyorsun ama sabah aynaya bakınca bel yine aynı."
+      "say": "Korse takıyorsun ama sabah aynaya bakınca bel yine aynı."
     },
     {
       "visual": "kr-tarih",
@@ -58,14 +56,15 @@
     },
     {
       "visual": "kr-tavsiye",
-      "voice": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut.",
-      "say": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut.",
+      "voice": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda biz buna vakum diyoruz.",
+      "say": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda biz buna vakum diyoruz.",
       "keys": [
         "doğuştan",
         "korsen",
         "derin",
         "on",
-        "saniye"
+        "saniye",
+        "vakum"
       ]
     },
     {
