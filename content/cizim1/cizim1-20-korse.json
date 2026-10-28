@@ -1,0 +1,53 @@
+{
+  "id": "cizim1-20-korse",
+  "title": "Bel korsesi",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "kr-kanca",
+      "voice": "Korseyi çıkardın: belinde kırmızı izler, bel incecik. Akşam aynaya baktın; izler gitmiş, göbek geri gelmiş.",
+      "say": "Korseyi çıkardın: belinde kırmızı izler, bel incecik. Akşam aynaya baktın; izler gitmiş, göbek geri gelmiş.",
+      "keys": ["kırmızı", "izler,", "incecik.", "göbek", "gelmiş."]
+    },
+    {
+      "visual": "kr-sebep",
+      "voice": "Çünkü korse yağ eritmez, sadece sıkıştırır. Giden şey terdi; ilk bardak suyla geri gelir.",
+      "say": "Çünkü korse yağ eritmez, sadece sıkıştırır. Giden şey terdi; ilk bardak suyla geri gelir.",
+      "keys": ["eritmez,", "sıkıştırır.", "terdi;", "bardak"]
+    },
+    {
+      "visual": "kr-terskose",
+      "voice": "Hiç mi işe yaramaz? Yarar: mideni sıktığı için daha az yersin.",
+      "say": "Hiç mi işe yaramaz? Hmm, yarar: mideni sıktığı için daha az yersin.",
+      "keys": ["Yarar:", "mideni", "az"]
+    },
+    {
+      "visual": "kr-tarih",
+      "voice": "İki yüz yıl önce kadınlar korseyi yıllarca taktı. İskeletlerinde kaburgalar içe bükülmüş çıktı: yağ gitmemiş, kemik yer değiştirmiş.",
+      "say": "İki yüz yıl önce kadınlar korseyi yıllarca taktı. İskeletlerinde kaburgalar içe bükülmüş çıktı: yağ gitmemiş, kemik yer değiştirmiş.",
+      "keys": ["yıllarca", "kaburgalar", "bükülmüş", "kemik"]
+    },
+    {
+      "visual": "kr-tavsiye",
+      "voice": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut.",
+      "say": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut.",
+      "keys": ["doğuştan", "korsen", "derin", "on", "saniye"]
+    },
+    {
+      "visual": "kr-son",
+      "voice": "Bunu korseyle spora giden arkadaşına gönder. Yoksa yarın akşam:",
+      "say": "Bunu korseyle spora giden arkadaşına gönder. Yoksa yarın akşam:",
+      "keys": ["korseyle", "gönder."]
+    }
+  ]
+}

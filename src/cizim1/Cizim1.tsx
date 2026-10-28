@@ -182,6 +182,12 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  "kr-kanca": (w) => [[w(1), "cizik", 0.2], [w(3), "ding", 0.15], [w(7), "whoosh", 0.15], [w(12), "sonme", 0.18]],
+  "kr-sebep": (w) => [[w(3), "cizik", 0.15], [w(5), "pop", 0.15], [w(6), "damla", 0.18], [w(11), "damla", 0.15]],
+  "kr-terskose": (w) => [[w(4), "ding", 0.18], [w(9), "pop", 0.15]],
+  "kr-tarih": (w) => [[0, "kagit", 0.18], [w(8), "whoosh", 0.15], [w(11), "agir-dusme", 0.12], [w(15), "cizik", 0.15]],
+  "kr-tavsiye": (w) => [[w(4), "sihir", 0.15], [w(9), "nefes", 0.2], [w(14), "pirilti", 0.18]],
+  "kr-son": (w) => [[w(5) - 2, "whoosh", 0.18], [w(6), "whoosh", 0.21]],
   "tm-kanca": (w) => [[w(3), "ding", 0.18], [w(11), "cizik", 0.18]],
   "tm-tuz": (w) => [[w(5) - 2, "pop", 0.18]],
   "tm-tarih": (w) => [[w(2), "kagit", 0.18], [w(7), "kalem", 0.18], [w(17) - 2, "agir-dusme", 0.15]],
@@ -855,6 +861,12 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "kr-kanca": { to: 1.0, x: 540, y: 960 },
+  "kr-sebep": { to: 1.0, x: 540, y: 960 },
+  "kr-terskose": { to: 1.0, x: 540, y: 960 },
+  "kr-tarih": { to: 1.0, x: 540, y: 960 },
+  "kr-tavsiye": { to: 1.0, x: 540, y: 960 },
+  "kr-son": { to: 1.0, x: 540, y: 960 },
   "tm-kanca": { to: 1.0, x: 540, y: 960 },
   "tm-tuz": { to: 1.0, x: 540, y: 960 },
   "tm-tarih": { to: 1.0, x: 540, y: 960 },
@@ -23731,7 +23743,418 @@ const TmSon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 20 BEL KORSESİ (`kr-*`) — "Korseyi çıkardın: belinde kırmızı izler, bel incecik. Akşam aynaya baktın…" =====
+// Kaynaklar (calisma/onemli-notlar/DURUM.md): korse yağ hücresi yok etmez, giden ter/su; mideyi sıktığı için daha az
+// yenir (CNN 2015, plastik cerrah); Gibson, The Corseted Skeleton (Londra St Bride's 1700-1900 iskeletleri, kaburgalar
+// içe bükülmüş). Avatar salon kıyafetinde (siyah tişört, gri şort); korse = siyah terleme kemeri (erkekler de takıyor).
+const KR_TOP = SEL_AV_TOP;
+const KR_BELT = "#1d1d22";
+const krWaist = (belly: number) => 88 + 70 * belly;
+// Siyah bel korsesi (kişinin kendi koordinatlarında, belin çevresinde); off 0..1 = aşağı kayıp çıkar
+const KrBelt: React.FC<{ belly: number; off?: number; sq?: number }> = ({ belly, off = 0, sq = 0 }) => {
+  if (off >= 1) return null;
+  const wst = krWaist(belly) + 10 - sq * 14;
+  return (
+    <g transform={`translate(${off * 40} ${off * 260}) rotate(${off * 18})`} opacity={1 - off} stroke={C.ink} strokeLinejoin="round">
+      <rect x={-wst} y={-492} width={wst * 2} height={118} rx={34} fill={KR_BELT} strokeWidth={7} />
+      <path d={`M${-wst + 16} -478 H${wst - 16} M${-wst + 16} -388 H${wst - 16}`} stroke="#5a5a62" strokeWidth={4} strokeDasharray="12 9" />
+      <rect x={-wst * 0.55} y={-470} width={wst * 1.1} height={74} rx={14} fill="#34343c" strokeWidth={5} />
+      {[-0.3, 0, 0.3].map((k) => (
+        <path key={k} d={`M${k * wst - 14} -458 v50 M${k * wst + 14} -458 v50`} stroke="#4a4a54" strokeWidth={3} />
+      ))}
+    </g>
+  );
+};
+// Tişört yukarı sıyrılmış çıplak bel + kemerin bıraktığı kırmızı izler (marks 0..1)
+const KrBareBelly: React.FC<{ belly: number; marks: number }> = ({ belly, marks }) => {
+  const wst = krWaist(belly);
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      <path d={`M${-wst - 2} -496 Q${-wst - 8} -430 ${-wst + 4} -384 Q0 ${-366 + 30 * belly} ${wst - 4} -384 Q${wst + 8} -430 ${wst + 2} -496 Z`} fill={C.skin} strokeWidth={7} />
+      <path d={`M-10 ${-420 + 14 * belly} q10 8 20 0`} strokeWidth={4} fill="none" />
+      {marks > 0
+        ? [-474, -446, -418].map((y, i) => (
+            <path key={i} d={`M${-wst + 14} ${y} q${wst * 0.5} ${8 * (i % 2 ? -1 : 1)} ${wst - 14} 0 t${wst - 14} 0`} stroke="#d2433a" strokeWidth={7} fill="none" opacity={marks * 0.85} strokeLinecap="round" />
+          ))
+        : null}
+      <rect x={-wst - 14} y={-516} width={wst * 2 + 28} height={30} rx={15} fill={KR_TOP} strokeWidth={6} />
+    </g>
+  );
+};
+const KrAvatar: React.FC<{ x: number; y: number; s: number; belly: number; mouth?: Mouth; eyes?: Eyes; armL?: Arm; armR?: Arm; lookY?: number; bare?: number; marks?: number; belt?: number; beltOff?: number; children?: React.ReactNode }> = ({ x, y, s, belly, mouth = "smile", eyes = "open", armL = [20, 0], armR = [20, 0], lookY = 0, bare = 0, marks = 0, belt = 0, beltOff = 0, children }) => (
+  <Person x={x} y={y} s={s} belly={belly} shirt={KR_TOP} shorts={IG_SHORTS} shoe={IG_SHOE} mouth={mouth} eyes={eyes} lookY={lookY} armL={armL} armR={armR}>
+    {bare > 0 ? <KrBareBelly belly={belly} marks={marks} /> : null}
+    {belt > 0 ? <KrBelt belly={belly} off={beltOff} /> : null}
+    {children}
+  </Person>
+);
+// Ayna çerçevesi: ekranın tamamı aynanın içi
+const KrMirror: React.FC<{ p: number }> = ({ p }) =>
+  p > 0 ? (
+    <g opacity={p} stroke={C.ink}>
+      <path d="M-200 -200 H1280 V2120 H-200 Z M70 230 V1720 H1010 V230 Z" fill="#8a5a34" fillRule="evenodd" strokeWidth={0} />
+      <rect x={70} y={230} width={940} height={1490} rx={30} fill="none" strokeWidth={10} />
+      <path d="M150 500 L420 260 M150 700 L600 300" stroke="#fff" strokeWidth={22} opacity={0.3} strokeLinecap="round" />
+    </g>
+  ) : null;
+const KrClock: React.FC<{ x: number; y: number; r: number; min: number }> = ({ x, y, r, min }) => (
+  <g transform={`translate(${x} ${y})`} stroke={C.ink} strokeLinecap="round">
+    <circle r={r} fill={C.cream} strokeWidth={8} />
+    <path d={`M0 0 L${Math.sin(((min / 60 / 12) * 360 * Math.PI) / 180) * r * 0.5} ${-Math.cos(((min / 60 / 12) * 360 * Math.PI) / 180) * r * 0.5}`} strokeWidth={10} />
+    <path d={`M0 0 L${Math.sin(((min % 60) * 6 * Math.PI) / 180) * r * 0.78} ${-Math.cos(((min % 60) * 6 * Math.PI) / 180) * r * 0.78}`} strokeWidth={6} />
+  </g>
+);
+
+// 1) Yakın plan: siyah korse belde (ilk kare = döngü karesi). "çıkardın"da cırt sesiyle aşağı kayar; tişört sıyrılmış bel,
+// "kırmızı izler"de kırmızı çizgiler; "incecik"te kamera geri çekilir, lacivert "İNCELDİ!". "Akşam"da ayna çerçevesi + akşam
+// tonu, saat hızla döner; "izler gitmiş"te çizgiler söner, "göbek geri gelmiş"te göbek yavaşça şişer, "İNCELDİ!" düşer,
+// kırmızı "geri geldi".
+const KR_AV = { x: 540, y: 1720, s: 0.95 };
+const KrKancaFrame: React.FC<{ f: number; w: (i: number) => number; d: number }> = ({ f, w, d }) => {
+  if (f < w(7)) {
+    const off = tw(f, w(1), w(1) + 10);
+    return (
+      <>
+        <CamK k={[[0, 2.4, 540, 1300], [w(1) + 10, 2.0, 540, 1310], [w(4), 1.7, 540, 1250], [w(5) + 4, 1.0, 540, 1000], [w(7), 1.04, 540, 1000]]} shake={hit(f, w(1), 8) * 0.4}>
+          <FkGym f={f} />
+          <KrAvatar {...KR_AV} belly={0.05} mouth={f >= w(5) ? "grin" : "flat"} bare={1} marks={tw(f, w(3) - 2, w(4))} belt={1} beltOff={off} armL={[24, 0]} armR={[24, 0]}>
+            <Sweat f={f} x={0} y={-560} w={180} h={200} n={5} o={1 - off} />
+          </KrAvatar>
+        </CamK>
+        <KTag x={540} y={360} p={pop(f, w(5) - 2, 12)} text="İNCELDİ!" color={YAS_OK} rot={-4} />
+      </>
+    );
+  }
+  const belly = lerp(0.05, 0.8, tw(f, w(12), w(14) + 6));
+  const fall = tw(f, w(12), w(12) + 10);
+  return (
+    <>
+      <CamK k={[[w(7), 1.55, 540, 1250], [w(10), 1.4, 540, 1200], [w(12), 1.65, 540, 1320], [d, 1.8, 540, 1330]]}>
+        <IgBath />
+        <KrAvatar {...KR_AV} belly={belly} bare={1} marks={1 - tw(f, w(10), w(11) + 4)} mouth={f >= w(12) ? "worry" : "smile"} eyes={f >= w(12) ? "wide" : "open"} lookY={6} armL={[24, 0]} armR={[24, 0]} />
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#1e2a4a" opacity={0.22 * tw(f, w(7), w(8))} />
+      </CamK>
+      <KrMirror p={tw(f, w(7), w(7) + 6)} />
+      <KrClock x={860} y={380} r={80} min={lerp(13 * 60, 21 * 60, tw(f, w(7), w(10)))} />
+      {fall < 1 ? (
+        <g transform={`translate(0 ${fall * 900}) rotate(${fall * 25} 540 360)`} opacity={1 - fall}>
+          <KTag x={540} y={360} p={1} text="İNCELDİ!" color={YAS_OK} rot={-4} />
+        </g>
+      ) : null}
+      <KTag x={540} y={560} p={pop(f, w(13) - 2, 12)} text="geri geldi" color={C.red} rot={3} />
+    </>
+  );
+};
+const KrKanca: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return <KrKancaFrame f={f} w={w} d={d} />;
+};
+
+// Ölçü kabı (ter burada kalır, içilmez) ve su bardağı
+const KrCup: React.FC<{ x: number; y: number; level: number; label: string; color: string; marks?: boolean; s?: number }> = ({ x, y, level, label, color, marks = true, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+    <path d={`M-70 ${-200 * level} H70 L66 0 H-66 Z`} fill={color} strokeWidth={0} opacity={0.85} />
+    <path d="M-80 -220 L-70 0 H70 L80 -220" fill="none" strokeWidth={7} />
+    {marks ? [0.25, 0.5, 0.75].map((k) => <path key={k} d={`M42 ${-200 * k} H72`} strokeWidth={4} />) : null}
+    <text x={0} y={60} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={52} fill={C.ink} stroke="none">{label}</text>
+  </g>
+);
+
+// 2) "Çünkü korse yağ eritmez, sadece sıkıştırır. Giden şey terdi; ilk bardak suyla geri gelir."
+// Bel kesiti merceği: deri halkası, içinde yüzlü yağ hücreleri. "eritmez"de kırmızı "yağ erimez" (hücreler aynı);
+// "sıkıştırır"da iki siyah korse duvarı içeri kayar, kesit yassılır, hücreler sıkışık yüz yapar. "terdi"de mercekten
+// damlalar ölçü kabına akar ("ter"). "bardak"ta avatar masadaki temiz bardaktan su içer, beli geri şişer, kırmızı "geri gelir".
+const KR_FAT: [number, number, number][] = [[-170, -90, 70], [-20, -130, 78], [140, -80, 72], [-110, 50, 76], [60, 40, 80], [200, 70, 60], [-220, 90, 55], [-30, 160, 62], [130, 170, 58]];
+const KrSebep: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  if (f < w(9)) {
+    const sq = tw(f, w(4), w(5) + 6);
+    const pour = tw(f, w(6), w(9));
+    return (
+      <>
+        <CamK k={[[0, 1.15, 540, 900], [w(4), 1.0, 540, 900], [w(6), 1.0, 540, 900], [w(9), 1.08, 700, 1100]]}>
+          <rect x={-800} y={-800} width={2680} height={3400} fill="#efe4cc" />
+          <g transform={`translate(540 850) scale(${pop(f, 0, 12)})`}>
+            <circle r={420} fill="#fbf3e2" stroke={C.ink} strokeWidth={10} />
+            <g transform={`scale(${lerp(1, 0.74, sq)} ${lerp(1, 1.08, sq)})`}>
+              <ellipse rx={350} ry={300} fill="#f6d9c2" stroke="#c98c66" strokeWidth={18} />
+              {KR_FAT.map(([x, y, r], i) => (
+                <FatCellC key={i} x={x} y={y} rx={r} ry={r * 0.8} k={1} squeeze={sq} />
+              ))}
+            </g>
+            {[-1, 1].map((side) => (
+              <rect key={side} x={side < 0 ? lerp(-470, -330, sq) - 60 : lerp(470, 330, sq)} y={-260} width={60} height={520} rx={20} fill={KR_BELT} stroke={C.ink} strokeWidth={7} opacity={tw(f, w(4) - 4, w(4))} />
+            ))}
+            <text x={0} y={-450} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={60} fill={C.ink}>bel kesiti</text>
+          </g>
+          {pour > 0
+            ? [0, 1, 2, 3].map((i) => {
+                const t = ((f - w(6)) / 14 + i * 0.25) % 1;
+                return <Drop key={i} x={lerp(760, 830, t)} y={lerp(1050, 1500, t)} s={1.4} o={1 - t * 0.4} />;
+              })
+            : null}
+          <KrCup x={830} y={1700} level={0.1 + 0.5 * pour} label="ter" color="#cfe3ee" s={pop(f, w(6) - 4, 12)} />
+        </CamK>
+        <KTag x={300} y={1320} p={pop(f, w(3) - 2, 12)} text="yağ erimez" color={C.red} rot={-4} />
+        <KTag x={790} y={1320} p={pop(f, w(5) - 2, 12)} text="sıkışır" color={C.ink} rot={4} />
+      </>
+    );
+  }
+  const drink = tw(f, w(10) - 4, w(11));
+  const arm: Arm = [lerp(20, 140, drink), lerp(0, 150, drink)];
+  const hand = armPoints(1, arm)[2];
+  const belly = lerp(0.05, 0.6, tw(f, w(11), w(13) + 6));
+  return (
+    <>
+      <CamK k={[[w(9), 1.2, 540, 1150], [w(11), 1.05, 540, 1050], [d, 1.15, 540, 1200]]}>
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#f1e1c4" />
+        <rect x={160} y={300} width={360} height={300} fill="#bfe0ef" stroke={C.ink} strokeWidth={8} />
+        <KrAvatar x={480} y={1720} s={0.9} belly={belly} bare={1} marks={0} armR={arm} mouth={drink > 0.9 ? "flat" : "smile"} eyes={drink > 0.5 && f < w(12) ? "closed" : "open"}>
+          <g transform={`rotate(${-50 * drink} ${hand[0]} ${hand[1]})`}>
+            <KrCup x={hand[0] + 6} y={hand[1] + 70} level={lerp(0.8, 0.1, tw(f, w(11), w(12)))} label="" color={C.water} marks={false} s={0.6} />
+          </g>
+        </KrAvatar>
+      </CamK>
+      <KTag x={540} y={360} p={pop(f, w(10) - 2, 12)} text="ilk bardak su" color={C.ink} rot={-3} />
+      <KTag x={540} y={540} p={pop(f, w(12) - 2, 12)} text="geri gelir" color={C.red} rot={3} />
+    </>
+  );
+};
+
+// 3) "Hiç mi işe yaramaz? Yarar: mideni sıktığı için daha az yersin." Sofra: avatar korseyle büyük tabağa bakar, "?";
+// "Yarar"da lacivert tik; "mideni"de sağ üstte mide merceği: siyah korse duvarları mideyi sıkar; "daha az"da tabaktaki
+// yemek küçülür, avatar tabağı iter (lacivert "daha az yersin").
+const KrTerskose: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const sq = tw(f, w(5), w(7));
+  const less = tw(f, w(8), w(10));
+  return (
+    <>
+      <CamK k={[[0, 1.25, 540, 1250], [w(4), 1.0, 540, 1000], [w(8), 1.05, 540, 1100], [d, 1.12, 540, 1200]]}>
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#f1e1c4" />
+        <KrAvatar x={540} y={1560} s={0.8} belly={0.2} belt={1} armR={less > 0.3 ? [60, 40] : [20, 0]} mouth={less > 0.5 ? "flat" : "smile"} />
+        <g stroke={C.ink} strokeLinejoin="round">
+          <rect x={-800} y={1300} width={2680} height={40} fill="#a87448" strokeWidth={6} />
+          <rect x={-800} y={1340} width={2680} height={1200} fill="#8a5a34" strokeWidth={6} />
+        </g>
+        <IgPlate x={lerp(540, 640, less)} y={1300} food={lerp(1, 0.25, less)} s={0.95} />
+      </CamK>
+      <KTag x={540} y={330} p={pop(f, 0, 10) * (1 - tw(f, w(4) - 2, w(4)))} text="hiç mi?" color={C.ink} rot={-4} />
+      {pop(f, w(4), 12) > 0 ? (
+        <g transform={`translate(240 400) scale(${pop(f, w(4), 12)})`}>
+          <circle r={90} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <path d="M-40 0 l28 30 l56 -64" stroke={YAS_OK} strokeWidth={18} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {pop(f, w(5) - 4, 12) > 0 ? (
+        <g transform={`translate(800 520) scale(${pop(f, w(5) - 4, 12)})`}>
+          <circle r={200} fill="#fbf3e2" stroke={C.ink} strokeWidth={9} />
+          <g transform={`scale(${lerp(1.5, 1.05, sq)} 1.5)`}>
+            <Stomach x={0} y={10} s={1} fill={0.4} />
+          </g>
+          {[-1, 1].map((side) => (
+            <rect key={side} x={side < 0 ? lerp(-200, -130, sq) - 34 : lerp(200, 130, sq)} y={-120} width={34} height={240} rx={12} fill={KR_BELT} stroke={C.ink} strokeWidth={6} />
+          ))}
+          <text x={0} y={-220} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={52} fill={C.ink}>mide</text>
+        </g>
+      ) : null}
+      <KTag x={540} y={1760} p={pop(f, w(9) - 2, 12)} text="daha az yersin" color={YAS_OK} rot={-3} />
+    </>
+  );
+};
+
+// Viktorya dönemi korseli kadın (sepya): kabarık etek, bağcıklı korse, topuz saç; waist = bel yarı genişliği
+const KrLady: React.FC<{ x: number; y: number; s: number; waist: number; f: number }> = ({ x, y, s, waist, f }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+    <path d={`M${-waist} -420 C${-waist - 40} -300 -300 -120 -330 0 H330 C300 -120 ${waist + 40} -300 ${waist} -420 Z`} fill="#b98b6a" strokeWidth={8} />
+    <path d="M-330 0 Q-220 -30 -110 0 Q0 -30 110 0 Q220 -30 330 0" fill="none" strokeWidth={5} />
+    <path d={`M-100 -640 Q-110 -560 ${-waist} -420 H${waist} Q110 -560 100 -640 Q0 -660 -100 -640 Z`} fill="#e9dcc0" strokeWidth={8} />
+    {[-600, -560, -520, -480, -445].map((yy, i) => (
+      <path key={i} d={`M${-16} ${yy} L16 ${yy + 22} M16 ${yy} L-16 ${yy + 22}`} stroke="#7a4e2e" strokeWidth={4} />
+    ))}
+    <path d="M-100 -640 Q-150 -560 -130 -470 M100 -640 Q150 -560 130 -470" stroke={C.ink} strokeWidth={30} fill="none" />
+    <path d="M-100 -640 Q-150 -560 -130 -470 M100 -640 Q150 -560 130 -470" stroke={C.skin} strokeWidth={20} fill="none" />
+    <rect x={-22} y={-690} width={44} height={56} fill={C.skin} strokeWidth={6} />
+    <circle cx={0} cy={-740} r={72} fill={C.skin} strokeWidth={7} />
+    <path d="M-76 -736 C-86 -830 86 -830 76 -736 C60 -780 -60 -780 -76 -736 Z" fill={C.hair} strokeWidth={6} />
+    <circle cx={0} cy={-822} r={34} fill={C.hair} strokeWidth={6} />
+    <Face eyes={(f % 90) < 4 ? "closed" : "open"} mouth="flat" lookY={-38} />
+  </g>
+);
+// Kaburga kafesi (röntgen): k 0 = normal, 1 = alt kaburgalar içe bükülmüş (kırmızı)
+const KR_RIB_W = [92, 122, 140, 148, 144, 132, 114];
+const KrRibs: React.FC<{ k: number }> = ({ k }) => (
+  <g strokeLinecap="round" fill="none">
+    <path d="M0 -200 V230" stroke="#e8f1f6" strokeWidth={22} />
+    {KR_RIB_W.map((wd, i) => {
+      const y = -170 + i * 52;
+      const sq = 1 - k * 0.5 * Math.pow(i / 6, 1.3);
+      const ww = wd * sq;
+      const col = i >= 3 && k > 0.3 ? `rgb(${Math.round(lerp(232, 235, k))} ${Math.round(lerp(241, 120, k))} ${Math.round(lerp(246, 110, k))})` : "#e8f1f6";
+      return (
+        <g key={i}>
+          {[-1, 1].map((side) => (
+            <path key={side} d={`M0 ${y} C${side * ww * 0.7} ${y - 26} ${side * ww * 1.12} ${y + 4} ${side * ww * 0.95} ${y + 58}`} stroke={col} strokeWidth={13} />
+          ))}
+        </g>
+      );
+    })}
+  </g>
+);
+
+// 4) "İki yüz yıl önce kadınlar korseyi yıllarca taktı. İskeletlerinde kaburgalar içe bükülmüş çıktı: yağ gitmemiş,
+// kemik yer değiştirmiş." Sepya oda: korseli kadın, arkasında hizmetçi bağcıkları çeker, bel incelir; "yıllarca"da takvim
+// yaprakları uçar. "İskeletlerinde"de röntgen merceği gövdeye iner: kaburga kafesi; "içe bükülmüş"te alt kaburgalar içe
+// kapanır, kırmızı; "yağ gitmemiş" mürekkep, "kemik yer değiştirmiş" kırmızı.
+const KrTarih: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const waist = lerp(120, 64, tw(f, w(5), w(7) + 6));
+  if (f < w(8)) {
+    const pull = Math.max(0, Math.sin((f - w(5)) / 4)) * (f >= w(5) ? 1 : 0);
+    return (
+      <>
+        <CamK k={[[0, 1.2, 540, 1100], [w(4), 1.0, 540, 1000], [w(6), 1.15, 540, 1150], [w(8), 1.2, 540, 1150]]}>
+          <rect x={-800} y={-800} width={2680} height={3400} fill="#e7d9bb" />
+          <rect x={-800} y={1560} width={2680} height={1200} fill="#c9b08a" />
+          <rect x={120} y={260} width={300} height={380} rx={150} fill="#d8c8a4" stroke={C.ink} strokeWidth={8} />
+          <KrLady x={540} y={1700} s={1.05} waist={waist} f={f} />
+          <Person x={860} y={1720} s={0.82} belly={0.3} female shirt="#8f7a63" shorts="#5a4636" mouth="flat" armL={[lerp(70, 55, pull), 30]} armR={[30, 20]} />
+          {[-1, 1].map((k) => (
+            <path key={k} d={`M560 ${1700 - 1.05 * (520 + k * 40)} Q${700} ${1700 - 1.05 * 560} ${lerp(760, 740, pull)} ${1300 + k * 10}`} stroke="#7a4e2e" strokeWidth={5} fill="none" />
+          ))}
+        </CamK>
+        <OldPhoto o={0.85} />
+        <KTag x={290} y={300} p={pop(f, 0, 10)} text="1800'ler" color={C.ink} rot={-5} />
+        <KTag x={760} y={420} p={pop(f, w(6) - 2, 12)} text="yıllarca" color={C.ink} rot={4} />
+      </>
+    );
+  }
+  const k = tw(f, w(10), w(11) + 8);
+  return (
+    <>
+      <CamK k={[[w(8), 1.0, 540, 1000], [w(11), 1.08, 540, 980], [d, 1.12, 540, 960]]}>
+        <rect x={-800} y={-800} width={2680} height={3400} fill="#e7d9bb" />
+        <g opacity={0.45}>
+          <KrLady x={540} y={2050} s={1.6} waist={64} f={f} />
+        </g>
+        <g transform={`translate(540 1000) scale(${pop(f, w(8), 12)})`}>
+          <circle r={400} fill="#1d2a33" stroke={C.ink} strokeWidth={12} />
+          <g transform="scale(1.45)">
+            <KrRibs k={k} />
+          </g>
+          {k > 0.5
+            ? [-1, 1].map((side) => (
+                <path key={side} d={`M${side * 300} 200 L${side * 190} 210`} stroke={C.red} strokeWidth={14} strokeLinecap="round" markerEnd="" />
+              ))
+            : null}
+        </g>
+      </CamK>
+      <OldPhoto o={0.5} />
+      <KTag x={540} y={300} p={pop(f, w(9) - 2, 12) * (1 - tw(f, w(11) - 4, w(11) - 2))} text="kaburgalar" color={C.ink} rot={-3} />
+      <KTag x={540} y={300} p={pop(f, w(11) - 2, 12) * (1 - tw(f, w(13) - 4, w(13) - 2))} text="içe bükülmüş" color={C.red} rot={3} />
+      <KTag x={540} y={300} p={pop(f, w(13) - 2, 12)} text="yağ gitmemiş" color={C.ink} rot={-3} />
+      <KTag x={540} y={470} p={pop(f, w(15) - 2, 12)} text="kemik yer değiştirmiş" color={C.red} rot={2} />
+    </>
+  );
+};
+
+// Derin karın kası: belin çevresinde lacivert şerit (doğal korse), lifler; glow ile parlar
+const KrInnerBelt: React.FC<{ belly: number; p: number; glow: number }> = ({ belly, p, glow }) => {
+  if (p <= 0) return null;
+  const wst = krWaist(belly) + 6;
+  return (
+    <g transform={`scale(${p} 1)`} opacity={0.55 + 0.35 * glow}>
+      {glow > 0 ? <rect x={-wst - 20} y={-506} width={wst * 2 + 40} height={150} rx={50} fill={YAS_OK} opacity={0.25 * glow} filter="url(#glow)" /> : null}
+      <rect x={-wst} y={-488} width={wst * 2} height={112} rx={36} fill={YAS_OK} stroke={C.ink} strokeWidth={6} />
+      {Array.from({ length: 9 }, (_, i) => (
+        <path key={i} d={`M${-wst + 20 + i * ((wst * 2 - 40) / 8)} -478 l18 92`} stroke="#9fc0ea" strokeWidth={5} strokeLinecap="round" />
+      ))}
+    </g>
+  );
+};
+// 5) "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut."
+// Avatar korsesiz; "korsen"de belin çevresinde lacivert şerit belirir ("doğal korse"), "derin kası"nda kamera bele
+// yaklaşır. "Nefesini ver"de nefes bulutu, "içe çek"te göbek içeri girer ve şerit parlar; "on saniye"de 10 saniyelik halka.
+const KrTavsiye: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const inn = tw(f, w(11), w(13) + 4);
+  const belly = lerp(0.45, 0.12, inn);
+  const breath = tw(f, w(9), w(11));
+  const ring = tw(f, w(14), d);
+  return (
+    <>
+      <CamK k={[[0, 1.1, 540, 1050], [w(4), 1.0, 540, 1000], [w(6), 1.6, 540, 1290], [w(9), 1.15, 540, 1100], [d, 1.2, 540, 1150]]}>
+        <FkGym f={f} />
+        <KrAvatar {...KR_AV} belly={belly} bare={1} mouth={breath > 0 && breath < 1 ? "o" : f >= w(11) ? "flat" : "smile"} eyes={inn > 0.5 ? "closed" : "open"}>
+          <KrInnerBelt belly={belly} p={tw(f, w(4) - 2, w(4) + 8)} glow={inn} />
+          {breath > 0 && breath < 1
+            ? [0, 1, 2].map((i) => {
+                const t = (breath * 1.6 + i * 0.25) % 1;
+                return <circle key={i} cx={60 + t * 160} cy={-660 - t * 40} r={18 + t * 30} fill="#fff" stroke={C.ink} strokeWidth={3} opacity={0.7 * (1 - t)} />;
+              })
+            : null}
+        </KrAvatar>
+      </CamK>
+      <KTag x={540} y={360} p={pop(f, w(4) - 2, 12)} text="doğal korse" color={YAS_OK} rot={-4} />
+      <KTag x={540} y={540} p={pop(f, w(7) - 2, 12) * (1 - tw(f, w(9) - 2, w(9)))} text="derin karın kası" color={YAS_OK} rot={3} />
+      {ring > 0 ? (
+        <g transform={`translate(860 560) scale(${pop(f, w(14) - 2, 12)})`}>
+          <circle r={110} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <circle r={90} fill="none" stroke={YAS_OK} strokeWidth={22} strokeDasharray={`${2 * Math.PI * 90 * ring} 999`} transform="rotate(-90)" />
+          <text y={22} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={64} fill={C.ink}>10 sn</text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 6) "Bunu korseyle spora giden arkadaşına gönder. Yoksa yarın akşam:" Salon: sağda korseli, terleyen arkadaş; duvarda
+// küçük VOOM ekranı; avatar telefondan kâğıt uçak gönderir; "Yoksa"da uçak kameraya gelip ekranı kaplar → açılış karesi.
+const KrSon: React.FC<SceneProps> = ({ w, d }) => {
+  useImgReady(DG_SHOT);
+  const f = useCurrentFrame();
+  const send = f >= w(4) - 2;
+  const plane = tw(f, w(5) - 2, w(6));
+  const wipe = tw(f, w(6), w(8));
+  const reveal = tw(f, w(8), w(8) + 8);
+  return (
+    <>
+      <CamK k={[[0, 1.2, 760, 1150], [w(2), 1.0, 540, 1000], [w(5), 1.05, 540, 1000], [d, 1.0, 540, 1000]]}>
+        <FkGym f={f} />
+        <DgVoomPhone x={560} y={760} s={0.6} />
+        <Person x={790} y={1760} s={0.78} belly={0.55} shirt={FK_FRIEND} shorts={FK_FRIEND_SH} mouth="flat" armL={[20, 0]} armR={fkCurl(f, 0)}>
+          <KrBelt belly={0.55} />
+          <Sweat f={f} x={0} y={-640} w={200} h={240} n={6} />
+          <Dumbbell x={armPoints(1, fkCurl(f, 0))[2][0]} y={armPoints(1, fkCurl(f, 0))[2][1]} s={0.9} rot={90} />
+        </Person>
+        <KrAvatar x={290} y={1760} s={0.78} belly={0.2} armR={send ? [25, 135] : [20, 0]} mouth="grin">
+          {send ? <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.6} /> : null}
+        </KrAvatar>
+      </CamK>
+      <KTag x={760} y={420} p={pop(f, w(1) - 2, 12)} text="korseyle spor" color={C.red} rot={3} />
+      <VsPaperPlane p={plane} a={[330, 1250]} b={[740, 1150]} />
+      {wipe > 0 && wipe < 1 ? (
+        <g transform={`translate(${lerp(740, 540, wipe)} ${lerp(1150, 960, wipe)}) scale(${lerp(0.3, 12, Easing.in(Easing.cubic)(wipe))}) rotate(${lerp(-20, 0, wipe)})`} opacity={1 - reveal}>
+          <path d="M-160 0 L180 -70 L-40 30 Z" fill="#fbf7ec" stroke={C.ink} strokeWidth={2} strokeLinejoin="round" />
+          <path d="M-40 30 L180 -70 L-10 90 Z" fill="#e9e3d6" stroke={C.ink} strokeWidth={2} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {reveal > 0 ? (
+        <g opacity={reveal}>
+          <KrKancaFrame f={0} w={() => 9999} d={9999} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kr-kanca": KrKanca,
+  "kr-sebep": KrSebep,
+  "kr-terskose": KrTerskose,
+  "kr-tarih": KrTarih,
+  "kr-tavsiye": KrTavsiye,
+  "kr-son": KrSon,
   "tm-kanca": TmKanca,
   "tm-tuz": TmTuz,
   "tm-tarih": TmTarih,
