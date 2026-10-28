@@ -9,7 +9,7 @@
       "words": [
         {
           "word": "Korse",
-          "start": 0.0,
+          "start": 0,
           "end": 0.2667
         },
         {
@@ -30,7 +30,7 @@
         {
           "word": "aynaya",
           "start": 1.7333,
-          "end": 2.0
+          "end": 2
         },
         {
           "word": "bakınca",
@@ -64,7 +64,7 @@
       "words": [
         {
           "word": "1995'te",
-          "start": 0.0,
+          "start": 0,
           "end": 1.2
         },
         {
@@ -85,7 +85,7 @@
         {
           "word": "heykeli",
           "start": 2.7333,
-          "end": 3.0
+          "end": 3
         },
         {
           "word": "onarılırken",
@@ -100,7 +100,7 @@
         {
           "word": "1603'ten",
           "start": 4.3333,
-          "end": 5.0
+          "end": 5
         },
         {
           "word": "kalma",
@@ -219,7 +219,7 @@
       "words": [
         {
           "word": "Çünkü",
-          "start": 0.0,
+          "start": 0,
           "end": 0.2667
         },
         {
@@ -240,7 +240,7 @@
         {
           "word": "sadece",
           "start": 1.6667,
-          "end": 2.0
+          "end": 2
         },
         {
           "word": "sıkıştırır;",
@@ -290,67 +290,41 @@
       ]
     },
     {
-      "voice": "Hiç mi işe yaramaz? Yarar: mideni sıktığı için daha az yersin.",
-      "say": "Hiç mi işe yaramaz? Hmm, yarar: mideni sıktığı için daha az yersin.",
+      "voice": "Tek faydası: mideni sıkar, az yersin.",
       "voiceId": "Q5n6GDIjpN0pLOlycRFT",
       "modelId": "eleven_v4",
-      "file": "voiceover/cizim1-20-korse/4-mvs6a4u4.mp3",
-      "durationInSeconds": 4.092517,
+      "file": "voiceover/cizim1-20-korse/4-mvs6c3k7.mp3",
+      "durationInSeconds": 2.612245,
       "words": [
         {
-          "word": "Hiç",
+          "word": "Tek",
           "start": 0.0,
           "end": 0.2
         },
         {
-          "word": "mi",
-          "start": 0.2667,
-          "end": 0.3333
-        },
-        {
-          "word": "işe",
-          "start": 0.4,
-          "end": 0.5333
-        },
-        {
-          "word": "yaramaz?",
-          "start": 0.5667,
-          "end": 1.0945
-        },
-        {
-          "word": "Yarar:",
-          "start": 1.7857,
-          "end": 2.2609
+          "word": "faydası:",
+          "start": 0.2333,
+          "end": 0.7333
         },
         {
           "word": "mideni",
-          "start": 2.2942,
-          "end": 2.5942
+          "start": 1.0,
+          "end": 1.3333
         },
         {
-          "word": "sıktığı",
-          "start": 2.6276,
-          "end": 2.8609
-        },
-        {
-          "word": "için",
-          "start": 2.9942,
-          "end": 3.1276
-        },
-        {
-          "word": "daha",
-          "start": 3.1942,
-          "end": 3.3276
+          "word": "sıkar,",
+          "start": 1.4,
+          "end": 1.9333
         },
         {
           "word": "az",
-          "start": 3.3942,
-          "end": 3.5276
+          "start": 2.0333,
+          "end": 2.1333
         },
         {
           "word": "yersin.",
-          "start": 3.6609,
-          "end": 4.1276
+          "start": 2.2333,
+          "end": 2.6344
         }
       ]
     },
@@ -364,7 +338,7 @@
       "words": [
         {
           "word": "Senin",
-          "start": 0.0,
+          "start": 0,
           "end": 0.2667
         },
         {
@@ -478,7 +452,7 @@
       "words": [
         {
           "word": "İnce",
-          "start": 0.0,
+          "start": 0,
           "end": 0.2
         },
         {
@@ -518,7 +492,7 @@
         },
         {
           "word": "eklesin.",
-          "start": 3.0,
+          "start": 3,
           "end": 3.4294
         },
         {

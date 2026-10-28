@@ -48,10 +48,10 @@
     },
     {
       "visual": "kr-terskose",
-      "voice": "Hiç mi işe yaramaz? Yarar: mideni sıktığı için daha az yersin.",
-      "say": "Hiç mi işe yaramaz? Hmm, yarar: mideni sıktığı için daha az yersin.",
+      "voice": "Tek faydası: mideni sıkar, az yersin.",
+      "say": "Tek faydası: mideni sıkar, az yersin.",
       "keys": [
-        "Yarar:",
+        "faydası:",
         "mideni",
         "az"
       ]

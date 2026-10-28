@@ -187,7 +187,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "kr-ertesi": (w) => [[2, "sihir", 0.1], [w(4) - 2, "agir-dusme", 0.15]],
   "kr-ic": (w) => [[2, "pop", 0.15], [w(2), "boom", 0.12]],
   "kr-sebep": (w) => [[0, "whoosh", 0.15], [w(3), "sonme", 0.18], [w(5) - 2, "agir-dusme", 0.15], [w(6), "damla", 0.18], [w(12), "pop", 0.15]],
-  "kr-terskose": (w) => [[w(4), "ding", 0.18], [w(5), "zincir", 0.1], [w(9), "pop", 0.15]],
+  "kr-terskose": (w) => [[w(0), "ding", 0.18], [w(2), "zincir", 0.1], [w(4), "pop", 0.15]],
   "kr-tarih": (w) => [[0, "kagit", 0.15], [w(5), "whoosh", 0.12], [w(10) - 2, "pirilti", 0.18], [w(13), "cizik", 0.15], [w(18), "whoosh", 0.15], [w(22), "cizik", 0.15], [w(26), "agir-dusme", 0.12]],
   "kr-tavsiye": (w) => [[w(4), "sihir", 0.15], [w(9), "nefes", 0.2], [w(14), "pirilti", 0.18], [w(19) - 4, "ding", 0.18]],
   "kr-son": (w) => [[w(3), "pop", 0.15], [w(7), "whoosh", 0.12], [w(8), "ding", 0.18], [w(10), "pop", 0.15], [w(13) - 2, "whoosh", 0.18], [w(14), "whoosh", 0.21]],
@@ -24172,7 +24172,10 @@ const KrSebep: React.FC<SceneProps> = ({ w, d }) => {
 // 5) "Hiç mi işe yaramaz? Yarar: mideni sıktığı için daha az yersin." Akşam yemeği: kadın korseyle masada, dev lacivert
 // "?"; "Yarar"da lacivert tik; "mideni"de göbeğinde röntgen merceği: korsenin iki yanı mideyi sıkar; "daha az"da çatalı bırakır,
 // tabağı iter, yemek yarım kalır.
-const KrTerskose: React.FC<SceneProps> = ({ w, d }) => {
+// "Tek faydası: mideni sıkar, az yersin." (eski uzun cümlenin kelime sırasına eşlenir)
+const KR_TSMAP = [0, 0, 0, 0, 0, 2, 3, 3, 4, 4, 5];
+const KrTerskose: React.FC<SceneProps> = ({ w: wn, d }) => {
+  const w = (i: number) => wn(KR_TSMAP[i] ?? 5);
   const f = useCurrentFrame();
   const q = pop(f, 0, 12) * (1 - tw(f, w(4) - 4, w(4) + 2));
   const sq = tw(f, w(5), w(6) + 6);
