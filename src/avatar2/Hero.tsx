@@ -123,7 +123,7 @@ export const Hero: React.FC<HeroProps> = ({
   ];
 
   const g = (n: string) => `url(#${n}${id})`;
-  const faceD = `M-52 -772 C-56 -742 -56 -714 -52 -692 C-48 -664 -34 -642 -15 -633 Q${tx * 0.3} -627 15 -633 C34 -642 48 -664 52 -692 C56 -714 56 -742 52 -772 Z`;
+  const faceD = `M-50 -790 C-55 -770 -56 -760 -55 -742 C-56 -730 -56 -714 -52 -692 C-48 -664 -34 -642 -15 -633 Q${tx * 0.3} -627 15 -633 C34 -642 48 -664 52 -692 C56 -714 56 -730 55 -742 C56 -760 55 -770 50 -790 Z`;
 
   const limb = (p: number[][], w: number, color: string, light: string) => {
     const d = `M${pt(p[0])} L${pt(p[1])} L${pt(p[2])}`;
@@ -344,26 +344,37 @@ export const Hero: React.FC<HeroProps> = ({
             fill={g("st")}
             opacity={0.3}
           />
-          <path d={`M${-22 + tx} -686 Q${tx} -695 ${22 + tx} -686 Q${12 + tx} -682 ${tx} -684 Q${-12 + tx} -682 ${-22 + tx} -686 Z`} fill="#3a2418" opacity={0.55} />
+          <path d={`M${-22 + tx} -686 Q${tx} -695 ${22 + tx} -686 Q${12 + tx} -682 ${tx} -684 Q${-12 + tx} -682 ${-22 + tx} -686 Z`} fill="#3a2418" opacity={0.3} filter={g("sf")} />
           {/* şapka siperliğinin gölgesi */}
-          <rect x={-70} y={-772} width={140} height={34} fill={g("bs")} />
+          <rect x={-70} y={-790} width={140} height={34} fill={g("bs")} />
         </g>
-        {/* kaşlar */}
+        {/* kaşlar: iç uç / tepe / dış uç ayrı oynar (şüpheci: biri kavisli havada, diğeri çatık) */}
         {[-1, 1].map((sd) => {
-          const lift = brow === "up" ? -5 : brow === "down" ? 3 : brow === "skeptic" ? (sd > 0 ? -7 : 2) : 0;
-          const inner = brow === "down" ? 4 : brow === "up" ? -2 : 0;
+          const B: Record<HeroBrow, [number, number, number][]> = {
+            calm: [[0, 0, 0], [0, 0, 0]],
+            up: [[-5, -7, -4], [-5, -7, -4]],
+            down: [[6, 2, -1], [6, 2, -1]],
+            skeptic: [[5, 3, 2], [-2, -10, -3]],
+          };
+          const [di, dp, dout] = B[brow][sd > 0 ? 1 : 0];
           const cx = sd * 25 + tx;
+          const xi = cx - sd * 15;
+          const xo = cx + sd * 17;
           return (
-            <path
-              key={sd}
-              d={`M${cx - sd * 15} ${-742 + lift + inner} Q${cx} ${-753 + lift} ${cx + sd * 17} ${-746 + lift} L${cx + sd * 15} ${-740 + lift} Q${cx} ${-744 + lift} ${cx - sd * 14} ${-735 + lift + inner} Z`}
-              fill={H.hair}
-              stroke={H.ink}
-              strokeWidth={1.5}
-            />
+            <g key={sd}>
+              <path
+                d={`M${xi} ${-741 + di} Q${cx - sd * 2} ${-752 + dp} ${xo} ${-746 + dout} Q${xo - sd * 1} ${-742 + dout} ${xo - sd * 3} ${-741 + dout} Q${cx} ${-745 + dp} ${xi + sd * 1} ${-735 + di} Z`}
+                fill={H.hair}
+                stroke={H.ink}
+                strokeWidth={1.6}
+              />
+              {/* kıl dokusu */}
+              <path d={`M${xi + sd * 4} ${-739 + di} l${sd * 3} -5 M${xi + sd * 9} ${-741 + (di + dp) / 2} l${sd * 4} -5`} stroke={H.hairL} strokeWidth={1.4} />
+              {di > 3 ? <path d={`M${sd * 8 + tx} ${-742 + di * 0.4} q${sd * -2} 6 0 11`} stroke={H.skinD} strokeWidth={2} fill="none" /> : null}
+            </g>
           );
         })}
-        {/* gözler */}
+        {/* gözler: üst kapak (lid) ve alt kapak (low) ifadeye göre; şüpheci: çatık kaşın altındaki göz kısılır */}
         {[-1, 1].map((sd) => {
           const cx = sd * 24 + tx;
           const cy = -727;
@@ -371,22 +382,39 @@ export const Hero: React.FC<HeroProps> = ({
           if (blink) {
             return <path key={sd} d={`M${cx - w} ${cy} Q${cx} ${cy + 5} ${cx + w} ${cy}`} stroke={H.ink} strokeWidth={3.2} fill="none" strokeLinecap="round" />;
           }
+          const L: Record<HeroBrow, [number, number][]> = {
+            calm: [[0.15, 0], [0.15, 0]],
+            up: [[0, 0], [0, 0]],
+            down: [[0.35, 0.2], [0.35, 0.2]],
+            skeptic: [[0.38, 0.3], [0, 0]],
+          };
+          const [lid, low] = L[brow][sd > 0 ? 1 : 0];
+          const top = cy - 11 + lid * 13;
+          const bot = cy + 7 - low * 5;
           const almond = `M${cx - w} ${cy} Q${cx} ${cy - 10} ${cx + w} ${cy - 1} Q${cx} ${cy + 7} ${cx - w} ${cy} Z`;
+          const cid = `e${sd > 0 ? "r" : "l"}${id}`;
           return (
             <g key={sd}>
-              <clipPath id={`e${sd > 0 ? "r" : "l"}${id}`}>
+              <clipPath id={cid}>
                 <path d={almond} />
               </clipPath>
-              <path d={almond} fill="#f4ece0" />
-              <g clipPath={`url(#e${sd > 0 ? "r" : "l"}${id})`}>
-                <circle cx={cx + lx} cy={cy - 1 + ly} r={6} fill={H.iris} />
+              <path d={almond} fill="#f2e9dc" />
+              <g clipPath={`url(#${cid})`}>
+                <circle cx={cx + lx} cy={cy - 1 + ly} r={6.2} fill={H.iris} />
+                <circle cx={cx + lx} cy={cy - 1 + ly} r={6.2} fill="none" stroke="#2c1a0e" strokeWidth={1.4} />
                 <circle cx={cx + lx} cy={cy - 1 + ly} r={2.8} fill="#120a06" />
-                <circle cx={cx + lx - 2} cy={cy - 3 + ly} r={1.4} fill="#fff" />
-                <path d={`M${cx - w} ${cy - 3} Q${cx} ${cy - 12} ${cx + w} ${cy - 4}`} stroke="#5b3a28" strokeWidth={4} fill="none" opacity={0.5} />
+                <circle cx={cx + lx - 2.2} cy={cy - 3 + ly} r={1.5} fill="#fff" />
+                {/* kapaklar */}
+                <path d={`M${cx - w - 2} ${cy - 14} L${cx + w + 2} ${cy - 14} L${cx + w + 2} ${cy - 1} Q${cx} ${top} ${cx - w - 2} ${cy} Z`} fill={g("sk")} />
+                <path d={`M${cx - w - 2} ${cy + 10} L${cx + w + 2} ${cy + 10} L${cx + w + 2} ${cy - 1} Q${cx} ${bot} ${cx - w - 2} ${cy} Z`} fill={g("sk")} />
+                <path d={`M${cx - w} ${cy - 1} Q${cx} ${top + 1} ${cx + w} ${cy - 2}`} stroke="#5b3a28" strokeWidth={4} fill="none" opacity={0.45} />
               </g>
-              <path d={`M${cx - w - 1} ${cy + 0.5} Q${cx} ${cy - 11} ${cx + w + 1} ${cy - 1.5}`} stroke={H.ink} strokeWidth={3.4} fill="none" strokeLinecap="round" />
-              <path d={`M${cx - w + 2} ${cy - 7} Q${cx} ${cy - 14} ${cx + w - 2} ${cy - 8}`} stroke={H.skinD} strokeWidth={1.8} fill="none" />
-              <path d={`M${cx - w + 3} ${cy + 3} Q${cx} ${cy + 8} ${cx + w - 2} ${cy + 2}`} stroke={H.skinD} strokeWidth={1.6} fill="none" opacity={0.8} />
+              {/* kirpik çizgisi + kapak kıvrımı */}
+              <path d={`M${cx - w - 1} ${cy + 0.5} Q${cx} ${top} ${cx + w + 1} ${cy - 1.5}`} stroke={H.ink} strokeWidth={3.6} fill="none" strokeLinecap="round" />
+              <path d={`M${cx + sd * (w - 1)} ${cy - 1.5} l${sd * 4} -2`} stroke={H.ink} strokeWidth={2.4} strokeLinecap="round" />
+              <path d={`M${cx - w + 2} ${top - 4} Q${cx} ${top - 9} ${cx + w - 1} ${top - 3}`} stroke={H.skinD} strokeWidth={1.8} fill="none" />
+              <path d={`M${cx - w + 3} ${bot - 3} Q${cx} ${bot + 1} ${cx + w - 2} ${bot - 4}`} stroke={H.skinD} strokeWidth={1.6} fill="none" opacity={0.85} />
+              {low > 0.3 ? <path d={`M${cx - w + 4} ${bot + 2} Q${cx} ${bot + 6} ${cx + w - 3} ${bot + 1}`} stroke={H.skinD} strokeWidth={1.4} fill="none" opacity={0.6} /> : null}
             </g>
           );
         })}
@@ -413,9 +441,12 @@ export const Hero: React.FC<HeroProps> = ({
             </>
           ) : mouth === "smirk" ? (
             <>
-              <path d="M-15 -674 Q4 -674 19 -683" stroke={H.ink} strokeWidth={3} fill="none" strokeLinecap="round" />
-              <path d="M-9 -669 Q2 -665 11 -671" stroke={H.lip} strokeWidth={3.5} fill="none" strokeLinecap="round" opacity={0.6} />
-              <path d="M22 -686 q3 5 1 9" stroke={H.skinD} strokeWidth={2} fill="none" />
+              <ellipse cx={30} cy={-694} rx={13} ry={8} fill={H.skinL} opacity={0.55} filter={g("sf")} />
+              <path d="M13 -699 Q25 -690 25 -679" stroke={H.skinD} strokeWidth={2.4} fill="none" strokeLinecap="round" />
+              <path d="M-15 -675 Q-4 -677 4 -677 Q14 -678 21 -686" stroke={H.ink} strokeWidth={3.1} fill="none" strokeLinecap="round" />
+              <path d="M21 -686 q4 2 3 7" stroke={H.ink} strokeWidth={2.2} fill="none" strokeLinecap="round" />
+              <path d="M-10 -670 Q2 -665 13 -673" stroke={H.lip} strokeWidth={3.6} fill="none" strokeLinecap="round" opacity={0.6} />
+              <path d="M-6 -663 Q2 -660 10 -664" stroke={H.skinD} strokeWidth={1.8} fill="none" opacity={0.7} />
             </>
           ) : mouth === "grin" ? (
             <>
@@ -439,12 +470,9 @@ export const Hero: React.FC<HeroProps> = ({
         {[-1, 1].map((sd) => (
           <path key={sd} d={`M${sd * 55} -770 L${sd * 56} -722 L${sd * 49} -728 L${sd * 48} -768 Z`} fill={H.hair} opacity={0.9} />
         ))}
-        <g fill={H.hair} stroke={H.ink} strokeWidth={2}>
-          <path d={`M${-30 + tx} -766 q-8 14 4 22 q-4 -12 6 -18 Z`} />
-          <path d={`M${-12 + tx} -766 q-6 10 3 16 q-2 -9 5 -14 Z`} />
-        </g>
+
         {/* şapka */}
-        <g transform={`translate(${tx * 0.5} -13)`}>
+        <g transform={`translate(${tx * 0.5} -25)`}>
           <path d="M-64 -760 C-68 -812 -36 -836 0 -836 C36 -836 68 -812 64 -760 Z" fill={g("cp")} stroke={H.ink} strokeWidth={3.8} />
           <path d="M0 -836 L0 -762 M-32 -830 Q-42 -796 -38 -762 M32 -830 Q42 -796 38 -762" stroke="#0c0b0b" strokeWidth={2} fill="none" />
           <circle cx={0} cy={-835} r={5} fill={H.cap} stroke={H.ink} strokeWidth={2} />
@@ -461,7 +489,7 @@ export const Hero: React.FC<HeroProps> = ({
           <path d={`M54 -806 C62 -786 64 -772 64 -762`} stroke={H.rim} strokeWidth={2.5} fill="none" opacity={rim} />
         </g>
         {/* yüzün sağ kenarında arka ışık */}
-        <path d="M55 -730 C58 -710 55 -690 50 -672" stroke={H.rim} strokeWidth={2.5} fill="none" opacity={rim * 0.9} strokeLinecap="round" />
+        <path d="M54 -730 C57 -710 54 -690 49 -672" stroke={H.rim} strokeWidth={3} fill="none" opacity={rim * 0.55} strokeLinecap="round" filter={g("sf")} />
       </g>
     </g>
   );
@@ -478,7 +506,7 @@ const Label: React.FC<{ x: number; y: number; t: string; s?: number; r?: number 
 export const HeroSheet: React.FC = () => {
   const faces: { m: HeroMouth; b: HeroBrow; l: [number, number]; t: number; n: string }[] = [
     { m: "neutral", b: "calm", l: [0, 0], t: 0, n: "sakin" },
-    { m: "smirk", b: "skeptic", l: [0.6, 0], t: 0.3, n: "şüpheci" },
+    { m: "smirk", b: "skeptic", l: [0.75, 0.1], t: 0.2, n: "şüpheci" },
     { m: "grin", b: "up", l: [0, 0], t: 0, n: "güler" },
     { m: "talk", b: "down", l: [-0.7, 0.2], t: -0.4, n: "anlatır" },
   ];
@@ -497,7 +525,7 @@ export const HeroSheet: React.FC = () => {
           <g key={i}>
             <rect x={40 + i * 255} y={260} width={235} height={300} fill="#2b2420" stroke={H.ink} strokeWidth={4} />
             <svg x={40 + i * 255} y={260} width={235} height={300} viewBox="-120 -880 240 306">
-              <Hero x={0} y={0} mouth={fc.m} brow={fc.b} look={fc.l} turn={fc.t} talk={0.7} live={false} />
+              <Hero x={0} y={0} mouth={fc.m} brow={fc.b} look={fc.l} turn={fc.t} tilt={fc.b === "skeptic" ? -5 : 0} talk={0.7} live={false} />
             </svg>
             <Label x={60 + i * 255} y={605} t={fc.n} s={40} />
           </g>
