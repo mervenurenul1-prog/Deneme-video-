@@ -1,5 +1,15 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> YENİ SOHBET BURADAN (28 Ekim akşam — EN GÜNCEL) <<<
+- **YENİ AVATAR (Yunus v2) TASLAĞI** — kullanıcı karakter sayfası attı (Merve + erkek "Ekip"): Yunus o erkeğe benzesin
+  (siyah şapka, kıvırcık koyu saç, kirli sakal, gri kapüşonlu + siyah ceket, kot) + taslaktaki ışık, kamera açıları,
+  doğal hareket. "Gerçek insan" İSTEMİYOR (yalnız örnek taslak verdi), çizim kalır. Kod `src/avatar2/Hero.tsx`
+  (`Hero`: ifade `mouth/brow/look/turn/talk`, `outfit` sokak/salon, `pockets`, `rim`, `live` = nefes, ağırlık aktarma,
+  düzensiz göz kırpma, mikro baş hareketi). Kompozisyonlar `avatar2-sayfa` (karakter sayfası) ve `avatar2-sinema`
+  (10 sn: gece sokak, lamba ışığı, genel → bel → yakın plan, alan derinliği, renk derecelendirme, film greni).
+  Çıktılar `ornek-videolar/avatar2/`. **Kullanıcı onayı bekleniyor**; onaylanırsa Cizim1'deki `Person` yerine
+  geçecek (eski videolara dokunma). Avatar kuralı ("yüz değişmez") kullanıcı isteğiyle değişiyor.
+
 ## >>> YENİ SOHBET BURADAN (28 Ekim — EN GÜNCEL) <<<
 - **20 BEL KORSESİ BİTTİ** (`cizim1-20-korse`, sahneler `kr-*`; kaynaklar `arastirma/20-korse.md`). Son video
   `ornek-videolar/cizim1-pilot/20-korse.mp4` (Yunus 1.2x + müzik + efekt, 40,8 sn). Onay bekliyor; kullanıcıya kredisiz
