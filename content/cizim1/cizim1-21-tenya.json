@@ -12,7 +12,7 @@
   "music": "music/1930-kovalamaca.mp3",
   "loop": true,
   "padding": 0.02,
-  "speed": 1.2,
+  "speed": 1.3,
   "minEstimate": 0.8,
   "scenes": [
     {
@@ -45,24 +45,22 @@
     },
     {
       "visual": "tn-tarih",
-      "voice": "Adı tenya hapıydı: yut, kurt bağırsağına yerleşsin; sen ye, o yesin. İçinde gerçekten kurt var mıydı, bugün bile tartışılıyor.",
-      "say": "Adı tenya hapıydı: yut, kurt bağırsağına yerleşsin; sen ye, o yesin. İçinde, hani, gerçekten kurt var mıydı, bugün bile tartışılıyor.",
+      "voice": "Adı tenya hapıydı: kurt bağırsağına yerleşir, yediğini o yer. İçinde gerçekten kurt var mıydı? Hâlâ tartışılıyor.",
       "keys": [
         "tenya",
         "kurt",
-        "yesin.",
+        "yer.",
         "tartışılıyor."
       ]
     },
     {
       "visual": "tn-doktor",
-      "voice": "2014'te bir İngiliz doktor merak etti ve gerçekten yuttu: Kenya'da bir ineğin dilinden çıkan tenya kistlerini. Altı hafta taşıdı.",
-      "say": "2014'te bir İngiliz doktor merak etti ve gerçekten yuttu: Kenya'da, ıı, bir ineğin dilinden çıkan tenya kistlerini. Altı hafta taşıdı.",
+      "voice": "2014'te bir İngiliz doktor bunu denedi: Kenya'da tenya kisti yuttu, altı hafta taşıdı.",
       "keys": [
         "2014'te",
-        "yuttu:",
         "Kenya'da",
-        "Altı",
+        "yuttu,",
+        "altı",
         "hafta"
       ]
     },
@@ -87,7 +85,7 @@
     },
     {
       "visual": "tn-tavsiye",
-      "voice": "Kurt da iğne de aynı şeyi der: sen hiçbir şey yapma. Kasını korumak ise tam tersini ister: haftada iki gün ağırlık.",
+      "voice": "Kurt da iğne de der ki: hiçbir şey yapma. Kasın ise tam tersini ister: haftada iki gün ağırlık.",
       "keys": [
         "Kurt",
         "iğne",
@@ -99,17 +97,18 @@
     },
     {
       "visual": "tn-voom",
-      "voice": "Doktorun altı haftası kurtla geçti. Seninki VOOM'la geçsin: altı haftalık ekibe katılmak istiyorsan yorumlara İSTİYORUM yaz.",
+      "voice": "Doktorun altı haftası kurtla geçti, seninki VOOM'la geçsin: ekibe katılmak için yorumlara İSTİYORUM yaz.",
       "keys": [
         "kurtla",
         "VOOM'la",
         "ekibe",
         "İSTİYORUM"
-      ]
+      ],
+      "hold": 0.5
     },
     {
       "visual": "tn-sevgi",
-      "voice": "Ve şunu unutma: seni sevenler, sen daha bir kilo vermeden de seni seviyordu.",
+      "voice": "Ve unutma: seni sevenler, sen bir kilo vermeden de seni seviyordu.",
       "keys": [
         "sevenler,",
         "seviyordu."
@@ -118,7 +117,7 @@
     },
     {
       "visual": "tn-son",
-      "voice": "Bunu, kendine fazla yüklenen arkadaşına gönder ve sor:",
+      "voice": "Bunu kendine yüklenen arkadaşına gönder ve sor:",
       "keys": [
         "gönder"
       ]

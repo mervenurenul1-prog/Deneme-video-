@@ -213,6 +213,18 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  // 21 tenya (1930'lar stili): olay başına tek, kısık efekt
+  "tn-kanca": (w) => [[w(2), "pirilti", 0.22], [w(3), "whoosh", 0.16]],
+  "tn-asla": () => [[0, "boing", 0.32], [3, "havalanma", 0.1]],
+  "tn-hap": (w) => [[2, "kagit", 0.2], [w(4), "ding", 0.2]],
+  "tn-tarih": (w) => [[2, "kagit", 0.18], [w(3), "whoosh", 0.18], [w(4) + 4, "pop", 0.2], [w(6) + 10, "sapirti", 0.3], [w(7) + 13, "sapirti", 0.26], [w(8) + 13, "sapirti", 0.26], [w(11), "bip", 0.14]],
+  "tn-doktor": (w) => [[2, "kagit", 0.18], [w(6), "pop", 0.18], [w(7), "pirilti", 0.16], [w(9), "yutkunma", 0.4], [w(10), "kagit", 0.16]],
+  "tn-kackilo": () => [[0, "pirilti", 0.16]],
+  "tn-aldi": (w) => [[w(0), "gicirti", 0.28], [w(2) + 2, "boom", 0.2]],
+  "tn-tavsiye": (w) => [[w(0), "pop", 0.16], [w(2), "pop", 0.16], [w(9), "cizik", 0.26], [w(11), "yuksel", 0.16], [w(15), "tik", 0.16], [w(16), "tik", 0.16]],
+  "tn-voom": (w) => [[w(4), "yirtilma", 0.34], [w(5), "whoosh", 0.14], [w(8), "pirilti", 0.22], [w(11), "klavye", 0.18], [w(13) + 4, "ding", 0.26], [w(13) + 8, "kalp", 0.14]],
+  "tn-sevgi": (w) => [[w(2), "adim", 0.16], [w(6), "kacing", 0.14], [w(9), "pirilti", 0.2], [w(9) + 4, "kalp", 0.14]],
+  "tn-son": (w) => [[w(1), "kagit", 0.2], [w(4), "whoosh", 0.3], [w(5) + 6, "pirilti", 0.16]],
   "kr-kanca2": (w) => [[w(0), "cizik", 0.18], [w(1), "pop", 0.15], [w(3), "sihir", 0.1], [w(8) - 2, "agir-dusme", 0.15]],
   "kr-sabah": (w) => [[w(1), "cizik", 0.2], [w(2), "pop", 0.15], [w(3), "nefes", 0.15], [w(7), "whoosh", 0.12], [w(8), "pop", 0.18], [w(10), "pirilti", 0.18]],
   "kr-ertesi": (w) => [[2, "sihir", 0.1], [w(4) - 2, "agir-dusme", 0.15]],

@@ -539,14 +539,14 @@ const Newspaper: React.FC<{ f: number }> = ({ f }) => (
 
 const TnTarih: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const inGut = f >= w(3) && f < w(11);
-  const drop = prog(f, w(3), w(5));
-  const settle = prog(f, w(5), w(7));
-  const foods = [w(7), w(8) + 4, w(9) + 4];
+  const inGut = f >= w(3) && f < w(9);
+  const drop = prog(f, w(3), w(4) + 4);
+  const settle = prog(f, w(4) + 4, w(6));
+  const foods = [w(6), w(7) + 3, w(8) + 3];
   const grow = foods.filter((t) => f > t + 14).length / 3;
   const chompAt = (t: number) => interpolate(f, [t + 8, t + 12, t + 16], [0, 1, 0], clamp);
   const chomp = Math.max(...foods.map(chompAt));
-  const q = f >= w(11);
+  const q = f >= w(9);
   return (
     <g>
       {f < w(3) ? (
@@ -554,7 +554,7 @@ const TnTarih: React.FC<SceneProps> = ({ w }) => {
           <Newspaper f={f} />
         </Cam>
       ) : inGut ? (
-        <Cam f={f} keys={[[w(3), 540, 700, 1.1], [w(6), 540, 1000, 1.0], [w(10), 540, 1080, 1.15]]} shake={chomp * 0.4}>
+        <Cam f={f} keys={[[w(3), 540, 700, 1.1], [w(5), 540, 1000, 1.0], [w(8) + 6, 540, 1080, 1.15]]} shake={chomp * 0.4}>
           <Stomach f={f} grow={grow} />
           <Worm x={560 + settle * -40} y={-120 + drop * 1100 + settle * 60} s={2.0} f={f} napkin={settle > 0.5} chomp={chomp} />
           {settle > 0.6 ? (
@@ -572,13 +572,13 @@ const TnTarih: React.FC<SceneProps> = ({ w }) => {
           })}
         </Cam>
       ) : (
-        <Cam f={f} keys={[[w(11), 540, 900, 1.25], [w(18), 540, 900, 1.05]]}>
+        <Cam f={f} keys={[[w(9), 540, 900, 1.25], [w(15), 540, 900, 1.05]]}>
           <rect x={-800} y={-600} width={2700} height={3200} fill="#e8d3a6" />
           <Pill x={540} y={880} s={3.2} r={-12} f={f} wormIn={Math.floor(f / 6) % 2 === 0} />
-          <text x={540} y={560 + Math.sin(f / 4) * 10} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={260} fill={RED} stroke={INK} strokeWidth={8} paintOrder="stroke fill" opacity={pop(f, w(13))}>
+          <text x={540} y={560 + Math.sin(f / 4) * 10} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={260} fill={RED} stroke={INK} strokeWidth={8} paintOrder="stroke fill" opacity={pop(f, w(11))}>
             ?
           </text>
-          {q ? <HoseChar x={880} y={1760} s={1.2} who="duru" beret gesture="think" gT={gestureT(f, w(12), w(18) + 20)} look={[-1, -0.5]} seed={9} /> : null}
+          {q ? <HoseChar x={880} y={1760} s={1.2} who="duru" beret gesture="think" gT={gestureT(f, w(10), w(15) + 20)} look={[-1, -0.5]} seed={9} /> : null}
         </Cam>
       )}
     </g>
@@ -589,27 +589,29 @@ const TnTarih: React.FC<SceneProps> = ({ w }) => {
 const DOC = { x: 300, y: 1640, s: 1.3 };
 const TnDoktor: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const think = gestureT(f, w(4), w(6));
-  const gulp = interpolate(f, [w(7), w(7) + 6, w(8) + 4], [0, 1, 0], clamp);
-  const tongue = prog(f, w(11), w(12) + 4);
-  const weeks = f >= w(16) ? 1 + Math.min(5, Math.floor((f - w(16)) / 5)) : 0;
+  const think = gestureT(f, w(4), w(5) + 4);
+  const gulp = interpolate(f, [w(9), w(9) + 6, w(9) + 14], [0, 1, 0], clamp);
+  const tongue = prog(f, w(7), w(8));
+  const weeks = f >= w(10) ? 1 + Math.min(5, Math.floor((f - w(10)) / 5)) : 0;
   return (
     <Cam
       f={f}
       keys={[
         [0, 540, 900, 1.0],
         [w(3), 420, 980, 1.25],
-        [w(8), 420, 980, 1.25],
-        [w(9), 640, 900, 0.95],
-        [w(11), 760, 1100, 1.5],
-        [w(15), 760, 1100, 1.6],
-        [w(16), 540, 900, 1.0],
+        [w(5) + 2, 420, 980, 1.25],
+        [w(6), 640, 900, 0.95],
+        [w(7), 760, 1100, 1.5],
+        [w(8) + 2, 760, 1100, 1.55],
+        [w(8) + 8, 420, 980, 1.25],
+        [w(9) + 10, 420, 980, 1.2],
+        [w(10), 540, 900, 1.0],
       ]}
       shake={gulp * 0.4}
     >
       <Savanna f={f} />
       {/* KENYA tabelası */}
-      <g transform={`translate(1000 1180) scale(${pop(f, w(9))})`} stroke={INK} strokeWidth={7}>
+      <g transform={`translate(1000 1180) scale(${pop(f, w(6))})`} stroke={INK} strokeWidth={7}>
         <rect x={-12} y={-240} width={24} height={260} fill="#7a4e26" />
         <path d="M-150 -260 L130 -260 L180 -210 L130 -160 L-150 -160 Z" fill="#f6ecd4" />
         <text x={0} y={-190} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={60} fill={INK} stroke="none">
@@ -617,21 +619,21 @@ const TnDoktor: React.FC<SceneProps> = ({ w }) => {
         </text>
       </g>
       <Cow x={840} y={1310} s={1.0} f={f} tongue={tongue} />
-      {tongue > 0.6 && f < w(16) ? (
+      {tongue > 0.6 && f < w(10) ? (
         <g>
           <circle cx={640} cy={1380} r={70} fill="none" stroke={RED} strokeWidth={8} strokeDasharray="14 10" />
         </g>
       ) : null}
-      <HoseChar x={DOC.x} y={DOC.y} s={DOC.s} who="doktor" seed={2} gesture={f < w(7) ? "think" : "thumbs"} gT={f < w(7) ? think : gestureT(f, w(8) + 4, w(15))} surprise={gulp} face={gulp > 0.3 ? "o" : "smile"} look={f >= w(9) && f < w(16) ? [1, 0] : [0.5, -0.4]} />
+      <HoseChar x={DOC.x} y={DOC.y} s={DOC.s} who="doktor" seed={2} gesture={f < w(9) ? "think" : "thumbs"} gT={f < w(9) ? think : gestureT(f, w(9) + 8, w(12))} surprise={gulp} face={gulp > 0.3 ? "o" : "smile"} look={f >= w(6) && f < w(8) + 6 ? [1, 0] : [0.5, -0.4]} />
       {/* kaşıkta kist */}
-      {f >= w(5) && f < w(8) ? (
+      {f >= w(8) + 4 && f < w(9) + 4 ? (
         <g transform={`translate(${DOC.x + 70} ${DOC.y - 560 - gulp * 40})`} stroke={INK} strokeWidth={6}>
           <path d="M0 0 L60 60" strokeWidth={10} />
           <ellipse cx={-10} cy={-10} rx={30} ry={18} fill="#d9d6cf" />
           <circle cx={-10} cy={-14} r={7} fill={WHITE} />
         </g>
       ) : null}
-      <g opacity={1 - prog(f, w(8), w(9))}>
+      <g opacity={1 - prog(f, w(5), w(6))}>
         <YearCard f={f} t="2014" at={0} x={540} y={420} />
       </g>
       {weeks > 0 ? (
@@ -677,9 +679,9 @@ const TnAldi: React.FC<SceneProps> = ({ w, d }) => {
 // Duru önce tembel (eller belde, gözler yarı kapalı) → "Ama"da kolay yollar kırmızı çarpı → "tam tersini"de ağırlığa geçer
 const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const lazy = f < w(11);
-  const x1 = pop(f, w(11));
-  const lift = f >= w(14);
+  const lazy = f < w(9);
+  const x1 = pop(f, w(9));
+  const lift = f >= w(11);
   const bnc = lift ? Math.abs(Math.sin((q2(f) * Math.PI) / 18)) : undefined;
   const up = bnc ?? 0;
   const armUp: [number, number, number] = [110 - up * 20, -40 - up * 130, -60 + up * 30];
@@ -692,13 +694,13 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
       f={f}
       keys={[
         [0, 540, 900, 1.1],
-        [w(7), 540, 860, 1.2],
-        [w(11), 540, 900, 1.05],
-        [w(14), 540, 940, 1.15],
-        [w(17), 540, 860, 1.0],
-        [w(21) + 10, 540, 880, 1.05],
+        [w(6), 540, 860, 1.2],
+        [w(9), 540, 900, 1.05],
+        [w(11), 540, 940, 1.15],
+        [w(14), 540, 860, 1.0],
+        [w(17) + 10, 540, 880, 1.05],
       ]}
-      shake={interpolate(f, [w(11), w(11) + 8], [0.6, 0], clamp)}
+      shake={interpolate(f, [w(9), w(9) + 8], [0.6, 0], clamp)}
     >
       <Room />
       {lazy || !lift ? (
@@ -709,13 +711,13 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
           who="duru"
           beret
           gesture={lazy ? "hips" : "rest"}
-          gT={lazy ? gestureT(f, w(7), w(10) + 4) : 0}
-          lid={lazy && f >= w(7) ? 0.5 : 0}
+          gT={lazy ? gestureT(f, w(6), w(8) + 4) : 0}
+          lid={lazy && f >= w(6) ? 0.5 : 0}
           face={lazy ? "smirk" : "o"}
-          surprise={lazy ? 0 : interpolate(f, [w(11), w(11) + 4, w(14)], [0, 0.6, 0], clamp)}
+          surprise={lazy ? 0 : interpolate(f, [w(9), w(9) + 4, w(11)], [0, 0.6, 0], clamp)}
           armR={lazy ? undefined : [110, -60, -60]}
           armL={lazy ? undefined : [-110, -60, 60]}
-          tilt={lazy && f >= w(7) ? 8 : 0}
+          tilt={lazy && f >= w(6) ? 8 : 0}
           seed={9}
         />
       ) : (
@@ -728,14 +730,14 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
         </g>
       )}
       {/* kolay yollar: kurt hapı + iğne kalemi süzülür, "Ama"da kırmızı çarpı ve düşer */}
-      {f < w(15) ? (
+      {f < w(12) ? (
         <g>
           {[
             { at: w(0), x: 250, el: <Pill x={0} y={0} s={1.1} f={f} r={-15} /> },
             { at: w(2), x: 830, el: <Syringe x={0} y={0} s={0.9} r={25} /> },
           ].map((it, i) => {
             const p = pop(f, it.at);
-            const fall = prog(f, w(11) + 4, w(13));
+            const fall = prog(f, w(9) + 4, w(11));
             return (
               <g key={i} transform={`translate(${it.x} ${640 + Math.sin(f / 7 + i) * 16 + fall * 900}) rotate(${fall * (i ? 80 : -80)}) scale(${p})`}>
                 <circle cx={0} cy={0} r={130} fill="#fff6d8" opacity={0.6 * (1 - fall)} />
@@ -744,25 +746,25 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
               </g>
             );
           })}
-          <text x={540} y={470} textAnchor="middle" fontFamily={handFamily} fontSize={58} fill={INK} opacity={prog(f, w(7), w(8)) * (1 - x1)}>
+          <text x={540} y={470} textAnchor="middle" fontFamily={handFamily} fontSize={58} fill={INK} opacity={prog(f, w(6), w(7)) * (1 - x1)}>
             "sen hiçbir şey yapma"
           </text>
         </g>
       ) : null}
       {/* "tam tersini": ok tembel pozdan ağırlığa döner */}
-      {f >= w(14) && f < w(17) ? (
-        <g opacity={1 - prog(f, w(16), w(17))}>
-          <path d="M250 520 Q540 330 830 520" stroke={NAVY} strokeWidth={16} fill="none" strokeLinecap="round" strokeDasharray={800} strokeDashoffset={800 * (1 - prog(f, w(14), w(15)))} />
-          <path d="M830 520 l-50 -10 M830 520 l-20 -46" stroke={NAVY} strokeWidth={16} strokeLinecap="round" opacity={prog(f, w(15) - 2, w(15))} />
+      {f >= w(11) && f < w(14) ? (
+        <g opacity={1 - prog(f, w(13), w(14))}>
+          <path d="M250 520 Q540 330 830 520" stroke={NAVY} strokeWidth={16} fill="none" strokeLinecap="round" strokeDasharray={800} strokeDashoffset={800 * (1 - prog(f, w(11), w(12)))} />
+          <path d="M830 520 l-50 -10 M830 520 l-20 -46" stroke={NAVY} strokeWidth={16} strokeLinecap="round" opacity={prog(f, w(12) - 2, w(12))} />
         </g>
       ) : null}
       {/* haftalık şerit: 2 gün lacivert */}
-      {f >= w(17) ? (
+      {f >= w(14) ? (
         <g transform="translate(540 380) scale(0.8)">
           {["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"].map((dname, i) => {
-            const on = (i === 1 && f >= w(18)) || (i === 4 && f >= w(19));
+            const on = (i === 1 && f >= w(15)) || (i === 4 && f >= w(16));
             return (
-              <g key={i} transform={`translate(${(i - 3) * 120} 0) scale(${pop(f, w(17) + i * 2)})`}>
+              <g key={i} transform={`translate(${(i - 3) * 120} 0) scale(${pop(f, w(14) + i * 2)})`}>
                 <rect x={-50} y={-50} width={100} height={100} rx={14} fill={on ? NAVY : "#f6ecd4"} stroke={INK} strokeWidth={6} />
                 <text x={0} y={14} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={36} fill={on ? WHITE : INK}>
                   {dname}
@@ -818,11 +820,11 @@ const TnVoom: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const tear = prog(f, w(4), w(5) + 2);
   const voom = f >= w(5);
-  const p = prog(f, w(6), w(9));
-  const goal = pop(f, w(9));
-  const box = pop(f, w(12));
-  const typed = Math.round(prog(f, w(13), w(15)) * 9);
-  const sent = pop(f, w(15) + 4);
+  const p = prog(f, w(5) + 4, w(8));
+  const goal = pop(f, w(8));
+  const box = pop(f, w(10));
+  const typed = Math.round(prog(f, w(11), w(13)) * 9);
+  const sent = pop(f, w(13) + 4);
   return (
     <g>
       {!voom ? (
@@ -841,7 +843,7 @@ const TnVoom: React.FC<SceneProps> = ({ w }) => {
           ) : null}
         </Cam>
       ) : (
-        <Cam f={f} keys={[[w(5), 560, 940, 1.0], [w(7), 600, 900, 1.08], [w(11), 640, 860, 1.15], [w(13) + 12, 600, 900, 1.05]]}>
+        <Cam f={f} keys={[[w(5), 560, 940, 1.0], [w(7), 600, 900, 1.08], [w(9), 640, 860, 1.15], [w(11) + 12, 600, 900, 1.05]]}>
           <Room />
           <HoseChar
             x={270}
@@ -853,7 +855,7 @@ const TnVoom: React.FC<SceneProps> = ({ w }) => {
             look={[1, -0.2]}
             face={goal > 0.5 ? "grin" : "smile"}
             gesture={sent > 0 ? "cheer" : "point"}
-            gT={sent > 0 ? gestureT(f, w(15) + 4, w(15) + 60) : gestureT(f, w(6), w(12))}
+            gT={sent > 0 ? gestureT(f, w(13) + 4, w(13) + 60) : gestureT(f, w(6), w(10))}
             gSide="R"
           />
           <JourneyPhone x={680} y={880} s={1.55} p={p} goal={goal} />
@@ -872,7 +874,7 @@ const TnVoom: React.FC<SceneProps> = ({ w }) => {
               </g>
             </g>
           ) : null}
-          {sent > 0 ? <Hearts f={f} at={w(15) + 4} x={600} y={1100} /> : null}
+          {sent > 0 ? <Hearts f={f} at={w(13) + 4} x={600} y={1100} /> : null}
         </Cam>
       )}
     </g>
@@ -883,11 +885,11 @@ const TnVoom: React.FC<SceneProps> = ({ w }) => {
 // Duru'nun odası: Yunus ve arkadaşı iki yandan gelir; "bir kilo vermeden"de tartı kenara itilir; "seviyordu"da sarılırlar
 const TnSevgi: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const inY = prog(f, w(3), w(4) + 4);
-  const push = prog(f, w(8), w(10));
-  const hug = gestureT(f, w(11), w(12) + 40);
+  const inY = prog(f, w(2), w(3) + 4);
+  const push = prog(f, w(6), w(8));
+  const hug = gestureT(f, w(9), w(10) + 40);
   return (
-    <Cam f={f} keys={[[0, 540, 820, 1.25], [w(3), 540, 900, 1.05], [w(8), 420, 1250, 1.3], [w(10), 540, 980, 1.05], [w(12) + 10, 540, 940, 1.12]]}>
+    <Cam f={f} keys={[[0, 540, 820, 1.25], [w(2), 540, 900, 1.05], [w(6), 420, 1250, 1.3], [w(8), 540, 980, 1.05], [w(10) + 10, 540, 940, 1.12]]}>
       <Room />
       {/* tartı: sıfırda; Yunus ayağıyla kenara iter */}
       <g transform={`translate(${-push * 520} 0) rotate(${-push * 12} 300 1700)`}>
@@ -895,8 +897,8 @@ const TnSevgi: React.FC<SceneProps> = ({ w }) => {
       </g>
       <HoseChar x={-200 + inY * 400} y={1740} s={1.2} who="yunus" seed={4} look={[1, 0]} face={hug > 0.3 ? "grin" : "smile"} gesture={hug > 0 ? "cheer" : "rest"} gT={hug} />
       <HoseChar x={1280 - inY * 400} y={1740} s={1.2} who="arkadas" seed={6} look={[-1, 0]} face={hug > 0.3 ? "grin" : "smile"} gesture={hug > 0 ? "cheer" : "rest"} gT={hug} gSide="L" />
-      <HoseChar x={540} y={1780} s={1.35} who="duru" beret seed={9} face={f < w(3) ? "sad" : "smile"} look={f < w(3) ? [0, 0.6] : f < w(11) ? [-1, 0] : [0, 0]} laugh={interpolate(f, [w(11), w(11) + 6, w(12) + 30, w(12) + 40], [0, 1, 1, 0], clamp)} />
-      <Hearts f={f} at={w(11)} x={540} y={1000} />
+      <HoseChar x={540} y={1780} s={1.35} who="duru" beret seed={9} face={f < w(2) ? "sad" : "smile"} look={f < w(2) ? [0, 0.6] : f < w(9) ? [-1, 0] : [0, 0]} laugh={interpolate(f, [w(9), w(9) + 6, w(10) + 30, w(10) + 40], [0, 1, 1, 0], clamp)} />
+      <Hearts f={f} at={w(9)} x={540} y={1000} />
     </Cam>
   );
 };
@@ -922,17 +924,17 @@ const OpeningFrame: React.FC<{ f: number; wink?: boolean; lens?: number }> = ({ 
 // 11) Kapanış: "Bunu, kendine fazla yüklenen arkadaşına gönder ve ona da sor:" → kâğıt uçak kameraya uçar → açılış karesi
 const TnSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const fold = prog(f, w(2), w(4));
-  const fly = prog(f, w(5), w(6) + 6);
-  const opening = f >= w(6) + 6;
+  const fold = prog(f, w(1), w(3));
+  const fly = prog(f, w(4), w(5) + 6);
+  const opening = f >= w(5) + 6;
   return (
     <g>
       {!opening ? (
-        <Cam f={f} keys={[[0, 540, 940, 1.05], [w(3), 600, 900, 1.2], [w(5), 600, 900, 1.2]]}>
+        <Cam f={f} keys={[[0, 540, 940, 1.05], [w(2), 600, 900, 1.2], [w(4), 600, 900, 1.2]]}>
           <Room />
           <HoseChar x={200} y={1760} s={1.1} who="yunus" seed={4} look={[1, 0]} face="smile" />
           <HoseChar x={900} y={1760} s={1.1} who="arkadas" seed={6} look={[-1, 0]} face="smile" />
-          <HoseChar x={560} y={1780} s={1.35} who="duru" beret seed={9} gesture={fly > 0 ? "point" : "explain"} gT={fly > 0 ? 1 - fly : gestureT(f, w(1), w(5))} face="grin" look={[0.6, -0.4]} wink={f >= w(3) && f < w(3) + 8} />
+          <HoseChar x={560} y={1780} s={1.35} who="duru" beret seed={9} gesture={fly > 0 ? "point" : "explain"} gT={fly > 0 ? 1 - fly : gestureT(f, w(1), w(4))} face="grin" look={[0.6, -0.4]} wink={f >= w(2) && f < w(2) + 8} />
           {/* kâğıt uçak: önce elde katlanır, "gönder"de kameraya fırlar ve ekranı kaplar */}
           {(() => {
             const sc = 0.6 + fold * 0.4 + fly * fly * 14;
@@ -952,7 +954,7 @@ const TnSon: React.FC<SceneProps> = ({ w, d }) => {
           <Cam f={0} keys={[[0, PILL_AT[0], PILL_AT[1] - 20, 2.1]]}>
             <OpeningFrame f={0} />
           </Cam>
-          <rect x={0} y={0} width={1080} height={1920} fill={WHITE} opacity={1 - prog(f, w(6) + 6, Math.min(d - 2, w(6) + 14))} />
+          <rect x={0} y={0} width={1080} height={1920} fill={WHITE} opacity={1 - prog(f, w(5) + 6, Math.min(d - 2, w(5) + 14))} />
         </g>
       )}
     </g>
