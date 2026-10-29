@@ -1,6 +1,15 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (28 Ekim gece — EN GÜNCEL) <<<
+- **21 TENYA — SON GÜNCEL (29 Ekim):** son kısım yenilendi (kullanıcı: "sonlar saçma, VOOM'a bağla, ayna kötü, motivasyon kötü,
+  'Oysa' bağlamıyor, kurt olduğu belli değilken 'kurt yutmana gerek yok' denmez, hep aynı VOOM cümlesi/fotoğrafı"):
+  tavsiye "Kurt da iğne de aynı şeyi der: sen hiçbir şey yapma. Kasını korumak ise tam tersini ister: haftada iki gün ağırlık." →
+  `tn-voom` "Doktorun altı haftası kurtla geçti. Seninki VOOM'la geçsin: altı haftalık ekibe katılmak istiyorsan yorumlara
+  İSTİYORUM yaz." (kullanıcının gönderdiği 6 haftalık "Yolculuğun" ekranı `public/app/program-6hafta.jpg`, haftalar yanar,
+  yorum kutusuna İSTİYORUM yazılır) → `tn-sevgi` "Ve şunu unutma: seni sevenler, sen daha bir kilo vermeden de seni
+  seviyordu." (oda, arkadaşlar gelir, tartı itilir, sarılma) → `tn-son` "Bunu, kendine fazla yüklenen arkadaşına gönder ve
+  sor:" (kâğıt uçak kameraya → açılış karesi). Ayna sahnesi ve "Sen yutar mıydın? Yorumlara yaz" yazısı ÇIKTI.
+  **AÇIK İŞ: "İSTİYORUM" yazanlara dönüş düzeneği YOK** (kullanıcı: "ona bakarız seninle") — paylaşmadan önce konuş (otomatik DM vb.).
 - **21 TENYA HAPI — YENİ STİLDE İLK VİDEO** (`cizim1-21-tenya`, JSON `"style": "hose"`, sahneler `src/hose/Tenya.tsx` `tn-*`).
   Metin v4 kullanıcı onaylı ("önizleme oluştur"): Yunus "Zayıflamak için kurt yutar mıydın?" → Duru "Asla!" → "Yüz yıl önce bunu
   hap diye sattılar." → tarih (tenya hapı; kurt var mıydı tartışmalı) → 2014 İngiliz doktor Kenya'da ineğin dilinden kist yuttu,

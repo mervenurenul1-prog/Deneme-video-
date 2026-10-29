@@ -669,7 +669,6 @@ const TnAldi: React.FC<SceneProps> = ({ w, d }) => {
       <Scale x={540} y={1300} s={1.6} kg={swing} red={swing > 0.6} />
       <Stamp x={540} y={760} t="+1 KG" p={st} size={150} />
       <HoseChar x={900} y={1820} s={1.05} who="duru" beret gesture="facepalm" gT={gestureT(f, w(2) + 6, d)} seed={9} face="sad" />
-      <Banner p={pop(f, w(2) + 10, 14)} t="Sen yutar mıydın?" sub="Yorumlara yaz" y={300} />
     </Cam>
   );
 };
@@ -819,8 +818,11 @@ const TnVoom: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
   const tear = prog(f, w(4), w(5) + 2);
   const voom = f >= w(5);
-  const p = prog(f, w(8), w(11));
-  const goal = pop(f, w(11));
+  const p = prog(f, w(6), w(9));
+  const goal = pop(f, w(9));
+  const box = pop(f, w(12));
+  const typed = Math.round(prog(f, w(13), w(15)) * 9);
+  const sent = pop(f, w(15) + 4);
   return (
     <g>
       {!voom ? (
@@ -850,11 +852,27 @@ const TnVoom: React.FC<SceneProps> = ({ w }) => {
             seed={9}
             look={[1, -0.2]}
             face={goal > 0.5 ? "grin" : "smile"}
-            gesture={goal > 0 ? "cheer" : "point"}
-            gT={goal > 0 ? gestureT(f, w(11), w(13) + 30) : gestureT(f, w(6), w(10))}
+            gesture={sent > 0 ? "cheer" : "point"}
+            gT={sent > 0 ? gestureT(f, w(15) + 4, w(15) + 60) : gestureT(f, w(6), w(12))}
             gSide="R"
           />
           <JourneyPhone x={680} y={880} s={1.55} p={p} goal={goal} />
+          {/* yorum kutusu: İSTİYORUM yazılır, gönderilir */}
+          {box > 0 ? (
+            <g transform={`translate(600 1170) scale(${box})`} stroke={INK} strokeWidth={6}>
+              <rect x={-400} y={-70} width={800} height={140} rx={70} fill={WHITE} />
+              <circle cx={-330} cy={0} r={42} fill="#e8a0ae" />
+              <text x={-260} y={18} fontFamily={fontFamily} fontWeight={900} fontSize={56} fill={INK} stroke="none" letterSpacing={2}>
+                {"İSTİYORUM".slice(0, typed)}
+                {typed < 9 && Math.floor(f / 8) % 2 === 0 ? "|" : ""}
+              </text>
+              <g transform={`translate(330 0) scale(${1 + sent * 0.25})`}>
+                <circle cx={0} cy={0} r={48} fill={sent > 0 ? NAVY : "#cfc6b4"} />
+                <path d="M-20 -16 L24 0 L-20 16 L-12 0 Z" fill={WHITE} strokeWidth={3} />
+              </g>
+            </g>
+          ) : null}
+          {sent > 0 ? <Hearts f={f} at={w(15) + 4} x={600} y={1100} /> : null}
         </Cam>
       )}
     </g>
@@ -905,8 +923,8 @@ const OpeningFrame: React.FC<{ f: number; wink?: boolean; lens?: number }> = ({ 
 const TnSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const fold = prog(f, w(2), w(4));
-  const fly = prog(f, w(5), w(7) + 4);
-  const opening = f >= w(7) + 4;
+  const fly = prog(f, w(5), w(6) + 6);
+  const opening = f >= w(6) + 6;
   return (
     <g>
       {!opening ? (
@@ -934,7 +952,7 @@ const TnSon: React.FC<SceneProps> = ({ w, d }) => {
           <Cam f={0} keys={[[0, PILL_AT[0], PILL_AT[1] - 20, 2.1]]}>
             <OpeningFrame f={0} />
           </Cam>
-          <rect x={0} y={0} width={1080} height={1920} fill={WHITE} opacity={1 - prog(f, w(7) + 4, Math.min(d - 2, w(7) + 12))} />
+          <rect x={0} y={0} width={1080} height={1920} fill={WHITE} opacity={1 - prog(f, w(6) + 6, Math.min(d - 2, w(6) + 14))} />
         </g>
       )}
     </g>

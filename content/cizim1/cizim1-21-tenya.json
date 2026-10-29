@@ -83,27 +83,28 @@
       "keys": [
         "aldı."
       ],
-      "hold": 0.9
+      "hold": 0.4
     },
     {
       "visual": "tn-tavsiye",
-      "voice": "Kurt da iğne de aynı sözü veriyor: sen hiçbir şey yapma. Ama kasını korumak tam tersini ister: haftada iki gün ağırlık kaldırmak.",
+      "voice": "Kurt da iğne de aynı şeyi der: sen hiçbir şey yapma. Kasını korumak ise tam tersini ister: haftada iki gün ağırlık.",
       "keys": [
         "Kurt",
         "iğne",
         "hiçbir",
         "tersini",
         "iki",
-        "ağırlık"
+        "ağırlık."
       ]
     },
     {
       "visual": "tn-voom",
-      "voice": "Doktorun altı haftası kurtla geçti. Seninki VOOM'la geçsin: altı haftanın sonunda hedefine hazır olursun.",
+      "voice": "Doktorun altı haftası kurtla geçti. Seninki VOOM'la geçsin: altı haftalık ekibe katılmak istiyorsan yorumlara İSTİYORUM yaz.",
       "keys": [
         "kurtla",
         "VOOM'la",
-        "hedefine"
+        "ekibe",
+        "İSTİYORUM"
       ]
     },
     {
@@ -117,7 +118,7 @@
     },
     {
       "visual": "tn-son",
-      "voice": "Bunu, kendine fazla yüklenen arkadaşına gönder ve ona da sor:",
+      "voice": "Bunu, kendine fazla yüklenen arkadaşına gönder ve sor:",
       "keys": [
         "gönder"
       ]
