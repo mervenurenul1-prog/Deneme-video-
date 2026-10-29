@@ -107,6 +107,10 @@ export type Cizim = {
   maxPause?: number;
   // Arka plan müziği (public/ altında), ör. "music/investigations.mp3"
   music?: string;
+  // müzik seviyesi çarpanı (varsayılan 1); dolu/hareketli müzikte konuşmayı bastırmasın diye düşür
+  musicVolume?: number;
+  // konuşma anlarında müzik bu orana iner (ör. 0.5); aralarda yumuşakça geri çıkar
+  musicDuck?: number;
   // true: video kusursuz döngü olur (son kare = ilk kare), Instagram başa sardığında kesinti görünmez
   loop?: boolean;
   // Sahne sonunda ses bittikten sonra bırakılan boşluk (saniye); yoksa VIDEO.paddingSeconds. Tempo için kısalt

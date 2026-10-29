@@ -125,5 +125,7 @@
     }
   ],
   "caption": "",
-  "hashtags": []
+  "hashtags": [],
+  "musicVolume": 0.55,
+  "musicDuck": 0.55
 }

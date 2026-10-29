@@ -71,6 +71,15 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
     return (k: number) => Math.round((words[Math.min(k, words.length - 1)]?.start ?? 0) * fps);
   };
   const First = SCENES[cizim.scenes[0].visual] ?? Missing;
+  const speechSpans: [number, number][] = [];
+  {
+    let at = 0;
+    cizim.scenes.forEach((_, i) => {
+      const ws = wordsAt(i);
+      if (ws.length) speechSpans.push([at + Math.round(ws[0].start * fps), at + Math.round(ws[ws.length - 1].end * fps)]);
+      at += durations[i];
+    });
+  }
   // 1930'lar stili: kâğıt/ışık/toz yerine eski film katmanı, sahneler arası sert kesme (çizgi film kurgusu)
   const hose = cizim.style === "hose";
   return (
@@ -123,7 +132,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
           </LoopIn>
         </Sequence>
       ) : null}
-      {cizim.music ? <Music src={cizim.music} loop={loop} /> : null}
+      {cizim.music ? <Music src={cizim.music} loop={loop} gain={cizim.musicVolume} duck={cizim.musicDuck} speech={speechSpans} /> : null}
       {hose ? null : <Dust loop={loop} />}
     </AbsoluteFill>
   );
@@ -149,15 +158,24 @@ const Missing: React.FC<SceneProps> = () => null;
 
 // Arka plan müziği: konuşmanın altında ama belirgin (kullanıcı: kısık olunca "var ile yok arası"), başta ve sonda yumuşak geçiş
 // Döngülü videoda müzik baştan tam sesle girer, sonda yalnızca kısa bir an kısılır (başa sarınca kopukluk duyulmasın)
-const Music: React.FC<{ src: string; loop?: boolean }> = ({ src, loop = false }) => {
+const Music: React.FC<{ src: string; loop?: boolean; gain?: number; duck?: number; speech?: [number, number][] }> = ({ src, loop = false, gain = 1, duck = 1, speech = [] }) => {
   const { durationInFrames } = useVideoConfig();
   const edges = loop ? [0, 3, durationInFrames - 6, durationInFrames - 1] : [0, 20, durationInFrames - 45, durationInFrames - 1];
   const levels = loop ? [0.6, 1, 1, 0.6] : [0, 1, 1, 0];
+  // konuşurken müzik kısılır (6 karede iner, 10 karede çıkar)
+  const duckAt = (f: number) => {
+    if (duck >= 1) return 1;
+    let k = 0;
+    for (const [a, b] of speech) {
+      if (f >= a - 6 && f <= b + 10) k = Math.max(k, f < a ? (f - (a - 6)) / 6 : f > b ? 1 - (f - b) / 10 : 1);
+    }
+    return 1 - (1 - duck) * k;
+  };
   return (
     <Audio
       src={staticFile(src)}
       loop
-      volume={(f) => 0.62 * interpolate(f, edges, levels, { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}
+      volume={(f) => 0.62 * gain * duckAt(f) * interpolate(f, edges, levels, { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}
     />
   );
 };
