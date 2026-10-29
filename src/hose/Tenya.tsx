@@ -318,25 +318,33 @@ const Dumbbell: React.FC<{ x: number; y: number; s?: number; r?: number }> = ({ 
   </g>
 );
 
-// VOOM telefonu (arka planda, göze sokulmadan)
-const VoomPhone: React.FC<{ x: number; y: number; s?: number; tick: number }> = ({ x, y, s = 1, tick }) => (
+// VOOM telefonu: koç ekranı, "+ Ağırlık · haftada 2 gün" kartı, haftalık günler (2 gün lacivert yanar) ve tik
+const VoomPhone: React.FC<{ x: number; y: number; s?: number; tick: number; days?: number; glow?: number }> = ({ x, y, s = 1, tick, days = 0, glow = 0 }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`} stroke={INK} strokeWidth={6}>
-    <rect x={-90} y={-170} width={180} height={340} rx={26} fill="#2a2523" />
-    <rect x={-76} y={-150} width={152} height={290} rx={14} fill="#f6efe0" />
-    <text x={0} y={-110} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={30} fill={RED} stroke="none" letterSpacing={2}>
+    {glow > 0 ? <ellipse cx={0} cy={0} rx={190} ry={260} fill="#ffe9a8" opacity={0.55 * glow} stroke="none" /> : null}
+    <rect x={-100} y={-190} width={200} height={380} rx={28} fill="#2a2523" />
+    <rect x={-86} y={-170} width={172} height={330} rx={16} fill="#f6efe0" />
+    <text x={0} y={-126} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={36} fill={RED} stroke="none" letterSpacing={2}>
       VOOM
     </text>
-    <text x={0} y={-78} textAnchor="middle" fontFamily={handFamily} fontSize={24} fill={INK} stroke="none">
+    <text x={0} y={-94} textAnchor="middle" fontFamily={handFamily} fontSize={28} fill={INK} stroke="none">
       koçun
     </text>
-    <rect x={-64} y={-50} width={128} height={70} rx={10} fill="#e3d6bc" strokeWidth={3} />
-    <text x={0} y={-22} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={20} fill={NAVY} stroke="none">
+    <rect x={-74} y={-72} width={148} height={78} rx={10} fill="#e3d6bc" strokeWidth={3} />
+    <text x={0} y={-40} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={24} fill={NAVY} stroke="none">
       + Ağırlık
     </text>
-    <text x={0} y={6} textAnchor="middle" fontFamily={fontFamily} fontWeight={600} fontSize={17} fill={INK} stroke="none">
+    <text x={0} y={-10} textAnchor="middle" fontFamily={fontFamily} fontWeight={600} fontSize={19} fill={INK} stroke="none">
       haftada 2 gün
     </text>
-    {tick > 0 ? <path d={`M-20 70 l16 18 l30 -40`} stroke={NAVY} strokeWidth={10} fill="none" strokeLinecap="round" strokeDasharray={90} strokeDashoffset={90 * (1 - tick)} /> : null}
+    {/* haftanın günleri */}
+    {[...Array(7)].map((_, i) => {
+      const on = (i === 1 && days > 0.2) || (i === 4 && days > 0.7);
+      return <rect key={i} x={-74 + i * 21.5} y={22} width={17} height={22} rx={4} fill={on ? NAVY : "#fbf7ee"} strokeWidth={2.5} />;
+    })}
+    {tick > 0 ? (
+      <path d="M-34 96 l24 26 l46 -60" stroke={NAVY} strokeWidth={14} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray={130} strokeDashoffset={130 * (1 - tick)} />
+    ) : null}
   </g>
 );
 
@@ -661,9 +669,10 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
   const lazy = f < w(12);
   const x1 = pop(f, w(12));
   const lift = f >= w(13);
-  const bnc = lift ? Math.abs(Math.sin((q2(f) * Math.PI) / 18)) : undefined;
+  const rest = f >= w(17); // telefona bakarken dambıllar aşağıda
+  const bnc = lift && !rest ? Math.abs(Math.sin((q2(f) * Math.PI) / 18)) : lift ? 0 : undefined;
   const up = bnc ?? 0;
-  const armUp: [number, number, number] = [110 - up * 20, -40 - up * 130, -60 + up * 30];
+  const armUp: [number, number, number] = rest ? [70, 150, -40] : [110 - up * 20, -40 - up * 130, -60 + up * 30];
   const armUpL: [number, number, number] = [-armUp[0], armUp[1], -armUp[2]];
   const D = { x: 560, y: 1700, s: 1.6 };
   const hR = handAt(D.x, D.y - up * 26 * D.s, D.s, armUp, 1);
@@ -676,26 +685,35 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
         [w(7), 540, 860, 1.2],
         [w(12), 540, 900, 1.05],
         [w(15), 560, 920, 1.15],
-        [w(20) + 10, 600, 960, 1.05],
+        [w(16) + 4, 600, 940, 1.1],
+        [w(17) + 6, 880, 1030, 1.75],
+        [w(20) + 20, 880, 1030, 1.85],
       ]}
       shake={interpolate(f, [w(12), w(12) + 8], [0.6, 0], clamp)}
     >
       <Room />
       {/* arka planda masa + VOOM telefonu */}
       <g stroke={INK} strokeWidth={6}>
-        <rect x={820} y={1240} width={320} height={30} fill="#8a5a33" />
-        <path d="M850 1270 L850 1500 M1110 1270 L1110 1500" strokeWidth={12} />
+        <rect x={780} y={1260} width={360} height={34} fill="#8a5a33" />
+        <path d="M810 1294 L810 1520 M1110 1294 L1110 1520" strokeWidth={12} />
       </g>
-      <VoomPhone x={980} y={1110} s={0.75} tick={prog(f, w(18), w(20))} />
+      <VoomPhone
+        x={930}
+        y={1060}
+        s={1.0 + 0.12 * pop(f, w(17)) + 0.04 * interpolate(f, [w(19), w(19) + 4, w(19) + 10], [0, 1, 0], clamp)}
+        tick={prog(f, w(19), w(20) + 4)}
+        days={prog(f, w(18), w(19))}
+        glow={prog(f, w(17), w(18))}
+      />
       {lazy ? (
         <HoseChar x={D.x} y={D.y} s={D.s} who="duru" beret gesture="hips" gT={gestureT(f, w(8), w(11) + 4)} lid={f >= w(8) ? 0.5 : 0} face="smirk" look={[0, 0]} seed={9} tilt={f >= w(8) ? 8 : 0} />
       ) : (
         <g>
-          <HoseChar x={D.x} y={D.y} s={D.s} who="duru" beret bounce={lift ? bnc : 0} armR={lift ? armUp : [110, -60, -60]} armL={lift ? armUpL : [-110, -60, 60]} handR="fist" handL="fist" face={lift ? "grin" : "o"} surprise={lift ? 0 : interpolate(f, [w(12), w(12) + 4, w(13)], [0, 0.6, 0], clamp)} look={[0, 0]} seed={9} />
+          <HoseChar x={D.x} y={D.y} s={D.s} who="duru" beret bounce={lift ? bnc : 0} armR={lift ? armUp : [110, -60, -60]} armL={lift ? armUpL : [-110, -60, 60]} handR="fist" handL="fist" face={lift ? "grin" : "o"} surprise={lift ? 0 : interpolate(f, [w(12), w(12) + 4, w(13)], [0, 0.6, 0], clamp)} look={f >= w(17) ? [1, 0.2] : [0, 0]} tilt={f >= w(17) ? 6 : 0} seed={9} />
           {lift ? (
             <>
-              <Dumbbell x={hR[0]} y={hR[1] - 30} s={1.35} r={-8} />
-              <Dumbbell x={hL[0]} y={hL[1] - 30} s={1.35} r={8} />
+              <Dumbbell x={hR[0]} y={hR[1] - (rest ? 0 : 30)} s={1.35} r={rest ? 90 : -8} />
+              <Dumbbell x={hL[0]} y={hL[1] - (rest ? 0 : 30)} s={1.35} r={rest ? 90 : 8} />
               <circle cx={hR[0] - 40} cy={hR[1] + 160} r={50} fill="#ffe9a8" opacity={0.25 + 0.25 * up} />
               <circle cx={hL[0] + 40} cy={hL[1] + 160} r={50} fill="#ffe9a8" opacity={0.25 + 0.25 * up} />
             </>
@@ -722,22 +740,6 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
           <text x={540} y={470} textAnchor="middle" fontFamily={handFamily} fontSize={58} fill={INK} opacity={prog(f, w(8), w(9)) * (1 - x1)}>
             "sen hiçbir şey yapma"
           </text>
-        </g>
-      ) : null}
-      {/* haftalık şerit: 2 gün lacivert */}
-      {f >= w(17) ? (
-        <g transform="translate(540 380) scale(0.78)">
-          {["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"].map((dname, i) => {
-            const on = (i === 1 || i === 4) && f >= w(18) + (i === 4 ? 6 : 0);
-            return (
-              <g key={i} transform={`translate(${(i - 3) * 120} 0) scale(${pop(f, w(17) + i * 2)})`}>
-                <rect x={-50} y={-50} width={100} height={100} rx={14} fill={on ? NAVY : "#f6ecd4"} stroke={INK} strokeWidth={6} />
-                <text x={0} y={14} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={36} fill={on ? WHITE : INK}>
-                  {dname}
-                </text>
-              </g>
-            );
-          })}
         </g>
       ) : null}
     </Cam>
