@@ -4,7 +4,10 @@
   "style": "hose",
   "voiceId": "Q5n6GDIjpN0pLOlycRFT",
   "modelId": "eleven_v4",
-  "voiceSettings": { "stability": 0.5, "similarityBoost": 0.8 },
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
   "maxPause": 0.15,
   "music": "music/merak-gerilim.mp3",
   "loop": true,
@@ -12,30 +15,113 @@
   "speed": 1.2,
   "minEstimate": 0.8,
   "scenes": [
-    { "visual": "tn-kanca", "voice": "Zayıflamak için kurt yutar mıydın?", "keys": ["kurt", "mıydın?"] },
-    { "visual": "tn-asla", "voice": "Asla!", "voiceId": "kd6P2yodCccO2OzNoqOD", "voiceSettings": { "stability": 0.45, "similarityBoost": 0.95, "style": 0, "useSpeakerBoost": true }, "hold": 0.2 },
-    { "visual": "tn-hap", "voice": "Yüz yıl önce bunu hap diye sattılar.", "keys": ["Yüz", "hap"] },
+    {
+      "visual": "tn-kanca",
+      "voice": "Zayıflamak için kurt yutar mıydın?",
+      "keys": [
+        "kurt",
+        "mıydın?"
+      ]
+    },
+    {
+      "visual": "tn-asla",
+      "voice": "Asla!",
+      "voiceId": "kd6P2yodCccO2OzNoqOD",
+      "voiceSettings": {
+        "stability": 0.45,
+        "similarityBoost": 0.95,
+        "style": 0,
+        "useSpeakerBoost": true
+      },
+      "hold": 0.2
+    },
+    {
+      "visual": "tn-hap",
+      "voice": "Yüz yıl önce bunu hap diye sattılar.",
+      "keys": [
+        "Yüz",
+        "hap"
+      ]
+    },
     {
       "visual": "tn-tarih",
       "voice": "Adı tenya hapıydı: yut, kurt bağırsağına yerleşsin; sen ye, o yesin. İçinde gerçekten kurt var mıydı, bugün bile tartışılıyor.",
       "say": "Adı tenya hapıydı: yut, kurt bağırsağına yerleşsin; sen ye, o yesin. İçinde, hani, gerçekten kurt var mıydı, bugün bile tartışılıyor.",
-      "keys": ["tenya", "kurt", "yesin.", "tartışılıyor."]
+      "keys": [
+        "tenya",
+        "kurt",
+        "yesin.",
+        "tartışılıyor."
+      ]
     },
     {
       "visual": "tn-doktor",
       "voice": "2014'te bir İngiliz doktor merak etti ve gerçekten yuttu: Kenya'da bir ineğin dilinden çıkan tenya kistlerini. Altı hafta taşıdı.",
       "say": "2014'te bir İngiliz doktor merak etti ve gerçekten yuttu: Kenya'da, ıı, bir ineğin dilinden çıkan tenya kistlerini. Altı hafta taşıdı.",
-      "keys": ["2014'te", "yuttu:", "Kenya'da", "Altı", "hafta"]
+      "keys": [
+        "2014'te",
+        "yuttu:",
+        "Kenya'da",
+        "Altı",
+        "hafta"
+      ]
     },
-    { "visual": "tn-kackilo", "voice": "Kaç kilo verdi?", "voiceId": "kd6P2yodCccO2OzNoqOD", "voiceSettings": { "stability": 0.45, "similarityBoost": 0.95, "style": 0, "useSpeakerBoost": true } },
-    { "visual": "tn-aldi", "voice": "Bir kilo aldı.", "keys": ["aldı."], "hold": 0.9 },
+    {
+      "visual": "tn-kackilo",
+      "voice": "Kaç kilo verdi?",
+      "voiceId": "kd6P2yodCccO2OzNoqOD",
+      "voiceSettings": {
+        "stability": 0.45,
+        "similarityBoost": 0.95,
+        "style": 0,
+        "useSpeakerBoost": true
+      }
+    },
+    {
+      "visual": "tn-aldi",
+      "voice": "Bir kilo aldı.",
+      "keys": [
+        "aldı."
+      ],
+      "hold": 0.9
+    },
     {
       "visual": "tn-tavsiye",
-      "voice": "Kurt da iğne de aynı şeyi vaat ediyor: sen hiçbir şey yapma. Oysa kasını koruyan, senin yaptığın: haftada iki gün ağırlık.",
-      "keys": ["Kurt", "iğne", "hiçbir", "Oysa", "iki", "ağırlık."]
+      "voice": "Kurt da iğne de aynı sözü veriyor: sen hiçbir şey yapma. Ama kasını korumak tam tersini ister: haftada iki gün ağırlık kaldırmak.",
+      "keys": [
+        "Kurt",
+        "iğne",
+        "hiçbir",
+        "tersini",
+        "iki",
+        "ağırlık"
+      ]
     },
-    { "visual": "tn-sevgi", "voice": "Ve acele etme. Seni sevenler tartıya bakmaz, sana bakar.", "keys": ["tartıya", "sana"], "hold": 0.3 },
-    { "visual": "tn-son", "voice": "Bunu, aynaya bakıp kendine kızan arkadaşına gönder. Ve ona da sor:", "keys": ["gönder."] }
+    {
+      "visual": "tn-voom",
+      "voice": "Doktorun altı haftası kurtla geçti. Seninki VOOM'la geçsin: altı haftanın sonunda hedefine hazır olursun.",
+      "keys": [
+        "kurtla",
+        "VOOM'la",
+        "hedefine"
+      ]
+    },
+    {
+      "visual": "tn-sevgi",
+      "voice": "Ve şunu unutma: seni sevenler, sen daha bir kilo vermeden de seni seviyordu.",
+      "keys": [
+        "sevenler,",
+        "seviyordu."
+      ],
+      "hold": 0.3
+    },
+    {
+      "visual": "tn-son",
+      "voice": "Bunu, kendine fazla yüklenen arkadaşına gönder ve ona da sor:",
+      "keys": [
+        "gönder"
+      ]
+    }
   ],
   "caption": "",
   "hashtags": []

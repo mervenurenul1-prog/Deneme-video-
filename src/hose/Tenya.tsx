@@ -1,10 +1,21 @@
 // 21 Tenya hapı — 1930'lar stili (Yunus + Duru). Sahneler `tn-*`; kelime zamanı w(i).
-import React from "react";
-import { Easing, interpolate, useCurrentFrame } from "remotion";
+import React, { useEffect, useState } from "react";
+import { continueRender, delayRender, Easing, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { HoseChar, gestureT } from "../avatar2/Hose";
 import { fontFamily, handFamily } from "../fonts";
 
 type SceneProps = { d: number; w: (i: number) => number };
+
+// görsel yüklenmeden kare çekilmesin
+const useImgReady = (src: string) => {
+  const [handle] = useState(() => delayRender(`img ${src}`));
+  useEffect(() => {
+    const im = new Image();
+    im.onload = () => continueRender(handle);
+    im.onerror = () => continueRender(handle);
+    im.src = src;
+  }, [handle, src]);
+};
 
 const INK = "#141010";
 const PAPER = "#efe3c8";
@@ -663,18 +674,18 @@ const TnAldi: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
-// 8) Tavsiye: kurt da iğne de "hiçbir şey yapma" der → çarpı → Duru ağırlık kaldırır, VOOM telefonu arkada
+// 8) Tavsiye: "Kurt da iğne de aynı sözü veriyor: sen hiçbir şey yapma. Ama kasını korumak tam tersini ister: haftada iki gün ağırlık kaldırmak."
+// Duru önce tembel (eller belde, gözler yarı kapalı) → "Ama"da kolay yollar kırmızı çarpı → "tam tersini"de ağırlığa geçer
 const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const lazy = f < w(12);
-  const x1 = pop(f, w(12));
-  const lift = f >= w(13);
-  const rest = f >= w(17); // telefona bakarken dambıllar aşağıda
-  const bnc = lift && !rest ? Math.abs(Math.sin((q2(f) * Math.PI) / 18)) : lift ? 0 : undefined;
+  const lazy = f < w(11);
+  const x1 = pop(f, w(11));
+  const lift = f >= w(14);
+  const bnc = lift ? Math.abs(Math.sin((q2(f) * Math.PI) / 18)) : undefined;
   const up = bnc ?? 0;
-  const armUp: [number, number, number] = rest ? [70, 150, -40] : [110 - up * 20, -40 - up * 130, -60 + up * 30];
+  const armUp: [number, number, number] = [110 - up * 20, -40 - up * 130, -60 + up * 30];
   const armUpL: [number, number, number] = [-armUp[0], armUp[1], -armUp[2]];
-  const D = { x: 560, y: 1700, s: 1.6 };
+  const D = { x: 540, y: 1700, s: 1.6 };
   const hR = handAt(D.x, D.y - up * 26 * D.s, D.s, armUp, 1);
   const hL = handAt(D.x, D.y - up * 26 * D.s, D.s, armUpL, -1);
   return (
@@ -683,129 +694,248 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
       keys={[
         [0, 540, 900, 1.1],
         [w(7), 540, 860, 1.2],
-        [w(12), 540, 900, 1.05],
-        [w(15), 560, 920, 1.15],
-        [w(16) + 4, 600, 940, 1.1],
-        [w(17) + 6, 880, 1030, 1.75],
-        [w(20) + 20, 880, 1030, 1.85],
+        [w(11), 540, 900, 1.05],
+        [w(14), 540, 940, 1.15],
+        [w(17), 540, 860, 1.0],
+        [w(21) + 10, 540, 880, 1.05],
       ]}
-      shake={interpolate(f, [w(12), w(12) + 8], [0.6, 0], clamp)}
+      shake={interpolate(f, [w(11), w(11) + 8], [0.6, 0], clamp)}
     >
       <Room />
-      {/* arka planda masa + VOOM telefonu */}
-      <g stroke={INK} strokeWidth={6}>
-        <rect x={780} y={1260} width={360} height={34} fill="#8a5a33" />
-        <path d="M810 1294 L810 1520 M1110 1294 L1110 1520" strokeWidth={12} />
-      </g>
-      <VoomPhone
-        x={930}
-        y={1060}
-        s={1.0 + 0.12 * pop(f, w(17)) + 0.04 * interpolate(f, [w(19), w(19) + 4, w(19) + 10], [0, 1, 0], clamp)}
-        tick={prog(f, w(19), w(20) + 4)}
-        days={prog(f, w(18), w(19))}
-        glow={prog(f, w(17), w(18))}
-      />
-      {lazy ? (
-        <HoseChar x={D.x} y={D.y} s={D.s} who="duru" beret gesture="hips" gT={gestureT(f, w(8), w(11) + 4)} lid={f >= w(8) ? 0.5 : 0} face="smirk" look={[0, 0]} seed={9} tilt={f >= w(8) ? 8 : 0} />
+      {lazy || !lift ? (
+        <HoseChar
+          x={D.x}
+          y={D.y}
+          s={D.s}
+          who="duru"
+          beret
+          gesture={lazy ? "hips" : "rest"}
+          gT={lazy ? gestureT(f, w(7), w(10) + 4) : 0}
+          lid={lazy && f >= w(7) ? 0.5 : 0}
+          face={lazy ? "smirk" : "o"}
+          surprise={lazy ? 0 : interpolate(f, [w(11), w(11) + 4, w(14)], [0, 0.6, 0], clamp)}
+          armR={lazy ? undefined : [110, -60, -60]}
+          armL={lazy ? undefined : [-110, -60, 60]}
+          tilt={lazy && f >= w(7) ? 8 : 0}
+          seed={9}
+        />
       ) : (
         <g>
-          <HoseChar x={D.x} y={D.y} s={D.s} who="duru" beret bounce={lift ? bnc : 0} armR={lift ? armUp : [110, -60, -60]} armL={lift ? armUpL : [-110, -60, 60]} handR="fist" handL="fist" face={lift ? "grin" : "o"} surprise={lift ? 0 : interpolate(f, [w(12), w(12) + 4, w(13)], [0, 0.6, 0], clamp)} look={f >= w(17) ? [1, 0.2] : [0, 0]} tilt={f >= w(17) ? 6 : 0} seed={9} />
-          {lift ? (
-            <>
-              <Dumbbell x={hR[0]} y={hR[1] - (rest ? 0 : 30)} s={1.35} r={rest ? 90 : -8} />
-              <Dumbbell x={hL[0]} y={hL[1] - (rest ? 0 : 30)} s={1.35} r={rest ? 90 : 8} />
-              <circle cx={hR[0] - 40} cy={hR[1] + 160} r={50} fill="#ffe9a8" opacity={0.25 + 0.25 * up} />
-              <circle cx={hL[0] + 40} cy={hL[1] + 160} r={50} fill="#ffe9a8" opacity={0.25 + 0.25 * up} />
-            </>
-          ) : null}
+          <HoseChar x={D.x} y={D.y} s={D.s} who="duru" beret bounce={bnc} armR={armUp} armL={armUpL} handR="fist" handL="fist" face="grin" seed={9} />
+          <Dumbbell x={hR[0]} y={hR[1] - 30} s={1.35} r={-8} />
+          <Dumbbell x={hL[0]} y={hL[1] - 30} s={1.35} r={8} />
+          <circle cx={hR[0] - 40} cy={hR[1] + 160} r={50} fill="#ffe9a8" opacity={0.25 + 0.25 * up} />
+          <circle cx={hL[0] + 40} cy={hL[1] + 160} r={50} fill="#ffe9a8" opacity={0.25 + 0.25 * up} />
         </g>
       )}
-      {/* kolay yollar: kurt hapı + iğne kalemi süzülür, "Oysa"da kırmızı çarpı ve düşer */}
+      {/* kolay yollar: kurt hapı + iğne kalemi süzülür, "Ama"da kırmızı çarpı ve düşer */}
       {f < w(15) ? (
         <g>
           {[
             { at: w(0), x: 250, el: <Pill x={0} y={0} s={1.1} f={f} r={-15} /> },
-            { at: w(2), x: 860, el: <Syringe x={0} y={0} s={0.9} r={25} /> },
+            { at: w(2), x: 830, el: <Syringe x={0} y={0} s={0.9} r={25} /> },
           ].map((it, i) => {
             const p = pop(f, it.at);
-            const fall = prog(f, w(12) + 4, w(14));
+            const fall = prog(f, w(11) + 4, w(13));
             return (
-              <g key={i} transform={`translate(${it.x} ${600 + Math.sin(f / 7 + i) * 16 + fall * 900}) rotate(${fall * (i ? 80 : -80)}) scale(${p})`}>
+              <g key={i} transform={`translate(${it.x} ${640 + Math.sin(f / 7 + i) * 16 + fall * 900}) rotate(${fall * (i ? 80 : -80)}) scale(${p})`}>
                 <circle cx={0} cy={0} r={130} fill="#fff6d8" opacity={0.6 * (1 - fall)} />
                 {it.el}
                 {x1 > 0 ? <path d="M-110 -110 L110 110 M110 -110 L-110 110" stroke={RED} strokeWidth={26} strokeLinecap="round" opacity={x1} /> : null}
               </g>
             );
           })}
-          <text x={540} y={470} textAnchor="middle" fontFamily={handFamily} fontSize={58} fill={INK} opacity={prog(f, w(8), w(9)) * (1 - x1)}>
+          <text x={540} y={470} textAnchor="middle" fontFamily={handFamily} fontSize={58} fill={INK} opacity={prog(f, w(7), w(8)) * (1 - x1)}>
             "sen hiçbir şey yapma"
           </text>
+        </g>
+      ) : null}
+      {/* "tam tersini": ok tembel pozdan ağırlığa döner */}
+      {f >= w(14) && f < w(17) ? (
+        <g opacity={1 - prog(f, w(16), w(17))}>
+          <path d="M250 520 Q540 330 830 520" stroke={NAVY} strokeWidth={16} fill="none" strokeLinecap="round" strokeDasharray={800} strokeDashoffset={800 * (1 - prog(f, w(14), w(15)))} />
+          <path d="M830 520 l-50 -10 M830 520 l-20 -46" stroke={NAVY} strokeWidth={16} strokeLinecap="round" opacity={prog(f, w(15) - 2, w(15))} />
+        </g>
+      ) : null}
+      {/* haftalık şerit: 2 gün lacivert */}
+      {f >= w(17) ? (
+        <g transform="translate(540 380) scale(0.8)">
+          {["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"].map((dname, i) => {
+            const on = (i === 1 && f >= w(18)) || (i === 4 && f >= w(19));
+            return (
+              <g key={i} transform={`translate(${(i - 3) * 120} 0) scale(${pop(f, w(17) + i * 2)})`}>
+                <rect x={-50} y={-50} width={100} height={100} rx={14} fill={on ? NAVY : "#f6ecd4"} stroke={INK} strokeWidth={6} />
+                <text x={0} y={14} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={36} fill={on ? WHITE : INK}>
+                  {dname}
+                </text>
+              </g>
+            );
+          })}
         </g>
       ) : null}
     </Cam>
   );
 };
 
-// 9) "Ve acele etme. Seni sevenler tartıya bakmaz, sana bakar." — düğün masası, arkadaşlar sarılır
-const TnSevgi: React.FC<SceneProps> = ({ w }) => {
-  const f = useCurrentFrame();
-  const turn = f >= w(6);
-  const hug = gestureT(f, w(7), w(8) + 40);
+// VOOM'un gerçek "Yolculuğun" ekranı (kullanıcının gönderdiği ekran görüntüsü, H1 → H6 → HEDEF kırpıldı)
+const JOURNEY = staticFile("app/program-6hafta.jpg");
+const JW = 300;
+const JH = (JW * 2152) / 1290;
+// ekran görüntüsündeki noktaların yeri (kırpılmış görüntü oranı): H1..H6, HEDEF
+const DOTS = [118, 333, 547, 760, 974, 1188, 1402].map((y) => y / 1540);
+const JourneyPhone: React.FC<{ x: number; y: number; s?: number; p: number; goal: number }> = ({ x, y, s = 1, p, goal }) => {
+  useImgReady(JOURNEY);
+  const n = p * 6; // kaç hafta yandı
   return (
-    <Cam f={f} keys={[[0, 300, 1300, 1.5], [w(3), 300, 1300, 1.5], [w(5), 540, 1000, 1.0], [w(8) + 20, 540, 960, 1.1]]}>
-      <Party f={f} />
-      {/* köşede unutulan tartı */}
-      <g opacity={1 - 0.5 * prog(f, w(6), w(7))}>
-        <Scale x={160} y={1640} s={0.7} kg={0.3} />
-      </g>
-      <HoseChar x={180} y={1720} s={1.15} who="yunus" seed={4} look={turn ? [1, 0] : [-1, 0.6]} gesture="cheer" gT={hug} face={turn ? "grin" : "smile"} />
-      <HoseChar x={900} y={1720} s={1.15} who="arkadas" seed={6} look={turn ? [-1, 0] : [-1, 0.6]} gesture="cheer" gT={hug} gSide="L" face={turn ? "grin" : "smile"} />
-      <HoseChar x={540} y={1760} s={1.35} who="duru" beret seed={9} face={f < w(3) ? "sad" : "smile"} look={f < w(3) ? [-1, 0.8] : [0, 0]} laugh={interpolate(f, [w(7), w(7) + 6, w(8) + 30, w(8) + 40], [0, 1, 1, 0], clamp)} />
-      <Hearts f={f} at={w(7)} x={540} y={1000} />
-      <Confetti f={f} at={w(7)} />
-    </Cam>
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      {goal > 0 ? <ellipse cx={0} cy={0} rx={260} ry={340} fill="#ffe9a8" opacity={0.5 * goal} /> : null}
+      <rect x={-JW / 2 - 22} y={-JH / 2 - 60} width={JW + 44} height={JH + 110} rx={36} fill="#1b1817" stroke={INK} strokeWidth={8} />
+      <clipPath id="tnJourney">
+        <rect x={-JW / 2} y={-JH / 2} width={JW} height={JH} rx={12} />
+      </clipPath>
+      <image href={JOURNEY} x={-JW / 2} y={-JH / 2} width={JW} height={JH} clipPath="url(#tnJourney)" preserveAspectRatio="xMidYMid slice" />
+      {/* haftalar sırayla yanar: noktada parlama, satırda hafif ışık */}
+      {DOTS.map((dy, i) => {
+        const on = i < 6 ? Math.max(0, Math.min(1, n - i)) : goal;
+        if (on <= 0) return null;
+        const cy = -JH / 2 + dy * JH;
+        const cx = -JW / 2 + 0.0975 * JW;
+        return (
+          <g key={i}>
+            <rect x={-JW / 2} y={cy - 18} width={JW} height={i < 6 ? 52 : 70} fill="#d7f05a" opacity={0.12 * on} />
+            <circle cx={cx} cy={cy} r={i < 6 ? 12 : 16} fill="#d7f05a" opacity={on} stroke={INK} strokeWidth={2} />
+          </g>
+        );
+      })}
+      <text x={0} y={JH / 2 + 38} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={30} fill="#d7f05a" letterSpacing={4}>
+        VOOM
+      </text>
+    </g>
   );
 };
 
-// 10) "Bunu, aynaya bakıp kendine kızan arkadaşına gönder. Ve ona da sor:" → hap yakın planı (açılış karesi)
-const TnSon: React.FC<SceneProps> = ({ w, d }) => {
+// 9) VOOM: "Doktorun altı haftası kurtla geçti. Seninki VOOM'la geçsin: altı haftanın sonunda hedefine hazır olursun."
+const TnVoom: React.FC<SceneProps> = ({ w }) => {
   const f = useCurrentFrame();
-  const plane = prog(f, w(5), w(6) + 4);
-  const toPill = f >= w(7);
+  const tear = prog(f, w(4), w(5) + 2);
+  const voom = f >= w(5);
+  const p = prog(f, w(8), w(11));
+  const goal = pop(f, w(11));
   return (
     <g>
-      {!toPill ? (
-        <Cam f={f} keys={[[0, 540, 900, 1.0], [w(2), 640, 860, 1.15], [w(6), 600, 900, 1.05]]}>
-          <Room />
-          {/* ayna */}
-          <g stroke={INK} strokeWidth={8}>
-            <ellipse cx={760} cy={900} rx={230} ry={330} fill="#cfdde0" />
-            <ellipse cx={760} cy={900} rx={230} ry={330} fill="none" stroke="#b08a3a" strokeWidth={26} />
+      {!voom ? (
+        <Cam f={f} keys={[[0, 420, 1000, 1.25], [w(3), 480, 900, 1.1]]}>
+          <Savanna f={f} />
+          <HoseChar x={DOC.x} y={DOC.y} s={DOC.s} who="doktor" seed={2} face="sad" lid={0.3} look={[1, -0.4]} />
+          {/* 6. hafta takvimi: içinden kurt bakar; "geçti"de yırtılır */}
+          <g transform={`translate(${720 + tear * 260} ${820 - tear * 300}) rotate(${tear * 40})`} opacity={1 - tear}>
+            <Calendar x={0} y={0} n={6} s={1.1} />
+            <Worm x={70} y={150} s={0.55} f={f} />
           </g>
-          <g opacity={0.55}>
-            <svg x={530} y={570} width={460} height={660} viewBox="-230 -980 460 660" overflow="hidden">
-              <HoseChar x={0} y={0} s={1.0} who="arkadas" seed={6} face="sad" lid={0.4} look={[0, 0.4]} live={false} />
-            </svg>
-          </g>
-          <HoseChar x={380} y={1760} s={1.3} who="arkadas" seed={6} face={plane > 0.9 ? "o" : "sad"} lid={plane > 0.9 ? 0 : 0.4} look={plane > 0.5 ? [-1, -0.4] : [1, -0.2]} gesture="hips" gT={gestureT(f, w(1), w(5))} />
-          {/* kâğıt uçak gelir */}
-          {plane > 0 ? (
-            <g transform={`translate(${-200 + plane * 600} ${500 + Math.sin(plane * Math.PI) * -120 + plane * 300}) rotate(${10 + plane * 15})`} stroke={INK} strokeWidth={6}>
-              <path d="M0 0 L140 30 L0 60 L30 30 Z" fill={WHITE} />
-              <path d="M30 30 L140 30" strokeWidth={4} />
+          {tear > 0 ? (
+            <g transform={`translate(${720 - tear * 240} ${820 + tear * 200}) rotate(${-tear * 50})`} opacity={1 - tear}>
+              <rect x={-150} y={0} width={300} height={170} fill={WHITE} stroke={INK} strokeWidth={7} />
             </g>
           ) : null}
         </Cam>
       ) : (
-        // Yunus hapı kameraya uzatır, kamera hapın içine dalar → açılış karesi
-        <Cam f={f} keys={[[w(7), 600, 820, 1.0], [w(9), 600, 820, 1.05], [d, PILL_AT[0], PILL_AT[1] - 20, 2.1]]}>
+        <Cam f={f} keys={[[w(5), 560, 940, 1.0], [w(7), 600, 900, 1.08], [w(11), 640, 860, 1.15], [w(13) + 12, 600, 900, 1.05]]}>
           <Room />
-          <HoseChar x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret armR={ARM_PILL} handR="fist" look={[1, -0.4]} face="smile" seed={9} />
-          <Pill x={PILL_AT[0]} y={PILL_AT[1] - 30} s={1.2} f={f} glow={1} />
-          <g transform={`translate(0 ${prog(f, w(7), w(8)) * -40})`} opacity={1 - prog(f, w(10), d - 6)}>
-            <HoseChar x={200} y={2000} s={1.9} who="yunus" seed={4} talk={1} gesture="point" gT={gestureT(f, w(7), d)} look={[1, -0.5]} />
-          </g>
+          <HoseChar
+            x={270}
+            y={1760}
+            s={1.05}
+            who="duru"
+            beret
+            seed={9}
+            look={[1, -0.2]}
+            face={goal > 0.5 ? "grin" : "smile"}
+            gesture={goal > 0 ? "cheer" : "point"}
+            gT={goal > 0 ? gestureT(f, w(11), w(13) + 30) : gestureT(f, w(6), w(10))}
+            gSide="R"
+          />
+          <JourneyPhone x={680} y={880} s={1.55} p={p} goal={goal} />
         </Cam>
+      )}
+    </g>
+  );
+};
+
+// 10) Motivasyon: "Ve şunu unutma: seni sevenler, sen daha bir kilo vermeden de seni seviyordu."
+// Duru'nun odası: Yunus ve arkadaşı iki yandan gelir; "bir kilo vermeden"de tartı kenara itilir; "seviyordu"da sarılırlar
+const TnSevgi: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const inY = prog(f, w(3), w(4) + 4);
+  const push = prog(f, w(8), w(10));
+  const hug = gestureT(f, w(11), w(12) + 40);
+  return (
+    <Cam f={f} keys={[[0, 540, 820, 1.25], [w(3), 540, 900, 1.05], [w(8), 420, 1250, 1.3], [w(10), 540, 980, 1.05], [w(12) + 10, 540, 940, 1.12]]}>
+      <Room />
+      {/* tartı: sıfırda; Yunus ayağıyla kenara iter */}
+      <g transform={`translate(${-push * 520} 0) rotate(${-push * 12} 300 1700)`}>
+        <Scale x={300} y={1740} s={0.62} kg={0} />
+      </g>
+      <HoseChar x={-200 + inY * 400} y={1740} s={1.2} who="yunus" seed={4} look={[1, 0]} face={hug > 0.3 ? "grin" : "smile"} gesture={hug > 0 ? "cheer" : "rest"} gT={hug} />
+      <HoseChar x={1280 - inY * 400} y={1740} s={1.2} who="arkadas" seed={6} look={[-1, 0]} face={hug > 0.3 ? "grin" : "smile"} gesture={hug > 0 ? "cheer" : "rest"} gT={hug} gSide="L" />
+      <HoseChar x={540} y={1780} s={1.35} who="duru" beret seed={9} face={f < w(3) ? "sad" : "smile"} look={f < w(3) ? [0, 0.6] : f < w(11) ? [-1, 0] : [0, 0]} laugh={interpolate(f, [w(11), w(11) + 6, w(12) + 30, w(12) + 40], [0, 1, 1, 0], clamp)} />
+      <Hearts f={f} at={w(11)} x={540} y={1000} />
+    </Cam>
+  );
+};
+
+// Açılış karesi (hap + büyüteç yakın planı): döngü için kapanışta da aynısı çizilir
+const OpeningFrame: React.FC<{ f: number; wink?: boolean; lens?: number }> = ({ f, wink = false, lens = 1 }) => (
+  <>
+    <Room />
+    <HoseChar x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret armR={ARM_PILL} handR="fist" look={[1, -0.4]} face="smile" seed={9} />
+    <Pill x={PILL_AT[0]} y={PILL_AT[1] - 30} s={1.2} f={f} wink={wink} glow={0} />
+    {lens > 0 ? (
+      <g opacity={lens}>
+        <Lens x={PILL_AT[0] + 40} y={PILL_AT[1] - 40} r={110} id={`tnL${Math.round(lens * 10)}`}>
+          <g transform={`translate(${PILL_AT[0] + 40} ${PILL_AT[1] - 40}) scale(2.4) translate(${-PILL_AT[0] - 40} ${-PILL_AT[1] + 40})`}>
+            <Pill x={PILL_AT[0]} y={PILL_AT[1] - 30} s={1.2} f={f} wink={wink} />
+          </g>
+        </Lens>
+      </g>
+    ) : null}
+  </>
+);
+
+// 11) Kapanış: "Bunu, kendine fazla yüklenen arkadaşına gönder ve ona da sor:" → kâğıt uçak kameraya uçar → açılış karesi
+const TnSon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const fold = prog(f, w(2), w(4));
+  const fly = prog(f, w(5), w(7) + 4);
+  const opening = f >= w(7) + 4;
+  return (
+    <g>
+      {!opening ? (
+        <Cam f={f} keys={[[0, 540, 940, 1.05], [w(3), 600, 900, 1.2], [w(5), 600, 900, 1.2]]}>
+          <Room />
+          <HoseChar x={200} y={1760} s={1.1} who="yunus" seed={4} look={[1, 0]} face="smile" />
+          <HoseChar x={900} y={1760} s={1.1} who="arkadas" seed={6} look={[-1, 0]} face="smile" />
+          <HoseChar x={560} y={1780} s={1.35} who="duru" beret seed={9} gesture={fly > 0 ? "point" : "explain"} gT={fly > 0 ? 1 - fly : gestureT(f, w(1), w(5))} face="grin" look={[0.6, -0.4]} wink={f >= w(3) && f < w(3) + 8} />
+          {/* kâğıt uçak: önce elde katlanır, "gönder"de kameraya fırlar ve ekranı kaplar */}
+          {(() => {
+            const sc = 0.6 + fold * 0.4 + fly * fly * 14;
+            const px = 760 + fly * -220;
+            const py = 1040 - fly * 160;
+            return (
+              <g transform={`translate(${px} ${py}) scale(${sc}) rotate(${-10 + fly * 20})`} stroke={INK} strokeWidth={6 / Math.max(1, sc * 0.5)}>
+                <path d="M-70 -30 L70 0 L-70 30 L-40 0 Z" fill={WHITE} />
+                <path d="M-40 0 L70 0" />
+              </g>
+            );
+          })()}
+        </Cam>
+      ) : (
+        // uçak ekranı kapladıktan sonra: açılış karesi (beyazdan açılır)
+        <g>
+          <Cam f={0} keys={[[0, PILL_AT[0], PILL_AT[1] - 20, 2.1]]}>
+            <OpeningFrame f={0} />
+          </Cam>
+          <rect x={0} y={0} width={1080} height={1920} fill={WHITE} opacity={1 - prog(f, w(7) + 4, Math.min(d - 2, w(7) + 12))} />
+        </g>
       )}
     </g>
   );
@@ -820,6 +950,7 @@ export const TENYA_SCENES: Record<string, React.FC<SceneProps>> = {
   "tn-kackilo": TnKacKilo,
   "tn-aldi": TnAldi,
   "tn-tavsiye": TnTavsiye,
+  "tn-voom": TnVoom,
   "tn-sevgi": TnSevgi,
   "tn-son": TnSon,
 };
