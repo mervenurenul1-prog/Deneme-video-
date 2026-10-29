@@ -1,6 +1,10 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (28 Ekim gece — EN GÜNCEL) <<<
+- **21 TENYA SESLENDİRİLDİ (29 Ekim akşam):** kullanıcı "hadi" dedi; Yunus + Duru (kullanıcının sesi) ~740 karakter, 1.2x
+  (manifest elle /1.2), video 44,1 sn → `ornek-videolar/cizim1-pilot/21-tenya.mp4`. Müzik: **12 çizgi film kovalamaca**
+  (`public/music/1930-kovalamaca.mp3`, ücretsiz, `scripts/muzik-1930.py`; kullanıcı "21" yazdı → 12 diye yorumlandı, SÖYLENDİ).
+  Efekt sesi yok. Açık iş: İSTİYORUM yorumlarına dönüş düzeneği.
 - **21 TENYA — SON GÜNCEL (29 Ekim):** son kısım yenilendi (kullanıcı: "sonlar saçma, VOOM'a bağla, ayna kötü, motivasyon kötü,
   'Oysa' bağlamıyor, kurt olduğu belli değilken 'kurt yutmana gerek yok' denmez, hep aynı VOOM cümlesi/fotoğrafı"):
   tavsiye "Kurt da iğne de aynı şeyi der: sen hiçbir şey yapma. Kasını korumak ise tam tersini ister: haftada iki gün ağırlık." →

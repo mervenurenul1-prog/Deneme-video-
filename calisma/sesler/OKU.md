@@ -4,8 +4,9 @@
 - Anne: **Sibel** `qLdPxFtPuffoxx5gieBJ` (yalnız anne). Genç kadın: **Aslı** `HZh2tWL1clJO95e2qMt2`.
   Kız klonu `kUOROTx2GgiPee3eXWoa`. Kullanıcı klonu v2 `kd6P2yodCccO2OzNoqOD` (yalnız kadın replikleri; anlatıcı Yunus kalır).
 - `npm run voiceover -- <id>`; sahne başına `voiceId`/`voiceSettings`. Önbellek metne göre: değişmeyen sahne yeniden üretilmez.
-- Kredi: seslendirmeden önce `GET /v1/user/subscription`, kullanıcıya söyle. Son bilinen 11.233 (28 Ekim akşam).
-- Müzik: `music/merak-gerilim.mp3` (seri, değişmez). Efektler az ve kısık (`SFX_GAIN`, `tidySfx`).
+- Kredi: seslendirmeden önce `GET /v1/user/subscription`, kullanıcıya söyle. Son bilinen 10.936 (29 Ekim, tenya sonrası).
+- Müzik: `music/merak-gerilim.mp3` (eski seri). **1930'lar stili (Yunus + Duru) için `music/1930-kovalamaca.mp3`** (29 Ekim, 21 tenya;
+  adaylar `ses-ornekleri/muzik-1930/`, üretici `scripts/muzik-1930.py`, FluidSynth + FluidR3 GM, ücretsiz). Efektler az ve kısık (`SFX_GAIN`, `tidySfx`).
   Yeni müzik/efekt ÜCRETSİZ (Python/numpy, CC0) — ElevenLabs Music/SFX KULLANMA.
 - **DOLGU KURALI (kullanıcı, 23 Ekim, SON):** Yunus hızlı konuşsun (1.2x). İlk ve SON sahnede dolgu YOK (izleyiciyi tutmak için).
   ORTA sahnelerde dolgular (ıı, hani, [chuckles] gülme) KALSIN — kullanıcı seviyor, izlenme oranını açıyor; çok kesme.

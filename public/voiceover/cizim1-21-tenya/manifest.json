@@ -1,0 +1,692 @@
+{
+  "scenes": [
+    {
+      "voice": "Zayıflamak için kurt yutar mıydın?",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/1-mvtxcznu.mp3",
+      "durationInSeconds": 1.854694,
+      "words": [
+        {
+          "word": "Zayıflamak",
+          "start": 0.0,
+          "end": 0.4667
+        },
+        {
+          "word": "için",
+          "start": 0.5333,
+          "end": 0.7333
+        },
+        {
+          "word": "kurt",
+          "start": 0.8667,
+          "end": 1.0667
+        },
+        {
+          "word": "yutar",
+          "start": 1.1,
+          "end": 1.3333
+        },
+        {
+          "word": "mıydın?",
+          "start": 1.4,
+          "end": 1.8667
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "Asla!",
+      "voiceId": "kd6P2yodCccO2OzNoqOD",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/2-mvtxd0wu.mp3",
+      "durationInSeconds": 0.731429,
+      "words": [
+        {
+          "word": "Asla!",
+          "start": 0.0,
+          "end": 0.6769
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "Yüz yıl önce bunu hap diye sattılar.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/3-mvtxd1v8.mp3",
+      "durationInSeconds": 2.246531,
+      "words": [
+        {
+          "word": "Yüz",
+          "start": 0.0,
+          "end": 0.2
+        },
+        {
+          "word": "yıl",
+          "start": 0.2667,
+          "end": 0.4
+        },
+        {
+          "word": "önce",
+          "start": 0.4333,
+          "end": 0.7333
+        },
+        {
+          "word": "bunu",
+          "start": 0.8667,
+          "end": 1.0667
+        },
+        {
+          "word": "hap",
+          "start": 1.1333,
+          "end": 1.3333
+        },
+        {
+          "word": "diye",
+          "start": 1.4,
+          "end": 1.5333
+        },
+        {
+          "word": "sattılar.",
+          "start": 1.6,
+          "end": 2.2667
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "Adı tenya hapıydı: yut, kurt bağırsağına yerleşsin; sen ye, o yesin. İçinde gerçekten kurt var mıydı, bugün bile tartışılıyor.",
+      "say": "Adı tenya hapıydı: yut, kurt bağırsağına yerleşsin; sen ye, o yesin. İçinde, hani, gerçekten kurt var mıydı, bugün bile tartışılıyor.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/4-mvtxd4dp.mp3",
+      "durationInSeconds": 8.097959,
+      "words": [
+        {
+          "word": "Adı",
+          "start": 0.0,
+          "end": 0.2667
+        },
+        {
+          "word": "tenya",
+          "start": 0.4,
+          "end": 0.6667
+        },
+        {
+          "word": "hapıydı:",
+          "start": 0.7333,
+          "end": 1.1771
+        },
+        {
+          "word": "yut,",
+          "start": 1.2105,
+          "end": 1.5537
+        },
+        {
+          "word": "kurt",
+          "start": 1.6154,
+          "end": 1.7488
+        },
+        {
+          "word": "bağırsağına",
+          "start": 1.8154,
+          "end": 2.2821
+        },
+        {
+          "word": "yerleşsin;",
+          "start": 2.3488,
+          "end": 2.9731
+        },
+        {
+          "word": "sen",
+          "start": 3.0731,
+          "end": 3.1731
+        },
+        {
+          "word": "ye,",
+          "start": 3.2398,
+          "end": 3.521
+        },
+        {
+          "word": "o",
+          "start": 3.5544,
+          "end": 3.5877
+        },
+        {
+          "word": "yesin.",
+          "start": 3.6544,
+          "end": 3.9877
+        },
+        {
+          "word": "İçinde",
+          "start": 4.3877,
+          "end": 4.9877
+        },
+        {
+          "word": "gerçekten",
+          "start": 5.421,
+          "end": 5.7877
+        },
+        {
+          "word": "kurt",
+          "start": 5.8544,
+          "end": 6.0544
+        },
+        {
+          "word": "var",
+          "start": 6.1544,
+          "end": 6.2544
+        },
+        {
+          "word": "mıydı,",
+          "start": 6.321,
+          "end": 6.8544
+        },
+        {
+          "word": "bugün",
+          "start": 6.921,
+          "end": 7.121
+        },
+        {
+          "word": "bile",
+          "start": 7.1652,
+          "end": 7.2544
+        },
+        {
+          "word": "tartışılıyor.",
+          "start": 7.321,
+          "end": 8.0544
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "2014'te bir İngiliz doktor merak etti ve gerçekten yuttu: Kenya'da bir ineğin dilinden çıkan tenya kistlerini. Altı hafta taşıdı.",
+      "say": "2014'te bir İngiliz doktor merak etti ve gerçekten yuttu: Kenya'da, ıı, bir ineğin dilinden çıkan tenya kistlerini. Altı hafta taşıdı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/5-mvtxd6kn.mp3",
+      "durationInSeconds": 7.601633,
+      "words": [
+        {
+          "word": "2014'te",
+          "start": 0.0,
+          "end": 0.8
+        },
+        {
+          "word": "bir",
+          "start": 0.8667,
+          "end": 1.0
+        },
+        {
+          "word": "İngiliz",
+          "start": 1.0333,
+          "end": 1.3333
+        },
+        {
+          "word": "doktor",
+          "start": 1.3667,
+          "end": 1.6
+        },
+        {
+          "word": "merak",
+          "start": 1.6667,
+          "end": 1.9333
+        },
+        {
+          "word": "etti",
+          "start": 2.0,
+          "end": 2.2667
+        },
+        {
+          "word": "ve",
+          "start": 2.3333,
+          "end": 2.4667
+        },
+        {
+          "word": "gerçekten",
+          "start": 2.6,
+          "end": 3.0
+        },
+        {
+          "word": "yuttu:",
+          "start": 3.0667,
+          "end": 3.5294
+        },
+        {
+          "word": "Kenya'da",
+          "start": 3.6294,
+          "end": 4.1961
+        },
+        {
+          "word": "bir",
+          "start": 4.4294,
+          "end": 4.4628
+        },
+        {
+          "word": "ineğin",
+          "start": 4.5294,
+          "end": 4.7961
+        },
+        {
+          "word": "dilinden",
+          "start": 4.8628,
+          "end": 5.1961
+        },
+        {
+          "word": "çıkan",
+          "start": 5.2628,
+          "end": 5.5294
+        },
+        {
+          "word": "tenya",
+          "start": 5.6294,
+          "end": 5.7961
+        },
+        {
+          "word": "kistlerini.",
+          "start": 5.8294,
+          "end": 6.4987
+        },
+        {
+          "word": "Altı",
+          "start": 6.5987,
+          "end": 6.7321
+        },
+        {
+          "word": "hafta",
+          "start": 6.7654,
+          "end": 7.0321
+        },
+        {
+          "word": "taşıdı.",
+          "start": 7.0987,
+          "end": 7.6321
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "Kaç kilo verdi?",
+      "voiceId": "kd6P2yodCccO2OzNoqOD",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/6-mvtxd7ep.mp3",
+      "durationInSeconds": 1.044898,
+      "words": [
+        {
+          "word": "Kaç",
+          "start": 0.0,
+          "end": 0.2
+        },
+        {
+          "word": "kilo",
+          "start": 0.2667,
+          "end": 0.4
+        },
+        {
+          "word": "verdi?",
+          "start": 0.4667,
+          "end": 1.0667
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "Bir kilo aldı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/7-mvtxd828.mp3",
+      "durationInSeconds": 1.17551,
+      "words": [
+        {
+          "word": "Bir",
+          "start": 0.0,
+          "end": 0.1333
+        },
+        {
+          "word": "kilo",
+          "start": 0.2667,
+          "end": 0.4667
+        },
+        {
+          "word": "aldı.",
+          "start": 0.5333,
+          "end": 1.1333
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "Kurt da iğne de aynı şeyi der: sen hiçbir şey yapma. Kasını korumak ise tam tersini ister: haftada iki gün ağırlık.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/8-mvtxdab3.mp3",
+      "durationInSeconds": 6.452245,
+      "words": [
+        {
+          "word": "Kurt",
+          "start": 0.0,
+          "end": 0.2
+        },
+        {
+          "word": "da",
+          "start": 0.2667,
+          "end": 0.4
+        },
+        {
+          "word": "iğne",
+          "start": 0.6,
+          "end": 0.8
+        },
+        {
+          "word": "de",
+          "start": 0.8667,
+          "end": 1.0
+        },
+        {
+          "word": "aynı",
+          "start": 1.0667,
+          "end": 1.2667
+        },
+        {
+          "word": "şeyi",
+          "start": 1.3,
+          "end": 1.4667
+        },
+        {
+          "word": "der:",
+          "start": 1.5667,
+          "end": 1.7958
+        },
+        {
+          "word": "sen",
+          "start": 1.8958,
+          "end": 1.9958
+        },
+        {
+          "word": "hiçbir",
+          "start": 2.0625,
+          "end": 2.3291
+        },
+        {
+          "word": "şey",
+          "start": 2.3625,
+          "end": 2.4625
+        },
+        {
+          "word": "yapma.",
+          "start": 2.5291,
+          "end": 2.8625
+        },
+        {
+          "word": "Kasını",
+          "start": 2.9542,
+          "end": 3.2209
+        },
+        {
+          "word": "korumak",
+          "start": 3.2542,
+          "end": 3.5542
+        },
+        {
+          "word": "ise",
+          "start": 3.6542,
+          "end": 3.7542
+        },
+        {
+          "word": "tam",
+          "start": 3.8875,
+          "end": 4.0209
+        },
+        {
+          "word": "tersini",
+          "start": 4.0875,
+          "end": 4.3542
+        },
+        {
+          "word": "ister:",
+          "start": 4.5209,
+          "end": 4.9301
+        },
+        {
+          "word": "haftada",
+          "start": 5.0301,
+          "end": 5.3301
+        },
+        {
+          "word": "iki",
+          "start": 5.3968,
+          "end": 5.5301
+        },
+        {
+          "word": "gün",
+          "start": 5.5968,
+          "end": 5.7301
+        },
+        {
+          "word": "ağırlık.",
+          "start": 5.8635,
+          "end": 6.4635
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "Doktorun altı haftası kurtla geçti. Seninki VOOM'la geçsin: altı haftalık ekibe katılmak istiyorsan yorumlara İSTİYORUM yaz.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/9-mvtxdcvg.mp3",
+      "durationInSeconds": 6.4,
+      "words": [
+        {
+          "word": "Doktorun",
+          "start": 0.0,
+          "end": 0.4667
+        },
+        {
+          "word": "altı",
+          "start": 0.5333,
+          "end": 0.6667
+        },
+        {
+          "word": "haftası",
+          "start": 0.7333,
+          "end": 1.0667
+        },
+        {
+          "word": "kurtla",
+          "start": 1.1333,
+          "end": 1.4
+        },
+        {
+          "word": "geçti.",
+          "start": 1.4667,
+          "end": 1.8798
+        },
+        {
+          "word": "Seninki",
+          "start": 1.9465,
+          "end": 2.2798
+        },
+        {
+          "word": "VOOM'la",
+          "start": 2.3465,
+          "end": 2.6132
+        },
+        {
+          "word": "geçsin:",
+          "start": 2.6798,
+          "end": 3.177
+        },
+        {
+          "word": "altı",
+          "start": 3.277,
+          "end": 3.377
+        },
+        {
+          "word": "haftalık",
+          "start": 3.477,
+          "end": 3.7104
+        },
+        {
+          "word": "ekibe",
+          "start": 3.777,
+          "end": 3.977
+        },
+        {
+          "word": "katılmak",
+          "start": 4.0437,
+          "end": 4.3104
+        },
+        {
+          "word": "istiyorsan",
+          "start": 4.377,
+          "end": 4.8437
+        },
+        {
+          "word": "yorumlara",
+          "start": 4.977,
+          "end": 5.377
+        },
+        {
+          "word": "İSTİYORUM",
+          "start": 5.5104,
+          "end": 5.977
+        },
+        {
+          "word": "yaz.",
+          "start": 6.0104,
+          "end": 6.4437
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "Ve şunu unutma: seni sevenler, sen daha bir kilo vermeden de seni seviyordu.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/10-mvtxdehj.mp3",
+      "durationInSeconds": 4.127347,
+      "words": [
+        {
+          "word": "Ve",
+          "start": 0.0,
+          "end": 0.1333
+        },
+        {
+          "word": "şunu",
+          "start": 0.1667,
+          "end": 0.3333
+        },
+        {
+          "word": "unutma:",
+          "start": 0.4,
+          "end": 0.9603
+        },
+        {
+          "word": "seni",
+          "start": 1.027,
+          "end": 1.1603
+        },
+        {
+          "word": "sevenler,",
+          "start": 1.327,
+          "end": 1.8936
+        },
+        {
+          "word": "sen",
+          "start": 1.9936,
+          "end": 2.0936
+        },
+        {
+          "word": "daha",
+          "start": 2.127,
+          "end": 2.2936
+        },
+        {
+          "word": "bir",
+          "start": 2.3603,
+          "end": 2.4936
+        },
+        {
+          "word": "kilo",
+          "start": 2.5603,
+          "end": 2.6936
+        },
+        {
+          "word": "vermeden",
+          "start": 2.7603,
+          "end": 3.1603
+        },
+        {
+          "word": "de",
+          "start": 3.227,
+          "end": 3.2936
+        },
+        {
+          "word": "seni",
+          "start": 3.3603,
+          "end": 3.4603
+        },
+        {
+          "word": "seviyordu.",
+          "start": 3.4936,
+          "end": 4.1603
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "voice": "Bunu, kendine fazla yüklenen arkadaşına gönder ve sor:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-21-tenya/11-mvtxdfsv.mp3",
+      "durationInSeconds": 3.108571,
+      "words": [
+        {
+          "word": "Bunu,",
+          "start": 0.0,
+          "end": 0.3667
+        },
+        {
+          "word": "kendine",
+          "start": 0.4667,
+          "end": 0.8
+        },
+        {
+          "word": "fazla",
+          "start": 0.8667,
+          "end": 1.1333
+        },
+        {
+          "word": "yüklenen",
+          "start": 1.2,
+          "end": 1.4667
+        },
+        {
+          "word": "arkadaşına",
+          "start": 1.5333,
+          "end": 1.9333
+        },
+        {
+          "word": "gönder",
+          "start": 1.9667,
+          "end": 2.3333
+        },
+        {
+          "word": "ve",
+          "start": 2.4667,
+          "end": 2.6
+        },
+        {
+          "word": "sor:",
+          "start": 2.6667,
+          "end": 3.1333
+        }
+      ],
+      "speed": 1.2
+    }
+  ],
+  "speed": 1.2
+}
