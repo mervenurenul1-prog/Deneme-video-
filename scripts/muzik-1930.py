@@ -204,7 +204,12 @@ C = {
     8: dict(name="kara-piyano", bpm=92, key=53, seed=8, inst={0: 0, 1: 0, 2: 0}, bass=("stride", 0, -12), comp=("stride", 1, 12), melody=A2, lead=(2, 24, 80, False), drums=None),
     9: dict(name="lunapark-org", bpm=110, key=55, seed=9, inst={0: 58, 1: 21, 2: 82, 3: 13}, bass=("oompah", 0, -24), comp=("offbeat", 1, 0), melody=A3, lead=(2, 12, 76, True), lead_b=(3, 24, 76, True), drums="march"),
     10: dict(name="cingene-caz", bpm=120, key=52, seed=10, inst={0: 32, 1: 24, 2: 40, 3: 71}, bass=("walk", 0, -12), comp=("pompe", 1, 0), melody=A1, lead=(2, 12, 84, False), lead_b=(3, 12, 80, False), drums=None),
+    # kullanıcı 2 (ragtime) ve 5 (banjo + tuba) havasını sevdi → harmanlar
+    11: dict(name="ragtime-banjo-tuba", bpm=112, key=50, seed=11, inst={0: 58, 1: 105, 2: 3, 3: 3}, bass=("oompah", 0, -24), comp=("banjo", 1, 0), melody=A3, lead=(2, 24, 88, False), lead_b=(3, 12, 82, False), drums="wood"),
+    12: dict(name="kartun-kovalamaca", bpm=126, key=55, seed=12, inst={0: 58, 1: 105, 2: 71, 3: 13}, bass=("oompah", 0, -24), comp=("banjo", 1, 0), melody=A3, lead=(2, 12, 86, True), lead_b=(3, 24, 84, True), answer=(3, 24, 62), drums="wood"),
+    13: dict(name="ragtime-sinsi", bpm=104, key=57, seed=13, inst={0: 58, 1: 3, 2: 3, 3: 105}, bass=("oompah", 0, -24), comp=("stride", 1, 12), melody=A1, lead=(2, 24, 88, True), lead_b=(3, 12, 76, False), drums="brush"),
 }
+ONLY = {int(x) for x in sys.argv[3].split(",")} if len(sys.argv) > 3 else None
 
 # plak cızırtısı: seyrek tıkırtılar + çok kısık hışırtı
 sr = 44100
@@ -219,6 +224,8 @@ def crackle(seconds, seed):
 
 import wave
 for i, cfg in C.items():
+    if ONLY and i not in ONLY:
+        continue
     s = build(cfg)
     mid = os.path.join(TMP, f"{i:02d}.mid")
     wav = os.path.join(TMP, f"{i:02d}.wav")
