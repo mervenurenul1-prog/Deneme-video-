@@ -1,5 +1,6 @@
 # Sesler
-- Anlatıcı: **Yunus** `Q5n6GDIjpN0pLOlycRFT`, model `eleven_v4`. Sonra 1.2x hızlandır (atempo + manifest /1.2).
+- Anlatıcı: **Yunus** `Q5n6GDIjpN0pLOlycRFT`, model `eleven_v4`. Sonra hızlandır (atempo + manifest kelime zamanları /hız): eskiden 1.2x,
+  **21 tenyadan itibaren 1.3x** (kullanıcı, 29 Ekim).
 - **Duru** (yeni seri kız karakteri, 28 Ekim) = kullanıcının kendi sesi, klon v2 `kd6P2yodCccO2OzNoqOD`.
 - Anne: **Sibel** `qLdPxFtPuffoxx5gieBJ` (yalnız anne). Genç kadın: **Aslı** `HZh2tWL1clJO95e2qMt2`.
   Kız klonu `kUOROTx2GgiPee3eXWoa`. Kullanıcı klonu v2 `kd6P2yodCccO2OzNoqOD` (yalnız kadın replikleri; anlatıcı Yunus kalır).

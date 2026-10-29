@@ -1,6 +1,10 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (28 Ekim gece — EN GÜNCEL) <<<
+- **21 TENYA KISALTILDI (29 Ekim gece):** kullanıcı: "seslendirmeden ÖNCE kısaltıyoruz, 44 sn çok uzun" (DERS: süreyi seslendirmeden
+  önce 32-36 sn'ye indir) → 6 cümle kısaltıldı ve yeniden seslendirildi (değişmeyenler önbellekten), ses **1.3x** (kullanıcı:
+  "1.3'e çek"), video ~35 sn. Efekt sesleri eklendi (`SFX` `tn-*`); yeni ücretsiz efektler `public/sfx/{boing,yutkunma,sapirti,
+  yirtilma,gicirti}.mp3` (numpy). Müzik: kısık + konuşurken kısılır (`musicVolume`/`musicDuck`).
 - **21 TENYA SESLENDİRİLDİ (29 Ekim akşam):** kullanıcı "hadi" dedi; Yunus + Duru (kullanıcının sesi) ~740 karakter, 1.2x
   (manifest elle /1.2), video 44,1 sn → `ornek-videolar/cizim1-pilot/21-tenya.mp4`. Müzik: **12 çizgi film kovalamaca**
   (`public/music/1930-kovalamaca.mp3`, ücretsiz, `scripts/muzik-1930.py`; kullanıcı "21" yazdı → 12 diye yorumlandı, SÖYLENDİ).
