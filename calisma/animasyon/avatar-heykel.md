@@ -113,3 +113,8 @@ Kullanıcı: ilk deneme videosu tenya DEĞİL, farklı bir konu.
   06 şaşkın (eller başta), 07 goblet squat, 08 bankta oturma (havlu + "voom." şişe).
 - `public/heykel/pilates/`: 01 çemberle duruş, 02 yan profil, 03 düşünüyor, 04 işaret, 05 telefon, 06 şaşkın, 07 deniz kızı
   esneme (mat). 08 bağdaş kurup su şişesiyle oturma (mat).
+
+## AYIRT EDİCİ ÖZELLİK (kullanıcı seçti, 30 Ekim gece): IŞIYAN DAMARLAR
+Mermerdeki damarlar, ÇALIŞAN KASTA fıstık yeşili (logodaki nokta) parlar; dinlenirken ince, sönük, gri-yeşil. Kız + erkek aynı.
+Ek detay: birkaç ince altın "kintsugi" onarım izi (omuz/önkol) — "kırıldım ama güçlendim". Videolarda "hangi kas çalışıyor" = parlayan damar.
+Kıyafet: kız zeytin yeşili bol kısa sweatshirt + çikolata şort "voom." + beyaz çorap + krem ayakkabı; erkek çikolata şort + zeytin bel "voom.".
