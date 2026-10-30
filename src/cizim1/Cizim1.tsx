@@ -24905,6 +24905,25 @@ const LS_CHALK = "#f1eee4";
 const LS_BOARD = { x: 70, y: 170, w: 940, h: 760 };
 const LS_JERSEY = "#2f6fb0";
 
+// Mermer tanrı (fotoğraftan dekupe) çizim sahnede: alt orta (x, y), boy h; hafif sıcak ton (sepya kâğıda uysun) + gölge + nefes
+const Statue: React.FC<{ src: string; x: number; y: number; h: number; f: number; o?: number; shadow?: boolean }> = ({ src, x, y, h, f, o = 1, shadow = true }) => {
+  const id = svgId(useId());
+  const url = staticFile(src);
+  const wd = h * (941 / 1672);
+  const br = 1 + 0.006 * Math.sin(f / 14);
+  return (
+    <g opacity={o}>
+      <filter id={`st${id}`}>
+        <feColorMatrix type="matrix" values="0.98 0.06 0 0 0.02  0.03 0.93 0.02 0 0.01  0.02 0.05 0.82 0 0  0 0 0 1 0" />
+      </filter>
+      {shadow ? <ellipse cx={x} cy={y - h * 0.01} rx={wd * 0.3} ry={h * 0.022} fill={C.ink} opacity={0.3} /> : null}
+      <g transform={`translate(${x} ${y}) scale(1 ${br}) translate(${-x} ${-y})`}>
+        <image href={url} x={x - wd / 2} y={y - h} width={wd} height={h} filter={`url(#st${id})`} />
+      </g>
+    </g>
+  );
+};
+
 // Tebeşir çizgisi: p ile çizilerek belirir (pathLength=1), pürüzlü kenar filtresi
 const Chalk: React.FC<{ d: string; p: number; w?: number; c?: string }> = ({ d, p, w = 9, c = LS_CHALK }) =>
   p <= 0 ? null : (
@@ -25040,10 +25059,7 @@ const LsOldPhoto: React.FC<{ f: number; s?: number; rot?: number }> = ({ f, s = 
       <g clipPath={`url(#op${id})`} filter={`url(#sp${id})`}>
         <g transform="translate(-540 -1380)">
           <SideTrack off={f * 6} />
-          <SideRunner f={f} x={520} y={TRACK_Y} s={1.0} pose={runPose(f / 3.2, 1.15)} face="grin" shirt={LS_JERSEY} />
-          <text x={455} y={TRACK_Y - 470} fontFamily={fontFamily} fontWeight={900} fontSize={70} fill="#fff" opacity={0.9}>
-            7
-          </text>
+          <Statue src="heykel/yeni/erkek-dinlenme-cut.png" x={540} y={TRACK_Y + 40} h={800} f={f} />
         </g>
         <rect x={-390} y={-520} width={780} height={860} fill="#7a5a2a" opacity={0.12} />
       </g>
@@ -25075,9 +25091,7 @@ const LsPast: React.FC<{ p: number }> = ({ p }) =>
 const LsKanca: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const now = f >= w(4);
-  const run = tw(f, w(4), w(8));
-  const tired = tw(f, w(8), w(9) + 6);
-  const pose = mixPose(runPose(f / 3, 1.1 * (1 - tired * 0.8)), bendPose, tired);
+  const tired = tw(f, w(5), w(9) + 6);
   const busX = lerp(380, 1250, tw(f, w(4) - 2, w(9)));
   return (
     <g>
@@ -25090,12 +25104,25 @@ const LsKanca: React.FC<SceneProps> = ({ w, d }) => {
         <CamK k={[[w(4), 1.0, 540, 1100], [d, 1.12, 420, 1150]]} shake={0.15 * (1 - tired)}>
           <LsStreet off={f * 4} />
           <LsBus x={busX} y={1500} />
-          <SideRunner f={f} x={lerp(80, 360, run)} y={1600} s={1.25} pose={pose} reach={tired} face={tired > 0.3 ? "pain" : "worry"} sweat />
+          {/* durak bankı */}
+          <g>
+            <rect x={150} y={1070} width={440} height={40} rx={8} fill="#8a5f3a" stroke={C.ink} strokeWidth={6} />
+            <rect x={175} y={1110} width={18} height={360} fill="#5b4636" />
+            <rect x={547} y={1110} width={18} height={360} fill="#5b4636" />
+          </g>
+          <Statue src="heykel/bacak/b2-cut.png" x={360} y={1500} h={lerp(1080, 1040, tired)} f={f * (1 + 2 * tired)} shadow={false} />
+          {/* ter damlaları */}
+          {tired > 0
+            ? [0, 1].map((i) => {
+                const t = ((f - w(8)) / 18 + i / 2) % 1;
+                return <path key={i} d={`M${440 + i * 30} ${930 + t * 120} q8 14 0 22 q-8 -8 0 -22`} fill="#9fd0e8" stroke={C.ink} strokeWidth={3} opacity={tired * (1 - t)} />;
+              })
+            : null}
           {/* soluk bulutları */}
           {tired > 0
             ? [0, 1, 2].map((i) => {
                 const t = ((f - w(8)) / 14 + i / 3) % 1;
-                return <ellipse key={i} cx={470 + t * 120} cy={980 - t * 60} rx={30 + t * 40} ry={20 + t * 25} fill="#fff" opacity={0.6 * (1 - t) * tired} />;
+                return <ellipse key={i} cx={440 + t * 140} cy={860 - t * 60} rx={30 + t * 40} ry={20 + t * 25} fill="#fff" opacity={0.6 * (1 - t) * tired} />;
               })
             : null}
         </CamK>
@@ -25233,9 +25260,7 @@ const LsBekliyor: React.FC<SceneProps> = ({ w, d }) => {
         </LsClass>
         {/* sıradaki hayalet: lise Yunus, ince, 7 numaralı formayla */}
         {ghost > 0 ? (
-          <g opacity={0.55 * ghost}>
-            <Person x={560} y={1500} s={0.62} belly={0} shirt={LS_JERSEY} mouth="smile" />
-          </g>
+          <Statue src="heykel/dekupe/erkek03.png" x={560} y={1520} h={900} f={f} o={0.6 * ghost} shadow={false} />
         ) : null}
         <LsJersey x={560} y={1150} dust={dust} />
         {/* üflenen toz */}
@@ -25260,9 +25285,7 @@ const LsVoom: React.FC<SceneProps> = ({ w, d }) => {
       <CamK k={[[0, 1.1, 540, 1000], [d, 1.2, 540, 960]]}>
         <rect x={0} y={0} width={1080} height={1920} fill="#e7d3ad" />
         <rect x={0} y={1460} width={1080} height={460} fill="#c7b79c" />
-        <Person x={540} y={1560} s={1.05} belly={0} limbW={1.35} sleeveless shirt="#3d3a36" shorts="#5a3a2a" armL={[12, 0]} armR={[40, -110]} mouth={f >= w(3) ? "smile" : "flat"} lookY={6}>
-          <Phone x={150} y={-640} s={1.1} rot={-10} />
-        </Person>
+        <Statue src="heykel/bacak/b3-cut.png" x={540} y={1600} h={1500} f={f} />
       </CamK>
       {card > 0 ? (
         <g transform={`translate(540 640) scale(${card})`}>
@@ -25298,7 +25321,7 @@ const LsSon: React.FC<SceneProps> = ({ w, d }) => {
       <CamK k={[[0, 1.0, 540, 1100], [w(3), 1.1, 620, 1100]]}>
         <LsStreet off={f * 2} />
         <LsBus x={360} y={1500} door={run > 0.6 ? 1 : 0} />
-        <SideRunner f={f} x={lerp(60, 900, run)} y={1600} s={1.25} pose={run < 1 ? runPose(f / 2.8, 1.1) : bendPose} face="grin" shirt="#3d3a36" />
+        <Statue src="heykel/bacak/b6-cut.png" x={lerp(-100, 820, run)} y={1600 - Math.abs(Math.sin(f / 4)) * 14 * (1 - run)} h={1150} f={f} />
       </CamK>
       {follow > 0 ? (
         <g transform={`translate(540 360) scale(${follow})`}>
