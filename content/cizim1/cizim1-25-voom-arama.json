@@ -1,0 +1,28 @@
+{
+  "id": "cizim1-25-voom-arama",
+  "title": "VOOM tanıtım: yine aynı arama",
+  "style": "heykel",
+  "voiceId": "kd6P2yodCccO2OzNoqOD",
+  "modelId": "eleven_v4",
+  "voiceSettings": { "stability": 0.45, "similarityBoost": 0.95, "style": 0, "useSpeakerBoost": true },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "musicVolume": 0.8,
+  "musicDuck": 0.6,
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.3,
+  "minEstimate": 0.8,
+  "scenes": [
+    { "visual": "ar-kanca", "voice": "Salona giriyorsun, telefonu açıp yine aynı şeyi yazıyorsun.", "keys": ["yine", "aynı"], "hold": 0.5 },
+    { "visual": "ar-akis", "voice": "Bir videoda squat, ötekinde makine. Bir saat sonra çıkıyorsun ama neyi çalıştırdığını bilmiyorsun.", "keys": ["squat,", "makine.", "bilmiyorsun."], "hold": 0.4 },
+    { "visual": "ar-ertesi", "voice": "Ertesi gün yine aynı arama.", "keys": ["Ertesi", "gün"], "hold": 0.4 },
+    { "visual": "ar-voom", "voice": "VOOM sabah sana o günün antrenmanını hazır verir: hangi hareket, kaç set, neden.", "keys": ["VOOM", "hareket,", "set,", "neden."], "hold": 0.5 },
+    { "visual": "ar-set", "voice": "Setlerini sayar, yükünü haftadan haftaya kendisi artırır.", "keys": ["sayar,", "haftadan", "haftaya"], "hold": 0.3 },
+    { "visual": "ar-koc", "voice": "Takıldığın yerde koçuna sorarsın.", "keys": ["koçuna"], "hold": 0.6 },
+    { "visual": "ar-ayna", "voice": "Ve bir gün aynaya baktığında, aradığını bulmuş olursun.", "keys": ["aradığını", "bulmuş"], "hold": 1.0 },
+    { "visual": "ar-son", "voice": "VOOM yakında, linki profilde. Yoksa yarın yine…", "keys": ["VOOM", "profilde.", "yine…"], "hold": 0.6 }
+  ],
+  "caption": "",
+  "hashtags": []
+}

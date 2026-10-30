@@ -5,6 +5,7 @@ import { TENYA_SCENES } from "../hose/Tenya";
 import { KREATIN_SCENES } from "../heykel/Kreatin";
 import { GIZLI_SCENES } from "../heykel/GizliCekim";
 import { YONT_SCENES } from "../heykel/Yontulmadi";
+import { ARAMA_SCENES } from "../heykel/Arama";
 import {
   AbsoluteFill,
   Audio,
@@ -55,7 +56,7 @@ type SceneProps = { d: number; w: (i: number) => number };
 // Önceki sahneden kararmadan, aynı karede devam eden sahneler (sahne sonu = bu sahnenin ilk karesi)
 const SEAMLESS = new Set(["ig-tarih"]);
 // tenya sahneleri (diyalog) her iki stilde de sert kesmeyle geçer
-const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("gc-") || v.startsWith("yn-");
+const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("gc-") || v.startsWith("yn-") || v.startsWith("ar-");
 
 // Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
 const LOOP_FRAMES = 14;
@@ -249,6 +250,15 @@ const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   // VOOM tanıtımı "gizli çekim" (heykel): odak bip, savrulma, donma, bildirim
   // VOOM tanıtımı "bir günde yontulmadı": odak bip, silme, keski vuruşları, bildirim
+  // VOOM tanıtımı "yine aynı arama"
+  "ar-kanca": (w) => [[w(2) - 4, "whoosh", 0.25], [w(4), "klavye", 0.25]],
+  "ar-akis": (w) => [[w(2), "tik", 0.3], [w(4), "tik", 0.3], [w(5), "whoosh", 0.2], [w(6), "tak", 0.3], [w(10), "boing", 0.15]],
+  "ar-ertesi": (w) => [[w(0), "kagit", 0.35], [w(2), "klavye", 0.22]],
+  "ar-voom": (w) => [[2, "sihir", 0.25], [w(4), "pop", 0.3], [w(12), "pop", 0.3]],
+  "ar-set": (w) => [[w(0), "ding", 0.25], [w(1), "ding", 0.25], [w(2), "yuksel", 0.22]],
+  "ar-koc": (w) => [[w(0), "pop", 0.25], [w(2), "ding", 0.3]],
+  "ar-ayna": (w) => [[w(4), "sihir", 0.25], [w(6), "pirilti", 0.35]],
+  "ar-son": (w) => [[2, "pirilti", 0.3], [w(4), "whoosh", 0.2]],
   "yn-kanca": () => [[10, "bip", 0.3]],
   "yn-olabilir": (w) => [[w(1), "sihir", 0.25], [w(4), "pirilti", 0.3]],
   "yn-yont": (w) => [[w(1), "tak", 0.4], [w(3), "tak", 0.4], [w(5), "tak", 0.35], [w(7), "tak", 0.35]],
@@ -24864,6 +24874,7 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   ...KREATIN_SCENES,
   ...GIZLI_SCENES,
   ...YONT_SCENES,
+  ...ARAMA_SCENES,
   "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,
