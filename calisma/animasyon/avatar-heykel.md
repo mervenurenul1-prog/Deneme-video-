@@ -94,3 +94,7 @@ karakter seçme ekranı. Renk serbest, "güzel olsun yeter" (kullanıcı).
 - v3 (30 Ekim) **SEÇİLDİ — fitness tanrıçası**: `fitness-kadin-v3-SECILEN.jpg` (kullanıcı "okey"): mat bordo bol kısa sweatshirt + bol
   şort, kadınsı fit bacak, "voom." şortta + ayakkabıda. DİKKAT: bu düzenlemede mermer görünüm kayboldu (gerçek insan teni/saçı);
   erkek hâlâ mermer → hepsi mermer mi, hepsi gerçekçi mi? Kullanıcıya soruldu (öneri: mermer).
+- **KARAR (kullanıcı, 30 Ekim): hepsi MERMER ("canlanan heykeller").** Fitness tanrıçası mermer hâli SEÇİLDİ:
+  `fitness-kadin-v4-mermer-SECILEN.jpg`. Pilates (sarı sweatshirt + düz pantolon) REDDEDİLDİ: "pilates olduğu belli değil" →
+  pilates ipuçları şart: reformer aleti, pilates çemberi, kaydırmaz çorap, uzanan zarif poz, aydınlık stüdyo; kıyafet mat,
+  uzun kollu rahat kısa üst + ispanyol paça tayt (göğüs belli değil).
