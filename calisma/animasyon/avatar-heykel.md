@@ -107,3 +107,9 @@ karakter seçme ekranı. Renk serbest, "güzel olsun yeter" (kullanıcı).
 01 önden eller belde · 02 yan profil · 03 düşünüyor · 04 işaret (sağa boşluk) · 05 telefon (ekran siyah → VOOM ekranı konur) ·
 06 şaşırmış · 07 dambılla goblet squat · 08 yorgun oturma (SORUNLU: cilt gerçek tene dönmüş + oturuş açısı açık → yeniden üretilecek).
 Kullanıcı: ilk deneme videosu tenya DEĞİL, farklı bir konu.
+
+## Erkek + pilates pozları (30 Ekim)
+- `public/heykel/erkek/`: poz00 temel (damar düzeltmeli), 01 eller belde, 02 yan profil, 03 düşünüyor, 04 işaret, 05 telefon,
+  06 şaşkın (eller başta), 07 goblet squat, 08 bankta oturma (havlu + "voom." şişe).
+- `public/heykel/pilates/`: 01 çemberle duruş, 02 yan profil, 03 düşünüyor, 04 işaret, 05 telefon, 06 şaşkın, 07 deniz kızı
+  esneme (mat). 08 (oturma) EKSİK.
