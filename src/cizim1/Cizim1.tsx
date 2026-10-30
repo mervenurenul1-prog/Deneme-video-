@@ -1364,6 +1364,7 @@ type PersonProps = {
   skin?: string; // ten rengi (varsayılan C.skin)
   fitted?: boolean; // realLegs ile: ince bel + yüksek belli tayt (false: eski gövde ve tişört/şort)
   children?: React.ReactNode; // karakterin koordinatlarında ek çizimler
+  hair?: string; // saç rengi (ör. yaşlı hâli için kır)
 };
 
 const dir = (side: number, deg: number) => {
@@ -1556,6 +1557,7 @@ const Person: React.FC<PersonProps> = ({
   fitted = true,
   skin = C.skin,
   children,
+  hair = C.hair,
 }) => {
   const pid = svgId(useId());
   const top = suit ?? shirt ?? (female ? "#d9705f" : C.shirt);
@@ -1671,7 +1673,7 @@ const Person: React.FC<PersonProps> = ({
         {female ? (
           // at kuyruğu: başın arkasında, hareketle hafifçe sallanır
           <g transform={`rotate(${Math.sin(frame / 9) * 6} 62 -740)`}>
-            <path d="M58 -748 C120 -740 132 -660 104 -600 C96 -640 80 -690 50 -712 Z" fill={C.hair} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+            <path d="M58 -748 C120 -740 132 -660 104 -600 C96 -640 80 -690 50 -712 Z" fill={hair} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
             <circle cx={62} cy={-736} r={11} fill={C.red} stroke={C.ink} strokeWidth={4} />
           </g>
         ) : null}
@@ -1681,13 +1683,13 @@ const Person: React.FC<PersonProps> = ({
         <circle cx={0} cy={-700} r={80} fill={skin} stroke={C.ink} strokeWidth={7} />
         <path
           d="M-84 -698 C-96 -812 96 -812 84 -698 C74 -742 34 -756 2 -750 C-30 -758 -72 -744 -84 -698 Z"
-          fill={C.hair}
+          fill={hair}
           stroke={C.ink}
           strokeWidth={6}
           strokeLinejoin="round"
         />
         {female ? (
-          <path d="M-86 -700 C-92 -660 -84 -640 -72 -626 L-66 -690 Z M86 -700 C92 -660 84 -640 72 -626 L66 -690 Z" fill={C.hair} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
+          <path d="M-86 -700 C-92 -660 -84 -640 -72 -626 L-66 -690 Z M86 -700 C92 -660 84 -640 72 -626 L66 -690 Z" fill={hair} stroke={C.ink} strokeWidth={5} strokeLinejoin="round" />
         ) : null}
         <ellipse cx={-48} cy={-676} rx={16} ry={9} fill="#e0806f" opacity={blush} />
         <ellipse cx={48} cy={-676} rx={16} ry={9} fill="#e0806f" opacity={blush} />
@@ -24905,49 +24907,13 @@ const LS_CHALK = "#f1eee4";
 const LS_BOARD = { x: 70, y: 170, w: 940, h: 760 };
 const LS_JERSEY = "#2f6fb0";
 
-// Mermer tanrı (fotoğraftan dekupe) çizim sahnede: alt orta (x, y), boy h; hafif sıcak ton (sepya kâğıda uysun) + gölge + nefes
-const Statue: React.FC<{ src: string; x: number; y: number; h: number; f: number; o?: number; shadow?: boolean }> = ({ src, x, y, h, f, o = 1, shadow = true }) => {
-  const id = svgId(useId());
-  const url = staticFile(src);
-  const wd = h * (941 / 1672);
-  const br = 1 + 0.006 * Math.sin(f / 14);
-  return (
-    <g opacity={o}>
-      <filter id={`st${id}`}>
-        <feColorMatrix type="matrix" values="0.98 0.06 0 0 0.02  0.03 0.93 0.02 0 0.01  0.02 0.05 0.82 0 0  0 0 0 1 0" />
-      </filter>
-      {shadow ? <ellipse cx={x} cy={y - h * 0.01} rx={wd * 0.3} ry={h * 0.022} fill={C.ink} opacity={0.3} /> : null}
-      <g transform={`translate(${x} ${y}) scale(1 ${br}) translate(${-x} ${-y})`}>
-        <image href={url} x={x - wd / 2} y={y - h} width={wd} height={h} filter={`url(#st${id})`} />
-      </g>
-    </g>
-  );
-};
-
 // Tebeşir çizgisi: p ile çizilerek belirir (pathLength=1), pürüzlü kenar filtresi
 const Chalk: React.FC<{ d: string; p: number; w?: number; c?: string }> = ({ d, p, w = 9, c = LS_CHALK }) =>
   p <= 0 ? null : (
     <path d={d} pathLength={1} stroke={c} strokeWidth={w} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="1 1" strokeDashoffset={1 - Math.min(1, p)} opacity={0.92} filter="url(#lsRough)" />
   );
 
-// Tebeşir çöp adam (ayakta / yatan / göbekli)
-const ChalkMan: React.FC<{ x: number; y: number; p: number; s?: number; lying?: boolean; belly?: boolean }> = ({ x, y, p, s = 1, lying = false, belly = false }) => (
-  <g transform={`translate(${x} ${y}) scale(${s}) rotate(${lying ? -90 : 0})`}>
-    <Chalk d="M0 -120 a22 22 0 1 0 0.1 0" p={p * 3} w={7} />
-    <Chalk d="M0 -76 L0 0" p={p * 3 - 0.6} w={7} />
-    {belly ? <Chalk d="M0 -62 a30 32 0 1 0 0.1 0" p={p * 3 - 0.8} w={7} /> : null}
-    <Chalk d="M0 -60 L-30 -24 M0 -60 L30 -24" p={p * 3 - 1.1} w={7} />
-    <Chalk d="M0 0 L-24 56 M0 0 L24 56" p={p * 3 - 1.6} w={7} />
-  </g>
-);
 
-// Yatakta yatan tebeşir adam (yatay): yatak çerçevesi + baş, gövde, bacaklar
-const ChalkBed: React.FC<{ x: number; y: number; p: number; man: number }> = ({ x, y, p, man }) => (
-  <g transform={`translate(${x} ${y})`}>
-    <Chalk d="M-70 30 h140 M-70 30 v-50 M70 30 v-25 M-70 0 h140" p={p} w={7} />
-    <Chalk d="M-50 -14 a16 16 0 1 0 0.1 0 M-32 -14 h70 M38 -14 l24 -4 M38 -14 l24 6" p={man} w={6} />
-  </g>
-);
 
 // Sınıf: duvar, pencere ve ışık huzmeleri, yeşil tahta (tebeşir izleri), tozlu tahta sıralar, uçuşan toz
 const LsClass: React.FC<{ f: number; children?: React.ReactNode; desks?: boolean }> = ({ f, children, desks = true }) => {
@@ -24995,7 +24961,14 @@ const LsClass: React.FC<{ f: number; children?: React.ReactNode; desks?: boolean
             }),
           )}
         </g>
-      ) : null}
+      ) : (
+        <g>
+          <rect x={0} y={1000} width={1080} height={920} fill="#c9a676" />
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <path key={i} d={`M0 ${1080 + i * 140} H1080`} stroke="#b08a5a" strokeWidth={4} />
+          ))}
+        </g>
+      )}
       {/* havada toz */}
       {[...Array(22)].map((_, i) => {
         const x = (i * 97 + f * (0.3 + (i % 4) * 0.12)) % 1080;
@@ -25059,7 +25032,10 @@ const LsOldPhoto: React.FC<{ f: number; s?: number; rot?: number }> = ({ f, s = 
       <g clipPath={`url(#op${id})`} filter={`url(#sp${id})`}>
         <g transform="translate(-540 -1380)">
           <SideTrack off={f * 6} />
-          <Statue src="heykel/yeni/erkek-dinlenme-cut.png" x={540} y={TRACK_Y + 40} h={800} f={f} />
+          <SideRunner f={f} x={520} y={TRACK_Y} s={1.0} pose={runPose(f / 3.2, 1.15)} face="grin" shirt={LS_JERSEY} />
+          <text x={455} y={TRACK_Y - 470} fontFamily={fontFamily} fontWeight={900} fontSize={70} fill="#fff" opacity={0.9}>
+            7
+          </text>
         </g>
         <rect x={-390} y={-520} width={780} height={860} fill="#7a5a2a" opacity={0.12} />
       </g>
@@ -25091,7 +25067,9 @@ const LsPast: React.FC<{ p: number }> = ({ p }) =>
 const LsKanca: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const now = f >= w(4);
-  const tired = tw(f, w(5), w(9) + 6);
+  const run = tw(f, w(4), w(8));
+  const tired = tw(f, w(8), w(9) + 6);
+  const pose = mixPose(runPose(f / 3, 1.1 * (1 - tired * 0.8)), bendPose, tired);
   const busX = lerp(380, 1250, tw(f, w(4) - 2, w(9)));
   return (
     <g>
@@ -25104,25 +25082,12 @@ const LsKanca: React.FC<SceneProps> = ({ w, d }) => {
         <CamK k={[[w(4), 1.0, 540, 1100], [d, 1.12, 420, 1150]]} shake={0.15 * (1 - tired)}>
           <LsStreet off={f * 4} />
           <LsBus x={busX} y={1500} />
-          {/* durak bankı */}
-          <g>
-            <rect x={150} y={1070} width={440} height={40} rx={8} fill="#8a5f3a" stroke={C.ink} strokeWidth={6} />
-            <rect x={175} y={1110} width={18} height={360} fill="#5b4636" />
-            <rect x={547} y={1110} width={18} height={360} fill="#5b4636" />
-          </g>
-          <Statue src="heykel/bacak/b2-cut.png" x={360} y={1500} h={lerp(1080, 1040, tired)} f={f * (1 + 2 * tired)} shadow={false} />
-          {/* ter damlaları */}
-          {tired > 0
-            ? [0, 1].map((i) => {
-                const t = ((f - w(8)) / 18 + i / 2) % 1;
-                return <path key={i} d={`M${440 + i * 30} ${930 + t * 120} q8 14 0 22 q-8 -8 0 -22`} fill="#9fd0e8" stroke={C.ink} strokeWidth={3} opacity={tired * (1 - t)} />;
-              })
-            : null}
+          <SideRunner f={f} x={lerp(80, 360, run)} y={1600} s={1.25} pose={pose} reach={tired} face={tired > 0.3 ? "pain" : "worry"} sweat />
           {/* soluk bulutları */}
           {tired > 0
             ? [0, 1, 2].map((i) => {
                 const t = ((f - w(8)) / 14 + i / 3) % 1;
-                return <ellipse key={i} cx={440 + t * 140} cy={860 - t * 60} rx={30 + t * 40} ry={20 + t * 25} fill="#fff" opacity={0.6 * (1 - t) * tired} />;
+                return <ellipse key={i} cx={470 + t * 120} cy={980 - t * 60} rx={30 + t * 40} ry={20 + t * 25} fill="#fff" opacity={0.6 * (1 - t) * tired} />;
               })
             : null}
         </CamK>
@@ -25132,96 +25097,149 @@ const LsKanca: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// Hastane yatağı (çizim): demir başlık, beyaz çarşaf, yastık
+const LsBed: React.FC<{ x: number; y: number; s?: number; children?: React.ReactNode }> = ({ x, y, s = 1, children }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <rect x={-230} y={-40} width={460} height={60} rx={10} fill="#f4efe2" stroke={C.ink} strokeWidth={7} />
+    <rect x={-250} y={-140} width={20} height={200} rx={6} fill="#8d939a" stroke={C.ink} strokeWidth={5} />
+    <rect x={230} y={-90} width={20} height={150} rx={6} fill="#8d939a" stroke={C.ink} strokeWidth={5} />
+    <rect x={-240} y={20} width={480} height={18} fill="#8d939a" stroke={C.ink} strokeWidth={5} />
+    <ellipse cx={-180} cy={-52} rx={50} ry={22} fill="#fff" stroke={C.ink} strokeWidth={5} />
+    {children}
+    {/* örtü */}
+    <path d="M-120 -60 Q60 -90 230 -55 L230 0 L-120 0 Z" fill="#dfe8ee" stroke={C.ink} strokeWidth={6} />
+  </g>
+);
+const LS_GRAY = "#cfc8bc";
+
 // 2) "1966'da Dallas'ta yirmi yaşında beş genç, üç hafta boyunca yataktan hiç kalkmadı. Kondisyonları, sonraki otuz yıllık
-// yaşlanmadan bile daha çok düştü." — geçmişe geçiş → sınıf; tahtaya tebeşirle yazılır
+// yaşlanmadan bile daha çok düştü." — geçmişe geçiş → sınıf; tahtaya tebeşirle yazılır, önünde beş genç Yunus; yataklara yatarlar
 const LsTarih: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const past = tw(f, 0, 14);
+  const lie = tw(f, w(8), w(9) + 4);
+  const drop = tw(f, w(12), w(16));
   return (
     <g>
-      <CamK k={[[0, 1.25, 540, 560], [w(11), 1.15, 540, 600], [d, 1.2, 540, 560]]}>
-        <LsClass f={f}>
-          <HandText x={470} y={130} text="1966 · DALLAS" size={96} color={LS_CHALK} p={tw(f, w(0) - 2, w(2))} rotate={-1} />
-          {[0, 1, 2, 3, 4].map((i) => {
-            const lie = tw(f, w(8) + i * 2, w(9) + 2 + i * 2);
-            return lie < 0.5 ? (
-              <ChalkMan key={i} x={175 + i * 165} y={360} p={tw(f, w(4) + i * 2, w(5) + 6 + i * 2)} s={0.9} />
-            ) : (
-              <ChalkBed key={i} x={175 + i * 165} y={380} p={tw(lie, 0.5, 0.8)} man={tw(lie, 0.7, 1)} />
-            );
-          })}
-          <HandText x={470} y={250} text="20 yaşında · 3 hafta yatak" size={52} color={LS_CHALK} p={tw(f, w(6), w(9))} rotate={-1} />
-          {/* düşüş oku */}
-          <Chalk d="M150 480 Q400 520 560 680" p={tw(f, w(12), w(14))} w={11} c="#f7a7a0" />
-          <Chalk d="M520 650 L560 680 L515 690" p={tw(f, w(13), w(14) + 4)} w={11} c="#f7a7a0" />
-          <HandText x={760} y={640} text="−%27" size={110} color="#f7a7a0" p={tw(f, w(14), w(16))} rotate={-3} />
-          <HandText x={470} y={740} text="30 yıl yaşlanma: −%12" size={50} color={LS_CHALK} p={tw(f, w(16), w(20))} rotate={-1} />
+      <CamK k={[[0, 1.05, 540, 900], [w(8), 1.1, 540, 1150], [w(12), 1.0, 540, 960], [d, 1.05, 540, 940]]}>
+        <LsClass f={f} desks={false}>
+          <HandText x={470} y={150} text="1966 · DALLAS" size={110} color={LS_CHALK} p={tw(f, w(0) - 2, w(2))} rotate={-1} />
+          <HandText x={470} y={300} text="20 yaşında · 3 hafta yatak" size={64} color={LS_CHALK} p={tw(f, w(6), w(9))} rotate={-1} />
+          <HandText x={470} y={520} text="kondisyon −%27" size={100} color="#f7a7a0" p={tw(f, w(12), w(15))} rotate={-3} />
+          <HandText x={470} y={680} text="30 yıl yaşlanma: −%12" size={60} color={LS_CHALK} p={tw(f, w(16), w(20))} rotate={-1} />
         </LsClass>
+        {/* beş genç Yunus: önce ayakta, "yataktan"da yataklara */}
+        {lie < 0.5
+          ? [0, 1, 2, 3, 4].map((i) => (
+              <g key={i} opacity={tw(f, w(4) + i * 2, w(4) + 6 + i * 2)}>
+                <Person x={140 + i * 200} y={1560} s={0.48} belly={0} armL={[12, 0]} armR={[12, 0]} mouth="smile" />
+              </g>
+            ))
+          : [0, 1, 2, 3, 4].map((i) => {
+              const row = i < 3 ? 0 : 1;
+              const col = row ? i - 3 : i;
+              const bx = row ? 330 + col * 420 : 180 + col * 360;
+              const by = row ? 1220 : 1560;
+              const sc = row ? 0.62 : 0.72;
+              return (
+                <g key={i} opacity={tw(lie, 0.5, 0.8)}>
+                  <LsBed x={bx} y={by} s={sc}>
+                    {/* yatan Yunus: baş yastıkta, gövde örtünün altında */}
+                    <g transform="translate(-170 -58) rotate(-90) scale(0.42)">
+                      <Person x={0} y={720} s={1} belly={0} armL={[12, 0]} armR={[12, 0]} mouth={drop > 0 ? "worry" : "flat"} eyes={drop > 0.5 ? "dizzy" : "open"} />
+                    </g>
+                  </LsBed>
+                </g>
+              );
+            })}
       </CamK>
       <LsPast p={past} />
     </g>
   );
 };
 
-// 3) "Otuz yıl sonra aynı beş adamı geri çağırdılar. Hepsi elli yaşındaydı, hepsi kilo almıştı." — sünger tahtayı siler,
-// "1996" yazılır, aynı beş adam göbekli çizilir
+// 3) "Otuz yıl sonra aynı beş adamı geri çağırdılar. Hepsi elli yaşındaydı, hepsi kilo almıştı." — silgi tahtayı siler,
+// "1996" yazılır; aynı beş Yunus bu kez kır saçlı; "kilo"da göbekleri büyür
 const LsOtuz: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const wipe = tw(f, 0, w(2));
+  const belly = lerp(0.35, 1, tw(f, w(11), w(13)));
   return (
     <g>
-      <CamK k={[[0, 1.2, 540, 560], [d, 1.3, 540, 520]]}>
-        <LsClass f={f}>
-          {/* silinen eski yazının izi */}
+      <CamK k={[[0, 1.05, 540, 940], [w(8), 1.12, 540, 1150], [d, 1.15, 540, 1180]]}>
+        <LsClass f={f} desks={false}>
           <rect x={0} y={0} width={940 * wipe} height={760} fill="#2f4f3d" />
           {wipe < 1 ? (
             <g transform={`translate(${940 * wipe} ${380 + Math.sin(f / 2) * 120})`}>
               <rect x={-60} y={-40} width={120} height={80} rx={10} fill="#5b4636" stroke={C.ink} strokeWidth={5} />
             </g>
           ) : null}
-          <HandText x={470} y={130} text="1996 · 30 yıl sonra" size={84} color={LS_CHALK} p={tw(f, w(2), w(6))} rotate={-1} />
-          {[0, 1, 2, 3, 4].map((i) => (
-            <ChalkMan key={i} x={175 + i * 165} y={430} p={tw(f, w(3) + i * 2, w(6) + i * 2)} s={1.1} belly={f >= w(11)} />
-          ))}
-          <HandText x={470} y={640} text="50 yaş · hepsi kilolu" size={64} color={LS_CHALK} p={tw(f, w(9), w(13))} rotate={-2} />
+          <HandText x={470} y={150} text="1996 · 30 yıl sonra" size={96} color={LS_CHALK} p={tw(f, w(2), w(6))} rotate={-1} />
+          <HandText x={470} y={420} text="50 yaş" size={130} color={LS_CHALK} p={tw(f, w(9), w(10) + 4)} rotate={-2} />
+          <HandText x={470} y={620} text="hepsi kilolu" size={90} color="#f7a7a0" p={tw(f, w(12), w(13) + 4)} rotate={-2} />
         </LsClass>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <g key={i} opacity={tw(f, w(3) + i * 2, w(3) + 6 + i * 2)}>
+            <Person x={140 + i * 200} y={1560} s={0.48} belly={belly} hair={LS_GRAY} armL={[12, 0]} armR={[12, 0]} mouth={f >= w(12) ? "worry" : "flat"} />
+          </g>
+        ))}
       </CamK>
     </g>
   );
 };
 
+// Pedal çeviren poz (sabit bisiklet)
+const pedalPose = (t: number): SidePose => ({
+  hipY: -330,
+  lean: 22,
+  front: { a: 75 + 28 * Math.sin(t), k: 85 + 30 * Math.sin(t) },
+  back: { a: 75 + 28 * Math.sin(t + Math.PI), k: 85 + 30 * Math.sin(t + Math.PI) },
+  armF: [60, 20],
+  armB: [60, 20],
+});
+// Sabit bisiklet (çizim)
+const LsBike: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <rect x={-160} y={-20} width={320} height={20} rx={8} fill="#5b4636" stroke={C.ink} strokeWidth={5} />
+    <path d="M-20 -330 L-10 -20 M-20 -330 L140 -390 L150 -20" stroke="#8d939a" strokeWidth={22} fill="none" strokeLinecap="round" />
+    <rect x={-60} y={-350} width={90} height={26} rx={10} fill="#2c2a28" />
+    <circle cx={-10} cy={-150} r={70} fill="none" stroke="#2c2a28" strokeWidth={14} />
+  </g>
+);
+
 // 4) "Altı ay boyunca haftada dört saat yürüdüler, bisiklet çevirdiler, koştular. Kondisyonları yirmi yaşındaki hâllerine geri
-// döndü." — 6 aylık çentikler, "4 saat/hafta", yürüyüş-bisiklet-koşu çizimleri, yukarı ok
+// döndü." — kır saçlı Yunuslar yürür, pedal çevirir, koşar; tahtada 6 ay çentikleri; "yirmi"de saçları koyulaşır, parıltı
 const LsAlti: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
+  const young = tw(f, w(11), w(13));
+  const hair = young > 0.5 ? C.hair : LS_GRAY;
+  const glow = young > 0 ? Math.max(0, 0.5 - (f - w(11)) / 16) : 0;
   return (
     <g>
-      <CamK k={[[0, 1.2, 540, 540], [w(10), 1.15, 540, 580], [d, 1.25, 540, 520]]}>
-        <LsClass f={f}>
-          {/* 6 ay: her ay bir çentik grubu */}
+      <CamK k={[[0, 1.05, 540, 960], [w(6), 1.1, 540, 1150], [d, 1.05, 540, 1100]]}>
+        <LsClass f={f} desks={false}>
           {[0, 1, 2, 3, 4, 5].map((m) => (
             <g key={m}>
               <Chalk d={`M${90 + m * 140} 60 v80 M${110 + m * 140} 60 v80 M${130 + m * 140} 60 v80 M${150 + m * 140} 60 v80 M${80 + m * 140} 120 L${165 + m * 140} 80`} p={tw(f, w(0) + m * 2, w(2) + m * 2)} w={6} />
             </g>
           ))}
-          <HandText x={470} y={230} text="6 ay · haftada 4 saat" size={64} color={LS_CHALK} p={tw(f, w(2), w(5) + 4)} rotate={-1} />
-          {/* yürüyüş */}
-          <g transform="translate(170 430)">
-            <ChalkMan x={0} y={0} p={tw(f, w(6) - 2, w(6) + 10)} />
-          </g>
-          {/* bisiklet */}
-          <g transform="translate(470 430)">
-            <Chalk d="M-60 50 a40 40 0 1 0 0.1 0 M60 50 a40 40 0 1 0 0.1 0 M-60 50 L-10 0 L40 0 L60 50 M-10 0 L0 -40 M40 0 L30 -50" p={tw(f, w(7), w(8) + 4)} w={7} />
-          </g>
-          {/* koşu */}
-          <g transform="translate(770 430)">
-            <Chalk d="M0 -120 a22 22 0 1 0 0.1 0 M0 -76 L10 0 M5 -60 L-30 -30 M5 -60 L40 -40 M10 0 L-25 50 M10 0 L45 40" p={tw(f, w(9) - 2, w(9) + 10)} w={7} />
-          </g>
-          {/* yukarı ok + 20 yaşındaki hâli */}
-          <Chalk d="M120 720 Q420 700 600 560" p={tw(f, w(10), w(12))} w={12} c="#bfe8a0" />
-          <Chalk d="M560 565 L600 560 L590 600" p={tw(f, w(11), w(12) + 4)} w={12} c="#bfe8a0" />
-          <HandText x={760} y={600} text="20 yaşında!" size={80} color="#bfe8a0" p={tw(f, w(12), w(15))} rotate={-4} />
+          <HandText x={470} y={290} text="6 ay · haftada 4 saat" size={80} color={LS_CHALK} p={tw(f, w(2), w(5) + 4)} rotate={-1} />
+          <HandText x={470} y={560} text="20 yaşındaki hâli!" size={100} color="#bfe8a0" p={tw(f, w(12), w(15))} rotate={-3} />
         </LsClass>
+        {/* yürüyen */}
+        <g opacity={tw(f, w(6) - 4, w(6) + 4)}>
+          <SideRunner f={f} x={200} y={1560} s={0.62} pose={runPose(f / 6, 0.35)} face="smile" hair={hair} sweat={young < 0.5} />
+        </g>
+        {/* bisiklet */}
+        <g opacity={tw(f, w(7) - 4, w(7) + 4)}>
+          <LsBike x={540} y={1560} s={0.62} />
+          <SideRunner f={f} x={530} y={1560} s={0.62} pose={pedalPose(f / 4)} face="smile" hair={hair} />
+        </g>
+        {/* koşan */}
+        <g opacity={tw(f, w(9) - 4, w(9) + 4)}>
+          <SideRunner f={f} x={870} y={1560} s={0.62} pose={runPose(f / 3, 1)} face="grin" hair={hair} />
+        </g>
+        <rect x={0} y={0} width={1080} height={1920} fill="#fff8d8" opacity={glow} />
       </CamK>
     </g>
   );
@@ -25260,7 +25278,9 @@ const LsBekliyor: React.FC<SceneProps> = ({ w, d }) => {
         </LsClass>
         {/* sıradaki hayalet: lise Yunus, ince, 7 numaralı formayla */}
         {ghost > 0 ? (
-          <Statue src="heykel/dekupe/erkek03.png" x={560} y={1520} h={900} f={f} o={0.6 * ghost} shadow={false} />
+          <g opacity={0.55 * ghost}>
+            <Person x={560} y={1500} s={0.62} belly={0} shirt={LS_JERSEY} mouth="smile" />
+          </g>
         ) : null}
         <LsJersey x={560} y={1150} dust={dust} />
         {/* üflenen toz */}
@@ -25285,7 +25305,9 @@ const LsVoom: React.FC<SceneProps> = ({ w, d }) => {
       <CamK k={[[0, 1.1, 540, 1000], [d, 1.2, 540, 960]]}>
         <rect x={0} y={0} width={1080} height={1920} fill="#e7d3ad" />
         <rect x={0} y={1460} width={1080} height={460} fill="#c7b79c" />
-        <Statue src="heykel/bacak/b3-cut.png" x={540} y={1600} h={1500} f={f} />
+        <Person x={540} y={1560} s={1.05} belly={0} limbW={1.35} sleeveless shirt="#3d3a36" shorts="#5a3a2a" armL={[12, 0]} armR={[40, -110]} mouth={f >= w(3) ? "smile" : "flat"} lookY={6}>
+          <Phone x={150} y={-640} s={1.1} rot={-10} />
+        </Person>
       </CamK>
       {card > 0 ? (
         <g transform={`translate(540 640) scale(${card})`}>
@@ -25321,7 +25343,7 @@ const LsSon: React.FC<SceneProps> = ({ w, d }) => {
       <CamK k={[[0, 1.0, 540, 1100], [w(3), 1.1, 620, 1100]]}>
         <LsStreet off={f * 2} />
         <LsBus x={360} y={1500} door={run > 0.6 ? 1 : 0} />
-        <Statue src="heykel/bacak/b6-cut.png" x={lerp(-100, 820, run)} y={1600 - Math.abs(Math.sin(f / 4)) * 14 * (1 - run)} h={1150} f={f} />
+        <SideRunner f={f} x={lerp(60, 900, run)} y={1600} s={1.25} pose={run < 1 ? runPose(f / 2.8, 1.1) : bendPose} face="grin" shirt="#3d3a36" />
       </CamK>
       {follow > 0 ? (
         <g transform={`translate(540 360) scale(${follow})`}>
