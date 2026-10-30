@@ -118,3 +118,5 @@ Kullanıcı: ilk deneme videosu tenya DEĞİL, farklı bir konu.
 Mermerdeki damarlar, ÇALIŞAN KASTA fıstık yeşili (logodaki nokta) parlar; dinlenirken ince, sönük, gri-yeşil. Kız + erkek aynı.
 Ek detay: birkaç ince altın "kintsugi" onarım izi (omuz/önkol) — "kırıldım ama güçlendim". Videolarda "hangi kas çalışıyor" = parlayan damar.
 Kıyafet: kız zeytin yeşili bol kısa sweatshirt + çikolata şort "voom." + beyaz çorap + krem ayakkabı; erkek çikolata şort + zeytin bel "voom.".
+- **YENİ REFERANSLAR (30 Ekim gece, ışıyan damarlı):** `public/heykel/yeni/{erkek,kiz}-{dinlenme,calisma}.png` — aynı salon
+  (koyu ahşap, krom dambıl rafı, zeytin LED). Bundan sonraki görseller/klipler bunlardan üretilir.
