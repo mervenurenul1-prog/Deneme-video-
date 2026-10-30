@@ -16,7 +16,7 @@
     { "visual": "bc-kanca", "voice": "Bacak günü geldi mi hep bir işin çıkıyor. Ama göğüs günü, kol günü? Onları hiç kaçırmıyorsun.", "keys": ["Bacak", "işin", "göğüs", "kol"], "hold": 0.2 },
     { "visual": "bc-kraker", "voice": "Sonuç: üst vücudun tanrı gibi, bacakların çubuk kraker.", "keys": ["tanrı", "çubuk", "kraker."], "hold": 0.6 },
     { "visual": "bc-buyuk", "voice": "Oysa vücudunun en büyük kasları bacaklarında. Gücünün de dengenin de temeli orası.", "keys": ["büyük", "temeli"], "hold": 0.3 },
-    { "visual": "bc-voom", "voice": "VOOM haftanı dengeli kurar: bir gün üst vücut, bir gün bacak. Ne yapacağın her sabah hazır.", "keys": ["VOOM", "dengeli", "bacak."], "hold": 0.3 },
+    { "visual": "bc-voom", "voice": "VOOM, cebindeki kişisel antrenman koçun. Haftanı dengeli kurar: bir gün üst vücut, bir gün bacak.", "keys": ["VOOM,", "koçun.", "dengeli", "bacak."], "hold": 0.3 },
     { "visual": "bc-koc", "voice": "Bacak gününü kaçırırsan koçun onu kaydırır, ama silmez.", "keys": ["kaydırır,", "silmez."], "hold": 0.5 },
     { "visual": "bc-yanar", "voice": "Ve ilk kez bacakların da yanar.", "keys": ["bacakların", "yanar."], "hold": 1.0 },
     { "visual": "bc-son", "voice": "VOOM yakında, linki profilde. Bunu bacak gününü atlayan arkadaşına gönder.", "keys": ["VOOM", "profilde.", "gönder."], "hold": 0.8 }
