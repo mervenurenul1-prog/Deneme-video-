@@ -17,7 +17,7 @@
     { "visual": "gc-kanca", "voice": "Üç yıldır beni gizlice çekiyorsun.", "keys": ["gizlice"], "hold": 0.3 },
     { "visual": "gc-don", "voice": "Ama asıl donup kalan sensin.", "keys": ["sensin."], "hold": 0.6 },
     { "visual": "gc-yuk", "voice": "Her gün aynı hareket, aynı ağırlık, aklına gelen yemek. Vücut alıştığı yükte değişmez.", "keys": ["aynı", "değişmez."], "hold": 0.4 },
-    { "visual": "gc-donma", "voice": "Biz bir günde yontulmadık. Her hafta biraz daha.", "keys": ["yontulmadık.", "biraz", "daha."], "hold": 0.6 },
+    { "visual": "gc-donma", "lead": 0.7, "voice": "Biz bir günde yontulmadık. Her hafta biraz daha.", "keys": ["yontulmadık.", "biraz", "daha."], "hold": 0.6 },
     { "visual": "gc-bugun", "voice": "VOOM her sabah o günün antrenmanını hazırlar. Neden o hareketi seçtiğini de yazar.", "keys": ["VOOM", "Neden"], "hold": 0.3 },
     { "visual": "gc-program", "voice": "Yükü altı haftada adım adım artırır. Tabağını da hesaplar.", "keys": ["altı", "haftada", "Tabağını"], "hold": 0.3 },
     { "visual": "gc-koc", "voice": "Ara verirsen, koçun seni bulur.", "keys": ["koçun"], "hold": 0.5 },

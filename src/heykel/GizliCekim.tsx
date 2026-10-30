@@ -319,7 +319,7 @@ const GcDon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const id = useId().replace(/:/g, "");
   const freezeAt = w(4);
-  const stone = prog(f, freezeAt, d + 6);
+  const stone = prog(f, freezeAt, freezeAt + 14);
   // donunca kamera da durur
   const camF = Math.min(f, freezeAt);
   return (
@@ -432,7 +432,7 @@ const Weeks: React.FC<{ f: number; a: number; b: number }> = ({ f, a, b }) => {
   const n = Math.min(6, Math.floor(prog(f, a, b) * 6 + (f >= a ? 1 : 0)));
   if (f < a) return null;
   return (
-    <g transform="translate(540 300)">
+    <g transform="translate(540 430)">
       <rect x={-430} y={-70} width={860} height={150} rx={30} fill="#0c0c0d" opacity={0.8} />
       {[...Array(6)].map((_, i) => {
         const on = i < n;
