@@ -2,7 +2,7 @@
 // Eski seri stilinde (Cizim1 OldChar) anlatıcı tek ses Yunus; Duru yalnız yan karakter, konuşmaz.
 import React, { useContext } from "react";
 import { interpolate, staticFile, useCurrentFrame } from "remotion";
-import { gestureT, HoseChar } from "../avatar2/Hose";
+import { gestureT, HoseChar, mix } from "../avatar2/Hose";
 import { CharCtx, Who } from "./cast";
 
 // 1930 stilinde Duru kendi repliklerini konuşur; eski seride anlatıcı Yunus olduğundan Duru'nun ağzı oynamaz
@@ -25,12 +25,12 @@ const Tub: React.FC<{ x: number; y: number; s?: number; r?: number }> = ({ x, y,
 );
 
 // Ölçek kaşığı (beyaz toz dolu); tilt > 0 → toz dökülür
-const Scoop: React.FC<{ x: number; y: number; s?: number; r?: number; tilt?: number }> = ({ x, y, s = 1, r = 0, tilt = 0 }) => (
-  <g transform={`translate(${x} ${y}) rotate(${r + tilt * 70}) scale(${s})`} stroke={INK} strokeWidth={5}>
+const Scoop: React.FC<{ x: number; y: number; s?: number; r?: number; tilt?: number; flip?: boolean; empty?: boolean }> = ({ x, y, s = 1, r = 0, tilt = 0, flip, empty }) => (
+  <g transform={`translate(${x} ${y}) rotate(${r + tilt * 70}) scale(${flip ? -s : s} ${s})`} stroke={INK} strokeWidth={5}>
     <path d="M-10 6 L-90 18" strokeWidth={16} strokeLinecap="round" />
     <path d="M-10 6 L-90 18" stroke="#c9c2b4" strokeWidth={8} strokeLinecap="round" />
     <path d="M-12 -24 L52 -24 L46 26 Q20 36 -6 26 Z" fill="#c9c2b4" />
-    {tilt < 0.5 ? <path d="M-12 -24 Q20 -48 52 -24 Z" fill={WHITE} /> : null}
+    {tilt < 0.5 && !empty ? <path d="M-12 -24 Q20 -48 52 -24 Z" fill={WHITE} /> : null}
   </g>
 );
 
@@ -236,10 +236,10 @@ const Y1 = { x: 330, y: 1760, s: 1.25 };
 const D1 = { x: 790, y: 1760, s: 1.25 };
 // kollar bükük ve gövdeye yakın (eski seri avatarında uzanan kol yapay duruyor)
 const ARM_SCOOP: [number, number, number] = [90, 110, -60]; // bel hizasında, dirsek aşağıda
+const ARM_MOUTH: [number, number, number] = [-14, -86, -60]; // kaşık ağızda
 const ARM_TUB: [number, number, number] = [-70, 150, 40]; // serbest duruş
-const SCOOP_AT = handAt(Y1.x, Y1.y, Y1.s, ARM_SCOOP, 1);
 const TUB_AT = handAt(Y1.x, Y1.y, Y1.s, ARM_TUB, -1);
-const OPEN_CAM: [number, number, number, number] = [0, 560, 1150, 1.25];
+const OPEN_CAM: [number, number, number, number] = [0, 500, 1150, 1.18];
 
 const KancaShot: React.FC<{ f: number; talk: boolean; w: (i: number) => number }> = ({ f, talk: talkIn, w }) => {
   const duruTalks = useDuruTalks();
@@ -247,13 +247,18 @@ const KancaShot: React.FC<{ f: number; talk: boolean; w: (i: number) => number }
   // zıplama/baş sallama yok: yalnız ağız "o" olur, düşen tellere yukarı bakar
   const shock = f >= w(2);
   const up = f >= w(3);
-  const tilt = prog(f, w(3), w(3) + 8);
+  // kaşığı ağzına götürür (kreatini içer), "dökülür"de kaşık boş, saç telleri düşer
+  const lift = prog(f, 4, w(1));
+  const back = prog(f, w(2) + 4, w(3));
+  const t = lift * (1 - back);
+  const arm = mix(ARM_SCOOP, ARM_MOUTH, t);
+  const h = handAt(Y1.x, Y1.y, Y1.s, arm, 1);
   return (
     <>
       <Room />
-      <Tub x={TUB_AT[0] - 10} y={TUB_AT[1] + 70} s={0.7} r={-4} />
-      <Who x={Y1.x} y={Y1.y} s={Y1.s} who="yunus" seed={4} armR={ARM_SCOOP} handR="fist" armL={ARM_TUB} handL="fist" look={up ? [0, -0.6] : shock ? [1, -0.1] : [0, 0.4]} face={shock ? "o" : "smile"} />
-      <Scoop x={SCOOP_AT[0] + 34} y={SCOOP_AT[1] - 6} s={0.9} tilt={tilt} />
+      <Tub x={TUB_AT[0] - 10} y={TUB_AT[1] + 60} s={0.95} r={-2} />
+      <Who x={Y1.x} y={Y1.y} s={Y1.s} who="yunus" seed={4} armR={arm} handR="fist" armL={ARM_TUB} handL="fist" look={up ? [0, -0.6] : shock ? [1, -0.1] : [0, 0.4]} face={shock ? "o" : "smile"} />
+      <Scoop x={h[0] - 30} y={h[1] - 6} s={0.9} r={-t * 25} flip empty={f >= w(1) + 4} />
       <Who x={D1.x} y={D1.y} s={D1.s} who="duru" beret seed={9} talk={talk ? 1 : 0} look={[-1, 0]} face="o" />
       <Hairs f={f} at={w(3)} x={Y1.x} y={Y1.y - Y1.s * 640} />
     </>
@@ -264,7 +269,7 @@ const KancaShot: React.FC<{ f: number; talk: boolean; w: (i: number) => number }
 const KhKanca: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   return (
-    <Cam f={f} keys={[OPEN_CAM, [d, 520, 1140, 1.32]]}>
+    <Cam f={f} keys={[OPEN_CAM, [d, 500, 1140, 1.24]]}>
       <KancaShot f={f} talk={f < d - 6} w={w} />
     </Cam>
   );
