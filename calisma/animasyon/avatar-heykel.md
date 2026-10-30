@@ -88,3 +88,6 @@ karakter seçme ekranı. Renk serbest, "güzel olsun yeter" (kullanıcı).
 - `pilates-kadin-v1-taslak.jpg` (sarı): göğüs belli + parlak lateks tayt kasığı belli ediyor → YAYINLANAMAZ; mat kumaş, bol üst, rahat pantolon.
 - `karakter-secme-v1-taslak.jpg`: konsept çok iyi ama elbiseler şeffaf (dekolte/göğüs ucu) → kalın opak kumaş, kapalı yaka.
 - KURAL: parlak lateks/ıslak görünümlü dar kumaş YOK (fetiş algısı); kadın kıyafetinde mat kumaş + bol üst.
+- v2 (30 Ekim): kadın yüzleri kullanıcının fotoğrafına benzetildi (genç, kâküllü dağınık topuz, çil) → `pilates-kadin-v2-yuz.jpg`,
+  `fitness-kadin-v2-yuz.jpg`. Kullanıcı: "gym olanın bacağı çok kalın ama okey". Kalan iş: kıyafet hâlâ parlak lateks + dar → mat
+  kumaş, bol kısa sweatshirt, rahat alt (kullanıcıya düzeltme mesajı verildi). Kullanıcının kendi fotoğrafı repoya KONMADI (gizlilik).
