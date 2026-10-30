@@ -12,13 +12,42 @@ type SceneProps = { d: number; w: (i: number) => number };
 
 const B = (n: number) => `heykel/bacak/b${n}`;
 
-// Kamera: anahtar karelerle yakınlık/konum (görsel dışına taşmaz)
-const Shot: React.FC<{ f: number; keys: Key[]; children: React.ReactNode }> = ({ f, keys, children }) => {
+// Müzik (spor-trap, 128 BPM): vuruş aralığı (kare)
+const BEAT = (30 * 60) / 128;
+// Kamera: anahtar karelerle yakınlık/konum (görsel dışına taşmaz). Göz hiç boş kalmasın diye:
+// her saniye "punch-in" kesmesi (yakınlık bir ileri bir geri sıçrar) + her vuruşta küçük nabız
+const Shot: React.FC<{ f: number; keys: Key[]; jump?: boolean; children: React.ReactNode }> = ({ f, keys, jump = true, children }) => {
   const [, cx0, cy0, z0] = camAt(f, keys);
-  const z = Math.max(1, z0);
+  const k = jump ? 1 + 0.13 * (Math.floor(f / 30) % 2) : 1;
+  const pulse = 1 + 0.018 * Math.exp(-(f % BEAT) / 3);
+  const z = Math.max(1, z0 * k * pulse);
   const cx = Math.min(1080 - 540 / z, Math.max(540 / z, cx0));
   const cy = Math.min(1920 - 960 / z, Math.max(960 / z, cy0));
-  return <g transform={`translate(540 960) scale(${z}) translate(${-cx} ${-cy})`}>{children}</g>;
+  // kesme anında 2 karelik parlama
+  const flash = jump && f % 30 < 2 && f > 2 ? 0.1 : 0;
+  return (
+    <g>
+      <g transform={`translate(540 960) scale(${z}) translate(${-cx} ${-cy})`}>{children}</g>
+      <rect width={1080} height={1920} fill="#fff" opacity={flash} />
+    </g>
+  );
+};
+
+// Uçarak gelen büyük anahtar kelime (dönerek büyür, sonra hafifçe söner)
+const Kw: React.FC<{ f: number; at: number; t: string; y?: number; c?: string; r?: number; len?: number }> = ({ f, at, t, y = 520, c = CREAM, r = -6, len = 26 }) => {
+  const p = pop(f, at, 9);
+  if (p <= 0 || f > at + len) return null;
+  const out = prog(f, at + len - 6, at + len);
+  return (
+    <g transform={`translate(540 ${y}) rotate(${r * (1 - p)}) scale(${0.6 + 0.4 * p + 0.05 * Math.sin((f - at) / 3)})`} opacity={Math.min(1, p) * (1 - out)}>
+      <text x={0} y={0} fontFamily={fontFamily} fontWeight={900} fontSize={130} fill="none" stroke="#000" strokeWidth={22} strokeLinejoin="round" textAnchor="middle" opacity={0.55}>
+        {t}
+      </text>
+      <text x={0} y={0} fontFamily={fontFamily} fontWeight={900} fontSize={130} fill={c} textAnchor="middle">
+        {t}
+      </text>
+    </g>
+  );
 };
 
 // Telefon bildirimi (üstten iner)
@@ -54,6 +83,7 @@ const BcKanca: React.FC<SceneProps> = ({ w, d }) => {
           <Shot f={f} keys={[[0, 520, 900, 1.25], [w(8), 560, 760, 1.5]]}>
             <Alive f={f} d={d} base={B(1)} flat push={0.02} />
           </Shot>
+          <Kw f={f} at={w(6)} t="ERTELE" y={760} c={RED} />
           <Notice p={n} title="BUGÜN" body="Bacak günü. Başlayalım mı?">
             <g transform="translate(560 190)">
               <rect x={0} y={-6} width={190} height={56} rx={28} fill="#2a2726" />
@@ -72,6 +102,7 @@ const BcKanca: React.FC<SceneProps> = ({ w, d }) => {
           <Shot f={f} keys={[[w(8), 520, 520, 2.0], [d, 520, 500, 2.15]]}>
             <Alive f={f} d={d} base={B(4)} flat push={0.02} pulse={0.8} />
           </Shot>
+          <Kw f={f} at={w(13)} t="HİÇ KAÇMAZ" y={780} c={LIME} r={5} />
           <Stamp x={300} y={1180} p={pop(f, w(9), 10)} t="GÖĞÜS ✓" c={LIME} s={70} r={-6} />
           <Stamp x={780} y={1300} p={pop(f, w(11), 10)} t="KOL ✓" c={LIME} s={70} r={5} />
         </g>
@@ -129,6 +160,8 @@ const BcBuyuk: React.FC<SceneProps> = ({ w, d }) => {
         ) : null}
         <rect x={250} y={1640} width={720 * prog(f, w(10), w(11) + 4)} height={14} rx={7} fill={LIME} />
       </Shot>
+      <Kw f={f} at={w(6)} t="GÜÇ" y={700} c={LIME} />
+      <Kw f={f} at={w(8)} t="DENGE" y={700} c={LIME} r={6} />
       <g transform={`translate(540 420) scale(${pop(f, w(3), 12)})`}>
         <rect x={-330} y={-70} width={660} height={130} rx={36} fill="#0c0c0d" opacity={0.85} stroke={LIME} strokeWidth={4} />
         <T x={0} y={18} s={52} c={CREAM} w={900}>
@@ -174,7 +207,7 @@ const BcVoom: React.FC<SceneProps> = ({ w, d }) => {
   const beat = 0.6 + 0.4 * Math.sin(f / 4);
   return (
     <g>
-      <Shot f={f} keys={[[0, 540, 760, 1.3], [d, 560, 700, 1.45]]}>
+      <Shot f={f} keys={[[0, 540, 760, 1.3], [d, 560, 700, 1.45]]} jump={f < w(5)}>
         <Alive f={f} d={d} base={B(3)} flat push={0.02} />
       </Shot>
       <rect width={1080} height={1920} fill="#000" opacity={0.2 + 0.35 * card} />
@@ -235,7 +268,7 @@ const BcKoc: React.FC<SceneProps> = ({ w, d }) => {
   const ok = prog(f, w(7), w(7) + 8);
   return (
     <g>
-      <Shot f={f} keys={[[0, 560, 640, 1.6], [d, 560, 600, 1.75]]}>
+      <Shot f={f} keys={[[0, 560, 640, 1.6], [d, 560, 600, 1.75]]} jump={f < w(2)}>
         <Alive f={f} d={d} base={B(3)} flat push={0.02} />
       </Shot>
       <rect width={1080} height={1920} fill="#000" opacity={0.25 + 0.3 * msg} />
@@ -294,6 +327,7 @@ const BcYanar: React.FC<SceneProps> = ({ w, d }) => {
         <Alive f={f} d={d} base={B(5)} flat push={0.02} pulse={0.7} glowAmt={0.15 + 0.85 * amt} />
       </Shot>
       <rect width={1080} height={1920} fill="#e8ffc0" opacity={flash} />
+      <Kw f={f} at={w(5)} t="YANIYOR" y={420} c={LIME} len={40} />
     </g>
   );
 };
