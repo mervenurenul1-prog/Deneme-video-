@@ -1,5 +1,16 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> VOOM SPOR PROGRAMI TANITIMI (30 Ekim gece — EN GÜNCEL) <<<
+- Dal: `claude/voom-sports-promo-video-wiapeg`. Sessiz önizlemeler `ornek-videolar/heykel/`. SESLENDİRİLMEDİ.
+- **GÜNCEL: 26 "Bugün başla"** (`cizim1-26-voom-basla`, `src/heykel/Basla.tsx`, `bs-*`): acı = spora başlamak istiyor ama ne
+  yapacağını bilmiyor. Kanca: ilk karede dambıl yere çarpar (ses + sarsıntı). Metin 7 sahne (JSON'da). Dekupe tanrıça
+  (`public/heykel/dekupe/fitnessNN.png`, rembg isnet ile gri fon silindi). **Salon fonu GEÇİCİ** (`public/heykel/salon/bokeh1.jpg`);
+  kullanıcıdan ChatGPT ile 3 açılı boş salon görseli bekleniyor → `GYM` dizisine koy.
+- Reddedilenler (kullanıcı): 23 gizli çekim (mantıksız giriş, her yerde vizör), 24 "bir günde yontulmadı" (acı yok), Sisifos
+  metni, 25 "yine aynı arama" (aynada ART ARDA ÜÇ TANRIÇA saçma — kullanma), khitonlu kaide görseli (vücut görünmüyor).
+- Dersler: ilk 3 sn kanca + ses, hiçbir an durağan değil, acıya dokun (VOOM'un çözdüğü), vizör/ızgara abartma, avatarı gri
+  fonda bırakma (dekupe + sahne). Tanrıça görselleri (Artemis/Athena/Amphitrite) `public/heykel/khiton/` duruyor.
+
 ## >>> KARAR (30 Ekim akşam — EN GÜNCEL, ÖNCE BUNU OKU) <<<
 - **Heykel avatarlar (fitness/pilates tanrıçası + erkek tanrı) YALNIZ VOOM spor programı tanıtımı için.** Bilgi/mit videolarında
   KULLANILMAZ. Kullanıcı: "bunlar Wom spor programımız için avatarlarımız, sadece onun için kullanacağız".
