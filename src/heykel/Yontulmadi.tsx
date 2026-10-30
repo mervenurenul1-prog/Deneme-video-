@@ -8,6 +8,9 @@ import { BUGUN, Cam, CREAM, dateAt, DOTS, FocusBox, Img, LIME, Logo, pop, prog, 
 type SceneProps = { d: number; w: (i: number) => number };
 
 const HERO = "heykel/fitness/poz01.jpg";
+// "böyle olabilirdin": aynı yüz, üç Yunan tanrıçası (Artemis, Athena, Amphitrite)
+const GODS = ["heykel/khiton/artemis.png", "heykel/khiton/athena.png", "heykel/khiton/amphitrite.png"];
+const godAt = (f: number, a: number, step: number) => GODS[Math.max(0, Math.floor((f - a) / step)) % GODS.length];
 const WALL = "#191514";
 const GOLD = "#c9a24a";
 
@@ -16,7 +19,7 @@ const MX = 130;
 const MY = 250;
 const MW = 820;
 const MH = 1180;
-const Mirror: React.FC<{ fog: number; wipe?: number; children: React.ReactNode }> = ({ fog, wipe = 0, children }) => {
+const Mirror: React.FC<{ fog: number; wipe?: number; fogged?: React.ReactNode; children: React.ReactNode }> = ({ fog, wipe = 0, fogged, children }) => {
   const id = useId().replace(/:/g, "");
   const wx = MX - 120 + (MW + 240) * wipe;
   return (
@@ -42,7 +45,7 @@ const Mirror: React.FC<{ fog: number; wipe?: number; children: React.ReactNode }
         {children}
         {fog > 0 ? (
           <g mask={`url(#mm${id})`} opacity={fog}>
-            <g filter={`url(#mf${id})`}>{children}</g>
+            <g filter={`url(#mf${id})`}>{fogged ?? children}</g>
             <rect width={1080} height={1920} fill="#d6dadc" opacity={0.5} />
           </g>
         ) : null}
@@ -103,8 +106,8 @@ const YnOlabilir: React.FC<SceneProps> = ({ w, d }) => {
   const glow = prog(f, w(4), w(5) + 6);
   return (
     <g>
-      <Mirror fog={1} wipe={wipe}>
-        <InMirror src={HERO} top={40} z={1.05 - 0.05 * prog(f, w(1), w(4))} />
+      <Mirror fog={1} wipe={wipe} fogged={<InMirror src={HERO} top={40} z={1.05} />}>
+        <InMirror src={f < w(4) ? GODS[0] : godAt(f, w(4), 12)} top={40} z={1.05 - 0.05 * prog(f, w(1), w(4))} />
         <rect width={1080} height={1920} fill="#fff4cf" opacity={0.18 * glow} />
       </Mirror>
       {/* silen el: yumuşak beyaz iz */}
@@ -268,8 +271,8 @@ const YnSon: React.FC<SceneProps> = ({ w, d }) => {
   const fog = prog(f, d - 20, d - 4);
   return (
     <g>
-      <Mirror fog={fog}>
-        <InMirror src={HERO} top={40} z={1 + 0.05 * prog(f, d - 20, d)} />
+      <Mirror fog={fog} fogged={<InMirror src={HERO} top={40} z={1.05} />}>
+        <InMirror src={godAt(f, 0, 16)} top={40} z={1 + 0.05 * prog(f, d - 20, d)} />
       </Mirror>
       {logo > 0 ? (
         <g opacity={Math.min(1, logo * 1.3)}>
