@@ -1,0 +1,27 @@
+{
+  "id": "cizim1-24-voom-yontulmadi",
+  "title": "VOOM tanıtım: bir günde yontulmadı",
+  "style": "heykel",
+  "voiceId": "kd6P2yodCccO2OzNoqOD",
+  "modelId": "eleven_v4",
+  "voiceSettings": { "stability": 0.45, "similarityBoost": 0.95, "style": 0, "useSpeakerBoost": true },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "musicVolume": 0.8,
+  "musicDuck": 0.6,
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.3,
+  "minEstimate": 0.8,
+  "scenes": [
+    { "visual": "yn-kanca", "voice": "Üç yıldır spor yapıyorsun ama aynada hâlâ aynı kişi.", "keys": ["Üç", "yıldır", "aynı"], "hold": 0.3 },
+    { "visual": "yn-olabilir", "voice": "Oysa doğru programla bugün böyle olabilirdin.", "keys": ["doğru", "programla", "böyle"], "hold": 0.6 },
+    { "visual": "yn-yont", "voice": "Bu vücut bir günde yontulmadı. Her hafta biraz daha.", "keys": ["yontulmadı.", "Her", "hafta"], "hold": 0.4 },
+    { "visual": "yn-ayni", "voice": "Sen ise üç yıldır aynı hareketi, aynı ağırlıkla yapıyorsun. Vücut alıştığı yükte değişmez.", "keys": ["aynı", "değişmez."], "hold": 0.4 },
+    { "visual": "yn-voom", "voice": "VOOM her gün antrenmanını hazırlar, yükünü haftadan haftaya artırır.", "keys": ["VOOM", "haftadan", "haftaya"], "hold": 0.4 },
+    { "visual": "yn-koc", "voice": "Tabağını hesaplar. Ara verirsen, koçun seni bulur.", "keys": ["Tabağını", "koçun"], "hold": 0.5 },
+    { "visual": "yn-son", "voice": "VOOM yakında. Linki profilde.", "keys": ["VOOM", "profilde."], "hold": 1.0 }
+  ],
+  "caption": "",
+  "hashtags": []
+}

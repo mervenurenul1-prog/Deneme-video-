@@ -4,6 +4,7 @@ import { CharCtx } from "../hose/cast";
 import { TENYA_SCENES } from "../hose/Tenya";
 import { KREATIN_SCENES } from "../heykel/Kreatin";
 import { GIZLI_SCENES } from "../heykel/GizliCekim";
+import { YONT_SCENES } from "../heykel/Yontulmadi";
 import {
   AbsoluteFill,
   Audio,
@@ -54,7 +55,7 @@ type SceneProps = { d: number; w: (i: number) => number };
 // Önceki sahneden kararmadan, aynı karede devam eden sahneler (sahne sonu = bu sahnenin ilk karesi)
 const SEAMLESS = new Set(["ig-tarih"]);
 // tenya sahneleri (diyalog) her iki stilde de sert kesmeyle geçer
-const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("gc-");
+const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("gc-") || v.startsWith("yn-");
 
 // Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
 const LOOP_FRAMES = 14;
@@ -247,6 +248,14 @@ const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   // VOOM tanıtımı "gizli çekim" (heykel): odak bip, savrulma, donma, bildirim
+  // VOOM tanıtımı "bir günde yontulmadı": odak bip, silme, keski vuruşları, bildirim
+  "yn-kanca": () => [[10, "bip", 0.3]],
+  "yn-olabilir": (w) => [[w(1), "sihir", 0.25], [w(4), "pirilti", 0.3]],
+  "yn-yont": (w) => [[w(1), "tak", 0.4], [w(3), "tak", 0.4], [w(5), "tak", 0.35], [w(7), "tak", 0.35]],
+  "yn-ayni": (w) => [[w(12), "tak", 0.4]],
+  "yn-voom": (w) => [[w(2), "pop", 0.3], [w(5), "whoosh", 0.2], [w(6), "yuksel", 0.2]],
+  "yn-koc": (w) => [[0, "pop", 0.25], [w(4) - 2, "ding", 0.35]],
+  "yn-son": (w) => [[w(0), "pirilti", 0.3]],
   "gc-kanca": (w) => [[w(2), "bip", 0.35]],
   "gc-don": (w) => [[w(2), "whoosh", 0.12], [w(4), "sonme", 0.3]],
   "gc-yuk": (w) => [[0, "yirtilma", 0.3], [8, "whoosh", 0.25], [w(9), "whoosh", 0.2], [w(12), "tak", 0.4]],
@@ -24854,6 +24863,7 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   ...TENYA_SCENES,
   ...KREATIN_SCENES,
   ...GIZLI_SCENES,
+  ...YONT_SCENES,
   "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,

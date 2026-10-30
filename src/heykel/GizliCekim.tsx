@@ -8,18 +8,18 @@ import { fontFamily } from "../fonts";
 
 type SceneProps = { d: number; w: (i: number) => number };
 
-const RED = "#e2382f";
-const LIME = "#c8e85a";
-const YEL = "#ffd23f";
-const CREAM = "#fbf6ee";
-const INK = "#141212";
+export const RED = "#e2382f";
+export const LIME = "#c8e85a";
+export const YEL = "#ffd23f";
+export const CREAM = "#fbf6ee";
+export const INK = "#141212";
 
 const clamp = { extrapolateLeft: "clamp" as const, extrapolateRight: "clamp" as const };
 const ease = Easing.inOut(Easing.cubic);
-const prog = (f: number, a: number, b: number) => interpolate(f, [a, Math.max(a + 1, b)], [0, 1], { ...clamp, easing: ease });
-const pop = (f: number, a: number, len = 10) => interpolate(f, [a, a + len], [0, 1], { ...clamp, easing: Easing.out(Easing.back(2.2)) });
+export const prog = (f: number, a: number, b: number) => interpolate(f, [a, Math.max(a + 1, b)], [0, 1], { ...clamp, easing: ease });
+export const pop = (f: number, a: number, len = 10) => interpolate(f, [a, a + len], [0, 1], { ...clamp, easing: Easing.out(Easing.back(2.2)) });
 
-const useImgReady = (src: string) => {
+export const useImgReady = (src: string) => {
   const [handle] = useState(() => delayRender(`img ${src}`));
   useEffect(() => {
     const im = new Image();
@@ -32,8 +32,8 @@ const useImgReady = (src: string) => {
 /* ---------- kamera ---------- */
 
 // [kare, merkezX, merkezY, yakınlık]
-type Key = [number, number, number, number];
-const camAt = (f: number, keys: Key[]): Key => {
+export type Key = [number, number, number, number];
+export const camAt = (f: number, keys: Key[]): Key => {
   if (f <= keys[0][0]) return keys[0];
   for (let i = 1; i < keys.length; i++) {
     const a = keys[i - 1];
@@ -54,7 +54,7 @@ const hand = (f: number, amp: number) => ({
 });
 
 // Kamera: görsel dışına taşmaz; amp = el titremesi şiddeti
-const Cam: React.FC<{ f: number; keys: Key[]; amp?: number; children: React.ReactNode }> = ({ f, keys, amp = 1, children }) => {
+export const Cam: React.FC<{ f: number; keys: Key[]; amp?: number; children: React.ReactNode }> = ({ f, keys, amp = 1, children }) => {
   const [, cx0, cy0, z0] = camAt(f, keys);
   const z = Math.max(1.06, z0);
   const h = hand(f, amp);
@@ -64,7 +64,7 @@ const Cam: React.FC<{ f: number; keys: Key[]; amp?: number; children: React.Reac
 };
 
 // Tam ekran görsel (9:16 → 1080x1920). night: gri stüdyo fonunu karanlık salona yaklaştırır (soğuk, karanlık)
-const Img: React.FC<{ src: string; night?: boolean }> = ({ src, night }) => {
+export const Img: React.FC<{ src: string; night?: boolean }> = ({ src, night }) => {
   const id = useId().replace(/:/g, "");
   const url = staticFile(src);
   useImgReady(url);
@@ -114,11 +114,11 @@ const Whip: React.FC<{ f: number; at: number[]; dir?: number[]; shots: React.Rea
 
 /* ---------- telefon vizörü ---------- */
 
-const pad2 = (n: number) => String(Math.floor(n)).padStart(2, "0");
+export const pad2 = (n: number) => String(Math.floor(n)).padStart(2, "0");
 type Focus = { x: number; y: number; s: number; lock: number; c?: string };
 
 // Odak köşeleri: kilitlenmemişken (lock 0) beyaz ve titrek, kilitlenince sarı ve sabit
-const FocusBox: React.FC<{ f: number; fo: Focus }> = ({ f, fo }) => {
+export const FocusBox: React.FC<{ f: number; fo: Focus }> = ({ f, fo }) => {
   const hunt = 1 - fo.lock;
   const x = fo.x + hunt * Math.sin(f * 0.9) * 40;
   const y = fo.y + hunt * Math.cos(f * 0.7) * 30;
@@ -181,7 +181,7 @@ const Viewfinder: React.FC<{ f: number; base: number; frozen?: number; date?: st
 };
 
 // Gece çekimi: gren + koyu kenarlar
-const Grain: React.FC<{ f: number; amt?: number }> = ({ f, amt = 0.09 }) => {
+export const Grain: React.FC<{ f: number; amt?: number }> = ({ f, amt = 0.09 }) => {
   const id = useId().replace(/:/g, "");
   return (
     <g pointerEvents="none">
@@ -201,14 +201,14 @@ const Grain: React.FC<{ f: number; amt?: number }> = ({ f, amt = 0.09 }) => {
 
 /* ---------- küçük parçalar ---------- */
 
-const T: React.FC<{ x: number; y: number; s: number; c?: string; w?: number; a?: "start" | "middle" | "end"; children: React.ReactNode }> = ({ x, y, s, c = "#fff", w = 800, a = "middle", children }) => (
+export const T: React.FC<{ x: number; y: number; s: number; c?: string; w?: number; a?: "start" | "middle" | "end"; children: React.ReactNode }> = ({ x, y, s, c = "#fff", w = 800, a = "middle", children }) => (
   <text x={x} y={y} fontFamily={fontFamily} fontWeight={w} fontSize={s} fill={c} textAnchor={a}>
     {children}
   </text>
 );
 
 // Ekrana yapışan etiket (vizörün üstünde, gece çekiminde okunur: koyu zemin)
-const Tag: React.FC<{ x: number; y: number; p: number; children: React.ReactNode; c?: string; r?: number; wd?: number }> = ({ x, y, p, children, c = "#fff", r = 0, wd = 420 }) => {
+export const Tag: React.FC<{ x: number; y: number; p: number; children: React.ReactNode; c?: string; r?: number; wd?: number }> = ({ x, y, p, children, c = "#fff", r = 0, wd = 420 }) => {
   if (p <= 0) return null;
   return (
     <g transform={`translate(${x} ${y}) rotate(${r}) scale(${p})`} opacity={Math.min(1, p * 1.5)}>
@@ -220,7 +220,7 @@ const Tag: React.FC<{ x: number; y: number; p: number; children: React.ReactNode
   );
 };
 
-const Stamp: React.FC<{ x: number; y: number; p: number; t: string; c?: string; s?: number; r?: number }> = ({ x, y, p, t, c = RED, s = 70, r = -7 }) => {
+export const Stamp: React.FC<{ x: number; y: number; p: number; t: string; c?: string; s?: number; r?: number }> = ({ x, y, p, t, c = RED, s = 70, r = -7 }) => {
   if (p <= 0) return null;
   const k = 1.7 - 0.7 * p;
   const wd = t.length * s * 0.62 + 60;
@@ -236,7 +236,7 @@ const Stamp: React.FC<{ x: number; y: number; p: number; t: string; c?: string; 
 };
 
 // "voom." logosu: beyaz küçük harf + fıstık yeşili nokta
-const Logo: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => (
+export const Logo: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => (
   <g transform={`translate(${x} ${y})`}>
     <T x={-s * 0.12} y={0} s={s} w={800}>
       voom
@@ -246,7 +246,7 @@ const Logo: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => (
 );
 
 // Telefon kartı: gerçek uygulama ekranı (görselin bir bölümü), koyu çerçeve
-const Screen: React.FC<{ src: string; iw: number; ih: number; crop: [number, number, number, number]; x: number; y: number; wd: number; p: number; r?: number; children?: React.ReactNode }> = ({ src, iw, ih, crop, x, y, wd, p, r = 0, children }) => {
+export const Screen: React.FC<{ src: string; iw: number; ih: number; crop: [number, number, number, number]; x: number; y: number; wd: number; p: number; r?: number; children?: React.ReactNode }> = ({ src, iw, ih, crop, x, y, wd, p, r = 0, children }) => {
   const url = staticFile(src);
   useImgReady(url);
   const id = useId().replace(/:/g, "");
@@ -365,7 +365,7 @@ const GcDon: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 // Tarih damgası: 3 yıl hızla akar (aynı hareket, aynı ağırlık)
-const dateAt = (t: number) => {
+export const dateAt = (t: number) => {
   // t 0..1: 30.10.2023 → 30.10.2026
   const days = Math.floor(t * 1096);
   const dt = new Date(Date.UTC(2023, 9, 30) + days * 86400000);
@@ -428,7 +428,7 @@ const GcYuk: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 // Kilo sayacı (her hafta biraz daha)
-const Weeks: React.FC<{ f: number; a: number; b: number }> = ({ f, a, b }) => {
+export const Weeks: React.FC<{ f: number; a: number; b: number }> = ({ f, a, b }) => {
   const n = Math.min(6, Math.floor(prog(f, a, b) * 6 + (f >= a ? 1 : 0)));
   if (f < a) return null;
   return (
@@ -496,7 +496,7 @@ const GcDonma: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 // Bugün ekranı (01-bugun, 384x848): "BUGÜN NEDEN BU?" kutusu y≈268..318
-const BUGUN = "app/bugun-neden.jpg";
+export const BUGUN = "app/bugun-neden.jpg";
 
 // fitness poz05'te telefon ekranı (1080 koordinatı)
 const PH = { x: 641, y: 342, w: 67, h: 128 };
@@ -542,7 +542,7 @@ const GcBugun: React.FC<SceneProps> = ({ w, d }) => {
 };
 
 // program-6hafta.jpg (1290x2152): hafta noktaları x≈122, y = 165, 464, 763, 1061, 1360, 1659
-const DOTS = [165, 464, 763, 1061, 1360, 1659];
+export const DOTS = [165, 464, 763, 1061, 1360, 1659];
 
 // 6) "Yükü altı haftada adım adım artırır. Tabağını da hesaplar."
 const GcProgram: React.FC<SceneProps> = ({ w, d }) => {
