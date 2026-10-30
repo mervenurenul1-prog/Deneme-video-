@@ -112,4 +112,4 @@ Kullanıcı: ilk deneme videosu tenya DEĞİL, farklı bir konu.
 - `public/heykel/erkek/`: poz00 temel (damar düzeltmeli), 01 eller belde, 02 yan profil, 03 düşünüyor, 04 işaret, 05 telefon,
   06 şaşkın (eller başta), 07 goblet squat, 08 bankta oturma (havlu + "voom." şişe).
 - `public/heykel/pilates/`: 01 çemberle duruş, 02 yan profil, 03 düşünüyor, 04 işaret, 05 telefon, 06 şaşkın, 07 deniz kızı
-  esneme (mat). 08 (oturma) EKSİK.
+  esneme (mat). 08 bağdaş kurup su şişesiyle oturma (mat).
