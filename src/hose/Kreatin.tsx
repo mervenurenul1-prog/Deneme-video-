@@ -13,7 +13,7 @@ import { INK, RED, NAVY, WHITE, clamp, prog, pop, q2, Cam, handAt, Room, Lens, S
 /* ---------- eşyalar ---------- */
 
 // Kreatin kutusu
-const Tub: React.FC<{ x: number; y: number; s?: number; r?: number }> = ({ x, y, s = 1, r = 0 }) => (
+export const Tub: React.FC<{ x: number; y: number; s?: number; r?: number }> = ({ x, y, s = 1, r = 0 }) => (
   <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} stroke={INK} strokeWidth={6}>
     <rect x={-70} y={-120} width={140} height={34} rx={8} fill="#2a2523" />
     <rect x={-80} y={-90} width={160} height={190} rx={20} fill={WHITE} />
@@ -35,7 +35,7 @@ const Scoop: React.FC<{ x: number; y: number; s?: number; r?: number; tilt?: num
 );
 
 // Düşen saç telleri (kıvırcık)
-const Hairs: React.FC<{ f: number; at: number; x: number; y: number; n?: number }> = ({ f, at, x, y, n = 6 }) => {
+export const Hairs: React.FC<{ f: number; at: number; x: number; y: number; n?: number }> = ({ f, at, x, y, n = 6 }) => {
   if (f < at) return null;
   return (
     <g>

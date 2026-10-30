@@ -1,9 +1,9 @@
 import { useEffect, useId, useState } from "react";
 import { GEST, HoseChar, mirror, mix, OldFilm, REST, type HoseArm, type HoseCharProps } from "../avatar2/Hose";
 import { CharCtx } from "../hose/cast";
-import { TENYA_SCENES } from "../hose/Tenya";
+import { TENYA_SCENES, Cam as TnCam, Room as TnRoom } from "../hose/Tenya";
 import { KREATIN_SCENES } from "../heykel/Kreatin";
-import { KREATIN_HOSE_SCENES } from "../hose/Kreatin";
+import { KREATIN_HOSE_SCENES, Hairs as KhHairs, Tub as KhTub } from "../hose/Kreatin";
 import {
   AbsoluteFill,
   Audio,
@@ -54,7 +54,7 @@ type SceneProps = { d: number; w: (i: number) => number };
 // Önceki sahneden kararmadan, aynı karede devam eden sahneler (sahne sonu = bu sahnenin ilk karesi)
 const SEAMLESS = new Set(["ig-tarih"]);
 // tenya sahneleri (diyalog) her iki stilde de sert kesmeyle geçer
-const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("kh-");
+const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("kh-") || v.startsWith("kh2-");
 
 // Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
 const LOOP_FRAMES = 14;
@@ -259,13 +259,13 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "tn-sevgi": (w) => [[w(2), "adim", 0.16], [w(6), "kacing", 0.14], [w(9), "pirilti", 0.2], [w(9) + 4, "kalp", 0.14]],
   "tn-son": (w) => [[w(1), "kagit", 0.2], [w(4), "whoosh", 0.3], [w(5) + 6, "pirilti", 0.16]],
   // 22 kreatin (1930'lar stili)
-  "kh-kanca": (w) => [[w(2), "havalanma", 0.12], [w(3), "boing", 0.26]],
+  "kh2-kanca": (w) => [[w(3), "boing", 0.26]],
   "kh-tarih": (w) => [[w(2), "pop", 0.16], [w(6), "kagit", 0.18], [w(9), "pop", 0.16], [w(12), "kagit", 0.16], [w(18), "yuksel", 0.16], [w(22), "boom", 0.18]],
   "kh-bilim": (w) => [[2, "kagit", 0.18], [w(7), "kagit", 0.14], [w(10), "pop", 0.16]],
   "kh-sonuc": (w) => [[w(1), "pop", 0.16], [w(4) + 6, "ding", 0.22]],
   "kh-tavsiye": (w) => [[w(1), "pop", 0.18], [w(6), "cizik", 0.24], [w(10), "tik", 0.14]],
   "kh-voom": (w) => [[w(3), "ding", 0.22], [w(7), "pirilti", 0.2]],
-  "kh-son": (w) => [[w(0), "kagit", 0.2], [w(6), "whoosh", 0.3], [w(7) + 4, "pirilti", 0.16]],
+  "kh2-son": (w) => [[w(0), "kagit", 0.2], [w(6), "whoosh", 0.3], [w(7) + 4, "pirilti", 0.16]],
   "kr-kanca2": (w) => [[w(0), "cizik", 0.18], [w(1), "pop", 0.15], [w(3), "sihir", 0.1], [w(8) - 2, "agir-dusme", 0.15]],
   "kr-sabah": (w) => [[w(1), "cizik", 0.2], [w(2), "pop", 0.15], [w(3), "nefes", 0.15], [w(7), "whoosh", 0.12], [w(8), "pop", 0.18], [w(10), "pirilti", 0.18]],
   "kr-ertesi": (w) => [[2, "sihir", 0.1], [w(4) - 2, "agir-dusme", 0.15]],
@@ -24849,7 +24849,68 @@ const KrSon: React.FC<SceneProps> = ({ w: w0, d }) => {
   );
 };
 
+// 22b kreatin (eski seri) açılışı: serinin kendi pozlarıyla (OldChar IK değil). Yunus kreatin shaker'ından içer,
+// kavanoz yanındaki masada durur; "dökülür"de içmeyi bırakır, saç telleri düşer. Kapanış da bu kareye döner.
+const KH_CAM: [number, number, number, number] = [0, 470, 1150, 1.18];
+const KhShaker: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`} stroke={C.ink} strokeWidth={7}>
+    <path d="M-58 -150 L58 -150 L48 70 L-48 70 Z" fill="#eef5f8" />
+    <path d="M-55 -90 L55 -90 L48 70 L-48 70 Z" fill="#f4efe2" strokeWidth={0} opacity={0.95} />
+    <path d="M-58 -150 L58 -150 L48 70 L-48 70 Z" fill="none" />
+    <rect x={-64} y={-190} width={128} height={44} rx={10} fill={C.ink} />
+    <rect x={-20} y={-212} width={40} height={24} rx={6} fill={C.ink} />
+  </g>
+);
+const KhOldKanca: React.FC<{ f: number; w: (i: number) => number }> = ({ f, w }) => {
+  const drink = tw(f, 4, w(1)) * (1 - tw(f, w(2) + 2, w(3)));
+  const shock = f >= w(2);
+  const up = f >= w(3);
+  const arm: Arm = [lerp(12, 120, drink), lerp(0, -205, drink)];
+  const hand = armPoints(1, arm)[2];
+  return (
+    <>
+      <TnRoom />
+      {/* yan masa + kreatin kavanozu */}
+      <g stroke={C.ink} strokeWidth={7}>
+        <rect x={20} y={1480} width={190} height={26} rx={6} fill="#8a5a33" />
+        <path d="M45 1506 L45 1760 M185 1506 L185 1760" strokeWidth={14} />
+      </g>
+      <KhTub x={115} y={1402} s={0.62} />
+      <Person x={360} y={1760} s={0.81} belly={0.5} armR={arm} mouth={drink > 0.6 ? "o" : shock ? "o" : "smile"} eyes={up ? "wide" : drink > 0.6 ? "closed" : "open"} lookY={up ? -14 : 0}>
+        <KhShaker x={hand[0]} y={hand[1] - 40} s={0.95} rot={lerp(0, -120, drink)} />
+      </Person>
+      <Person x={790} y={1760} s={0.81} female belly={0.15} mouth="o" eyes={shock ? "wide" : "open"} />
+      <KhHairs f={f} at={w(3)} x={360} y={1760 - 0.81 * 760} />
+    </>
+  );
+};
+const KhOldKancaScene: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return (
+    <TnCam f={f} keys={[KH_CAM, [d, 470, 1140, 1.24]]}>
+      <KhOldKanca f={f} w={w} />
+    </TnCam>
+  );
+};
+// Kapanış: kh-son oynar; kâğıt uçak ekranı kaplayınca bu açılış karesi beyazdan açılır (döngü)
+const KhOldSon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const Base = KREATIN_HOSE_SCENES["kh-son"];
+  const at = w(7) + 4;
+  if (f < at) return <Base w={w} d={d} />;
+  return (
+    <g>
+      <TnCam f={0} keys={[KH_CAM]}>
+        <KhOldKanca f={0} w={() => 99999} />
+      </TnCam>
+      <rect x={0} y={0} width={1080} height={1920} fill="#fbf7ee" opacity={1 - tw(f, at, Math.min(d - 2, at + 8))} />
+    </g>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  "kh2-kanca": KhOldKancaScene,
+  "kh2-son": KhOldSon,
   ...TENYA_SCENES,
   ...KREATIN_SCENES,
   ...KREATIN_HOSE_SCENES,

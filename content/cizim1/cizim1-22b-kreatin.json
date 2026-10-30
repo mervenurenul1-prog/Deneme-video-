@@ -15,7 +15,7 @@
   "minEstimate": 0.8,
   "scenes": [
     {
-      "visual": "kh-kanca",
+      "visual": "kh2-kanca",
       "voice": "Kreatin kullanma, saçın dökülür.",
       "keys": [
         "Kreatin",
@@ -74,7 +74,7 @@
       "hold": 0.4
     },
     {
-      "visual": "kh-son",
+      "visual": "kh2-son",
       "voice": "Bunu, saçı yüzünden kreatini bırakan arkadaşına gönder. Çünkü ona da şunu dediler:",
       "keys": [
         "gönder."
