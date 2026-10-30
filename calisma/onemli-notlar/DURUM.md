@@ -1,5 +1,15 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> KARAR (30 Ekim akşam — EN GÜNCEL, ÖNCE BUNU OKU) <<<
+- **Heykel avatarlar (fitness/pilates tanrıçası + erkek tanrı) YALNIZ VOOM spor programı tanıtımı için.** Bilgi/mit videolarında
+  KULLANILMAZ. Kullanıcı: "bunlar Wom spor programımız için avatarlarımız, sadece onun için kullanacağız".
+- **22 KREATİN → Yunus + Duru (1930 rubber hose, `style: "hose"`, `src/avatar2/Hose.tsx`, tenya gibi) ile YENİDEN yapılacak.**
+  Metin aynı kalır (aşağıda); Duru'nun sesi = kullanıcının sesi, Yunus kendi sesi; sahne kurgusu tenya (`src/hose/Tenya.tsx`)
+  örnek alınır. Heykel sürümü (`src/heykel/Kreatin.tsx`, `22-kreatin-sessiz.mp4`) VOOM tanıtımında kalıp olarak durur.
+  Sıra: metinde konuşan dağılımı onayı → sessiz önizleme → onay → seslendirme (kredi).
+- **Ayrı iş: VOOM spor programı tanıtım videosu** heykel avatarlarla (pozlar `public/heykel/`, istemler
+  `calisma/animasyon/avatar-heykel.md`, ekranlar `calisma/voom/ekranlar/`). Önce metin önerisi, sonra sessiz önizleme.
+
 ## >>> YENİ SOHBET BURADAN (30 Ekim — EN GÜNCEL) <<<
 - **22 KREATİN — YENİ "HEYKEL" STİLİNDE İLK VİDEO** (`cizim1-22-kreatin`, JSON `"style": "heykel"`, sahneler `src/heykel/Kreatin.tsx`
   `kre-*`): fitness tanrıçası pozları tam ekran + kamera (görsel dışına taşmaz) + kartlar/kan tüpü/"SAÇ ÖLÇÜLMEDİ"/grafik/5 g/
