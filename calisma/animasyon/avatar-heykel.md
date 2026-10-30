@@ -98,3 +98,7 @@ karakter seçme ekranı. Renk serbest, "güzel olsun yeter" (kullanıcı).
   `fitness-kadin-v4-mermer-SECILEN.jpg`. Pilates (sarı sweatshirt + düz pantolon) REDDEDİLDİ: "pilates olduğu belli değil" →
   pilates ipuçları şart: reformer aleti, pilates çemberi, kaydırmaz çorap, uzanan zarif poz, aydınlık stüdyo; kıyafet mat,
   uzun kollu rahat kısa üst + ispanyol paça tayt (göğüs belli değil).
+- **Pilates tanrıçası v3 (30 Ekim):** reformer + pilates çemberi + kaydırmaz çorap + aydınlık stüdyo → pilates olduğu belli.
+  Öneri `pilates-kadin-v3-SECILEN.jpg` (ikinci görsel); alternatif `pilates-kadin-v3-alternatif.jpg`. Kalan: pantolon kasıkta dar →
+  "relaxed fit at hips and crotch" düzeltmesi + belde net logo. Sonraki adım: her avatar için 8 poz (önden gülümseme, yan profil,
+  düşünme, işaret, telefona bakma, şaşırma, ağırlık/squat, yorgun oturma).
