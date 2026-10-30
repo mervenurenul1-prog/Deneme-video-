@@ -47,3 +47,30 @@ hands on hips, confident · looking at a smartphone in hand.
 
 ## Not: cam/hologram varyantı (istenirse)
 "carved from polished white Carrara marble" yerine: "made of semi-transparent frosted glass with red anatomical muscles visible inside".
+
+## GÜNCEL (30 Ekim, kullanıcı): kadın daha çekici/cool/ilham verici; renkler PARLAK (opak değil)
+Kullanıcı: "kadın daha güzel olmalı, kendimi yansıtmam gibi; saçı açık; güzel spor kıyafeti; voom yazan spor ayakkabı; elbiseli
+moda haftası fotoğrafı da olabilir; zeytin yeşili parlak/göz kamaştırıcı olsun, logodaki neonun aynısı değil ama ondan; sarıya çalabilir".
+Renk: **parlak zeytin-şartrüz (sarıya çalan ışıltılı zeytin yeşili, saten parlaklığı)** + **parlak koyu çikolata**; logo noktası neon fıstık yeşili.
+
+### İstem 2b — Kadın (güncel)
+Ultra-realistic 3D render of a breathtaking living Greek goddess statue carved from luminous polished white Carrara marble with
+subtle grey veins. Beautiful, confident and inspiring: classical goddess face with a soft confident smile, statue eyes, long
+loose flowing wavy hair carved in marble, cascading over one shoulder. Fit, athletic "dream body": slim defined waist, toned flat
+stomach with a visible vertical ab line, sculpted shoulders and arms, strong toned legs and glutes — athletic, feminine, not bulky.
+She wears a stylish designer sports set: a glossy sports bra with elegant cut-out straps in luminous olive-chartreuse (a bright,
+yellow-leaning olive green with a satin sheen) and high-waisted glossy deep chocolate-brown biker shorts; the waistband in the same
+luminous olive-chartreuse printed with the white lowercase word "voom." repeated, the final dot in neon pistachio green exactly like
+the attached logo. Chunky modern sneakers in chocolate brown and luminous olive-chartreuse with "voom." on the side. Real glossy
+fabric, not marble. Tasteful, sporty, no nudity. Confident walking pose toward the camera, editorial fashion-campaign lighting with
+soft glow, plain light warm-grey background, vertical 9:16, photorealistic, high detail, no other text, no watermark.
+
+### İstem 5 — Kadın, moda haftası elbisesi
+Same goddess as the reference image (same marble body, face and loose wavy hair). She walks a fashion-week runway in an elegant
+floor-length satin evening gown in luminous olive-chartreuse with a deep chocolate-brown belt, glowing sheen, high slit (tasteful),
+camera flashes in the soft-blurred background, vertical 9:16, photorealistic editorial fashion photography, no text, no watermark.
+
+### İstem 1b — Erkek (renk güncellemesi)
+İstem 1'deki şort cümlesi yerine: "glossy deep chocolate-brown athletic shorts with a luminous olive-chartreuse side stripe and a
+luminous olive-chartreuse waistband printed with the white lowercase word "voom." …; chunky sneakers in chocolate brown and luminous
+olive-chartreuse with "voom." on the side."
