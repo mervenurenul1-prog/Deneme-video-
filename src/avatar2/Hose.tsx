@@ -24,7 +24,7 @@ const K = {
   tee: "#fbf7ee",
 };
 
-type HoseArm = [number, number, number];
+export type HoseArm = [number, number, number];
 type HandKind = "open" | "fist" | "point" | "thumb"; // el hedefi (omuza göre x, y) + büküm
 export type HoseFace = "smile" | "grin" | "o" | "smirk" | "kiss" | "talk" | "sad";
 
@@ -162,7 +162,7 @@ const Mouth: React.FC<{ y: number; face: HoseFace; w?: number; girl?: boolean; o
 export type HoseGesture = "rest" | "wave" | "point" | "explain" | "think" | "hips" | "shrug" | "thumbs" | "cheer" | "facepalm";
 
 // Jest kütüphanesi (sağ kol için; "L" verilirse aynalanır). [x, y, büküm] omuza göre el hedefi.
-const GEST: Record<HoseGesture, { a?: HoseArm; b?: HoseArm; ha?: HandKind; hb?: HandKind }> = {
+export const GEST: Record<HoseGesture, { a?: HoseArm; b?: HoseArm; ha?: HandKind; hb?: HandKind }> = {
   rest: {},
   wave: { a: [120, -120, -60], ha: "open" },
   point: { a: [165, -30, -20], ha: "point" },
@@ -174,9 +174,9 @@ const GEST: Record<HoseGesture, { a?: HoseArm; b?: HoseArm; ha?: HandKind; hb?: 
   cheer: { a: [70, -170, -30], b: [70, -170, -30], ha: "fist", hb: "fist" },
   facepalm: { a: [-50, -90, 60], ha: "open" },
 };
-const REST: HoseArm = [70, 150, -40];
-const mirror = (a: HoseArm): HoseArm => [-a[0], a[1], -a[2]];
-const mix = (a: HoseArm, b: HoseArm, t: number): HoseArm => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+export const REST: HoseArm = [70, 150, -40];
+export const mirror = (a: HoseArm): HoseArm => [-a[0], a[1], -a[2]];
+export const mix = (a: HoseArm, b: HoseArm, t: number): HoseArm => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
 
 // Jest zamanlaması: hazırlık (hafif geri) → hızlı çıkış + taşma → tutma → yumuşak dönüş
 export const gestureT = (f: number, start: number, end: number, rise = 9) => {

@@ -1,5 +1,6 @@
 import { useEffect, useId, useState } from "react";
-import { OldFilm } from "../avatar2/Hose";
+import { GEST, HoseChar, mirror, mix, OldFilm, REST, type HoseArm, type HoseCharProps } from "../avatar2/Hose";
+import { CharCtx } from "../hose/cast";
 import { TENYA_SCENES } from "../hose/Tenya";
 import {
   AbsoluteFill,
@@ -50,6 +51,8 @@ type SceneProps = { d: number; w: (i: number) => number };
 
 // Önceki sahneden kararmadan, aynı karede devam eden sahneler (sahne sonu = bu sahnenin ilk karesi)
 const SEAMLESS = new Set(["ig-tarih"]);
+// tenya sahneleri (diyalog) her iki stilde de sert kesmeyle geçer
+const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-");
 
 // Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
 const LOOP_FRAMES = 14;
@@ -86,6 +89,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
     <AbsoluteFill style={{ backgroundColor: C.paper, fontFamily }}>
       {hose ? null : <Paper />}
       {hose ? null : <Beams />}
+      <CharCtx.Provider value={hose ? HoseChar : OldChar}>
       {cizim.scenes.map((scene, i) => {
         const start = from;
         from += durations[i];
@@ -96,7 +100,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         const Visual = SCENES[scene.visual] ?? Missing;
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.visual}`}>
-            <Frame hose={hose} d={durations[i]} scene={scene.visual} noIn={(loop && i === 0) || SEAMLESS.has(scene.visual)} noOut={(loop && i === last) || (i < last && SEAMLESS.has(cizim.scenes[i + 1].visual))}>
+            <Frame hose={hose} d={durations[i]} scene={scene.visual} noIn={(loop && i === 0) || seamless(scene.visual)} noOut={(loop && i === last) || (i < last && seamless(cizim.scenes[i + 1].visual))}>
               <Visual d={durations[i]} w={w} />
             </Frame>
             <Captions words={words} keys={scene.keys} hideFrom={loop && i === last ? durations[i] - LOOP_FRAMES : undefined} />
@@ -107,7 +111,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
               </Sequence>
             ) : null}
             {/* sahne geçişi + o sahnedeki olayların efekt sesleri */}
-            {i > 0 && !SEAMLESS.has(scene.visual) && !hose ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
+            {i > 0 && !seamless(scene.visual) && !hose ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
             {tidySfx(SFX[scene.visual]?.(w, durations[i]) ?? []).map(([at, file, vol], k) =>
               at >= 0 && at < durations[i] ? (
                 <Sequence key={k} from={Math.round(at)} layout="none">
@@ -132,6 +136,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
           </LoopIn>
         </Sequence>
       ) : null}
+      </CharCtx.Provider>
       {cizim.music ? <Music src={cizim.music} loop={loop} gain={cizim.musicVolume} duck={cizim.musicDuck} speech={speechSpans} /> : null}
       {hose ? null : <Dust loop={loop} />}
     </AbsoluteFill>
@@ -1610,6 +1615,66 @@ const Person: React.FC<PersonProps> = ({
       </g>
       {children}
     </g>
+  );
+};
+
+// Eski seri avatarı, 1930'lar sahnelerinde (HoseChar arayüzüyle): aynı sahne iki stilde oynar.
+// Kol hedefleri HoseChar biriminde (omuza göre el noktası); 2 kemikli ters kinematikle Person açılarına çevrilir.
+const OLD_K = 0.65; // Person × 0.65 ≈ HoseChar boyu; omuzlar çakışır (±65, −376)
+const ikArm = (side: number, t: number[]): Arm => {
+  const L1 = 150;
+  const L2 = 140;
+  const d = Math.min(Math.max(Math.hypot(t[0], t[1]), 30), L1 + L2 - 1);
+  const theta = (Math.atan2(side * t[0], t[1]) * 180) / Math.PI;
+  const alpha = (Math.acos((L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)) * 180) / Math.PI;
+  const beta = (Math.acos((L1 * L1 + L2 * L2 - d * d) / (2 * L1 * L2)) * 180) / Math.PI;
+  return [theta + alpha, -(180 - beta)];
+};
+const OldChar: React.FC<HoseCharProps> = ({ x, y, s = 1, who, face = "smile", look = [0, 0], wink, happyEyes, armL, armR, bounce, tilt = 0, talk = 0, gesture = "rest", gT = 0, gSide = "R", surprise = 0, laugh = 0 }) => {
+  const f = useCurrentFrame();
+  const q = Math.floor(f / 2) * 2;
+  let aR: HoseArm = armR ?? REST;
+  let aL: HoseArm = armL ?? mirror(REST);
+  const G = GEST[gesture];
+  if (gesture !== "rest" && G.a) {
+    let ga = G.a;
+    if (gesture === "wave") ga = [ga[0] + 24 * Math.sin(q / 3), ga[1] - 8 * Math.sin(q / 3), ga[2]];
+    const one = gSide === "R";
+    if (one || G.b) aR = mix(aR, ga, gT);
+    if (!one || G.b) aL = mix(aL, mirror(G.b && one ? G.b : ga), gT);
+  }
+  const girl = who === "duru" || who === "arkadas";
+  const flap = talk > 0 ? Math.abs(Math.sin(q / 2.3)) * talk : 0;
+  const mouth: Mouth =
+    surprise > 0.4 ? "o" : laugh > 0.3 ? "grin" : flap > 0.35 ? "open" : talk > 0 ? "flat" : face === "grin" ? "grin" : face === "o" || face === "kiss" ? "o" : face === "sad" ? "worry" : "smile";
+  const eyes: Eyes = surprise > 0.4 ? "wide" : laugh > 0.3 || happyEyes || wink ? "closed" : "open";
+  const lift = ((bounce ?? 0) + surprise * 0.9) * 26 * s;
+  const k = OLD_K * s;
+  return (
+    <Person
+      x={x}
+      y={y - lift}
+      s={k}
+      female={girl}
+      belly={girl ? 0.15 : 0.5}
+      shirt={who === "arkadas" ? "#d98a9c" : who === "doktor" ? "#c9a66b" : undefined}
+      pants={who === "doktor" ? "#a8864f" : undefined}
+      armR={ikArm(1, [aR[0] / OLD_K, aR[1] / OLD_K])}
+      armL={ikArm(-1, [aL[0] / OLD_K, aL[1] / OLD_K])}
+      mouth={mouth}
+      eyes={eyes}
+      lookY={look[1] * 6}
+      tilt={tilt + laugh * 6 * Math.sin(f * 1.7)}
+    >
+      {who === "doktor" ? (
+        // safari şapkası (gerçek kişi değil)
+        <g stroke={C.ink} strokeWidth={6} transform={`translate(0 ${-surprise * 60})`}>
+          <ellipse cx={0} cy={-760} rx={130} ry={26} fill="#e2cf9c" />
+          <path d="M-86 -762 Q-90 -860 0 -862 Q90 -860 86 -762 Z" fill="#eadbb0" />
+          <path d="M-86 -778 Q0 -796 86 -778" stroke="#7a5a32" strokeWidth={14} fill="none" />
+        </g>
+      ) : null}
+    </Person>
   );
 };
 

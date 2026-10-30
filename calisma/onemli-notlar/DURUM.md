@@ -1,6 +1,11 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (28 Ekim gece — EN GÜNCEL) <<<
+- **21b TENYA ESKİ STİL (30 Ekim):** kullanıcı aynı videoyu serinin eski avatarı (Yunus/sepya `Person`) + merak-gerilim müziğiyle
+  istedi ("bu sohbette yap"; açılan ayrı oturum durduruldu/arşivlendi). Çözüm: tenya sahneleri karakteri `Who` (`src/hose/cast.tsx`,
+  `CharCtx`) üzerinden çizer; `style: "hose"` → `HoseChar`, değilse Cizim1'deki `OldChar` (HoseChar arayüzü → `Person`, kollar 2
+  kemikli IK ile aynı el noktasına; kız karakter `female`, göbek 0.15; doktora safari şapkası). `cizim1-21b-tenya.json` = metin
+  birebir aynı, sesler `public/voiceover/cizim1-21b-tenya/` (KOPYA, kredisiz). Önizleme `21b-tenya-onizleme.mp4` → onay bekliyor.
 - **21 TENYA KISALTILDI (29 Ekim gece):** kullanıcı: "seslendirmeden ÖNCE kısaltıyoruz, 44 sn çok uzun" (DERS: süreyi seslendirmeden
   önce 32-36 sn'ye indir) → 6 cümle kısaltıldı ve yeniden seslendirildi (değişmeyenler önbellekten), ses **1.3x** (kullanıcı:
   "1.3'e çek"), video ~35 sn. Efekt sesleri eklendi (`SFX` `tn-*`); yeni ücretsiz efektler `public/sfx/{boing,yutkunma,sapirti,

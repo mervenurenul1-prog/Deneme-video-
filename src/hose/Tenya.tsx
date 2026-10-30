@@ -1,7 +1,8 @@
 // 21 Tenya hapı — 1930'lar stili (Yunus + Duru). Sahneler `tn-*`; kelime zamanı w(i).
 import React, { useEffect, useState } from "react";
 import { continueRender, delayRender, Easing, interpolate, staticFile, useCurrentFrame } from "remotion";
-import { HoseChar, gestureT } from "../avatar2/Hose";
+import { gestureT } from "../avatar2/Hose";
+import { Who } from "./cast";
 import { fontFamily, handFamily } from "../fonts";
 
 type SceneProps = { d: number; w: (i: number) => number };
@@ -422,7 +423,7 @@ const TnKanca: React.FC<SceneProps> = ({ w }) => {
     <g>
       <Cam f={f} keys={[[0, PILL_AT[0], PILL_AT[1] - 20, 2.1], [back - 2, PILL_AT[0], PILL_AT[1] - 20, 2.25], [back + 10, 600, 820, 1.0]]}>
         <Room />
-        <HoseChar x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret armR={ARM_PILL} handR="fist" look={[1, -0.4]} face="smile" seed={9} />
+        <Who x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret armR={ARM_PILL} handR="fist" look={[1, -0.4]} face="smile" seed={9} />
         <Pill x={PILL_AT[0]} y={PILL_AT[1] - 30} s={1.2} f={f} wink={f >= w(2) && f < w(2) + 10} glow={prog(f, 0, 12)} />
         {/* büyüteç: kurt göz kırpar */}
         {f < back + 6 ? (
@@ -447,7 +448,7 @@ const TnAsla: React.FC<SceneProps> = () => {
   return (
     <Cam f={f} keys={[[0, 600, 820, 1.15], [20, 600, 840, 1.08]]} shake={Math.max(0, 1 - f / 12)}>
       <Room />
-      <HoseChar x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret surprise={sp} talk={f < 14 ? 1 : 0} armR={[110, -60, -60]} handR="open" armL={[-110, -60, 60]} handL="open" seed={9} />
+      <Who x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret surprise={sp} talk={f < 14 ? 1 : 0} armR={[110, -60, -60]} handR="open" armL={[-110, -60, 60]} handL="open" seed={9} />
       <Pill x={PILL_AT[0] + fly * 420} y={PILL_AT[1] - 30 - Math.sin(fly * Math.PI) * 380 + fly * 200} r={-20 + fly * 540} s={1.2} f={f} />
     </Cam>
   );
@@ -488,7 +489,7 @@ const TnHap: React.FC<SceneProps> = ({ w }) => {
   return (
     <Cam f={f} keys={[[0, 540, 900, 1.0], [w(3), 620, 980, 1.0], [w(5) + 6, 700, 820, 1.35]]}>
       <Stall f={f} />
-      <HoseChar x={250} y={1620} s={1.3} who="yunus" seed={4} talk={1} gesture="point" gT={g} look={[1, -0.3]} />
+      <Who x={250} y={1620} s={1.3} who="yunus" seed={4} talk={1} gesture="point" gT={g} look={[1, -0.3]} />
       <YearCard f={f} t="1900'LER" at={0} y={420} />
     </Cam>
   );
@@ -578,7 +579,7 @@ const TnTarih: React.FC<SceneProps> = ({ w }) => {
           <text x={540} y={560 + Math.sin(f / 4) * 10} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={260} fill={RED} stroke={INK} strokeWidth={8} paintOrder="stroke fill" opacity={pop(f, w(11))}>
             ?
           </text>
-          {q ? <HoseChar x={880} y={1760} s={1.2} who="duru" beret gesture="think" gT={gestureT(f, w(10), w(15) + 20)} look={[-1, -0.5]} seed={9} /> : null}
+          {q ? <Who x={880} y={1760} s={1.2} who="duru" beret gesture="think" gT={gestureT(f, w(10), w(15) + 20)} look={[-1, -0.5]} seed={9} /> : null}
         </Cam>
       )}
     </g>
@@ -624,7 +625,7 @@ const TnDoktor: React.FC<SceneProps> = ({ w }) => {
           <circle cx={640} cy={1380} r={70} fill="none" stroke={RED} strokeWidth={8} strokeDasharray="14 10" />
         </g>
       ) : null}
-      <HoseChar x={DOC.x} y={DOC.y} s={DOC.s} who="doktor" seed={2} gesture={f < w(9) ? "think" : "thumbs"} gT={f < w(9) ? think : gestureT(f, w(9) + 8, w(12))} surprise={gulp} face={gulp > 0.3 ? "o" : "smile"} look={f >= w(6) && f < w(8) + 6 ? [1, 0] : [0.5, -0.4]} />
+      <Who x={DOC.x} y={DOC.y} s={DOC.s} who="doktor" seed={2} gesture={f < w(9) ? "think" : "thumbs"} gT={f < w(9) ? think : gestureT(f, w(9) + 8, w(12))} surprise={gulp} face={gulp > 0.3 ? "o" : "smile"} look={f >= w(6) && f < w(8) + 6 ? [1, 0] : [0.5, -0.4]} />
       {/* kaşıkta kist */}
       {f >= w(8) + 4 && f < w(9) + 4 ? (
         <g transform={`translate(${DOC.x + 70} ${DOC.y - 560 - gulp * 40})`} stroke={INK} strokeWidth={6}>
@@ -652,7 +653,7 @@ const TnKacKilo: React.FC<SceneProps> = () => {
   return (
     <Cam f={f} keys={[[0, 560, 860, 1.1], [30, 560, 820, 1.25]]}>
       <Room />
-      <HoseChar x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret talk={f < 26 ? 1 : 0} armL={[30, -60, 60]} armR={[-30, -60, -60]} handL="fist" handR="fist" tilt={-6} look={[0, -0.3]} seed={9} />
+      <Who x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret talk={f < 26 ? 1 : 0} armL={[30, -60, 60]} armR={[-30, -60, -60]} handL="fist" handR="fist" tilt={-6} look={[0, -0.3]} seed={9} />
       {[0, 1, 2].map((i) => (
         <path key={i} transform={`translate(${300 + i * 240} ${380 + Math.sin(f / 4 + i) * 12}) scale(${pop(f, i * 4)})`} d="M0 -30 L8 -8 L30 0 L8 8 L0 30 L-8 8 L-30 0 L-8 -8 Z" fill="#ffe9a8" stroke={INK} strokeWidth={4} />
       ))}
@@ -670,7 +671,7 @@ const TnAldi: React.FC<SceneProps> = ({ w, d }) => {
       <Savanna f={f} />
       <Scale x={540} y={1300} s={1.6} kg={swing} red={swing > 0.6} />
       <Stamp x={540} y={760} t="+1 KG" p={st} size={150} />
-      <HoseChar x={900} y={1820} s={1.05} who="duru" beret gesture="facepalm" gT={gestureT(f, w(2) + 6, d)} seed={9} face="sad" />
+      <Who x={900} y={1820} s={1.05} who="duru" beret gesture="facepalm" gT={gestureT(f, w(2) + 6, d)} seed={9} face="sad" />
     </Cam>
   );
 };
@@ -704,7 +705,7 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
     >
       <Room />
       {lazy || !lift ? (
-        <HoseChar
+        <Who
           x={D.x}
           y={D.y}
           s={D.s}
@@ -722,7 +723,7 @@ const TnTavsiye: React.FC<SceneProps> = ({ w }) => {
         />
       ) : (
         <g>
-          <HoseChar x={D.x} y={D.y} s={D.s} who="duru" beret bounce={bnc} armR={armUp} armL={armUpL} handR="fist" handL="fist" face="grin" seed={9} />
+          <Who x={D.x} y={D.y} s={D.s} who="duru" beret bounce={bnc} armR={armUp} armL={armUpL} handR="fist" handL="fist" face="grin" seed={9} />
           <Dumbbell x={hR[0]} y={hR[1] - 30} s={1.35} r={-8} />
           <Dumbbell x={hL[0]} y={hL[1] - 30} s={1.35} r={8} />
           <circle cx={hR[0] - 40} cy={hR[1] + 160} r={50} fill="#ffe9a8" opacity={0.25 + 0.25 * up} />
@@ -830,7 +831,7 @@ const TnVoom: React.FC<SceneProps> = ({ w }) => {
       {!voom ? (
         <Cam f={f} keys={[[0, 420, 1000, 1.25], [w(3), 480, 900, 1.1]]}>
           <Savanna f={f} />
-          <HoseChar x={DOC.x} y={DOC.y} s={DOC.s} who="doktor" seed={2} face="sad" lid={0.3} look={[1, -0.4]} />
+          <Who x={DOC.x} y={DOC.y} s={DOC.s} who="doktor" seed={2} face="sad" lid={0.3} look={[1, -0.4]} />
           {/* 6. hafta takvimi: içinden kurt bakar; "geçti"de yırtılır */}
           <g transform={`translate(${720 + tear * 260} ${820 - tear * 300}) rotate(${tear * 40})`} opacity={1 - tear}>
             <Calendar x={0} y={0} n={6} s={1.1} />
@@ -845,7 +846,7 @@ const TnVoom: React.FC<SceneProps> = ({ w }) => {
       ) : (
         <Cam f={f} keys={[[w(5), 560, 940, 1.0], [w(7), 600, 900, 1.08], [w(9), 640, 860, 1.15], [w(11) + 12, 600, 900, 1.05]]}>
           <Room />
-          <HoseChar
+          <Who
             x={270}
             y={1760}
             s={1.05}
@@ -895,9 +896,9 @@ const TnSevgi: React.FC<SceneProps> = ({ w }) => {
       <g transform={`translate(${-push * 520} 0) rotate(${-push * 12} 300 1700)`}>
         <Scale x={300} y={1740} s={0.62} kg={0} />
       </g>
-      <HoseChar x={-200 + inY * 400} y={1740} s={1.2} who="yunus" seed={4} look={[1, 0]} face={hug > 0.3 ? "grin" : "smile"} gesture={hug > 0 ? "cheer" : "rest"} gT={hug} />
-      <HoseChar x={1280 - inY * 400} y={1740} s={1.2} who="arkadas" seed={6} look={[-1, 0]} face={hug > 0.3 ? "grin" : "smile"} gesture={hug > 0 ? "cheer" : "rest"} gT={hug} gSide="L" />
-      <HoseChar x={540} y={1780} s={1.35} who="duru" beret seed={9} face={f < w(2) ? "sad" : "smile"} look={f < w(2) ? [0, 0.6] : f < w(9) ? [-1, 0] : [0, 0]} laugh={interpolate(f, [w(9), w(9) + 6, w(10) + 30, w(10) + 40], [0, 1, 1, 0], clamp)} />
+      <Who x={-200 + inY * 400} y={1740} s={1.2} who="yunus" seed={4} look={[1, 0]} face={hug > 0.3 ? "grin" : "smile"} gesture={hug > 0 ? "cheer" : "rest"} gT={hug} />
+      <Who x={1280 - inY * 400} y={1740} s={1.2} who="arkadas" seed={6} look={[-1, 0]} face={hug > 0.3 ? "grin" : "smile"} gesture={hug > 0 ? "cheer" : "rest"} gT={hug} gSide="L" />
+      <Who x={540} y={1780} s={1.35} who="duru" beret seed={9} face={f < w(2) ? "sad" : "smile"} look={f < w(2) ? [0, 0.6] : f < w(9) ? [-1, 0] : [0, 0]} laugh={interpolate(f, [w(9), w(9) + 6, w(10) + 30, w(10) + 40], [0, 1, 1, 0], clamp)} />
       <Hearts f={f} at={w(9)} x={540} y={1000} />
     </Cam>
   );
@@ -907,7 +908,7 @@ const TnSevgi: React.FC<SceneProps> = ({ w }) => {
 const OpeningFrame: React.FC<{ f: number; wink?: boolean; lens?: number }> = ({ f, wink = false, lens = 1 }) => (
   <>
     <Room />
-    <HoseChar x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret armR={ARM_PILL} handR="fist" look={[1, -0.4]} face="smile" seed={9} />
+    <Who x={DURU1.x} y={DURU1.y} s={DURU1.s} who="duru" beret armR={ARM_PILL} handR="fist" look={[1, -0.4]} face="smile" seed={9} />
     <Pill x={PILL_AT[0]} y={PILL_AT[1] - 30} s={1.2} f={f} wink={wink} glow={0} />
     {lens > 0 ? (
       <g opacity={lens}>
@@ -932,9 +933,9 @@ const TnSon: React.FC<SceneProps> = ({ w, d }) => {
       {!opening ? (
         <Cam f={f} keys={[[0, 540, 940, 1.05], [w(2), 600, 900, 1.2], [w(4), 600, 900, 1.2]]}>
           <Room />
-          <HoseChar x={200} y={1760} s={1.1} who="yunus" seed={4} look={[1, 0]} face="smile" />
-          <HoseChar x={900} y={1760} s={1.1} who="arkadas" seed={6} look={[-1, 0]} face="smile" />
-          <HoseChar x={560} y={1780} s={1.35} who="duru" beret seed={9} gesture={fly > 0 ? "point" : "explain"} gT={fly > 0 ? 1 - fly : gestureT(f, w(1), w(4))} face="grin" look={[0.6, -0.4]} wink={f >= w(2) && f < w(2) + 8} />
+          <Who x={200} y={1760} s={1.1} who="yunus" seed={4} look={[1, 0]} face="smile" />
+          <Who x={900} y={1760} s={1.1} who="arkadas" seed={6} look={[-1, 0]} face="smile" />
+          <Who x={560} y={1780} s={1.35} who="duru" beret seed={9} gesture={fly > 0 ? "point" : "explain"} gT={fly > 0 ? 1 - fly : gestureT(f, w(1), w(4))} face="grin" look={[0.6, -0.4]} wink={f >= w(2) && f < w(2) + 8} />
           {/* kâğıt uçak: önce elde katlanır, "gönder"de kameraya fırlar ve ekranı kaplar */}
           {(() => {
             const sc = 0.6 + fold * 0.4 + fly * fly * 14;
