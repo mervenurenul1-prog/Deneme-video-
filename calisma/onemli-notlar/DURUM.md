@@ -1,5 +1,9 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> 22 KREATİN 1930 STİLİ İPTAL (30 Ekim gece — EN GÜNCEL) <<<
+- Yunus + Duru (rubber hose) kreatin denendi, sessiz önizleme izlendi → kullanıcı: "iptal, eskiye dönüyoruz, bizim seriye".
+  Kod/video buluttan silindi (dal main'e geri alındı). Sıradaki: kreatin eski seri stilinde mi yapılacak — kullanıcıya SOR.
+
 ## >>> KARAR (30 Ekim akşam — EN GÜNCEL, ÖNCE BUNU OKU) <<<
 - **Heykel avatarlar (fitness/pilates tanrıçası + erkek tanrı) YALNIZ VOOM spor programı tanıtımı için.** Bilgi/mit videolarında
   KULLANILMAZ. Kullanıcı: "bunlar Wom spor programımız için avatarlarımız, sadece onun için kullanacağız".
