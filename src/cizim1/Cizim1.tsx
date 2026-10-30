@@ -8,6 +8,7 @@ import { YONT_SCENES } from "../heykel/Yontulmadi";
 import { ARAMA_SCENES } from "../heykel/Arama";
 import { BASLA_SCENES } from "../heykel/Basla";
 import { DEMO_SCENES } from "../heykel/Demo";
+import { BACAK_SCENES } from "../heykel/Bacak";
 import {
   AbsoluteFill,
   Audio,
@@ -58,7 +59,7 @@ type SceneProps = { d: number; w: (i: number) => number };
 // Önceki sahneden kararmadan, aynı karede devam eden sahneler (sahne sonu = bu sahnenin ilk karesi)
 const SEAMLESS = new Set(["ig-tarih"]);
 // tenya sahneleri (diyalog) her iki stilde de sert kesmeyle geçer
-const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("gc-") || v.startsWith("yn-") || v.startsWith("ar-") || v.startsWith("bs-");
+const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("gc-") || v.startsWith("yn-") || v.startsWith("ar-") || v.startsWith("bs-") || v.startsWith("bc-");
 
 // Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
 const LOOP_FRAMES = 14;
@@ -252,6 +253,14 @@ const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   // VOOM tanıtımı "gizli çekim" (heykel): odak bip, savrulma, donma, bildirim
   // VOOM tanıtımı "bir günde yontulmadı": odak bip, silme, keski vuruşları, bildirim
+  // VOOM tanıtımı "bacak günü" (erkek, Yunus)
+  "bc-kanca": (w) => [[2, "ding", 0.3], [w(6), "tak", 0.35], [w(8), "whoosh", 0.25]],
+  "bc-kraker": (w) => [[w(5), "whoosh", 0.2], [w(6), "boing", 0.3], [w(7), "tak", 0.4]],
+  "bc-buyuk": (w) => [[w(2), "kalem", 0.3], [w(10), "yuksel", 0.2]],
+  "bc-voom": (w) => [[2, "sihir", 0.25], [w(2), "pop", 0.3]],
+  "bc-koc": (w) => [[w(2), "ding", 0.3], [w(7), "pop", 0.3]],
+  "bc-yanar": (w) => [[w(2), "yuksel", 0.25], [w(5), "boom", 0.3]],
+  "bc-son": (w) => [[2, "pirilti", 0.3], [w(4), "kagit", 0.3]],
   // VOOM tanıtımı "bugün başla": ilk karede dambıl yere çarpar
   "bs-kanca": (w) => [[2, "adim", 0.3], [16, "adim", 0.25], [w(4), "pop", 0.3]],
   "bs-sorular": (w) => [[2, "pop", 0.3], [w(5) - 4, "whoosh", 0.3], [w(8) - 4, "whoosh", 0.3], [w(9), "alarm", 0.12]],
@@ -24887,6 +24896,7 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   ...ARAMA_SCENES,
   ...BASLA_SCENES,
   ...DEMO_SCENES,
+  ...BACAK_SCENES,
   "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,

@@ -7,10 +7,11 @@ import { prog, useImgReady } from "./GizliCekim";
 type SceneProps = { d: number; w: (i: number) => number };
 
 // base: görselin yolu (uzantısız); base-bg.jpg = karakteri silinmiş (inpaint) arka plan, base-cut.png = dekupe, base-glow.png = damar ışığı
-export const Alive: React.FC<{ f: number; d: number; base: string; push?: number; pulse?: number; ox?: number; oy?: number; flat?: boolean }> = ({ f, d, base, push = 0.12, pulse = 1.2, ox = 540, oy = 760, flat = false }) => {
+export const Alive: React.FC<{ f: number; d: number; base: string; push?: number; pulse?: number; ox?: number; oy?: number; flat?: boolean; glowAmt?: number }> = ({ f, d, base, push = 0.12, pulse = 1.2, ox = 540, oy = 760, flat = false, glowAmt = 1 }) => {
   const id = useId().replace(/:/g, "");
-  const full = staticFile(`${base}-bg.jpg`);
-  const cut = staticFile(`${base}-cut.png`);
+  // flat: tek katman (fotoğrafın kendisi), arka plan ayrılmaz
+  const full = staticFile(flat ? `${base}.png` : `${base}-bg.jpg`);
+  const cut = staticFile(flat ? `${base}.png` : `${base}-cut.png`);
   const glow = staticFile(`${base}-glow.png`);
   useImgReady(full);
   useImgReady(cut);
@@ -24,7 +25,7 @@ export const Alive: React.FC<{ f: number; d: number; base: string; push?: number
   // nabız: her pulse saniyede bir tepe (tekrar ritmi)
   const ph = (f / 30 / pulse) % 1;
   const beat = Math.pow(Math.max(0, Math.sin(ph * Math.PI)), 2);
-  const g = 0.35 + 0.65 * beat;
+  const g = (0.35 + 0.65 * beat) * glowAmt;
   const sweep = ((f / 30) % 3) / 3;
   return (
     <g>
@@ -46,7 +47,7 @@ export const Alive: React.FC<{ f: number; d: number; base: string; push?: number
       {/* ön plan: dekupe karakter + damar ışığı */}
       <g transform={`translate(${ox + px * 18} ${oy}) scale(${zf}) translate(${-ox} ${-oy})`}>
         <g transform={`translate(540 1700) scale(1 ${breath}) translate(-540 -1700)`}>
-          <image href={flat ? staticFile(`${base}.png`) : cut} x={0} y={0} width={1080} height={1920} preserveAspectRatio="xMidYMid slice" />
+          <image href={cut} x={0} y={0} width={1080} height={1920} preserveAspectRatio="xMidYMid slice" />
           <image href={glow} x={0} y={0} width={1080} height={1920} preserveAspectRatio="xMidYMid slice" filter={`url(#gl${id})`} opacity={0.9 * g} />
           <image href={glow} x={0} y={0} width={1080} height={1920} preserveAspectRatio="xMidYMid slice" opacity={0.55 * g} />
         </g>
