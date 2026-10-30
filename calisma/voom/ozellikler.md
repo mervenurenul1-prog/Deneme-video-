@@ -22,4 +22,13 @@ Kullanıcı (23 Ekim): reklam yok; her videoda farklı bir özellik, ya tek cüm
 9. **Bugün ekranı**: "✓ BUGÜN TAMAM", 87 dk · 19 set · 7.830 kg, sıradaki gün.
 
 ## Kullanım kaydı
+- **KURAL (kullanıcı, 29 Ekim): her videoda FARKLI özellik + FARKLI cümle + FARKLI ekran. Aynı fotoğrafı/cümleyi tekrarlama;
+  gerekirse kullanıcıdan yeni ekran görüntüsü/video iste.** Daha önce kullanılan cümleler: "planını VOOM hazırlar", "koç cebinde",
+  "sen ne istiyorsan o", "koçuna söyle, programına eklesin" (korse), "sarkan bölgene göre planlar" (tüp mide), "tabağı seninle
+  kurar", "bir dokunuş uzakta". Kullanılan ekranlar: program.jpg (senin için kararlar), koc.jpg (15 doğum).
+- 22 kreatin: **suplement hatırlatıcı** (gerçek ekran `public/app/suplement-kreatin.jpg`: "Kreatin 5g · her gün, saate bağımsız";
+  cümle: "VOOM'daki suplement hatırlatıcın her sabah haber verir, unutmazsın.").
+- 21 tenya: **6 haftalık "Yolculuğun" ekranı** (H1 Oryantasyon → H6 Kapanış → HEDEF "6 hafta sonunda buraya hazır olacaksın";
+  kullanıcının gönderdiği ekran `public/app/program-6hafta.jpg`). Cümle: "Doktorun altı haftası kurtla geçti. Seninki VOOM'la
+  geçsin: altı haftanın sonunda hedefine hazır olursun."
 - 11 ekim (taslak): program ekranı.

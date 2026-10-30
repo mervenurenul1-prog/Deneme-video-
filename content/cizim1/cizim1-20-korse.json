@@ -1,0 +1,83 @@
+{
+  "id": "cizim1-20-korse",
+  "title": "Bel korsesi",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.2,
+  "scenes": [
+    {
+      "visual": "kr-kanca2",
+      "voice": "Korse takıyorsun ama sabah aynaya bakınca bel yine aynı.",
+      "keys": [
+        "Korse",
+        "aynı."
+      ],
+      "say": "Korse takıyorsun ama sabah aynaya bakınca bel yine aynı."
+    },
+    {
+      "visual": "kr-tarih",
+      "voice": "1995'te Kraliçe Elizabeth'in balmumu heykeli onarılırken altından 1603'ten kalma bir korse çıktı. Daha eskisi 1598'de bir mezardan çıktı. Korseli kadınların iskeletlerinde kaburgalar içe bükülmüş: yağ gitmemiş, kemik yer değiştirmiş.",
+      "say": "1995'te Kraliçe Elizabeth'in balmumu heykeli onarılırken altından 1603'ten kalma bir korse çıktı. Daha eskisi, ıı, 1598'de bir mezardan çıktı. Korseli kadınların iskeletlerinde kaburgalar içe bükülmüş: yağ gitmemiş, kemik yer değiştirmiş.",
+      "keys": [
+        "Elizabeth'in",
+        "1603'ten",
+        "1598'de",
+        "mezardan",
+        "kaburgalar",
+        "kemik"
+      ]
+    },
+    {
+      "visual": "kr-sebep",
+      "voice": "Çünkü korse yağ eritmez, sadece sıkıştırır; giden şey ter, ilk bardak suyla geri gelir.",
+      "say": "Çünkü korse yağ eritmez, sadece sıkıştırır; giden şey, hani, ter, ilk bardak suyla geri gelir.",
+      "keys": [
+        "eritmez,",
+        "sıkıştırır;",
+        "ter,",
+        "bardak"
+      ]
+    },
+    {
+      "visual": "kr-terskose",
+      "voice": "Tek faydası: mideni sıkar, az yersin.",
+      "say": "Tek faydası: mideni sıkar, az yersin.",
+      "keys": [
+        "faydası:",
+        "mideni",
+        "az"
+      ]
+    },
+    {
+      "visual": "kr-tavsiye",
+      "voice": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda buna vakum diyoruz.",
+      "say": "Senin zaten doğuştan bir korsen var: ıı, karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda buna vakum diyoruz.",
+      "keys": [
+        "doğuştan",
+        "korsen",
+        "derin",
+        "on",
+        "saniye",
+        "vakum"
+      ]
+    },
+    {
+      "visual": "kr-son",
+      "voice": "İnce bel hedefini VOOM'daki koçuna söyle, vakumu programına eklesin. Bunu korse takan arkadaşına gönder ve şunu söyle:",
+      "say": "İnce bel hedefini VOOM'daki koçuna söyle, vakumu programına eklesin. Bunu korse takan arkadaşına gönder ve şunu söyle:",
+      "keys": [
+        "VOOM'daki",
+        "koçuna",
+        "gönder"
+      ]
+    }
+  ]
+}

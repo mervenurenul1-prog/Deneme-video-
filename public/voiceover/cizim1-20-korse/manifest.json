@@ -1,0 +1,542 @@
+{
+  "scenes": [
+    {
+      "voice": "Korse takıyorsun ama sabah aynaya bakınca bel yine aynı.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-20-korse/1-mvs69vua.mp3",
+      "durationInSeconds": 3.70068,
+      "words": [
+        {
+          "word": "Korse",
+          "start": 0,
+          "end": 0.2667
+        },
+        {
+          "word": "takıyorsun",
+          "start": 0.3333,
+          "end": 0.8667
+        },
+        {
+          "word": "ama",
+          "start": 1.0667,
+          "end": 1.2667
+        },
+        {
+          "word": "sabah",
+          "start": 1.4667,
+          "end": 1.6667
+        },
+        {
+          "word": "aynaya",
+          "start": 1.7333,
+          "end": 2
+        },
+        {
+          "word": "bakınca",
+          "start": 2.0667,
+          "end": 2.4667
+        },
+        {
+          "word": "bel",
+          "start": 2.7333,
+          "end": 2.9333
+        },
+        {
+          "word": "yine",
+          "start": 2.9667,
+          "end": 3.1333
+        },
+        {
+          "word": "aynı.",
+          "start": 3.2,
+          "end": 3.7333
+        }
+      ]
+    },
+    {
+      "voice": "1995'te Kraliçe Elizabeth'in balmumu heykeli onarılırken altından 1603'ten kalma bir korse çıktı. Daha eskisi 1598'de bir mezardan çıktı. Korseli kadınların iskeletlerinde kaburgalar içe bükülmüş: yağ gitmemiş, kemik yer değiştirmiş.",
+      "say": "1995'te Kraliçe Elizabeth'in balmumu heykeli onarılırken altından 1603'ten kalma bir korse çıktı. Daha eskisi, ıı, 1598'de bir mezardan çıktı. Korseli kadınların iskeletlerinde kaburgalar içe bükülmüş: yağ gitmemiş, kemik yer değiştirmiş.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-20-korse/2-mvs6a0kp.mp3",
+      "durationInSeconds": 14.672109,
+      "words": [
+        {
+          "word": "1995'te",
+          "start": 0,
+          "end": 1.2
+        },
+        {
+          "word": "Kraliçe",
+          "start": 1.3333,
+          "end": 1.6667
+        },
+        {
+          "word": "Elizabeth'in",
+          "start": 1.7333,
+          "end": 2.2
+        },
+        {
+          "word": "balmumu",
+          "start": 2.2667,
+          "end": 2.6667
+        },
+        {
+          "word": "heykeli",
+          "start": 2.7333,
+          "end": 3
+        },
+        {
+          "word": "onarılırken",
+          "start": 3.0667,
+          "end": 3.6
+        },
+        {
+          "word": "altından",
+          "start": 3.8,
+          "end": 4.2667
+        },
+        {
+          "word": "1603'ten",
+          "start": 4.3333,
+          "end": 5
+        },
+        {
+          "word": "kalma",
+          "start": 5.0667,
+          "end": 5.2667
+        },
+        {
+          "word": "bir",
+          "start": 5.3333,
+          "end": 5.4
+        },
+        {
+          "word": "korse",
+          "start": 5.4667,
+          "end": 5.7333
+        },
+        {
+          "word": "çıktı.",
+          "start": 5.7667,
+          "end": 6.1481
+        },
+        {
+          "word": "Daha",
+          "start": 6.3814,
+          "end": 6.5148
+        },
+        {
+          "word": "eskisi",
+          "start": 6.5814,
+          "end": 7.1814
+        },
+        {
+          "word": "1598'de",
+          "start": 7.3814,
+          "end": 8.5148
+        },
+        {
+          "word": "bir",
+          "start": 8.5481,
+          "end": 8.5814
+        },
+        {
+          "word": "mezardan",
+          "start": 8.6481,
+          "end": 9.0481
+        },
+        {
+          "word": "çıktı.",
+          "start": 9.1148,
+          "end": 9.4481
+        },
+        {
+          "word": "Korseli",
+          "start": 9.6558,
+          "end": 9.9891
+        },
+        {
+          "word": "kadınların",
+          "start": 10.0558,
+          "end": 10.3891
+        },
+        {
+          "word": "iskeletlerinde",
+          "start": 10.4558,
+          "end": 11.1224
+        },
+        {
+          "word": "kaburgalar",
+          "start": 11.2558,
+          "end": 11.7224
+        },
+        {
+          "word": "içe",
+          "start": 11.7558,
+          "end": 11.9224
+        },
+        {
+          "word": "bükülmüş:",
+          "start": 11.9558,
+          "end": 12.4558
+        },
+        {
+          "word": "yağ",
+          "start": 12.5749,
+          "end": 12.7083
+        },
+        {
+          "word": "gitmemiş,",
+          "start": 12.7749,
+          "end": 13.3416
+        },
+        {
+          "word": "kemik",
+          "start": 13.4416,
+          "end": 13.7083
+        },
+        {
+          "word": "yer",
+          "start": 13.8083,
+          "end": 13.9083
+        },
+        {
+          "word": "değiştirmiş.",
+          "start": 13.9416,
+          "end": 14.7083
+        }
+      ]
+    },
+    {
+      "voice": "Çünkü korse yağ eritmez, sadece sıkıştırır; giden şey ter, ilk bardak suyla geri gelir.",
+      "say": "Çünkü korse yağ eritmez, sadece sıkıştırır; giden şey, hani, ter, ilk bardak suyla geri gelir.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-20-korse/3-mvs6a2yy.mp3",
+      "durationInSeconds": 5.746939,
+      "words": [
+        {
+          "word": "Çünkü",
+          "start": 0,
+          "end": 0.2667
+        },
+        {
+          "word": "korse",
+          "start": 0.3333,
+          "end": 0.6667
+        },
+        {
+          "word": "yağ",
+          "start": 0.7333,
+          "end": 0.8667
+        },
+        {
+          "word": "eritmez,",
+          "start": 0.9333,
+          "end": 1.6
+        },
+        {
+          "word": "sadece",
+          "start": 1.6667,
+          "end": 2
+        },
+        {
+          "word": "sıkıştırır;",
+          "start": 2.0667,
+          "end": 2.7607
+        },
+        {
+          "word": "giden",
+          "start": 2.8499,
+          "end": 3.0274
+        },
+        {
+          "word": "şey",
+          "start": 3.0941,
+          "end": 3.4274
+        },
+        {
+          "word": "ter,",
+          "start": 3.8941,
+          "end": 4.2378
+        },
+        {
+          "word": "ilk",
+          "start": 4.3378,
+          "end": 4.4378
+        },
+        {
+          "word": "bardak",
+          "start": 4.5378,
+          "end": 4.7712
+        },
+        {
+          "word": "suyla",
+          "start": 4.8378,
+          "end": 5.0378
+        },
+        {
+          "word": "geri",
+          "start": 5.1045,
+          "end": 5.2378
+        },
+        {
+          "word": "gelir.",
+          "start": 5.3045,
+          "end": 5.7712
+        }
+      ]
+    },
+    {
+      "voice": "Tek faydası: mideni sıkar, az yersin.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-20-korse/4-mvs6c3k7.mp3",
+      "durationInSeconds": 2.612245,
+      "words": [
+        {
+          "word": "Tek",
+          "start": 0.0,
+          "end": 0.2
+        },
+        {
+          "word": "faydası:",
+          "start": 0.2333,
+          "end": 0.7333
+        },
+        {
+          "word": "mideni",
+          "start": 1.0,
+          "end": 1.3333
+        },
+        {
+          "word": "sıkar,",
+          "start": 1.4,
+          "end": 1.9333
+        },
+        {
+          "word": "az",
+          "start": 2.0333,
+          "end": 2.1333
+        },
+        {
+          "word": "yersin.",
+          "start": 2.2333,
+          "end": 2.6344
+        }
+      ]
+    },
+    {
+      "voice": "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda buna vakum diyoruz.",
+      "say": "Senin zaten doğuştan bir korsen var: ıı, karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut. Salonda buna vakum diyoruz.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-20-korse/5-mvs6a7hw.mp3",
+      "durationInSeconds": 7.771428,
+      "words": [
+        {
+          "word": "Senin",
+          "start": 0,
+          "end": 0.2667
+        },
+        {
+          "word": "zaten",
+          "start": 0.3333,
+          "end": 0.6667
+        },
+        {
+          "word": "doğuştan",
+          "start": 0.7333,
+          "end": 1.0667
+        },
+        {
+          "word": "bir",
+          "start": 1.1333,
+          "end": 1.2
+        },
+        {
+          "word": "korsen",
+          "start": 1.2333,
+          "end": 1.5333
+        },
+        {
+          "word": "var:",
+          "start": 1.6,
+          "end": 1.9773
+        },
+        {
+          "word": "karnının",
+          "start": 2.3107,
+          "end": 2.7107
+        },
+        {
+          "word": "derin",
+          "start": 2.7773,
+          "end": 2.9773
+        },
+        {
+          "word": "kası.",
+          "start": 3.044,
+          "end": 3.358
+        },
+        {
+          "word": "Nefesini",
+          "start": 3.4147,
+          "end": 3.748
+        },
+        {
+          "word": "ver,",
+          "start": 3.8147,
+          "end": 4.2813
+        },
+        {
+          "word": "göbeğini",
+          "start": 4.3147,
+          "end": 4.6813
+        },
+        {
+          "word": "içe",
+          "start": 4.7147,
+          "end": 4.8813
+        },
+        {
+          "word": "çek,",
+          "start": 4.948,
+          "end": 5.4147
+        },
+        {
+          "word": "on",
+          "start": 5.4813,
+          "end": 5.548
+        },
+        {
+          "word": "saniye",
+          "start": 5.6147,
+          "end": 5.8813
+        },
+        {
+          "word": "tut.",
+          "start": 5.948,
+          "end": 6.2147
+        },
+        {
+          "word": "Salonda",
+          "start": 6.3311,
+          "end": 6.6644
+        },
+        {
+          "word": "buna",
+          "start": 6.7311,
+          "end": 6.8644
+        },
+        {
+          "word": "vakum",
+          "start": 6.9311,
+          "end": 7.1978
+        },
+        {
+          "word": "diyoruz.",
+          "start": 7.2311,
+          "end": 7.7978
+        }
+      ]
+    },
+    {
+      "voice": "İnce bel hedefini VOOM'daki koçuna söyle, vakumu programına eklesin. Bunu korse takan arkadaşına gönder ve şunu söyle:",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-20-korse/6-mvs6a9np.mp3",
+      "durationInSeconds": 5.986394,
+      "words": [
+        {
+          "word": "İnce",
+          "start": 0,
+          "end": 0.2
+        },
+        {
+          "word": "bel",
+          "start": 0.2667,
+          "end": 0.4
+        },
+        {
+          "word": "hedefini",
+          "start": 0.4333,
+          "end": 0.8667
+        },
+        {
+          "word": "VOOM'daki",
+          "start": 0.9333,
+          "end": 1.2667
+        },
+        {
+          "word": "koçuna",
+          "start": 1.3333,
+          "end": 1.6
+        },
+        {
+          "word": "söyle,",
+          "start": 1.6667,
+          "end": 2.2
+        },
+        {
+          "word": "vakumu",
+          "start": 2.3,
+          "end": 2.5333
+        },
+        {
+          "word": "programına",
+          "start": 2.6667,
+          "end": 2.9333
+        },
+        {
+          "word": "eklesin.",
+          "start": 3,
+          "end": 3.4294
+        },
+        {
+          "word": "Bunu",
+          "start": 3.4961,
+          "end": 3.6294
+        },
+        {
+          "word": "korse",
+          "start": 3.6628,
+          "end": 3.8961
+        },
+        {
+          "word": "takan",
+          "start": 3.9628,
+          "end": 4.1628
+        },
+        {
+          "word": "arkadaşına",
+          "start": 4.2294,
+          "end": 4.6294
+        },
+        {
+          "word": "gönder",
+          "start": 4.6628,
+          "end": 5.0294
+        },
+        {
+          "word": "ve",
+          "start": 5.0961,
+          "end": 5.2294
+        },
+        {
+          "word": "şunu",
+          "start": 5.2961,
+          "end": 5.4961
+        },
+        {
+          "word": "söyle:",
+          "start": 5.5294,
+          "end": 6.0294
+        }
+      ]
+    }
+  ],
+  "speed": 1.2
+}

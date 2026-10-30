@@ -1,5 +1,120 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> KARAR (30 Ekim akşam — EN GÜNCEL, ÖNCE BUNU OKU) <<<
+- **Heykel avatarlar (fitness/pilates tanrıçası + erkek tanrı) YALNIZ VOOM spor programı tanıtımı için.** Bilgi/mit videolarında
+  KULLANILMAZ. Kullanıcı: "bunlar Wom spor programımız için avatarlarımız, sadece onun için kullanacağız".
+- **22 KREATİN → Yunus + Duru (1930 rubber hose, `style: "hose"`, `src/avatar2/Hose.tsx`, tenya gibi) ile YENİDEN yapılacak.**
+  Metin aynı kalır (aşağıda); Duru'nun sesi = kullanıcının sesi, Yunus kendi sesi; sahne kurgusu tenya (`src/hose/Tenya.tsx`)
+  örnek alınır. Heykel sürümü (`src/heykel/Kreatin.tsx`, `22-kreatin-sessiz.mp4`) VOOM tanıtımında kalıp olarak durur.
+  Sıra: metinde konuşan dağılımı onayı → sessiz önizleme → onay → seslendirme (kredi).
+- **Ayrı iş: VOOM spor programı tanıtım videosu** heykel avatarlarla (pozlar `public/heykel/`, istemler
+  `calisma/animasyon/avatar-heykel.md`, ekranlar `calisma/voom/ekranlar/`). Önce metin önerisi, sonra sessiz önizleme.
+
+## >>> YENİ SOHBET BURADAN (30 Ekim — EN GÜNCEL) <<<
+- **22 KREATİN — YENİ "HEYKEL" STİLİNDE İLK VİDEO** (`cizim1-22-kreatin`, JSON `"style": "heykel"`, sahneler `src/heykel/Kreatin.tsx`
+  `kre-*`): fitness tanrıçası pozları tam ekran + kamera (görsel dışına taşmaz) + kartlar/kan tüpü/"SAÇ ÖLÇÜLMEDİ"/grafik/5 g/
+  haftalık tik/VOOM suplement ekranı (`public/app/suplement-kreatin.jpg`, gerçek ekran: "Kreatin 5g her gün") → kâğıt uçak döngüsü.
+  Metin (kullanıcı "evet"): "Kreatin kullanma, saçın dökülür." → 2009 Güney Afrika 20 ragbi oyuncusu 3 hafta, hormon arttı, saç
+  bakılmadı (%56 rakamı birincil kaynakta doğrulanamadı → söylenmiyor) → 2025 12 hafta 45 sporcu, hormon da saç da değişmedi →
+  günde 5 g, yükleme gerekmez, her gün → VOOM suplement hatırlatıcı (YENİ özellik) → "…gönder. Çünkü ona da şunu dediler:".
+  **Anlatıcı = KULLANICININ SESİ** (kd6P2…; kullanıcı: "kesinlikle kadın sesi"). Sessiz önizleme `22-kreatin-sessiz.mp4` (~30 sn)
+  → onay → seslendirme (~400 karakter, kredi harcar). Avatar pozları: `public/heykel/{fitness,erkek,pilates}/`.
+- **YENİ AVATAR KARARI: canlanan mermer heykel (Yunan tanrısı + tanrıçası), bordo şort + "voom." belli.** Sebep: VOOM hesabındaki
+  gerçekçi 3D manken (ekip lideri) tek videoda ~2000 takipçi getirdi; kullanıcının 15 videosu ~200. Konu/anlatım iyi, görsel zayıf
+  → gerçekçi, kaslı, güvenilir avatar. İstemler `calisma/animasyon/avatar-heykel.md`; kullanıcı ChatGPT'de üretip atacak; videolar
+  "1-2 video sonra". VOOM uygulama ekranları ve logo: `calisma/voom/ekranlar/` (kullanıcının ekran kaydından kareler; kayıt buluta
+  KONMADI — kullanıcı: "en az maliyet, video yerine kare çıkar"). Logo: beyaz küçük harf "voom" + fıstık yeşili nokta.
+- Kullanıcı: ekip içi rekabet değil, birbirine ilham olmak. Kullanıcı pazarlama/işletme, ekip arkadaşı yazılım; amaç uygulamayı satışa çıkarmak.
+
+## >>> YENİ SOHBET BURADAN (28 Ekim gece — EN GÜNCEL) <<<
+- **21b TENYA ESKİ STİL (30 Ekim):** kullanıcı aynı videoyu serinin eski avatarı (Yunus/sepya `Person`) + merak-gerilim müziğiyle
+  istedi ("bu sohbette yap"; açılan ayrı oturum durduruldu/arşivlendi). Çözüm: tenya sahneleri karakteri `Who` (`src/hose/cast.tsx`,
+  `CharCtx`) üzerinden çizer; `style: "hose"` → `HoseChar`, değilse Cizim1'deki `OldChar` (HoseChar arayüzü → `Person`, kollar 2
+  kemikli IK ile aynı el noktasına; kız karakter `female`, göbek 0.15; doktora safari şapkası). `cizim1-21b-tenya.json` = metin
+  birebir aynı, sesler `public/voiceover/cizim1-21b-tenya/` (KOPYA, kredisiz). Önizleme `21b-tenya-onizleme.mp4` → onay bekliyor.
+- **21 TENYA KISALTILDI (29 Ekim gece):** kullanıcı: "seslendirmeden ÖNCE kısaltıyoruz, 44 sn çok uzun" (DERS: süreyi seslendirmeden
+  önce 32-36 sn'ye indir) → 6 cümle kısaltıldı ve yeniden seslendirildi (değişmeyenler önbellekten), ses **1.3x** (kullanıcı:
+  "1.3'e çek"), video ~35 sn. Efekt sesleri eklendi (`SFX` `tn-*`); yeni ücretsiz efektler `public/sfx/{boing,yutkunma,sapirti,
+  yirtilma,gicirti}.mp3` (numpy). Müzik: kısık + konuşurken kısılır (`musicVolume`/`musicDuck`).
+- **21 TENYA SESLENDİRİLDİ (29 Ekim akşam):** kullanıcı "hadi" dedi; Yunus + Duru (kullanıcının sesi) ~740 karakter, 1.2x
+  (manifest elle /1.2), video 44,1 sn → `ornek-videolar/cizim1-pilot/21-tenya.mp4`. Müzik: **12 çizgi film kovalamaca**
+  (`public/music/1930-kovalamaca.mp3`, ücretsiz, `scripts/muzik-1930.py`; kullanıcı "21" yazdı → 12 diye yorumlandı, SÖYLENDİ).
+  Efekt sesi yok. Açık iş: İSTİYORUM yorumlarına dönüş düzeneği.
+- **21 TENYA — SON GÜNCEL (29 Ekim):** son kısım yenilendi (kullanıcı: "sonlar saçma, VOOM'a bağla, ayna kötü, motivasyon kötü,
+  'Oysa' bağlamıyor, kurt olduğu belli değilken 'kurt yutmana gerek yok' denmez, hep aynı VOOM cümlesi/fotoğrafı"):
+  tavsiye "Kurt da iğne de aynı şeyi der: sen hiçbir şey yapma. Kasını korumak ise tam tersini ister: haftada iki gün ağırlık." →
+  `tn-voom` "Doktorun altı haftası kurtla geçti. Seninki VOOM'la geçsin: altı haftalık ekibe katılmak istiyorsan yorumlara
+  İSTİYORUM yaz." (kullanıcının gönderdiği 6 haftalık "Yolculuğun" ekranı `public/app/program-6hafta.jpg`, haftalar yanar,
+  yorum kutusuna İSTİYORUM yazılır) → `tn-sevgi` "Ve şunu unutma: seni sevenler, sen daha bir kilo vermeden de seni
+  seviyordu." (oda, arkadaşlar gelir, tartı itilir, sarılma) → `tn-son` "Bunu, kendine fazla yüklenen arkadaşına gönder ve
+  sor:" (kâğıt uçak kameraya → açılış karesi). Ayna sahnesi ve "Sen yutar mıydın? Yorumlara yaz" yazısı ÇIKTI.
+  **AÇIK İŞ: "İSTİYORUM" yazanlara dönüş düzeneği YOK** (kullanıcı: "ona bakarız seninle") — paylaşmadan önce konuş (otomatik DM vb.).
+- **21 TENYA HAPI — YENİ STİLDE İLK VİDEO** (`cizim1-21-tenya`, JSON `"style": "hose"`, sahneler `src/hose/Tenya.tsx` `tn-*`).
+  Metin v4 kullanıcı onaylı ("önizleme oluştur"): Yunus "Zayıflamak için kurt yutar mıydın?" → Duru "Asla!" → "Yüz yıl önce bunu
+  hap diye sattılar." → tarih (tenya hapı; kurt var mıydı tartışmalı) → 2014 İngiliz doktor Kenya'da ineğin dilinden kist yuttu,
+  6 hafta → Duru "Kaç kilo verdi?" → "Bir kilo aldı." (+ ekranda "Sen yutar mıydın? Yorumlara yaz") → "Kurt da iğne de aynı
+  şeyi vaat ediyor…haftada iki gün ağırlık" (VOOM yalnız arka planda telefon) → MOTİVASYON (kullanıcı istedi): "Ve acele etme.
+  Seni sevenler tartıya bakmaz, sana bakar." → "Bunu, aynaya bakıp kendine kızan arkadaşına gönder. Ve ona da sor:" (döngü).
+  Duru replikleri KULLANICININ SESİ (sahne `voiceId` kd6P2…, stability 0.45 / similarity 0.95). Yan karakterler `doktor`
+  (safari şapkası, gözlük, bıyık; gerçek kişi değil, ad yok) ve `arkadas` (sarı saç). Sessiz önizleme
+  `ornek-videolar/cizim1-pilot/21-tenya-sessiz.mp4` (~38 sn tahmin; gerçek sesle değişir) → ONAY → seslendirme (~560 karakter).
+  Altyapı: `Cizim1Video` `style: "hose"` → kâğıt/toz yerine `OldFilm`, sert kesme; JSON `minEstimate` (kısa repliklerin
+  sessiz önizleme süresi). Efekt sesi (SFX) henüz yok; müzik merak-gerilim (1930'lar müziği ücretsiz üretilebilir — sor).
+- **YENİ SERİ AVATARLARI ONAYLANDI (kullanıcı: "çok iyi, yeni avatar bu"): 1930'lar "rubber hose" stili YUNUS + DURU.**
+  (Kullanıcı "yurtdışında olan ama Türkiye'ye gelmemiş bir avatar" istedi; 5 stil önerildi, 1'i seçti, "bize de benzet".)
+  - **Yunus** (erkek, anlatıcı): siyah şapka, iki yana kıvırcık bukle, çenede noktalı kirli sakal, gri kapüşonlu + siyah ceket,
+    kot, siyah ayakkabı. Ses: Yunus `Q5n6GDIjpN0pLOlycRFT`.
+  - **Duru** (kız; eski taslakta adı "Merve" idi): kâküllü uzun kahverengi saç, halka küpe, kırmızı bere, kırmızı dudak, beyaz
+    tişört + siyah ceket, kot, beyaz ayakkabı. **Sesi = kullanıcının kendi sesi** (klon v2 `kd6P2yodCccO2OzNoqOD`).
+  - **Sibel** yalnız ANNE sesi olarak kalır (Duru değil).
+  - Kod `src/avatar2/Hose.tsx`: `HoseChar` (who "yunus" | "duru"), `OldFilm` (sepya, gren, titreşim, çizik, kaynayan çizgi,
+    iris), `Stage`. **İnsansı davranışlar (kullanıcı: "hareket ve insansı davranışlar sende")**: `live` (düzensiz/çift göz
+    kırpma, kendiliğinden bakış kayması, nefes, ağırlık aktarma, saç gecikmesi), `talk` (hece ritminde ağız, vurguda baş, kaş),
+    `nod` (dinlerken onay), `surprise` (göz büyür, O ağız, şapka/bere havalanır, sıçrar), `laugh` (sarsılır, gözler kapanır),
+    `lid` (yarım kapak), jestler `gesture` + `gT = gestureT(f, başla, bitir)` (hazırlık → taşmalı çıkış → dönüş): wave, point,
+    explain, think, hips, shrug, thumbs, cheer, facepalm; `gSide` tek kollu jestin kolu. Hareket "ikişer kare" (12 fps hissi).
+  - Kompozisyonlar: `hose-sayfa` (karakter sayfası), `hose-klip` (8 sn perde + "VOOM sunar"), `hose-davranis` (12 sn sessiz
+    sohbet: anlatır/dinler, şaşırır, güler, omuz silker, düşünür, işaret, başparmak, el sallar). Çıktılar `ornek-videolar/avatar2/hose-*`.
+  - SIRADAKİ: kullanıcı davranış klibine bakar → bu stili bir konunun ilk 2-3 sahnesinde sessiz önizleme olarak dene
+    (Cizim1 sahneleri yerine `HoseChar`; konuşma `talk` kelime zamanlarından). Müzik gerekiyorsa ücretsiz 1930'lar müziği üret.
+- (eski) **Yunus v2 yarı gerçekçi taslak — kullanılmayacak, rubber hose seçildi.** **YENİ AVATAR (Yunus v2) TASLAĞI** — kullanıcı karakter sayfası attı (Merve + erkek "Ekip"): Yunus o erkeğe benzesin
+  (siyah şapka, kıvırcık koyu saç, kirli sakal, gri kapüşonlu + siyah ceket, kot) + taslaktaki ışık, kamera açıları,
+  doğal hareket. "Gerçek insan" İSTEMİYOR (yalnız örnek taslak verdi), çizim kalır. Kod `src/avatar2/Hero.tsx`
+  (`Hero`: ifade `mouth/brow/look/turn/talk`, `outfit` sokak/salon, `pockets`, `rim`, `live` = nefes, ağırlık aktarma,
+  düzensiz göz kırpma, mikro baş hareketi). Kompozisyonlar `avatar2-sayfa` (karakter sayfası) ve `avatar2-sinema`
+  (10 sn: gece sokak, lamba ışığı, genel → bel → yakın plan, alan derinliği, renk derecelendirme, film greni).
+  Kız karakter **Merve** de eklendi (`src/avatar2/Merve.tsx`, `avatar2-merve`: uzun dalgalı saç, perdeli kâkül, halka küpe,
+  beyaz tişört + deri ceket + kot, `beret`, salon = topuz + spor üstü + tayt; ifadeler soft/smile/grin/kiss/talk + `wink`).
+  Çıktılar `ornek-videolar/avatar2/`. **Kullanıcı onayı bekleniyor**; onaylanırsa Cizim1'deki `Person` yerine
+  geçecek (eski videolara dokunma). Avatar kuralı ("yüz değişmez") kullanıcı isteğiyle değişiyor.
+
+## >>> YENİ SOHBET BURADAN (28 Ekim — EN GÜNCEL) <<<
+- **20 BEL KORSESİ BİTTİ** (`cizim1-20-korse`, sahneler `kr-*`; kaynaklar `arastirma/20-korse.md`). Son video
+  `ornek-videolar/cizim1-pilot/20-korse.mp4` (Yunus 1.2x + müzik + efekt, 40,8 sn). Onay bekliyor; kullanıcıya kredisiz
+  kısaltma önerildi: sesi 1.3x yap (≈37,5 sn; manifestteki mp3'lere ek atempo, süre/kelime zamanları buna göre).
+  Son metin (sırası kullanıcı onaylı: KISA KANCA → hemen TARİH → sebep → ters köşe → tavsiye → VOOM → döngü):
+  1 `kr-kanca2` "Korse takıyorsun ama sabah aynaya bakınca bel yine aynı."
+  2 `kr-tarih` "1995'te Kraliçe Elizabeth'in balmumu heykeli onarılırken altından 1603'ten kalma bir korse çıktı. Daha eskisi
+    1598'de bir mezardan çıktı. Korseli kadınların iskeletlerinde kaburgalar içe bükülmüş: yağ gitmemiş, kemik yer değiştirmiş."
+  3 `kr-sebep` "Çünkü korse yağ eritmez, sadece sıkıştırır; giden şey ter, ilk bardak suyla geri gelir."
+  4 `kr-terskose` "Tek faydası: mideni sıkar, az yersin." (kullanıcı: ters köşe KALSIN ama kısa)
+  5 `kr-tavsiye` "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut.
+    Salonda buna vakum diyoruz." (kullanıcı: hareketin salondaki adı VAKUM söylensin; ekranda büyük lacivert VAKUM)
+  6 `kr-son` "İnce bel hedefini VOOM'daki koçuna söyle, vakumu programına eklesin. Bunu korse takan arkadaşına gönder ve
+    şunu söyle:" (VOOM SESLE — kullanıcı istedi; telefonda "+ Vakum · 10 sn" satırı + tik) → ilk kareye döngü.
+  Görsel: selülit dünyası (SelRoom/SelMirror), KADIN ana karakter (`KrWoman`, kıyafet üstünde gerçek bel korsesi `KrCorset`:
+  göğüs altı → kalça, belde daralır, ön kopça sırası, dikey doku; kullanıcının attığı mağaza fotoğrafı referans). Müze: zengin
+  kostümlü Elizabeth balmumu heykeli (`KrQueen`: bordo kadife, altın brokar, inci, mücevherli göğüslük, dantel yaka, taç),
+  beyaz eldivenli el göğüslüğü kaldırır → 1603 korsesi; `KrTomb` mum ışığında taş tabut "1598 · en eski korse"; iskelet vitrini
+  `KrRibs` (alt kaburgalar içe büküp kırmızı). Eski/kullanılmayan sahneler kodda duruyor (`kr-sabah`, `kr-ertesi`, `kr-ic`).
+  Elizabeth adı SESTE ve EKRANDA (kullanıcı onayı; 400 yıllık tarihî kişi — kural istisnası).
+- Kalan ElevenLabs kredisi ≈ 10.785 (28 Ekim, korse sonrası).
+- **SIRADAKİ:** 21 TENYA (metin onay bekliyor, `arastirma/21-tenya.md`), sonra 22 KREATİN SAÇ DÖKER Mİ (`konular/ONERILER.md`).
+- Kullanıcının attığı haber (BPT/Kafa TV): "Elon Musk: Hiçbir kız karın kaslarını 6 arabaya tercih etmez, salonu bırak işe git"
+  + bir TV sunucusu "katılıyorum". Söz hiçbir kaynakta BULUNAMADI (uydurma olabilir) → korseye konmadı. İleride ayrı video
+  olabilir: "Salonu bırak işe git" diyenlere cevap — Kosteas 2012 (J Labor Res 33(2):225-250, NLSY79): haftada 3+ gün spor
+  yapanlar %6-10 daha çok kazanıyor (isim vermeden).
+
 ## >>> YENİ SOHBET BURADAN (27 Ekim — EN GÜNCEL) <<<
 - **19 TÜP MİDE** (`cizim1-19-tup-mide`, `tm-*`): ekip arkadaşının "tartı her şeyi söylemiyor" videosundan uyarlama
   (referans olarak gidecek). Onaylı metin: "Tüp mide oldun, kırk kilo verdin ama el sallarken kolunun altı hâlâ
@@ -64,4 +179,4 @@ start/end /1.2, manifeste `"speed": 1.2` → `npm run render -- <id>` → `out/<
 
 ## Biten videolar (`ornek-videolar/cizim1-pilot/`)
 01 yağ nereye · 02 tartı · 03 on bin adım · 04 kadın-ağırlık · 05 boyun(-b) · 06 diz · 07 yaş · 09 kilo-hangimiz ·
-10 selülit (EN BEĞENİLEN) · 12 spot ışığı · 13 kardiyo · 15 doğum · 16 hafta sonu. 08 sauna paylaşıldı (dosyaları silindi, 25 Ekim).
+10 selülit (EN BEĞENİLEN) · 12 spot ışığı · 13 kardiyo · 15 doğum · 16 hafta sonu · 17 iğne · 20 korse. 08 sauna paylaşıldı (dosyaları silindi, 25 Ekim).

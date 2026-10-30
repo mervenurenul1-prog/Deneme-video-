@@ -1,4 +1,8 @@
 import { useEffect, useId, useState } from "react";
+import { GEST, HoseChar, mirror, mix, OldFilm, REST, type HoseArm, type HoseCharProps } from "../avatar2/Hose";
+import { CharCtx } from "../hose/cast";
+import { TENYA_SCENES } from "../hose/Tenya";
+import { KREATIN_SCENES } from "../heykel/Kreatin";
 import {
   AbsoluteFill,
   Audio,
@@ -48,6 +52,8 @@ type SceneProps = { d: number; w: (i: number) => number };
 
 // Önceki sahneden kararmadan, aynı karede devam eden sahneler (sahne sonu = bu sahnenin ilk karesi)
 const SEAMLESS = new Set(["ig-tarih"]);
+// tenya sahneleri (diyalog) her iki stilde de sert kesmeyle geçer
+const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-");
 
 // Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
 const LOOP_FRAMES = 14;
@@ -61,7 +67,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
   // Sahnenin sessiz açılışı (lead): kelimeler ve ses o kadar kaydırılır
   const leadOf = (i: number) => leadSeconds(cizim, voiceover, i);
   const mainWords = (i: number) =>
-    wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i), cizim.speed).map((x) => ({ ...x, start: x.start + leadOf(i), end: x.end + leadOf(i) }));
+    wordsFor(cizim.scenes[i].voice, audioFor(cizim, voiceover, i), cizim.speed, cizim.minEstimate).map((x) => ({ ...x, start: x.start + leadOf(i), end: x.end + leadOf(i) }));
   // altyazı: varsa kanca (intro) kelimeleri + asıl kelimeler; w(i) yalnız asıl kelimeleri sayar
   const wordsAt = (i: number) => [...introWords(cizim, voiceover, i), ...mainWords(i)];
   const wOf = (i: number) => {
@@ -69,10 +75,24 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
     return (k: number) => Math.round((words[Math.min(k, words.length - 1)]?.start ?? 0) * fps);
   };
   const First = SCENES[cizim.scenes[0].visual] ?? Missing;
+  const speechSpans: [number, number][] = [];
+  {
+    let at = 0;
+    cizim.scenes.forEach((_, i) => {
+      const ws = wordsAt(i);
+      if (ws.length) speechSpans.push([at + Math.round(ws[0].start * fps), at + Math.round(ws[ws.length - 1].end * fps)]);
+      at += durations[i];
+    });
+  }
+  // 1930'lar stili: kâğıt/ışık/toz yerine eski film katmanı, sahneler arası sert kesme (çizgi film kurgusu)
+  const hose = cizim.style === "hose";
+  const kind = cizim.style ?? "cizim";
+  const flat = kind !== "cizim"; // kâğıt/ışık/toz katmanı yok
   return (
     <AbsoluteFill style={{ backgroundColor: C.paper, fontFamily }}>
-      <Paper />
-      <Beams />
+      {flat ? null : <Paper />}
+      {flat ? null : <Beams />}
+      <CharCtx.Provider value={hose ? HoseChar : OldChar}>
       {cizim.scenes.map((scene, i) => {
         const start = from;
         from += durations[i];
@@ -83,9 +103,9 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         const Visual = SCENES[scene.visual] ?? Missing;
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.visual}`}>
-            <Shot d={durations[i]} zoom={ZOOM[scene.visual]} noIn={(loop && i === 0) || SEAMLESS.has(scene.visual)} noOut={(loop && i === last) || (i < last && SEAMLESS.has(cizim.scenes[i + 1].visual))}>
+            <Frame kind={kind} d={durations[i]} scene={scene.visual} noIn={(loop && i === 0) || seamless(scene.visual)} noOut={(loop && i === last) || (i < last && seamless(cizim.scenes[i + 1].visual))}>
               <Visual d={durations[i]} w={w} />
-            </Shot>
+            </Frame>
             <Captions words={words} keys={scene.keys} hideFrom={loop && i === last ? durations[i] - LOOP_FRAMES : undefined} />
             {intro ? <Audio src={staticFile(intro.file)} /> : null}
             {audio ? (
@@ -94,7 +114,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
               </Sequence>
             ) : null}
             {/* sahne geçişi + o sahnedeki olayların efekt sesleri */}
-            {i > 0 && !SEAMLESS.has(scene.visual) ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
+            {i > 0 && !seamless(scene.visual) && !flat ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
             {tidySfx(SFX[scene.visual]?.(w, durations[i]) ?? []).map(([at, file, vol], k) =>
               at >= 0 && at < durations[i] ? (
                 <Sequence key={k} from={Math.round(at)} layout="none">
@@ -109,20 +129,54 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         <Sequence from={durationInFrames - LOOP_FRAMES} durationInFrames={LOOP_FRAMES} name="dongu">
           <LoopIn>
             <Freeze frame={0}>
-              <Paper />
-              <Beams />
-              <Shot d={durations[0]} zoom={ZOOM[cizim.scenes[0].visual]} noIn>
+              {flat ? null : <Paper />}
+              {flat ? null : <Beams />}
+              <Frame kind={kind} d={durations[0]} scene={cizim.scenes[0].visual} noIn>
                 <First d={durations[0]} w={wOf(0)} />
-              </Shot>
+              </Frame>
               <Captions words={wordsAt(0)} keys={cizim.scenes[0].keys} />
             </Freeze>
           </LoopIn>
         </Sequence>
       ) : null}
-      {cizim.music ? <Music src={cizim.music} loop={loop} /> : null}
-      <Dust loop={loop} />
+      </CharCtx.Provider>
+      {cizim.music ? <Music src={cizim.music} loop={loop} gain={cizim.musicVolume} duck={cizim.musicDuck} speech={speechSpans} /> : null}
+      {flat ? null : <Dust loop={loop} />}
     </AbsoluteFill>
   );
+};
+
+const Frame: React.FC<{ kind: string; d: number; scene: string; noIn?: boolean; noOut?: boolean; children: React.ReactNode }> = ({ kind, d, scene, noIn, noOut, children }) =>
+  kind === "hose" ? (
+    <FilmFrame>{children}</FilmFrame>
+  ) : kind === "heykel" ? (
+    <CleanFrame>{children}</CleanFrame>
+  ) : (
+    <Shot d={d} zoom={ZOOM[scene]} noIn={noIn} noOut={noOut}>
+      {children}
+    </Shot>
+  );
+
+// "heykel" stili: gerçekçi görseller; temiz kare + hafif kenar karartması (sinematik)
+const CleanFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <AbsoluteFill style={{ backgroundColor: "#d8d2c8" }}>
+    <svg width="100%" height="100%" viewBox="0 0 1080 1920">
+      <defs>
+        <radialGradient id="cleanVig" cx="0.5" cy="0.45" r="0.8">
+          <stop offset="0.6" stopColor="#000" stopOpacity="0" />
+          <stop offset="1" stopColor="#000" stopOpacity="0.35" />
+        </radialGradient>
+      </defs>
+      {children}
+      <rect width={1080} height={1920} fill="url(#cleanVig)" />
+    </svg>
+  </AbsoluteFill>
+);
+
+// 1930'lar stili sahne çerçevesi: sepya, gren, titreşim, çizik, kaynayan çizgi
+const FilmFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const f = useCurrentFrame();
+  return <OldFilm f={f}>{children}</OldFilm>;
 };
 
 // Döngü geçişi: ilk kare, kâğıt dahil tam opak olana kadar belirir (son kare = ilk kare)
@@ -136,15 +190,24 @@ const Missing: React.FC<SceneProps> = () => null;
 
 // Arka plan müziği: konuşmanın altında ama belirgin (kullanıcı: kısık olunca "var ile yok arası"), başta ve sonda yumuşak geçiş
 // Döngülü videoda müzik baştan tam sesle girer, sonda yalnızca kısa bir an kısılır (başa sarınca kopukluk duyulmasın)
-const Music: React.FC<{ src: string; loop?: boolean }> = ({ src, loop = false }) => {
+const Music: React.FC<{ src: string; loop?: boolean; gain?: number; duck?: number; speech?: [number, number][] }> = ({ src, loop = false, gain = 1, duck = 1, speech = [] }) => {
   const { durationInFrames } = useVideoConfig();
   const edges = loop ? [0, 3, durationInFrames - 6, durationInFrames - 1] : [0, 20, durationInFrames - 45, durationInFrames - 1];
   const levels = loop ? [0.6, 1, 1, 0.6] : [0, 1, 1, 0];
+  // konuşurken müzik kısılır (6 karede iner, 10 karede çıkar)
+  const duckAt = (f: number) => {
+    if (duck >= 1) return 1;
+    let k = 0;
+    for (const [a, b] of speech) {
+      if (f >= a - 6 && f <= b + 10) k = Math.max(k, f < a ? (f - (a - 6)) / 6 : f > b ? 1 - (f - b) / 10 : 1);
+    }
+    return 1 - (1 - duck) * k;
+  };
   return (
     <Audio
       src={staticFile(src)}
       loop
-      volume={(f) => 0.62 * interpolate(f, edges, levels, { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}
+      volume={(f) => 0.62 * gain * duckAt(f) * interpolate(f, edges, levels, { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}
     />
   );
 };
@@ -182,6 +245,27 @@ const steps = (from: number, to: number, speed: number, vol: number): Sfx[] => {
 const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
   every(from, to, step, "tik", vol).map(([t, , v], i): Sfx => [t, i % 2 ? "tak" : "tik", v]);
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
+  // 21 tenya (1930'lar stili): olay başına tek, kısık efekt
+  "tn-kanca": (w) => [[w(2), "pirilti", 0.22], [w(3), "whoosh", 0.16]],
+  "tn-asla": () => [[0, "boing", 0.32], [3, "havalanma", 0.1]],
+  "tn-hap": (w) => [[2, "kagit", 0.2], [w(4), "ding", 0.2]],
+  "tn-tarih": (w) => [[2, "kagit", 0.18], [w(3), "whoosh", 0.18], [w(4) + 4, "pop", 0.2], [w(6) + 10, "sapirti", 0.3], [w(7) + 13, "sapirti", 0.26], [w(8) + 13, "sapirti", 0.26], [w(11), "bip", 0.14]],
+  "tn-doktor": (w) => [[2, "kagit", 0.18], [w(6), "pop", 0.18], [w(7), "pirilti", 0.16], [w(9), "yutkunma", 0.4], [w(10), "kagit", 0.16]],
+  "tn-kackilo": () => [[0, "pirilti", 0.16]],
+  "tn-aldi": (w) => [[w(0), "gicirti", 0.28], [w(2) + 2, "boom", 0.2]],
+  "tn-tavsiye": (w) => [[w(0), "pop", 0.16], [w(2), "pop", 0.16], [w(9), "cizik", 0.26], [w(11), "yuksel", 0.16], [w(15), "tik", 0.16], [w(16), "tik", 0.16]],
+  "tn-voom": (w) => [[w(4), "yirtilma", 0.34], [w(5), "whoosh", 0.14], [w(8), "pirilti", 0.22], [w(11), "klavye", 0.18], [w(13) + 4, "ding", 0.26], [w(13) + 8, "kalp", 0.14]],
+  "tn-sevgi": (w) => [[w(2), "adim", 0.16], [w(6), "kacing", 0.14], [w(9), "pirilti", 0.2], [w(9) + 4, "kalp", 0.14]],
+  "tn-son": (w) => [[w(1), "kagit", 0.2], [w(4), "whoosh", 0.3], [w(5) + 6, "pirilti", 0.16]],
+  "kr-kanca2": (w) => [[w(0), "cizik", 0.18], [w(1), "pop", 0.15], [w(3), "sihir", 0.1], [w(8) - 2, "agir-dusme", 0.15]],
+  "kr-sabah": (w) => [[w(1), "cizik", 0.2], [w(2), "pop", 0.15], [w(3), "nefes", 0.15], [w(7), "whoosh", 0.12], [w(8), "pop", 0.18], [w(10), "pirilti", 0.18]],
+  "kr-ertesi": (w) => [[2, "sihir", 0.1], [w(4) - 2, "agir-dusme", 0.15]],
+  "kr-ic": (w) => [[2, "pop", 0.15], [w(2), "boom", 0.12]],
+  "kr-sebep": (w) => [[0, "whoosh", 0.15], [w(3), "sonme", 0.18], [w(5) - 2, "agir-dusme", 0.15], [w(6), "damla", 0.18], [w(12), "pop", 0.15]],
+  "kr-terskose": (w) => [[w(0), "ding", 0.18], [w(2), "zincir", 0.1], [w(4), "pop", 0.15]],
+  "kr-tarih": (w) => [[0, "kagit", 0.15], [w(5), "whoosh", 0.12], [w(10) - 2, "pirilti", 0.18], [w(13), "cizik", 0.15], [w(18), "whoosh", 0.15], [w(22), "cizik", 0.15], [w(26), "agir-dusme", 0.12]],
+  "kr-tavsiye": (w) => [[w(4), "sihir", 0.15], [w(9), "nefes", 0.2], [w(14), "pirilti", 0.18], [w(19) - 4, "ding", 0.18]],
+  "kr-son": (w) => [[w(3), "pop", 0.15], [w(7), "whoosh", 0.12], [w(8), "ding", 0.18], [w(10), "pop", 0.15], [w(13) - 2, "whoosh", 0.18], [w(14), "whoosh", 0.21]],
   "tm-kanca": (w) => [[w(3), "ding", 0.18], [w(11), "cizik", 0.18]],
   "tm-tuz": (w) => [[w(5) - 2, "pop", 0.18]],
   "tm-tarih": (w) => [[w(2), "kagit", 0.18], [w(7), "kalem", 0.18], [w(17) - 2, "agir-dusme", 0.15]],
@@ -855,6 +939,15 @@ const Dust: React.FC<{ loop?: boolean }> = ({ loop = false }) => {
 type Zoom = { to: number; x: number; y: number };
 // Sahneye özel yavaş kamera yakınlaşması: ölçek ve odak noktası (piksel)
 const ZOOM: Record<string, Zoom> = {
+  "kr-kanca2": { to: 1.0, x: 540, y: 960 },
+  "kr-sabah": { to: 1.0, x: 540, y: 960 },
+  "kr-ertesi": { to: 1.0, x: 540, y: 960 },
+  "kr-ic": { to: 1.0, x: 540, y: 960 },
+  "kr-sebep": { to: 1.0, x: 540, y: 960 },
+  "kr-terskose": { to: 1.0, x: 540, y: 960 },
+  "kr-tarih": { to: 1.0, x: 540, y: 960 },
+  "kr-tavsiye": { to: 1.0, x: 540, y: 960 },
+  "kr-son": { to: 1.0, x: 540, y: 960 },
   "tm-kanca": { to: 1.0, x: 540, y: 960 },
   "tm-tuz": { to: 1.0, x: 540, y: 960 },
   "tm-tarih": { to: 1.0, x: 540, y: 960 },
@@ -1549,6 +1642,66 @@ const Person: React.FC<PersonProps> = ({
       </g>
       {children}
     </g>
+  );
+};
+
+// Eski seri avatarı, 1930'lar sahnelerinde (HoseChar arayüzüyle): aynı sahne iki stilde oynar.
+// Kol hedefleri HoseChar biriminde (omuza göre el noktası); 2 kemikli ters kinematikle Person açılarına çevrilir.
+const OLD_K = 0.65; // Person × 0.65 ≈ HoseChar boyu; omuzlar çakışır (±65, −376)
+const ikArm = (side: number, t: number[]): Arm => {
+  const L1 = 150;
+  const L2 = 140;
+  const d = Math.min(Math.max(Math.hypot(t[0], t[1]), 30), L1 + L2 - 1);
+  const theta = (Math.atan2(side * t[0], t[1]) * 180) / Math.PI;
+  const alpha = (Math.acos((L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)) * 180) / Math.PI;
+  const beta = (Math.acos((L1 * L1 + L2 * L2 - d * d) / (2 * L1 * L2)) * 180) / Math.PI;
+  return [theta + alpha, -(180 - beta)];
+};
+const OldChar: React.FC<HoseCharProps> = ({ x, y, s = 1, who, face = "smile", look = [0, 0], wink, happyEyes, armL, armR, bounce, tilt = 0, talk = 0, gesture = "rest", gT = 0, gSide = "R", surprise = 0, laugh = 0 }) => {
+  const f = useCurrentFrame();
+  const q = Math.floor(f / 2) * 2;
+  let aR: HoseArm = armR ?? REST;
+  let aL: HoseArm = armL ?? mirror(REST);
+  const G = GEST[gesture];
+  if (gesture !== "rest" && G.a) {
+    let ga = G.a;
+    if (gesture === "wave") ga = [ga[0] + 24 * Math.sin(q / 3), ga[1] - 8 * Math.sin(q / 3), ga[2]];
+    const one = gSide === "R";
+    if (one || G.b) aR = mix(aR, ga, gT);
+    if (!one || G.b) aL = mix(aL, mirror(G.b && one ? G.b : ga), gT);
+  }
+  const girl = who === "duru" || who === "arkadas";
+  const flap = talk > 0 ? Math.abs(Math.sin(q / 2.3)) * talk : 0;
+  const mouth: Mouth =
+    surprise > 0.4 ? "o" : laugh > 0.3 ? "grin" : flap > 0.35 ? "open" : talk > 0 ? "flat" : face === "grin" ? "grin" : face === "o" || face === "kiss" ? "o" : face === "sad" ? "worry" : "smile";
+  const eyes: Eyes = surprise > 0.4 ? "wide" : laugh > 0.3 || happyEyes || wink ? "closed" : "open";
+  const lift = ((bounce ?? 0) + surprise * 0.9) * 26 * s;
+  const k = OLD_K * s;
+  return (
+    <Person
+      x={x}
+      y={y - lift}
+      s={k}
+      female={girl}
+      belly={girl ? 0.15 : 0.5}
+      shirt={who === "arkadas" ? "#d98a9c" : who === "doktor" ? "#c9a66b" : undefined}
+      pants={who === "doktor" ? "#a8864f" : undefined}
+      armR={ikArm(1, [aR[0] / OLD_K, aR[1] / OLD_K])}
+      armL={ikArm(-1, [aL[0] / OLD_K, aL[1] / OLD_K])}
+      mouth={mouth}
+      eyes={eyes}
+      lookY={look[1] * 6}
+      tilt={tilt + laugh * 6 * Math.sin(f * 1.7)}
+    >
+      {who === "doktor" ? (
+        // safari şapkası (gerçek kişi değil)
+        <g stroke={C.ink} strokeWidth={6} transform={`translate(0 ${-surprise * 60})`}>
+          <ellipse cx={0} cy={-760} rx={130} ry={26} fill="#e2cf9c" />
+          <path d="M-86 -762 Q-90 -860 0 -862 Q90 -860 86 -762 Z" fill="#eadbb0" />
+          <path d="M-86 -778 Q0 -796 86 -778" stroke="#7a5a32" strokeWidth={14} fill="none" />
+        </g>
+      ) : null}
+    </Person>
   );
 };
 
@@ -23731,7 +23884,974 @@ const TmSon: React.FC<SceneProps> = ({ w, d }) => {
   );
 };
 
+// ===== 20 BEL KORSESİ (`kr-*`) — "Sabah korseni sıkıyorsun, gün boyu nefesin kesik. Akşam çıkarınca bel incecik." =====
+// Selülit videosunun dünyası: kadın kendi odasında, boy aynasının karşısında (SelRoom/SelMirror). Korse gerçek bel korsesi:
+// kum saati, belde daralır, önü kopçalı, dikey balenli, kıyafetin ÜSTÜNDE (kimsenin beli açılmaz). Avatar yan karakter.
+// Kaynaklar (calisma/onemli-notlar/DURUM.md): korse yağ hücresi yok etmez, giden ter/su; mideyi sıktığı için daha az yenir
+// (CNN 2015, plastik cerrah); Gibson, The Corseted Skeleton (Londra St Bride's 1700-1900 iskeletleri, kaburgalar içe bükülmüş).
+const KR_CORSET = "#2b2328";
+const KR_TRIM = "#c96b6b";
+const KR_FRIEND = "#b06a8a";
+const krMix = (a: string, b: string, t: number) => {
+  const p = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const [x, y] = [p(a), p(b)];
+  return `rgb(${x.map((v, i) => Math.round(lerp(v, y[i], t))).join(" ")})`;
+};
+// Kadın gövdesi (Person female realLegs fitted): bel = 70 + 60·belly, kalça = 86 + 20·belly
+const krWaist = (belly: number) => 70 + 60 * belly;
+const krHip = (belly: number) => 86 + 20 * belly;
+// Bel korsesi: kum saati, kişinin koordinatlarında. hooks 0..1 = kapanan kopça oranı (yukarıdan aşağı), off 0..1 = düşer,
+// back = arkadan görünüş (bağcıklar)
+const KrCorset: React.FC<{ belly: number; hooks?: number; off?: number; back?: boolean; glow?: number }> = ({ belly, hooks = 1, off = 0, back = false, glow = 0 }) => {
+  const id = svgId(useId());
+  if (off >= 1) return null;
+  // Referans (gerçek bel korsesi): siyah, düz; göğüs altından (−520) başlar, belde iyice daralır, alt kenarı kalçanın üstüne
+  // geniş yayılır (−368). Önde ortada tek sıra metal kopça, ince dikey kumaş dokusu, renkli kenar yok.
+  const t = 88;
+  const wst = krWaist(belly) + 4;
+  const hb = krHip(belly) + 24;
+  const X = (k: number, y: number) => {
+    // y'deki yarı genişlik (kum saati): üst → bel → alt
+    const a = y <= -458 ? (y + 520) / 62 : 0;
+    if (y <= -458) return k * lerp(t, wst, Math.sin((a * Math.PI) / 2));
+    const b = (y + 458) / 90;
+    return k * lerp(wst, hb, b * b);
+  };
+  const ys = Array.from({ length: 13 }, (_, i) => -520 + i * (152 / 12));
+  const edge = (k: number) => ys.map((y) => `${X(k, y).toFixed(1)} ${y.toFixed(1)}`);
+  const L = edge(-1);
+  const R = edge(1).reverse();
+  const outline = `M${L[0]} L${L.slice(1).join(" L")} Q0 -356 ${R[0]} L${R.slice(1).join(" L")} Q0 -530 ${L[0]} Z`;
+  const N = 10;
+  return (
+    <g transform={`translate(${off * 30} ${off * 380}) rotate(${off * 24})`} opacity={1 - off * 0.3} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+      <defs>
+        <linearGradient id={`cg${id}`} x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stopColor="#121014" />
+          <stop offset="0.3" stopColor="#2c282e" />
+          <stop offset="0.55" stopColor="#353036" />
+          <stop offset="1" stopColor="#141216" />
+        </linearGradient>
+        <clipPath id={`cc${id}`}>
+          <path d={outline} />
+        </clipPath>
+      </defs>
+      {glow > 0 ? <path d={outline} fill="none" stroke={C.red} strokeWidth={30} opacity={0.35 * glow} /> : null}
+      <path d={outline} fill={`url(#cg${id})`} strokeWidth={6} />
+      <g clipPath={`url(#cc${id})`} fill="none">
+        {/* ince dikey kumaş dokusu: kenar eğrisini izler */}
+        {Array.from({ length: 21 }, (_, i) => {
+          const k = -1 + (i + 0.5) * (2 / 21);
+          return <path key={i} d={`M${ys.map((y) => `${X(k, y).toFixed(1)} ${y.toFixed(1)}`).join(" L")}`} stroke="#4a444c" strokeWidth={2} opacity={0.55} />;
+        })}
+        {/* belde hafif yatay dikiş */}
+        <path d={`M${X(-1, -470)} -470 Q0 -462 ${X(1, -470)} -470 M${X(-1, -420)} -420 Q0 -412 ${X(1, -420)} -420`} stroke="#4a444c" strokeWidth={2.5} opacity={0.6} strokeDasharray="6 5" />
+        <path d={`M${-wst * 0.45} -505 Q${-wst * 0.2} -460 ${-wst * 0.4} -380`} stroke="#5b555e" strokeWidth={10} opacity={0.35} />
+      </g>
+      {back ? (
+        <g stroke="#3f3a42" strokeWidth={4} fill="none">
+          <path d="M0 -516 V-362" stroke="#0e0c10" strokeWidth={6} />
+        </g>
+      ) : (
+        <g>
+          <path d="M-7 -522 V-360 M7 -522 V-360" stroke="#0e0c10" strokeWidth={4} fill="none" />
+          {Array.from({ length: N }, (_, i) => {
+            const y = -512 + i * 15.5;
+            const on = hooks * N > i;
+            return on ? (
+              <path key={i} d={`M3 ${y} q-8 0 -8 4 q0 4 8 4`} stroke="#c9ccd3" strokeWidth={3} fill="none" />
+            ) : (
+              <path key={i} d={`M${-12} ${y + 4} h-6 M12 ${y + 4} h6`} stroke="#9a9ca3" strokeWidth={3} />
+            );
+          })}
+        </g>
+      )}
+    </g>
+  );
+};
+type KrWoProps = { x?: number; y?: number; s?: number; belly?: number; corset?: number; hooks?: number; off?: number; glow?: number; back?: boolean; mouth?: Mouth; eyes?: Eyes; armL?: Arm; armR?: Arm; lungs?: number; breath?: number; blush?: number; lookY?: number; tilt?: number; shirt?: string; children?: React.ReactNode };
+const KrWoman: React.FC<KrWoProps> = ({ x = SEL_WO.x, y = SEL_WO.y, s = SEL_WO.s, belly = 0.45, corset = 0, hooks = 1, off = 0, glow = 0, back = false, mouth = "smile", eyes = "open", armL = [12, 0], armR = [12, 0], lungs = 0, breath = 0, blush = 0.5, lookY = 0, tilt = 0, shirt = SEL_TOP, children }) => (
+  <Person x={x} y={y} s={s} female realLegs fitted belly={belly} shirt={shirt} shorts={SEL_TIGHTS} sleeveless shortsLen={0.45} armL={armL} armR={armR} mouth={mouth} eyes={eyes} blush={blush} lookY={lookY} tilt={tilt}>
+    {back ? <BackHead /> : null}
+    {corset > 0 ? <KrCorset belly={belly} hooks={hooks} off={off} back={back} glow={glow} /> : null}
+    {lungs > 0 ? <Lungs o={lungs} breath={breath} /> : null}
+    {children}
+  </Person>
+);
+// Oda: selülitteki ev köşesi + pencere (gökyüzü saate göre) + duvar saati + aynada kadının arkadan yansıması
+const KR_WIN = { x: 70, y: 150, w: 300, h: 300 };
+const KrRoom: React.FC<{ sky: string; sun?: [number, number]; moon?: boolean; clock: number; refl: KrWoProps; shine?: number; dark?: number; extra?: React.ReactNode }> = ({ sky, sun, moon = false, clock, refl, shine = 0, dark = 0, extra }) => {
+  const id = svgId(useId());
+  const h = ((clock / 60) % 12) * 30;
+  const m = (clock % 60) * 6;
+  const hand = (deg: number, r: number) => `M0 0 L${(Math.sin((deg * Math.PI) / 180) * r).toFixed(1)} ${(-Math.cos((deg * Math.PI) / 180) * r).toFixed(1)}`;
+  return (
+    <g>
+      <SelRoom />
+      <clipPath id={`w${id}`}>
+        <rect x={KR_WIN.x} y={KR_WIN.y} width={KR_WIN.w} height={KR_WIN.h} />
+      </clipPath>
+      <g clipPath={`url(#w${id})`}>
+        <rect x={KR_WIN.x} y={KR_WIN.y} width={KR_WIN.w} height={KR_WIN.h} fill={sky} />
+        {sun ? <circle cx={sun[0]} cy={sun[1]} r={44} fill={moon ? "#f4f1ea" : "#ffd25e"} stroke={C.ink} strokeWidth={5} /> : null}
+        <path d={`M${KR_WIN.x} ${KR_WIN.y + 250} Q${KR_WIN.x + 90} ${KR_WIN.y + 200} ${KR_WIN.x + 170} ${KR_WIN.y + 240} T${KR_WIN.x + 300} ${KR_WIN.y + 230} V${KR_WIN.y + 300} H${KR_WIN.x} Z`} fill={krMix("#7aa06a", "#24303a", dark)} />
+      </g>
+      <rect x={KR_WIN.x} y={KR_WIN.y} width={KR_WIN.w} height={KR_WIN.h} fill="none" stroke={C.ink} strokeWidth={10} />
+      <path d={`M${KR_WIN.x + 150} ${KR_WIN.y} V${KR_WIN.y + 300} M${KR_WIN.x} ${KR_WIN.y + 150} H${KR_WIN.x + 300}`} stroke={C.ink} strokeWidth={7} />
+      <g transform="translate(470 250)" stroke={C.ink} strokeLinecap="round">
+        <circle r={58} fill={C.cream} strokeWidth={7} />
+        <path d={hand(h, 28)} strokeWidth={9} />
+        <path d={hand(m, 44)} strokeWidth={5} />
+      </g>
+      <SelMirror shine={shine}>
+        <KrWoman {...refl} x={SEL_RF.x} y={SEL_RF.y} s={SEL_RF.s} back eyes="open" />
+      </SelMirror>
+      {extra}
+      {dark > 0 ? <rect x={-800} y={-800} width={2680} height={3400} fill="#1b2140" opacity={0.28 * dark} /> : null}
+    </g>
+  );
+};
+const KR_WAIST_Y = SEL_FL - 455 * SEL_WO.s; // kadının beli (ekran)
+const KR_CHEST_Y = SEL_FL - 520 * SEL_WO.s;
+const KR_GRIP: Arm = [35, -125]; // iki el belde (korseyi çeker)
+
+// 1) "Sabah korseni sıkıyorsun, gün boyu nefesin kesik. Akşam çıkarınca bel incecik."
+// İlk kare (döngü karesi): sabah, bel yakın planı, iki el korsenin kenarında, kopçalar açık. "korseni sıkıyorsun"da kopçalar
+// yukarıdan aşağı tek tek kapanır, bel daralır, yüz kasılır. "gün boyu"nda pencerede güneş geçer, saat döner; "nefesin
+// kesik"te göğüs yakın planı: korsenin üstünde ciğerler sıkışık, kısa hızlı nefesler, kırmızı oklar. "Akşam"da gökyüzü
+// kızıl-lacivert, lamba; "çıkarınca" kopçalar açılır, korse yere düşer, derin nefes; "incecik"te aynada parıltı, pembe yazı.
+const KrSabahFrame: React.FC<{ f: number; w: (i: number) => number; d: number }> = ({ f, w, d }) => {
+  const hooks = tw(f, w(1) - 2, w(2) + 8);
+  const belly = lerp(0.2, -0.25, hooks);
+  const day = tw(f, w(3), w(6));
+  const eve = tw(f, w(7) - 4, w(7) + 6);
+  const unhook = tw(f, w(8) - 2, w(8) + 8);
+  const off = tw(f, w(8) + 8, w(9) + 2);
+  const sunA = lerp(-0.2, 1.2, day);
+  const sky = eve > 0 ? krMix("#f2a46a", "#2d3a6a", eve) : krMix("#ffe0a8", "#bfe0ef", Math.min(1, day * 2));
+  const tight = f >= w(3) && f < w(8);
+  const breath = tight ? 0.15 + 0.12 * Math.sin(f / 2.2) : f >= w(8) + 4 ? tw(f, w(8) + 4, w(9) + 4) : 0;
+  const lungs = tw(f, w(4), w(5)) * (1 - tw(f, w(9) + 4, w(10)));
+  const pull = f < w(3) ? 6 * Math.sin(f / 3) * (1 - hooks * 0.5) : 0;
+  const grip: Arm = [KR_GRIP[0] + pull, KR_GRIP[1]];
+  const arms = f < w(3) ? grip : f >= w(8) - 6 && f < w(9) ? KR_GRIP : ([12, 0] as Arm);
+  const wo: KrWoProps = { belly, corset: 1, hooks: f >= w(8) - 2 ? 1 - unhook : hooks, off, armL: arms, armR: arms, lungs, breath };
+  const slim = tw(f, w(9), w(10));
+  const puffs = tight
+    ? [0, 1].map((i) => {
+        const t = ((f / 9 + i * 0.5) % 1);
+        return <circle key={i} cx={SEL_WO.x + 40 + t * 120} cy={SEL_FL - 690 * SEL_WO.s - t * 40} r={12 + t * 22} fill="#fff" stroke={C.ink} strokeWidth={3} opacity={0.75 * (1 - t)} />;
+      })
+    : null;
+  return (
+    <>
+      <CamK k={[[0, 2.2, 330, KR_WAIST_Y - 10], [w(2) + 8, 1.9, 320, KR_WAIST_Y - 20], [w(3) + 4, 1.15, 420, 880], [w(4) + 6, 1.8, 300, KR_CHEST_Y], [w(7) - 2, 1.8, 300, KR_CHEST_Y], [w(7) + 8, 1.05, 520, 900], [w(9), 1.1, 520, 920], [d, 1.25, 420, 900]]} shake={hit(f, w(8), 10) * 0.4}>
+        <KrRoom sky={sky} sun={eve > 0.5 ? [KR_WIN.x + 230, KR_WIN.y + 80] : [lerp(KR_WIN.x - 30, KR_WIN.x + 330, sunA), KR_WIN.y + 200 - 150 * Math.sin(Math.PI * Math.min(1, Math.max(0, sunA)))]} moon={eve > 0.5} clock={lerp(7 * 60, 20 * 60, tw(f, w(3), w(7) + 4))} refl={{ ...wo, lungs: 0 }} shine={tw(f, w(9), w(10) + 6)} dark={eve * 0.6} />
+        <KrWoman {...wo} mouth={f < w(1) ? "flat" : f < w(3) ? "o" : tight ? "open" : slim > 0.3 ? "grin" : "o"} eyes={f >= w(2) - 4 && f < w(3) ? "closed" : tight ? "wide" : "open"} blush={tight ? 0.95 : 0.5} lookY={slim > 0.3 ? 8 : 0} />
+        {puffs}
+        {lungs > 0.5 && tight
+          ? [-1, 1].map((sd) => <HeadArrow key={sd} x1={SEL_WO.x + sd * 150} y1={KR_CHEST_Y + 40} x2={SEL_WO.x + sd * 92} y2={KR_CHEST_Y + 20} p={1} color={C.red} w={11} />)
+          : null}
+        {hooks > 0 && hooks < 1
+          ? [-1, 1].map((sd) => <HeadArrow key={sd} x1={SEL_WO.x + sd * 175} y1={KR_WAIST_Y} x2={SEL_WO.x + sd * 115} y2={KR_WAIST_Y} p={1} color={C.red} w={12} />)
+          : null}
+        {slim > 0 ? <HandText x={SEL_WO.x + 250} y={KR_WAIST_Y + 20} text="incecik!" size={90} color="#c2477a" p={slim} rotate={-8} /> : null}
+      </CamK>
+      <KTag x={540} y={300} p={pop(f, w(3) - 2, 12) * (1 - tw(f, w(7) - 4, w(7)))} text="gün boyu" color={C.ink} rot={-4} />
+      <KTag x={540} y={300} p={pop(f, w(7) - 2, 12) * (1 - tw(f, w(9) - 4, w(9)))} text="akşam" color={C.ink} rot={4} />
+    </>
+  );
+};
+const KrSabah: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return <KrSabahFrame f={f} w={w} d={d} />;
+};
+
+// 2) "Ertesi sabah aynaya bakıyorsun: aynı bel." Pencerede güneş doğar, kadın gerinir ve aynaya döner; kamera aynadaki
+// yansımaya yaklaşır: dün akşamki ince bel lacivert kesik çizgiyle duruyor, gerçek bel yavaşça taşar; "aynı"da kırmızı
+// "AYNI BEL" damgası, yüz düşer.
+const KrErtesiFrame: React.FC<{ f: number; w: (i: number) => number; d: number; tag?: boolean }> = ({ f, w, d, tag = true }) => {
+  const rise = tw(f, 0, w(2));
+  const stretch = tw(f, 0, 8) * (1 - tw(f, w(1), w(2)));
+  const grow = tw(f, w(3) - 4, w(4) + 6);
+  const belly = lerp(-0.25, 0.42, grow);
+  const arm: Arm = [lerp(12, 165, stretch), 0];
+  const ghost = tw(f, w(2), w(3));
+  const RX = SEL_RF.x;
+  const RY = SEL_RF.y - 455 * SEL_RF.s;
+  const gw = krWaist(-0.25) * SEL_RF.s;
+  return (
+    <>
+      <CamK k={[[0, 1.05, 520, 920], [w(2), 1.0, 540, 960], [w(3) + 4, 1.75, RX, RY - 40], [d, 1.85, RX, RY - 30]]} shake={hit(f, w(4), 10) * 0.4}>
+        <KrRoom sky={krMix("#f6b98a", "#ffe9b8", rise)} sun={[KR_WIN.x + 150, KR_WIN.y + lerp(300, 120, rise)]} clock={lerp(7 * 60, 7 * 60 + 20, rise)} refl={{ belly, armL: arm, armR: arm }} />
+        <KrWoman belly={belly} armL={arm} armR={arm} mouth={stretch > 0.5 ? "o" : grow > 0.5 ? "worry" : "smile"} eyes={stretch > 0.5 ? "closed" : grow > 0.5 ? "wide" : "open"} />
+        {ghost > 0 ? (
+          <g opacity={ghost}>
+            <path d={`M${RX - gw} ${RY - 60} Q${RX - gw - 6} ${RY} ${RX - gw} ${RY + 60} M${RX + gw} ${RY - 60} Q${RX + gw + 6} ${RY} ${RX + gw} ${RY + 60}`} stroke={YAS_OK} strokeWidth={6} strokeDasharray="14 10" fill="none" />
+            <text x={RX} y={RY - 110} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={54} fill={YAS_OK}>dün akşam</text>
+          </g>
+        ) : null}
+        <KiloStamp p={tw(f, w(4) - 2, w(4) + 6)} text="AYNI BEL" x={RX} y={RY + 150} half={150} />
+      </CamK>
+      {tag ? <KTag x={540} y={300} p={pop(f, 0, 12) * (1 - tw(f, w(3), w(3) + 6))} text="ertesi sabah" color={C.ink} rot={-3} /> : null}
+    </>
+  );
+};
+const KrErtesi: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return <KrErtesiFrame f={f} w={w} d={d} />;
+};
+
+// 1') KISA KANCA: "Her gün korse takıyorsun ama sabah aynaya bakınca bel yine aynı."
+// İlk kare (döngü karesi): bel yakın planı, iki el korsede; "Her gün"de üstte haftanın yedi günü kartları korse simgesiyle
+// tek tek dolar, kopçalar kapanır, bel daralır. "ama sabah"ta pencerede güneş doğar, kadın gerinir; "aynaya bakınca" kamera
+// aynadaki yansımaya yaklaşır: dünkü ince bel lacivert kesik çizgi, gerçek bel taşar; "aynı"da kırmızı "AYNI BEL" damgası.
+const KrKanca2Frame: React.FC<{ f: number; w: (i: number) => number; d: number }> = ({ f, w, d }) => {
+  if (f < w(2)) {
+    const hooks = tw(f, 4, w(1) + 4);
+    const belly = lerp(0.2, -0.25, hooks);
+    const grip: Arm = [KR_GRIP[0] + 6 * Math.sin(f / 3) * (1 - hooks * 0.5), KR_GRIP[1]];
+    return (
+      <>
+        <CamK k={[[0, 2.0, 330, KR_WAIST_Y - 10], [w(1), 1.6, 330, KR_WAIST_Y - 30], [w(2), 1.5, 330, KR_WAIST_Y - 40]]}>
+          <KrRoom sky="#ffe0a8" sun={[KR_WIN.x + 60, KR_WIN.y + 220]} clock={7 * 60} refl={{ belly, corset: 1, hooks, armL: grip, armR: grip }} />
+          <KrWoman belly={belly} corset={1} hooks={hooks} armL={grip} armR={grip} mouth={hooks > 0.2 ? "o" : "flat"} eyes={hooks > 0.5 ? "closed" : "open"} blush={0.5 + 0.4 * hooks} />
+          {hooks > 0 && hooks < 1 ? [-1, 1].map((sd) => <HeadArrow key={sd} x1={SEL_WO.x + sd * 175} y1={KR_WAIST_Y} x2={SEL_WO.x + sd * 110} y2={KR_WAIST_Y} p={1} color={C.red} w={12} />) : null}
+        </CamK>
+        {SEL_DAYS.map((dd, i) => {
+          const p = pop(f, Math.round(lerp(2, w(1) + 4, i / 6)), 8);
+          return p > 0 ? (
+            <g key={dd} stroke={C.ink}>
+              <rect x={95 + i * 135 - 56} y={250} width={112} height={150} rx={16} fill={C.cream} strokeWidth={6} />
+              <text x={95 + i * 135} y={292} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={32} fill={C.ink} stroke="none">{dd}</text>
+              <KrMini x={95 + i * 135} y={350} s={0.22 * p} />
+            </g>
+          ) : null;
+        })}
+      </>
+    );
+  }
+  const m = [w(2), w(3), w(4), w(6), w(8)];
+  return <KrErtesiFrame f={f - w(2)} w={(i) => (m[i] ?? w(8)) - w(2)} d={d - w(2)} tag={false} />;
+};
+const KrKanca2: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return <KrKanca2Frame f={f} w={w} d={d} />;
+};
+
+// 3) (kadının iç sesi, kullanıcının sesi) "Ama ben her gün takıyorum!" Kadın aynanın önünde, üstünde düşünce bulutu;
+// kırmızı el yazısı; "her gün"de haftanın yedi gününe korse simgesi düşer, sarsıntı; avatar kenarda şaşkın omuz silker.
+const KrMini: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => (
+  <g transform={`translate(${x} ${y}) scale(${s}) translate(0 470)`}>
+    <KrCorset belly={-0.25} />
+  </g>
+);
+const KrIc: React.FC<SceneProps> = ({ w }) => {
+  const f = useCurrentFrame();
+  const bang = hit(f, w(2), 12);
+  return (
+    <CamK k={[[0, 1.85, SEL_RF.x, SEL_RF.y - 455 * SEL_RF.s - 30], [8, 1, 540, 960], [w(4) + 8, 1.06, 480, 920]]} shake={bang * 0.7}>
+      <KrRoom sky="#ffe9b8" sun={[KR_WIN.x + 150, KR_WIN.y + 120]} clock={7 * 60 + 25} refl={{ belly: 0.42 }} />
+      <Person x={SEL_AV.x + 40} y={SEL_AV.y} s={SEL_AV.s * 0.95} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#5a5a62" armL={[55, -70]} armR={[55, -70]} mouth="o" eyes="wide" />
+      <KrWoman belly={0.42} mouth={talk(f, w(0) - 2, w(4) + 10) ? "open" : "worry"} eyes="wide" blush={0.95} tilt={-4} armL={[30, -110]} armR={[30, -110]} />
+      <Bubble x={500} y={430} rx={380} ry={175} p={pop(f, 2, 12)} tail={[SEL_WO.x + 20, SEL_WO.y - 800 * SEL_WO.s]}>
+        <HandText x={500} y={380} text="Ama ben" size={92} color={C.red} p={tw(f, w(0), w(1) + 4)} />
+        <HandText x={500} y={490} text="her gün takıyorum!" size={84} color={C.red} p={tw(f, w(2) - 2, w(4) + 6)} />
+      </Bubble>
+      {SEL_DAYS.map((dd, i) => {
+        const p = pop(f, w(2) + i * 2, 10);
+        return p > 0 ? (
+          <g key={dd} stroke={C.ink}>
+            <rect x={95 + i * 135 - 56} y={1560} width={112} height={150} rx={16} fill={C.cream} strokeWidth={6} />
+            <text x={95 + i * 135} y={1602} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={32} fill={C.ink} stroke="none">{dd}</text>
+            <KrMini x={95 + i * 135} y={1660} s={0.22 * p} />
+          </g>
+        ) : null;
+      })}
+    </CamK>
+  );
+};
+
+// Bel kesiti (tam ekran, selülit kesiti gibi): deri, yüzlü yağ hücreleri, kas; üstte korse plakası bastırır (press)
+const KR_SY = 820;
+const KR_CELLS: [number, number][] = [[180, 0], [420, 0], [660, 0], [900, 0], [300, 1], [540, 1], [780, 1]];
+const KrSection: React.FC<{ press: number; plate: number; sweat: number; f: number; fire: number; xmark: number }> = ({ press, plate, sweat, f, fire, xmark }) => {
+  const H = 440;
+  const hh = H * lerp(1, 0.62, press);
+  const top = KR_SY + (H - hh);
+  return (
+    <g stroke={C.ink} strokeLinejoin="round">
+      <rect x={-200} y={0} width={1480} height={1920} fill="#f8e3dc" strokeWidth={0} />
+      {Array.from({ length: 14 }, (_, i) => (
+        <path key={i} d={`M${40 + i * 78} 0 C${70 + i * 78} 600 ${10 + i * 78} 1200 ${40 + i * 78} 1920`} stroke="#efc8bd" strokeWidth={6} fill="none" />
+      ))}
+      <rect x={-40} y={top + hh} width={1160} height={170} fill="#c95b52" strokeWidth={7} />
+      {Array.from({ length: 12 }, (_, i) => (
+        <path key={i} d={`M${-40 + i * 100} ${top + hh + 20} q50 20 100 0 M${-40 + i * 100} ${top + hh + 80} q50 20 100 0`} stroke="#e48b80" strokeWidth={6} fill="none" />
+      ))}
+      <rect x={-40} y={top} width={1160} height={hh} fill="#fbe9b4" strokeWidth={0} />
+      {KR_CELLS.map(([x, row], i) => (
+        <FatCellC key={i} x={x} y={top + hh * (row ? 0.72 : 0.3)} rx={lerp(105, 120, press)} ry={lerp(95, 60, press)} k={1} squeeze={press} />
+      ))}
+      <rect x={-40} y={top - 70} width={1160} height={70} fill="#f2c4a2" strokeWidth={7} />
+      {sweat > 0
+        ? [140, 380, 620, 860].map((x, i) => {
+            const t = ((f / 16 + i * 0.27) % 1) * sweat;
+            return <Drop key={i} x={x + 30 * Math.sin(i)} y={top - 90 - t * 520} s={1.6} o={sweat * (1 - t)} />;
+          })
+        : null}
+      {plate > 0 ? (
+        <g transform={`translate(0 ${lerp(-500, 0, plate)})`}>
+          <rect x={60} y={top - 70 - 150} width={960} height={150} rx={30} fill={KR_CORSET} strokeWidth={8} />
+          <path d={`M90 ${top - 214} H990 M90 ${top - 76} H990`} stroke={KR_TRIM} strokeWidth={9} />
+          {Array.from({ length: 9 }, (_, i) => (
+            <path key={i} d={`M${130 + i * 105} ${top - 200} V${top - 90}`} stroke="#4c4048" strokeWidth={6} />
+          ))}
+          <text x={540} y={top - 125} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={64} fill={C.cream} stroke="none" letterSpacing={10}>KORSE</text>
+        </g>
+      ) : null}
+      {fire > 0 ? (
+        <g transform={`translate(880 ${KR_SY - 420}) scale(${fire})`}>
+          <path d="M0 -120 C40 -70 70 -40 60 10 C52 50 20 70 0 70 C-20 70 -52 50 -60 10 C-66 -30 -30 -50 -20 -90 C-10 -60 0 -60 0 -120 Z" fill="#ff8a2a" strokeWidth={7} />
+          <path d="M0 -30 C20 -6 26 14 18 34 C10 50 -10 50 -18 34 C-24 16 -10 0 0 -30 Z" fill="#ffd23f" strokeWidth={5} />
+          {xmark > 0 ? <path d={`M-90 -110 L90 90 M90 -110 L-90 90`} stroke={C.red} strokeWidth={22} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - xmark} /> : null}
+        </g>
+      ) : null}
+    </g>
+  );
+};
+// Ölçü kabı (ter) ve bardak
+const KrCup: React.FC<{ x: number; y: number; level: number; label: string; color: string; marks?: boolean; s?: number }> = ({ x, y, level, label, color, marks = true, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round">
+    <path d={`M-70 ${-200 * level} H70 L66 0 H-66 Z`} fill={color} strokeWidth={0} opacity={0.85} />
+    <path d="M-80 -220 L-70 0 H70 L80 -220" fill="none" strokeWidth={7} />
+    {marks ? [0.25, 0.5, 0.75].map((k) => <path key={k} d={`M42 ${-200 * k} H72`} strokeWidth={4} />) : null}
+    {label ? <text x={0} y={60} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.ink} stroke="none">{label}</text> : null}
+  </g>
+);
+// Bel merceği: kadının belinde, içinde yağ hücreleri (squeeze 1 = sıkışık, 0 = dolgun)
+const KrWaistLens: React.FC<{ x: number; y: number; r: number; p: number; squeeze: number; ring?: string }> = ({ x, y, r, p, squeeze, ring = C.ink }) => {
+  const id = svgId(useId());
+  if (p <= 0) return null;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${p})`}>
+      <clipPath id={`l${id}`}>
+        <circle r={r} />
+      </clipPath>
+      <circle r={r} fill="#fbe9b4" />
+      <g clipPath={`url(#l${id})`}>
+        {[[-0.5, -0.35], [0.05, -0.45], [0.55, -0.3], [-0.3, 0.3], [0.3, 0.35]].map(([cx, cy], i) => (
+          <FatCellC key={i} x={cx * r} y={cy * r} rx={r * lerp(0.36, 0.42, squeeze)} ry={r * lerp(0.34, 0.2, squeeze)} k={1} squeeze={squeeze} />
+        ))}
+      </g>
+      <circle r={r} fill="none" stroke={ring} strokeWidth={12} />
+    </g>
+  );
+};
+
+// 4) "Çünkü korse yağ eritmez, sadece sıkıştırır. Giden şey terdi; ilk bardak suyla geri gelir."
+// Kamera kadının beline dalar → tam ekran bel kesiti. "yağ eritmez"de alev belirir, kırmızı çarpıyla söner; "sıkıştırır"da
+// yukarıdan siyah KORSE plakası iner, yağ katmanı yassılır, hücreler sıkışık yüz yapar (ama hepsi yerinde). "terdi"de
+// deriden damlalar yükselip sağ üstte ölçü kabına dolar ("ter"). "ilk bardak"ta odaya dönüş: kadın bardaktan su içer,
+// belindeki mercekte hücreler yeniden dolgunlaşır, kırmızı "geri gelir".
+const KrSebep: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  if (f < w(9)) {
+    const reveal = tw(f, 0, 10);
+    const plate = Easing.out(Easing.cubic)(tw(f, w(4) - 6, w(5)));
+    const press = tw(f, w(5) - 2, w(5) + 10);
+    const sweat = tw(f, w(6) - 4, w(6) + 6);
+    const cupLevel = tw(f, w(6), w(9));
+    const id = "krsec";
+    return (
+      <>
+        <clipPath id={id}>
+          <circle cx={540} cy={900} r={lerp(250, 1300, reveal)} />
+        </clipPath>
+        <g clipPath={`url(#${id})`}>
+          <CamK k={[[0, 1.05, 540, 900], [w(4), 1, 540, 960], [w(6), 1, 540, 960], [w(9), 1.08, 700, 700]]} shake={hit(f, w(5) + 2, 10) * 0.6}>
+            <KrSection press={press} plate={plate} sweat={sweat} f={f} fire={pop(f, w(2) - 4, 12) * (1 - tw(f, w(4) - 6, w(4)))} xmark={tw(f, w(3) - 2, w(3) + 8)} />
+            <KrCup x={880} y={480} level={0.08 + 0.6 * cupLevel} label="ter" color="#cfe3ee" s={pop(f, w(6) - 4, 12) * 1.1} />
+            <PillLabel x={260} y={KR_SY - 330} text="yağ hücresi" p={pop(f, 4, 10) * (1 - tw(f, w(4) - 6, w(4)))} to={[200, KR_SY + 120]} />
+          </CamK>
+        </g>
+        {reveal < 1 ? <circle cx={540} cy={900} r={lerp(250, 1300, reveal)} fill="none" stroke={C.ink} strokeWidth={16} /> : null}
+        <KTag x={300} y={300} p={pop(f, w(3) - 2, 12) * (1 - tw(f, w(5) - 4, w(5)))} text="yağ erimez" color={C.red} rot={-4} />
+        <KTag x={300} y={300} p={pop(f, w(5), 12) * (1 - tw(f, w(7) - 4, w(7)))} text="sadece sıkışır" color={C.ink} rot={-3} />
+        <KTag x={300} y={300} p={pop(f, w(8) - 2, 12)} text="ter = su" color={C.ink} rot={3} />
+      </>
+    );
+  }
+  const drink = tw(f, w(10) - 6, w(11));
+  const arm: Arm = [lerp(12, 140, drink), lerp(0, 150, drink)];
+  const hand = armPoints(1, arm)[2];
+  const plump = tw(f, w(11), w(13) + 4);
+  return (
+    <>
+      <CamK k={[[w(9), 1.2, 420, 900], [w(11), 1.1, 420, 920], [d, 1.25, 380, 940]]}>
+        <KrRoom sky="#bfe0ef" sun={[KR_WIN.x + 200, KR_WIN.y + 90]} clock={13 * 60} refl={{ belly: lerp(-0.25, 0.42, plump), armR: arm }} />
+        <KrWoman belly={lerp(-0.25, 0.42, plump)} armR={arm} mouth={drink > 0.9 && f < w(12) ? "flat" : plump > 0.5 ? "worry" : "smile"} eyes={drink > 0.6 && f < w(12) ? "closed" : "open"}>
+          <g transform={`rotate(${-50 * drink} ${hand[0]} ${hand[1]})`}>
+            <KrCup x={hand[0] + 6} y={hand[1] + 70} level={lerp(0.8, 0.1, tw(f, w(11), w(12)))} label="" color={C.water} marks={false} s={0.6} />
+          </g>
+        </KrWoman>
+        <KrWaistLens x={SEL_WO.x + 270} y={KR_WAIST_Y} r={130} p={pop(f, w(11) - 4, 12)} squeeze={1 - plump} ring={plump > 0.5 ? C.red : C.ink} />
+        {pop(f, w(11) - 4, 12) > 0 ? <path d={`M${SEL_WO.x + 60} ${KR_WAIST_Y} L${SEL_WO.x + 140} ${KR_WAIST_Y}`} stroke={C.ink} strokeWidth={6} strokeDasharray="10 8" /> : null}
+      </CamK>
+      <KTag x={600} y={300} p={pop(f, w(10) - 2, 12)} text="ilk bardak su" color={C.ink} rot={-3} />
+      <KTag x={600} y={470} p={pop(f, w(12) - 2, 12)} text="geri gelir" color={C.red} rot={3} />
+    </>
+  );
+};
+
+// 5) "Hiç mi işe yaramaz? Yarar: mideni sıktığı için daha az yersin." Akşam yemeği: kadın korseyle masada, dev lacivert
+// "?"; "Yarar"da lacivert tik; "mideni"de göbeğinde röntgen merceği: korsenin iki yanı mideyi sıkar; "daha az"da çatalı bırakır,
+// tabağı iter, yemek yarım kalır.
+// "Tek faydası: mideni sıkar, az yersin." (eski uzun cümlenin kelime sırasına eşlenir)
+const KR_TSMAP = [0, 0, 0, 0, 0, 2, 3, 3, 4, 4, 5];
+const KrTerskose: React.FC<SceneProps> = ({ w: wn, d }) => {
+  const w = (i: number) => wn(KR_TSMAP[i] ?? 5);
+  const f = useCurrentFrame();
+  const q = pop(f, 0, 12) * (1 - tw(f, w(4) - 4, w(4) + 2));
+  const sq = tw(f, w(5), w(6) + 6);
+  const less = tw(f, w(8) - 2, w(10));
+  const lens = pop(f, w(5) - 4, 12);
+  const TY = 1180;
+  const arm: Arm = less > 0.3 ? [60, 30] : eatArm(f);
+  return (
+    <>
+      <CamK k={[[0, 1.1, 540, 1000], [w(4), 1.0, 540, 960], [w(5) + 4, 1.25, 460, 940], [w(8), 1.1, 520, 980], [d, 1.15, 540, 1000]]}>
+        <KrRoom sky="#2d3a6a" sun={[KR_WIN.x + 220, KR_WIN.y + 80]} moon clock={20 * 60 + 10} refl={{ belly: -0.25, corset: 1 }} dark={0.35} />
+        <KrWoman y={SEL_FL + 40} belly={-0.25} corset={1} armR={arm} mouth={less > 0.5 ? "flat" : "smile"} blush={0.6} />
+        <g stroke={C.ink} strokeLinejoin="round">
+          <rect x={-200} y={TY} width={760} height={34} fill="#a87448" strokeWidth={6} />
+          <rect x={-200} y={TY + 34} width={760} height={600} fill="#8a5a34" strokeWidth={6} />
+        </g>
+        <IgPlate x={lerp(300, 420, less)} y={TY} food={lerp(1, 0.45, less)} s={0.75} />
+        {lens > 0 ? (
+          <g transform={`translate(${SEL_WO.x + 330} ${KR_CHEST_Y - 120}) scale(${lens})`}>
+            <path d={`M-160 140 L${-330 + 20} ${120 + 200}`} stroke={C.ink} strokeWidth={6} strokeDasharray="10 8" />
+            <circle r={200} fill="#1d2a33" stroke={C.ink} strokeWidth={10} />
+            <g transform={`scale(${lerp(1.45, 1.0, sq)} 1.45)`}>
+              <Stomach x={0} y={10} s={1} fill={lerp(0.4, 0.7, less)} />
+            </g>
+            {[-1, 1].map((sd) => (
+              <rect key={sd} x={sd < 0 ? lerp(-200, -128, sq) - 34 : lerp(200, 128, sq)} y={-130} width={34} height={260} rx={12} fill={KR_CORSET} stroke={KR_TRIM} strokeWidth={6} />
+            ))}
+            <text x={0} y={-226} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill={C.cream}>mide</text>
+          </g>
+        ) : null}
+      </CamK>
+      {q > 0 ? (
+        <text x={780} y={760} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={420 * q} fill={YAS_OK} transform={`rotate(${8 * Math.sin(f / 8)} 780 600)`}>?</text>
+      ) : null}
+      {pop(f, w(4), 12) > 0 ? (
+        <g transform={`translate(200 330) scale(${pop(f, w(4), 12)})`}>
+          <circle r={90} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <path d="M-40 0 l28 30 l56 -64" stroke={YAS_OK} strokeWidth={18} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      ) : null}
+      <KTag x={600} y={1500} p={pop(f, w(9) - 2, 12)} text="daha az yersin" color={YAS_OK} rot={-3} />
+    </>
+  );
+};
+
+// Viktorya portresi (altın çerçeve içinde): korseli kadın, kabarık etek; waist = bel yarı genişliği
+const KrLady: React.FC<{ x: number; y: number; s: number; waist: number }> = ({ x, y, s, waist }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+    <path d={`M${-waist} -420 C${-waist - 40} -300 -300 -120 -330 0 H330 C300 -120 ${waist + 40} -300 ${waist} -420 Z`} fill="#7d2f3a" strokeWidth={8} />
+    <path d="M-330 0 Q-220 -30 -110 0 Q0 -30 110 0 Q220 -30 330 0" fill="none" stroke="#f1d9b5" strokeWidth={6} />
+    <path d={`M-100 -640 Q-110 -560 ${-waist} -420 H${waist} Q110 -560 100 -640 Q0 -660 -100 -640 Z`} fill="#e9dcc0" strokeWidth={8} />
+    {Array.from({ length: 6 }, (_, i) => {
+      const yy = -615 + i * 32;
+      const ww = lerp(60, waist * 0.7, i / 5);
+      return <path key={i} d={`M${-ww} ${yy} Q0 ${yy + 10} ${ww} ${yy}`} stroke="#b9a684" strokeWidth={4} fill="none" />;
+    })}
+    <path d="M-100 -640 Q-150 -560 -130 -470 M100 -640 Q150 -560 130 -470" strokeWidth={30} fill="none" />
+    <path d="M-100 -640 Q-150 -560 -130 -470 M100 -640 Q150 -560 130 -470" stroke={C.skin} strokeWidth={20} fill="none" />
+    <rect x={-22} y={-690} width={44} height={56} fill={C.skin} strokeWidth={6} />
+    <circle cx={0} cy={-740} r={72} fill={C.skin} strokeWidth={7} />
+    <path d="M-76 -736 C-86 -830 86 -830 76 -736 C60 -780 -60 -780 -76 -736 Z" fill="#6b4126" strokeWidth={6} />
+    <circle cx={0} cy={-822} r={34} fill="#6b4126" strokeWidth={6} />
+    <circle cx={-26} cy={-742} r={7} fill={C.ink} stroke="none" />
+    <circle cx={26} cy={-742} r={7} fill={C.ink} stroke="none" />
+    <path d="M-16 -708 Q0 -702 16 -708" strokeWidth={5} fill="none" />
+    <ellipse cx={-44} cy={-718} rx={14} ry={8} fill="#e0806f" opacity={0.5} stroke="none" />
+    <ellipse cx={44} cy={-718} rx={14} ry={8} fill="#e0806f" opacity={0.5} stroke="none" />
+  </g>
+);
+const KrPortrait: React.FC<{ x: number; y: number; s: number; waist: number }> = ({ x, y, s, waist }) => {
+  const id = svgId(useId());
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <defs>
+        <linearGradient id={`kp${id}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#5b4a3a" />
+          <stop offset="1" stopColor="#2e2219" />
+        </linearGradient>
+        <clipPath id={`kc${id}`}>
+          <rect x={0} y={0} width={500} height={700} />
+        </clipPath>
+      </defs>
+      <rect x={-60} y={-60} width={620} height={820} rx={16} fill="#c8962e" stroke={C.ink} strokeWidth={9} />
+      <rect x={-36} y={-36} width={572} height={772} rx={10} fill="#e8c25a" stroke={C.ink} strokeWidth={6} />
+      <g clipPath={`url(#kc${id})`}>
+        <rect x={0} y={0} width={500} height={700} fill={`url(#kp${id})`} />
+        <path d="M380 0 Q470 200 420 420 L500 440 V0 Z" fill="#7a2e2a" opacity={0.85} />
+        <KrLady x={250} y={760} s={0.78} waist={waist} />
+        <rect x={0} y={0} width={500} height={700} fill="#ffcf6a" opacity={0.08} />
+      </g>
+      <rect x={0} y={0} width={500} height={700} fill="none" stroke={C.ink} strokeWidth={7} />
+    </g>
+  );
+};
+// Kraliçenin balmumu heykeli (1603 cenaze heykeli): koyu bordo kadife, altın brokar desenli geniş etek (farthingale), ön
+// panelde altın-inci işleme; kabarık, yırtmaçlı kollar; mücevherli sivri göğüslük; dantel fırfır yaka; inci dizileri;
+// kızıl kıvırcık saç, incili mücevher taç. lift 0..1: göğüslük kalkar, altından krem rengi balenli 1603 korsesi görünür.
+const KR_VELVET = "#6e1424";
+const KR_GOLD = "#d9a92c";
+const KrPearl: React.FC<{ x: number; y: number; r?: number }> = ({ x, y, r = 7 }) => (
+  <g>
+    <circle cx={x} cy={y} r={r} fill="#fbf6ea" stroke={C.ink} strokeWidth={2.5} />
+    <circle cx={x - r * 0.35} cy={y - r * 0.35} r={r * 0.3} fill="#fff" stroke="none" />
+  </g>
+);
+const KrGem: React.FC<{ x: number; y: number; r?: number; c?: string }> = ({ x, y, r = 12, c = "#b3122e" }) => (
+  <g>
+    <path d={`M${x} ${y - r} L${x + r} ${y} L${x} ${y + r} L${x - r} ${y} Z`} fill={c} stroke={C.ink} strokeWidth={3} />
+    <path d={`M${x - r * 0.3} ${y - r * 0.4} L${x} ${y - r * 0.7}`} stroke="#fff" strokeWidth={3} opacity={0.8} />
+  </g>
+);
+const KrQueen: React.FC<{ x: number; y: number; s: number; lift: number; glow: number }> = ({ x, y, s, lift, glow }) => {
+  const id = svgId(useId());
+  const skirt = "M-70 -440 C-150 -330 -330 -150 -350 0 H350 C330 -150 150 -330 70 -440 Z";
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+      <defs>
+        <linearGradient id={`qv${id}`} x1="0" x2="1">
+          <stop offset="0" stopColor="#3e0812" />
+          <stop offset="0.35" stopColor={KR_VELVET} />
+          <stop offset="0.6" stopColor="#8a1e30" />
+          <stop offset="1" stopColor="#3e0812" />
+        </linearGradient>
+        <clipPath id={`qs${id}`}>
+          <path d={skirt} />
+        </clipPath>
+      </defs>
+      {/* etek: kadife + altın brokar desen + ön panel */}
+      <path d={skirt} fill={`url(#qv${id})`} strokeWidth={8} />
+      <g clipPath={`url(#qs${id})`}>
+        {Array.from({ length: 28 }, (_, i) => {
+          const cx = -300 + (i % 7) * 100 + (Math.floor(i / 7) % 2) * 50;
+          const cy = -40 - Math.floor(i / 7) * 95;
+          return <path key={i} d={`M${cx} ${cy - 22} Q${cx + 18} ${cy} ${cx} ${cy + 22} Q${cx - 18} ${cy} ${cx} ${cy - 22} Z M${cx - 22} ${cy} H${cx + 22}`} fill="none" stroke={KR_GOLD} strokeWidth={3} opacity={0.55} />;
+        })}
+        <path d="M-40 -440 L-150 0 H150 L40 -440 Z" fill="#f3e6c4" strokeWidth={6} />
+        {Array.from({ length: 9 }, (_, i) => {
+          const yy = -400 + i * 46;
+          const hw = 46 + i * 12;
+          return (
+            <g key={i}>
+              <path d={`M${-hw} ${yy} Q0 ${yy + 14} ${hw} ${yy}`} fill="none" stroke={KR_GOLD} strokeWidth={4} />
+              <KrGem x={0} y={yy + 18} r={8} c={i % 2 ? "#1f5e9c" : "#b3122e"} />
+              <KrPearl x={-hw * 0.6} y={yy + 14} r={5} />
+              <KrPearl x={hw * 0.6} y={yy + 14} r={5} />
+            </g>
+          );
+        })}
+      </g>
+      <path d="M-350 0 Q-260 -26 -175 0 Q-90 -26 0 0 Q90 -26 175 0 Q260 -26 350 0" fill="none" stroke={KR_GOLD} strokeWidth={8} />
+      {/* 1603 korsesi (altta): koni biçimli, sivri bel, dikey baleler */}
+      <g>
+        {glow > 0 ? <path d="M-100 -640 L-62 -440 L0 -400 L62 -440 L100 -640 Q0 -660 -100 -640 Z" fill="none" stroke="#ffd25e" strokeWidth={30} opacity={0.6 * glow} /> : null}
+        <path d="M-100 -640 L-62 -440 L0 -400 L62 -440 L100 -640 Q0 -660 -100 -640 Z" fill="#efe6d2" strokeWidth={7} />
+        {[-70, -46, -22, 0, 22, 46, 70].map((bx) => (
+          <path key={bx} d={`M${bx} -644 L${bx * 0.55} -432`} stroke="#b9a684" strokeWidth={4} />
+        ))}
+        {Array.from({ length: 7 }, (_, i) => <circle key={i} cx={0} cy={-620 + i * 28} r={4} fill="#7a5a34" stroke="none" />)}
+      </g>
+      {/* mücevherli sivri göğüslük (üstte): lift ile kalkar */}
+      <g transform={`translate(${lift * 30} ${-lift * 150}) rotate(${lift * 10})`} opacity={1 - tw(lift, 0.4, 1)}>
+        <path d="M-106 -644 L-66 -440 L0 -380 L66 -440 L106 -644 Q0 -666 -106 -644 Z" fill={KR_VELVET} strokeWidth={8} />
+        <path d="M-60 -632 L-32 -450 L0 -406 L32 -450 L60 -632 Q0 -646 -60 -632 Z" fill="#f3e6c4" strokeWidth={5} />
+        {Array.from({ length: 6 }, (_, i) => {
+          const yy = -612 + i * 36;
+          const hw = 46 - i * 6;
+          return (
+            <g key={i}>
+              <path d={`M${-hw} ${yy} Q0 ${yy + 12} ${hw} ${yy}`} fill="none" stroke={KR_GOLD} strokeWidth={4} />
+              <KrGem x={0} y={yy + 14} r={9} c={i % 2 ? "#1f5e9c" : "#b3122e"} />
+              <KrPearl x={-hw * 0.7} y={yy + 10} r={5} />
+              <KrPearl x={hw * 0.7} y={yy + 10} r={5} />
+            </g>
+          );
+        })}
+        <path d="M-106 -644 L-66 -440 L0 -380 L66 -440 L106 -644" fill="none" stroke={KR_GOLD} strokeWidth={6} />
+      </g>
+      {/* kabarık, yırtmaçlı kollar */}
+      {[-1, 1].map((sd) => (
+        <g key={sd}>
+          <path d={`M${sd * 96} -650 C${sd * 200} -650 ${sd * 210} -520 ${sd * 150} -470 C${sd * 130} -430 ${sd * 110} -460 ${sd * 104} -500 Z`} fill={KR_VELVET} strokeWidth={7} />
+          {[0, 1, 2].map((k) => (
+            <path key={k} d={`M${sd * (118 + k * 22)} -630 Q${sd * (150 + k * 18)} -560 ${sd * (128 + k * 12)} -490`} stroke="#f3e6c4" strokeWidth={9} fill="none" />
+          ))}
+          <path d={`M${sd * 140} -476 L${sd * 140} -420`} stroke={C.ink} strokeWidth={30} />
+          <path d={`M${sd * 140} -476 L${sd * 140} -420`} stroke={KR_VELVET} strokeWidth={20} />
+          <circle cx={sd * 140} cy={-405} r={18} fill="#f3dcc6" strokeWidth={5} />
+          {[-1, 0, 1].map((k) => <KrPearl key={k} x={sd * (140 + k * 12)} y={-428} r={4} />)}
+        </g>
+      ))}
+      {/* inci dizileri */}
+      <path d="M-80 -650 Q0 -560 80 -650" fill="none" stroke="none" />
+      {Array.from({ length: 13 }, (_, i) => {
+        const t = i / 12;
+        return <KrPearl key={i} x={lerp(-80, 80, t)} y={-650 + 90 * 4 * t * (1 - t)} r={6} />;
+      })}
+      {Array.from({ length: 9 }, (_, i) => {
+        const t = i / 8;
+        return <KrPearl key={`b${i}`} x={lerp(-60, 60, t)} y={-650 + 50 * 4 * t * (1 - t)} r={5} />;
+      })}
+      {/* dantel fırfır yaka (iki kat, ince pliseli) */}
+      <g>
+        {Array.from({ length: 24 }, (_, i) => {
+          const a = (i / 24) * Math.PI * 2;
+          return <ellipse key={i} cx={Math.cos(a) * 128} cy={-694 + Math.sin(a) * 40} rx={30} ry={22} fill="#fbf8ef" strokeWidth={3.5} />;
+        })}
+        <ellipse cx={0} cy={-694} rx={132} ry={42} fill="#fbf8ef" strokeWidth={4} />
+        {Array.from({ length: 22 }, (_, i) => {
+          const a = (i / 22) * Math.PI * 2;
+          return <path key={i} d={`M${Math.cos(a) * 40} ${-694 + Math.sin(a) * 14} L${Math.cos(a) * 128} ${-694 + Math.sin(a) * 40}`} stroke="#d8d2c2" strokeWidth={2.5} />;
+        })}
+      </g>
+      <circle cx={0} cy={-762} r={64} fill="#f6e6d8" strokeWidth={7} />
+      <ellipse cx={-36} cy={-742} rx={12} ry={7} fill="#e8a59a" opacity={0.6} stroke="none" />
+      <ellipse cx={36} cy={-742} rx={12} ry={7} fill="#e8a59a" opacity={0.6} stroke="none" />
+      <path d="M-68 -770 C-90 -870 90 -870 68 -770 C58 -812 -58 -812 -68 -770 Z" fill="#c4552b" strokeWidth={6} />
+      {[-64, -40, -14, 14, 40, 64].map((cx) => <circle key={cx} cx={cx} cy={-826 + Math.abs(cx) * 0.45} r={17} fill="#c4552b" strokeWidth={4} />)}
+      {[-50, -20, 20, 50].map((cx) => <KrPearl key={cx} x={cx} y={-806 + Math.abs(cx) * 0.3} r={5} />)}
+      {/* mücevher taç */}
+      <path d="M-46 -852 L-38 -900 L-20 -866 L0 -912 L20 -866 L38 -900 L46 -852 Z" fill={KR_GOLD} strokeWidth={5} />
+      <KrGem x={0} y={-872} r={9} />
+      <KrGem x={-30} y={-866} r={6} c="#1f5e9c" />
+      <KrGem x={30} y={-866} r={6} c="#1f5e9c" />
+      {[-38, 0, 38].map((cx) => <KrPearl key={cx} x={cx} y={cx === 0 ? -916 : -904} r={6} />)}
+      <circle cx={-22} cy={-766} r={6} fill={C.ink} stroke="none" />
+      <circle cx={22} cy={-766} r={6} fill={C.ink} stroke="none" />
+      <path d="M-12 -734 Q0 -730 12 -734" stroke="#a83a3a" strokeWidth={5} fill="none" />
+    </g>
+  );
+};
+// Kaburga kafesi (röntgen): k 0 = normal, 1 = alt kaburgalar içe bükülmüş (kırmızı); ghost = normal hâlin kesik çizgisi
+const KR_RIB_W = [92, 122, 140, 148, 144, 132, 114];
+const KrRibs: React.FC<{ k: number; ghost?: number; bone?: string }> = ({ k, ghost = 0, bone = "#f1ead8" }) => (
+  <g strokeLinecap="round" fill="none">
+    {ghost > 0
+      ? KR_RIB_W.map((wd, i) => {
+          const y = -170 + i * 52;
+          return [-1, 1].map((sd) => <path key={`${i}${sd}`} d={`M0 ${y} C${sd * wd * 0.7} ${y - 26} ${sd * wd * 1.12} ${y + 4} ${sd * wd * 0.95} ${y + 58}`} stroke={YAS_OK} strokeWidth={5} strokeDasharray="10 8" opacity={ghost} />);
+        })
+      : null}
+    <path d="M0 -205 V250" stroke={bone} strokeWidth={22} />
+    {Array.from({ length: 9 }, (_, i) => <path key={i} d={`M-14 ${-190 + i * 50} H14`} stroke="#b9ad94" strokeWidth={6} />)}
+    {KR_RIB_W.map((wd, i) => {
+      const y = -170 + i * 52;
+      const sq = 1 - k * 0.5 * Math.pow(i / 6, 1.3);
+      const ww = wd * sq;
+      const col = i >= 3 ? krMix(bone.startsWith("#") ? bone : "#f1ead8", "#e0584a", k) : bone;
+      return [-1, 1].map((sd) => <path key={`${i}${sd}`} d={`M0 ${y} C${sd * ww * 0.7} ${y - 26} ${sd * ww * 1.12} ${y + 4} ${sd * ww * 0.95} ${y + 58}`} stroke={col} strokeWidth={14} />);
+    })}
+    <path d="M-110 300 Q-130 250 -60 250 L60 250 Q130 250 110 300 Q60 340 0 320 Q-60 340 -110 300 Z" fill={bone} stroke={C.ink} strokeWidth={5} />
+  </g>
+);
+// 4) "1995'te İngiltere Kraliçesi Elizabeth'in balmumu heykelini onarırken giysilerinin altından 1603'ten kalma bir korse
+// çıktı. Korse yüzyıllarca takıldı; iskeletlerde kaburgalar içe bükülmüş çıktı: yağ gitmemiş, kemik yer değiştirmiş."
+// Müze salonu (koyu kırmızı duvar): solda cam bölmede kraliçenin balmumu heykeli, künye "KRALİÇE I. ELİZABETH"; beyaz önlüklü
+// restoratör fırçayla çalışır. "giysilerinin altından"da kamera bele yaklaşır, elbisenin göğüs parçası kalkar, altından krem
+// renkli korse parlar, "1603" etiketi. "yüzyıllarca"da yıl 1603 → 1900 akar; "iskeletlerde" kamera sağdaki cam vitrine kayar:
+// lacivert kesik çizgi = normal kaburga, alt kaburgalar içe bükülüp kırmızıya döner; "kemik yer değiştirmiş" kırmızı.
+// 1598 mezarı: mum ışığında taş tabut, kapak kayar, içinde eski, kahverengileşmiş korse (önde sert çubuk, arkadan bağcık)
+const KrTomb: React.FC<{ open: number; f: number }> = ({ open, f }) => (
+  <g stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+    <rect x={-200} y={-200} width={1480} height={2320} fill="#2a2420" strokeWidth={0} />
+    {Array.from({ length: 40 }, (_, i) => (
+      <rect key={i} x={-60 + (i % 8) * 160 + (Math.floor(i / 8) % 2) * 80} y={80 + Math.floor(i / 8) * 110} width={150} height={100} rx={8} fill="#3a322b" strokeWidth={4} opacity={0.9} />
+    ))}
+    <circle cx={540} cy={900} r={700} fill="#ffcf6a" opacity={0.1 + 0.03 * Math.sin(f / 3)} strokeWidth={0} />
+    {[180, 900].map((cx) => (
+      <g key={cx}>
+        <rect x={cx - 18} y={760} width={36} height={130} fill="#efe6d2" strokeWidth={5} />
+        <path d={`M${cx} 760 Q${cx + 14 * Math.sin(f / 4)} 720 ${cx} 690 Q${cx - 14} 730 ${cx} 760 Z`} fill="#ffb347" strokeWidth={4} />
+      </g>
+    ))}
+    <path d="M150 1500 L190 1180 H890 L930 1500 Z" fill="#8b8173" strokeWidth={8} />
+    <path d="M190 1180 H890 L870 1230 H210 Z" fill="#6e665b" strokeWidth={6} />
+    <g transform="translate(540 1200)">
+      <path d="M-120 -170 L-70 20 L0 60 L70 20 L120 -170 Q0 -195 -120 -170 Z" fill="#c9b48e" strokeWidth={6} opacity={open} />
+      {[-80, -50, -20, 20, 50, 80].map((bx) => <path key={bx} d={`M${bx} -176 L${bx * 0.6} 30`} stroke="#8a7350" strokeWidth={4} opacity={open} />)}
+      <rect x={-10} y={-185} width={20} height={230} rx={6} fill="#7a5a34" strokeWidth={4} opacity={open} />
+    </g>
+    <g transform={`translate(${open * 620} ${-open * 40}) rotate(${open * 8} 540 1150)`}>
+      <path d="M170 1170 L200 1110 H880 L910 1170 Z" fill="#a39a8b" strokeWidth={8} />
+      <path d="M380 1140 H700" stroke="#6e665b" strokeWidth={8} />
+      <path d="M540 1118 V1162 M518 1132 H562" stroke="#6e665b" strokeWidth={8} />
+    </g>
+  </g>
+);
+const KR_MFL = 1400;
+const KR_Q = { x: 330, y: 1250, s: 0.82 };
+// eski kelime sırası → yeni metin ("1995'te Kraliçe Elizabeth'in balmumu heykeli onarılırken altından 1603'ten kalma bir korse
+// çıktı. Daha eskisi 1598'de bir mezardan çıktı. Korseli kadınların iskeletlerinde kaburgalar içe bükülmüş: yağ gitmemiş, kemik
+// yer değiştirmiş."); 12-17 arası mezar sahnesi (KrTomb) üstte
+const KR_TMAP = [0, 1, 1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10, 11, 12, 12, 13, 18, 21, 22, 23, 23, 24, 25, 26, 27, 28];
+const KrTarih: React.FC<SceneProps> = ({ w: wn, d }) => {
+  const w = (i: number) => wn(KR_TMAP[i] ?? 28);
+  const f = useCurrentFrame();
+  const tombIn = tw(f, wn(12) - 4, wn(12) + 6) * (1 - tw(f, wn(18) - 4, wn(18) + 4));
+  const lift = Easing.out(Easing.back(1.2))(tw(f, w(7), w(8) + 8));
+  const glow = tw(f, w(12) - 4, w(13)) * (0.7 + 0.3 * Math.sin(f / 4));
+  const year = 1603;
+  const k = tw(f, w(19), w(20) + 8);
+  const ghost = tw(f, w(18), w(19));
+  const brush = f >= w(5) && f < w(7) ? Math.sin(f / 2.5) * 12 : 0;
+  const VX = 790;
+  const VY = 860;
+  const waistY = KR_Q.y - 470 * KR_Q.s;
+  return (
+    <>
+      <CamK k={[[0, 1.25, 330, 900], [w(4), 1.2, 330, 880], [w(7), 1.25, 330, 820], [w(8) + 6, 1.9, 330, waistY], [w(13) + 4, 1.9, 330, waistY], [w(15), 1.2, 330, 820], [w(17) + 8, 1.6, 1213, 1173], [w(22), 1.55, 1213, 1150], [d, 1.15, 700, 1000]]}>
+        <rect x={-400} y={-400} width={1880} height={KR_MFL + 400} fill="#7a2e2a" />
+        {Array.from({ length: 14 }, (_, i) => <path key={i} d={`M${-300 + i * 108} -400 V${KR_MFL}`} stroke="#6a2623" strokeWidth={5} opacity={0.6} />)}
+        <rect x={-400} y={KR_MFL} width={1880} height={900} fill="#8a6440" />
+        <path d={`M-400 ${KR_MFL} H1480`} stroke={C.ink} strokeWidth={7} />
+        <path d="M150 0 L510 0 L620 1300 L40 1300 Z" fill="#fff3cf" opacity={0.12 + 0.12 * glow} />
+        {/* cam bölme + kaide */}
+        <g stroke={C.ink} strokeLinejoin="round">
+          <rect x={KR_Q.x - 230} y={KR_Q.y} width={460} height={KR_MFL - KR_Q.y} fill="#5e3f22" strokeWidth={8} />
+          <rect x={KR_Q.x - 230} y={KR_Q.y - 830} width={460} height={830} rx={10} fill="#3b2a2e" strokeWidth={8} />
+        </g>
+        <KrQueen x={KR_Q.x} y={KR_Q.y} s={KR_Q.s} lift={lift} glow={glow} />
+        <rect x={KR_Q.x - 230} y={KR_Q.y - 830} width={460} height={830} rx={10} fill="#bfe0ef" opacity={0.1} />
+        <path d={`M${KR_Q.x - 190} ${KR_Q.y - 790} L${KR_Q.x - 80} ${KR_Q.y - 830} M${KR_Q.x - 210} ${KR_Q.y - 690} L${KR_Q.x - 30} ${KR_Q.y - 800}`} stroke="#fff" strokeWidth={12} opacity={0.3} />
+        <g transform={`translate(${KR_Q.x} ${KR_Q.y - 880})`} stroke={C.ink}>
+          <rect x={-215} y={-30} width={430} height={60} rx={8} fill="#efe2c4" strokeWidth={5} />
+          <text x={0} y={12} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={32} fill={C.ink} stroke="none">KRALİÇE I. ELİZABETH · {year}</text>
+        </g>
+        {/* restoratörün beyaz eldivenli eli: önce fırçalar, sonra elbisenin göğüs parçasını kaldırır */}
+        {f >= w(4) - 6 && f < w(14) ? (() => {
+          const tx = KR_Q.x + 70 * KR_Q.s + lift * 25;
+          const ty = KR_Q.y - (520 + lift * 150) * KR_Q.s + brush;
+          const inn = tw(f, w(4) - 6, w(4) + 4);
+          const hx = lerp(700, tx, inn);
+          const hy = lerp(1500, ty, inn);
+          return (
+            <g stroke={C.ink} strokeLinecap="round" strokeLinejoin="round">
+              <path d={`M720 1520 Q${hx + 120} ${hy + 160} ${hx + 30} ${hy + 20}`} stroke={C.ink} strokeWidth={58} fill="none" />
+              <path d={`M720 1520 Q${hx + 120} ${hy + 160} ${hx + 30} ${hy + 20}`} stroke="#f4f4f0" strokeWidth={46} fill="none" />
+              <ellipse cx={hx} cy={hy} rx={40} ry={30} fill="#f8f8f4" strokeWidth={6} />
+              {[-1, 0, 1].map((k) => <path key={k} d={`M${hx - 30} ${hy + k * 14} h-26`} stroke={C.ink} strokeWidth={22} />)}
+              {[-1, 0, 1].map((k) => <path key={`f${k}`} d={`M${hx - 30} ${hy + k * 14} h-26`} stroke="#f8f8f4" strokeWidth={12} />)}
+            </g>
+          );
+        })() : null}
+        {/* iskelet vitrini */}
+        <g stroke={C.ink} strokeLinejoin="round">
+          <rect x={VX - 220} y={VY + 330} width={440} height={KR_MFL - VY - 330} fill="#5e3f22" strokeWidth={8} />
+          <rect x={VX - 210} y={VY - 360} width={420} height={690} rx={10} fill="#22313a" strokeWidth={8} />
+          <g transform={`translate(${VX} ${VY - 20}) scale(1.05)`}>
+            <circle cx={0} cy={-290} r={58} fill="#f1ead8" stroke={C.ink} strokeWidth={5} />
+            <circle cx={-20} cy={-296} r={12} fill={C.ink} stroke="none" />
+            <circle cx={20} cy={-296} r={12} fill={C.ink} stroke="none" />
+            <KrRibs k={k} ghost={ghost} />
+          </g>
+          <rect x={VX - 210} y={VY - 360} width={420} height={690} rx={10} fill="#bfe0ef" opacity={0.12} strokeWidth={0} />
+          <rect x={VX - 170} y={VY + 350} width={340} height={56} rx={8} fill="#efe2c4" strokeWidth={5} />
+          <text x={VX} y={VY + 389} textAnchor="middle" fontFamily={fontFamily} fontWeight={800} fontSize={30} fill={C.ink} stroke="none">LONDRA · 1700-1900</text>
+        </g>
+        {k > 0.5 ? [-1, 1].map((sd) => <HeadArrow key={sd} x1={VX + sd * 230} y1={VY + 180} x2={VX + sd * 120} y2={VY + 170} p={tw(f, w(20), w(20) + 8)} color={C.red} w={12} />) : null}
+        <Person x={1000} y={KR_MFL + 320} s={0.5} belly={0.45} shirt={SEL_AV_TOP} shorts="#8c8c90" shoe="#5a5a62" armL={[12, 0]} armR={k > 0.5 ? [100, 50] : [12, 0]} mouth={k > 0.5 ? "o" : "smile"} eyes={k > 0.5 ? "wide" : "open"} lookY={-8} />
+      </CamK>
+      {tombIn > 0 ? (
+        <g opacity={tombIn}>
+          <CamK k={[[wn(12), 1.15, 540, 1100], [wn(15), 1.3, 540, 1180], [wn(18), 1.35, 540, 1180]]}>
+            <KrTomb open={tw(f, wn(13), wn(15) + 6)} f={f} />
+          </CamK>
+          <KTag x={540} y={360} p={pop(f, wn(14) - 2, 12)} text="1598 · en eski korse" color={C.red} rot={-3} />
+          <OldPhoto o={0.45} />
+        </g>
+      ) : null}
+      <OldPhoto o={0.2 * (1 - tw(f, w(14), w(14) + 10))} />
+      <KTag x={540} y={1640} p={pop(f, 0, 10) * (1 - tw(f, w(9) - 4, w(9)))} text="1995 · restorasyon" color={C.ink} rot={-4} />
+      <KTag x={540} y={1640} p={pop(f, w(9) - 2, 12) * (1 - tw(f, w(14) - 4, w(14)))} text="1603'ten korse" color={C.red} rot={3} />
+      <KTag x={540} y={1640} p={pop(f, w(18) - 2, 12) * (1 - tw(f, w(22) - 4, w(22) - 1))} text="içe bükülmüş" color={C.red} rot={3} />
+      <PillLabel x={540} y={1640} text="yağ gitmemiş" p={pop(f, w(22) - 2, 10) * (1 - tw(f, w(24) - 4, w(24) - 1))} />
+      <KTag x={540} y={1640} p={pop(f, w(24) - 2, 12)} text="kemik yer değiştirmiş" color={C.red} rot={-2} />
+    </>
+  );
+};
+
+// Doğal korse (derin karın kası): korse biçiminde lacivert, yatay lifli şerit; glow ile parlar
+const KrMuscleBelt: React.FC<{ belly: number; p: number; glow: number }> = ({ belly, p, glow }) => {
+  if (p <= 0) return null;
+  const t = 86;
+  const wst = krWaist(belly) - 2;
+  const hb = krHip(belly) - 2;
+  const outline = `M${-t} -512 C${-t + 2} -490 ${-wst} -480 ${-wst} -460 C${-wst} -436 ${-hb + 4} -420 ${-hb} -400 L${hb} -400 C${hb - 4} -420 ${wst} -436 ${wst} -460 C${wst} -480 ${t - 2} -490 ${t} -512 Q0 -524 ${-t} -512 Z`;
+  return (
+    <g opacity={p}>
+      {glow > 0 ? <path d={outline} fill="none" stroke="#7fb2ff" strokeWidth={34} opacity={0.45 * glow} /> : null}
+      <path d={outline} fill={YAS_OK} stroke={C.ink} strokeWidth={6} opacity={0.88} />
+      {Array.from({ length: 5 }, (_, i) => {
+        const y = -500 + i * 22;
+        const hw = i < 2 ? lerp(t - 6, wst - 4, i / 2) : lerp(wst - 4, hb - 6, (i - 2) / 3);
+        return <path key={i} d={`M${-hw + 6} ${y} Q0 ${y + 8} ${hw - 6} ${y}`} stroke="#9fc0ea" strokeWidth={5} fill="none" strokeLinecap="round" />;
+      })}
+    </g>
+  );
+};
+// 7) "Senin zaten doğuştan bir korsen var: karnının derin kası. Nefesini ver, göbeğini içe çek, on saniye tut."
+// Sabah, oda; korse sandalyenin üstünde kalmış. "korsen"de kamera bele iner, gövdede röntgen gibi lacivert "doğal korse" belirir
+// (korsenin şeklinde, yatay lifler), "derin kası" etiket. "Nefesini ver"de nefes bulutu, "içe çek"te göbek içeri girer ve şerit
+// parlar; "on saniye"de sağ üstte 10 → geri sayan lacivert halka.
+const KrTavsiye: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const inn = tw(f, w(11), w(13) + 4);
+  const belly = lerp(0.42, 0.12, inn);
+  const breath = tw(f, w(9), w(11));
+  const ring = tw(f, w(14), w(17));
+  const xray = tw(f, w(4) - 2, w(4) + 8);
+  return (
+    <>
+      <CamK k={[[0, 1.05, 520, 920], [w(4), 1.0, 540, 960], [w(6), 1.7, 330, KR_WAIST_Y - 40], [w(9) - 2, 1.7, 330, KR_WAIST_Y - 40], [w(10), 1.3, 400, 860], [d, 1.4, 380, 880]]}>
+        <KrRoom sky="#ffe9b8" sun={[KR_WIN.x + 150, KR_WIN.y + 110]} clock={7 * 60 + 40} refl={{ belly }} />
+        <g transform={`translate(110 ${SEL_FL}) scale(0.5)`} stroke={C.ink} strokeLinejoin="round">
+          <rect x={-120} y={-420} width={240} height={30} fill="#8a5a34" strokeWidth={7} />
+          <path d="M-110 -390 V0 M110 -390 V0 M-110 -660 V-420 M110 -660 V-420" strokeWidth={14} />
+          <rect x={-120} y={-680} width={240} height={40} fill="#8a5a34" strokeWidth={7} />
+          <g transform="translate(0 -40) rotate(-8)">
+            <KrCorset belly={-0.25} />
+          </g>
+        </g>
+        <KrWoman belly={belly} mouth={breath > 0 && breath < 1 ? "o" : inn > 0.5 ? "flat" : "smile"} eyes={inn > 0.5 ? "closed" : "open"} armL={[12, 0]} armR={[12, 0]}>
+          {xray > 0 ? (
+            <g opacity={xray * 0.55}>
+              <path d={`M-96 -525 Q${-krWaist(belly) - 14} -480 ${-krWaist(belly)} -455 Q${-krHip(belly)} -410 ${-krHip(belly) - 6} -380 H${krHip(belly) + 6} Q${krHip(belly)} -410 ${krWaist(belly)} -455 Q${krWaist(belly) + 14} -480 96 -525 Z`} fill="#22313a" />
+            </g>
+          ) : null}
+          <KrMuscleBelt belly={belly} p={xray} glow={inn} />
+          {breath > 0 && breath < 1
+            ? [0, 1, 2].map((i) => {
+                const t = (breath * 1.6 + i * 0.25) % 1;
+                return <circle key={i} cx={60 + t * 170} cy={-670 - t * 40} r={18 + t * 32} fill="#fff" stroke={C.ink} strokeWidth={3} opacity={0.75 * (1 - t)} />;
+              })
+            : null}
+        </KrWoman>
+        {inn > 0 ? [-1, 1].map((sd) => <HeadArrow key={sd} x1={SEL_WO.x + sd * 170} y1={KR_WAIST_Y + 20} x2={SEL_WO.x + sd * 100} y2={KR_WAIST_Y + 20} p={inn} color={YAS_OK} w={12} />) : null}
+        <PillLabel x={SEL_WO.x + 330} y={KR_WAIST_Y - 120} text="derin karın kası" p={pop(f, w(7) - 2, 10) * (1 - tw(f, w(9) - 4, w(9)))} to={[SEL_WO.x + 20, KR_WAIST_Y + 20]} color={YAS_OK} />
+      </CamK>
+      <KTag x={540} y={300} p={pop(f, w(2) - 2, 12) * (1 - tw(f, w(9) - 4, w(9)))} text="doğal korse" color={YAS_OK} rot={-4} />
+      {pop(f, w(19) - 4, 14) > 0 ? (
+        <g transform={`translate(745 720) scale(${0.72 * pop(f, w(19) - 4, 14)}) rotate(-4)`}>
+          <rect x={-300} y={-110} width={600} height={190} rx={34} fill={C.cream} stroke={YAS_OK} strokeWidth={12} />
+          <text y={52} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={150} fill={YAS_OK} letterSpacing={12}>VAKUM</text>
+        </g>
+      ) : null}
+      {ring > 0 && f < w(19) - 4 ? (
+        <g transform={`translate(830 380) scale(${pop(f, w(14) - 2, 12)})`}>
+          <circle r={120} fill={C.cream} stroke={C.ink} strokeWidth={8} />
+          <circle r={98} fill="none" stroke={YAS_OK} strokeWidth={24} strokeDasharray={`${2 * Math.PI * 98 * (1 - ring)} 999`} transform="rotate(-90)" />
+          <text y={30} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={92} fill={C.ink}>{Math.max(1, 10 - Math.floor(ring * 10))}</text>
+          <text y={-130} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={52} fill={YAS_OK}>10 saniye</text>
+        </g>
+      ) : null}
+    </>
+  );
+};
+
+// 8) "Bunu korseyle spora giden arkadaşına gönder. Yoksa yarın sabah:" Kadın kanepe kenarında telefonla; sağ üstte düşünce
+// bulutunda arkadaşı salonda korseyle dambıl kaldırıyor, terliyor; kâğıt uçak buluta uçar, sonra kameraya gelip ekranı kaplar
+// → ilk kare (sabah, korse yakın planı). Rafta küçük VOOM ekranı.
+// "İnce bel hedefini VOOM'daki koçuna söyle; vakumu programına o eklesin." (önce): kadın telefona bakar, yanda büyük VOOM
+// koç ekranı; "vakumu programına"da ekranın altına "Vakum · 10 sn" satırı kayarak eklenir, "eklesin"de lacivert tik.
+const KrSon: React.FC<SceneProps> = ({ w: w0, d }) => {
+  useImgReady(DG_SHOT);
+  const f = useCurrentFrame();
+  const KS = [9, 10, 11, 11, 12, 13, 14, 14, 15, 16];
+  const w = (i: number) => w0(KS[i] ?? 16);
+  const voom = f < w(0) - 2;
+  const row = Easing.out(Easing.cubic)(tw(f, w0(6) - 2, w0(7) + 6));
+  const tick = tw(f, w0(8) - 2, w0(8) + 8);
+  const send = f >= w(4) - 2;
+  const plane = tw(f, w(5) - 2, w(6));
+  const wipe = tw(f, w(6), w(8));
+  const reveal = tw(f, w(8), w(8) + 8);
+  const fh = armPoints(1, fkCurl(f, 0))[2];
+  if (voom) {
+    return (
+      <>
+        <CamK k={[[0, 1.1, 300, 900], [w0(3), 1.0, 540, 960], [w(0), 1.05, 600, 900]]}>
+          <KrRoom sky="#ffe9b8" sun={[KR_WIN.x + 150, KR_WIN.y + 110]} clock={8 * 60} refl={{ belly: 0.3, armR: [25, 135] }} />
+          <KrWoman belly={0.3} armR={[25, 135]} mouth={tick > 0.5 ? "grin" : "smile"} lookY={4}>
+            <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.6} />
+          </KrWoman>
+        </CamK>
+        <DgVoomPhone x={760} y={820} s={pop(f, w0(3) - 6, 14) * 1.55} />
+        {row > 0 ? (
+          <g transform={`translate(${lerp(1200, 700, row)} 1250)`} stroke={C.ink} strokeLinejoin="round" strokeLinecap="round">
+            <rect x={-230} y={-60} width={460} height={120} rx={26} fill={C.cream} strokeWidth={7} />
+            <text x={-50} y={18} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={50} fill={YAS_OK} stroke="none">+ Vakum · 10 sn</text>
+            {tick > 0 ? <path d="M150 0 l24 26 l50 -56" stroke={YAS_OK} strokeWidth={16} fill="none" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - tick} /> : null}
+          </g>
+        ) : null}
+        <KTag x={540} y={300} p={pop(f, w0(0) - 2, 12)} text="ince bel hedefi" color={YAS_OK} rot={-3} />
+      </>
+    );
+  }
+  return (
+    <>
+      <CamK k={[[w(0) - 2, 1.1, 640, 820], [w(2), 1.0, 540, 960], [d, 1.04, 540, 960]]}>
+        <KrRoom sky="#2d3a6a" sun={[KR_WIN.x + 220, KR_WIN.y + 80]} moon clock={21 * 60} refl={{ belly: 0.42, armR: send ? [25, 135] : [12, 0] }} dark={0.3} />
+        <DgVoomPhone x={170} y={SEL_FL - 60} s={0.42} />
+        <KrWoman belly={0.42} armR={send ? [25, 135] : [12, 0]} mouth="grin">
+          {send ? <Phone x={S2_HAND[0]} y={S2_HAND[1] - 20} s={1.3} rot={-8} glow={0.6} /> : null}
+        </KrWoman>
+      </CamK>
+      <Bubble x={720} y={520} rx={300} ry={250} p={pop(f, w(1) - 4, 12)} tail={[SEL_WO.x + 60, SEL_WO.y - 820 * SEL_WO.s]}>
+        <g transform="translate(720 760) scale(0.5)">
+          <KrWoman x={0} y={0} s={1} belly={-0.2} corset={1} shirt={KR_FRIEND} armR={fkCurl(f, 0)} mouth="o" eyes="wide" blush={0.95}>
+            <Dumbbell x={fh[0]} y={fh[1]} s={0.9} rot={90} />
+            <Sweat f={f} x={0} y={-640} w={200} h={220} n={5} />
+          </KrWoman>
+        </g>
+      </Bubble>
+      <KTag x={720} y={210} p={pop(f, w(1), 12)} text="korseli arkadaşın" color={C.red} rot={3} />
+      <VsPaperPlane p={plane} a={[360, 900]} b={[700, 560]} />
+      {wipe > 0 && wipe < 1 ? (
+        <g transform={`translate(${lerp(700, 540, wipe)} ${lerp(560, 960, wipe)}) scale(${lerp(0.3, 12, Easing.in(Easing.cubic)(wipe))}) rotate(${lerp(-20, 0, wipe)})`} opacity={1 - reveal}>
+          <path d="M-160 0 L180 -70 L-40 30 Z" fill="#fbf7ec" stroke={C.ink} strokeWidth={2} strokeLinejoin="round" />
+          <path d="M-40 30 L180 -70 L-10 90 Z" fill="#e9e3d6" stroke={C.ink} strokeWidth={2} strokeLinejoin="round" />
+        </g>
+      ) : null}
+      {reveal > 0 ? (
+        <g opacity={reveal}>
+          <KrKanca2Frame f={0} w={() => 9999} d={9999} />
+        </g>
+      ) : null}
+    </>
+  );
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
+  ...TENYA_SCENES,
+  ...KREATIN_SCENES,
+  "kr-kanca2": KrKanca2,
+  "kr-sabah": KrSabah,
+  "kr-ertesi": KrErtesi,
+  "kr-ic": KrIc,
+  "kr-sebep": KrSebep,
+  "kr-terskose": KrTerskose,
+  "kr-tarih": KrTarih,
+  "kr-tavsiye": KrTavsiye,
+  "kr-son": KrSon,
   "tm-kanca": TmKanca,
   "tm-tuz": TmTuz,
   "tm-tarih": TmTarih,

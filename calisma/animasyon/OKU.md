@@ -1,4 +1,7 @@
 # Animasyon
+- **YENİ SERİ STİLİ (28 Ekim): 1930'lar "rubber hose" Yunus + Duru** → `src/avatar2/Hose.tsx` (`HoseChar`, `OldFilm`, `Stage`,
+  jestler `gesture`/`gestureT`, `talk`, `nod`, `surprise`, `laugh`, `lid`, `live`). Ayrıntı `onemli-notlar/DURUM.md`.
+  Aşağıdaki Cizim1 notları eski stil için.
 - Şablon `src/cizim1/Cizim1.tsx`, içerik `content/cizim1/cizim1-NN-<konu>.json` (sahne: `visual`, `voice`, `say`,
   isteğe bağlı `voiceId`, `lead`, `hold`, `keys`). Sahne bileşen adları videoya özel ön ekli (`kilo-*`, `ekim3-*`…).
 - Animasyonlar kelime zamanına bağlı: `w(i)`. Altyazıda `"keys"` → önemli kelimeler turuncu.

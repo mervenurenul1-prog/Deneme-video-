@@ -8,6 +8,8 @@ bilimsel açıklamalı, "bana özel" konular. Herkesin önerdiği klişeler yok.
 yağ nereye, tartı, 10 bin adım, kadın-ağırlık, boyun, diz, spora başlama yaşı, sauna eşofmanı, kadın zor kilo verir,
 selülit, ekim teorisi, mayışma (iptal), Victoria's Secret defilesi (iptal, 23 Ekim: "heves gitti, başkaları yaptı").
 Reddedilen genel liste (23 Ekim): kadın maraton, metabolizma 30, mekik, laktik asit, 8 bardak, protein penceresi, regl, Japon yürüyüşü.
+**28 Ekim: Claude yine aynı klişeleri önerdi (metabolizma 30, mekik, laktik asit, kas yağa dönüşür, 8 bardak, esneme) →
+kullanıcı kızdı ("defalarca söyledim"). Önce BU LİSTEYİ ve DURUM.md'yi oku; öneriyi güncel haber/yeni araştırmadan getir.**
 
 ## 23 Ekim — özel liste REDDEDİLDİ ("konuların açıklamayla ilgisi yok, VOOM bağları saçma") (seçilince kaynak DOĞRULA → arastirma/)
 1. Kramp ve turşu suyu: tuz eksikliği değil sinir; Miller 2010 (MSSE) turşu suyu mideye ulaşmadan krampı kesti; 1930'lar
@@ -98,3 +100,14 @@ P. "Atlar terler, erkekler ter döker, kadınlar parlar" (Viktorya dönemi söz�
   Açı: "Nasıl mümkün?" → Anadolu'da lohusalık 40 gün ↔ bilim: rahim ~6 haftada eski hâline döner → 1985 "hamileyken
   kıpırdama" kuralı (ACOG) → bugün hamilelikte spor önerilir, toparlanmayı hızlandırır (genel; onun hamilelikte spor
   yaptığı DOĞRULANMADI, iddia etme) → "kıyaslama: arkasında ekip, genetik var" → hamile arkadaşına gönder. Max 30-35 sn.
+
+## 28 Ekim — kullanıcı seçti (sırayla)
+- 20 BEL KORSESİ → BİTTİ. 21 TENYA HAPI (`arastirma/21-tenya.md`) → metin onayı bekliyor.
+- 22 **KREATİN SAÇ DÖKER Mİ?** — korkunun tek kaynağı 2009 Güney Afrika, 20 ragbi oyuncusu (van der Merwe, Clin J Sport Med):
+  7 gün yükleme sonrası DHT hormonu ~%56 arttı; SAÇ HİÇ ÖLÇÜLMEDİ. 2025 (12 hafta, ~38 erkek) deneyde DHT ve saçta fark yok.
+  DOĞRULA (makalelerden). Kreatin 2026'da çok popüler (kadınlar da kullanıyor) → her iki cinsiyete hitap.
+- Kullanıcının BEĞENDİĞİ öneri tipi: büyük kitlenin bizzat yaşadığı dert + kimsenin bilmediği tuhaf köken (Vogue 1968, Gila
+  canavarı, tenya hapı) — "dün tenya bugün iğne". REDDEDİLEN 28 Ekim: güncel bilim haberleri listesi (zayıf ama içten yağlı/TOFI,
+  35'te düşüş, eksantrik), gündem listesi (sahnede ölen vücut geliştirici, Leao kasık sakatlığı + Kopenhag egzersizi, lenf
+  drenajı), "iğne yüzü" (2023 NY dermatolog).
+- Musk "salonu bırak işe git" sözü (BPT) — kaynak bulunamadı; ileride Kosteas 2012 (%6-10 fazla kazanç) ile ayrı video adayı.

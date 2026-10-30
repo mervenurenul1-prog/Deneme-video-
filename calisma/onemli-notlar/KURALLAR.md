@@ -15,6 +15,12 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
 - **Marka/dergi/kişi adı ekrana YAZILMAZ** (telif/şikâyet riski, hesap yeni): "bir moda dergisi", "bir podcast" de.
 
 
+## SERİ AVATARLARI (kullanıcı, 28 Ekim — EN GÜNCEL)
+- Yeni seri avatarları 1930'lar "rubber hose" stili **Yunus** (erkek) ve **Duru** (kız) — `src/avatar2/Hose.tsx`.
+  Kullanıcıya ve ekip arkadaşına benzetildi. Eski sepya sade avatar (Cizim1 `Person`) yalnız eski videolar için.
+- Sesler: Yunus = Yunus sesi; Duru = kullanıcının kendi sesi (`kd6P2yodCccO2OzNoqOD`); Sibel = yalnız anne.
+- Karakterler hiç donmaz: canlılık (`live`), konuşurken `talk`, dinlerken `nod`, duyguya göre `surprise`/`laugh`/jest.
+
 ## Çalışma
 - Konuyu kullanıcı seçer; Claude öneri getirir. Tek tek video, toplu yok.
 - Sıra: metin (12 madde tablosuyla) onayı → sessiz önizleme → onay → TEK SEFERDE seslendirme → müzikle render.
@@ -32,6 +38,17 @@ Hedef: beğensin, arkadaşına göndersin, yeniden paylaşsın (selülit videosu
   - Seste baştaki sessizliği kırp (ilk kelime hemen başlasın). Ekrandaki yazılar seslendirmeye eklenmez.
   - Kullanıcının istediği ekran yazısını da birebir koyma, geliştir (ör. "tek tuşla cebinde" → "VOOM'la bir dokunuş uzakta").
   - Gerçek kişi çizilirken kıyafet haberdeki gibi (ör. şapka, kapüşon); emin olmadığın fiziksel ayrıntıyı (gençlikte sakal) ekleme.
+
+- **28 Ekim dersleri (korse):**
+  - Konu önerisi: klişe/herkesin yaptığı konular YOK; önce `konular/ONERILER.md` reddedilenlere bak.
+  - Onaylanmış metni DEĞİŞTİRME; şikâyet görüntüdeyse yalnız görüntüyü düzelt. Metin değişikliğini sor.
+  - Giriş KISA (tek cümle), hemen TARİHE geç (izleyiciyi tarih tutar), sonra sebep/tavsiye; düzeni bozma.
+  - Görüntü kalitesi = selülit seviyesi: dolu, yaşanmış mekân (oda, ayna, müze), kadın konusunda kadın ana karakter,
+    nesneler GERÇEKÇİ (korse göğüs altından kalçaya, belde daralır; referans görsel gelirse birebir uy). Avatarın belini/
+    vücudunu açma.
+  - Tarih HASSAS: kesin olmayanı kesin söyleme; efsaneleri (Girit, Medici) kullanma; her ifadenin dayanağını yaz.
+  - Seslendirmede tahmin süresi gerçek sesten kısa çıkabiliyor (korse: tahmin ~37, gerçek 40,5) → payı hesaba kat.
+  - Kullanıcının reddettiği (durdurduğu) komut bazen yine de çalışmış oluyor → `git diff` ile kontrol et ve kullanıcıya SÖYLE.
 
 ## Hangi videolar tuttu (kullanıcı, 23 Ekim)
 - EN BEĞENİLEN: 10 selülit. EN AZ SEVİLEN: 03 on bin adım ve 06 diz/koşu. Selülit tarzında ilerle.

@@ -1,0 +1,130 @@
+{
+  "id": "cizim1-21-tenya",
+  "title": "Tenya hapı",
+  "style": "hose",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarityBoost": 0.8
+  },
+  "maxPause": 0.15,
+  "music": "music/1930-kovalamaca.mp3",
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.3,
+  "minEstimate": 0.8,
+  "scenes": [
+    {
+      "visual": "tn-kanca",
+      "voice": "Zayıflamak için kurt yutar mıydın?",
+      "keys": [
+        "kurt",
+        "mıydın?"
+      ]
+    },
+    {
+      "visual": "tn-asla",
+      "voice": "Asla!",
+      "voiceId": "kd6P2yodCccO2OzNoqOD",
+      "voiceSettings": {
+        "stability": 0.45,
+        "similarityBoost": 0.95,
+        "style": 0,
+        "useSpeakerBoost": true
+      },
+      "hold": 0.2
+    },
+    {
+      "visual": "tn-hap",
+      "voice": "Yüz yıl önce bunu hap diye sattılar.",
+      "keys": [
+        "Yüz",
+        "hap"
+      ]
+    },
+    {
+      "visual": "tn-tarih",
+      "voice": "Adı tenya hapıydı: kurt bağırsağına yerleşir, yediğini o yer. İçinde gerçekten kurt var mıydı? Hâlâ tartışılıyor.",
+      "keys": [
+        "tenya",
+        "kurt",
+        "yer.",
+        "tartışılıyor."
+      ]
+    },
+    {
+      "visual": "tn-doktor",
+      "voice": "2014'te bir İngiliz doktor bunu denedi: Kenya'da tenya kisti yuttu, altı hafta taşıdı.",
+      "keys": [
+        "2014'te",
+        "Kenya'da",
+        "yuttu,",
+        "altı",
+        "hafta"
+      ]
+    },
+    {
+      "visual": "tn-kackilo",
+      "voice": "Kaç kilo verdi?",
+      "voiceId": "kd6P2yodCccO2OzNoqOD",
+      "voiceSettings": {
+        "stability": 0.45,
+        "similarityBoost": 0.95,
+        "style": 0,
+        "useSpeakerBoost": true
+      }
+    },
+    {
+      "visual": "tn-aldi",
+      "voice": "Bir kilo aldı.",
+      "keys": [
+        "aldı."
+      ],
+      "hold": 0.4
+    },
+    {
+      "visual": "tn-tavsiye",
+      "voice": "Kurt da iğne de der ki: hiçbir şey yapma. Kasın ise tam tersini ister: haftada iki gün ağırlık.",
+      "keys": [
+        "Kurt",
+        "iğne",
+        "hiçbir",
+        "tersini",
+        "iki",
+        "ağırlık."
+      ]
+    },
+    {
+      "visual": "tn-voom",
+      "voice": "Doktorun altı haftası kurtla geçti, seninki VOOM'la geçsin: ekibe katılmak için yorumlara İSTİYORUM yaz.",
+      "keys": [
+        "kurtla",
+        "VOOM'la",
+        "ekibe",
+        "İSTİYORUM"
+      ],
+      "hold": 0.5
+    },
+    {
+      "visual": "tn-sevgi",
+      "voice": "Ve unutma: seni sevenler, sen bir kilo vermeden de seni seviyordu.",
+      "keys": [
+        "sevenler,",
+        "seviyordu."
+      ],
+      "hold": 0.3
+    },
+    {
+      "visual": "tn-son",
+      "voice": "Bunu kendine yüklenen arkadaşına gönder ve sor:",
+      "keys": [
+        "gönder"
+      ]
+    }
+  ],
+  "caption": "",
+  "hashtags": [],
+  "musicVolume": 0.55,
+  "musicDuck": 0.55
+}
