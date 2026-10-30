@@ -74,3 +74,10 @@ camera flashes in the soft-blurred background, vertical 9:16, photorealistic edi
 İstem 1'deki şort cümlesi yerine: "glossy deep chocolate-brown athletic shorts with a luminous olive-chartreuse side stripe and a
 luminous olive-chartreuse waistband printed with the white lowercase word "voom." …; chunky sneakers in chocolate brown and luminous
 olive-chartreuse with "voom." on the side."
+
+## KURAL (kullanıcı, 30 Ekim): kadın avatarda göğüs BELLİ OLMAYACAK
+Dar spor sütyeni (yüksek yaka bile olsa) şekli gösteriyor → üstte BOL kesim parça: kısa fermuarlı antrenman ceketi (yakaya kadar
+kapalı) ya da bol kısa sweatshirt; "loose and boxy over the chest so the chest shape is not visible", kalın opak kumaş. Karın
+görünebilir. İki kadın tipi: **pilates tanrıçası** (ince bel, uzun zarif kaslar, ince bacak; tereyağı sarısı) ve **fitness
+tanrıçası** (kaslı/dinamik; bordo). Ek görsel: ikisi Yunan khitonuyla (safran sarısı / beyaz-altın), doğal anlık foto ya da oyun
+karakter seçme ekranı. Renk serbest, "güzel olsun yeter" (kullanıcı).
