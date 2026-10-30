@@ -11,7 +11,8 @@ type SceneProps = { d: number; w: (i: number) => number };
 
 const clamp = { extrapolateLeft: "clamp" as const, extrapolateRight: "clamp" as const };
 export const CHOC = "#2a1912";
-const GODS = ["heykel/khiton/artemis.png", "heykel/khiton/athena.png", "heykel/khiton/amphitrite.png"];
+// aynada görünen hâl: khitonlu tanrıça heykeli (kullanıcının seçtiği; art arda üç tanrıça reddedildi)
+const GODS = ["heykel/khiton/kaide-v2.png"];
 
 /* ---------- sahne zemini ---------- */
 
@@ -457,7 +458,7 @@ const ArAyna: React.FC<SceneProps> = ({ w, d }) => {
   const wipe = prog(f, w(4), w(6));
   const step = 12;
   const gi = f < w(6) ? 0 : Math.floor((f - w(6)) / step) % GODS.length;
-  const flash = f >= w(6) ? Math.max(0, 1 - ((f - w(6)) % step) / 5) : 0;
+  const flash = f >= w(6) ? Math.max(0, 1 - (f - w(6)) / 8) : 0;
   return (
     <g>
       <Stage f={f} mood="warm" />
@@ -486,15 +487,15 @@ const ArSon: React.FC<SceneProps> = ({ w, d }) => {
       <rect width={1080} height={1920} fill="#000" opacity={0.35} />
       {logo > 0 ? (
         <g opacity={Math.min(1, logo * 1.3)}>
-          <rect x={170} y={640} width={740} height={360} rx={44} fill="#0c0c0d" opacity={0.84} />
-          <g transform={`translate(540 800) scale(${logo})`}>
+          <rect x={170} y={1020} width={740} height={360} rx={44} fill="#0c0c0d" opacity={0.84} />
+          <g transform={`translate(540 1180) scale(${logo})`}>
             <Logo x={0} y={0} s={150} />
           </g>
-          <T x={540} y={890} s={50} c={CREAM} w={700}>
+          <T x={540} y={1270} s={50} c={CREAM} w={700}>
             yakında
           </T>
           <g opacity={prog(f, w(2), w(2) + 6)}>
-            <T x={540} y={960} s={40} c={LIME} w={800}>
+            <T x={540} y={1340} s={40} c={LIME} w={800}>
               link profilde ↗
             </T>
           </g>
