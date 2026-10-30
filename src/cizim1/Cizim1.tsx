@@ -253,6 +253,14 @@ const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   // VOOM tanıtımı "gizli çekim" (heykel): odak bip, savrulma, donma, bildirim
   // VOOM tanıtımı "bir günde yontulmadı": odak bip, silme, keski vuruşları, bildirim
+  // 29 lisedeki sen (eski seri stili): tebeşir sesleri, otobüs, zil
+  "ls-kanca": (w) => [[w(4), "otobus", 0.35], [w(8), "nefes", 0.4]],
+  "ls-tarih": (w) => [[2, "sihir", 0.2], [w(0), "kalem", 0.35], [w(4), "kalem", 0.3], [w(12), "kalem", 0.35]],
+  "ls-otuz": (w) => [[2, "cizik", 0.3], [w(2), "kalem", 0.35], [w(9), "kalem", 0.3]],
+  "ls-alti": (w) => [[w(0), "kalem", 0.3], [w(6), "kalem", 0.3], [w(10), "yuksel", 0.25]],
+  "ls-bekliyor": (w) => [[w(1), "sihir", 0.2], [w(3), "nefes", 0.3], [w(6), "kalem", 0.3]],
+  "ls-voom": (w) => [[w(3), "pop", 0.3]],
+  "ls-son": (w) => [[2, "adim", 0.3], [w(1), "pop", 0.35], [w(4), "kagit", 0.3]],
   // VOOM tanıtımı "bacak günü" (erkek, Yunus)
   "bc-kanca": (w) => [[2, "ding", 0.3], [w(6), "tak", 0.35], [w(8), "whoosh", 0.25]],
   "bc-kraker": (w) => [[w(5), "whoosh", 0.2], [w(6), "boing", 0.3], [w(7), "tak", 0.4]],
@@ -24888,6 +24896,438 @@ const KrSon: React.FC<SceneProps> = ({ w: w0, d }) => {
   );
 };
 
+
+/* ===================== 29 LİSEDEKİ SEN (eski seri stili, sahneler `ls-*`) =====================
+   Acı (otobüs) → tarih (1966 Dallas yatak istirahati çalışması, yeşil tahtaya TEBEŞİRLE) → 30 yıl sonra → 6 ay antrenman →
+   tavsiye (tozlu sıradaki forma, sıradaki hayalet genç Yunus) → kısa VOOM → kapanış (takip et + otobüse yetişir).
+   Yunus'un bugünkü hâli "salon gövdesi" (limbW, kolsuz atlet); lisedeki hâli ince, 7 numaralı forma. */
+const LS_CHALK = "#f1eee4";
+const LS_BOARD = { x: 70, y: 170, w: 940, h: 760 };
+const LS_JERSEY = "#2f6fb0";
+
+// Tebeşir çizgisi: p ile çizilerek belirir (pathLength=1), pürüzlü kenar filtresi
+const Chalk: React.FC<{ d: string; p: number; w?: number; c?: string }> = ({ d, p, w = 9, c = LS_CHALK }) =>
+  p <= 0 ? null : (
+    <path d={d} pathLength={1} stroke={c} strokeWidth={w} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="1 1" strokeDashoffset={1 - Math.min(1, p)} opacity={0.92} filter="url(#lsRough)" />
+  );
+
+// Tebeşir çöp adam (ayakta / yatan / göbekli)
+const ChalkMan: React.FC<{ x: number; y: number; p: number; s?: number; lying?: boolean; belly?: boolean }> = ({ x, y, p, s = 1, lying = false, belly = false }) => (
+  <g transform={`translate(${x} ${y}) scale(${s}) rotate(${lying ? -90 : 0})`}>
+    <Chalk d="M0 -120 a22 22 0 1 0 0.1 0" p={p * 3} w={7} />
+    <Chalk d="M0 -76 L0 0" p={p * 3 - 0.6} w={7} />
+    {belly ? <Chalk d="M0 -62 a30 32 0 1 0 0.1 0" p={p * 3 - 0.8} w={7} /> : null}
+    <Chalk d="M0 -60 L-30 -24 M0 -60 L30 -24" p={p * 3 - 1.1} w={7} />
+    <Chalk d="M0 0 L-24 56 M0 0 L24 56" p={p * 3 - 1.6} w={7} />
+  </g>
+);
+
+// Yatakta yatan tebeşir adam (yatay): yatak çerçevesi + baş, gövde, bacaklar
+const ChalkBed: React.FC<{ x: number; y: number; p: number; man: number }> = ({ x, y, p, man }) => (
+  <g transform={`translate(${x} ${y})`}>
+    <Chalk d="M-70 30 h140 M-70 30 v-50 M70 30 v-25 M-70 0 h140" p={p} w={7} />
+    <Chalk d="M-50 -14 a16 16 0 1 0 0.1 0 M-32 -14 h70 M38 -14 l24 -4 M38 -14 l24 6" p={man} w={6} />
+  </g>
+);
+
+// Sınıf: duvar, pencere ve ışık huzmeleri, yeşil tahta (tebeşir izleri), tozlu tahta sıralar, uçuşan toz
+const LsClass: React.FC<{ f: number; children?: React.ReactNode; desks?: boolean }> = ({ f, children, desks = true }) => {
+  const B = LS_BOARD;
+  return (
+    <g>
+      <defs>
+        <filter id="lsRough" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={1} seed={3} />
+          <feDisplacementMap in="SourceGraphic" scale={4} />
+        </filter>
+      </defs>
+      <rect x={0} y={0} width={1080} height={1920} fill="#d8bf93" />
+      <rect x={0} y={0} width={1080} height={120} fill="#c9ab7a" />
+      {/* tahta */}
+      <rect x={B.x - 26} y={B.y - 26} width={B.w + 52} height={B.h + 52} rx={10} fill="#8a5a34" stroke={C.ink} strokeWidth={8} />
+      <rect x={B.x} y={B.y} width={B.w} height={B.h} fill="#2f4f3d" />
+      {/* eski silinmiş tebeşir izleri */}
+      {[...Array(6)].map((_, i) => (
+        <ellipse key={i} cx={B.x + 120 + i * 150} cy={B.y + 140 + (i % 3) * 210} rx={130} ry={50} fill="#fff" opacity={0.035} />
+      ))}
+      <rect x={B.x - 10} y={B.y + B.h + 4} width={B.w + 20} height={22} fill="#7a4e2c" stroke={C.ink} strokeWidth={5} />
+      <rect x={B.x + 640} y={B.y + B.h - 6} width={60} height={12} rx={5} fill={LS_CHALK} />
+      <rect x={B.x + 720} y={B.y + B.h - 10} width={90} height={18} rx={4} fill="#5b4636" />
+      <g transform={`translate(${B.x} ${B.y})`}>{children}</g>
+      {/* pencereden ışık */}
+      <path d="M-40 980 L380 980 L760 1920 L120 1920 Z" fill="#fff6d8" opacity={0.1 + 0.03 * Math.sin(f / 30)} />
+      {desks ? (
+        <g>
+          <rect x={0} y={1000} width={1080} height={920} fill="#c9a676" />
+          {[0, 1].map((row) =>
+            [0, 1, 2].map((c) => {
+              const x = 40 + c * 350 + row * 40;
+              const y = 1110 + row * 330;
+              const sc = 1 + row * 0.18;
+              return (
+                <g key={`${row}${c}`} transform={`translate(${x} ${y}) scale(${sc})`}>
+                  <rect x={0} y={0} width={290} height={70} rx={6} fill="#a8794a" stroke={C.ink} strokeWidth={6} />
+                  <rect x={10} y={70} width={14} height={150} fill="#6b4a2b" />
+                  <rect x={266} y={70} width={14} height={150} fill="#6b4a2b" />
+                  {/* toz */}
+                  <rect x={6} y={4} width={278} height={18} rx={4} fill="#f2e6cc" opacity={0.35} />
+                </g>
+              );
+            }),
+          )}
+        </g>
+      ) : null}
+      {/* havada toz */}
+      {[...Array(22)].map((_, i) => {
+        const x = (i * 97 + f * (0.3 + (i % 4) * 0.12)) % 1080;
+        const y = 400 + ((i * 173 + Math.sin(f / 40 + i) * 40) % 1300);
+        return <circle key={i} cx={x} cy={y} r={2 + (i % 3)} fill="#fff8e0" opacity={0.35} />;
+      })}
+    </g>
+  );
+};
+
+// Şehir otobüsü (yandan)
+const LsBus: React.FC<{ x: number; y: number; door?: number }> = ({ x, y, door = 0 }) => (
+  <g transform={`translate(${x} ${y})`}>
+    <rect x={0} y={-430} width={820} height={380} rx={40} fill="#e3a63b" stroke={C.ink} strokeWidth={9} />
+    <rect x={0} y={-150} width={820} height={40} fill="#c4822a" />
+    {[0, 1, 2, 3, 4].map((i) => (
+      <rect key={i} x={40 + i * 150} y={-390} width={120} height={120} rx={12} fill="#bfe0ec" stroke={C.ink} strokeWidth={6} />
+    ))}
+    <rect x={700} y={-390} width={90} height={300} rx={8} fill={door > 0.5 ? "#2c2a28" : "#bfe0ec"} stroke={C.ink} strokeWidth={6} />
+    {[150, 650].map((cx) => (
+      <g key={cx}>
+        <circle cx={cx} cy={-40} r={58} fill="#2c2a28" stroke={C.ink} strokeWidth={8} />
+        <circle cx={cx} cy={-40} r={22} fill="#9a9a9a" />
+      </g>
+    ))}
+  </g>
+);
+
+// Sokak: kaldırım, durak tabelası, binalar
+const LsStreet: React.FC<{ off?: number }> = ({ off = 0 }) => (
+  <g>
+    <rect x={0} y={0} width={1080} height={1920} fill="#e7d3ad" />
+    {[0, 1, 2, 3, 4].map((i) => {
+      const x = ((i * 300 - off * 0.3) % 1500 + 1500) % 1500 - 200;
+      return <rect key={i} x={x} y={500 + (i % 3) * 80} width={240} height={1000} fill={["#c9ab7a", "#bf9f6e", "#d1b484"][i % 3]} stroke={C.ink} strokeWidth={6} />;
+    })}
+    <rect x={0} y={1460} width={1080} height={460} fill="#9b8a74" />
+    <rect x={0} y={1440} width={1080} height={40} fill="#c7b79c" stroke={C.ink} strokeWidth={6} />
+    <g transform="translate(120 1460)">
+      <rect x={-8} y={-520} width={16} height={520} fill="#5b4636" />
+      <rect x={-90} y={-600} width={180} height={110} rx={14} fill="#2f6fb0" stroke={C.ink} strokeWidth={6} />
+      <text x={0} y={-530} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={46} fill="#fff">
+        DURAK
+      </text>
+    </g>
+  </g>
+);
+
+// Eski fotoğraf: sararmış, beyaz kenarlı, köşeleri bantlı; içinde pistte koşan lise Yunus (7 numara)
+const LsOldPhoto: React.FC<{ f: number; s?: number; rot?: number }> = ({ f, s = 1, rot = -3 }) => {
+  const id = svgId(useId());
+  return (
+    <g transform={`translate(540 860) rotate(${rot}) scale(${s})`}>
+      <rect x={-430} y={-560} width={860} height={1040} fill="#f3ead6" stroke="#b8a27a" strokeWidth={4} />
+      <clipPath id={`op${id}`}>
+        <rect x={-390} y={-520} width={780} height={860} />
+      </clipPath>
+      <filter id={`sp${id}`}>
+        <feColorMatrix type="matrix" values="0.45 0.45 0.15 0 0.05  0.38 0.4 0.13 0 0.03  0.28 0.3 0.1 0 0  0 0 0 1 0" />
+      </filter>
+      <g clipPath={`url(#op${id})`} filter={`url(#sp${id})`}>
+        <g transform="translate(-540 -1380)">
+          <SideTrack off={f * 6} />
+          <SideRunner f={f} x={520} y={TRACK_Y} s={1.0} pose={runPose(f / 3.2, 1.15)} face="grin" shirt={LS_JERSEY} />
+          <text x={455} y={TRACK_Y - 470} fontFamily={fontFamily} fontWeight={900} fontSize={70} fill="#fff" opacity={0.9}>
+            7
+          </text>
+        </g>
+        <rect x={-390} y={-520} width={780} height={860} fill="#7a5a2a" opacity={0.12} />
+      </g>
+      <text x={0} y={420} textAnchor="middle" fontFamily={handFamily} fontWeight={700} fontSize={56} fill="#5b4636">
+        Lise takımı · 100 m
+      </text>
+      {[
+        [-430, -560],
+        [430, -560],
+      ].map(([x, y], i) => (
+        <rect key={i} x={x - 60} y={y - 22} width={120} height={44} fill="#e8dcb8" opacity={0.85} transform={`rotate(${i ? 35 : -35} ${x} ${y})`} />
+      ))}
+    </g>
+  );
+};
+
+// Sararıp tebeşir tozuyla geçmişe geçiş (p 0..1)
+const LsPast: React.FC<{ p: number }> = ({ p }) =>
+  p <= 0 ? null : (
+    <g opacity={Math.sin(Math.min(1, p) * Math.PI)}>
+      <rect x={0} y={0} width={1080} height={1920} fill="#f3e3bf" />
+      {[...Array(30)].map((_, i) => (
+        <circle key={i} cx={(i * 131) % 1080} cy={(i * 277) % 1920} r={6 + (i % 4) * 4} fill="#fff" opacity={0.6} />
+      ))}
+    </g>
+  );
+
+// 1) "Lisede takımın en hızlısıydın. Şimdi otobüse yetişmek için koşunca nefesin kesiliyor."
+const LsKanca: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const now = f >= w(4);
+  const run = tw(f, w(4), w(8));
+  const tired = tw(f, w(8), w(9) + 6);
+  const pose = mixPose(runPose(f / 3, 1.1 * (1 - tired * 0.8)), bendPose, tired);
+  const busX = lerp(380, 1250, tw(f, w(4) - 2, w(9)));
+  return (
+    <g>
+      {!now ? (
+        <CamK k={[[0, 1.0, 540, 860], [w(4), 1.12, 540, 820]]}>
+          <rect x={0} y={0} width={1080} height={1920} fill="#d8bf93" />
+          <LsOldPhoto f={f} />
+        </CamK>
+      ) : (
+        <CamK k={[[w(4), 1.0, 540, 1100], [d, 1.12, 420, 1150]]} shake={0.15 * (1 - tired)}>
+          <LsStreet off={f * 4} />
+          <LsBus x={busX} y={1500} />
+          <SideRunner f={f} x={lerp(80, 360, run)} y={1600} s={1.25} pose={pose} reach={tired} face={tired > 0.3 ? "pain" : "worry"} sweat />
+          {/* soluk bulutları */}
+          {tired > 0
+            ? [0, 1, 2].map((i) => {
+                const t = ((f - w(8)) / 14 + i / 3) % 1;
+                return <ellipse key={i} cx={470 + t * 120} cy={980 - t * 60} rx={30 + t * 40} ry={20 + t * 25} fill="#fff" opacity={0.6 * (1 - t) * tired} />;
+              })
+            : null}
+        </CamK>
+      )}
+      <rect x={0} y={0} width={1080} height={1920} fill="#fff" opacity={now ? Math.max(0, 0.5 - (f - w(4)) / 8) : 0} />
+    </g>
+  );
+};
+
+// 2) "1966'da Dallas'ta yirmi yaşında beş genç, üç hafta boyunca yataktan hiç kalkmadı. Kondisyonları, sonraki otuz yıllık
+// yaşlanmadan bile daha çok düştü." — geçmişe geçiş → sınıf; tahtaya tebeşirle yazılır
+const LsTarih: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const past = tw(f, 0, 14);
+  return (
+    <g>
+      <CamK k={[[0, 1.25, 540, 560], [w(11), 1.15, 540, 600], [d, 1.2, 540, 560]]}>
+        <LsClass f={f}>
+          <HandText x={470} y={130} text="1966 · DALLAS" size={96} color={LS_CHALK} p={tw(f, w(0) - 2, w(2))} rotate={-1} />
+          {[0, 1, 2, 3, 4].map((i) => {
+            const lie = tw(f, w(8) + i * 2, w(9) + 2 + i * 2);
+            return lie < 0.5 ? (
+              <ChalkMan key={i} x={175 + i * 165} y={360} p={tw(f, w(4) + i * 2, w(5) + 6 + i * 2)} s={0.9} />
+            ) : (
+              <ChalkBed key={i} x={175 + i * 165} y={380} p={tw(lie, 0.5, 0.8)} man={tw(lie, 0.7, 1)} />
+            );
+          })}
+          <HandText x={470} y={250} text="20 yaşında · 3 hafta yatak" size={52} color={LS_CHALK} p={tw(f, w(6), w(9))} rotate={-1} />
+          {/* düşüş oku */}
+          <Chalk d="M150 480 Q400 520 560 680" p={tw(f, w(12), w(14))} w={11} c="#f7a7a0" />
+          <Chalk d="M520 650 L560 680 L515 690" p={tw(f, w(13), w(14) + 4)} w={11} c="#f7a7a0" />
+          <HandText x={760} y={640} text="−%27" size={110} color="#f7a7a0" p={tw(f, w(14), w(16))} rotate={-3} />
+          <HandText x={470} y={740} text="30 yıl yaşlanma: −%12" size={50} color={LS_CHALK} p={tw(f, w(16), w(20))} rotate={-1} />
+        </LsClass>
+      </CamK>
+      <LsPast p={past} />
+    </g>
+  );
+};
+
+// 3) "Otuz yıl sonra aynı beş adamı geri çağırdılar. Hepsi elli yaşındaydı, hepsi kilo almıştı." — sünger tahtayı siler,
+// "1996" yazılır, aynı beş adam göbekli çizilir
+const LsOtuz: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const wipe = tw(f, 0, w(2));
+  return (
+    <g>
+      <CamK k={[[0, 1.2, 540, 560], [d, 1.3, 540, 520]]}>
+        <LsClass f={f}>
+          {/* silinen eski yazının izi */}
+          <rect x={0} y={0} width={940 * wipe} height={760} fill="#2f4f3d" />
+          {wipe < 1 ? (
+            <g transform={`translate(${940 * wipe} ${380 + Math.sin(f / 2) * 120})`}>
+              <rect x={-60} y={-40} width={120} height={80} rx={10} fill="#5b4636" stroke={C.ink} strokeWidth={5} />
+            </g>
+          ) : null}
+          <HandText x={470} y={130} text="1996 · 30 yıl sonra" size={84} color={LS_CHALK} p={tw(f, w(2), w(6))} rotate={-1} />
+          {[0, 1, 2, 3, 4].map((i) => (
+            <ChalkMan key={i} x={175 + i * 165} y={430} p={tw(f, w(3) + i * 2, w(6) + i * 2)} s={1.1} belly={f >= w(11)} />
+          ))}
+          <HandText x={470} y={640} text="50 yaş · hepsi kilolu" size={64} color={LS_CHALK} p={tw(f, w(9), w(13))} rotate={-2} />
+        </LsClass>
+      </CamK>
+    </g>
+  );
+};
+
+// 4) "Altı ay boyunca haftada dört saat yürüdüler, bisiklet çevirdiler, koştular. Kondisyonları yirmi yaşındaki hâllerine geri
+// döndü." — 6 aylık çentikler, "4 saat/hafta", yürüyüş-bisiklet-koşu çizimleri, yukarı ok
+const LsAlti: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  return (
+    <g>
+      <CamK k={[[0, 1.2, 540, 540], [w(10), 1.15, 540, 580], [d, 1.25, 540, 520]]}>
+        <LsClass f={f}>
+          {/* 6 ay: her ay bir çentik grubu */}
+          {[0, 1, 2, 3, 4, 5].map((m) => (
+            <g key={m}>
+              <Chalk d={`M${90 + m * 140} 60 v80 M${110 + m * 140} 60 v80 M${130 + m * 140} 60 v80 M${150 + m * 140} 60 v80 M${80 + m * 140} 120 L${165 + m * 140} 80`} p={tw(f, w(0) + m * 2, w(2) + m * 2)} w={6} />
+            </g>
+          ))}
+          <HandText x={470} y={230} text="6 ay · haftada 4 saat" size={64} color={LS_CHALK} p={tw(f, w(2), w(5) + 4)} rotate={-1} />
+          {/* yürüyüş */}
+          <g transform="translate(170 430)">
+            <ChalkMan x={0} y={0} p={tw(f, w(6) - 2, w(6) + 10)} />
+          </g>
+          {/* bisiklet */}
+          <g transform="translate(470 430)">
+            <Chalk d="M-60 50 a40 40 0 1 0 0.1 0 M60 50 a40 40 0 1 0 0.1 0 M-60 50 L-10 0 L40 0 L60 50 M-10 0 L0 -40 M40 0 L30 -50" p={tw(f, w(7), w(8) + 4)} w={7} />
+          </g>
+          {/* koşu */}
+          <g transform="translate(770 430)">
+            <Chalk d="M0 -120 a22 22 0 1 0 0.1 0 M0 -76 L10 0 M5 -60 L-30 -30 M5 -60 L40 -40 M10 0 L-25 50 M10 0 L45 40" p={tw(f, w(9) - 2, w(9) + 10)} w={7} />
+          </g>
+          {/* yukarı ok + 20 yaşındaki hâli */}
+          <Chalk d="M120 720 Q420 700 600 560" p={tw(f, w(10), w(12))} w={12} c="#bfe8a0" />
+          <Chalk d="M560 565 L600 560 L590 600" p={tw(f, w(11), w(12) + 4)} w={12} c="#bfe8a0" />
+          <HandText x={760} y={600} text="20 yaşında!" size={80} color="#bfe8a0" p={tw(f, w(12), w(15))} rotate={-4} />
+        </LsClass>
+      </CamK>
+    </g>
+  );
+};
+
+// Katlanmış eski forma (7 numara), üstünde toz
+const LsJersey: React.FC<{ x: number; y: number; dust: number }> = ({ x, y, dust }) => (
+  <g transform={`translate(${x} ${y})`}>
+    <path d="M-150 -60 L-70 -100 L70 -100 L150 -60 L150 60 L-150 60 Z" fill={LS_JERSEY} stroke={C.ink} strokeWidth={7} />
+    <text x={0} y={40} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={110} fill="#fff">
+      7
+    </text>
+    <path d="M-150 -60 L-70 -100 L70 -100 L150 -60 L150 60 L-150 60 Z" fill="#e7dcc4" opacity={0.75 * dust} />
+  </g>
+);
+
+// 5) "Yani o çocuk kaybolmadı, sadece bekliyor. Yavaş başla, her hafta biraz artır." — sırada saydam lise Yunus belirir;
+// tozlu forma üflenir; tahtaya basamaklar çizilir
+const LsBekliyor: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const ghost = tw(f, w(1), w(3)) * (1 - tw(f, w(5) + 4, w(6) + 6));
+  const dust = 1 - tw(f, w(3), w(5));
+  const steps = tw(f, w(6), w(11));
+  return (
+    <g>
+      <CamK k={[[0, 1.35, 540, 1250], [w(5), 1.25, 540, 1150], [w(6) + 4, 1.0, 540, 900], [d, 1.05, 540, 880]]}>
+        <LsClass f={f}>
+          {/* basamaklar */}
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <g key={i}>
+              <Chalk d={`M${100 + i * 130} ${640 - i * 80} h130 v-80`} p={tw(steps, i / 7, (i + 1) / 7)} w={10} c="#bfe8a0" />
+              <HandText x={165 + i * 130} y={700 - i * 80} text={`${i + 1}`} size={40} color={LS_CHALK} p={tw(steps, i / 7, (i + 1) / 7)} rotate={0} />
+            </g>
+          ))}
+          <HandText x={470} y={120} text="yavaş başla · her hafta biraz" size={60} color={LS_CHALK} p={tw(f, w(6), w(10))} rotate={-1} />
+        </LsClass>
+        {/* sıradaki hayalet: lise Yunus, ince, 7 numaralı formayla */}
+        {ghost > 0 ? (
+          <g opacity={0.55 * ghost}>
+            <Person x={560} y={1500} s={0.62} belly={0} shirt={LS_JERSEY} mouth="smile" />
+          </g>
+        ) : null}
+        <LsJersey x={560} y={1150} dust={dust} />
+        {/* üflenen toz */}
+        {dust < 1 && dust > 0
+          ? [...Array(14)].map((_, i) => {
+              const t = 1 - dust;
+              return <circle key={i} cx={560 + (i - 7) * 20 + t * 300} cy={1100 - t * (60 + (i % 5) * 30)} r={8 + (i % 3) * 5} fill="#f2e6cc" opacity={0.7 * dust} />;
+            })
+          : null}
+      </CamK>
+    </g>
+  );
+};
+
+// 6) "Nereden başlayacağını bilmiyorsan, VOOM ilk haftanı senin için kurar." — bugüne dönüş: salon gövdeli Yunus telefonla;
+// büyük kart "1. HAFTA · Oryantasyon"
+const LsVoom: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const card = pop(f, w(3), 14);
+  return (
+    <g>
+      <CamK k={[[0, 1.1, 540, 1000], [d, 1.2, 540, 960]]}>
+        <rect x={0} y={0} width={1080} height={1920} fill="#e7d3ad" />
+        <rect x={0} y={1460} width={1080} height={460} fill="#c7b79c" />
+        <Person x={540} y={1560} s={1.05} belly={0} limbW={1.35} sleeveless shirt="#3d3a36" shorts="#5a3a2a" armL={[12, 0]} armR={[40, -110]} mouth={f >= w(3) ? "smile" : "flat"} lookY={6}>
+          <Phone x={150} y={-640} s={1.1} rot={-10} />
+        </Person>
+      </CamK>
+      {card > 0 ? (
+        <g transform={`translate(540 640) scale(${card})`}>
+          <rect x={-400} y={-230} width={800} height={430} rx={44} fill="#101010" stroke="#2c2a28" strokeWidth={5} />
+          <text x={-340} y={-140} fontFamily={fontFamily} fontWeight={800} fontSize={40} fill="#c8e85a">
+            voom.
+          </text>
+          <text x={-340} y={-40} fontFamily={fontFamily} fontWeight={900} fontSize={70} fill="#f2f2f2">
+            1. HAFTA
+          </text>
+          <text x={-340} y={40} fontFamily={fontFamily} fontWeight={700} fontSize={52} fill="#c8e85a">
+            Oryantasyon
+          </text>
+          <text x={-340} y={120} fontFamily={fontFamily} fontWeight={500} fontSize={38} fill="#a9a6a1">
+            Hareketleri ve yükleri tanı
+          </text>
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// 7) "Takip et, bunu da lisedeki takım arkadaşına gönder ve ona hatırlat:" — Yunus koşar, bu kez otobüse yetişir (kapı açık);
+// "Takip et" düğmesi basılır; "takım arkadaşı"nda eski takım fotoğrafı; sonra açılıştaki fotoğrafa döngü
+const LsSon: React.FC<SceneProps> = ({ w, d }) => {
+  const f = useCurrentFrame();
+  const run = tw(f, 0, w(3));
+  const follow = pop(f, 2, 12) * (1 - tw(f, w(4) - 4, w(4) + 2));
+  const tapped = f >= w(1);
+  const photo = tw(f, w(4), w(6));
+  return (
+    <g>
+      <CamK k={[[0, 1.0, 540, 1100], [w(3), 1.1, 620, 1100]]}>
+        <LsStreet off={f * 2} />
+        <LsBus x={360} y={1500} door={run > 0.6 ? 1 : 0} />
+        <SideRunner f={f} x={lerp(60, 900, run)} y={1600} s={1.25} pose={run < 1 ? runPose(f / 2.8, 1.1) : bendPose} face="grin" shirt="#3d3a36" />
+      </CamK>
+      {follow > 0 ? (
+        <g transform={`translate(540 360) scale(${follow})`}>
+          <rect x={-300} y={-70} width={600} height={130} rx={65} fill={tapped ? "#1b1b1b" : "#c8e85a"} stroke="#c8e85a" strokeWidth={5} />
+          <text x={0} y={20} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={56} fill={tapped ? "#c8e85a" : "#101010"}>
+            {tapped ? "Takip ediliyor ✓" : "+ Takip et"}
+          </text>
+        </g>
+      ) : null}
+      {photo > 0 ? (
+        <g opacity={photo}>
+          <rect x={0} y={0} width={1080} height={1920} fill="#d8bf93" />
+          <LsOldPhoto f={f} s={0.85 + 0.15 * photo} rot={-3} />
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+const LISE_SCENES: Record<string, React.FC<SceneProps>> = {
+  "ls-kanca": LsKanca,
+  "ls-tarih": LsTarih,
+  "ls-otuz": LsOtuz,
+  "ls-alti": LsAlti,
+  "ls-bekliyor": LsBekliyor,
+  "ls-voom": LsVoom,
+  "ls-son": LsSon,
+};
+
 const SCENES: Record<string, React.FC<SceneProps>> = {
   ...TENYA_SCENES,
   ...KREATIN_SCENES,
@@ -24897,6 +25337,7 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   ...BASLA_SCENES,
   ...DEMO_SCENES,
   ...BACAK_SCENES,
+  ...LISE_SCENES,
   "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,

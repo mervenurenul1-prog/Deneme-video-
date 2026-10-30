@@ -1,0 +1,23 @@
+{
+  "id": "cizim1-29-lise",
+  "title": "Lisedeki sen",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "maxPause": 0.3,
+  "music": "music/merak-gerilim.mp3",
+  "loop": true,
+  "padding": 0.15,
+  "speed": 1.2,
+  "minEstimate": 0.8,
+  "scenes": [
+    { "visual": "ls-kanca", "voice": "Lisede takımın en hızlısıydın. Şimdi otobüse yetişmek için koşunca nefesin kesiliyor.", "keys": ["en", "hızlısıydın.", "nefesin"], "hold": 0.4 },
+    { "visual": "ls-tarih", "voice": "1966'da Dallas'ta yirmi yaşında beş genç, üç hafta boyunca yataktan hiç kalkmadı. Kondisyonları, sonraki otuz yıllık yaşlanmadan bile daha çok düştü.", "keys": ["1966'da", "üç", "hafta", "otuz"], "hold": 0.4 },
+    { "visual": "ls-otuz", "voice": "Otuz yıl sonra aynı beş adamı geri çağırdılar. Hepsi elli yaşındaydı, hepsi kilo almıştı.", "keys": ["Otuz", "yıl", "kilo"], "hold": 0.3 },
+    { "visual": "ls-alti", "voice": "Altı ay boyunca haftada dört saat yürüdüler, bisiklet çevirdiler, koştular. Kondisyonları yirmi yaşındaki hâllerine geri döndü.", "keys": ["Altı", "ay", "yirmi"], "hold": 0.5 },
+    { "visual": "ls-bekliyor", "voice": "Yani o çocuk kaybolmadı, sadece bekliyor. Yavaş başla, her hafta biraz artır.", "keys": ["bekliyor.", "Yavaş"], "hold": 0.4 },
+    { "visual": "ls-voom", "voice": "Nereden başlayacağını bilmiyorsan, VOOM ilk haftanı senin için kurar.", "keys": ["VOOM"], "hold": 0.4 },
+    { "visual": "ls-son", "voice": "Takip et, bunu da lisedeki takım arkadaşına gönder ve ona hatırlat:", "keys": ["Takip", "gönder"], "hold": 0.6 }
+  ],
+  "caption": "",
+  "hashtags": []
+}
