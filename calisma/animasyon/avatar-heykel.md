@@ -102,3 +102,8 @@ karakter seçme ekranı. Renk serbest, "güzel olsun yeter" (kullanıcı).
   Öneri `pilates-kadin-v3-SECILEN.jpg` (ikinci görsel); alternatif `pilates-kadin-v3-alternatif.jpg`. Kalan: pantolon kasıkta dar →
   "relaxed fit at hips and crotch" düzeltmesi + belde net logo. Sonraki adım: her avatar için 8 poz (önden gülümseme, yan profil,
   düşünme, işaret, telefona bakma, şaşırma, ağırlık/squat, yorgun oturma).
+
+## Fitness tanrıçası pozları (30 Ekim) — `public/heykel/fitness/pozNN.jpg` (941x1672)
+01 önden eller belde · 02 yan profil · 03 düşünüyor · 04 işaret (sağa boşluk) · 05 telefon (ekran siyah → VOOM ekranı konur) ·
+06 şaşırmış · 07 dambılla goblet squat · 08 yorgun oturma (SORUNLU: cilt gerçek tene dönmüş + oturuş açısı açık → yeniden üretilecek).
+Kullanıcı: ilk deneme videosu tenya DEĞİL, farklı bir konu.
