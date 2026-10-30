@@ -234,8 +234,9 @@ const Notice: React.FC<{ p: number }> = ({ p }) => {
 // Açılış: Yunus kaşıkla kreatin alırken Duru araya girer (döngü için kapanışta da aynı kare)
 const Y1 = { x: 330, y: 1760, s: 1.25 };
 const D1 = { x: 790, y: 1760, s: 1.25 };
-const ARM_SCOOP: [number, number, number] = [130, -80, -60];
-const ARM_TUB: [number, number, number] = [-40, 60, 40];
+// kollar bükük ve gövdeye yakın (eski seri avatarında uzanan kol yapay duruyor)
+const ARM_SCOOP: [number, number, number] = [90, 110, -60]; // bel hizasında, dirsek aşağıda
+const ARM_TUB: [number, number, number] = [-70, 150, 40]; // serbest duruş
 const SCOOP_AT = handAt(Y1.x, Y1.y, Y1.s, ARM_SCOOP, 1);
 const TUB_AT = handAt(Y1.x, Y1.y, Y1.s, ARM_TUB, -1);
 const OPEN_CAM: [number, number, number, number] = [0, 560, 1150, 1.25];
@@ -243,15 +244,17 @@ const OPEN_CAM: [number, number, number, number] = [0, 560, 1150, 1.25];
 const KancaShot: React.FC<{ f: number; talk: boolean; w: (i: number) => number }> = ({ f, talk: talkIn, w }) => {
   const duruTalks = useDuruTalks();
   const talk = talkIn && duruTalks;
-  const sp = interpolate(f, [w(2), w(2) + 4, w(3) + 16, w(3) + 26], [0, 1, 1, 0.3], clamp);
+  // zıplama/baş sallama yok: yalnız ağız "o" olur, düşen tellere yukarı bakar
+  const shock = f >= w(2);
+  const up = f >= w(3);
   const tilt = prog(f, w(3), w(3) + 8);
   return (
     <>
       <Room />
-      <Tub x={TUB_AT[0]} y={TUB_AT[1] + 40} s={0.9} r={-6} />
-      <Who x={Y1.x} y={Y1.y} s={Y1.s} who="yunus" seed={4} armR={ARM_SCOOP} handR="fist" armL={ARM_TUB} handL="fist" look={sp > 0 ? [0, -0.6] : [1, -0.2]} face={sp > 0.3 ? "o" : "smile"} surprise={sp} />
-      <Scoop x={SCOOP_AT[0] + 40} y={SCOOP_AT[1] - 20} s={1.3} tilt={tilt} />
-      <Who x={D1.x} y={D1.y} s={D1.s} who="duru" beret seed={9} talk={talk ? 1 : 0} armL={[-150, -60, 40]} handL="open" look={[-1, -0.2]} face="o" tilt={-5} />
+      <Tub x={TUB_AT[0] - 10} y={TUB_AT[1] + 70} s={0.7} r={-4} />
+      <Who x={Y1.x} y={Y1.y} s={Y1.s} who="yunus" seed={4} armR={ARM_SCOOP} handR="fist" armL={ARM_TUB} handL="fist" look={up ? [0, -0.6] : shock ? [1, -0.1] : [0, 0.4]} face={shock ? "o" : "smile"} />
+      <Scoop x={SCOOP_AT[0] + 34} y={SCOOP_AT[1] - 6} s={0.9} tilt={tilt} />
+      <Who x={D1.x} y={D1.y} s={D1.s} who="duru" beret seed={9} talk={talk ? 1 : 0} look={[-1, 0]} face="o" />
       <Hairs f={f} at={w(3)} x={Y1.x} y={Y1.y - Y1.s * 640} />
     </>
   );
@@ -261,7 +264,7 @@ const KancaShot: React.FC<{ f: number; talk: boolean; w: (i: number) => number }
 const KhKanca: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   return (
-    <Cam f={f} keys={[OPEN_CAM, [w(2), 520, 1120, 1.32], [d, 480, 1100, 1.4]]} shake={interpolate(f, [w(2), w(2) + 8], [0.5, 0], clamp)}>
+    <Cam f={f} keys={[OPEN_CAM, [d, 520, 1140, 1.32]]}>
       <KancaShot f={f} talk={f < d - 6} w={w} />
     </Cam>
   );
@@ -279,7 +282,7 @@ const KhTarih: React.FC<SceneProps> = ({ w, d }) => {
       {f < w(6) ? (
         <Cam f={f} keys={[[0, 540, 1100, 1.2], [w(5), 540, 1060, 1.3]]}>
           <Room />
-          <Who x={420} y={1760} s={1.3} who="yunus" seed={4} talk={1} armR={f >= w(2) ? [50, -190, -20] : undefined} handR={f >= w(2) ? "point" : undefined} look={[0.4, -0.3]} />
+          <Who x={420} y={1760} s={1.3} who="yunus" seed={4} talk={1} look={[0.4, -0.3]} />
           <Who x={900} y={1780} s={1.15} who="duru" beret seed={9} nod={0.6} look={[-1, -0.2]} lid={0.35} />
           <text x={560} y={720} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={200} fill={RED} stroke={INK} strokeWidth={8} paintOrder="stroke fill" opacity={pop(f, w(2))}>
             1
@@ -391,7 +394,7 @@ const KhSonuc: React.FC<SceneProps> = ({ w, d }) => {
   return (
     <Cam f={f} keys={[[0, 540, 1130, 1.3], [w(4), 540, 1110, 1.22], [d, 540, 1100, 1.2]]}>
       <Room />
-      <Who x={540} y={1800} s={1.5} who="duru" beret seed={9} talk={f < d - 8 && duru ? 1 : 0} armR={[98, 60, -40]} armL={[-98, 60, 40]} handR="fist" handL="fist" look={[0, 0.5]} surprise={sp} face={sp > 0.3 ? "o" : "talk"} />
+      <Who x={540} y={1800} s={1.5} who="duru" beret seed={9} talk={f < d - 8 && duru ? 1 : 0} armR={[98, 60, -40]} armL={[-98, 60, 40]} handR="fist" handL="fist" look={[0, 0.5]} surprise={duru ? sp : 0} face={sp > 0.3 ? "o" : duru ? "talk" : "smile"} />
       <Report x={540} y={1400} s={1.0} a={a} b={b} ok={ok} />
       <g opacity={ok}>
         <text x={540} y={690} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={110} fill={NAVY} stroke={INK} strokeWidth={4} paintOrder="stroke fill" letterSpacing={4}>
@@ -406,7 +409,7 @@ const KhSonuc: React.FC<SceneProps> = ({ w, d }) => {
 const KhTavsiye: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const Y = { x: 320, y: 1760, s: 1.25 };
-  const arm: [number, number, number] = [140, -110, -50];
+  const arm: [number, number, number] = [90, 110, -60];
   const h = handAt(Y.x, Y.y, Y.s, arm, 1);
   const out = prog(f, w(8), w(9));
   return (
@@ -416,7 +419,7 @@ const KhTavsiye: React.FC<SceneProps> = ({ w, d }) => {
       <Scoop x={h[0] + 40} y={h[1] - 20} s={1.3} />
       <Who x={850} y={1780} s={1.1} who="duru" beret seed={9} nod={f >= w(10) ? 1 : 0.4} look={[-1, -0.2]} face="smile" />
       {/* 5 g rozeti */}
-      <g transform={`translate(${h[0] + 260} ${h[1] - 220}) scale(${pop(f, w(1)) * (1 - out)})`}>
+      <g transform={`translate(${h[0] + 300} ${h[1] - 420}) scale(${pop(f, w(1)) * (1 - out)})`}>
         <circle cx={0} cy={0} r={130} fill={NAVY} stroke={INK} strokeWidth={8} />
         <circle cx={0} cy={0} r={108} fill="none" stroke={WHITE} strokeWidth={4} strokeDasharray="8 10" />
         <text x={0} y={22} textAnchor="middle" fontFamily={fontFamily} fontWeight={900} fontSize={96} fill={WHITE}>
