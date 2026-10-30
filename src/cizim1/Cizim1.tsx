@@ -260,7 +260,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "bc-voom": (w) => [[2, "sihir", 0.25], [w(5), "pop", 0.3], [w(14), "ding", 0.3]],
   "bc-koc": (w) => [[0, "tak", 0.3], [w(2), "ding", 0.3], [w(4), "whoosh", 0.2], [w(7), "pop", 0.3]],
   "bc-yanar": (w) => [[w(2), "yuksel", 0.25], [w(5), "boom", 0.3]],
-  "bc-son": (w) => [[2, "pirilti", 0.3], [w(4), "kagit", 0.3]],
+  "bc-son": (w) => [[2, "pirilti", 0.3], [w(5), "pop", 0.35], [w(6), "kagit", 0.3]],
   // VOOM tanıtımı "bugün başla": ilk karede dambıl yere çarpar
   "bs-kanca": (w) => [[2, "adim", 0.3], [16, "adim", 0.25], [w(4), "pop", 0.3]],
   "bs-sorular": (w) => [[2, "pop", 0.3], [w(5) - 4, "whoosh", 0.3], [w(8) - 4, "whoosh", 0.3], [w(9), "alarm", 0.12]],

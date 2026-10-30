@@ -19,7 +19,7 @@
     { "visual": "bc-voom", "voice": "VOOM, cebindeki kişisel antrenman koçun. Haftanı dengeli kurar: bir gün üst vücut, bir gün bacak.", "keys": ["VOOM,", "koçun.", "dengeli", "bacak."], "hold": 0.3 },
     { "visual": "bc-koc", "voice": "Bacak gününü kaçırırsan koçun onu kaydırır, ama silmez.", "keys": ["kaydırır,", "silmez."], "hold": 0.5 },
     { "visual": "bc-yanar", "voice": "Ve ilk kez bacakların da yanar.", "keys": ["bacakların", "yanar."], "hold": 1.0 },
-    { "visual": "bc-son", "voice": "VOOM yakında, linki profilde. Bunu bacak gününü atlayan arkadaşına gönder.", "keys": ["VOOM", "profilde.", "gönder."], "hold": 0.8 }
+    { "visual": "bc-son", "voice": "VOOM yakında, linki profilde. Takip et, bunu da bacak gününü atlayan arkadaşına gönder.", "keys": ["VOOM", "profilde.", "Takip", "gönder."], "hold": 0.8 }
   ],
   "caption": "",
   "hashtags": []

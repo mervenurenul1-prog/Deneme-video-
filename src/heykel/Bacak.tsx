@@ -336,12 +336,26 @@ const BcYanar: React.FC<SceneProps> = ({ w, d }) => {
 const BcSon: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   const logo = pop(f, 0, 14) * (1 - prog(f, w(4) - 4, w(4) + 2));
-  const send = pop(f, w(4), 12) * (1 - prog(f, d - 22, d - 12));
+  const follow = pop(f, w(4) - 2, 12) * (1 - prog(f, d - 22, d - 12));
+  const tapped = f >= w(5) + 4;
+  const tapP = prog(f, w(5), w(5) + 6);
+  const send = pop(f, w(6), 12) * (1 - prog(f, d - 22, d - 12));
   return (
     <g>
       <Shot f={f} keys={[[0, 540, 900, 1.15], [d, 540, 880, 1.25]]}>
         <Alive f={f} d={d} base={B(6)} flat push={0.02} />
       </Shot>
+      {/* takip et düğmesi: basılır → "Takip ediliyor ✓" */}
+      {follow > 0 ? (
+        <g transform={`translate(540 1060) scale(${follow * (1 - 0.08 * Math.sin(tapP * Math.PI))})`} opacity={Math.min(1, follow * 1.3)}>
+          <rect x={-330} y={-75} width={660} height={140} rx={70} fill={tapped ? "#1b1b1b" : LIME} stroke={tapped ? LIME : "none"} strokeWidth={5} />
+          <text x={0} y={20} fontFamily={fontFamily} fontWeight={900} fontSize={60} fill={tapped ? LIME : "#101010"} textAnchor="middle">
+            {tapped ? "Takip ediliyor ✓" : "+ Takip et"}
+          </text>
+          {/* parmak dokunuşu */}
+          {f >= w(5) - 4 && f < w(5) + 10 ? <circle cx={180} cy={10} r={30 + 40 * tapP} fill="#fff" opacity={0.35 * (1 - tapP)} /> : null}
+        </g>
+      ) : null}
       {logo > 0 ? (
         <g opacity={Math.min(1, logo * 1.3)}>
           <rect x={170} y={1050} width={740} height={340} rx={44} fill="#0c0c0d" opacity={0.85} />
@@ -359,7 +373,7 @@ const BcSon: React.FC<SceneProps> = ({ w, d }) => {
         </g>
       ) : null}
       {send > 0 ? (
-        <g transform={`translate(540 1200) scale(${send})`}>
+        <g transform={`translate(540 1260) scale(${send})`}>
           <rect x={-420} y={-80} width={840} height={150} rx={40} fill={CREAM} />
           <text x={0} y={18} fontFamily={fontFamily} fontWeight={900} fontSize={44} fill={CHOC} textAnchor="middle">
             Bacak gününü atlayana gönder →
