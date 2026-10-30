@@ -1,0 +1,14 @@
+{
+  "id": "cizim1-27-demo-damar",
+  "title": "Deneme: ücretsiz hareket (damar nabzı + derinlik)",
+  "style": "heykel",
+  "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+  "modelId": "eleven_v4",
+  "music": "music/merak-gerilim.mp3",
+  "padding": 0.02,
+  "speed": 1.3,
+  "minEstimate": 0.8,
+  "scenes": [{ "visual": "dm-damar", "voice": "Çalışan kas yanar.", "hold": 5 }],
+  "caption": "",
+  "hashtags": []
+}

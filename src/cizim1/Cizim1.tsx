@@ -7,6 +7,7 @@ import { GIZLI_SCENES } from "../heykel/GizliCekim";
 import { YONT_SCENES } from "../heykel/Yontulmadi";
 import { ARAMA_SCENES } from "../heykel/Arama";
 import { BASLA_SCENES } from "../heykel/Basla";
+import { DEMO_SCENES } from "../heykel/Demo";
 import {
   AbsoluteFill,
   Audio,
@@ -24885,6 +24886,7 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   ...YONT_SCENES,
   ...ARAMA_SCENES,
   ...BASLA_SCENES,
+  ...DEMO_SCENES,
   "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,
