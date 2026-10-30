@@ -1,5 +1,13 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> YENİ SOHBET BURADAN (30 Ekim — EN GÜNCEL) <<<
+- **YENİ AVATAR KARARI: canlanan mermer heykel (Yunan tanrısı + tanrıçası), bordo şort + "voom." belli.** Sebep: VOOM hesabındaki
+  gerçekçi 3D manken (ekip lideri) tek videoda ~2000 takipçi getirdi; kullanıcının 15 videosu ~200. Konu/anlatım iyi, görsel zayıf
+  → gerçekçi, kaslı, güvenilir avatar. İstemler `calisma/animasyon/avatar-heykel.md`; kullanıcı ChatGPT'de üretip atacak; videolar
+  "1-2 video sonra". VOOM uygulama ekranları ve logo: `calisma/voom/ekranlar/` (kullanıcının ekran kaydından kareler; kayıt buluta
+  KONMADI — kullanıcı: "en az maliyet, video yerine kare çıkar"). Logo: beyaz küçük harf "voom" + fıstık yeşili nokta.
+- Kullanıcı: ekip içi rekabet değil, birbirine ilham olmak. Kullanıcı pazarlama/işletme, ekip arkadaşı yazılım; amaç uygulamayı satışa çıkarmak.
+
 ## >>> YENİ SOHBET BURADAN (28 Ekim gece — EN GÜNCEL) <<<
 - **21b TENYA ESKİ STİL (30 Ekim):** kullanıcı aynı videoyu serinin eski avatarı (Yunus/sepya `Person`) + merak-gerilim müziğiyle
   istedi ("bu sohbette yap"; açılan ayrı oturum durduruldu/arşivlendi). Çözüm: tenya sahneleri karakteri `Who` (`src/hose/cast.tsx`,
