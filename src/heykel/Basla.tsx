@@ -128,41 +128,28 @@ const Whip: React.FC<{ f: number; at: number[]; dir?: number[]; shots: React.Rea
 /* ---------- sahneler ---------- */
 
 // 1) "Spora başlamak istiyorsun ama nereden başlayacağını bilmiyorsun."
-// İlk karede dambıl yukarıdan düşer, 6. karede yere çarpar (gümbürtü + sarsıntı); tanrıça irkilir (eller yüzünde).
-// "nereden"de sert kesme: düşünen tanrıçaya yakın plan, arkasında dev "?"
+// Kling klibi (public/heykel/klip/kapi/NNN.jpg, 30 fps, 151 kare): salonun kapısından girer, duraksar, makinelere bakar,
+// dönüp çıkar. Üstte yavaş yakınlaşma; "nereden"de başının yanında kırmızı "?" belirir.
+const KAPI_N = 151;
+const ClipFrame: React.FC<{ dir: string; i: number }> = ({ dir, i }) => {
+  const url = staticFile(`heykel/klip/${dir}/${String(i).padStart(3, "0")}.jpg`);
+  useImgReady(url);
+  return <image href={url} x={0} y={0} width={1080} height={1920} preserveAspectRatio="xMidYMid slice" />;
+};
 const BsKanca: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
-  const fall = interpolate(f, [0, 6], [-500, 1450], { ...clamp, easing: Easing.in(Easing.quad) });
-  const bounce = f >= 6 ? 1450 - Math.abs(Math.sin((f - 6) / 3)) * 40 * Math.max(0, 1 - (f - 6) / 12) : fall;
-  const q = quake(f, 6);
-  const cut = f >= w(4);
-  const push = prog(f, 0, w(4));
+  const i = Math.min(KAPI_N, f + 1);
+  const q = pop(f, w(4), 10) * (1 - prog(f, w(6) + 6, w(6) + 14));
   return (
-    <g transform={`translate(${q.x} ${q.y})`}>
-      {!cut ? (
-        <g transform={`translate(540 960) scale(${1.0 + 0.08 * push}) translate(-540 -960)`}>
-          <Gym f={f} pan={-30 * push} />
-          <Cut n="06" x={540} y={1640} h={1500} />
-          <Dumbbell x={780} y={bounce} s={1.05} r={f >= 6 ? 4 : -18} />
-          {/* çarpma tozu */}
-          {f >= 6 && f < 22
-            ? [...Array(10)].map((_, i) => {
-                const t = (f - 6) / 16;
-                return <circle key={i} cx={780 + (i - 4.5) * 50 * (0.4 + t)} cy={1560 - t * 70 * (1 + (i % 3))} r={18 + 30 * t} fill="#d8d2c6" opacity={0.35 * (1 - t)} />;
-              })
-            : null}
-        </g>
-      ) : (
-        <g transform={`translate(540 560) scale(${1.3 + 0.08 * prog(f, w(4), d)}) translate(-540 -560)`}>
-          <Gym f={f} pan={40} z={1.2} />
-          <text x={540 + Math.sin(f / 7) * 6} y={900} fontFamily={fontFamily} fontWeight={900} fontSize={900} fill="none" stroke={RED} strokeWidth={10} textAnchor="middle" opacity={0.35 * pop(f, w(4), 8)}>
-            ?
-          </text>
-          <Cut n="03" x={540} y={1640} h={1500} />
-        </g>
-      )}
-      {/* kesme anında beyaz parlama */}
-      <rect width={1080} height={1920} fill="#fff" opacity={cut ? Math.max(0, 0.5 - (f - w(4)) / 10) : f >= 6 ? Math.max(0, 0.35 - (f - 6) / 12) : 0} />
+    <g>
+      <g transform={`translate(540 900) scale(${1.02 + 0.08 * prog(f, 0, d)}) translate(-540 -900)`}>
+        <ClipFrame dir="kapi" i={i} />
+      </g>
+      {q > 0 ? (
+        <text x={930 + Math.sin(f / 6) * 6} y={330} fontFamily={fontFamily} fontWeight={900} fontSize={200 * q} fill={RED} textAnchor="middle" opacity={Math.min(1, q)}>
+          ?
+        </text>
+      ) : null}
     </g>
   );
 };

@@ -14,7 +14,7 @@
   "speed": 1.3,
   "minEstimate": 0.8,
   "scenes": [
-    { "visual": "bs-kanca", "voice": "Spora başlamak istiyorsun ama nereden başlayacağını bilmiyorsun.", "keys": ["başlamak", "nereden"], "hold": 0.3 },
+    { "visual": "bs-kanca", "voice": "Spora başlamak istiyorsun ama nereden başlayacağını bilmiyorsun.", "keys": ["başlamak", "nereden"], "hold": 1.3 },
     { "visual": "bs-sorular", "voice": "Bu makine ne işe yarar? Kaç kilo alayım? Ya yanlış yaparsam?", "keys": ["makine", "kilo", "yanlış"], "hold": 0.3 },
     { "visual": "bs-yarin", "voice": "Sonra herkes sana bakıyormuş gibi gelir, 'yarın başlarım' dersin.", "keys": ["herkes", "'yarın"], "hold": 0.5 },
     { "visual": "bs-tanis", "voice": "VOOM'da ilk hafta tanışma haftası: hareketleri öğrenirsin, sana uygun ağırlığı birlikte bulursunuz.", "keys": ["VOOM'da", "tanışma", "ağırlığı"], "hold": 0.4 },

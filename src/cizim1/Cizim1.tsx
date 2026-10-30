@@ -252,7 +252,7 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   // VOOM tanıtımı "gizli çekim" (heykel): odak bip, savrulma, donma, bildirim
   // VOOM tanıtımı "bir günde yontulmadı": odak bip, silme, keski vuruşları, bildirim
   // VOOM tanıtımı "bugün başla": ilk karede dambıl yere çarpar
-  "bs-kanca": (w) => [[4, "agir-dusme", 0.9], [w(4), "whoosh", 0.25]],
+  "bs-kanca": (w) => [[2, "adim", 0.3], [16, "adim", 0.25], [w(4), "pop", 0.3]],
   "bs-sorular": (w) => [[2, "pop", 0.3], [w(5) - 4, "whoosh", 0.3], [w(8) - 4, "whoosh", 0.3], [w(9), "alarm", 0.12]],
   "bs-yarin": (w) => [[w(1), "nefes", 0.2], [w(6), "tak", 0.45], [w(6) + 5, "tak", 0.4], [w(6) + 10, "tak", 0.4]],
   "bs-tanis": (w) => [[2, "sihir", 0.25], [w(1), "pop", 0.3], [w(8), "yuksel", 0.2], [w(10) + 6, "ding", 0.3]],
