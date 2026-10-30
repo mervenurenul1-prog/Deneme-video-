@@ -977,3 +977,6 @@ export const TENYA_SCENES: Record<string, React.FC<SceneProps>> = {
 };
 
 export { PAPER };
+// 22 kreatin (1930 stili) aynı mekân ve eşyaları kullanır
+export { INK, RED, NAVY, WHITE, clamp, prog, pop, q2, Cam, handAt, Room, Lens, Stamp, YearCard, Calendar, Hearts, useImgReady };
+export type { Key, SceneProps };

@@ -3,6 +3,7 @@ import { GEST, HoseChar, mirror, mix, OldFilm, REST, type HoseArm, type HoseChar
 import { CharCtx } from "../hose/cast";
 import { TENYA_SCENES } from "../hose/Tenya";
 import { KREATIN_SCENES } from "../heykel/Kreatin";
+import { KREATIN_HOSE_SCENES } from "../hose/Kreatin";
 import {
   AbsoluteFill,
   Audio,
@@ -53,7 +54,7 @@ type SceneProps = { d: number; w: (i: number) => number };
 // Önceki sahneden kararmadan, aynı karede devam eden sahneler (sahne sonu = bu sahnenin ilk karesi)
 const SEAMLESS = new Set(["ig-tarih"]);
 // tenya sahneleri (diyalog) her iki stilde de sert kesmeyle geçer
-const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-");
+const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("kh-");
 
 // Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
 const LOOP_FRAMES = 14;
@@ -257,6 +258,14 @@ const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   "tn-voom": (w) => [[w(4), "yirtilma", 0.34], [w(5), "whoosh", 0.14], [w(8), "pirilti", 0.22], [w(11), "klavye", 0.18], [w(13) + 4, "ding", 0.26], [w(13) + 8, "kalp", 0.14]],
   "tn-sevgi": (w) => [[w(2), "adim", 0.16], [w(6), "kacing", 0.14], [w(9), "pirilti", 0.2], [w(9) + 4, "kalp", 0.14]],
   "tn-son": (w) => [[w(1), "kagit", 0.2], [w(4), "whoosh", 0.3], [w(5) + 6, "pirilti", 0.16]],
+  // 22 kreatin (1930'lar stili)
+  "kh-kanca": (w) => [[w(2), "havalanma", 0.12], [w(3), "boing", 0.26]],
+  "kh-tarih": (w) => [[w(2), "pop", 0.16], [w(6), "kagit", 0.18], [w(9), "pop", 0.16], [w(12), "kagit", 0.16], [w(18), "yuksel", 0.16], [w(22), "boom", 0.18]],
+  "kh-bilim": (w) => [[2, "kagit", 0.18], [w(7), "kagit", 0.14], [w(10), "pop", 0.16]],
+  "kh-sonuc": (w) => [[w(1), "pop", 0.16], [w(4) + 6, "ding", 0.22]],
+  "kh-tavsiye": (w) => [[w(1), "pop", 0.18], [w(6), "cizik", 0.24], [w(10), "tik", 0.14]],
+  "kh-voom": (w) => [[w(3), "ding", 0.22], [w(7), "pirilti", 0.2]],
+  "kh-son": (w) => [[w(0), "kagit", 0.2], [w(6), "whoosh", 0.3], [w(7) + 4, "pirilti", 0.16]],
   "kr-kanca2": (w) => [[w(0), "cizik", 0.18], [w(1), "pop", 0.15], [w(3), "sihir", 0.1], [w(8) - 2, "agir-dusme", 0.15]],
   "kr-sabah": (w) => [[w(1), "cizik", 0.2], [w(2), "pop", 0.15], [w(3), "nefes", 0.15], [w(7), "whoosh", 0.12], [w(8), "pop", 0.18], [w(10), "pirilti", 0.18]],
   "kr-ertesi": (w) => [[2, "sihir", 0.1], [w(4) - 2, "agir-dusme", 0.15]],
@@ -24843,6 +24852,7 @@ const KrSon: React.FC<SceneProps> = ({ w: w0, d }) => {
 const SCENES: Record<string, React.FC<SceneProps>> = {
   ...TENYA_SCENES,
   ...KREATIN_SCENES,
+  ...KREATIN_HOSE_SCENES,
   "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,

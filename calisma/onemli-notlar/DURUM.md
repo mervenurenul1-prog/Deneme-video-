@@ -1,8 +1,10 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
-## >>> 22 KREATİN 1930 STİLİ İPTAL (30 Ekim gece — EN GÜNCEL) <<<
-- Yunus + Duru (rubber hose) kreatin denendi, sessiz önizleme izlendi → kullanıcı: "iptal, eskiye dönüyoruz, bizim seriye".
-  Kod/video buluttan silindi (dal main'e geri alındı). Sıradaki: kreatin eski seri stilinde mi yapılacak — kullanıcıya SOR.
+## >>> 22b KREATİN — ESKİ SERİ (30 Ekim gece — EN GÜNCEL) <<<
+- 1930 stili (Yunus + Duru) denendi → kullanıcı "iptal, eskiye dönüyoruz, bizim seri" → eski seri avatarı (Cizim1 `OldChar`/`Person`,
+  sepya, merak-gerilim), anlatıcı TEK SES YUNUS. `cizim1-22b-kreatin` (stilsiz JSON), sahneler `src/hose/Kreatin.tsx` `kh-*`
+  (21b tenya gibi `Who` üzerinden; Duru yan karakter, eski stilde ağzı oynamaz). Metin 22 ile birebir aynı, 1.3x.
+  Sessiz önizleme `ornek-videolar/cizim1-pilot/22b-kreatin-sessiz.mp4` → ONAY → seslendirme (Yunus ~400 kr).
 
 ## >>> KARAR (30 Ekim akşam — EN GÜNCEL, ÖNCE BUNU OKU) <<<
 - **Heykel avatarlar (fitness/pilates tanrıçası + erkek tanrı) YALNIZ VOOM spor programı tanıtımı için.** Bilgi/mit videolarında
