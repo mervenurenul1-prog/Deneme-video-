@@ -132,7 +132,7 @@ const Stamp: React.FC<{ x: number; y: number; p: number; t: string; c?: string; 
 
 /* ---------- sahneler ---------- */
 
-const FACE06: Key = [0, 516, 270, 2.1];
+const FACE06: Key = [0, 524, 250, 2.1];
 
 // 1) Kanca: "Kreatin kullanma, saçın dökülür." — şaşkın tanrıça; kreatin kutusu, saç telleri dökülür
 const KreKanca: React.FC<SceneProps> = ({ w, d }) => {
@@ -140,8 +140,8 @@ const KreKanca: React.FC<SceneProps> = ({ w, d }) => {
   return (
     <g>
       <Cam f={f} keys={[FACE06, [w(2), 516, 300, 1.9], [d, 516, 760, 1.12]]}>
-        <Pose n="poz06" />
-        <Hairs f={f} at={w(2)} x={520} y={180} />
+        <Pose n="poz06" set="pilates" />
+        <Hairs f={f} at={w(2)} x={510} y={140} />
       </Cam>
       <g opacity={pop(f, w(0) + 4)}>
         <Tub x={880} y={1180} s={1.1 * pop(f, w(0) + 4)} r={8} />
@@ -163,14 +163,14 @@ const KreTarih: React.FC<SceneProps> = ({ w, d }) => {
   const tube = prog(f, w(16), w(19));
   return (
     <g>
-      <Cam f={f} keys={[[0, 560, 700, 1.25], [w(16), 600, 640, 1.35], [w(20), 540, 330, 2.0], [d, 540, 360, 2.1]]}>
-        <Pose n="poz03" />
+      <Cam f={f} keys={[[0, 560, 700, 1.25], [w(16), 600, 640, 1.35], [w(20), 470, 250, 2.0], [d, 470, 270, 2.1]]}>
+        <Pose n="poz03" set="erkek" />
         {/* saçın üstünde büyüteç ve "?" */}
         {f >= w(20) ? (
           <g opacity={prog(f, w(20), w(20) + 8)}>
-            <circle cx={470} cy={170} r={110} fill="#fff" opacity={0.18} stroke={INK} strokeWidth={10} />
-            <path d="M548 248 L620 320" stroke={INK} strokeWidth={22} strokeLinecap="round" />
-            <T x={470} y={205} s={120} c={RED} w={900}>
+            <circle cx={450} cy={110} r={110} fill="#fff" opacity={0.18} stroke={INK} strokeWidth={10} />
+            <path d="M528 188 L600 260" stroke={INK} strokeWidth={22} strokeLinecap="round" />
+            <T x={450} y={145} s={120} c={RED} w={900}>
               ?
             </T>
           </g>
@@ -323,7 +323,7 @@ const KreTavsiye: React.FC<SceneProps> = ({ w, d }) => {
 // 5) VOOM: suplement hatırlatıcı — telefona yakınlaşma, gerçek ekran (Kreatin 5g, her gün), bildirim + tik
 const SUP = staticFile("app/suplement-kreatin.jpg");
 // poz05'te telefon ekranı (1080 koordinatı)
-const PH = { x: 553, y: 312, w: 70, h: 158 };
+const PH = { x: 551, y: 312, w: 73, h: 152 };
 const KreVoom: React.FC<SceneProps> = ({ w, d }) => {
   const f = useCurrentFrame();
   useImgReady(SUP);
@@ -333,7 +333,7 @@ const KreVoom: React.FC<SceneProps> = ({ w, d }) => {
   return (
     <g>
       <Cam f={f} keys={[[0, 540, 900, 1.05], [w(2), 590, 420, 2.0], [d, 590, 430, 2.05]]}>
-        <Pose n="poz05" />
+        <Pose n="poz05" set="pilates" />
         {/* telefon ekranında VOOM */}
         <clipPath id="kreScreen">
           <rect x={PH.x} y={PH.y} width={PH.w} height={PH.h} rx={8} />
@@ -380,7 +380,7 @@ const KreVoom: React.FC<SceneProps> = ({ w, d }) => {
 // Açılış karesi (döngü için kapanışta da çizilir)
 const Opening: React.FC = () => (
   <Cam f={0} keys={[FACE06]}>
-    <Pose n="poz06" />
+    <Pose n="poz06" set="pilates" />
   </Cam>
 );
 
@@ -394,7 +394,7 @@ const KreSon: React.FC<SceneProps> = ({ w, d }) => {
       {!opening ? (
         <g>
           <Cam f={f} keys={[[0, 540, 960, 1.0], [w(5), 540, 820, 1.18]]}>
-            <Pose n="poz01" />
+            <Pose n="poz01" set="erkek" />
           </Cam>
           {(() => {
             const sc = 0.7 + fly * fly * 16;
