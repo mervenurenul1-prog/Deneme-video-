@@ -120,7 +120,7 @@ export type Cizim = {
   // sessiz önizlemede sahnenin en kısa süresi (sn); kısa diyalog replikleri için
   minEstimate?: number;
   // "hose": 1930'lar çizgi film stili (Yunus + Duru, eski film katmanı)
-  style?: "hose";
+  style?: "hose" | "heykel";
   scenes: CizimScene[];
   caption: string;
   hashtags: string[];

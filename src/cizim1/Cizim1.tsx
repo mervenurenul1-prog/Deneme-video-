@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from "react";
 import { GEST, HoseChar, mirror, mix, OldFilm, REST, type HoseArm, type HoseCharProps } from "../avatar2/Hose";
 import { CharCtx } from "../hose/cast";
 import { TENYA_SCENES } from "../hose/Tenya";
+import { KREATIN_SCENES } from "../heykel/Kreatin";
 import {
   AbsoluteFill,
   Audio,
@@ -85,10 +86,12 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
   }
   // 1930'lar stili: kâğıt/ışık/toz yerine eski film katmanı, sahneler arası sert kesme (çizgi film kurgusu)
   const hose = cizim.style === "hose";
+  const kind = cizim.style ?? "cizim";
+  const flat = kind !== "cizim"; // kâğıt/ışık/toz katmanı yok
   return (
     <AbsoluteFill style={{ backgroundColor: C.paper, fontFamily }}>
-      {hose ? null : <Paper />}
-      {hose ? null : <Beams />}
+      {flat ? null : <Paper />}
+      {flat ? null : <Beams />}
       <CharCtx.Provider value={hose ? HoseChar : OldChar}>
       {cizim.scenes.map((scene, i) => {
         const start = from;
@@ -100,7 +103,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         const Visual = SCENES[scene.visual] ?? Missing;
         return (
           <Sequence key={i} from={start} durationInFrames={durations[i]} name={`${i + 1}-${scene.visual}`}>
-            <Frame hose={hose} d={durations[i]} scene={scene.visual} noIn={(loop && i === 0) || seamless(scene.visual)} noOut={(loop && i === last) || (i < last && seamless(cizim.scenes[i + 1].visual))}>
+            <Frame kind={kind} d={durations[i]} scene={scene.visual} noIn={(loop && i === 0) || seamless(scene.visual)} noOut={(loop && i === last) || (i < last && seamless(cizim.scenes[i + 1].visual))}>
               <Visual d={durations[i]} w={w} />
             </Frame>
             <Captions words={words} keys={scene.keys} hideFrom={loop && i === last ? durations[i] - LOOP_FRAMES : undefined} />
@@ -111,7 +114,7 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
               </Sequence>
             ) : null}
             {/* sahne geçişi + o sahnedeki olayların efekt sesleri */}
-            {i > 0 && !seamless(scene.visual) && !hose ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
+            {i > 0 && !seamless(scene.visual) && !flat ? <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.18 * SFX_GAIN} /> : null}
             {tidySfx(SFX[scene.visual]?.(w, durations[i]) ?? []).map(([at, file, vol], k) =>
               at >= 0 && at < durations[i] ? (
                 <Sequence key={k} from={Math.round(at)} layout="none">
@@ -126,9 +129,9 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
         <Sequence from={durationInFrames - LOOP_FRAMES} durationInFrames={LOOP_FRAMES} name="dongu">
           <LoopIn>
             <Freeze frame={0}>
-              {hose ? null : <Paper />}
-              {hose ? null : <Beams />}
-              <Frame hose={hose} d={durations[0]} scene={cizim.scenes[0].visual} noIn>
+              {flat ? null : <Paper />}
+              {flat ? null : <Beams />}
+              <Frame kind={kind} d={durations[0]} scene={cizim.scenes[0].visual} noIn>
                 <First d={durations[0]} w={wOf(0)} />
               </Frame>
               <Captions words={wordsAt(0)} keys={cizim.scenes[0].keys} />
@@ -138,13 +141,37 @@ export const Cizim1Video: React.FC<Cizim1Props> = ({ cizim, voiceover }) => {
       ) : null}
       </CharCtx.Provider>
       {cizim.music ? <Music src={cizim.music} loop={loop} gain={cizim.musicVolume} duck={cizim.musicDuck} speech={speechSpans} /> : null}
-      {hose ? null : <Dust loop={loop} />}
+      {flat ? null : <Dust loop={loop} />}
     </AbsoluteFill>
   );
 };
 
-const Frame: React.FC<{ hose: boolean; d: number; scene: string; noIn?: boolean; noOut?: boolean; children: React.ReactNode }> = ({ hose, d, scene, noIn, noOut, children }) =>
-  hose ? <FilmFrame>{children}</FilmFrame> : <Shot d={d} zoom={ZOOM[scene]} noIn={noIn} noOut={noOut}>{children}</Shot>;
+const Frame: React.FC<{ kind: string; d: number; scene: string; noIn?: boolean; noOut?: boolean; children: React.ReactNode }> = ({ kind, d, scene, noIn, noOut, children }) =>
+  kind === "hose" ? (
+    <FilmFrame>{children}</FilmFrame>
+  ) : kind === "heykel" ? (
+    <CleanFrame>{children}</CleanFrame>
+  ) : (
+    <Shot d={d} zoom={ZOOM[scene]} noIn={noIn} noOut={noOut}>
+      {children}
+    </Shot>
+  );
+
+// "heykel" stili: gerçekçi görseller; temiz kare + hafif kenar karartması (sinematik)
+const CleanFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <AbsoluteFill style={{ backgroundColor: "#d8d2c8" }}>
+    <svg width="100%" height="100%" viewBox="0 0 1080 1920">
+      <defs>
+        <radialGradient id="cleanVig" cx="0.5" cy="0.45" r="0.8">
+          <stop offset="0.6" stopColor="#000" stopOpacity="0" />
+          <stop offset="1" stopColor="#000" stopOpacity="0.35" />
+        </radialGradient>
+      </defs>
+      {children}
+      <rect width={1080} height={1920} fill="url(#cleanVig)" />
+    </svg>
+  </AbsoluteFill>
+);
 
 // 1930'lar stili sahne çerçevesi: sepya, gren, titreşim, çizik, kaynayan çizgi
 const FilmFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -24815,6 +24842,7 @@ const KrSon: React.FC<SceneProps> = ({ w: w0, d }) => {
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
   ...TENYA_SCENES,
+  ...KREATIN_SCENES,
   "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,

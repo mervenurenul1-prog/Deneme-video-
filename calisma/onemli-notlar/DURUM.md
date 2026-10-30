@@ -1,6 +1,14 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
 ## >>> YENİ SOHBET BURADAN (30 Ekim — EN GÜNCEL) <<<
+- **22 KREATİN — YENİ "HEYKEL" STİLİNDE İLK VİDEO** (`cizim1-22-kreatin`, JSON `"style": "heykel"`, sahneler `src/heykel/Kreatin.tsx`
+  `kre-*`): fitness tanrıçası pozları tam ekran + kamera (görsel dışına taşmaz) + kartlar/kan tüpü/"SAÇ ÖLÇÜLMEDİ"/grafik/5 g/
+  haftalık tik/VOOM suplement ekranı (`public/app/suplement-kreatin.jpg`, gerçek ekran: "Kreatin 5g her gün") → kâğıt uçak döngüsü.
+  Metin (kullanıcı "evet"): "Kreatin kullanma, saçın dökülür." → 2009 Güney Afrika 20 ragbi oyuncusu 3 hafta, hormon arttı, saç
+  bakılmadı (%56 rakamı birincil kaynakta doğrulanamadı → söylenmiyor) → 2025 12 hafta 45 sporcu, hormon da saç da değişmedi →
+  günde 5 g, yükleme gerekmez, her gün → VOOM suplement hatırlatıcı (YENİ özellik) → "…gönder. Çünkü ona da şunu dediler:".
+  **Anlatıcı = KULLANICININ SESİ** (kd6P2…; kullanıcı: "kesinlikle kadın sesi"). Sessiz önizleme `22-kreatin-sessiz.mp4` (~30 sn)
+  → onay → seslendirme (~400 karakter, kredi harcar). Avatar pozları: `public/heykel/{fitness,erkek,pilates}/`.
 - **YENİ AVATAR KARARI: canlanan mermer heykel (Yunan tanrısı + tanrıçası), bordo şort + "voom." belli.** Sebep: VOOM hesabındaki
   gerçekçi 3D manken (ekip lideri) tek videoda ~2000 takipçi getirdi; kullanıcının 15 videosu ~200. Konu/anlatım iyi, görsel zayıf
   → gerçekçi, kaslı, güvenilir avatar. İstemler `calisma/animasyon/avatar-heykel.md`; kullanıcı ChatGPT'de üretip atacak; videolar

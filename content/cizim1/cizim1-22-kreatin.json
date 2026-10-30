@@ -1,0 +1,26 @@
+{
+  "id": "cizim1-22-kreatin",
+  "title": "Kreatin saç döker mi",
+  "style": "heykel",
+  "voiceId": "kd6P2yodCccO2OzNoqOD",
+  "modelId": "eleven_v4",
+  "voiceSettings": { "stability": 0.45, "similarityBoost": 0.95, "style": 0, "useSpeakerBoost": true },
+  "maxPause": 0.15,
+  "music": "music/merak-gerilim.mp3",
+  "musicVolume": 0.8,
+  "musicDuck": 0.6,
+  "loop": true,
+  "padding": 0.02,
+  "speed": 1.3,
+  "minEstimate": 0.8,
+  "scenes": [
+    { "visual": "kre-kanca", "voice": "Kreatin kullanma, saçın dökülür.", "keys": ["Kreatin", "dökülür."], "hold": 0.3 },
+    { "visual": "kre-tarih", "voice": "Bu korkunun tek bir kaynağı var: 2009'da Güney Afrika'da yirmi ragbi oyuncusu üç hafta kreatin aldı. Kanlarındaki bir hormon arttı. Ama kimse saçlarına bakmadı.", "keys": ["tek", "2009'da", "hormon", "saçlarına", "bakmadı."], "hold": 0.4 },
+    { "visual": "kre-bilim", "voice": "2025'te bir deney tam olarak bunu ölçtü: on iki hafta, kırk beş sporcu. Ne hormon değişti ne saç.", "keys": ["2025'te", "ölçtü:", "değişti", "saç."], "hold": 0.3 },
+    { "visual": "kre-tavsiye", "voice": "Günde beş gram yeter, yükleme yapmana gerek yok. Asıl mesele her gün almak.", "keys": ["beş", "gram", "yok.", "her", "gün"] },
+    { "visual": "kre-voom", "voice": "VOOM'daki suplement hatırlatıcın her sabah haber verir, unutmazsın.", "keys": ["VOOM'daki", "hatırlatıcın", "unutmazsın."], "hold": 0.4 },
+    { "visual": "kre-son", "voice": "Bunu, saçı yüzünden kreatini bırakan arkadaşına gönder. Çünkü ona da şunu dediler:", "keys": ["gönder."] }
+  ],
+  "caption": "",
+  "hashtags": []
+}
