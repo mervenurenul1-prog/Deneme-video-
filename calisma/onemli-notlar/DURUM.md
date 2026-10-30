@@ -1,6 +1,15 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
-## >>> VOOM SPOR PROGRAMI TANITIMI (30 Ekim gece — EN GÜNCEL) <<<
+## >>> 28 BACAK GÜNÜ BİTTİ (30 Ekim gece — EN GÜNCEL) <<<
+- `cizim1-28-voom-bacak` (`src/heykel/Bacak.tsx`, `bc-*`): ERKEK odaklı VOOM tanıtımı, Yunus 1.2x, 32,7 sn →
+  `ornek-videolar/heykel/28-voom-bacak.mp4`. 6 ChatGPT görseli `public/heykel/bacak/bN.png` + `bN-glow.png` (damar ışığı,
+  `Alive` ile nabız). Yeni ücretsiz müzik `public/music/spor-trap.mp3` (`scripts/muzik-spor.py`, 128 BPM). Her saniye punch-in
+  kesme + vuruş nabzı + uçan kelimeler (kullanıcı: "göz boş kalmasın"). Kapanışta "Takip et" (kullanıcı: HER VİDEODA ekle).
+- Kullanıcı: konular çok kadın odaklıydı → erkek odaklı da yap. Avatar özelliği: ışıyan yeşil damarlar (çalışan kasta parlar).
+- Kling kredisi bitti; ücretsiz hareket = görselden damar katmanı + kamera. Wan 2.2 (HF) bu ortamda engelli (dışa yükleme).
+- Kalan ElevenLabs kredisi ≈ 10.230.
+
+## >>> VOOM SPOR PROGRAMI TANITIMI (30 Ekim gece) <<<
 - Dal: `claude/voom-sports-promo-video-wiapeg`. Sessiz önizlemeler `ornek-videolar/heykel/`. SESLENDİRİLMEDİ.
 - **GÜNCEL: 26 "Bugün başla"** (`cizim1-26-voom-basla`, `src/heykel/Basla.tsx`, `bs-*`): acı = spora başlamak istiyor ama ne
   yapacağını bilmiyor. Kanca: ilk karede dambıl yere çarpar (ses + sarsıntı). Metin 7 sahne (JSON'da). Dekupe tanrıça

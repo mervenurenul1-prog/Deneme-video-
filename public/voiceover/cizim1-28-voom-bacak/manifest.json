@@ -1,0 +1,458 @@
+{
+  "scenes": [
+    {
+      "voice": "Bacak günü geldi mi hep bir işin çıkıyor. Ama göğüs günü, kol günü? Onları hiç kaçırmıyorsun.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-28-voom-bacak/1-mvvddymd.mp3",
+      "durationInSeconds": 5.22449,
+      "words": [
+        {
+          "word": "Bacak",
+          "start": 0.0,
+          "end": 0.26666666666666666
+        },
+        {
+          "word": "günü",
+          "start": 0.33333333333333337,
+          "end": 0.46666666666666673
+        },
+        {
+          "word": "geldi",
+          "start": 0.5333333333333333,
+          "end": 0.7666666666666667
+        },
+        {
+          "word": "mi",
+          "start": 0.8,
+          "end": 0.9333333333333335
+        },
+        {
+          "word": "hep",
+          "start": 1.0666666666666667,
+          "end": 1.2666666666666668
+        },
+        {
+          "word": "bir",
+          "start": 1.3,
+          "end": 1.3333333333333335
+        },
+        {
+          "word": "işin",
+          "start": 1.4,
+          "end": 1.5333333333333334
+        },
+        {
+          "word": "çıkıyor.",
+          "start": 1.6,
+          "end": 2.0
+        },
+        {
+          "word": "Ama",
+          "start": 2.1265500000000004,
+          "end": 2.32655
+        },
+        {
+          "word": "göğüs",
+          "start": 2.5265500000000003,
+          "end": 2.793216666666667
+        },
+        {
+          "word": "günü,",
+          "start": 2.8265500000000006,
+          "end": 3.2598833333333337
+        },
+        {
+          "word": "kol",
+          "start": 3.3598833333333333,
+          "end": 3.4598833333333343
+        },
+        {
+          "word": "günü?",
+          "start": 3.526550000000001,
+          "end": 3.7932166666666665
+        },
+        {
+          "word": "Onları",
+          "start": 3.9417750000000007,
+          "end": 4.208441666666668
+        },
+        {
+          "word": "hiç",
+          "start": 4.275108333333333,
+          "end": 4.408441666666667
+        },
+        {
+          "word": "kaçırmıyorsun.",
+          "start": 4.475108333333333,
+          "end": 5.275108333333334
+        }
+      ]
+    },
+    {
+      "voice": "Sonuç: üst vücudun tanrı gibi, bacakların çubuk kraker.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-28-voom-bacak/2-mvvde032.mp3",
+      "durationInSeconds": 3.3523808333333336,
+      "words": [
+        {
+          "word": "Sonuç:",
+          "start": 0.0,
+          "end": 0.5054991666666666
+        },
+        {
+          "word": "üst",
+          "start": 0.6054991666666666,
+          "end": 0.7054991666666667
+        },
+        {
+          "word": "vücudun",
+          "start": 0.7388324999999999,
+          "end": 1.1054991666666667
+        },
+        {
+          "word": "tanrı",
+          "start": 1.1721658333333334,
+          "end": 1.4388325
+        },
+        {
+          "word": "gibi,",
+          "start": 1.5054991666666666,
+          "end": 1.8713825
+        },
+        {
+          "word": "bacakların",
+          "start": 1.9135325000000003,
+          "end": 2.380199166666667
+        },
+        {
+          "word": "çubuk",
+          "start": 2.5135325,
+          "end": 2.7135325000000003
+        },
+        {
+          "word": "kraker.",
+          "start": 2.7801991666666668,
+          "end": 3.3801991666666673
+        }
+      ]
+    },
+    {
+      "voice": "Oysa vücudunun en büyük kasları bacaklarında. Gücünün de dengenin de temeli orası.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-28-voom-bacak/3-mvvde1te.mp3",
+      "durationInSeconds": 4.702040833333333,
+      "words": [
+        {
+          "word": "Oysa",
+          "start": 0.0,
+          "end": 0.33333333333333337
+        },
+        {
+          "word": "vücudunun",
+          "start": 0.46666666666666673,
+          "end": 1.0
+        },
+        {
+          "word": "en",
+          "start": 1.0666666666666667,
+          "end": 1.1333333333333335
+        },
+        {
+          "word": "büyük",
+          "start": 1.2,
+          "end": 1.4
+        },
+        {
+          "word": "kasları",
+          "start": 1.5,
+          "end": 1.7333333333333334
+        },
+        {
+          "word": "bacaklarında.",
+          "start": 1.8000000000000003,
+          "end": 2.466666666666667
+        },
+        {
+          "word": "Gücünün",
+          "start": 2.6050250000000004,
+          "end": 3.0050250000000007
+        },
+        {
+          "word": "de",
+          "start": 3.071691666666667,
+          "end": 3.138358333333334
+        },
+        {
+          "word": "dengenin",
+          "start": 3.338358333333334,
+          "end": 3.6716916666666672
+        },
+        {
+          "word": "de",
+          "start": 3.7383583333333337,
+          "end": 3.8050250000000005
+        },
+        {
+          "word": "temeli",
+          "start": 3.9050250000000006,
+          "end": 4.1383583333333345
+        },
+        {
+          "word": "orası.",
+          "start": 4.271691666666667,
+          "end": 4.738358333333334
+        }
+      ]
+    },
+    {
+      "voice": "VOOM, cebindeki kişisel antrenman koçun. Haftanı dengeli kurar: bir gün üst vücut, bir gün bacak.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-28-voom-bacak/4-mvvde3o6.mp3",
+      "durationInSeconds": 5.4204083333333335,
+      "words": [
+        {
+          "word": "VOOM,",
+          "start": 0.0,
+          "end": 0.5333333333333333
+        },
+        {
+          "word": "cebindeki",
+          "start": 0.8,
+          "end": 1.2
+        },
+        {
+          "word": "kişisel",
+          "start": 1.2666666666666668,
+          "end": 1.6666666666666667
+        },
+        {
+          "word": "antrenman",
+          "start": 1.7333333333333334,
+          "end": 2.066666666666667
+        },
+        {
+          "word": "koçun.",
+          "start": 2.1333333333333333,
+          "end": 2.466675
+        },
+        {
+          "word": "Haftanı",
+          "start": 2.510675,
+          "end": 2.8440083333333335
+        },
+        {
+          "word": "dengeli",
+          "start": 2.8773416666666667,
+          "end": 3.177341666666667
+        },
+        {
+          "word": "kurar:",
+          "start": 3.244008333333334,
+          "end": 3.663341666666667
+        },
+        {
+          "word": "bir",
+          "start": 3.6966750000000013,
+          "end": 3.730008333333334
+        },
+        {
+          "word": "gün",
+          "start": 3.7966750000000005,
+          "end": 3.930008333333334
+        },
+        {
+          "word": "üst",
+          "start": 3.9966750000000006,
+          "end": 4.130008333333334
+        },
+        {
+          "word": "vücut,",
+          "start": 4.163341666666667,
+          "end": 4.6633416666666685
+        },
+        {
+          "word": "bir",
+          "start": 4.696675000000001,
+          "end": 4.730008333333335
+        },
+        {
+          "word": "gün",
+          "start": 4.796675000000001,
+          "end": 4.930008333333335
+        },
+        {
+          "word": "bacak.",
+          "start": 5.030008333333335,
+          "end": 5.463341666666667
+        }
+      ]
+    },
+    {
+      "voice": "Bacak gününü kaçırırsan koçun onu kaydırır, ama silmez.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-28-voom-bacak/5-mvvde51i.mp3",
+      "durationInSeconds": 3.2653058333333336,
+      "words": [
+        {
+          "word": "Bacak",
+          "start": 0.0,
+          "end": 0.26666666666666666
+        },
+        {
+          "word": "gününü",
+          "start": 0.33333333333333337,
+          "end": 0.5333333333333333
+        },
+        {
+          "word": "kaçırırsan",
+          "start": 0.6,
+          "end": 1.2
+        },
+        {
+          "word": "koçun",
+          "start": 1.3333333333333335,
+          "end": 1.6
+        },
+        {
+          "word": "onu",
+          "start": 1.6333333333333333,
+          "end": 1.7333333333333334
+        },
+        {
+          "word": "kaydırır,",
+          "start": 1.7666666666666668,
+          "end": 2.4276500000000008
+        },
+        {
+          "word": "ama",
+          "start": 2.527650000000001,
+          "end": 2.6276500000000005
+        },
+        {
+          "word": "silmez.",
+          "start": 2.7276500000000006,
+          "end": 3.2943166666666674
+        }
+      ]
+    },
+    {
+      "voice": "Ve ilk kez bacakların da yanar.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-28-voom-bacak/6-mvvde5z5.mp3",
+      "durationInSeconds": 2.02449,
+      "words": [
+        {
+          "word": "Ve",
+          "start": 0.0,
+          "end": 0.2
+        },
+        {
+          "word": "ilk",
+          "start": 0.26666666666666666,
+          "end": 0.4
+        },
+        {
+          "word": "kez",
+          "start": 0.46666666666666673,
+          "end": 0.7333333333333334
+        },
+        {
+          "word": "bacakların",
+          "start": 0.8666666666666667,
+          "end": 1.3333333333333335
+        },
+        {
+          "word": "da",
+          "start": 1.3666666666666667,
+          "end": 1.4
+        },
+        {
+          "word": "yanar.",
+          "start": 1.4666666666666668,
+          "end": 2.066666666666667
+        }
+      ]
+    },
+    {
+      "voice": "VOOM yakında, linki profilde. Takip et, bunu da bacak gününü atlayan arkadaşına gönder.",
+      "voiceId": "Q5n6GDIjpN0pLOlycRFT",
+      "modelId": "eleven_v4",
+      "file": "voiceover/cizim1-28-voom-bacak/7-mvvde7ng.mp3",
+      "durationInSeconds": 4.6802725,
+      "words": [
+        {
+          "word": "VOOM",
+          "start": 0.0,
+          "end": 0.33333333333333337
+        },
+        {
+          "word": "yakında,",
+          "start": 0.4588808333333333,
+          "end": 0.9347808333333334
+        },
+        {
+          "word": "linki",
+          "start": 1.0152891666666666,
+          "end": 1.2486225
+        },
+        {
+          "word": "profilde.",
+          "start": 1.2819558333333334,
+          "end": 1.8128225000000002
+        },
+        {
+          "word": "Takip",
+          "start": 1.8774808333333337,
+          "end": 2.1441475000000003
+        },
+        {
+          "word": "et,",
+          "start": 2.210814166666667,
+          "end": 2.5441475000000002
+        },
+        {
+          "word": "bunu",
+          "start": 2.588314166666667,
+          "end": 2.677480833333334
+        },
+        {
+          "word": "da",
+          "start": 2.7441475,
+          "end": 2.810814166666667
+        },
+        {
+          "word": "bacak",
+          "start": 2.9441475,
+          "end": 3.210814166666667
+        },
+        {
+          "word": "gününü",
+          "start": 3.277480833333334,
+          "end": 3.4108141666666665
+        },
+        {
+          "word": "atlayan",
+          "start": 3.477480833333333,
+          "end": 3.7441475
+        },
+        {
+          "word": "arkadaşına",
+          "start": 3.810814166666667,
+          "end": 4.144147500000001
+        },
+        {
+          "word": "gönder.",
+          "start": 4.210814166666666,
+          "end": 4.7441475
+        }
+      ]
+    }
+  ],
+  "speed": 1.2
+}
