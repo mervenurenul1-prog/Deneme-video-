@@ -91,3 +91,6 @@ karakter seçme ekranı. Renk serbest, "güzel olsun yeter" (kullanıcı).
 - v2 (30 Ekim): kadın yüzleri kullanıcının fotoğrafına benzetildi (genç, kâküllü dağınık topuz, çil) → `pilates-kadin-v2-yuz.jpg`,
   `fitness-kadin-v2-yuz.jpg`. Kullanıcı: "gym olanın bacağı çok kalın ama okey". Kalan iş: kıyafet hâlâ parlak lateks + dar → mat
   kumaş, bol kısa sweatshirt, rahat alt (kullanıcıya düzeltme mesajı verildi). Kullanıcının kendi fotoğrafı repoya KONMADI (gizlilik).
+- v3 (30 Ekim) **SEÇİLDİ — fitness tanrıçası**: `fitness-kadin-v3-SECILEN.jpg` (kullanıcı "okey"): mat bordo bol kısa sweatshirt + bol
+  şort, kadınsı fit bacak, "voom." şortta + ayakkabıda. DİKKAT: bu düzenlemede mermer görünüm kayboldu (gerçek insan teni/saçı);
+  erkek hâlâ mermer → hepsi mermer mi, hepsi gerçekçi mi? Kullanıcıya soruldu (öneri: mermer).
