@@ -10,13 +10,13 @@ import { CREAM, LIME, Logo, pop, prog, RED, Screen, T, useImgReady } from "./Giz
 type SceneProps = { d: number; w: (i: number) => number };
 
 const clamp = { extrapolateLeft: "clamp" as const, extrapolateRight: "clamp" as const };
-const CHOC = "#2a1912";
+export const CHOC = "#2a1912";
 const GODS = ["heykel/khiton/artemis.png", "heykel/khiton/athena.png", "heykel/khiton/amphitrite.png"];
 
 /* ---------- sahne zemini ---------- */
 
 // mood: "cold" (dert: gece mavisi, kırmızı vurgu) | "warm" (VOOM: çikolata + fıstık yeşili ışık)
-const Stage: React.FC<{ f: number; mood: "cold" | "warm"; word?: string; wordO?: number }> = ({ f, mood, word, wordO = 1 }) => {
+export const Stage: React.FC<{ f: number; mood: "cold" | "warm"; word?: string; wordO?: number }> = ({ f, mood, word, wordO = 1 }) => {
   const id = useId().replace(/:/g, "");
   const warm = mood === "warm";
   const top = warm ? "#3a2418" : "#141a24";
@@ -57,7 +57,7 @@ const Stage: React.FC<{ f: number; mood: "cold" | "warm"; word?: string; wordO?:
 };
 
 // Dekupe tanrıça: alt orta noktası (x, y), boyu h (görselin tam boyu, 941x1672 oranında)
-const Cut: React.FC<{ n: string; x: number; y: number; h: number; o?: number; flip?: boolean }> = ({ n, x, y, h, o = 1, flip }) => {
+export const Cut: React.FC<{ n: string; x: number; y: number; h: number; o?: number; flip?: boolean }> = ({ n, x, y, h, o = 1, flip }) => {
   const url = staticFile(`heykel/dekupe/fitness${n}.png`);
   useImgReady(url);
   const wd = h * (941 / 1672);
@@ -70,7 +70,7 @@ const Cut: React.FC<{ n: string; x: number; y: number; h: number; o?: number; fl
 };
 
 // Görselden kırpılmış küçük resim (video kapağı)
-const Thumb: React.FC<{ src: string; x: number; y: number; w: number; h: number; vb: string }> = ({ src, x, y, w, h, vb }) => {
+export const Thumb: React.FC<{ src: string; x: number; y: number; w: number; h: number; vb: string }> = ({ src, x, y, w, h, vb }) => {
   const url = staticFile(src);
   useImgReady(url);
   return (

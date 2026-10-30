@@ -6,6 +6,7 @@ import { KREATIN_SCENES } from "../heykel/Kreatin";
 import { GIZLI_SCENES } from "../heykel/GizliCekim";
 import { YONT_SCENES } from "../heykel/Yontulmadi";
 import { ARAMA_SCENES } from "../heykel/Arama";
+import { BASLA_SCENES } from "../heykel/Basla";
 import {
   AbsoluteFill,
   Audio,
@@ -56,7 +57,7 @@ type SceneProps = { d: number; w: (i: number) => number };
 // Önceki sahneden kararmadan, aynı karede devam eden sahneler (sahne sonu = bu sahnenin ilk karesi)
 const SEAMLESS = new Set(["ig-tarih"]);
 // tenya sahneleri (diyalog) her iki stilde de sert kesmeyle geçer
-const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("gc-") || v.startsWith("yn-") || v.startsWith("ar-");
+const seamless = (v: string) => SEAMLESS.has(v) || v.startsWith("tn-") || v.startsWith("gc-") || v.startsWith("yn-") || v.startsWith("ar-") || v.startsWith("bs-");
 
 // Döngülü videoda son karelerde ilk sahnenin ilk karesi belirir: Instagram başa sardığında kesinti görünmez
 const LOOP_FRAMES = 14;
@@ -250,6 +251,14 @@ const ticks = (from: number, to: number, step: number, vol: number): Sfx[] =>
 const SFX: Record<string, (w: (i: number) => number, d: number) => Sfx[]> = {
   // VOOM tanıtımı "gizli çekim" (heykel): odak bip, savrulma, donma, bildirim
   // VOOM tanıtımı "bir günde yontulmadı": odak bip, silme, keski vuruşları, bildirim
+  // VOOM tanıtımı "bugün başla": ilk karede dambıl yere çarpar
+  "bs-kanca": (w) => [[4, "agir-dusme", 0.9], [w(4), "whoosh", 0.25]],
+  "bs-sorular": (w) => [[2, "pop", 0.3], [w(5) - 4, "whoosh", 0.3], [w(8) - 4, "whoosh", 0.3], [w(9), "alarm", 0.12]],
+  "bs-yarin": (w) => [[w(1), "nefes", 0.2], [w(6), "tak", 0.45], [w(6) + 5, "tak", 0.4], [w(6) + 10, "tak", 0.4]],
+  "bs-tanis": (w) => [[2, "sihir", 0.25], [w(1), "pop", 0.3], [w(8), "yuksel", 0.2], [w(10) + 6, "ding", 0.3]],
+  "bs-bugun": (w) => [[w(3), "pop", 0.3], [w(10), "pop", 0.3]],
+  "bs-koc": (w) => [[0, "pop", 0.25], [w(2), "ding", 0.3]],
+  "bs-son": (w) => [[w(1), "cizik", 0.4], [w(2), "kacing", 0.35], [w(4), "pirilti", 0.3]],
   // VOOM tanıtımı "yine aynı arama"
   "ar-kanca": (w) => [[w(2) - 4, "whoosh", 0.25], [w(4), "klavye", 0.25]],
   "ar-akis": (w) => [[w(2), "tik", 0.3], [w(4), "tik", 0.3], [w(5), "whoosh", 0.2], [w(6), "tak", 0.3], [w(10), "boing", 0.15]],
@@ -24875,6 +24884,7 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
   ...GIZLI_SCENES,
   ...YONT_SCENES,
   ...ARAMA_SCENES,
+  ...BASLA_SCENES,
   "kr-kanca2": KrKanca2,
   "kr-sabah": KrSabah,
   "kr-ertesi": KrErtesi,
