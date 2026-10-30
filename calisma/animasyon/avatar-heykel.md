@@ -81,3 +81,10 @@ kapalı) ya da bol kısa sweatshirt; "loose and boxy over the chest so the chest
 görünebilir. İki kadın tipi: **pilates tanrıçası** (ince bel, uzun zarif kaslar, ince bacak; tereyağı sarısı) ve **fitness
 tanrıçası** (kaslı/dinamik; bordo). Ek görsel: ikisi Yunan khitonuyla (safran sarısı / beyaz-altın), doğal anlık foto ya da oyun
 karakter seçme ekranı. Renk serbest, "güzel olsun yeter" (kullanıcı).
+
+## İlk üretimler (30 Ekim) — `avatar-heykel-referans/`
+- `erkek-v1.jpg`: EN İYİSİ (çikolata parlak şort, zeytin bel, voom ayakkabı). Öneri: mermer damarları daha ince (çatlak gibi değil).
+- `fitness-kadin-v1-taslak.jpg` (bordo): bacak aşırı kaslı/damarlı, yüz yaşlı/sert, dar sütyen göğsü belli ediyor → düzelt.
+- `pilates-kadin-v1-taslak.jpg` (sarı): göğüs belli + parlak lateks tayt kasığı belli ediyor → YAYINLANAMAZ; mat kumaş, bol üst, rahat pantolon.
+- `karakter-secme-v1-taslak.jpg`: konsept çok iyi ama elbiseler şeffaf (dekolte/göğüs ucu) → kalın opak kumaş, kapalı yaka.
+- KURAL: parlak lateks/ıslak görünümlü dar kumaş YOK (fetiş algısı); kadın kıyafetinde mat kumaş + bol üst.
