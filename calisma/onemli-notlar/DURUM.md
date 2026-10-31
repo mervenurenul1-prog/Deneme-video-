@@ -1,5 +1,35 @@
 # Şu anki durum (en güncel üstte, kısa tut)
 
+## >>> YENİ SOHBET BURADAN (31 Ekim) — 29 LİSEDEKİ SEN: KISALT + GÖRÜNTÜYÜ İYİLEŞTİR <<<
+- Dal: `claude/voom-sports-promo-video-wiapeg` (bu işin tüm kodu burada; main'e birleştirilmedi). `npm ci` → işe başla.
+- Video `cizim1-29-lise` (JSON `content/cizim1/cizim1-29-lise.json`, sahneler `ls-*` → `src/cizim1/Cizim1.tsx` içinde
+  "29 LİSEDEKİ SEN" bloğu). ESKİ SERİ STİLİ (sepya çizim, Yunus `Person`/`SideRunner`), Yunus sesi, müzik merak-gerilim, döngü.
+  Son sessiz önizleme `ornek-videolar/cizim1-pilot/29-lise-sessiz.mp4` (~44 sn tahmini — UZUN). SESLENDİRİLMEDİ.
+- Kullanıcının isteği (yeni sohbet): **süreyi kısalt (hedef 30-35 sn) + daha iyi görüntü**, sonra sessiz önizleme → onay →
+  Yunus seslendirme (1.2x). KURALLAR: çöp adam YOK (karakterleri Yunus oynar: genç 20 / kır saçlı göbekli 50 — `Person hair`
+  prop eklendi), mermer tanrı bu videoda YOK (denendi, "uymadı"), tahtaya yalnız tebeşirle yazı/sayı (`HandText`, `Chalk`),
+  her saniye hareket (göz boş kalmasın), kapanışta "Takip et", VOOM tek cümle (çok VOOM odaklı olmasın), akış: acı → tarih →
+  tavsiye → VOOM → kapanış. Lise anıları: tozlu tahta sıralar, yeşil tahta, pencereden ışık, eski takım fotoğrafı, forma 7.
+- Mevcut metin (7 sahne, ~590 karakter): 1 "Lisede takımın en hızlısıydın. Şimdi otobüse yetişmek için koşunca nefesin
+  kesiliyor." 2 "1966'da Dallas'ta yirmi yaşında beş genç, üç hafta boyunca yataktan hiç kalkmadı. Kondisyonları, sonraki otuz
+  yıllık yaşlanmadan bile daha çok düştü." 3 "Otuz yıl sonra aynı beş adamı geri çağırdılar. Hepsi elli yaşındaydı, hepsi kilo
+  almıştı." 4 "Altı ay boyunca haftada dört saat yürüdüler, bisiklet çevirdiler, koştular. Kondisyonları yirmi yaşındaki
+  hâllerine geri döndü." 5 "Yani o çocuk kaybolmadı, sadece bekliyor. Yavaş başla, her hafta biraz artır." 6 "Nereden
+  başlayacağını bilmiyorsan, VOOM ilk haftanı senin için kurar." 7 "Takip et, bunu da lisedeki takım arkadaşına gönder ve ona
+  hatırlat:" (döngü → 1).
+- KISALTMA ÖNERİSİ (kullanıcıya önce SOR, ~400 karakter): 1 "Lisede takımın en hızlısıydın. Şimdi otobüse koşunca nefesin
+  kesiliyor." 2 "1966'da beş genç üç hafta yataktan kalkmadı. Kondisyonları, otuz yıllık yaşlanmadan bile çok düştü." 3 "Otuz
+  yıl sonra, elli yaşında ve kilolu hâlleriyle altı ay yürüdüler, koştular. Kondisyonları yirmi yaşına döndü." 4 "Yani o çocuk
+  kaybolmadı. Yavaş başla, her hafta biraz artır. Nereden başlayacağını VOOM kurar." 5 "Takip et, bunu lisedeki takım
+  arkadaşına gönder ve hatırlat:".
+- Kaynak (doğrulandı): Dallas Bed Rest and Training Study, 30 yıl takip (McGuire ve ark., Circulation 2001;104:1350): 3 hafta
+  yatak → VO2max −%27; 30 yıl yaşlanma −%12; 6 ay antrenman (haftada 250 dk, yavaş artırılarak) → 1966 başlangıç düzeyi
+  (antrenman sonrası zirveye değil — "en iyi hâli" deme).
+- Görüntü iyileştirme fikirleri: sahneler arası daha akıcı geçiş, karakterler daha büyük/yakın (şu an 5'li sıra küçük),
+  yataklar 2 sıra perspektifli daha düzenli, otobüs kancasında Yunus'un koşusu daha uzun ve dramatik, eski fotoğraf daha
+  "lise anısı" (takım arkadaşlarıyla grup fotoğrafı), punch-in/zoom ritmi (bkz. `src/heykel/Bacak.tsx` `Shot`).
+- Kalan ElevenLabs kredisi ≈ 10.230.
+
 ## >>> 28 BACAK GÜNÜ BİTTİ (30 Ekim gece — EN GÜNCEL) <<<
 - `cizim1-28-voom-bacak` (`src/heykel/Bacak.tsx`, `bc-*`): ERKEK odaklı VOOM tanıtımı, Yunus 1.2x, 32,7 sn →
   `ornek-videolar/heykel/28-voom-bacak.mp4`. 6 ChatGPT görseli `public/heykel/bacak/bN.png` + `bN-glow.png` (damar ışığı,
